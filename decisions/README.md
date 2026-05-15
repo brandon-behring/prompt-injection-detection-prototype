@@ -11,6 +11,16 @@ ADRs document significant decisions in [Michael Nygard format](https://www.cogni
   - SPEC_SHEET corresponding slot updated: `[LOCKED: X (per ADR-NNN)]`
   - SUBMISSION_AUDIT.md regenerates from ADRs (via `scripts/regenerate_audit.py`); CI hard-gate
 
+## Template
+
+See `decisions/ADR_TEMPLATE.md` for a fillable skeleton. To draft a new ADR:
+
+```bash
+cp decisions/ADR_TEMPLATE.md decisions/ADR-NNN-<slug>.md
+# Edit the frontmatter fields + body sections
+# Commit with: feat: ADR-NNN <title> (locks decision DECISION-NAME)
+```
+
 ## ADR frontmatter
 
 Each ADR file begins with YAML frontmatter for `scripts/regenerate_audit.py`:
