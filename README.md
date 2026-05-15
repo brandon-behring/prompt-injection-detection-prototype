@@ -48,7 +48,7 @@ Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md).
 
 ## Read more
 
-- [**`SUBMISSION.md`**](./SUBMISSION.md) — submission cover letter + deliverable manifest.
+- [**`SUBMISSION_TEMPLATE.md`**](./SUBMISSION_TEMPLATE.md) — cover-letter template (filled version `SUBMISSION.md` is gitignored and emailed separately at submission time).
 - [**`WRITEUP.md`**](./WRITEUP.md) — full methodology + capability characterization (12 sections, ~5000 words).
 - [**`SPEC_SHEET.md`**](./SPEC_SHEET.md) — project specification: phase-by-phase process gates, data design, model recipe, eval design.
 - [**`NEXT_STEPS.md`**](./NEXT_STEPS.md) — tactical next steps on  + aspirational future iterations + open questions.

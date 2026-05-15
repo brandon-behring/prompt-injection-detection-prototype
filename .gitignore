@@ -19,3 +19,5 @@ evals/checkpoints/
 *.cert
 secrets/
 .secrets/
+# SUBMISSION two-version split: TEMPLATE is committed; filled SUBMISSION.md is local-only
+SUBMISSION.md
