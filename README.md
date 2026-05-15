@@ -15,24 +15,24 @@ The brief asked for **models of increasing complexity** to characterize what eac
 
 ## Approach
 
-- **Rung ladder** `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]`. Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID.
-- **OOD slate** `[LOCKED: ood_tensortrust (cross-style extraction, all-positive), ood_notinject_eval (over-defense / FPR axis, all-benign), ood_llmail_phase2 (cross-channel indirect, all-positive, caveated), ood_indirect_probe (mixed, n=50, illustrative)]`. See WRITEUP §5.5 for *why each slice was chosen*. additional slices may be added via `[OPEN]` additions.
+- **Rung ladder** `[OPEN: rung ladder; resolved at Phase 0]`. Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID.
+- **OOD slate** `[OPEN: OOD slate composition; resolved at Phase 0]`. See WRITEUP §5.5 for *why each slice was chosen*. additional slices may be added via `[OPEN]` additions.
 - **Methodology rigor** via [eval-toolkit](https://github.com/brandon-behring/eval-toolkit): bootstrap CIs on every headline metric, paired-bootstrap differences for rung-vs-rung comparisons, minimum detectable effect (MDE), calibration battery (ECE + Brier + reliability), validation-set threshold selection. Effect sizes and CIs throughout — no p-values.
 - **Reviewer-reproducible**: `make diagnostics-smoke` `[OPEN]` runs a no-external-services smoke pass on a laptop in ~10 min; canonical numbers reproducible from the GitHub release + HF Hub checkpoints.
 
 ## Headline characterization
 
-`[OPEN]` — single deployment-policy-agnostic threshold across rungs (FPR ≤ 1% on validation). No rung promoted as a winner; trade-offs are explained in WRITEUP §7. Dual-cost-weight characterization (detection vs verification operating points) lives in WRITEUP §5.3.
+`[TBD: populated at Phase 5 from per-rung × per-slice numbers; operating point per the threshold-policy decision locked at Phase 0]`. No rung promoted as a winner; trade-offs are explained in WRITEUP §7. Dual-cost-weight characterization (detection vs verification operating points) lives in WRITEUP §5.3.
 
-| Scorer | fold_test PR-AUC ± CI | ood_indirect_probe PR-AUC ± CI | NotInject mean_score | TensorTrust mean_score_pos | ECE |
+| Rung | fold_test PR-AUC ± CI | OOD slice 1 | OOD slice 2 | OOD slice 3 | ECE |
 |---|---:|---:|---:|---:|---:|
-| LR-TFIDF | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| Frozen DeBERTa probe | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| DeBERTa-LoRA `[LOCKED: r=8, hf_trainer, 2ep, bf16 ]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| ProtectAI v2 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
-| Llama Prompt Guard 2 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
+| `[OPEN]` Rung 1 | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| `[OPEN]` Rung 2 | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| `[OPEN]` Rung 3 | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| `[OPEN]` Reference scorer 1 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
+| `[OPEN]` Reference scorer 2 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
 
-`†` Reference scorers carry known training-overlap caveats with several public eval slices (see WRITEUP §7.2–7.3 + EVIDENCE.md §1–2). Reported as diagnostic reference, not as a clean baseline.
+`†` Reference scorers may carry training-overlap caveats with public eval slices. The audit trail in EVIDENCE.md §1–2 reports a per-scorer verdict per the three-state taxonomy (`verified_disjoint` / `suspected_contamination` / `vendor_black_box`). Reported as diagnostic reference, not as a clean baseline.
 
 `[FIGURE 1: PR curves all rungs, IID test slice]` → `docs/plots/figure1-pr-curves-iid.png`
 `[FIGURE 2: PR curves all rungs, OOD slate]` → `docs/plots/figure2-pr-curves-ood.png`

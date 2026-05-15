@@ -2,7 +2,7 @@
 
 This document is the **single source of truth** for what external evidence was verified, what couldn't be, and what was left unresolved. Every claim in `WRITEUP.md` §7 that depends on external evidence should have a corresponding entry here.
 
-`[LOCKED]` discipline for this iteration. Reference-scorer contamination uses the three-state taxonomy: `verified_disjoint | suspected_contamination | vendor_black_box`. Verification status per claim: `[VERIFIED|UNVERIFIED|REFUTED]`.
+`[LOCKED]` discipline. Reference-scorer contamination uses the three-state taxonomy: `verified_disjoint | suspected_contamination | vendor_black_box`. Verification status per claim: `[VERIFIED|UNVERIFIED|REFUTED]`.
 
 ---
 

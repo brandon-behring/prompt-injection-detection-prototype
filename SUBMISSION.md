@@ -10,7 +10,7 @@
 
 Attached is my methodology-first prompt-injection classification PoC for the Ciphero AI applied-scientist role. The brief asked for **models of increasing complexity** + **the right amount of OOD coverage**; I built both and put the rigor into the evaluation framework rather than into the model itself.
 
-The work is *methodology + capability characterization braided*: a rung ladder `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]` characterises what each capability layer contributes, evaluated through [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) — a methodology-aware harness with bootstrap CIs, paired comparisons, calibration battery, leakage detection, and a 16-chapter methodology curriculum. Cloud runs are orchestrated through [runpod-deploy](https://github.com/brandon-behring/runpod-deploy).
+The work is *methodology + capability characterization braided*: a rung ladder `[OPEN: rung ladder; resolved at Phase 0]` characterises what each capability layer contributes, evaluated through [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) — a methodology-aware harness with bootstrap CIs, paired comparisons, calibration battery, leakage detection, and a 16-chapter methodology curriculum. Cloud runs are orchestrated through [runpod-deploy](https://github.com/brandon-behring/runpod-deploy).
 
 The package separates in-pool competitiveness, external shift, benign over-defense, and calibration without collapsing them into one blended score. No deployment leader is promoted; the methodology rigor and capability-layer characterization are the artifact. Detection and verification operating modes are reported as a score-behavior characterisation, not a deployment recommendation.
 
@@ -27,7 +27,7 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 - **`prompt-injection-detection.pdf`** `[TBD path; TBD size]` — single print-ready PDF containing:
   - `README.md` — skim deliverable, headline characterization table, navigation.
   - `WRITEUP.md` — full methodology + capability characterization (~5000 words across 12 sections).
-  - `NEXT_STEPS.md` — tactical next steps on this iteration's infrastructure + aspirational future iterations directions.
+  - `NEXT_STEPS.md` — tactical next steps on the project's infrastructure + aspirational future iterations directions.
   - `SPEC_SHEET.md` — project specification including phase-by-phase process gates.
   - `EVIDENCE.md` — audit trail: external evidence verified, confounds named, gaps deferred.
 

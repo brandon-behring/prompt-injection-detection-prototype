@@ -42,7 +42,7 @@ This is an **exploration spec** for an SDD-disciplined iteration — not a produ
 
 ## 2. Phases & process gates
 
-this iteration's work is structured into six phases. Each phase has a gate checklist of work-completed and tests-passing — **not metric thresholds**. The intent is to make movement between phases auditable, not to bind this iteration's narrative to specific numerical outcomes.
+the project work is structured into six phases. Each phase has a gate checklist of work-completed and tests-passing — **not metric thresholds**. The intent is to make movement between phases auditable, not to bind the project's narrative to specific numerical outcomes.
 
 ### Phase 0: Spec lock-in interview `[LOCKED]`
 
@@ -91,7 +91,7 @@ Gate: every checkbox ticked; `evals/results.json` parses cleanly.
 - [ ] Paired-bootstrap differences computed for every rung-vs-rung comparison of interest
 - [ ] MDE estimated for every reported CI
 - [ ] Per-source / per-style breakdowns computed (LLM-as-rater rubric audit `[OPEN]`)
-- [ ] Figures 1–7 (or this iteration's named slate) rendered to `docs/plots/`
+- [ ] Figures 1–7 (or the project's named slate) rendered to `docs/plots/`
 
 Gate: every checkbox ticked; analysis JSON outputs match schemas.
 
@@ -112,48 +112,35 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 ### 3.1 Train pool composition
 
-`[OPEN]` 4 positive sources + 1 benign-pool source + 4 OOD slices:
+`[OPEN]` Source slate — populated at Phase 0 from `docs/research/datasets/` candidate set.
 
 | Source | Approx N | Role | License |
 |---|---|---|---|
-| `deepset/prompt-injections` | 347 (en-filter, post-dedup) | Train pos #1 (mixed labels per split-don't-drop) | Apache-2.0 |
-| `Lakera/gandalf_ignore_instructions` | 1,000 | Train pos #2 (override style) | MIT |
-| `jackhhao/jailbreak-classification` | 1,306 | Train pos #3 (jailbreak / role-play) | Apache-2.0 |
-| `OpenAssistant/oasst1` | 4,000 (subsample) | Train neg | Apache-2.0 |
-| `leolee99/NotInject` train-half | 170 | Train neg (hard-benigns) | MIT |
-| `ai-ml-ops-eng/tensortrust-datasets` | 2,000 (subsample) | **OOD only** (cross-style probe) | Unknown on mirror |
-| `microsoft/llmail-inject-challenge` Phase 2 | 500 (subsample) | **OOD only** (cross-channel indirect) | MIT |
-| `leolee99/NotInject` eval-half | 169 | **OOD only** (over-defense / FPR axis) | MIT |
-| `indirect_probe.yaml` (local) | 50 (45 inj + 5 benign) | **OOD only** (illustrative; underpowered) | MIT |
-
-`[TBD: additional  sources]`
+| `[OPEN]` | `[TBD]` | Train pos | `[TBD]` |
+| `[OPEN]` | `[TBD]` | Train neg | `[TBD]` |
+| `[OPEN]` | `[TBD]` | OOD only | `[TBD]` |
 
 ### 3.2 Splits
 
-`[OPEN]` Source-disjoint **k=3 LODO** (leave-one-dataset-out). The 3 positive sources rotate through k=3 folds; benigns are shared across all folds. Per Fomin 2025. See `[ADR-004]`.  may add `[TBD: (candidate) multi-seed stability supplement, nested LODO]`.
+`[OPEN]` Splits structure — Phase 0 selects from {single 70/15/15, k-fold, source-disjoint LODO, hybrid}. See SPEC_GREENFIELD ledger §1 Data row "Splits structure" for reference anchors.
 
 ### 3.3 Dedup, leakage prevention, cross-source label conflicts
 
-- **Semantic dedup**: `[LOCKED]` calibrated MiniLM @ 0.80, label-aware (cross-source minimal pairs preserved per SDD ADR-019)
-- **Cross-source minimal pairs**: `[LOCKED]` preserve-and-flag
-- **Cross-source benign dedup**: `[OPEN]` applied to benign pool *before* 80/20 split
+- **Semantic dedup**: `[OPEN]` encoder + threshold; calibrate against labelled holdouts per eval-toolkit `methodology/text_dedup.md`.
+- **Cross-source minimal pairs**: `[LOCKED]` preserve-and-flag.
+- **Cross-source benign dedup ordering**: `[OPEN]` before-split vs after-split.
 - **Leakage invariants**: `tests/test_leakage.py` asserts no exact-hash and no high-cosine train-test overlap.
 - **Reference-scorer training-overlap audit**: `[LOCKED]` see WRITEUP §3.3 + EVIDENCE.md §1–2.
 
 ### 3.4 OOD slate
 
-`[OPEN]` — 4 slices:
+`[OPEN]` slice list — populated at Phase 0 from `docs/research/benchmarks/` candidate set.
 
 | Slice | Source | Role | Why |
 |---|---|---|---|
-| `ood_indirect_probe` | local indirect_probe.yaml | Small mixed indirect probe (n=50) | Illustrative; underpowered |
-| `ood_tensortrust` | TensorTrust filtered | Cross-style extraction (n=986, all pos) | Novel attack patterns |
-| `ood_llmail_phase2` | LLMail Phase 2 subsample | Cross-channel indirect (n=390, all pos) | Caveated as out-of-primary-scope |
-| `ood_notinject_eval` | NotInject 50% eval-half | Over-defense / FPR axis (n=169, all neg) | InjecGuard 2024-2025 |
+| `[OPEN]` | `[TBD]` | `[TBD]` | `[TBD]` |
 
-may add `[TBD: (candidate) cross-source same-style ablation; PINT benchmark; multilingual probe; ...]`.
-
-**Linked ADRs**: ADR-001 (threat model), ADR-002 (dataset slate), ADR-003 (dedup), ADR-004 (splits + balance).
+**Linked ADRs**: ADR-NNN (threat model), ADR-NNN (dataset slate), ADR-NNN (dedup), ADR-NNN (splits + balance) — filled in once Phase 0 locks each row.
 
 ---
 
@@ -161,26 +148,26 @@ may add `[TBD: (candidate) cross-source same-style ablation; PINT benchmark; mul
 
 Each rung is locked before training begins. No val-set hyperparameter gridsearch.
 
-### 4.1 LR-TFIDF — *linear floor*
-`[OPEN]` `TfidfVectorizer(ngram_range=(1,2), lowercase=True) + LogisticRegression(class_weight='balanced', C=1.0)`. Deterministic.
+### 4.1 Rung 1 — *linear floor*
+`[OPEN]` Linear baseline (e.g. TF-IDF + logistic regression). Deterministic.
 
-### 4.2 Frozen DeBERTa probe — *what the backbone encodes*
-`[OPEN]` `microsoft/deberta-v3-base` mean-pooled embeddings + LR head. Deterministic at seed=42.
+### 4.2 Rung 2 — *frozen-features probe*
+`[OPEN]` Frozen-transformer embeddings + linear head. Deterministic at a pinned seed.
 
-### 4.3 DeBERTa-LoRA — *fine-tuning ceiling at this iteration's budget*
-`[OPEN]` `DeBERTa-v3-base + LoRA r=8, α=16, dropout=0.1; target modules query_proj+value_proj; modules_to_save=[classifier, pooler]; lr=5e-5; epochs=2; class-weighted loss (hf_trainer style); bf16; bs=16; max_len=512; warmup 6%; primary seed=42 + supplement n=3 seeds`.   may add `[TBD: (candidate) r=4 sweep, modernBERT backbone, full-FT comparison]`.
+### 4.3 Rung 3 — *adapter-fine-tuned*
+`[OPEN]` Adapter-fine-tuned transformer recipe. Hyperparameters (r, α, dropout, target modules, lr, epochs, precision, batch, max_len, warmup, seed protocol) locked at Phase 0 per SPEC_GREENFIELD §2 Model ledger rows.
 
-### 4.4 ProtectAI v2 — *narrow-scope reference scorer*
-`[OPEN]` `protectai/deberta-v3-base-prompt-injection-v2`; inference-only. Scope: "does not detect jailbreak attacks." Training-data overlap with `jackhhao` confirmed; see EVIDENCE.md §1.
+### 4.4 Rung 4 — *narrow-scope reference scorer (optional)*
+`[OPEN]` Off-the-shelf classifier with narrow scope. Inference-only. Training-data overlap audit per EVIDENCE.md §1.
 
-### 4.5 Llama Prompt Guard 2 — *broad-scope reference scorer*
-`[OPEN]` `meta-llama/Llama-Prompt-Guard-2-86M`; inference-only. Scope: prompt injections + jailbreaks. Training-data disclosure at category level only; overlap with project sources not provably verifiable. See EVIDENCE.md §2.
+### 4.5 Rung 5 — *broad-scope reference scorer (optional)*
+`[OPEN]` Off-the-shelf classifier with broader scope. Inference-only. Training-data audit per EVIDENCE.md §2.
 
-### 4.6 `[TBD: additional  rungs if any]`
+### 4.6 Additional rungs
 
-`[OPEN]`  candidates: ModernBERT-base + LoRA; Llama-as-classifier; calibration-of-LoRA via temperature on validation.
+`[OPEN]` Candidates: alternate backbone + adapter; alternate classification head; calibration via validation-fit temperature.
 
-**Linked ADRs**: ADR-005, ADR-006, ADR-014, ADR-015.
+**Linked ADRs**: filled in once Phase 0 locks each rung.
 
 ---
 
@@ -204,7 +191,7 @@ Anchored to [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) prim
 
 ### 5.3 Operating points — detection vs verification
 
-`[LOCKED]` Dual-policy framing on **in-house rungs only** (LR-TFIDF + Frozen + LoRA). Reference scorers (ProtectAI v2, Llama PG2) get recall@FPR pinpoints with explicit contamination caveats; no dual-policy framing (would imply deployment-ready operating points that don't survive the contamination caveat).
+`[LOCKED]` Dual-policy framing on **in-house rungs only**. Reference scorers (off-the-shelf reference detectors) get recall@FPR pinpoints with explicit contamination caveats; no dual-policy framing (would imply deployment-ready operating points that don't survive the contamination caveat).
 
 Detection (FPR ≤ 1%) + Verification (FNR ≤ 1%) selected on **validation only** via eval-toolkit's `ThresholdSelector` protocol. See [methodology/thresholds.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md).
 
@@ -226,9 +213,9 @@ The work spans three repos:
 
 - **`prompt-injection-detection-submission`** (this repo) — modelling: data loading, training, classification API, project-specific scoring code.
 - **[`eval-toolkit`](https://github.com/brandon-behring/eval-toolkit)** — evaluation harness: metrics, bootstrap, calibration, threshold selection, leakage detection, slice-aware orchestration, reproducibility manifests, versioned JSON schemas.
-- **[`runpod-deploy`](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training/eval runs on rented GPUs. **this iteration's additions**: prediction-persistence pull-pattern + checkpoint upload-to-HF-Hub pattern.
+- **[`runpod-deploy`](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training/eval runs on rented GPUs. **the project's additions**: prediction-persistence pull-pattern + checkpoint upload-to-HF-Hub pattern.
 
-The split is intentional: methodology curriculum and primitives live in `eval-toolkit` so they survive across model versions; cloud orchestration lives in `runpod-deploy` so it's reusable across projects.
+The split is intentional: methodology curriculum and primitives live in `eval-toolkit` so they survive across iterations; cloud orchestration lives in `runpod-deploy` so it's reusable across projects.
 
 ---
 

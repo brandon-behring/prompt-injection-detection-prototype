@@ -15,7 +15,7 @@ The same scores serve two operational contexts:
 
 These are not two classifiers; they are two threshold policies on the same scores, with different cost weights. See §5.3 for how the same primitive is configured to characterise both.
 
-This writeup characterises a rung ladder of prompt-injection classifiers — `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]` — across an OOD slate, with the question: *what does each capability layer add, and where does the IID/OOD gap fall?* The work is **methodology + capability characterization braided**: the ladder is the instrument; the eval methodology rigor is what makes the characterization defensible; the brief's two asks (models of increasing complexity + OOD coverage) are the targets.
+This writeup characterises a rung ladder of prompt-injection classifiers — `[OPEN: rung ladder; resolved at Phase 0]` — across an OOD slate, with the question: *what does each capability layer add, and where does the IID/OOD gap fall?* The work is **methodology + capability characterization braided**: the ladder is the instrument; the eval methodology rigor is what makes the characterization defensible; the brief's two asks (models of increasing complexity + OOD coverage) are the targets.
 
 **Honest-OOD thesis**: IID numbers are the easy part. The interesting question for any classifier that might one day touch a deployment surface is *which capabilities help when the distribution shifts, and which ones only inflate the IID number*. That question — not "what's the best PR-AUC" — drives this document's structure.
 
@@ -33,8 +33,8 @@ The brief asked for two things: *models of increasing complexity* and *the right
 
 | Element | Role | Why |
 |---|---|---|
-| Rung ladder `[LOCKED]` | Instrument | Each step's lift over the previous decomposes *which capability* matters. |
-| OOD slate `[OPEN: OOD slate composition; ~4 slices typical]` | Measurement | Quantifies what each capability adds when the distribution shifts. |
+| Rung ladder `[OPEN: rung composition; resolved at Phase 0]` | Instrument | Each step's lift over the previous decomposes *which capability* matters. |
+| OOD slate `[OPEN: OOD slate composition; resolved at Phase 0]` | Measurement | Quantifies what each capability adds when the distribution shifts. |
 | Dual cost-weight thresholds | Score-behaviour characterisation | Shows what the same scores deliver under two different operational cost regimes. |
 | Statistical rigor (CIs + paired comparisons + MDE) | Defensibility | Lets us claim differences honestly and quantify when we lack the power to claim anything. |
 
@@ -50,13 +50,13 @@ We do **not** pick a deployment leader. The intent is to demonstrate what each r
 
 ### 3.1 Why these sources
 
-`[TBD: paragraph naming each source and why it earned a place in the pool]`
+`[TBD: paragraph naming each source and why it earned a place in the pool — populated at Phase 5 from Phase 0 source-slate lock]`
 
-Sources `[OPEN]`: deepset/prompt-injections, Lakera/gandalf_ignore_instructions, jackhhao/jailbreak-classification, OpenAssistant/oasst1 (negatives), leolee99/NotInject (mixed train+OOD), ai-ml-ops-eng/tensortrust-datasets (OOD only), microsoft/llmail-inject-challenge Phase 2 (OOD only), local indirect_probe.yaml (OOD only). Full table in [`SPEC_SHEET.md` §3.1](./SPEC_SHEET.md).
+Sources: `[OPEN]` — Phase 0 picks from candidates documented in `docs/research/datasets/`. Full table in [`SPEC_SHEET.md` §3.1](./SPEC_SHEET.md).
 
 ### 3.2 Dedup — *why this matters more than people think*
 
-Label-blind dedup looks innocuous and is wrong. It removes minimal pairs — cases where two near-identical texts have *different* labels — which are exactly the informative examples a classifier needs to learn the decision boundary. We use **calibrated semantic dedup** [`ADR-027`] (MiniLM/MPNet with a 4-gate selection rule); label-aware (within-source, drop cross-label-preserve); cross-source minimal pairs preserved per [`ADR-019`].
+Label-blind dedup looks innocuous and is wrong. It removes minimal pairs — cases where two near-identical texts have *different* labels — which are exactly the informative examples a classifier needs to learn the decision boundary. We use **calibrated semantic dedup** (encoder + threshold locked at Phase 0); label-aware (within-source, drop; cross-label, preserve); cross-source minimal pairs preserved.
 
 `[FIGURE 3: dedup-threshold calibration histogram for the selected encoder]` → `docs/plots/figure3-dedup-calibration.png`
 
@@ -69,63 +69,61 @@ See [methodology/text_dedup.md](https://github.com/brandon-behring/eval-toolkit/
 Three checks for in-pool leakage, plus a separate reference-scorer audit:
 
 1. **Exact-hash overlap** — no test row's hash appears in train.
-2. **High-cosine overlap** — no test row has cosine ≥ `[TBD: (candidate) 0.9]` to any train row of the same label.
-3. **Cross-source benign dedup** — `[OPEN]` cross-source benign duplicates (e.g., OASST1 ∩ NotInject) are removed *before* the train/val/test split. the rule prevents fold-leakage failures discovered when within-source dedup leaves benign duplicates that survive the split.
-4. **Reference-scorer training-overlap audit** — `[LOCKED]` any external reference scorer (ProtectAI v2, Llama PG2, etc.) gets its publicly-named training datasets crossed with project sources. Where disclosure is only at category level (e.g., Llama PG2), the audit shifts to fold-pattern + scope-mismatch analysis — see EVIDENCE.md §1–2.
+2. **High-cosine overlap** — no test row has cosine ≥ `[OPEN: threshold]` to any train row of the same label.
+3. **Cross-source benign dedup** — `[OPEN]` ordering (before-split / after-split). The rule prevents fold-leakage failures when within-source dedup leaves benign duplicates that survive the split.
+4. **Reference-scorer training-overlap audit** — `[LOCKED]` any external reference scorer gets its publicly-named training datasets crossed with project sources. Where disclosure is only at category level, the audit shifts to fold-pattern + scope-mismatch analysis — see EVIDENCE.md §1–2.
 
 Reported as `[TBD: per-slice overlap percentages]`. See [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
 
 ### 3.4 Splits
 
-`[OPEN]` Source-disjoint k=3 LODO (leave-one-dataset-out): the 3 positive sources (deepset, Lakera, jackhhao) rotate through k=3 folds; benigns are shared across all folds. Per Fomin 2025 ("When Benchmarks Lie") — 8.4 pp aggregate AUC inflation from random splits; LODO is the field standard.  may add `[TBD: (candidate) multi-seed stability supplement; nested k-fold; etc.]`. See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+`[OPEN]` Splits structure (single / k-fold / source-disjoint LODO / hybrid). When ≥3 positive sources are available, source-disjoint LODO is the field-standard choice (Fomin 2025, "When Benchmarks Lie"). See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
 
-**Linked ADRs**: `[ADR-004, ADR-018, ADR-019, ADR-027]`.
+**Linked ADRs**: filled in once Phase 0 locks each row.
 
-**Known gaps**: `[TBD: e.g., source-diversity assumption ASM-005, splits-power caveat]`.
+**Known gaps**: `[TBD: surfaced during Phase 0 + Phase 1 work; populated at Phase 5]`.
 
 ---
 
 ## 4. Model recipe — the rung ladder
 
-Each rung answers *what does this capability layer add over the rung below?* Hyperparameters are locked before training begins; no val-set gridsearch. Training compute runs on `[TBD: (candidate) H100 via runpod-deploy]`. Per-rung detail below; the locked recipe lives in [`SPEC_SHEET.md` §4](./SPEC_SHEET.md).
+Each rung answers *what does this capability layer add over the rung below?* Hyperparameters are locked before training begins; no val-set gridsearch. Training compute target is `[OPEN]` (Phase 0 locks per SPEC_GREENFIELD §Tech-Stack). Per-rung detail below; the locked recipe lives in [`SPEC_SHEET.md` §4](./SPEC_SHEET.md).
 
-### 4.1 LR-TFIDF — *the linear floor*
+### 4.1 Rung 1 — *the linear floor*
 
-`[OPEN]` `sklearn.Pipeline = TfidfVectorizer(ngram_range=(1,2), lowercase=True) → LogisticRegression(class_weight='balanced', C=1.0)`. Deterministic; one fit per fold. *Why this rung exists*: a linear model on n-gram features is the minimum-viable classifier for this task; everything above it has to earn its complexity. See `[ADR-007]`.
+`[OPEN]` Linear baseline (e.g. n-gram features + logistic regression). Deterministic; one fit per fold. *Why this rung exists*: a linear model is the minimum-viable classifier for the task; everything above it has to earn its complexity.
 
 `[TBD: one-paragraph result interpretation against §7 numbers]`
 
-### 4.2 Frozen DeBERTa probe — *what the backbone already encodes*
+### 4.2 Rung 2 — *what the backbone already encodes*
 
-`[OPEN]` Frozen `microsoft/deberta-v3-base` representations + LR head. *Why this rung exists*: it separates *pretraining alone* from *fine-tuning*. If the frozen probe matches or beats LR but the fine-tuned rung doesn't lift further, fine-tuning isn't adding capability — it's overfitting. See `[ADR-014]`.
+`[OPEN]` Frozen-transformer representations + linear head. *Why this rung exists*: it separates *pretraining alone* from *fine-tuning*. If the frozen probe matches or beats Rung 1 but the fine-tuned rung doesn't lift further, fine-tuning isn't adding capability — it's overfitting.
 
 `[TBD: one-paragraph result interpretation]`
 
-### 4.3 DeBERTa-LoRA — *the fine-tuning ceiling at this iteration's budget*
+### 4.3 Rung 3 — *the fine-tuning ceiling at the project's compute budget*
 
-`[OPEN]` `DeBERTa-v3-base + LoRA r=8, α=16, dropout=0.1; target modules query_proj+value_proj; modules_to_save=[classifier, pooler]; lr=5e-5; epochs=2; class-weighted loss (hf_trainer style); bf16; bs=16; max_len=512; warmup 6%; no early stopping; primary seed=42 + supplement n=3 seeds`. *Why this rung exists*: it's the maximally-adapted model in our compute budget. If anything above the frozen probe is worth doing, this rung is where we see it.
-
-May revisit with `[TBD: candidate sweeps, e.g. multi-seed stability, modernBERT/Llama-as-classifier, r=4 vs r=8]`. See `[ADR-006]`.
+`[OPEN]` Adapter-fine-tuned transformer. Backbone, adapter rank, training-time scope, epoch count, precision, batch size, seed protocol — all locked at Phase 0 per SPEC_GREENFIELD §2 Model ledger rows. *Why this rung exists*: it's the maximally-adapted model in the compute budget. If anything above the frozen probe is worth doing, this rung is where it shows.
 
 `[TBD: result interpretation]`
 
-### 4.4 ProtectAI v2 — *narrow-scope reference scorer*
+### 4.4 Rung 4 — *narrow-scope reference scorer (optional)*
 
-`[OPEN]` `protectai/deberta-v3-base-prompt-injection-v2`; inference-only. **Explicit scope per model card**: "does not detect jailbreak attacks." Training data publicly names `jackhhao/jailbreak-classification` and `Harelix/Prompt-Injection-Mixed-Techniques-2024` among 22 datasets. *Why this rung exists*: a publicly-trained narrow-scope detector is the "is this better than something already on the shelf for direct injection only" bar.
+`[OPEN]` Off-the-shelf classifier with narrow scope (e.g. direct-injection only). Inference-only. *Why this rung exists*: a publicly-trained narrow-scope detector is the "is this better than something already on the shelf for this attack class" bar.
 
-*Caveat*: ProtectAI v2 has direct training-data overlap with `jackhhao` in the project pool. Reported as diagnostic reference, not as a clean baseline. See EVIDENCE.md §1.
-
-`[TBD: result interpretation]`
-
-### 4.5 Llama Prompt Guard 2 — *broad-scope reference scorer*
-
-`[OPEN]` `meta-llama/Llama-Prompt-Guard-2-86M`; inference-only. **Explicit scope per model card**: covers both prompt injections AND jailbreaks (broader than ProtectAI v2). Training data disclosed only at *category level* ("open-source benign web data, malicious prompt injection and jailbreaking datasets, synthetic injections, red-teaming data"). *Why this rung exists*: a broader-scope reference completes the reference picture. Caveat: training-overlap with project sources cannot be verified at category-level disclosure. See EVIDENCE.md §2.
+*Caveat*: reference scorers carry training-overlap audit obligations per EVIDENCE.md §1. Reported as diagnostic reference, not as a clean baseline.
 
 `[TBD: result interpretation]`
 
-**Linked ADRs**: `[ADR-005, ADR-006, ADR-007, ADR-014]`.
+### 4.5 Rung 5 — *broad-scope reference scorer (optional)*
 
-**Known gaps**: `[TBD: e.g., single-seed primary per ADR-023; LoRA σ supplement]`.
+`[OPEN]` Off-the-shelf classifier with broader stated scope. Inference-only. *Why this rung exists*: a broader-scope reference completes the reference picture. Caveat: when training-data disclosure is at category level only, contamination cannot be verified; the audit shifts to fold-pattern + scope-mismatch analysis per EVIDENCE.md §2.
+
+`[TBD: result interpretation]`
+
+**Linked ADRs**: filled in once Phase 0 locks each rung.
+
+**Known gaps**: `[TBD: surfaced during Phase 0 + Phase 1 work; populated at Phase 5]`.
 
 ---
 
@@ -195,7 +193,7 @@ Both policies use eval-toolkit's `ThresholdSelector` protocol on **validation** 
 
 Symmetric cost-weight configurations of the same primitive. Operationally-interpretable targets (FPR/FNR) — not score-space targets — so the same selection rule applies across heterogeneous rungs whose score scales aren't comparable. See [methodology/thresholds.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md).
 
-**Scope note** `[OPEN]`: dual-policy threshold characterisation applies only to **in-house rungs** (LR-TFIDF + Frozen DeBERTa probe + DeBERTa-LoRA). Reference scorers (ProtectAI v2, Llama PG2) carry training-overlap caveats that make operating-point characterisation misleading; for those, we report recall@FPR pinpoints only.
+**Scope note** `[OPEN]`: dual-policy threshold characterisation applies only to **in-house rungs**. Reference scorers (off-the-shelf reference detectors) carry training-overlap caveats that make operating-point characterisation misleading; for those, we report recall@FPR pinpoints only.
 
 #### 5.3.c Dual-cost-weight characterisation (in-house rungs)
 
@@ -214,19 +212,15 @@ This is **characterisation, not deployment recommendation**. We are showing what
 
 `[FIGURE 5: per-source PR-AUC ± CI for the fine-tuned rung]` → `docs/plots/figure5-per-source-pr-auc.png`
 
-this iteration also ships a per-attack-style heuristic tagger (regex-based; conservative — catches <10% of deepset/llmail "other" positives).  may `[TBD: (candidate) invest in LLM-as-rater rubric audit to refine the per-style taxonomy]`. See EVIDENCE.md §3.
+The project also ships a per-attack-style heuristic tagger (regex-based; conservative). `[TBD: tagger coverage report — populated at Phase 5]`. See EVIDENCE.md §3.
 
 ### 5.5 OOD slate
 
-`[OPEN]` Slices:
+`[OPEN]` OOD slate composition — populated at Phase 0 from `docs/research/benchmarks/` candidate set.
 
 | Slice | Source | Class composition | Probe target | Why chosen |
 |---|---|---|---|---|
-| `ood_indirect_probe` | local indirect_probe.yaml (v0 carryover) | 45 inj + 5 benign (n=50) | Small mixed indirect probe | Illustrative; underpowered |
-| `ood_tensortrust` | TensorTrust filtered+subsampled | All positive (n=986) | Cross-style: extraction/hijacking | Novel attack patterns not in training |
-| `ood_llmail_phase2` | LLMail Phase 2 subsample | All positive (n=390) | Cross-channel: email-style indirect | Recall-only; caveated as out-of-primary-scope |
-| `ood_notinject_eval` | NotInject 50%-eval-half | All benign (n=169) | Over-defense / FPR axis | Trigger-word benigns (InjecGuard 2024-2025) |
-| `[TBD: (candidate)  additions]` | | | | |
+| `[OPEN]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
 
 See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md) for the source-disjoint discipline we apply.
 
@@ -265,21 +259,21 @@ A library-grade harness for binary classification with three tiers:
 
 Plus a [16-chapter methodology curriculum](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology) covering leakage, splits, thresholds, calibration, comparison, bootstrap, length stratification, text dedup, versioning, fairness, reproducibility, and testing.
 
-*Why eval lives as a separate library*: it survives across model versions, it accumulates methodology curriculum as a durable knowledge artifact, and versioned JSON schemas let downstream parsers gate on format changes. Reuse is across versions and across projects, not just within this iteration.
+*Why eval lives as a separate library*: it survives across iterations, it accumulates methodology curriculum as a durable knowledge artifact, and versioned JSON schemas let downstream parsers gate on format changes. Reuse is across projects, not just within this project.
 
 ### 6.2 [runpod-deploy](https://github.com/brandon-behring/runpod-deploy) — cloud orchestration
 
 Cloud orchestration for training and evaluation runs on rented GPUs. *Why deployment is a separate concern*: cost-bearing infrastructure (rented H100 hours) needs different discipline from modelling code; separating it makes both auditable independently. See `[TBD: (candidate) docs/cloud-canonical-runbook.md]`.
 
-**this iteration's addition** `[OPEN]`: prediction-persistence pattern — `runpod-deploy` pulls per-row score artifacts in addition to metrics JSON, so downstream threshold/calibration analyses don't require re-running inference
+**Prediction-persistence pattern** `[LOCKED]`: `runpod-deploy` pulls per-row score artifacts in addition to metrics JSON, so downstream threshold/calibration analyses run from persisted predictions without re-running inference.
 
 ### 6.3 SDD / ADR process
 
-This repo (`prompt-injection-sdd`) practices custom-hybrid SDD: spec + ADRs + assumption registry + tests-as-invariants `[ADR-001]`. Every significant decision is an ADR; every assumption is in the registry with a severity tag; every invariant a spec claim can be made executable as is, lives as a test.
+This repo practices custom-hybrid SDD: spec + ADRs + assumption registry + tests-as-invariants. Every significant decision is an ADR; every assumption is in the registry with a severity tag; every spec claim that can be made executable is a test.
 
-The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — work-completed and tests-passing, not metric thresholds — are this iteration's instantiation of this discipline.
+The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — work-completed and tests-passing, not metric thresholds — instantiate the discipline.
 
-**Linked ADRs**: `[ADR-001, ADR-016, ADR-025, ADR-026]`.
+**Linked ADRs**: filled in once Phase 0 locks each row.
 
 **Known gaps**: `[TBD]`.
 
@@ -294,38 +288,33 @@ The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — w
 
 ### 7.1 The IID-vs-OOD gap (primary narrative)
 
-`[TBD: 2–3 paragraphs walking through the gap for each rung; what gap-size means; which rungs close vs widen the gap]`
+`[TBD: 2–3 paragraphs walking through the gap for each rung; what gap-size means; which rungs close vs widen the gap — populated at Phase 5 from per-rung × per-slice numbers]`
 
-### 7.2 ProtectAI v2 — direct training contamination on jackhhao
+### 7.2 Reference scorer #1 — training-overlap finding
 
-`[OPEN]` ProtectAI v2's model card explicitly names `jackhhao/jailbreak-classification` as training data AND declares scope "does not detect jailbreak attacks." Yet it scores `[TBD:  number]` on the jackhhao-held-out fold. The combination is a smoking gun for memorisation rather than generalisation capability. See EVIDENCE.md §1 for the full audit trail (including the deepset overlap claim that ).
+`[TBD: populated at Phase 5 from EVIDENCE.md §1 audit results. Frame: name the reference scorer's stated scope, name overlapping training data in the project pool (if any), report per-fold scores, conclude with the three-state taxonomy verdict (verified_disjoint / suspected_contamination / vendor_black_box).]`
 
-### 7.3 Llama Prompt Guard 2 — fold pattern matches; cause is confounded
+### 7.3 Reference scorer #2 — training-overlap finding
 
-`[OPEN]` Llama PG2 shows a similar per-fold pattern (near-perfect on Lakera + jackhhao-held-out folds; mediocre on deepset-held-out). Two confounds prevent a contamination conclusion:
-
-1. Training disclosure is at **category level only** ("malicious prompt injection and jailbreaking datasets"). Overlap with project sources cannot be verified.
-2. Llama PG2's stated scope **covers jailbreaks** (unlike ProtectAI v2), so high scores on canonical attack styles (direct_override, jailbreak) are consistent with **legitimate detection capability**.
-
-We report Llama PG2's fold pattern as **suggestive but not dispositive** evidence of training overlap. Disambiguation requires a cross-source same-style ablation (see §8). See EVIDENCE.md §2.
+`[TBD: populated at Phase 5 from EVIDENCE.md §2 audit results. Frame: same as §7.2. If disclosure is category-level only, report fold-pattern + scope-mismatch analysis as suggestive-but-not-dispositive evidence. Disambiguation via cross-source same-style ablation deferred to §8.]`
 
 ### 7.4 Which capabilities help OOD vs only help IID (secondary narrative)
 
-`[TBD: rung-by-rung interpretation of OOD lift vs IID lift]`
+`[TBD: rung-by-rung interpretation of OOD lift vs IID lift — populated at Phase 5]`
 
 ### 7.5 Score-behaviour at the two operating points
 
-`[TBD: discussion of the §5.3 dual-cost-weight table — what the score behaviour at each cost regime says about the classifier]`
+`[TBD: discussion of the §5.3 dual-cost-weight table — what the score behaviour at each cost regime says about the classifier — populated at Phase 5]`
 
 ### 7.6 Calibration findings
 
-`[TBD: per-rung ECE/Brier interpretation; what figure 4 reveals about where miscalibration concentrates]`
+`[TBD: per-rung ECE/Brier interpretation; what the reliability curves reveal about where miscalibration concentrates — populated at Phase 5]`
 
-### 7.7 Frozen probe vs DeBERTa-LoRA
+### 7.7 Frozen probe vs adapter-fine-tuned
 
-`[OPEN]` At this iteration's pool size, Frozen DeBERTa probe and DeBERTa-LoRA are **statistically tied** on every LODO fold (deltas within cross-seed std). the lift of fine-tuning over the frozen probe (the "fine-tune contribution") is `[TBD: populated from per-fold paired bootstrap]`.  may revisit with `[TBD: (candidate) larger LoRA budget, modernBERT backbone, or extended seed protocol]`.
+`[TBD: per-fold paired-bootstrap comparison between the frozen-probe rung and the adapter-fine-tuned rung — populated at Phase 5. The "fine-tune contribution" lift, with CI, is the headline number here.]`
 
-### 7.8 The four characterisation claims
+### 7.8 The headline characterisation claims
 
 Distilled summary `[TBD]`:
 
@@ -336,9 +325,9 @@ Distilled summary `[TBD]`:
 
 Each claim is supported by a specific row × CI in §7.1–7.7, not a hand-wave.
 
-**Linked ADRs**: `[ADR-009, ADR-010, ADR-021]`.
+**Linked ADRs**: filled in once Phase 0 locks each row.
 
-**Known gaps**: `[TBD]`.
+**Known gaps**: `[TBD: populated at Phase 5]`.
 
 ---
 
@@ -348,27 +337,21 @@ This chapter consolidates what we *consciously did not do*. These are not failur
 
 ### 8.1 Scope deferrals
 
-- **Deployment** — out of roadmap. The work is characterisation; we make no deployment recommendation and do no deployment-readiness testing.
+- **Deployment** — out of roadmap. The work is characterisation; no deployment recommendation; no deployment-readiness testing.
 - **Adversarial red-teaming** — threat model named in §5.6, not exhaustively probed. *Why deferred*: `[TBD]`.
 - **Agentic-flow coverage** — multi-step / tool-use injection. *Why deferred*: `[TBD]`.
 - **Conformal prediction** — distribution-free uncertainty quantification beyond bootstrap. *Why deferred*: `[TBD]`.
-- **Cross-language coverage** —  is English-only per `[ADR-017]`. *Why deferred*: `[TBD]`.
-- **Cross-source same-style ablation** `[OPEN]` — would disambiguate "training contamination" from "attack-style difficulty" for reference scorers. Deferred because the within-deepset direct_override subset (n≈7) is too small for a stable CI;  may grow the deepset positive pool or substitute. See EVIDENCE.md §3.
-- `[TBD: additional  deferrals]`
+- **Cross-language coverage** — English-only `[OPEN]`. *Why deferred*: `[TBD]`.
+- **Cross-source same-style ablation** `[OPEN]` — would disambiguate "training contamination" from "attack-style difficulty" for reference scorers. May be underpowered if per-style sample size is small; in that case treated as an explicit limitation. See EVIDENCE.md §3.
+- `[TBD: additional scope deferrals — populated at Phase 0]`
 
 ### 8.2 Methodology caveats
 
-- `[TBD: e.g., single-seed primary; small-N OOD slices; reference-scorer leakage caveats]`
-
-### 8.3 Inherited limitations from prior versions
-
-`[TBD: caveats still applicable]`:
-- `[OPEN]` the regex-based per-attack-style tagger caught <10% of deepset/llmail "other" positives;  either invests in LLM-as-rater or accepts the limitation.
-- `[OPEN]` prior approaches didn't persist per-row predictions;  closes this gap to enable richer threshold + calibration analyses.
+- `[TBD: e.g., single-seed primary; small-N OOD slices; reference-scorer leakage caveats — populated at Phase 5]`
 
 Each deferred item has a *why* — usually scope or data availability — and is named in [`NEXT_STEPS.md`](./NEXT_STEPS.md) where applicable.
 
-**Linked ADRs**: `[ADR-002, ADR-017, ADR-021]`.
+**Linked ADRs**: filled in once Phase 0 locks each row.
 
 ---
 
@@ -378,9 +361,7 @@ Each deferred item has a *why* — usually scope or data availability — and is
 
 ### 9.1 Hyperparameter / training dead-ends
 
-`[OPEN]`1-epoch LoRA training — pinned at 2 epochs based on factorial controls; epoch effect dominates the lift ; precision (bf16 vs fp16) near-zero;  should pin 2-epoch as default.
-
-`[TBD: additional  items]`
+`[TBD: hyperparameter sweeps that didn't matter or that revealed unexpected dynamics — populated at Phase 5 from any factorial / sensitivity work; if none, document as "no hyperparameter dead-ends explored at the chosen compute budget"]`
 
 ### 9.2 Architectures evaluated and dropped
 
@@ -424,7 +405,7 @@ Runbook: `[TBD: (candidate) docs/cloud-canonical-runbook.md]`.
 
 ### 10.3 Evaluation
 
-Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `evals/manifest.json` covering seeds, git SHA, data hashes, GPU info, and a leakage report. `evals/results.json` is schema-validated against eval-toolkit's `results.v1.json`. **this iteration persists per-row predictions** at `evals/predictions.parquet` `[TBD: (candidate) ]`.
+Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `evals/manifest.json` covering seeds, git SHA, data hashes, GPU info, and a leakage report. `evals/results.json` is schema-validated against eval-toolkit's `results.v1.json`. **The project persists per-row predictions** at `evals/predictions.parquet` `[TBD: scoped at Phase 0]`.
 
 ### 10.4 Data + checkpoints
 
