@@ -22,6 +22,15 @@ recommended sub-session sequence.
    submission deliverables, repo hygiene) rely on web search.
 4. Recommendation with rationale
 
+**Fresh-investigation rule** (load-bearing): when walking each `[OPEN]`
+decision, **read the relevant `docs/research/` dossier files live at
+decision time**. Do not pre-load assumed candidates from training memory
+or prior knowledge. The dossier is the source. Use MANIFEST.json to find
+the right files via `claim_family` / `verification_status` / `tags`;
+then open them and surface the actual candidates documented there.
+Supplement with web search only when the dossier is silent on a specific
+decision.
+
 After each sub-session, invoke `/save-transcript phase-0-NN__<topic>` to
 checkpoint the conversation to `transcripts/<YYYY-MM-DD>__<slug>.md`.
 
