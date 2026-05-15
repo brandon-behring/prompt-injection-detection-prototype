@@ -120,7 +120,7 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 | `[OPEN]` | `[TBD: value]` | Train neg | `[TBD: value]` |
 | `[OPEN]` | `[TBD: value]` | OOD only | `[TBD: value]` |
 
-**Benign subsample ceilings per source**: `[OPEN]` — open-budget per source / per-source caps (e.g., `OASST1 ≤ 4000`, `WildJailbreak ≤ 5000`). Affects fold-level statistical power. See SPEC_GREENFIELD ledger §1 Data row "Benign subsample ceilings per source".
+**Benign subsample ceilings per source**: `[OPEN]` — open-budget per source / per-source caps (e.g., per-source row-count ceilings to control source-mix proportions). Affects fold-level statistical power. See SPEC_GREENFIELD ledger §1 Data row "Benign subsample ceilings per source".
 
 ### 3.2 Splits
 
