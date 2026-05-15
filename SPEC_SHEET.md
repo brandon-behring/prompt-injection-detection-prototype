@@ -32,7 +32,7 @@ This is an **exploration spec** for an SDD-disciplined iteration — not a produ
 - Not optimizing for SOTA PR-AUC.
 - Not building a deployable service. Deployment is not on the roadmap.
 - Not creating a publishable benchmark.
-- `[CANDIDATE]` Not picking a leader rung — each rung's trade-offs are characterized, no rung is promoted as the deployment recommendation.
+- `[OPEN]` Not picking a leader rung — each rung's trade-offs are characterized, no rung is promoted as the deployment recommendation.
 - `[TBD: additional non-goals specific to v5]`
 
 **Scope authority**: the spec itself is the scope cap. Anything not specified here is out of v5 scope. Adding scope post-spec-freeze requires an ADR with explicit "Why this is in scope now" justification.
@@ -67,10 +67,10 @@ Gate: every checkbox ticked; `tests/test_data.py` and `tests/test_leakage.py` gr
 ### Phase 2: Training
 
 - [ ] Each rung's config persisted at `config/v5/<rung>.yaml`
-- [ ] All rungs trained successfully on `[CANDIDATE: H100 via runpod-deploy]`
+- [ ] All rungs trained successfully on `[TBD: (candidate) H100 via runpod-deploy]`
 - [ ] Training artifacts captured per `runpod-deploy` manifest (git SHA, seed, GPU info, env)
 - [ ] **Per-row predictions persisted** at `evals/v5/predictions/<rung>__<fold>__<seed>.parquet` `[LOCKED: NEW for v5; v4 gap]`
-- [ ] Per-rung checkpoint persisted to `[CANDIDATE: HF Hub at BBehring/pid-runs-v5]`
+- [ ] Per-rung checkpoint persisted to `[TBD: (candidate) HF Hub at BBehring/pid-runs-v5]`
 
 Gate: every checkbox ticked; training manifests schema-validated.
 
@@ -89,7 +89,7 @@ Gate: every checkbox ticked; `evals/v5/results.json` parses cleanly.
 - [ ] Bootstrap CIs computed for every headline metric
 - [ ] Paired-bootstrap differences computed for every rung-vs-rung comparison of interest
 - [ ] MDE estimated for every reported CI
-- [ ] Per-source / per-style breakdowns computed (LLM-as-rater rubric audit `[CANDIDATE]`)
+- [ ] Per-source / per-style breakdowns computed (LLM-as-rater rubric audit `[OPEN]`)
 - [ ] Figures 1–7 (or v5's named slate) rendered to `docs/v5-plots/`
 
 Gate: every checkbox ticked; analysis JSON outputs match schemas.
@@ -101,7 +101,7 @@ Gate: every checkbox ticked; analysis JSON outputs match schemas.
 - [ ] Transcripts linked from WRITEUP appendix
 - [ ] EVIDENCE.md populated for every external-evidence claim
 - [ ] PDF bundled: README + WRITEUP + NEXT_STEPS + SPEC_SHEET + EVIDENCE
-- [ ] All `[TBD]` / `[CANDIDATE]` markers in submission templates resolved or justified
+- [ ] All `[TBD]` / `[OPEN]` markers in submission templates resolved or justified
 
 Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
@@ -111,7 +111,7 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 ### 3.1 Train pool composition
 
-`[LOCKED inherited from v4]` 4 positive sources + 1 benign-pool source + 4 OOD slices:
+`[OPEN]` 4 positive sources + 1 benign-pool source + 4 OOD slices:
 
 | Source | Approx N | Role | License |
 |---|---|---|---|
@@ -129,19 +129,19 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 ### 3.2 Splits
 
-`[LOCKED inherited from v4]` Source-disjoint **k=3 LODO** (leave-one-dataset-out). The 3 positive sources rotate through k=3 folds; benigns are shared across all folds. Per Fomin 2025. See `[ADR-004 v4 inherited]`. v5 may add `[CANDIDATE: multi-seed stability supplement, nested LODO]`.
+`[OPEN]` Source-disjoint **k=3 LODO** (leave-one-dataset-out). The 3 positive sources rotate through k=3 folds; benigns are shared across all folds. Per Fomin 2025. See `[ADR-004 v4 inherited]`. v5 may add `[TBD: (candidate) multi-seed stability supplement, nested LODO]`.
 
 ### 3.3 Dedup, leakage prevention, cross-source label conflicts
 
 - **Semantic dedup**: `[LOCKED inherited from v4 ADR-003]` calibrated MiniLM @ 0.80, label-aware (cross-source minimal pairs preserved per SDD ADR-019)
 - **Cross-source minimal pairs**: `[LOCKED]` preserve-and-flag
-- **Cross-source benign dedup**: `[LOCKED inherited from v4]` applied to benign pool *before* 80/20 split (v4 found this gap during full-profile audit)
+- **Cross-source benign dedup**: `[OPEN]` applied to benign pool *before* 80/20 split (v4 found this gap during full-profile audit)
 - **Leakage invariants**: `tests/test_leakage.py` asserts no exact-hash and no high-cosine train-test overlap.
 - **Reference-scorer training-overlap audit**: `[LOCKED]` see WRITEUP §3.3 + EVIDENCE.md §1–2 for v4's worked example.
 
 ### 3.4 OOD slate
 
-`[LOCKED inherited from v4]` — 4 slices:
+`[OPEN]` — 4 slices:
 
 | Slice | Source | Role | Why |
 |---|---|---|---|
@@ -150,7 +150,7 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 | `ood_llmail_phase2` | LLMail Phase 2 subsample | Cross-channel indirect (n=390, all pos) | Caveated as out-of-primary-scope |
 | `ood_notinject_eval` | NotInject 50% eval-half | Over-defense / FPR axis (n=169, all neg) | InjecGuard 2024-2025 |
 
-v5 may add `[CANDIDATE: cross-source same-style ablation; PINT benchmark; multilingual probe; ...]`.
+v5 may add `[TBD: (candidate) cross-source same-style ablation; PINT benchmark; multilingual probe; ...]`.
 
 **Linked ADRs**: ADR-001 (threat model), ADR-002 (dataset slate), ADR-003 (dedup), ADR-004 (splits + balance).
 
@@ -161,23 +161,23 @@ v5 may add `[CANDIDATE: cross-source same-style ablation; PINT benchmark; multil
 Each rung is locked before training begins. No val-set hyperparameter gridsearch.
 
 ### 4.1 LR-TFIDF — *linear floor*
-`[LOCKED inherited from v4 ADR-005]` `TfidfVectorizer(ngram_range=(1,2), lowercase=True) + LogisticRegression(class_weight='balanced', C=1.0)`. Deterministic.
+`[OPEN]` `TfidfVectorizer(ngram_range=(1,2), lowercase=True) + LogisticRegression(class_weight='balanced', C=1.0)`. Deterministic.
 
 ### 4.2 Frozen DeBERTa probe — *what the backbone encodes*
-`[LOCKED inherited from v4 ADR-005]` `microsoft/deberta-v3-base` mean-pooled embeddings + LR head. Deterministic at seed=42.
+`[OPEN]` `microsoft/deberta-v3-base` mean-pooled embeddings + LR head. Deterministic at seed=42.
 
 ### 4.3 DeBERTa-LoRA — *fine-tuning ceiling at v4's budget*
-`[LOCKED inherited from V4.1 factorial]` `DeBERTa-v3-base + LoRA r=8, α=16, dropout=0.1; target modules query_proj+value_proj; modules_to_save=[classifier, pooler]; lr=5e-5; epochs=2; class-weighted loss (hf_trainer style); bf16; bs=16; max_len=512; warmup 6%; primary seed=42 + supplement n=3 seeds`. V4.1-extended factorial confirmed: epoch effect dominates; precision near-zero; class-weight implementation immaterial. v5 may add `[CANDIDATE: r=4 sweep, modernBERT backbone, full-FT comparison]`.
+`[OPEN]` `DeBERTa-v3-base + LoRA r=8, α=16, dropout=0.1; target modules query_proj+value_proj; modules_to_save=[classifier, pooler]; lr=5e-5; epochs=2; class-weighted loss (hf_trainer style); bf16; bs=16; max_len=512; warmup 6%; primary seed=42 + supplement n=3 seeds`. V4.1-extended factorial confirmed: epoch effect dominates; precision near-zero; class-weight implementation immaterial. v5 may add `[TBD: (candidate) r=4 sweep, modernBERT backbone, full-FT comparison]`.
 
 ### 4.4 ProtectAI v2 — *narrow-scope reference scorer*
-`[LOCKED inherited from v4]` `protectai/deberta-v3-base-prompt-injection-v2`; inference-only. Scope: "does not detect jailbreak attacks." Training-data overlap with `jackhhao` confirmed; see EVIDENCE.md §1.
+`[OPEN]` `protectai/deberta-v3-base-prompt-injection-v2`; inference-only. Scope: "does not detect jailbreak attacks." Training-data overlap with `jackhhao` confirmed; see EVIDENCE.md §1.
 
 ### 4.5 Llama Prompt Guard 2 — *broad-scope reference scorer*
-`[LOCKED inherited from v4]` `meta-llama/Llama-Prompt-Guard-2-86M`; inference-only. Scope: prompt injections + jailbreaks. Training-data disclosure at category level only; overlap with V4/V5 sources not provably verifiable. See EVIDENCE.md §2.
+`[OPEN]` `meta-llama/Llama-Prompt-Guard-2-86M`; inference-only. Scope: prompt injections + jailbreaks. Training-data disclosure at category level only; overlap with V4/V5 sources not provably verifiable. See EVIDENCE.md §2.
 
 ### 4.6 `[TBD: additional v5 rungs if any]`
 
-`[CANDIDATE]` v5 candidates: ModernBERT-base + LoRA; Llama-as-classifier; calibration-of-LoRA via temperature on validation.
+`[OPEN]` v5 candidates: ModernBERT-base + LoRA; Llama-as-classifier; calibration-of-LoRA via temperature on validation.
 
 **Linked ADRs**: ADR-005, ADR-006, ADR-014, ADR-015.
 
@@ -209,11 +209,11 @@ Detection (FPR ≤ 1%) + Verification (FNR ≤ 1%) selected on **validation only
 
 ### 5.4 Per-source and per-style breakdowns
 
-Required for any OOD claim — aggregate metrics hide heterogeneity. Reported alongside the headline IID/OOD numbers. Per-style heuristic tagger (v4 carryover, regex-based) is conservative; v5 may `[CANDIDATE: invest in LLM-as-rater rubric audit]`.
+Required for any OOD claim — aggregate metrics hide heterogeneity. Reported alongside the headline IID/OOD numbers. Per-style heuristic tagger (v4 carryover, regex-based) is conservative; v5 may `[TBD: (candidate) invest in LLM-as-rater rubric audit]`.
 
 ### 5.5 Adversarial robustness
 
-`[CANDIDATE: mostly deferred for v5]` — the threat model (paraphrase, encoded payloads, multi-turn injection, base64/leetspeak obfuscation) is named; what was not tested is named explicitly in WRITEUP §5.6 and §8.
+`[TBD: (candidate) mostly deferred for v5]` — the threat model (paraphrase, encoded payloads, multi-turn injection, base64/leetspeak obfuscation) is named; what was not tested is named explicitly in WRITEUP §5.6 and §8.
 
 **Linked ADRs**: ADR-021, ADR-022, ADR-023.
 
@@ -254,10 +254,10 @@ Plus the standard quality gates that apply to every phase:
 ## 8. SDD process notes
 
 1. **Spec freeze**: once this document is `LOCKED`, changes require an ADR.
-2. **Phase 0 interview**: `[LOCKED NEW for v5]` agent reads spec, surfaces decisions, human picks, decisions become ADRs. v4 did not formally Phase 0; v5 adds the practice.
+2. **Phase 0 interview**: `[LOCKED]` agent reads spec, surfaces decisions, human picks, decisions become ADRs. v4 did not formally Phase 0; v5 adds the practice.
 3. **Process gates, not outcome gates**: phase gates check that work was done and tests pass — not that metrics hit a target. v5 deliberately avoids tying phase movement to outcome numbers so that the eval reports what was found rather than what was needed to advance.
-4. **Transcript capture**: `[LOCKED NEW for v5]` every session where decisions are discussed produces a transcript in `transcripts/`. v4 did not capture transcripts; v5 closes the gap.
-5. **Prediction persistence**: `[LOCKED NEW for v5]` per-row predictions are persisted alongside metrics. v4 didn't do this; downstream analyses (calibration, threshold sweeps, ROC curves) required re-running inference. v5 closes the gap via `runpod-deploy` pull-pattern updates.
+4. **Transcript capture**: `[LOCKED]` every session where decisions are discussed produces a transcript in `transcripts/`. v4 did not capture transcripts; v5 closes the gap.
+5. **Prediction persistence**: `[LOCKED]` per-row predictions are persisted alongside metrics. v4 didn't do this; downstream analyses (calibration, threshold sweeps, ROC curves) required re-running inference. v5 closes the gap via `runpod-deploy` pull-pattern updates.
 6. **ADR cadence**: one ADR per significant decision; format per Michael Nygard.
 7. **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR.
 8. **Tests-as-invariants**: every spec claim that can be made executable as a test, must be.

@@ -16,13 +16,13 @@ The brief asked for **models of increasing complexity** to characterize what eac
 ## Approach
 
 - **Rung ladder** `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]` (inherited from v4). Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID.
-- **OOD slate** `[LOCKED: ood_tensortrust (cross-style extraction, all-positive), ood_notinject_eval (over-defense / FPR axis, all-benign), ood_llmail_phase2 (cross-channel indirect, all-positive, caveated), ood_indirect_probe (mixed, n=50, illustrative)]`. See WRITEUP §5.5 for *why each slice was chosen*. v5 may add slices via `[CANDIDATE]` additions.
+- **OOD slate** `[LOCKED: ood_tensortrust (cross-style extraction, all-positive), ood_notinject_eval (over-defense / FPR axis, all-benign), ood_llmail_phase2 (cross-channel indirect, all-positive, caveated), ood_indirect_probe (mixed, n=50, illustrative)]`. See WRITEUP §5.5 for *why each slice was chosen*. v5 may add slices via `[OPEN]` additions.
 - **Methodology rigor** via [eval-toolkit](https://github.com/brandon-behring/eval-toolkit): bootstrap CIs on every headline metric, paired-bootstrap differences for rung-vs-rung comparisons, minimum detectable effect (MDE), calibration battery (ECE + Brier + reliability), validation-set threshold selection. Effect sizes and CIs throughout — no p-values.
-- **Reviewer-reproducible**: `make diagnostics-smoke` `[CANDIDATE]` runs a no-external-services smoke pass on a laptop in ~10 min; canonical numbers reproducible from the GitHub release + HF Hub checkpoints.
+- **Reviewer-reproducible**: `make diagnostics-smoke` `[OPEN]` runs a no-external-services smoke pass on a laptop in ~10 min; canonical numbers reproducible from the GitHub release + HF Hub checkpoints.
 
 ## Headline characterization (v5)
 
-`[CANDIDATE]` — single deployment-policy-agnostic threshold across rungs (FPR ≤ 1% on validation). No rung promoted as a winner; trade-offs are explained in WRITEUP §7. Dual-cost-weight characterization (detection vs verification operating points) lives in WRITEUP §5.3.
+`[OPEN]` — single deployment-policy-agnostic threshold across rungs (FPR ≤ 1% on validation). No rung promoted as a winner; trade-offs are explained in WRITEUP §7. Dual-cost-weight characterization (detection vs verification operating points) lives in WRITEUP §5.3.
 
 | Scorer | fold_test PR-AUC ± CI | ood_indirect_probe PR-AUC ± CI | NotInject mean_score | TensorTrust mean_score_pos | ECE |
 |---|---:|---:|---:|---:|---:|
@@ -55,7 +55,7 @@ Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md).
 - [**`EVIDENCE.md`**](./EVIDENCE.md) — audit trail: what was verified, what couldn't be, what was left unresolved.
 - [`decisions/`](./decisions/) — ADRs (Michael Nygard format; single version-neutral sequence).
 - [`evals/v5/`](./evals/v5/) `[TBD]` — v5 evaluation matrix + analysis JSONs + REPORT.md.
-- [`notebooks/`](./notebooks/) `[CANDIDATE]` — interpretive notebooks (e.g., `v5-evidence.ipynb`).
+- [`notebooks/`](./notebooks/) `[OPEN]` — interpretive notebooks (e.g., `v5-evidence.ipynb`).
 - [`transcripts/`](./transcripts/) `[TBD]` — selected Claude-Code transcripts illustrating decision points.
 - [`spec.md`](./spec.md) — the prior-version specification (v5 inherits / supersedes per ADR audit).
 - **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology-aware eval harness. Methodology curriculum at [`docs/methodology/`](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology).
@@ -67,16 +67,16 @@ Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md).
 make install                  # uv sync --extra dev
 make lint                     # ruff check + ruff format --check + mypy strict
 make test                     # invariants + math correctness + smoke
-make diagnostics-smoke        # [CANDIDATE] L1+L2A: install+lint+test+v5-smoke (~10 min, no external services)
+make diagnostics-smoke        # [OPEN] L1+L2A: install+lint+test+v5-smoke (~10 min, no external services)
 make v5-preflight             # [TBD] CPU preflight — gates invariants before any GPU spend
 make v5-h100                  # [TBD] canonical H100 path via runpod-deploy
 ```
 
-For cloud setup, see `[CANDIDATE: docs/cloud-canonical-runbook.md]`. For the full reproducibility framework, see `[CANDIDATE: docs/DIAGNOSTICS.md]`.
+For cloud setup, see `[TBD: (candidate) docs/cloud-canonical-runbook.md]`. For the full reproducibility framework, see `[TBD: (candidate) docs/DIAGNOSTICS.md]`.
 
 ## What this version deliberately doesn't do
 
-A one-line pointer; details in WRITEUP §8 (deferred) and §9 (architectures tried and abandoned). `[CANDIDATE: short list — adversarial red-teaming, agentic-flow coverage, deployment, multi-language, ...]`
+A one-line pointer; details in WRITEUP §8 (deferred) and §9 (architectures tried and abandoned). `[TBD: (candidate) short list — adversarial red-teaming, agentic-flow coverage, deployment, multi-language, ...]`
 
 ## License
 

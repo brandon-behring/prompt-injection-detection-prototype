@@ -16,7 +16,7 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 
 **Recommended entry point**: `README.md` → `WRITEUP.md` §1 motivation + §5 eval framework + §7 results + §9 negative results → `SPEC_SHEET.md` process gates → `NEXT_STEPS.md` → `EVIDENCE.md` audit trail.
 
-`[CANDIDATE]` *(Reading order includes §5 because methodology rigor is part of the value being demonstrated.)*
+`[OPEN]` *(Reading order includes §5 because methodology rigor is part of the value being demonstrated.)*
 
 ---
 
@@ -33,8 +33,8 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 
 ### Reproducibility infrastructure
 
-- **`docs/DIAGNOSTICS.md`** `[CANDIDATE]` — fresh-clone reproducibility runbook.
-- **`make diagnostics-smoke`** `[CANDIDATE]` — one-shot install + lint + test + analysis-pipeline smoke.
+- **`docs/DIAGNOSTICS.md`** `[OPEN]` — fresh-clone reproducibility runbook.
+- **`make diagnostics-smoke`** `[OPEN]` — one-shot install + lint + test + analysis-pipeline smoke.
 - **GitHub Actions CI** — every push runs lint + invariant tests; badge in `README.md`.
 - **HF Hub** `[TBD URL]` — v5 checkpoints with per-row predictions persisted (gap inherited from v4 — see `EVIDENCE.md` §6).
 - **GitHub release** `[TBD tag]` — predictions tarball + evidence files for canonical reproduction.
@@ -43,7 +43,7 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 
 - **`evals/v5/REPORT.md`** `[TBD]` — v5 canonical matrix.
 - **`evals/v5/results.json`** `[TBD]` — schema-validated against eval-toolkit `results.v1.json`.
-- **`evals/v5/predictions.parquet`** `[CANDIDATE: new for v5]` — per-row predictions persisted (v4 gap closed).
+- **`evals/v5/predictions.parquet`** `[TBD: (candidate) new for v5]` — per-row predictions persisted (v4 gap closed).
 - **`evals/v5/analysis/`** `[TBD]` — bootstrap CIs, paired comparisons, calibration, MDE, per-source breakdowns, threshold characterizations.
 - **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology curriculum + primitive implementations.
 - **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration runbook + manifests.
