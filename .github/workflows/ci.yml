@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  pre-commit:
+    name: pre-commit (hard gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: pre-commit/action@v3.0.1
+
+  lint:
+    name: lint (hard gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --extra dev
+      - name: ruff check
+        run: uv run ruff check .
+      - name: ruff format check
+        run: uv run ruff format --check .
+      - name: mypy strict
+        run: uv run mypy --strict .
+
+  test-unit:
+    name: test-unit (hard gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --extra dev
+      - name: pytest -m unit
+        run: uv run pytest -m unit -v
+
+  audit:
+    name: audit register in sync with ADRs (hard gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --extra dev
+      - name: regenerate_audit.py --check
+        run: uv run python scripts/regenerate_audit.py --check
+
+  test-smoke:
+    name: test-smoke (soft gate)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --extra dev
+      - name: pytest -m smoke
+        run: uv run pytest -m smoke -v
+
+  test-integration:
+    name: test-integration (opt-in)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --all-extras
+      - name: pytest -m integration
+        run: uv run pytest -m integration -v

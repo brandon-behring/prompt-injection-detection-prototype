@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [pytest, types-PyYAML]
+        args: [--strict]
+  - repo: local
+    hooks:
+      - id: no-emoji-check
+        name: no emoji in source / docs
+        entry: python scripts/check_no_emoji.py
+        language: system
+        types: [text]
+        exclude: '^\.pre-commit-config\.yaml$'
+      - id: regenerate-audit
+        name: SUBMISSION_AUDIT.md in sync with ADRs
+        entry: python scripts/regenerate_audit.py --check
+        language: system
+        pass_filenames: false
+        files: '^(decisions/ADR-.*\.md|SUBMISSION_AUDIT\.md|scripts/regenerate_audit\.py)$'
