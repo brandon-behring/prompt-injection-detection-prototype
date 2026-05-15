@@ -319,12 +319,14 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §0 Threat | Attack classes in scope | direct / direct+indirect / direct+adversarial / custom | open | | | docs/research/attacks_defenses/; OWASP LLM Top 10 |
 | §0 Threat | Language scope | English-only / multilingual | open | | | docs/research/datasets/; corpus language stats |
 | §0 Threat | Length cap | tokens | open | | | HF tokenizer docs; DeBERTa/ModernBERT context limits |
+| §0 Threat | Truncation policy for inputs > length cap | head / tail / middle / adaptive | open | | | HF tokenizer truncation docs; docs/research/attacks_defenses/ (indirect attacks) |
 | §1 Data | Source selection | dataset list | open | | | docs/research/datasets/; HF dataset cards |
 | §1 Data | HF dataset revision pinning | pin SHAs / lockstep / `revision="main"` | open | | | HF datasets revision docs |
 | §1 Data | Dedup encoder + threshold | n-gram / MiniLM / MPNet / hybrid; threshold | open | | | eval-toolkit methodology/text_dedup.md; sentence-transformers docs |
 | §1 Data | Cross-source benign dedup ordering | before-split / after-split | open | | | eval-toolkit methodology/leakage.md |
 | §1 Data | Splits structure | single / k-fold / source-disjoint LODO / hybrid | open | | | Fomin 2025 "When Benchmarks Lie"; eval-toolkit methodology/splits.md |
 | §1 Data | Reference-scorer audit for partial disclosure | fold pattern / scope cross-check / same-style ablation / all-three | open | | | docs/research/attacks_defenses/; eval-toolkit leakage docs |
+| §1 Data | Benign subsample ceilings per source | open budget / per-source caps | open | | | docs/research/datasets/; eval-toolkit splits.md (statistical power) |
 | §2 Model | Backbone choice | DeBERTa-v3 / ModernBERT / both / other | open | | | docs/research/attacks_defenses/; HF model cards; ModernBERT paper (arXiv:2412.13663) |
 | §2 Model | Training-time scope | full FT / LoRA / both / frozen-only | open | | | LoRA paper (Hu et al. 2021, arXiv:2106.09685); PEFT docs |
 | §2 Model | Frozen-probe role | candidate detector / diagnostic rung / both | open | | | eval-toolkit methodology/comparison.md |
@@ -341,6 +343,7 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §3 Eval | Calibration battery composition | ECE equal-mass / debiased / Brier / reliability bins | open | | | eval-toolkit methodology/calibration.md; Kumar 2019 (arXiv:1909.10155) |
 | §3 Eval | Multi-seed protocol | count + values + paired-across-rungs | open | | | eval-toolkit bootstrap docs; reproducibility-checklist patterns |
 | §3 Eval | Paired-test method | paired bootstrap / DeLong / McNemar / combo | open | | | DeLong et al. 1988; eval-toolkit methodology/comparison.md |
+| §3 Eval | Cross-fold CI methodology | bootstrap-per-fold / CV-CLT (Bates 2024) / Nadeau-Bengio | open | | | eval-toolkit `cv_clt_ci`; Bates et al. 2024 JASA; Nadeau-Bengio 2003 |
 | §4 Threshold | Cost-weight targets | FPR / FNR percentages | open | | | eval-toolkit methodology/thresholds.md; PromptShield 2025 |
 | §5 Code | Module layout | project-specific | open | | | (project-specific; no external reference) |
 | §5 Code | Smoke vs canonical separation | profile-switch / two-targets / three-tiers | open | | | eval-toolkit Makefile patterns |
@@ -352,5 +355,16 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §Submission | Reproducibility tier | laptop-only smoke / GPU-rental canonical / both | open | | | runpod-deploy reproduction patterns |
 | §6 Verify | Project-specific acceptance criteria | … | open | | | inline §6 |
 | §6 Verify | Compute cost cap | strict / soft / none + dollar amount | open | | | RunPod pricing; project budget |
+
+### `§Kit-Ratify` — kit-level defaults to affirm or override at Phase 0
+
+These rows surface kit-level defaults that the project should explicitly affirm or override at Phase 0. Each was locked at kit-creation time and is documented in spec text + `CLAUDE.md` / `AGENTS.md`; the rows here exist so a Phase 0 walker sees the kit's opinion and consciously ratifies or overrides via a new ADR. **Rapid-ratify path**: in the Phase 0-00 brief-alignment closing step, the project may "accept all kit defaults" as one bulk decision if no override is needed.
+
+| Section | Decision | Options | Status | Rationale | Recorded in | Reference anchors |
+|---|---|---|---|---|---|---|
+| §Kit-Ratify | Phase 0 strictness | all [OPEN] resolved (default) / high-med only / iterative | open | | | `docs/ROADMAP.md` §Phase 0 close criterion |
+| §Kit-Ratify | Brief-intake protocol | live Phase 0-00 sub-session (default) / pre-read / async-issues | open | | | `docs/ROADMAP.md` §Phase 0-00 |
+| §Kit-Ratify | Repository visibility | public from start (default) / private-then-public / mixed | open | | | `.gitignore`; `SPEC_STRATEGY.md` |
+| §Kit-Ratify | Notebook format | jupytext-paired (default) / pure `.ipynb` / no notebooks | open | | | `pyproject.toml [tool.jupytext]`; `notebooks/README.md` |
 
 When status changes to `locked-to-X`, fill in **Rationale** and **Recorded in** (ADR number or "inline in spec"). The "Reference anchors" column lists `docs/research/<topic>/` dossier files + external URLs (paper / library doc / methodology guide) that informed the locked choice — populated during `/exploring-options` Phase 0 sub-sessions per the educational-references rule in §Roadmap Phase 0.

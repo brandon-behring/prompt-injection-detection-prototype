@@ -120,6 +120,8 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 | `[OPEN]` | `[TBD: value]` | Train neg | `[TBD: value]` |
 | `[OPEN]` | `[TBD: value]` | OOD only | `[TBD: value]` |
 
+**Benign subsample ceilings per source**: `[OPEN]` — open-budget per source / per-source caps (e.g., `OASST1 ≤ 4000`, `WildJailbreak ≤ 5000`). Affects fold-level statistical power. See SPEC_GREENFIELD ledger §1 Data row "Benign subsample ceilings per source".
+
 ### 3.2 Splits
 
 `[OPEN]` Splits structure — Phase 0 selects from {single 70/15/15, k-fold, source-disjoint LODO, hybrid}. See SPEC_GREENFIELD ledger §1 Data row "Splits structure" for reference anchors.
@@ -131,6 +133,8 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 - **Cross-source benign dedup ordering**: `[OPEN]` before-split vs after-split.
 - **Leakage invariants**: `tests/test_leakage.py` asserts no exact-hash and no high-cosine train-test overlap.
 - **Reference-scorer training-overlap audit**: `[LOCKED]` see WRITEUP §3.3 + EVIDENCE.md §1–2.
+
+**Truncation policy for inputs > length cap**: `[OPEN]` — head / tail / middle / adaptive. Indirect attacks may exceed the length cap; the choice affects which part of the payload reaches the classifier. See SPEC_GREENFIELD ledger §0 Threat row "Truncation policy for inputs > length cap".
 
 ### 3.4 OOD slate
 
@@ -188,6 +192,8 @@ Anchored to [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) prim
 - `mde_from_ci` — minimum detectable effect.
 - Calibration battery (`reliability_curve`, `fit_temperature`, `fit_isotonic_calibrator`, ECE variants, Brier). See [methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md).
 - `cv_clt_ci` — CLT-based CI for cross-fold variance.
+
+**Cross-fold CI methodology**: `[OPEN]` — bootstrap-per-fold / CV-CLT (Bates 2024) / Nadeau-Bengio 2003. LODO folds are not independent; the choice affects whether headline cross-fold CIs are valid. See SPEC_GREENFIELD ledger §3 Eval row "Cross-fold CI methodology".
 
 ### 5.3 Operating points — detection vs verification
 

@@ -27,11 +27,11 @@ If Phase 0-00 brief alignment (or any subsequent sub-session) surfaces a constra
 
 ### Recommended sub-session sequence (~9 sub-sessions covering ~50 ledger rows)
 
-1. **Phase 0-00 — Brief alignment** (§Brief, 5 rows): user pastes brief (or key excerpts) into the conversation; `/save-transcript` captures it. Surface scope / deliverable / deadline / visibility / reviewer-profile / brief-mandated-metric constraints. Produces ADR-001.
-2. **Phase 0-01 — Threat model** (§0, 3 rows): attack classes, language, length cap.
-3. **Phase 0-02 — Data design** (§1, 6 rows): source slate, HF pinning, dedup, splits, ref-scorer audit.
+1. **Phase 0-00 — Brief alignment** (§Brief, 5 rows + closing kit-ratify step): user pastes brief (or key excerpts) into the conversation; `/save-transcript` captures it. Surface scope / deliverable / deadline / visibility / reviewer-profile / brief-mandated-metric constraints. Produces ADR-001. **Closing step (~10 min)**: walk the 4 §Kit-Ratify rows (Phase 0 strictness / brief-intake protocol / repository visibility / notebook format); rapid-ratify path — "accept all kit defaults" as one bulk decision if no override is needed.
+2. **Phase 0-01 — Threat model** (§0, 4 rows): attack classes, language, length cap, truncation policy.
+3. **Phase 0-02 — Data design** (§1, 7 rows): source slate, HF pinning, dedup, splits, ref-scorer audit, benign subsample ceilings.
 4. **Phase 0-03 — Model scope** (§2, 9 rows): backbone, training-time scope, frozen-probe role, matched-budget controls, reference scorer selection, LoRA hyperparams, compute.
-5. **Phase 0-04 — Eval framework** (§3, 7 rows): OOD slate, bootstrap N, multi-comparison correction, recall@FPR pinpoints, calibration battery, multi-seed protocol, paired-test method.
+5. **Phase 0-04 — Eval framework** (§3, 8 rows): OOD slate, bootstrap N, multi-comparison correction, recall@FPR pinpoints, calibration battery, multi-seed protocol, paired-test method, cross-fold CI methodology.
 6. **Phase 0-05 — Threshold + cost-weight** (§4, 1 row).
 7. **Phase 0-06 — Code + test discipline** (§5 + §STYLE, 4 rows): module layout, smoke-vs-canonical, coverage floor, test markers.
 8. **Phase 0-07 — Submission deliverables** (§Submission, 4 rows): PDF bundle, HF Hub checkpoints, GitHub release strategy, reproducibility tier.
