@@ -1,20 +1,21 @@
-# Specification: prompt-injection classifier
+# Project specification (filled at end of Phase 0)
 
-**Status**: `[TBD]` (`DRAFT` → `PROPOSED` → `LOCKED`)
-**Type**: Spec-Driven Development (custom hybrid: spec + ADRs + assumption registry + tests-as-invariants)
-**Type**: Single-version greenfield spec; revisions tracked via ADRs
+**Status**: `[OPEN]` (`DRAFT` → `PROPOSED` → `LOCKED` — locks once Phase 0 closes all decisions)
+**Type**: Single-version SDD spec; revisions tracked via ADRs (Michael Nygard format)
+
+> **Role of this document.** SPEC_GREENFIELD.md is the authoritative pre-Phase-0 spec — it defines the contract and the open decisions. SPEC_SHEET.md is the post-Phase-0 fill-in form: same skeleton, but each `[OPEN]` row gets replaced with `[LOCKED: <chosen value>]` once Phase 0 resolves it. Phase 1 cannot begin until SPEC_SHEET.md has zero `[OPEN]` rows.
 
 > **Companion docs**:
-> - [`code_quality.md`](../code_quality.md) — implementation discipline
-> - [`assumptions.md`](../assumptions.md) — registry of unverified assumptions
-> - [`decisions/`](../decisions/) — ADR audit table
+> - [`code_quality.md`](./code_quality.md) — implementation discipline
+> - [`assumptions.md`](./assumptions.md) — registry of unverified assumptions
+> - [`decisions/`](./decisions/) — ADR index + immutable decision records
 > - [`EVIDENCE.md`](./EVIDENCE.md) — external-evidence audit trail
 
 ---
 
 ## Context
 
-`[TBD: what prior versions established and what  specifically inherits or changes]`
+`[TBD: one-paragraph context populated at end of Phase 0 from ADR-001 brief alignment]`
 
 - **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
 - **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview

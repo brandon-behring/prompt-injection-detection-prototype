@@ -50,9 +50,14 @@ This spec assumes the following stack. Each component is locked in as the defaul
 - **Modelling repo** (this repo) — data loading, training, classification API, project-specific scoring code.
 - **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology-aware evaluation harness for binary classification. Provides bootstrap CIs, paired-bootstrap differences, MDE, calibration battery, threshold-selector protocol, leakage detection, slice-aware orchestration, versioned JSON schemas, and a [16-chapter methodology curriculum](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology). The eval-toolkit's curriculum is the canonical reference for *why* each methodology choice in this spec exists.
 - **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training and evaluation runs on rented GPUs. Captures NeurIPS-aligned reproducibility manifests (seeds, git SHA, data hashes, GPU info).
+- **[research_toolkit](https://github.com/brandon-behring/research_toolkit)** — dossier production pipeline. Produces verified, dual-audience research dossiers (paper synthesis + dataset discovery) via the skill chain: `/research-plan` → `/research-gather` → `/dossier-build` → `/agent-index` → `/dossier-audit` + `/url-freshness-check`. The literature dossier at `docs/research/` was produced by this toolkit; regenerable by re-running its skills.
 - **Claude Code (or equivalent agent)** — SDD partner. Reads the spec, asks clarifying questions in Phase 0, drafts code, captures transcripts of decision conversations.
 
-> **Decision needed:** GPU class, secret-management approach, dataset cache location. **Default if unsure:** H100 via runpod-deploy; `~/.config/<project>/secrets`; project-local `data/cache/`.
+> **`[LOCKED]` Library-first discipline — anti-hand-rolling.** Use `eval-toolkit`, `runpod-deploy`, and `research_toolkit` primitives instead of writing equivalent code in this repo. The rule bans replacing library primitives, not all local code — project-specific glue (data loaders, custom scorers using upstream primitives, project-named CLIs) is allowed and expected. The rule applies when a function you're about to write is a generic primitive an upstream library should provide. Track every import / skill invocation in `decisions/library_imports.md`.
+
+> **`[LOCKED]` Upstream-issue triage protocol.** Every discovered library gap, bug, or feature request is filed to the relevant upstream GitHub repo (`brandon-behring/eval-toolkit`, `brandon-behring/runpod-deploy`, or `brandon-behring/research_toolkit`) with the `tracked` label before any local workaround is written. Filed issue numbers are recorded in `decisions/upstream_issues.md` so reviewers can audit the contribution trail.
+
+> **Decision needed:** GPU class, secret-management approach, dataset cache location. **Default if unsure:** H100 via runpod-deploy; `~/.config/<project>/secrets`; project-local `data/cache/`; transcript dir at `transcripts/`; upstream issues filed to GitHub.
 
 ### Roadmap — recommended phases
 
@@ -60,7 +65,26 @@ This spec assumes the following stack. Each component is locked in as the defaul
 
 `[OPEN]` phase structure may be tailored to project specifics; the recommendation below works for a typical instantiation.
 
-- **Phase 0 — Spec lock-in interview** `[LOCKED]`: the agent reads this spec end-to-end, surfaces every `[OPEN]` decision, asks clarifying questions, the human picks among options, decisions are recorded as ADRs. **Phase 1 cannot start until every `[OPEN]` decision is resolved or explicitly deferred to a later phase with rationale.** This is the SDD interview pattern — see §7.
+- **Phase 0 — Spec lock-in interview** `[LOCKED]`: runs as topic-focused sub-sessions, each driven by the `/exploring-options` skill against this document's decision ledger.
+
+  > **For each `[OPEN]` decision walked, the interview must surface: (a) concrete explanation of what the decision means, (b) options with pros/cons, (c) 2-3 definitive reference URLs (peer-reviewed paper, library docs, methodology guide), (d) recommendation with rationale.** Primary reference source: `docs/research/` dossier (MANIFEST.json's `claim_family` field maps decisions to supporting research). Supplement with web search for additional authoritative references — note: the dossier covers methodology decisions (~30 of 50 ledger rows); non-methodology rows (brief alignment, library version pinning, submission deliverables, repo hygiene) rely on web search.
+
+  After each sub-session, invoke `/save-transcript phase-0-NN__<topic>` (skill at `.claude/skills/save-transcript/`) to checkpoint. Each locked decision becomes one ADR at `decisions/ADR-NNN-<slug>.md` (ADRs are the source of truth; the appendix ledger row and SPEC_SHEET slot reference the ADR-NNN as authoritative). ADRs are immutable; supersede via new ADR marking prior `status: superseded-by-NNN`.
+
+  **Kit-level supersession path.** If Phase 0-00 brief alignment (or any subsequent sub-session) surfaces a constraint that contradicts a kit-level `[LOCKED]` decision documented in this spec text, write a new ADR that names the specific spec section/rule and supersedes it. Kit-level decisions are the default; the brief is authoritative when it contradicts.
+
+  Recommended sub-session sequence (~9 sub-sessions covering ~50 ledger rows):
+    1. **Phase 0-00 — Brief alignment** (§Brief, 5 rows): read brief; surface scope / deliverable / deadline / visibility / reviewer-profile / brief-mandated-metric constraints. Produces ADR-001.
+    2. **Phase 0-01 — Threat model** (§0, 3 rows): attack classes, language, length cap.
+    3. **Phase 0-02 — Data design** (§1, 6 rows): source slate, HF pinning, dedup, splits, ref-scorer audit.
+    4. **Phase 0-03 — Model scope** (§2, 9 rows): backbone, training-time scope, frozen-probe role, matched-budget controls, reference scorer selection, LoRA hyperparams, compute.
+    5. **Phase 0-04 — Eval framework** (§3, 7 rows): OOD slate, bootstrap N, multi-comparison correction, recall@FPR pinpoints, calibration battery, multi-seed protocol, paired-test method.
+    6. **Phase 0-05 — Threshold + cost-weight** (§4, 1 row).
+    7. **Phase 0-06 — Code + test discipline** (§5 + §STYLE, 4 rows): module layout, smoke-vs-canonical, coverage floor, test markers.
+    8. **Phase 0-07 — Submission deliverables** (§Submission, 4 rows): PDF bundle, HF Hub checkpoints, GitHub release strategy, reproducibility tier.
+    9. **Phase 0-08 — Process + acceptance + library pinning + GPU/secrets** (§6 + §Tech-Stack, ~11 rows).
+
+  **Phase 0 closes when:** (a) every `[OPEN]` row in the ledger is `locked-to-X` and references an ADR, (b) SPEC_SHEET has zero `[OPEN]` slots, (c) `assumptions.md` carries every severity-≥-medium assumption surfaced during the interview, (d) `tests/test_invariants.py` has skip-marked stubs for every invariant in §5. Phase 1 cannot start until all four hold.
 - **Phase 1 — Data**: sources defined and licensed; audit complete; semantic dedup applied and calibrated against labelled holdouts; cross-source benign dedup applied; leakage scan run; splits locked and persisted.
 - **Phase 2 — Training**: per-rung config persisted in a versioned config file; all rungs trained successfully; training manifests captured; **per-row predictions persisted** alongside metrics.
 - **Phase 3 — Evaluation**: all rung × slice metrics computed; OOD slate evaluated; calibration battery run; thresholds selected on validation only; results schema-validated.
@@ -316,18 +340,25 @@ The process discipline below is `[LOCKED]`. Adopting this spec means adopting th
 
 - **Spec freeze**: once this document is `LOCKED`, changes require an ADR explaining the change and what was previously specified.
 - **Phase 0 interview (mandatory)**: before any code is written, the agent reads the full spec, surfaces every `[OPEN]` decision, asks clarifying questions, the human picks options, and each decision is recorded as an ADR. Phase 1 may not begin until every `[OPEN]` decision is resolved (or explicitly deferred to a later phase with rationale).
-- **Transcript capture (mandatory)**: every session where decisions are discussed produces a transcript stored in `transcripts/`. ADRs that result from a conversation link to the transcript: "see `transcripts/<slug>.md` for the conversation that led to this decision." Transcripts are the decision-rationale trail; without them, ADRs lose the *why* behind the *what*.
+- **Transcript capture (mandatory)**: every session where decisions are discussed produces a transcript stored at `transcripts/<YYYY-MM-DD>__<slug>.md`. Captured via `/save-transcript <slug>` (skill at `.claude/skills/save-transcript/`). ADRs that result from a conversation link to the transcript: "see `transcripts/<slug>.md` for the conversation that led to this decision." Transcripts are the decision-rationale trail; without them, ADRs lose the *why* behind the *what*.
 - **Scope cap**: the spec is the scope authority. Anything not specified is out of scope. Adding scope post-spec-freeze requires an ADR with explicit "why this is in scope now" justification — never a casual addition.
-- **ADR cadence**: one ADR per significant decision; Michael Nygard format (Status / Context / Decision / Consequences / Alternatives Considered). ADRs are immutable; supersede via new ADRs that update the prior's status to `superseded-by-N`.
+- **ADR cadence**: one ADR per significant decision; Michael Nygard format (Status / Context / Decision / Consequences / Alternatives Considered). ADRs are immutable; supersede via new ADRs that update the prior's status to `superseded-by-N`. The spec is updated by editing the ledger row + SPEC_SHEET slot to reference the new ADR; the prior ADR file remains as historical record.
 - **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR. Do not silently revise.
 - **Tests-as-invariants**: every spec claim that can be made executable as a test must be.
-- **Evidence audit**: every external-evidence claim in the writeup gets an entry in `EVIDENCE.md` with verification status `[VERIFIED|UNVERIFIED|REFUTED]`.
+- **Evidence audit**: every external-evidence claim in the writeup gets an entry in `EVIDENCE.md` with verification status `[VERIFIED|UNVERIFIED|REFUTED]`. Reference-scorer contamination uses the three-state taxonomy: `verified_disjoint | suspected_contamination | vendor_black_box`.
+- **Claim status register**: every claim in README / WRITEUP / EVIDENCE / SUBMISSION carries a status in `SUBMISSION_AUDIT.md` (`OPEN | LOCKED | TBD | DEFERRED`). The register is **script-generated from ADR frontmatter** by `scripts/regenerate_audit.py` and gated in CI (no claim ships unless status is `LOCKED` or explicitly `DEFERRED`).
+- **Commit discipline**: each meaningful work unit is its own commit. Type-prefixed messages (`feat:`, `refactor:`, `docs:`, `chore:`, `test:`, `fix:`, `seed:`). `Co-Authored-By: Claude <noreply@anthropic.com>` trailer. Commits that lock or supersede a Phase 0 decision reference the ADR-NNN. **No amend / no squash / no force-push** — fix-forward with new commits; the history is meant to show real development including missteps.
 - **Anti-patterns to avoid**:
   - Adding a methodology component without an ADR.
   - Adding an evaluation dataset without a leakage scan.
   - Tuning anything on test data — even informally during error analysis.
   - Treating null results as failures rather than information.
   - Persisting only summary metrics without per-row predictions (breaks downstream analysis).
+  - Hand-rolling functionality already in eval-toolkit / runpod-deploy / research_toolkit.
+  - Working around a library limitation without filing an upstream issue.
+  - Skipping transcript capture for a multi-turn decision conversation.
+  - Mutating a locked decision without writing a superseding ADR.
+  - Rewriting git history (amend, squash, force-push). Fix-forward with new commits.
 
 ### §8 Open questions deferred to implementation phase
 
