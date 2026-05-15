@@ -55,6 +55,40 @@ Each locked decision produces:
 The **ADR is the source of truth**. ADRs are immutable; supersede via new
 ADR marking prior `status: superseded-by-NNN`.
 
+### Phase 0 shorthand
+
+When the user invokes `/exploring-options phase 0-NN` (or any
+`/exploring-options` whose argument contains "phase 0"), execute the
+full sub-session workflow:
+
+1. Look up the section name + row list from
+   `docs/ROADMAP.md` §"Recommended sub-session sequence" (e.g.,
+   `phase 0-01` → §0 Threat, 4 rows: attack classes, language, length
+   cap, truncation policy).
+2. Read each `[OPEN]` row from `SPEC_GREENFIELD.md`'s ledger appendix.
+3. Walk each row under the **educational-references rule** above
+   (concrete explanation + options + 2-3 reference URLs surfaced via
+   the **fresh-investigation rule** from `docs/research/` dossier +
+   recommendation) — generate all questions upfront and present them
+   numbered (per `/exploring-options` skill).
+4. For each lock the user accepts:
+   - Write `decisions/ADR-NNN-<slug>.md` (Michael Nygard format;
+     frontmatter per `decisions/README.md`; include `transcript:`
+     field pointing at the file `/save-transcript` will produce).
+   - Update the SPEC_GREENFIELD ledger row status to
+     `locked-to-X (see ADR-NNN)`.
+   - Fill the matching SPEC_SHEET slot with `[LOCKED: X (per ADR-NNN)]`.
+5. Run `python scripts/regenerate_audit.py` to refresh
+   `SUBMISSION_AUDIT.md`.
+6. Prompt the user to invoke
+   `/save-transcript phase-0-NN__<topic-slug>`.
+7. Propose **one** descriptive commit covering the sub-session (e.g.,
+   `feat: Phase 0-01 threat model locks (ADR-NNN to ADR-MMM)`).
+
+If the user invokes `/exploring-options` with an argument that does not
+match `phase 0-NN`, treat it as a generic exploration (no Phase 0
+workflow) — the shorthand is opt-in via the "phase 0" token.
+
 ## Library-first discipline
 
 Three load-bearing libraries (never hand-roll equivalents):
