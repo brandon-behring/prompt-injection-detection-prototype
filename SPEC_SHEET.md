@@ -15,7 +15,7 @@
 
 ## Context
 
-This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition** (2×3 trained-rung grid + multi-seed + full OOD slate + paired-bootstrap) leveraging `runpod-deploy` + `eval-toolkit` library infrastructure, and an explicit fallback ladder (2×3 → 2×2 → 1×2 → 1×1) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The deliverable is a focused PDF rendered from `WRITEUP.md` + a public GitHub repo serving as the evidence locker (ADR-002 + ADR-003), structured as a **hub-and-spoke writeup** for a dual A1+A2 audience (hiring manager + ML researcher; ADR-004). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
+This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01** (1×3 trained-rung slate — ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 supersedes ADR-007 — plus 4 reference rungs at their published native configs — OpenAI LLM-judge + Anthropic LLM-judge + Lakera Guard + ProtectAI deberta-v3 — with 3-seed multi-seed protocol per ADR-006 floor, full OOD slate, and paired-bootstrap apparatus per ADR-006) leveraging `runpod-deploy` + `eval-toolkit` library infrastructure, and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The deliverable is a focused PDF rendered from `WRITEUP.md` + a public GitHub repo serving as the evidence locker (ADR-002 + ADR-003), structured as a **hub-and-spoke writeup** for a dual A1+A2 audience (hiring manager + ML researcher; ADR-004). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
 
 - **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
 - **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview
@@ -134,7 +134,7 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 - **Leakage invariants**: `tests/test_leakage.py` asserts no exact-hash and no high-cosine train-test overlap.
 - **Reference-scorer training-overlap audit**: `[LOCKED]` see WRITEUP §3.3 + EVIDENCE.md §1–2.
 
-**Truncation policy for inputs > length cap**: `[OPEN]` — head / tail / middle / adaptive. Indirect attacks may exceed the length cap; the choice affects which part of the payload reaches the classifier. See SPEC_GREENFIELD ledger §0 Threat row "Truncation policy for inputs > length cap".
+**Truncation policy for inputs > length cap**: `[LOCKED: adaptive-chunked-max-pool stride=cap//2 at eval time; head-truncation at training time (per ADR-014)]`. Training-positives are short so head-truncation rarely bites at train time (HF tokenizer default `truncation_side="right"`). At eval time, inputs exceeding the cap are split into overlapping chunks of size `cap` with stride `cap // 2` (50 percent overlap so no token sits at a chunk boundary in both chunks); each chunk is scored independently; per-sample score is the max over chunk scores (max-pool aggregation — matches adversarial threat model). Under ADR-015 single-backbone refinement (ModernBERT-base at 8K native), adaptive chunked rarely activates (only on samples exceeding 8K tokens — about 5 percent of BIPIA per dossier estimate). Reference rungs run at their published native configurations including their native truncation policies (ProtectAI head-truncation at 512; Lakera as-API; LLM-judges receive full sample). Mandatory chunked-vs-head ablation on the BIPIA slice lives in `WRITEUP/truncation-ablation.md`. Phase 1 validation checkpoint: if BIPIA outlier-rate above 8K exceeds 15 percent of the slice, a superseding ADR-016 adjusts chunk-stride or aggregation policy.
 
 ### 3.4 OOD slate
 
@@ -156,20 +156,26 @@ Each rung is locked before training begins. No val-set hyperparameter gridsearch
 `[OPEN]` Linear baseline (e.g. TF-IDF + logistic regression). Deterministic.
 
 ### 4.2 Rung 2 — *frozen-features probe*
-`[OPEN]` Frozen-transformer embeddings + linear head. Deterministic at a pinned seed.
+`[LOCKED: ModernBERT-base frozen-probe (per ADR-015)]` — Transformer body frozen; linear head trained on pooled CLS or mean-pooled embeddings. Deterministic at a pinned seed; one of 3 trained rungs.
 
 ### 4.3 Rung 3 — *adapter-fine-tuned*
-`[OPEN]` Adapter-fine-tuned transformer recipe. Hyperparameters (r, α, dropout, target modules, lr, epochs, precision, batch, max_len, warmup, seed protocol) locked at Phase 0 per SPEC_GREENFIELD §2 Model ledger rows.
+`[LOCKED: ModernBERT-base LoRA (per ADR-015)]` — PEFT-LoRA adapters; full backbone frozen. Specific LoRA hyperparameters (r, α, dropout, target modules, lr, epochs, precision, batch, max_len, warmup, seed protocol) deferred to Phase 0-03 per SPEC_GREENFIELD §2 Model ledger rows 335-337. One of 3 trained rungs.
 
-### 4.4 Rung 4 — *narrow-scope reference scorer (optional)*
-`[OPEN]` Off-the-shelf classifier with narrow scope. Inference-only. Training-data overlap audit per EVIDENCE.md §1.
+### 4.4 Rung 4 — *full-FT trained backbone*
+`[LOCKED: ModernBERT-base full-FT (per ADR-015)]` — Full backbone parameters trainable; standard HF Trainer with eval-toolkit metric callbacks. One of 3 trained rungs. With the frozen-probe and LoRA rungs, completes the 1×3 trained-rung slate.
 
-### 4.5 Rung 5 — *broad-scope reference scorer (optional)*
-`[OPEN]` Off-the-shelf classifier with broader scope. Inference-only. Training-data audit per EVIDENCE.md §2.
+### 4.5 Reference rungs — *4 published baselines at native config*
+`[LOCKED: 4 reference rungs (per ADR-007 reference slate preserved by ADR-015)]` —
+- **R-LLM-OpenAI**: One OpenAI LLM-judge (specific model ID deferred to Phase 0-03 — likely GPT-4o or successor); temperature=0; one call per eval row; receives full sample (128K+ native context); prompt template versioned in repo.
+- **R-LLM-Anthropic**: One Anthropic LLM-judge (specific model ID deferred to Phase 0-03 — likely Claude Sonnet 4 or successor); temperature=0; one call per eval row; receives full sample; prompt template versioned in repo.
+- **R-Lakera**: Lakera Guard via API; called at whatever the API does (no preprocessing override on our side).
+- **R-ProtectAI**: `protectai/deberta-v3-base-prompt-injection` (open-weights); inference-only at its published native config — head-truncation at 512 (no preprocessing override on our side).
+
+Each reference rung is called at its published native configuration including its native truncation policy. Apples-to-apples comparison against deployed baselines requires testing them as they exist, not as preprocessed by us. Training-data overlap audit per EVIDENCE.md §1-2.
 
 ### 4.6 Additional rungs
 
-`[OPEN]` Candidates: alternate backbone + adapter; alternate classification head; calibration via validation-fit temperature.
+`[LOCKED: NONE in primary slate; future-work extensions per ADR-015 alternatives — ModernBERT-large size-up, matched-context cross-backbone control, alternate classification head, calibration via validation-fit temperature]`. Calibration is a separate methodology axis (Phase 0-04 walks the calibration battery, ledger row 343).
 
 **Linked ADRs**: filled in once Phase 0 locks each rung.
 

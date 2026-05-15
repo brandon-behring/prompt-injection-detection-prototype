@@ -58,3 +58,32 @@ def test_no_emoji_in_repo() -> None:
 def test_config_result_classes_frozen_slotted() -> None:
     """Classes whose name ends in Config or Result are frozen + slotted dataclasses."""
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_trained_backbone_modernbert_only_invariant() -> None:
+    """Trained rung slate contains exactly ModernBERT-base across three conditions.
+
+    Per ADR-015 (rung architecture refinement, supersedes ADR-007), the trained
+    slate is locked to ModernBERT-base x {frozen-probe, LoRA, full-FT}. A silent
+    fallback to DeBERTa-v3-base is prohibited; any backbone swap requires a
+    superseding ADR. This invariant asserts that the trained-rung config
+    enumeration matches the locked slate.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_truncation_policy_adaptive_chunked_max_pool() -> None:
+    """Eval-path truncation policy is adaptive chunked scoring with max-pool aggregation.
+
+    Per ADR-014 (threat-model bundle, Q4 lock), evaluation-time inputs that
+    exceed the length cap are split into overlapping chunks of size cap with
+    stride cap // 2; each chunk is scored independently; per-sample score is
+    the max over chunk scores. Training-time uses head-truncation (HF default).
+    This invariant asserts that the eval pipeline's truncation handler matches
+    the locked policy and that aggregator equals max-pool.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")

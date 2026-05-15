@@ -316,10 +316,10 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §Tech-Stack | Library-first / hand-rolling | locked: library primitives only; project-specific glue allowed | locked-to-spec | anti-hand-rolling discipline; project glue exception | inline §Tech-Stack | n/a |
 | §Tech-Stack | Upstream-issue triage | locked: file issues before workarounds | locked-to-spec | contribution-trail discipline | inline §Tech-Stack + decisions/upstream_issues.md | n/a |
 | Roadmap | Phase tailoring | as-is / project-specific tailoring | open | | | inline §Roadmap |
-| §0 Threat | Attack classes in scope | direct / direct+indirect / direct+adversarial / custom | open | | | docs/research/attacks_defenses/; OWASP LLM Top 10 |
-| §0 Threat | Language scope | English-only / multilingual | open | | | docs/research/datasets/; corpus language stats |
-| §0 Threat | Length cap | tokens | open | | | HF tokenizer docs; DeBERTa/ModernBERT context limits |
-| §0 Threat | Truncation policy for inputs > length cap | head / tail / middle / adaptive | open | | | HF tokenizer truncation docs; docs/research/attacks_defenses/ (indirect attacks) |
+| §0 Threat | Attack classes in scope | direct / direct+indirect / direct+adversarial / custom | locked-to-direct-primary+indirect-zero-shot-OOD (see ADR-014) | no labeled indirect training data in dossier-vetted slate; honest framing surfaces train/eval asymmetry as methodology finding | SPEC_SHEET §3.3 + WRITEUP/limitations-and-future-work.md | docs/research/attacks_defenses/; OWASP LLM Top 10 |
+| §0 Threat | Language scope | English-only / multilingual | locked-to-english-only (see ADR-014) | every dossier-vetted eval slice is English; researcher cannot independently audit non-English samples; reaffirms ADR-010 Bound 1 | SPEC_SHEET §3 + WRITEUP/limitations-and-future-work.md | docs/research/datasets/; corpus language stats |
+| §0 Threat | Length cap | tokens | locked-to-modernbert-native-8192 (see ADR-014; refined by ADR-015 single-backbone) | trained backbone ModernBERT-base at 8192 native; reference rungs at their published native caps (ProtectAI 512, LLM-judges 128K+) | SPEC_SHEET §3.3 + §4 | HF tokenizer docs; ModernBERT paper (arXiv:2412.13663) |
+| §0 Threat | Truncation policy for inputs > length cap | head / tail / middle / adaptive | locked-to-adaptive-chunked-max-pool (see ADR-014) | head-truncation at training time; adaptive chunked scoring with max-pool aggregation stride=cap//2 at eval time; mandatory chunked-vs-head ablation on BIPIA slice; Phase 1 validation checkpoint at 15-percent BIPIA-outlier threshold | SPEC_SHEET §3.3 + WRITEUP/truncation-ablation.md | HF tokenizer truncation docs; docs/research/attacks_defenses/02_attack_indirect.md (Greshake 2023) |
 | §1 Data | Source selection | dataset list | open | | | docs/research/datasets/; HF dataset cards |
 | §1 Data | HF dataset revision pinning | pin SHAs / lockstep / `revision="main"` | open | | | HF datasets revision docs |
 | §1 Data | Dedup encoder + threshold | n-gram / MiniLM / MPNet / hybrid; threshold | open | | | eval-toolkit methodology/text_dedup.md; sentence-transformers docs |
@@ -327,7 +327,7 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §1 Data | Splits structure | single / k-fold / source-disjoint LODO / hybrid | open | | | Fomin 2025 "When Benchmarks Lie"; eval-toolkit methodology/splits.md |
 | §1 Data | Reference-scorer audit for partial disclosure | fold pattern / scope cross-check / same-style ablation / all-three | open | | | docs/research/attacks_defenses/; eval-toolkit leakage docs |
 | §1 Data | Benign subsample ceilings per source | open budget / per-source caps | open | | | docs/research/datasets/; eval-toolkit splits.md (statistical power) |
-| §2 Model | Backbone choice | DeBERTa-v3 / ModernBERT / both / other | open | | | docs/research/attacks_defenses/; HF model cards; ModernBERT paper (arXiv:2412.13663) |
+| §2 Model | Backbone choice | DeBERTa-v3 / ModernBERT / both / other | locked-to-ModernBERT-base (see ADR-015 supersedes ADR-007) | single-backbone eliminates per-backbone-truncation confound on indirect zero-shot OOD slice; ProtectAI deberta-v3 retained as reference rung at native config | SPEC_SHEET §4 + WRITEUP/methodology.md | HF model cards; ModernBERT paper (arXiv:2412.13663) |
 | §2 Model | Training-time scope | full FT / LoRA / both / frozen-only | open | | | LoRA paper (Hu et al. 2021, arXiv:2106.09685); PEFT docs |
 | §2 Model | Frozen-probe role | candidate detector / diagnostic rung / both | open | | | eval-toolkit methodology/comparison.md |
 | §2 Model | Matched-budget controls | yes / no / per-axis | open | | | docs/research/attacks_defenses/; cross-architecture-control patterns |
