@@ -14,84 +14,13 @@ Read end-to-end before starting any work. Every `[OPEN]` callout marks a decisio
 
 ## Constitution
 
-### Mission
+The project Constitution is split across three files (DLAI-style 3-file Constitution pattern):
 
-**Vision**: build a methodology-driven prompt-injection classifier. The rigor lives in evaluation, not in the model. A reader of the eventual writeup should come away knowing what the classifier can and cannot do, with quantified uncertainty on every claim.
+- **[`docs/MISSION.md`](./docs/MISSION.md)** — Mission / Audience / Problem classes in scope / Success criteria / Non-goals / Scope authority
+- **[`docs/TECH_STACK.md`](./docs/TECH_STACK.md)** — Load-bearing libraries (eval-toolkit / runpod-deploy / research_toolkit) / Library-first discipline / Upstream-issue triage / GPU / secrets / cache
+- **[`docs/ROADMAP.md`](./docs/ROADMAP.md)** — Phase 0-5 sequence with sub-session detail and replanning checkpoints
 
-**Audience**: human collaborator and AI agent (e.g., Claude Code) working together via Spec-Driven Development. The spec frames decisions; the agent asks clarifying questions; the human picks options; decisions become ADRs.
-
-**Problem classes in scope** — brief summary; full detail in §0 Threat Model:
-
-- Direct prompt injection in user-supplied text.
-- Indirect injection via context channels (retrieved documents, tool outputs, file attachments).
-- Multi-turn injection, encoded payloads, paraphrase attacks, adversarial perturbations are *named but default-deferred* (see §0).
-
-**Success criteria**:
-
-- `[LOCKED]` Capability layers characterised via a rung ladder of increasing complexity (the "models of increasing complexity" axis).
-- `[LOCKED]` Honest OOD assessment: IID-vs-OOD gap quantified, with CIs, across multiple OOD slices.
-- `[LOCKED]` Every headline claim has a confidence interval; effect sizes reported alongside.
-- `[LOCKED]` Reproducible from a fresh clone via documented commands.
-- `[OPEN]` Project-specific metric targets.
-
-**Non-goals**:
-
-- `[LOCKED]` **Deployment is out of scope.** The work is *characterisation*, not a deployable service. Score-behaviour is reported under two threshold policies (§4) as characterisation, not as deployment recommendation.
-- `[LOCKED]` No SOTA-chasing. The rigor lives in the evaluation methodology.
-- `[LOCKED]` No leader rung crowned. Trade-offs across rungs are characterised; the implementer does not pick a winner.
-- `[OPEN]` Project-specific non-goals.
-
-**Scope authority** — `[LOCKED]`: the spec itself is the scope cap. Anything not specified here is out of scope. Adding scope post-spec-freeze requires an ADR with an explicit "why this is in scope now" justification.
-
-### Tech-Stack — `[LOCKED]` recommended scaffolding
-
-This spec assumes the following stack. Each component is locked in as the default; substitution is possible but requires an ADR explaining the swap.
-
-- **Modelling repo** (this repo) — data loading, training, classification API, project-specific scoring code.
-- **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology-aware evaluation harness for binary classification. Provides bootstrap CIs, paired-bootstrap differences, MDE, calibration battery, threshold-selector protocol, leakage detection, slice-aware orchestration, versioned JSON schemas, and a [16-chapter methodology curriculum](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology). The eval-toolkit's curriculum is the canonical reference for *why* each methodology choice in this spec exists.
-- **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training and evaluation runs on rented GPUs. Captures NeurIPS-aligned reproducibility manifests (seeds, git SHA, data hashes, GPU info).
-- **[research_toolkit](https://github.com/brandon-behring/research_toolkit)** — dossier production pipeline. Produces verified, dual-audience research dossiers (paper synthesis + dataset discovery) via the skill chain: `/research-plan` → `/research-gather` → `/dossier-build` → `/agent-index` → `/dossier-audit` + `/url-freshness-check`. The literature dossier at `docs/research/` was produced by this toolkit; regenerable by re-running its skills.
-- **Claude Code (or equivalent agent)** — SDD partner. Reads the spec, asks clarifying questions in Phase 0, drafts code, captures transcripts of decision conversations.
-
-> **`[LOCKED]` Library-first discipline — anti-hand-rolling.** Use `eval-toolkit`, `runpod-deploy`, and `research_toolkit` primitives instead of writing equivalent code in this repo. The rule bans replacing library primitives, not all local code — project-specific glue (data loaders, custom scorers using upstream primitives, project-named CLIs) is allowed and expected. The rule applies when a function you're about to write is a generic primitive an upstream library should provide. Track every import / skill invocation in `decisions/library_imports.md`.
-
-> **`[LOCKED]` Upstream-issue triage protocol.** Every discovered library gap, bug, or feature request is filed to the relevant upstream GitHub repo (`brandon-behring/eval-toolkit`, `brandon-behring/runpod-deploy`, or `brandon-behring/research_toolkit`) with the `tracked` label before any local workaround is written. Filed issue numbers are recorded in `decisions/upstream_issues.md` so reviewers can audit the contribution trail.
-
-> **Decision needed:** GPU class, secret-management approach, dataset cache location. **Default if unsure:** H100 via runpod-deploy; `~/.config/<project>/secrets`; project-local `data/cache/`; transcript dir at `transcripts/`; upstream issues filed to GitHub.
-
-### Roadmap — recommended phases
-
-`[LOCKED]` discipline (each phase has a checklist of work-completed and tests-passing — never metric thresholds, so the eval reports what was found rather than what was needed to advance).
-
-`[OPEN]` phase structure may be tailored to project specifics; the recommendation below works for a typical instantiation.
-
-- **Phase 0 — Spec lock-in interview** `[LOCKED]`: runs as topic-focused sub-sessions, each driven by the `/exploring-options` skill against this document's decision ledger.
-
-  > **For each `[OPEN]` decision walked, the interview must surface: (a) concrete explanation of what the decision means, (b) options with pros/cons, (c) 2-3 definitive reference URLs (peer-reviewed paper, library docs, methodology guide), (d) recommendation with rationale.** Primary reference source: `docs/research/` dossier (MANIFEST.json's `claim_family` field maps decisions to supporting research). Supplement with web search for additional authoritative references — note: the dossier covers methodology decisions (~30 of 50 ledger rows); non-methodology rows (brief alignment, library version pinning, submission deliverables, repo hygiene) rely on web search.
-
-  After each sub-session, invoke `/save-transcript phase-0-NN__<topic>` (skill at `.claude/skills/save-transcript/`) to checkpoint. Each locked decision becomes one ADR at `decisions/ADR-NNN-<slug>.md` (ADRs are the source of truth; the appendix ledger row and SPEC_SHEET slot reference the ADR-NNN as authoritative). ADRs are immutable; supersede via new ADR marking prior `status: superseded-by-NNN`.
-
-  **Kit-level supersession path.** If Phase 0-00 brief alignment (or any subsequent sub-session) surfaces a constraint that contradicts a kit-level `[LOCKED]` decision documented in this spec text, write a new ADR that names the specific spec section/rule and supersedes it. Kit-level decisions are the default; the brief is authoritative when it contradicts.
-
-  Recommended sub-session sequence (~9 sub-sessions covering ~50 ledger rows):
-    1. **Phase 0-00 — Brief alignment** (§Brief, 5 rows): read brief; surface scope / deliverable / deadline / visibility / reviewer-profile / brief-mandated-metric constraints. Produces ADR-001.
-    2. **Phase 0-01 — Threat model** (§0, 3 rows): attack classes, language, length cap.
-    3. **Phase 0-02 — Data design** (§1, 6 rows): source slate, HF pinning, dedup, splits, ref-scorer audit.
-    4. **Phase 0-03 — Model scope** (§2, 9 rows): backbone, training-time scope, frozen-probe role, matched-budget controls, reference scorer selection, LoRA hyperparams, compute.
-    5. **Phase 0-04 — Eval framework** (§3, 7 rows): OOD slate, bootstrap N, multi-comparison correction, recall@FPR pinpoints, calibration battery, multi-seed protocol, paired-test method.
-    6. **Phase 0-05 — Threshold + cost-weight** (§4, 1 row).
-    7. **Phase 0-06 — Code + test discipline** (§5 + §STYLE, 4 rows): module layout, smoke-vs-canonical, coverage floor, test markers.
-    8. **Phase 0-07 — Submission deliverables** (§Submission, 4 rows): PDF bundle, HF Hub checkpoints, GitHub release strategy, reproducibility tier.
-    9. **Phase 0-08 — Process + acceptance + library pinning + GPU/secrets** (§6 + §Tech-Stack, ~11 rows).
-
-  **Phase 0 closes when:** (a) every `[OPEN]` row in the ledger is `locked-to-X` and references an ADR, (b) SPEC_SHEET has zero `[OPEN]` slots, (c) `assumptions.md` carries every severity-≥-medium assumption surfaced during the interview, (d) `tests/test_invariants.py` has skip-marked stubs for every invariant in §5. Phase 1 cannot start until all four hold.
-- **Phase 1 — Data**: sources defined and licensed; audit complete; semantic dedup applied and calibrated against labelled holdouts; cross-source benign dedup applied; leakage scan run; splits locked and persisted.
-- **Phase 2 — Training**: per-rung config persisted in a versioned config file; all rungs trained successfully; training manifests captured; **per-row predictions persisted** alongside metrics.
-- **Phase 3 — Evaluation**: all rung × slice metrics computed; OOD slate evaluated; calibration battery run; thresholds selected on validation only; results schema-validated.
-- **Phase 4 — Analysis**: bootstrap CIs computed for every headline metric; paired-bootstrap differences computed for every rung-vs-rung comparison of interest; MDE estimated for every reported CI; per-source breakdowns; reference-scorer audit completed.
-- **Phase 5 — Writeup**: all sections drafted; all ADRs written and indexed; transcripts linked from the writeup appendix; EVIDENCE.md populated; deliverable bundle assembled; all markers resolved.
-
-> **Decision needed:** project-specific tailoring of the phase structure (e.g., add a Phase 2b for a smoke-train preflight; collapse Phase 3+4 if analysis is light).
+The decision ledger appendix at the bottom of this file references these by section name (e.g., `§Tech-Stack`, `§Roadmap`, `§Brief`); the section anchors now live in those three files.
 
 ---
 
