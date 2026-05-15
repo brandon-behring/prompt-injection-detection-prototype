@@ -25,6 +25,15 @@ recommended sub-session sequence.
 After each sub-session, invoke `/save-transcript phase-0-NN__<topic>` to
 checkpoint the conversation to `transcripts/<YYYY-MM-DD>__<slug>.md`.
 
+**Transcripts are private by default** (gitignored, only `transcripts/README.md`
+is tracked). The brief, Phase 0 conversations, and raw rationale stay local.
+For Phase 0-00 brief alignment, paste the brief (or key excerpts) into the
+conversation; the brief does not need to be committed as a standalone file.
+At submission time, transcripts are emailed to the reviewer separately so
+they see the decision trail without the raw content appearing on the public
+repo. ADRs (public) reference transcripts by filename; reviewer correlates via
+the emailed bundle.
+
 Each locked decision produces:
 
 1. An ADR at `decisions/ADR-NNN-<slug>.md` (Michael Nygard format; see

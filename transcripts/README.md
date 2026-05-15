@@ -2,6 +2,8 @@
 
 Decision-conversation captures. Every multi-turn decision conversation produces a transcript here.
 
+> **Privacy convention.** Transcripts are **private by default** and gitignored — only this README is tracked. The brief, Phase 0 conversations, and raw decision rationale stay local. ADRs (the decisions themselves) are public; the rationale conversation that produced them stays private. Transcripts are **emailed to the reviewer separately at submission time** so they see the decision trail without the raw content being republished on a public repo.
+
 ## Filename convention
 
 `transcripts/<YYYY-MM-DD>__<slug>.md`
