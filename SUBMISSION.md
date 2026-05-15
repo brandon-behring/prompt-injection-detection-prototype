@@ -1,4 +1,4 @@
-# Submission — Ciphero AI applied-scientist take-home (v5)
+# Submission — case-study submission
 
 **Author**: Brandon Behring (brandonzinho@me.com)
 **Repo**: [github.com/brandon-behring/prompt-injection-sdd](https://github.com/brandon-behring/prompt-injection-sdd)
@@ -10,7 +10,7 @@
 
 Attached is my methodology-first prompt-injection classification PoC for the Ciphero AI applied-scientist role. The brief asked for **models of increasing complexity** + **the right amount of OOD coverage**; I built both and put the rigor into the evaluation framework rather than into the model itself.
 
-The work is *methodology + capability characterization braided*: a rung ladder `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]` (inherited from v4) characterises what each capability layer contributes, evaluated through [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) — a methodology-aware harness with bootstrap CIs, paired comparisons, calibration battery, leakage detection, and a 16-chapter methodology curriculum. Cloud runs are orchestrated through [runpod-deploy](https://github.com/brandon-behring/runpod-deploy).
+The work is *methodology + capability characterization braided*: a rung ladder `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]` characterises what each capability layer contributes, evaluated through [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) — a methodology-aware harness with bootstrap CIs, paired comparisons, calibration battery, leakage detection, and a 16-chapter methodology curriculum. Cloud runs are orchestrated through [runpod-deploy](https://github.com/brandon-behring/runpod-deploy).
 
 The package separates in-pool competitiveness, external shift, benign over-defense, and calibration without collapsing them into one blended score. No deployment leader is promoted; the methodology rigor and capability-layer characterization are the artifact. Detection and verification operating modes are reported as a score-behavior characterisation, not a deployment recommendation.
 
@@ -27,8 +27,8 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 - **`prompt-injection-detection.pdf`** `[TBD path; TBD size]` — single print-ready PDF containing:
   - `README.md` — skim deliverable, headline characterization table, navigation.
   - `WRITEUP.md` — full methodology + capability characterization (~5000 words across 12 sections).
-  - `NEXT_STEPS.md` — tactical next steps on v5 infrastructure + aspirational v6 directions.
-  - `SPEC_SHEET.md` — v5 specification including phase-by-phase process gates.
+  - `NEXT_STEPS.md` — tactical next steps on this iteration's infrastructure + aspirational future iterations directions.
+  - `SPEC_SHEET.md` — project specification including phase-by-phase process gates.
   - `EVIDENCE.md` — audit trail: external evidence verified, confounds named, gaps deferred.
 
 ### Reproducibility infrastructure
@@ -36,15 +36,15 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 - **`docs/DIAGNOSTICS.md`** `[OPEN]` — fresh-clone reproducibility runbook.
 - **`make diagnostics-smoke`** `[OPEN]` — one-shot install + lint + test + analysis-pipeline smoke.
 - **GitHub Actions CI** — every push runs lint + invariant tests; badge in `README.md`.
-- **HF Hub** `[TBD URL]` — v5 checkpoints with per-row predictions persisted (gap inherited from v4 — see `EVIDENCE.md` §6).
+- **HF Hub** `[TBD URL]` — checkpoints with per-row predictions persisted (see `EVIDENCE.md` §6).
 - **GitHub release** `[TBD tag]` — predictions tarball + evidence files for canonical reproduction.
 
 ### Evidence sources
 
-- **`evals/v5/REPORT.md`** `[TBD]` — v5 canonical matrix.
-- **`evals/v5/results.json`** `[TBD]` — schema-validated against eval-toolkit `results.v1.json`.
-- **`evals/v5/predictions.parquet`** `[TBD: (candidate) new for v5]` — per-row predictions persisted (v4 gap closed).
-- **`evals/v5/analysis/`** `[TBD]` — bootstrap CIs, paired comparisons, calibration, MDE, per-source breakdowns, threshold characterizations.
+- **`evals/REPORT.md`** `[TBD]` — canonical matrix.
+- **`evals/results.json`** `[TBD]` — schema-validated against eval-toolkit `results.v1.json`.
+- **`evals/predictions.parquet`** `[TBD: (candidate) ]` — per-row predictions persisted ().
+- **`evals/analysis/`** `[TBD]` — bootstrap CIs, paired comparisons, calibration, MDE, per-source breakdowns, threshold characterizations.
 - **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology curriculum + primitive implementations.
 - **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration runbook + manifests.
 - **`transcripts/`** `[TBD]` — selected Claude-Code transcripts illustrating decision points.

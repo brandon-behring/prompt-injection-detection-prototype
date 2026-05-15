@@ -1,11 +1,11 @@
-# prompt-injection-sdd — v5
+# prompt-injection-detection-submission
 
 `[TBD: CI badge]`
 
 A take-home prompt-injection classifier for **Ciphero AI**. Methodology-first; not state-of-the-art; deliberately scoped. **The work is characterization, not deployment** — each rung's trade-offs are reported; no rung is promoted.
 
 > **Full methodology**: see [`WRITEUP.md`](./WRITEUP.md).
-> **Status**: `[TBD: v5 phase status — refer to SPEC_SHEET.md process gates]`.
+> **Status**: `[TBD: phase status — see SPEC_GREENFIELD.md §Roadmap]`.
 
 ## Problem
 
@@ -15,12 +15,12 @@ The brief asked for **models of increasing complexity** to characterize what eac
 
 ## Approach
 
-- **Rung ladder** `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]` (inherited from v4). Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID.
-- **OOD slate** `[LOCKED: ood_tensortrust (cross-style extraction, all-positive), ood_notinject_eval (over-defense / FPR axis, all-benign), ood_llmail_phase2 (cross-channel indirect, all-positive, caveated), ood_indirect_probe (mixed, n=50, illustrative)]`. See WRITEUP §5.5 for *why each slice was chosen*. v5 may add slices via `[OPEN]` additions.
+- **Rung ladder** `[LOCKED: LR-TFIDF → Frozen DeBERTa probe → DeBERTa-LoRA → ProtectAI v2 → Llama Prompt Guard 2]`. Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID.
+- **OOD slate** `[LOCKED: ood_tensortrust (cross-style extraction, all-positive), ood_notinject_eval (over-defense / FPR axis, all-benign), ood_llmail_phase2 (cross-channel indirect, all-positive, caveated), ood_indirect_probe (mixed, n=50, illustrative)]`. See WRITEUP §5.5 for *why each slice was chosen*. additional slices may be added via `[OPEN]` additions.
 - **Methodology rigor** via [eval-toolkit](https://github.com/brandon-behring/eval-toolkit): bootstrap CIs on every headline metric, paired-bootstrap differences for rung-vs-rung comparisons, minimum detectable effect (MDE), calibration battery (ECE + Brier + reliability), validation-set threshold selection. Effect sizes and CIs throughout — no p-values.
 - **Reviewer-reproducible**: `make diagnostics-smoke` `[OPEN]` runs a no-external-services smoke pass on a laptop in ~10 min; canonical numbers reproducible from the GitHub release + HF Hub checkpoints.
 
-## Headline characterization (v5)
+## Headline characterization
 
 `[OPEN]` — single deployment-policy-agnostic threshold across rungs (FPR ≤ 1% on validation). No rung promoted as a winner; trade-offs are explained in WRITEUP §7. Dual-cost-weight characterization (detection vs verification operating points) lives in WRITEUP §5.3.
 
@@ -28,14 +28,14 @@ The brief asked for **models of increasing complexity** to characterize what eac
 |---|---:|---:|---:|---:|---:|
 | LR-TFIDF | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
 | Frozen DeBERTa probe | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| DeBERTa-LoRA `[LOCKED: r=8, hf_trainer, 2ep, bf16 per V4.1]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| DeBERTa-LoRA `[LOCKED: r=8, hf_trainer, 2ep, bf16 ]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
 | ProtectAI v2 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
 | Llama Prompt Guard 2 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
 
 `†` Reference scorers carry known training-overlap caveats with several public eval slices (see WRITEUP §7.2–7.3 + EVIDENCE.md §1–2). Reported as diagnostic reference, not as a clean baseline.
 
-`[FIGURE 1: PR curves all rungs, IID test slice]` → `docs/v5-plots/figure1-pr-curves-iid.png`
-`[FIGURE 2: PR curves all rungs, OOD slate]` → `docs/v5-plots/figure2-pr-curves-ood.png`
+`[FIGURE 1: PR curves all rungs, IID test slice]` → `docs/plots/figure1-pr-curves-iid.png`
+`[FIGURE 2: PR curves all rungs, OOD slate]` → `docs/plots/figure2-pr-curves-ood.png`
 
 Headline findings:
 
@@ -50,14 +50,14 @@ Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md).
 
 - [**`SUBMISSION.md`**](./SUBMISSION.md) — submission cover letter + deliverable manifest.
 - [**`WRITEUP.md`**](./WRITEUP.md) — full methodology + capability characterization (12 sections, ~5000 words).
-- [**`SPEC_SHEET.md`**](./SPEC_SHEET.md) — v5 specification: phase-by-phase process gates, data design, model recipe, eval design.
-- [**`NEXT_STEPS.md`**](./NEXT_STEPS.md) — tactical next steps on v5 + aspirational v6 + open questions.
+- [**`SPEC_SHEET.md`**](./SPEC_SHEET.md) — project specification: phase-by-phase process gates, data design, model recipe, eval design.
+- [**`NEXT_STEPS.md`**](./NEXT_STEPS.md) — tactical next steps on  + aspirational future iterations + open questions.
 - [**`EVIDENCE.md`**](./EVIDENCE.md) — audit trail: what was verified, what couldn't be, what was left unresolved.
 - [`decisions/`](./decisions/) — ADRs (Michael Nygard format; single version-neutral sequence).
-- [`evals/v5/`](./evals/v5/) `[TBD]` — v5 evaluation matrix + analysis JSONs + REPORT.md.
-- [`notebooks/`](./notebooks/) `[OPEN]` — interpretive notebooks (e.g., `v5-evidence.ipynb`).
+- [`evals/`](./evals/) `[TBD]` — evaluation matrix + analysis JSONs + REPORT.md.
+- [`notebooks/`](./notebooks/) `[OPEN]` — interpretive notebooks (e.g., `evidence.ipynb`).
 - [`transcripts/`](./transcripts/) `[TBD]` — selected Claude-Code transcripts illustrating decision points.
-- [`spec.md`](./spec.md) — the prior-version specification (v5 inherits / supersedes per ADR audit).
+- [`spec.md`](./spec.md) — the prior-version specification (inherits / supersedes per ADR audit).
 - **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology-aware eval harness. Methodology curriculum at [`docs/methodology/`](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology).
 - **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training/eval runs.
 
@@ -67,9 +67,9 @@ Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md).
 make install                  # uv sync --extra dev
 make lint                     # ruff check + ruff format --check + mypy strict
 make test                     # invariants + math correctness + smoke
-make diagnostics-smoke        # [OPEN] L1+L2A: install+lint+test+v5-smoke (~10 min, no external services)
-make v5-preflight             # [TBD] CPU preflight — gates invariants before any GPU spend
-make v5-h100                  # [TBD] canonical H100 path via runpod-deploy
+make diagnostics-smoke        # [OPEN] L1+L2A: install+lint+test+smoke (~10 min, no external services)
+make preflight             # [TBD] CPU preflight — gates invariants before any GPU spend
+make h100                  # [TBD] canonical H100 path via runpod-deploy
 ```
 
 For cloud setup, see `[TBD: (candidate) docs/cloud-canonical-runbook.md]`. For the full reproducibility framework, see `[TBD: (candidate) docs/DIAGNOSTICS.md]`.

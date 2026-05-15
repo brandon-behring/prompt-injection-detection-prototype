@@ -1,8 +1,8 @@
-# Evidence — audit trail for v5 docs
+# Evidence — audit trail
 
 This document is the **single source of truth** for what external evidence was verified, what couldn't be, and what was left unresolved. Every claim in `WRITEUP.md` §7 that depends on external evidence should have a corresponding entry here.
 
-Created in v4 (see `prompt-injection-v4/docs/submission/filled/EVIDENCE.md` for the worked example); inherited as a `[LOCKED]` discipline for v5+.
+`[LOCKED]` discipline for this iteration. Reference-scorer contamination uses the three-state taxonomy: `verified_disjoint | suspected_contamination | vendor_black_box`. Verification status per claim: `[VERIFIED|UNVERIFIED|REFUTED]`.
 
 ---
 
@@ -26,7 +26,7 @@ Created in v4 (see `prompt-injection-v4/docs/submission/filled/EVIDENCE.md` for 
 
 ---
 
-## 3. Style confound — what v5 can and can't disambiguate
+## 3. Style confound — what can and can't disambiguate
 
 `[TBD]` Per-attack-style breakdown availability:
 
@@ -56,7 +56,7 @@ Created in v4 (see `prompt-injection-v4/docs/submission/filled/EVIDENCE.md` for 
 
 ---
 
-## 6. What v5 explicitly didn't do (and why)
+## 6. What explicitly didn't do (and why)
 
 `[TBD]`:
 
