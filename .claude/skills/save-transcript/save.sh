@@ -4,21 +4,23 @@
 # and renders user + assistant messages to transcripts/<YYYY-MM-DD>__<slug>.md.
 #
 # Dependencies: jq.
-# Path-encoding convention: pwd | sed 's|/|-|g; s|^-||; s|^|-|'
-# (matches Claude Code's project-dir encoding).
+# Path-encoding convention: pwd | sed 's|[^a-zA-Z0-9]|-|g; s|^-*||; s|^|-|'
+# (matches Claude Code's project-dir encoding: all non-alphanumerics → '-',
+# single leading '-', no leading run of dashes).
 set -euo pipefail
 
 slug="${1:?usage: save.sh <slug>}"
 
-proj_dir="$HOME/.claude/projects/$(pwd | sed 's|/|-|g; s|^-||; s|^|-|')"
+proj_dir="$HOME/.claude/projects/$(pwd | sed 's|[^a-zA-Z0-9]|-|g; s|^-*||; s|^|-|')"
 session_jsonl="$(ls -t "$proj_dir"/*.jsonl 2>/dev/null | head -1)"
 [ -z "${session_jsonl:-}" ] && {
   echo "no session JSONL found in $proj_dir" >&2
   exit 1
 }
 
-mkdir -p transcripts
-out="transcripts/$(date +%Y-%m-%d)__${slug}.md"
+out_dir="${OUT_DIR:-transcripts}"
+mkdir -p "$out_dir"
+out="$out_dir/$(date +%Y-%m-%d)__${slug}.md"
 
 {
   echo "# Transcript: $slug ($(date +%Y-%m-%d))"

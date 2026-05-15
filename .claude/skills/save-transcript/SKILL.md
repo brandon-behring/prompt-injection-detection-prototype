@@ -30,10 +30,11 @@ The skill runs `.claude/skills/save-transcript/save.sh <slug>`, which:
 3. Writes a markdown rendering to `transcripts/<YYYY-MM-DD>__<slug>.md`
 
 Dependencies: `jq` must be installed. The bash script's path-encoding
-convention follows Claude Code's `pwd | sed 's|/|-|g; s|^-||; s|^|-|'`
-pattern. If Claude Code's storage format changes, the script may need an
-update — flag as an upstream issue against the harness rather than
-working around locally.
+convention follows Claude Code's
+`pwd | sed 's|[^a-zA-Z0-9]|-|g; s|^-*||; s|^|-|'` pattern
+(all non-alphanumerics → `-`, single leading dash). If Claude Code's
+storage format changes, the script may need an update — flag as an
+upstream issue against the harness rather than working around locally.
 
 ## ADR linkage
 

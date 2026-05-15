@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "OUT_DIR=transcripts/auto bash \"$CLAUDE_PROJECT_DIR/.claude/skills/save-transcript/save.sh\" \"auto__$(date +%H%M%S)\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

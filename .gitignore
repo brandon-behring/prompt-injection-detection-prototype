@@ -24,3 +24,5 @@ SUBMISSION.md
 # Transcripts: private by default. The README.md inside transcripts/ stays tracked as the convention doc.
 transcripts/*.md
 !transcripts/README.md
+# Auto-saved transcripts (SessionEnd hook output) — private like the rest
+transcripts/auto/
