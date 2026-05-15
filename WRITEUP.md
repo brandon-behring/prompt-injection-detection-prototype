@@ -1,6 +1,6 @@
 # Prompt-injection classification —  methodology + capability characterization
 
-**Author**: Brandon Behring · **Date**: `[TBD]` · **Status**: `[TBD]`
+**Author**: Brandon Behring · **Date**: `[TBD: populated at Phase 5]` · **Status**: `[TBD: populated at Phase 5]`
 
 ---
 
@@ -42,7 +42,7 @@ We do **not** pick a deployment leader. The intent is to demonstrate what each r
 
 **Linked ADRs**: `[ADR-002, ADR-014, ADR-017, ADR-021]`.
 
-**Known gaps**: `[TBD]`.
+**Known gaps**: `[TBD: populated at Phase 5]`.
 
 ---
 
@@ -60,7 +60,7 @@ Label-blind dedup looks innocuous and is wrong. It removes minimal pairs — cas
 
 `[FIGURE 3: dedup-threshold calibration histogram for the selected encoder]` → `docs/plots/figure3-dedup-calibration.png`
 
-Calibration evidence: `evals/dedup_calibration.json` `[TBD]`.
+Calibration evidence: `evals/dedup_calibration.json` `[TBD: populated at Phase 5]`.
 
 See [methodology/text_dedup.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/text_dedup.md) for the general framework.
 
@@ -201,8 +201,8 @@ For a representative rung (`[TBD: (candidate) DeBERTa-LoRA, the fine-tuned ceili
 
 | Policy | Threshold | Recall | Precision | TPR | FPR | FNR | TNR |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Detection (FPR ≤ 1%) | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| Verification (FNR ≤ 1%) | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| Detection (FPR ≤ 1%) | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` |
+| Verification (FNR ≤ 1%) | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` |
 
 This is **characterisation, not deployment recommendation**. We are showing what the scores deliver under each cost weight, not advocating either policy for any deployment.
 
@@ -220,7 +220,7 @@ The project also ships a per-attack-style heuristic tagger (regex-based; conserv
 
 | Slice | Source | Class composition | Probe target | Why chosen |
 |---|---|---|---|---|
-| `[OPEN]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| `[OPEN]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` |
 
 See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md) for the source-disjoint discipline we apply.
 
@@ -235,13 +235,13 @@ The adversarial threat model for a prompt-injection classifier includes:
 - **Multi-turn injection** — payload split across multiple conversation turns.
 - **Indirect injection via context channels** — payload arriving via retrieved documents, tool outputs, or user-attached files.
 
-What was tested: `[TBD]`. What was deliberately not tested: `[TBD]`. *Why deferred*: `[TBD — typically scope/data-availability]`. See §8 for the consolidated deferred list.
+What was tested: `[TBD: populated at Phase 5]`. What was deliberately not tested: `[TBD: populated at Phase 5]`. *Why deferred*: `[TBD — typically scope/data-availability]`. See §8 for the consolidated deferred list.
 
 This sub-section exists so that an evaluator from a security-focused company can see the threat model is named even where the work was not done. It is not a claim of coverage.
 
 **Linked ADRs**: `[ADR-008, ADR-021, ADR-022, ADR-023, ADR-024]`.
 
-**Known gaps**: `[TBD]`.
+**Known gaps**: `[TBD: populated at Phase 5]`.
 
 ---
 
@@ -275,7 +275,7 @@ The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — w
 
 **Linked ADRs**: filled in once Phase 0 locks each row.
 
-**Known gaps**: `[TBD]`.
+**Known gaps**: `[TBD: populated at Phase 5]`.
 
 ---
 
@@ -316,7 +316,7 @@ The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — w
 
 ### 7.8 The headline characterisation claims
 
-Distilled summary `[TBD]`:
+Distilled summary `[TBD: populated at Phase 5]`:
 
 - `[TBD: claim 1]`
 - `[TBD: claim 2]`
@@ -338,10 +338,10 @@ This chapter consolidates what we *consciously did not do*. These are not failur
 ### 8.1 Scope deferrals
 
 - **Deployment** — out of roadmap. The work is characterisation; no deployment recommendation; no deployment-readiness testing.
-- **Adversarial red-teaming** — threat model named in §5.6, not exhaustively probed. *Why deferred*: `[TBD]`.
-- **Agentic-flow coverage** — multi-step / tool-use injection. *Why deferred*: `[TBD]`.
-- **Conformal prediction** — distribution-free uncertainty quantification beyond bootstrap. *Why deferred*: `[TBD]`.
-- **Cross-language coverage** — English-only `[OPEN]`. *Why deferred*: `[TBD]`.
+- **Adversarial red-teaming** — threat model named in §5.6, not exhaustively probed. *Why deferred*: `[TBD: populated at Phase 5]`.
+- **Agentic-flow coverage** — multi-step / tool-use injection. *Why deferred*: `[TBD: populated at Phase 5]`.
+- **Conformal prediction** — distribution-free uncertainty quantification beyond bootstrap. *Why deferred*: `[TBD: populated at Phase 5]`.
+- **Cross-language coverage** — English-only `[OPEN]`. *Why deferred*: `[TBD: populated at Phase 5]`.
 - **Cross-source same-style ablation** `[OPEN]` — would disambiguate "training contamination" from "attack-style difficulty" for reference scorers. May be underpowered if per-style sample size is small; in that case treated as an explicit limitation. See EVIDENCE.md §3.
 - `[TBD: additional scope deferrals — populated at Phase 0]`
 
@@ -415,7 +415,7 @@ Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `e
 
 ### 10.5 Transcripts
 
-`[TBD]` Selected Claude-Code transcripts illustrating key decision points are in `transcripts/` and referenced from the appendix. Examples: `[transcript: dedup-threshold-bake-off]`, `[transcript: ood-slice-selection]`, `[transcript: protectai-overlap-audit]`.
+`[TBD: populated at Phase 5]` Selected Claude-Code transcripts illustrating key decision points are in `transcripts/` and referenced from the appendix. Examples: `[transcript: dedup-threshold-bake-off]`, `[transcript: ood-slice-selection]`, `[transcript: protectai-overlap-audit]`.
 
 **Linked ADRs**: `[ADR-016, ADR-025, ADR-027]`.
 
@@ -423,7 +423,7 @@ Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `e
 
 ## 11. Lessons & reflections
 
-`[TBD]` Short. What surprised. What the SDD process bought; what it cost.
+`[TBD: populated at Phase 5]` Short. What surprised. What the SDD process bought; what it cost.
 
 - `[TBD: lesson 1]`
 - `[TBD: lesson 2]`
@@ -460,7 +460,7 @@ Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `e
 
 ### E. Linked Claude transcripts
 
-`[TBD]` Resolved from `[transcript: <slug>]` placeholders to `transcripts/<slug>.md` once the transcript-export skill exists.
+`[TBD: populated at Phase 5]` Resolved from `[transcript: <slug>]` placeholders to `transcripts/<slug>.md` once the transcript-export skill exists.
 
 ### F. eval-toolkit methodology curriculum
 

@@ -9,19 +9,19 @@ This doc covers two forward-looking views: incremental work that builds on the p
 Things that fit on top of the project's code, data, and eval harness without architectural change.
 
 ### 1.1 `[TBD: tactical item]`
-*Why*: `[TBD]`
-*Scope*: `[TBD]`
-*Effort*: `[TBD]`
+*Why*: `[TBD: rationale]`
+*Scope*: `[TBD: scope]`
+*Effort*: `[TBD: effort estimate]`
 
 ### 1.2 `[TBD: tactical item]`
-*Why*: `[TBD]`
-*Scope*: `[TBD]`
-*Effort*: `[TBD]`
+*Why*: `[TBD: rationale]`
+*Scope*: `[TBD: scope]`
+*Effort*: `[TBD: effort estimate]`
 
 ### 1.3 `[TBD: tactical item]`
-*Why*: `[TBD]`
-*Scope*: `[TBD]`
-*Effort*: `[TBD]`
+*Why*: `[TBD: rationale]`
+*Scope*: `[TBD: scope]`
+*Effort*: `[TBD: effort estimate]`
 
 ---
 
@@ -30,16 +30,16 @@ Things that fit on top of the project's code, data, and eval harness without arc
 Things that require rethinking the project's design rather than extending it. These are not commitments; they are the contour of future direction.
 
 ### 2.1 `[TBD: aspirational direction]`
-*Why*: `[TBD]`
-*What the project was missing*: `[TBD]`
+*Why*: `[TBD: rationale]`
+*What the project was missing*: `[TBD: gap]`
 
 ### 2.2 `[TBD: aspirational direction]`
-*Why*: `[TBD]`
-*What the project was missing*: `[TBD]`
+*Why*: `[TBD: rationale]`
+*What the project was missing*: `[TBD: gap]`
 
 ### 2.3 `[TBD: aspirational direction]`
-*Why*: `[TBD]`
-*What the project was missing*: `[TBD]`
+*Why*: `[TBD: rationale]`
+*What the project was missing*: `[TBD: gap]`
 
 ---
 
@@ -47,9 +47,9 @@ Things that require rethinking the project's design rather than extending it. Th
 
 Open questions surfaced during the project. 
 
-- `[TBD: question]`
-- `[TBD: question]`
-- `[TBD: question]`
+- `[TBD: open question]`
+- `[TBD: open question]`
+- `[TBD: open question]`
 
 ---
 

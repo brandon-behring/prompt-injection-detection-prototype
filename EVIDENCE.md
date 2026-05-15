@@ -8,27 +8,27 @@ This document is the **single source of truth** for what external evidence was v
 
 ## 1. Reference scorer: `[TBD: scorer name]` — training-data contamination audit
 
-`[TBD]` Research log for the first reference scorer:
+`[TBD: populated at Phase 5]` Research log for the first reference scorer:
 
 - **Direct training-data overlap with `[TBD: source]`** — `[VERIFIED|UNVERIFIED|REFUTED]` via `[TBD: source — model card, public dataset list, hash overlap]`
-- **Indirect overlap with `[TBD: source]`** — `[VERIFIED|UNVERIFIED|REFUTED]` via `[TBD]`
+- **Indirect overlap with `[TBD: source]`** — `[VERIFIED|UNVERIFIED|REFUTED]` via `[TBD: populated at Phase 5]`
 - **Scope mismatch evidence** — `[TBD: model card scope claim vs observed fold pattern]`
 
-### Verdict: `[TBD]`
+### Verdict: `[TBD: populated at Phase 5]`
 
 ---
 
 ## 2. Reference scorer: `[TBD: scorer name]` — training-data audit
 
-`[TBD]` Research log for the second reference scorer (if applicable). If training disclosure is at category level only, document the limit and the alternative analysis (fold pattern + stated scope + confound enumeration).
+`[TBD: populated at Phase 5]` Research log for the second reference scorer (if applicable). If training disclosure is at category level only, document the limit and the alternative analysis (fold pattern + stated scope + confound enumeration).
 
-### Verdict: `[TBD]`
+### Verdict: `[TBD: populated at Phase 5]`
 
 ---
 
 ## 3. Style confound — what can and can't disambiguate
 
-`[TBD]` Per-attack-style breakdown availability:
+`[TBD: populated at Phase 5]` Per-attack-style breakdown availability:
 
 - **Tagger coverage** — `[TBD: e.g., regex catches X% of source Y's positives]`
 - **Cross-source same-style ablation** — `[TBD: scoped in, deferred, or run + results]`
@@ -38,17 +38,17 @@ This document is the **single source of truth** for what external evidence was v
 
 ## 4. Threshold methodology choices
 
-`[TBD]` What threshold characterisation was applied to which rungs:
+`[TBD: populated at Phase 5]` What threshold characterisation was applied to which rungs:
 
 - Recall@FPR at `[TBD: pinpoints]` for `[TBD: rungs]`
 - Detection (FPR≤X%) + Verification (FNR≤Y%) for `[TBD: rungs]`
-- Rationale for excluding rungs from dual-policy: `[TBD]`
+- Rationale for excluding rungs from dual-policy: `[TBD: populated at Phase 5]`
 
 ---
 
 ## 5. Replication invariants — what holds in this version
 
-`[TBD]`:
+`[TBD: populated at Phase 5]`:
 
 - Bootstrap seeds + re-seeding stability check
 - Per-fold variance
@@ -58,17 +58,17 @@ This document is the **single source of truth** for what external evidence was v
 
 ## 6. What explicitly didn't do (and why)
 
-`[TBD]`:
+`[TBD: populated at Phase 5]`:
 
-- `[TBD: gap]` — *Why deferred*: `[TBD]`
-- `[TBD: gap]` — *Why deferred*: `[TBD]`
-- `[TBD: gap]` — *Why deferred*: `[TBD]`
+- `[TBD: gap]` — *Why deferred*: `[TBD: populated at Phase 5]`
+- `[TBD: gap]` — *Why deferred*: `[TBD: populated at Phase 5]`
+- `[TBD: gap]` — *Why deferred*: `[TBD: populated at Phase 5]`
 
 ---
 
 ## 7. Sources consulted
 
-`[TBD]` — list of model cards, papers, dataset cards, prior-version docs consulted as evidence sources.
+`[TBD: populated at Phase 5]` — list of model cards, papers, dataset cards, prior-version docs consulted as evidence sources.
 
 - `[TBD: source 1]`
 - `[TBD: source 2]`

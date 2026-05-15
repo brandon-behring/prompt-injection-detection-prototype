@@ -2,7 +2,7 @@
 
 > **This is the cover-letter TEMPLATE.** It is committed to the public repo for transparency about the submission's structure. The filled-in version is `SUBMISSION.md` (gitignored; emailed to the reviewer separately at submission time).
 >
-> Fill the three `[TBD]` slots locally (`cp SUBMISSION_TEMPLATE.md SUBMISSION.md` then edit), save, and email it as the cover letter alongside the public repo URL.
+> Fill the three `[TBD: filled at submission]` slots locally (`cp SUBMISSION_TEMPLATE.md SUBMISSION.md` then edit), save, and email it as the cover letter alongside the public repo URL.
 
 **Author**: Brandon Behring
 **Date**: `[TBD: date]`

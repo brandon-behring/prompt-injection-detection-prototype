@@ -8,7 +8,7 @@ Per locked-process rule (`SPEC_GREENFIELD.md` §2): no val-set gridsearch. Hyper
 
 | Rung | Knob | Setting | Source / Rationale | ADR |
 |---|---|---|---|---|
-| `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` |
 
 ## What was explored vs not explored
 
@@ -16,9 +16,9 @@ Reviewers may suspect cherry-picking. This section enumerates what was deliberat
 
 `[TBD: populated at Phase 5]`
 
-- **Searched** — knobs / values actually swept during the project: `[TBD]`
-- **Not searched (intentional)** — knobs left at literature defaults; rationale per knob: `[TBD]`
-- **Not searched (out of scope)** — knobs deferred to future iterations; pointer to NEXT_STEPS.md: `[TBD]`
+- **Searched** — knobs / values actually swept during the project: `[TBD: value]`
+- **Not searched (intentional)** — knobs left at literature defaults; rationale per knob: `[TBD: value]`
+- **Not searched (out of scope)** — knobs deferred to future iterations; pointer to NEXT_STEPS.md: `[TBD: value]`
 
 ## Audit hook
 

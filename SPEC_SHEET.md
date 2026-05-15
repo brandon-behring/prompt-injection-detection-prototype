@@ -47,7 +47,7 @@ the project work is structured into six phases. Each phase has a gate checklist 
 ### Phase 0: Spec lock-in interview `[LOCKED]`
 
 - [ ] Agent reads this spec end-to-end
-- [ ] Every `[OPEN]` / `[TBD]` decision is surfaced as a clarifying question
+- [ ] Every `[OPEN]` / `[TBD: value]` decision is surfaced as a clarifying question
 - [ ] Human picks options for each surfaced decision
 - [ ] Decisions are recorded as ADRs (Michael Nygard format)
 - [ ] Phase 1 cannot start until every decision is resolved or explicitly deferred
@@ -102,7 +102,7 @@ Gate: every checkbox ticked; analysis JSON outputs match schemas.
 - [ ] Transcripts linked from WRITEUP appendix
 - [ ] EVIDENCE.md populated for every external-evidence claim
 - [ ] PDF bundled: README + WRITEUP + NEXT_STEPS + SPEC_SHEET + EVIDENCE
-- [ ] All `[TBD]` / `[OPEN]` markers in submission templates resolved or justified
+- [ ] All `[TBD: value]` / `[OPEN]` markers in submission templates resolved or justified
 
 Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
@@ -116,9 +116,9 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 | Source | Approx N | Role | License |
 |---|---|---|---|
-| `[OPEN]` | `[TBD]` | Train pos | `[TBD]` |
-| `[OPEN]` | `[TBD]` | Train neg | `[TBD]` |
-| `[OPEN]` | `[TBD]` | OOD only | `[TBD]` |
+| `[OPEN]` | `[TBD: value]` | Train pos | `[TBD: value]` |
+| `[OPEN]` | `[TBD: value]` | Train neg | `[TBD: value]` |
+| `[OPEN]` | `[TBD: value]` | OOD only | `[TBD: value]` |
 
 ### 3.2 Splits
 
@@ -138,7 +138,7 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 | Slice | Source | Role | Why |
 |---|---|---|---|
-| `[OPEN]` | `[TBD]` | `[TBD]` | `[TBD]` |
+| `[OPEN]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` |
 
 **Linked ADRs**: ADR-NNN (threat model), ADR-NNN (dataset slate), ADR-NNN (dedup), ADR-NNN (splits + balance) — filled in once Phase 0 locks each row.
 
@@ -223,7 +223,7 @@ The split is intentional: methodology curriculum and primitives live in `eval-to
 
 This iteration is considered complete when **all five Phase 5 gates pass**:
 
-- All WRITEUP sections drafted with `[TBD]` markers resolved.
+- All WRITEUP sections drafted with `[TBD: value]` markers resolved.
 - All  ADRs written.
 - Transcripts linked.
 - EVIDENCE.md populated for every external-evidence claim.
@@ -258,8 +258,8 @@ Plus the standard quality gates that apply to every phase:
 
 `[TBD — populate as  work proceeds]`
 
-- `[TBD]`
-- `[TBD]`
+- `[TBD: value]`
+- `[TBD: value]`
 
 ---
 

@@ -26,11 +26,11 @@ The brief asked for **models of increasing complexity** to characterize what eac
 
 | Rung | fold_test PR-AUC ± CI | OOD slice 1 | OOD slice 2 | OOD slice 3 | ECE |
 |---|---:|---:|---:|---:|---:|
-| `[OPEN]` Rung 1 | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| `[OPEN]` Rung 2 | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| `[OPEN]` Rung 3 | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` | `[TBD]` |
-| `[OPEN]` Reference scorer 1 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
-| `[OPEN]` Reference scorer 2 | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` `†` | `[TBD]` |
+| `[OPEN]` Rung 1 | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` |
+| `[OPEN]` Rung 2 | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` |
+| `[OPEN]` Rung 3 | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` |
+| `[OPEN]` Reference scorer 1 | `[TBD: value]` `†` | `[TBD: value]` `†` | `[TBD: value]` `†` | `[TBD: value]` `†` | `[TBD: value]` |
+| `[OPEN]` Reference scorer 2 | `[TBD: value]` `†` | `[TBD: value]` `†` | `[TBD: value]` `†` | `[TBD: value]` `†` | `[TBD: value]` |
 
 `†` Reference scorers may carry training-overlap caveats with public eval slices. The audit trail in EVIDENCE.md §1–2 reports a per-scorer verdict per the three-state taxonomy (`verified_disjoint` / `suspected_contamination` / `vendor_black_box`). Reported as diagnostic reference, not as a clean baseline.
 
@@ -39,10 +39,10 @@ The brief asked for **models of increasing complexity** to characterize what eac
 
 Headline findings:
 
-- `[TBD]` — the IID-vs-OOD gap and what it tells us
-- `[TBD]` — which ladder rungs help OOD vs only help IID
-- `[TBD]` — calibration findings per rung
-- `[TBD]` — the score-behavior characterization at detection-policy vs verification-policy operating points
+- `[TBD: value]` — the IID-vs-OOD gap and what it tells us
+- `[TBD: value]` — which ladder rungs help OOD vs only help IID
+- `[TBD: value]` — calibration findings per rung
+- `[TBD: value]` — the score-behavior characterization at detection-policy vs verification-policy operating points
 
 Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md). Forward-looking work in [`NEXT_STEPS.md`](./NEXT_STEPS.md). Negative results (things tried that didn't work) in WRITEUP §9. Deferred items in WRITEUP §8. Audit trail for external-evidence claims in [`EVIDENCE.md`](./EVIDENCE.md).
 
@@ -54,9 +54,9 @@ Full reading + the four characterization claims in [`WRITEUP.md`](./WRITEUP.md).
 - [**`NEXT_STEPS.md`**](./NEXT_STEPS.md) — tactical next steps on  + aspirational future iterations + open questions.
 - [**`EVIDENCE.md`**](./EVIDENCE.md) — audit trail: what was verified, what couldn't be, what was left unresolved.
 - [`decisions/`](./decisions/) — ADRs (Michael Nygard format; single version-neutral sequence).
-- [`evals/`](./evals/) `[TBD]` — evaluation matrix + analysis JSONs + REPORT.md.
+- [`evals/`](./evals/) `[TBD: value]` — evaluation matrix + analysis JSONs + REPORT.md.
 - [`notebooks/`](./notebooks/) `[OPEN]` — interpretive notebooks (e.g., `evidence.ipynb`).
-- [`transcripts/`](./transcripts/) `[TBD]` — selected Claude-Code transcripts illustrating decision points.
+- [`transcripts/`](./transcripts/) `[TBD: value]` — selected Claude-Code transcripts illustrating decision points.
 - [`spec.md`](./spec.md) — the prior-version specification (inherits / supersedes per ADR audit).
 - **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — methodology-aware eval harness. Methodology curriculum at [`docs/methodology/`](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology).
 - **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training/eval runs.
