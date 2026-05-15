@@ -301,11 +301,11 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 
 | Section | Decision | Options | Status | Rationale | Recorded in | Reference anchors |
 |---|---|---|---|---|---|---|
-| §Brief | Submission deadline / time budget | calendar date + working days available | open | | | brief itself + project plan |
-| §Brief | Deliverable format | PDF / GitHub repo / both / tarball | open | | | brief itself + submission guidelines |
-| §Brief | Repo visibility | public / private / mixed (code public + writeup private) | open | | | brief itself; GitHub privacy docs |
-| §Brief | Reviewer profile + expected reading time | hiring manager / ML researcher / mixed; 15 min / 1 hr / longer | open | | | brief itself |
-| §Brief | Brief-mandated metrics or constraints | enumerated from brief text | open | | | brief itself |
+| §Brief | Submission deadline / time budget | calendar date + working days available | locked-to-2026-05-18-tight-with-fallback-ladder (see ADR-001) | Long-scope ambition under Tight calendar via infra leverage; fallback ladder 2×3 → 2×2 → 1×2 → 1×1 pre-committed | ADR-001 | brief itself + project plan |
+| §Brief | Deliverable format | PDF / GitHub repo / both / tarball | locked-to-PDF+repo (see ADR-002) | dual-artifact hub (PDF) + evidence-locker (repo); pandoc-rendered from WRITEUP.md | ADR-002 | brief itself + submission guidelines |
+| §Brief | Repo visibility | public / private / mixed (code public + writeup private) | locked-to-public (see ADR-003) | kit default ratified; .gitignore enforces transcripts/brief/secret privacy partition | ADR-003 | brief itself; GitHub privacy docs |
+| §Brief | Reviewer profile + expected reading time | hiring manager / ML researcher / mixed; 15 min / 1 hr / longer | locked-to-A1+A2/B4-hub-spoke (see ADR-004) | dual-audience A1+A2; B4 open-ended layered via hub-and-spoke (focused PDF + repo markdown spokes) | ADR-004 | brief itself |
+| §Brief | Brief-mandated metrics or constraints | enumerated from brief text | open (in-progress Phase 0-00 Q5; sub-decisions C1-C8 locked-pending-ADR; C9-C10 pending) | | | brief itself |
 | §Tech-Stack | GPU class | H100 / A100 / consumer GPU / mixed | open | | | runpod-deploy docs; RunPod pricing page |
 | §Tech-Stack | Secrets management | env file / vault / cloud secret manager | open | | | runpod-deploy secrets pattern; project policy |
 | §Tech-Stack | Dataset cache location | local / shared / cloud | open | | | runpod-deploy cache patterns |

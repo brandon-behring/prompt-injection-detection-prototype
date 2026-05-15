@@ -15,7 +15,7 @@
 
 ## Context
 
-`[TBD: one-paragraph context populated at end of Phase 0 from ADR-001 brief alignment]`
+This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition** (2×3 trained-rung grid + multi-seed + full OOD slate + paired-bootstrap) leveraging `runpod-deploy` + `eval-toolkit` library infrastructure, and an explicit fallback ladder (2×3 → 2×2 → 1×2 → 1×1) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The deliverable is a focused PDF rendered from `WRITEUP.md` + a public GitHub repo serving as the evidence locker (ADR-002 + ADR-003), structured as a **hub-and-spoke writeup** for a dual A1+A2 audience (hiring manager + ML researcher; ADR-004). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
 
 - **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
 - **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview

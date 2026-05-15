@@ -18,6 +18,6 @@ Unverified assumptions made during the project. Severity tags drive whether the 
 
 | ID | Description | Severity | Verification status | Linked to (ADR / EVIDENCE.md §) | Notes |
 |---|---|---|---|---|---|
-| A-001 | `[TBD: populated at Phase 0 from brief alignment]` | — | unverified | | |
+| A-001 | runpod-deploy + eval-toolkit infrastructure can compress a normally-2-week 2×3-grid + multi-seed + OOD + paired-bootstrap workload into ~2.5 working days. If false, the fallback ladder (2×3 → 2×2 → 1×2 → 1×1) activates and the writeup honestly reports what was achieved, not what was attempted. | high | unverified | ADR-001 | Mid-Phase-2 checkpoint triggers fallback evaluation. |
 
-`[TBD: populated incrementally from Phase 0 onward]`
+`[TBD: populated incrementally from Phase 0 onward — Q5 sub-decisions C1-C8 carry additional assumptions (API budget, estimation-over-testing) that will be filed once Q5 fully locks]`
