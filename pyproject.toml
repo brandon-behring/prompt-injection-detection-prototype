@@ -4,7 +4,7 @@ version = "0.0.0"
 description = "Prompt-injection detection prototype: methodology case study"
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     # Load-bearing libraries (no hand-rolling allowed — see SPEC_GREENFIELD §Tech-Stack).
     # Versions locked at Phase 0 (see SPEC_GREENFIELD ledger §Tech-Stack rows for library version pins):
