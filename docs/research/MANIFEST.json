@@ -1,0 +1,229 @@
+{
+  "version": "v1",
+  "entries": [
+    {
+      "dossier_id": "attacks_defenses/01",
+      "file_path": "docs/research/attacks_defenses/01_attack_direct.md",
+      "title": "Direct prompt-injection attacks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "01",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/02",
+      "file_path": "docs/research/attacks_defenses/02_attack_indirect.md",
+      "title": "Indirect / agentic prompt-injection attacks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "02",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/03",
+      "file_path": "docs/research/attacks_defenses/03_attack_optimization.md",
+      "title": "Optimization-based attacks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "03",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/04",
+      "file_path": "docs/research/attacks_defenses/04_defense_inference_time.md",
+      "title": "Inference-time defenses",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "04",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/05",
+      "file_path": "docs/research/attacks_defenses/05_defense_training_time.md",
+      "title": "Training-time defenses",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "05",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/06",
+      "file_path": "docs/research/attacks_defenses/06_threat_model_survey.md",
+      "title": "Threat models and surveys",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "06",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/COMPARISON",
+      "file_path": "docs/research/attacks_defenses/COMPARISON.md",
+      "title": "Comparison \u2014 Toolkit-produced ledger vs project's manual citations",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "COMPARISON",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "attacks_defenses/",
+      "file_path": "docs/research/attacks_defenses/_dossier_readme.md",
+      "title": "Dossier \u2014 Prompt-injection attacks and defenses",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "",
+      "tags": [
+        "attacks",
+        "defenses"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "benchmarks/01",
+      "file_path": "docs/research/benchmarks/01_benchmark_direct.md",
+      "title": "Direct-attack benchmarks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "01",
+      "tags": [
+        "evals",
+        "benchmarks"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "benchmarks/02",
+      "file_path": "docs/research/benchmarks/02_benchmark_indirect_agentic.md",
+      "title": "Indirect / agentic benchmarks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "02",
+      "tags": [
+        "evals",
+        "benchmarks"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "benchmarks/03",
+      "file_path": "docs/research/benchmarks/03_benchmark_hard_negative.md",
+      "title": "Hard-negative and over-refusal benchmarks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "03",
+      "tags": [
+        "evals",
+        "benchmarks"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "benchmarks/04",
+      "file_path": "docs/research/benchmarks/04_benchmark_ctf_adaptive.md",
+      "title": "CTF / red-team / adaptive benchmarks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "04",
+      "tags": [
+        "evals",
+        "benchmarks"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "benchmarks/COMPARISON",
+      "file_path": "docs/research/benchmarks/COMPARISON.md",
+      "title": "Comparison \u2014 Toolkit-produced ledger vs project's manual citations",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "COMPARISON",
+      "tags": [
+        "evals",
+        "benchmarks"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "benchmarks/",
+      "file_path": "docs/research/benchmarks/_dossier_readme.md",
+      "title": "Dossier \u2014 Prompt-injection benchmarks",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "",
+      "tags": [
+        "evals",
+        "benchmarks"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "datasets/01",
+      "file_path": "docs/research/datasets/01_train_positives.md",
+      "title": "Training-positives datasets",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "01",
+      "tags": [
+        "data",
+        "corpora"
+      ],
+      "related_dossiers": []
+    },
+    {
+      "dossier_id": "datasets/03",
+      "file_path": "docs/research/datasets/03_ood_eval.md",
+      "title": "Out-of-distribution evaluation datasets",
+      "verification_status": "verified",
+      "verified_at": "2026-05-15",
+      "confidence_level": "high",
+      "claim_family": "03",
+      "tags": [
+        "data",
+        "corpora"
+      ],
+      "related_dossiers": []
+    }
+  ]
+}
