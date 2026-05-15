@@ -368,33 +368,60 @@ The process discipline below is `[LOCKED]`. Adopting this spec means adopting th
 
 ## Appendix: Decision ledger
 
-Track every `[OPEN]` decision raised by the spec. The implementer fills this in during Phase 0 (and updates as further decisions surface).
+Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Status legend: `open` (not yet decided) / `locked-to-X (see ADR-NNN)` (decided) / `deferred-to-phase-N` (explicitly punted with rationale) / `superseded-by-NNN` (locked, then changed).
 
-| Section | Decision | Options | Status | Rationale | Recorded in |
-|---|---|---|---|---|---|
-| Tech-Stack | GPU class, secrets, cache | … | open | | |
-| Roadmap | Phase tailoring | as-is / project-specific tailoring | open | | |
-| §0 Threat | Attack classes in scope | direct / direct+indirect / direct+adversarial / custom | open | | |
-| §0 Threat | Language scope | English-only / multilingual | open | | |
-| §0 Threat | Length cap | tokens | open | | |
-| §1 Data | Source selection | dataset list | open | | |
-| §1 Data | HF dataset revision pinning | pin SHAs / lockstep / `revision="main"` | open | | |
-| §1 Data | Dedup encoder + threshold | n-gram / MiniLM / MPNet / hybrid; threshold | open | | |
-| §1 Data | Cross-source benign dedup ordering | before-split / after-split | open | | |
-| §1 Data | Splits structure | single / k-fold / source-disjoint LODO / hybrid | open | | |
-| §1 Data | Reference-scorer audit for partial disclosure | fold pattern / scope cross-check / same-style ablation / all-three | open | | |
-| §2 Model | Ladder rung count + identities | rung list | open | | |
-| §2 Model | LoRA epoch policy | 1ep / 2ep / 3+ / early-stop | open | | |
-| §2 Model | LoRA precision policy | bf16 / fp16 / fp32 | open | | |
-| §2 Model | LoRA class-weight implementation | sklearn-style / HF-Trainer-style / uniform | open | | |
-| §2 Model | Compute budget | GPU class + time per rung | open | | |
-| §3 Eval | OOD slate | slice list | open | | |
-| §4 Threshold | Cost-weight targets | FPR / FNR percentages | open | | |
-| §5 Code | Module layout | project-specific | open | | |
-| §5 Code | Smoke vs canonical separation | profile-switch / two-targets / three-tiers | open | | |
-| §6 Verify | Project-specific acceptance criteria | … | open | | |
-| §6 Verify | Compute cost cap | strict / soft / none + dollar amount | open | | |
+| Section | Decision | Options | Status | Rationale | Recorded in | Reference anchors |
+|---|---|---|---|---|---|---|
+| §Brief | Submission deadline / time budget | calendar date + working days available | open | | | brief itself + project plan |
+| §Brief | Deliverable format | PDF / GitHub repo / both / tarball | open | | | brief itself + submission guidelines |
+| §Brief | Repo visibility | public / private / mixed (code public + writeup private) | open | | | brief itself; GitHub privacy docs |
+| §Brief | Reviewer profile + expected reading time | hiring manager / ML researcher / mixed; 15 min / 1 hr / longer | open | | | brief itself |
+| §Brief | Brief-mandated metrics or constraints | enumerated from brief text | open | | | brief itself |
+| §Tech-Stack | GPU class | H100 / A100 / consumer GPU / mixed | open | | | runpod-deploy docs; RunPod pricing page |
+| §Tech-Stack | Secrets management | env file / vault / cloud secret manager | open | | | runpod-deploy secrets pattern; project policy |
+| §Tech-Stack | Dataset cache location | local / shared / cloud | open | | | runpod-deploy cache patterns |
+| §Tech-Stack | eval-toolkit version | semver pin | open | | | https://github.com/brandon-behring/eval-toolkit/releases |
+| §Tech-Stack | runpod-deploy version | semver pin | open | | | https://github.com/brandon-behring/runpod-deploy/releases |
+| §Tech-Stack | research_toolkit version | semver pin | open | | | https://github.com/brandon-behring/research_toolkit/releases |
+| §Tech-Stack | Python version pin | >=3.10 / >=3.11 / >=3.12 / >=3.13 | open | | | https://devguide.python.org/versions/ |
+| §Tech-Stack | Library-first / hand-rolling | locked: library primitives only; project-specific glue allowed | locked-to-spec | anti-hand-rolling discipline; project glue exception | inline §Tech-Stack | n/a |
+| §Tech-Stack | Upstream-issue triage | locked: file issues before workarounds | locked-to-spec | contribution-trail discipline | inline §Tech-Stack + decisions/upstream_issues.md | n/a |
+| Roadmap | Phase tailoring | as-is / project-specific tailoring | open | | | inline §Roadmap |
+| §0 Threat | Attack classes in scope | direct / direct+indirect / direct+adversarial / custom | open | | | docs/research/attacks_defenses/; OWASP LLM Top 10 |
+| §0 Threat | Language scope | English-only / multilingual | open | | | docs/research/datasets/; corpus language stats |
+| §0 Threat | Length cap | tokens | open | | | HF tokenizer docs; DeBERTa/ModernBERT context limits |
+| §1 Data | Source selection | dataset list | open | | | docs/research/datasets/; HF dataset cards |
+| §1 Data | HF dataset revision pinning | pin SHAs / lockstep / `revision="main"` | open | | | HF datasets revision docs |
+| §1 Data | Dedup encoder + threshold | n-gram / MiniLM / MPNet / hybrid; threshold | open | | | eval-toolkit methodology/text_dedup.md; sentence-transformers docs |
+| §1 Data | Cross-source benign dedup ordering | before-split / after-split | open | | | eval-toolkit methodology/leakage.md |
+| §1 Data | Splits structure | single / k-fold / source-disjoint LODO / hybrid | open | | | Fomin 2025 "When Benchmarks Lie"; eval-toolkit methodology/splits.md |
+| §1 Data | Reference-scorer audit for partial disclosure | fold pattern / scope cross-check / same-style ablation / all-three | open | | | docs/research/attacks_defenses/; eval-toolkit leakage docs |
+| §2 Model | Backbone choice | DeBERTa-v3 / ModernBERT / both / other | open | | | docs/research/attacks_defenses/; HF model cards; ModernBERT paper (arXiv:2412.13663) |
+| §2 Model | Training-time scope | full FT / LoRA / both / frozen-only | open | | | LoRA paper (Hu et al. 2021, arXiv:2106.09685); PEFT docs |
+| §2 Model | Frozen-probe role | candidate detector / diagnostic rung / both | open | | | eval-toolkit methodology/comparison.md |
+| §2 Model | Matched-budget controls | yes / no / per-axis | open | | | docs/research/attacks_defenses/; cross-architecture-control patterns |
+| §2 Model | Reference scorer selection | which off-the-shelf models, if any | open | | | HF model cards (ProtectAI v2; Llama Prompt Guard 2) |
+| §2 Model | LoRA epoch policy | 1ep / 2ep / 3+ / early-stop | open | | | LoRA paper; PEFT training guides |
+| §2 Model | LoRA precision policy | bf16 / fp16 / fp32 | open | | | torch.cuda.amp docs; H100 bf16 throughput note |
+| §2 Model | LoRA class-weight implementation | sklearn-style / HF-Trainer-style / uniform | open | | | sklearn class_weight docs; HF Trainer docs |
+| §2 Model | Compute budget | GPU class + time per rung | open | | | runpod-deploy pricing; project cost cap |
+| §3 Eval | OOD slate | slice list | open | | | docs/research/benchmarks/; docs/research/datasets/ |
+| §3 Eval | Bootstrap N | 10K / 100K / both | open | | | eval-toolkit methodology/bootstrap.md; Efron 1979 |
+| §3 Eval | Multi-comparison correction | BH-FDR / Bonferroni / none | open | | | eval-toolkit methodology/comparison.md; Benjamini-Hochberg 1995 |
+| §3 Eval | Recall@FPR pinpoints | {0.1%, 1%, 5%} / {1%, 5%} / other | open | | | docs/research/benchmarks/; PromptShield 2025 |
+| §3 Eval | Calibration battery composition | ECE equal-mass / debiased / Brier / reliability bins | open | | | eval-toolkit methodology/calibration.md; Kumar 2019 (arXiv:1909.10155) |
+| §3 Eval | Multi-seed protocol | count + values + paired-across-rungs | open | | | eval-toolkit bootstrap docs; reproducibility-checklist patterns |
+| §3 Eval | Paired-test method | paired bootstrap / DeLong / McNemar / combo | open | | | DeLong et al. 1988; eval-toolkit methodology/comparison.md |
+| §4 Threshold | Cost-weight targets | FPR / FNR percentages | open | | | eval-toolkit methodology/thresholds.md; PromptShield 2025 |
+| §5 Code | Module layout | project-specific | open | | | (project-specific; no external reference) |
+| §5 Code | Smoke vs canonical separation | profile-switch / two-targets / three-tiers | open | | | eval-toolkit Makefile patterns |
+| §STYLE | Coverage floor | 70% / 80% / 90% / no floor | open | | | STYLE.md; pytest-cov docs |
+| §STYLE | Test marker strategy | which of: unit / smoke / integration / network / golden / property | open | | | pytest marker docs |
+| §Submission | PDF bundle composition | which docs concat into the deliverable PDF | open | | | brief itself; pandoc/typst docs |
+| §Submission | HF Hub checkpoint publication | yes / no / which scorers | open | | | HF Hub upload docs |
+| §Submission | GitHub release strategy | tag-at-submission only / multiple tags during Phase 1+ | open | | | Keep-a-Changelog; SemVer.org |
+| §Submission | Reproducibility tier | laptop-only smoke / GPU-rental canonical / both | open | | | runpod-deploy reproduction patterns |
+| §6 Verify | Project-specific acceptance criteria | … | open | | | inline §6 |
+| §6 Verify | Compute cost cap | strict / soft / none + dollar amount | open | | | RunPod pricing; project budget |
 
-Status legend: `open` (not yet decided) / `locked-to-X` (decided; X is the chosen option) / `deferred-to-phase-N` (explicitly punted with rationale).
-
-When status changes to `locked-to-X`, fill in **Rationale** and **Recorded in** (ADR number or "inline in spec").
+When status changes to `locked-to-X`, fill in **Rationale** and **Recorded in** (ADR number or "inline in spec"). The "Reference anchors" column lists `docs/research/<topic>/` dossier files + external URLs (paper / library doc / methodology guide) that informed the locked choice — populated during `/exploring-options` Phase 0 sub-sessions per the educational-references rule in §Roadmap Phase 0.
