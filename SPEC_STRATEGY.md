@@ -18,7 +18,7 @@ The point of this document is to make the **SDD judgment itself** legible to a r
 
 ## Rebuild mode
 
-**Improved redesign** (greenfield case study). No prior-iteration parity to preserve; the spec is the contract for what will be built.
+**Improved redesign** (greenfield case study). No parity to preserve; the spec is the contract for what will be built.
 
 ## Recommended spec pack
 
