@@ -211,7 +211,7 @@ Required for any OOD claim — aggregate metrics hide heterogeneity. Reported al
 
 The work spans three repos:
 
-- **`prompt-injection-detection-submission`** (this repo) — modelling: data loading, training, classification API, project-specific scoring code.
+- **`prompt-injection-detection-prototype`** (this repo) — modelling: data loading, training, classification API, project-specific scoring code.
 - **[`eval-toolkit`](https://github.com/brandon-behring/eval-toolkit)** — evaluation harness: metrics, bootstrap, calibration, threshold selection, leakage detection, slice-aware orchestration, reproducibility manifests, versioned JSON schemas.
 - **[`runpod-deploy`](https://github.com/brandon-behring/runpod-deploy)** — cloud orchestration for training/eval runs on rented GPUs. **the project's additions**: prediction-persistence pull-pattern + checkpoint upload-to-HF-Hub pattern.
 

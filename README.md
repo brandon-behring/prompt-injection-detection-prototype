@@ -1,5 +1,7 @@
 # prompt-injection-detection-prototype
 
+
+
 A prompt-injection classifier prototype, built spec-first. Every decision is locked via a structured Phase 0 interview; every claim cites evidence; every reference scorer is contamination-audited per a three-state taxonomy. **Library-first**: zero hand-rolled implementations — uses [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) (eval primitives), [runpod-deploy](https://github.com/brandon-behring/runpod-deploy) (cloud), and [research_toolkit](https://github.com/brandon-behring/research_toolkit) (dossier production).
 
 > **Status**: `[TBD: phase status — see docs/ROADMAP.md]`. The work is characterization, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.

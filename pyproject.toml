@@ -1,7 +1,7 @@
 [project]
-name = "prompt-injection-detection-submission"
+name = "prompt-injection-detection-prototype"
 version = "0.0.0"
-description = "Case-study submission: prompt-injection detection methodology"
+description = "Prompt-injection detection prototype: methodology case study"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
