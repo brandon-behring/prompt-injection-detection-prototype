@@ -1,0 +1,39 @@
+[project]
+name = "prompt-injection-detection-submission"
+version = "0.0.0"
+description = "Case-study submission: prompt-injection detection methodology"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+    # Load-bearing libraries (no hand-rolling allowed — see SPEC_GREENFIELD §Tech-Stack).
+    # Versions locked at Phase 0 (see SPEC_GREENFIELD ledger §Tech-Stack rows for library version pins):
+    # "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@vX.Y.Z",
+    # "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@vX.Y.Z",
+    # "research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@vX.Y.Z",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4",
+    "mypy>=1.8",
+    "pytest>=8",
+    "pytest-cov>=4",
+    "pyyaml>=6",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "unit: fast, deterministic unit tests",
+    "smoke: end-to-end smoke tests (~5 min)",
+    "integration: integration tests (may need network or GPU)",
+    "network: tests that require network access",
+]

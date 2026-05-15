@@ -1,0 +1,21 @@
+__pycache__/
+*.py[oc]
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.DS_Store
+evals/predictions/
+evals/checkpoints/
+# Secrets — never commit (repo is public)
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.cert
+secrets/
+.secrets/
