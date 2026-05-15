@@ -467,11 +467,11 @@ Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `e
 
 ### B. ADR index
 
-[`decisions/README.md`](../decisions/README.md) — single version-neutral sequence;  ADRs supersede prior ones via the standard `superseded-by-ADR-N` mechanism.
+[`decisions/README.md`](./decisions/README.md) — single version-neutral sequence;  ADRs supersede prior ones via the standard `superseded-by-ADR-N` mechanism.
 
 ### C. Assumption ledger
 
-[`assumptions.md`](../assumptions.md) — every assumption with severity ≥ medium appears in §8.2 above.
+[`assumptions.md`](./assumptions.md) — every assumption with severity ≥ medium appears in §8.2 above.
 
 ### D. Audit trail
 
