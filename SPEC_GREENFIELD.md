@@ -305,10 +305,10 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §Brief | Deliverable format | PDF / GitHub repo / both / tarball | locked-to-PDF+repo (see ADR-002) | dual-artifact hub (PDF) + evidence-locker (repo); pandoc-rendered from WRITEUP.md | ADR-002 | brief itself + submission guidelines |
 | §Brief | Repo visibility | public / private / mixed (code public + writeup private) | locked-to-public (see ADR-003) | kit default ratified; .gitignore enforces transcripts/brief/secret privacy partition | ADR-003 | brief itself; GitHub privacy docs |
 | §Brief | Reviewer profile + expected reading time | hiring manager / ML researcher / mixed; 15 min / 1 hr / longer | locked-to-A1+A2/B4-hub-spoke (see ADR-004) | dual-audience A1+A2; B4 open-ended layered via hub-and-spoke (focused PDF + repo markdown spokes) | ADR-004 | brief itself |
-| §Brief | Brief-mandated metrics or constraints | enumerated from brief text | open (in-progress Phase 0-00 Q5; sub-decisions C1-C8 locked-pending-ADR; C9-C10 pending) | | | brief itself |
+| §Brief | Brief-mandated metrics or constraints | enumerated from brief text | locked-to-Q5-batch (see ADR-006 to ADR-012) | 4-metric headlines + 3-pinpoint Recall@FPR + estimation-over-testing + rung architecture + Cohen's kappa + public-only data + hybrid splits + process mandates + scope+extension-conditions + 8 methodology guarantees + soft-signals naming + artifact engagement set | ADR-006..012 | brief itself |
 | §Tech-Stack | GPU class | H100 / A100 / consumer GPU / mixed | open | | | runpod-deploy docs; RunPod pricing page |
 | §Tech-Stack | Secrets management | env file / vault / cloud secret manager | open | | | runpod-deploy secrets pattern; project policy |
-| §Tech-Stack | Dataset cache location | local / shared / cloud | open | | | runpod-deploy cache patterns |
+| §Tech-Stack | Dataset cache location | local / shared / cloud | locked-to-local+HFHub-or-S3 (see ADR-013) | pre-teardown persistence discipline; per-row predictions local + checkpoints HF Hub | ADR-013 | runpod-deploy cache patterns |
 | §Tech-Stack | eval-toolkit version | semver pin | open | | | https://github.com/brandon-behring/eval-toolkit/releases |
 | §Tech-Stack | runpod-deploy version | semver pin | open | | | https://github.com/brandon-behring/runpod-deploy/releases |
 | §Tech-Stack | research_toolkit version | semver pin | open | | | https://github.com/brandon-behring/research_toolkit/releases |
@@ -362,9 +362,9 @@ These rows surface kit-level defaults that the project should explicitly affirm 
 
 | Section | Decision | Options | Status | Rationale | Recorded in | Reference anchors |
 |---|---|---|---|---|---|---|
-| §Kit-Ratify | Phase 0 strictness | all [OPEN] resolved (default) / high-med only / iterative | open | | | `docs/ROADMAP.md` §Phase 0 close criterion |
-| §Kit-Ratify | Brief-intake protocol | live Phase 0-00 sub-session (default) / pre-read / async-issues | open | | | `docs/ROADMAP.md` §Phase 0-00 |
-| §Kit-Ratify | Repository visibility | public from start (default) / private-then-public / mixed | open | | | `.gitignore`; `SPEC_STRATEGY.md` |
-| §Kit-Ratify | Notebook format | jupytext-paired (default) / pure `.ipynb` / no notebooks | open | | | `pyproject.toml [tool.jupytext]`; `notebooks/README.md` |
+| §Kit-Ratify | Phase 0 strictness | all [OPEN] resolved (default) / high-med only / iterative | locked-to-all-OPEN-resolved (see ADR-013) | discipline floor matches CLAUDE.md anti-pattern on untracked methodology | ADR-013 | `docs/ROADMAP.md` §Phase 0 close criterion |
+| §Kit-Ratify | Brief-intake protocol | live Phase 0-00 sub-session (default) / pre-read / async-issues | locked-to-live-phase-0-00 (see ADR-013) | transcript captured for ADR linkage | ADR-013 | `docs/ROADMAP.md` §Phase 0-00 |
+| §Kit-Ratify | Repository visibility | public from start (default) / private-then-public / mixed | locked-to-public (see ADR-003) | re-affirms §Brief Q3 lock | ADR-003 | `.gitignore`; `SPEC_STRATEGY.md` |
+| §Kit-Ratify | Notebook format | jupytext-paired (default) / pure `.ipynb` / no notebooks | locked-to-jupytext-paired-illustrative-only (see ADR-013) | notebooks load precomputed artifacts; GPU runs are scripts | ADR-013 | `pyproject.toml [tool.jupytext]`; `notebooks/README.md` |
 
 When status changes to `locked-to-X`, fill in **Rationale** and **Recorded in** (ADR number or "inline in spec"). The "Reference anchors" column lists `docs/research/<topic>/` dossier files + external URLs (paper / library doc / methodology guide) that informed the locked choice — populated during `/exploring-options` Phase 0 sub-sessions per the educational-references rule in §Roadmap Phase 0.
