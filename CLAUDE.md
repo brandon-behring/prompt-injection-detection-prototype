@@ -103,3 +103,4 @@ frontmatter field.
 - Adding a methodology component without an ADR
 - Adding an evaluation dataset without a leakage scan
 - Persisting only summary metrics without per-row predictions
+- Introducing a project-specific term without adding it to `docs/GLOSSARY.md`
