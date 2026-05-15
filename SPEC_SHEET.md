@@ -186,7 +186,7 @@ Anchored to [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) prim
 - `bootstrap_ci` — per-metric finite-sample uncertainty. See [methodology/bootstrap.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md).
 - `paired_bootstrap_diff` — paired comparisons across rungs on the same test set. See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md).
 - `mde_from_ci` — minimum detectable effect.
-- Calibration battery (`reliability_curve`, `fit_temperature`, `fit_isotonic`, ECE variants, Brier). See [methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md).
+- Calibration battery (`reliability_curve`, `fit_temperature`, `fit_isotonic_calibrator`, ECE variants, Brier). See [methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md).
 - `cv_clt_ci` — CLT-based CI for cross-fold variance.
 
 ### 5.3 Operating points — detection vs verification

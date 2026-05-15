@@ -1,8 +1,14 @@
 # Manifest schema
 
-Every canonical evaluation run produces a `manifest.json` capturing provenance. The schema is owned upstream by [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) (`manifest.v1.json` or later versions); this file documents the **expected fields** so a reviewer inspecting `evals/<run>/manifest.json` knows what's there and why each field exists.
+Every canonical evaluation run produces a `manifest.json` capturing provenance. The schema is owned upstream by [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) and has evolved across versions:
 
-`[OPEN]` Exact schema version is locked at Phase 0-08 (library version pinning); the field list below reflects the upstream-as-of-seed expectation.
+- `manifest.v1.json` — original NeurIPS-aligned schema (git_sha, code_versions, env, gpu_info, seeds, data_hashes, config_hash, leakage_report, versioned_objects, source_roles, guardrails, prediction_artifacts)
+- `manifest.v2.json` — extends v1 with additional fields (eval-toolkit v0.16+)
+- `manifest.v3.json` — **current default as of eval-toolkit v0.23.0**; adds **required** `contamination_flags` field (per-scorer three-state taxonomy), `captured_at` ISO-8601 timestamp, `data_revisions` (HuggingFace dataset + model commit SHAs), and `metadata`
+
+This file documents the **expected fields** so a reviewer inspecting `evals/<run>/manifest.json` knows what's there and why each field exists.
+
+`[OPEN]` Exact schema version is locked at Phase 0-08 (library version pinning). The default is v3 unless Phase 0 locks otherwise.
 
 ## Required fields
 

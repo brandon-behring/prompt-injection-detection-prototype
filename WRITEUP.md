@@ -73,7 +73,7 @@ Three checks for in-pool leakage, plus a separate reference-scorer audit:
 3. **Cross-source benign dedup** — `[OPEN]` ordering (before-split / after-split). The rule prevents fold-leakage failures when within-source dedup leaves benign duplicates that survive the split.
 4. **Reference-scorer training-overlap audit** — `[LOCKED]` any external reference scorer gets its publicly-named training datasets crossed with project sources. Where disclosure is only at category level, the audit shifts to fold-pattern + scope-mismatch analysis — see EVIDENCE.md §1–2.
 
-Reported as `[TBD: per-slice overlap percentages]`. See [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
+Reported as `[TBD: per-slice overlap percentages]`. The eval-toolkit leakage check suite operationalizes the 8-type taxonomy from Kapoor & Narayanan 2023 (arXiv:2207.07048) — 294 non-replicating papers traced to leakage — via reference implementations: `ExactDuplicateCheck`, `NearDuplicateCheck`, `NormalizedFormLeakageCheck`, `CrossSplitLeakageCheck`, `LabelConflictCheck`, `GroupLeakageCheck`, `TemporalLeakageCheck`. See [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
 
 ### 3.4 Splits
 
@@ -150,13 +150,13 @@ See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/
 
 *Why*: a point estimate of PR-AUC hides finite-sample variance. Without a CI, claiming rung A beats rung B is irresponsible — the gap may be smaller than the sampling noise. Per-row resampling preserves label distribution and avoids parametric assumptions.
 
-Method: percentile bootstrap; 10000 resamples; pinned seed (`bootstrap_seed=42`). Stability check at `bootstrap_seed=43` — per-fold CI shifts > 0.01 flag instability. See [methodology/bootstrap.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md).
+Method: BCa bootstrap (Efron 1987 / Efron & Tibshirani 1993 §14); resample budget per eval-toolkit guidance (`bootstrap.md` lines 147-158): n=200 sanity / n=1000 default / n=5000 publication-grade / n=10K+ only for expensive metrics. Pinned seed; stability check at a second seed flags instability if per-fold CI shifts > 0.01. **Report the point estimate, not the resample mean** — `BootstrapCI.point_estimate` is the metric on the *original* data (eval-toolkit `bootstrap.md` lines 165-168). See [methodology/bootstrap.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md).
 
 #### Paired-bootstrap differences for rung-vs-rung — `paired_bootstrap_diff`
 
-*Why*: when two rungs are evaluated on the same test set, their per-row errors are correlated. Paired bootstrap accounts for that correlation without requiring parametric assumptions like DeLong's. One primitive covers AUC differences, recall@FPR differences, and threshold-based differences uniformly — no need to mix DeLong + McNemar + permutation tests.
+*Why*: when two rungs are evaluated on the same test set, their per-row errors are correlated. Paired bootstrap accounts for that correlation without requiring parametric assumptions like DeLong's. One primitive covers AUC differences, recall@FPR differences, and threshold-based differences uniformly — no need to mix DeLong + McNemar + permutation tests. Non-overlapping CIs imply significance; overlap does NOT imply non-significance — always compute the difference CI (eval-toolkit `bootstrap.md` lines 162-164).
 
-Method: per-row pairing; matched resamples; CI on the paired Δ. Reported wherever we make a comparative claim. See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md).
+Method: per-row pairing; matched resamples; CI on the paired Δ. Reported wherever we make a comparative claim. Specialized variants `paired_bootstrap_ece_diff` (ECE comparisons) and `paired_bootstrap_op_point_diff` (two-level bootstrap for threshold refitting) handle non-AUC paired metrics. `delong_roc_variance` is available for sanity-check parametric ROC-AUC CIs (DeLong et al. 1988). See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md).
 
 #### MDE — `mde_from_ci`
 
@@ -164,9 +164,11 @@ Method: per-row pairing; matched resamples; CI on the paired Δ. Reported wherev
 
 Method: derive MDE from CI width at α=0.05, power=0.80. Report alongside every CI that includes zero.
 
-#### Calibration battery — `reliability_curve` + `fit_temperature` + `fit_isotonic` + ECE variants + Brier
+#### Calibration battery — `reliability_curve` + `fit_temperature` + `fit_isotonic_calibrator` + `fit_platt_calibrator` + `fit_beta_calibrator` + ECE variants + Brier
 
-*Why*: even without a deployment goal, calibration tells you whether the scores mean what they claim. A score of 0.9 should fire injections ~90% of the time. ECE quantifies the gap; Brier is a proper scoring rule that combines calibration and discrimination so an improvement can't game one at the other's expense; reliability curves diagnose *where* miscalibration concentrates (over-confident on the cleanest? under-confident on the most ambiguous?). Temperature and isotonic scaling are the standard post-hoc calibration repairs, fit on validation only.
+*Why*: even without a deployment goal, calibration tells you whether the scores mean what they claim. A score of 0.9 should fire injections ~90% of the time. ECE quantifies the gap; Brier is a proper scoring rule that decomposes as `BS = REL − RES + UNC` (Murphy 1973), so two models with same Brier may have very different operational profiles. Reliability curves diagnose *where* miscalibration concentrates (over-confident on the cleanest? under-confident on the most ambiguous?). Temperature (Guo et al. 2017 ICML; single-parameter logit scaling; argmax-invariant), isotonic, Platt (1999), and Beta scaling are the standard post-hoc repairs, fit on validation only.
+
+**ECE choice matters**: prefer L2-debiased ECE (Kumar et al. 2019, arXiv:1909.10155) for headline reporting — preserves rank ordering and removes small-sample inflation (`expected_calibration_error_l2_debiased`). Equal-mass ECE (`expected_calibration_error_equal_mass`) is more robust under class imbalance via quantile binning (Naeini et al. 2015, arXiv:1411.0760). **Pin `n_bins` across comparisons** — ECE is a binned estimator; small bin counts understate, large bin counts overstate.
 
 `[FIGURE 4: reliability curves all rungs (IID + OOD)]` → `docs/plots/figure4-reliability-curves.png` `[TBD: (candidate) requires per-row predictions persisted;  adds]`
 
@@ -174,7 +176,15 @@ See [methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit
 
 #### CV-CLT CI for cross-fold variance — `cv_clt_ci`
 
-*Why*: when we run source-disjoint k-fold as a supplement, per-fold metrics aren't independent — train sets overlap across folds. A naive standard-error treatment overstates confidence. CLT-based CI with Nadeau-Bengio-style variance correction handles the dependence properly. See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+*Why*: when we run source-disjoint k-fold as a supplement, per-fold metrics aren't independent — train sets overlap across folds. A naive standard-error treatment overstates confidence. CLT-based CI with Bates et al. 2024 (JASA) correction handles the dependence properly. See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+
+#### Multi-comparison correction — `bh_fdr_correct`
+
+*Why*: when comparing many rung-pairs simultaneously, family-wise error inflates. Benjamini-Hochberg FDR (BH 1995) is preferred over Bonferroni for power reasons in correlated-test families. eval-toolkit exposes this directly; the Phase 0 decision-ledger row "Multi-comparison correction" picks BH-FDR / Bonferroni / none with rationale. See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md).
+
+#### Evidence gates — release-time go/no-go
+
+*Why*: claims at submission need machine-checkable gates, not implicit confidence. eval-toolkit's `claims.md` provides composable gates: `metric_threshold_gate`, `low_fpr_feasibility_gate`, `paired_diff_present_gate`, `no_leakage_errors_gate`, etc. The `ClaimSpec` → `GateResult` → `ClaimReport` pipeline (v0.9+) gives a release-gate manifest a reviewer can audit. See [methodology/claims.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/claims.md).
 
 ### 5.3 Operating points — detection vs verification (score-behaviour characterisation)
 
@@ -253,11 +263,11 @@ The modelling work, the evaluation harness, and the cloud orchestration live in 
 
 A library-grade harness for binary classification with three tiers:
 
-- **Tier 1: functional core** — `bootstrap_ci`, `paired_bootstrap_diff`, `mde_from_ci`, PR-AUC / ROC-AUC / Brier / ECE variants, `reliability_curve`, `fit_temperature`, `fit_isotonic`, `cv_clt_ci`. Pure numpy/scipy/sklearn.
+- **Tier 1: functional core** — `bootstrap_ci`, `paired_bootstrap_diff`, `mde_from_ci`, PR-AUC / ROC-AUC / Brier / ECE variants, `reliability_curve`, `fit_temperature`, `fit_isotonic_calibrator`, `cv_clt_ci`. Pure numpy/scipy/sklearn.
 - **Tier 2: Protocol-based orchestration** — `Scorer`, `SliceAwareScorer`, `LeakageCheck`, `Splitter`, `ThresholdSelector`, `DatasetLoader`, `SimilarityStrategy`. Opt-in versioning per protocol object.
-- **Tier 3: reproducibility scaffolding** — versioned JSON schemas (`results.v1.json`, `results_full.v1.json`, `manifest.v1.json`); NeurIPS-aligned manifest capturing seeds, git SHA, data hashes, GPU info, leakage report.
+- **Tier 3: reproducibility scaffolding** — versioned JSON schemas (`results.v1.json`, `results_full.v1.json`, `manifest.v1.json` through `manifest.v3.json`; v3 adds required `contamination_flags` field for the three-state reference-scorer audit taxonomy). NeurIPS-aligned manifest capturing seeds, git SHA, data hashes, data revisions, GPU info, leakage report, guardrails, source roles. See [methodology/reproducibility.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/reproducibility.md) for the NeurIPS-checklist field mapping.
 
-Plus a [16-chapter methodology curriculum](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology) covering leakage, splits, thresholds, calibration, comparison, bootstrap, length stratification, text dedup, versioning, fairness, reproducibility, and testing.
+Plus a [17-chapter methodology curriculum](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology) covering leakage, splits, thresholds, calibration, comparison, bootstrap, length stratification, text dedup, versioning, fairness, reproducibility, and testing.
 
 *Why eval lives as a separate library*: it survives across iterations, it accumulates methodology curriculum as a durable knowledge artifact, and versioned JSON schemas let downstream parsers gate on format changes. Reuse is across projects, not just within this project.
 
