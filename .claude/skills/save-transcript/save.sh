@@ -3,6 +3,11 @@
 # Reads the most recent session JSONL under ~/.claude/projects/<encoded-cwd>/
 # and renders user + assistant messages to transcripts/<YYYY-MM-DD>__<slug>.md.
 #
+# Rendered content blocks:
+#   assistant: text, tool_use (name + input JSON)
+#   user:      text (string or array), tool_result (success/error + content)
+# Skipped (intentional): assistant `thinking` blocks (internal CoT).
+#
 # Dependencies: jq.
 # Path-encoding convention: pwd | sed 's|[^a-zA-Z0-9]|-|g; s|^-*||; s|^|-|'
 # (matches Claude Code's project-dir encoding: all non-alphanumerics → '-',
@@ -28,14 +33,31 @@ out="$out_dir/$(date +%Y-%m-%d)__${slug}.md"
   echo "Source: $session_jsonl"
   echo ""
   jq -r '
+    # Render a single content block. Returns "" for blocks that should be skipped.
+    def render_block:
+      if .type == "text" then
+        .text
+      elif .type == "tool_use" then
+        "\n**Tool call: \(.name)**\n\n```json\n\(.input | tojson)\n```"
+      elif .type == "tool_result" then
+        "\n**Tool result\(if .is_error then " (error)" else "" end):**\n\n```\n\(
+          if (.content | type) == "string" then
+            .content
+          elif (.content | type) == "array" then
+            [.content[] | if .type == "text" then .text else "" end] | join("\n")
+          else "" end
+        )\n```"
+      elif .type == "thinking" then
+        ""
+      else "" end;
+
     select(.type == "user" or .type == "assistant")
     | "## \(.type | ascii_upcase)\n\n\(
-        if (.message.content | type) == "string"
-        then .message.content
-        elif (.message.content | type) == "array"
-        then [.message.content[] | select(.type == "text") | .text] | join("\n")
-        else ""
-        end
+        if (.message.content | type) == "string" then
+          .message.content
+        elif (.message.content | type) == "array" then
+          [.message.content[] | render_block] | map(select(. != "")) | join("\n")
+        else "" end
       )\n"
   ' "$session_jsonl"
 } > "$out"
