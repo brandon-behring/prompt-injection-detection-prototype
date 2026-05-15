@@ -86,7 +86,7 @@ The classifier targets a subset of the prompt-injection attack surface. Naming t
 
 > **Decision needed:** apply cross-source benign dedup BEFORE or AFTER the train/val/test split?
 > **Options:** before (clean benign pool then split) / after (split first then audit per-fold).
-> **Considerations:** if benign sources have textual overlap (e.g., OASST1 ∩ NotInject), splitting first means duplicate-but-different-fold pairs survive — invisible to within-source dedup, surfacing only as fold-level leakage audit failures. Cross-source-then-split avoids the failure mode at the cost of one extra pass.
+> **Considerations:** if benign sources have textual overlap (e.g., overlap between a broad open-instruct corpus and a hard-benign trap set), splitting first means duplicate-but-different-fold pairs survive — invisible to within-source dedup, surfacing only as fold-level leakage audit failures. Cross-source-then-split avoids the failure mode at the cost of one extra pass.
 > **Default if unsure:** cross-source benign dedup BEFORE the split.
 
 **Leakage detection** — `[LOCKED]`: two invariant tests, plus a third for any external reference scorer.
@@ -135,7 +135,7 @@ Cross-link [methodology/leakage.md](https://github.com/brandon-behring/eval-tool
 
 > **Decision needed:** mixed-precision training in bf16, fp16, or fp32?
 > **Options:** bf16 (modern GPUs, larger dynamic range) / fp16 (older GPUs) / fp32 (safest, slowest).
-> **Considerations:** bf16 is the H100 default; modeling-accuracy delta vs fp16 is typically <0.005 PR-AUC on this task class. fp16 softmax can be unsupported on some inference paths (cast logits to fp32 before `torch.softmax`). fp32 is twice the memory.
+> **Considerations:** bf16 is the H100 default; modeling-accuracy delta vs fp16 is typically small on this task class. fp16 softmax can be unsupported on some inference paths (cast logits to fp32 before `torch.softmax`). fp32 is twice the memory.
 > **Default if unsure:** bf16 for training and inference; explicitly cast logits to fp32 before the final softmax to avoid backend mismatches.
 
 **LoRA class-weight implementation** — `[OPEN]`:
@@ -329,7 +329,7 @@ Track every `[OPEN]` decision raised by the spec. Phase 0 resolves each one. Sta
 | §2 Model | Training-time scope | full FT / LoRA / both / frozen-only | open | | | LoRA paper (Hu et al. 2021, arXiv:2106.09685); PEFT docs |
 | §2 Model | Frozen-probe role | candidate detector / diagnostic rung / both | open | | | eval-toolkit methodology/comparison.md |
 | §2 Model | Matched-budget controls | yes / no / per-axis | open | | | docs/research/attacks_defenses/; cross-architecture-control patterns |
-| §2 Model | Reference scorer selection | which off-the-shelf models, if any | open | | | HF model cards (ProtectAI v2; Llama Prompt Guard 2) |
+| §2 Model | Reference scorer selection | which off-the-shelf models, if any | open | | | HF model cards for candidate detectors |
 | §2 Model | LoRA epoch policy | 1ep / 2ep / 3+ / early-stop | open | | | LoRA paper; PEFT training guides |
 | §2 Model | LoRA precision policy | bf16 / fp16 / fp32 | open | | | torch.cuda.amp docs; H100 bf16 throughput note |
 | §2 Model | LoRA class-weight implementation | sklearn-style / HF-Trainer-style / uniform | open | | | sklearn class_weight docs; HF Trainer docs |
