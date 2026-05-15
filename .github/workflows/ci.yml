@@ -98,3 +98,20 @@ jobs:
         run: uv sync --all-extras
       - name: pytest -m integration
         run: uv run pytest -m integration -v
+
+  notebooks:
+    name: notebook execution (opt-in)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --extra dev --extra notebook
+      - name: pytest --nbval notebooks/
+        run: uv run pytest --nbval notebooks/ -v
+        continue-on-error: true

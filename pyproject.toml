@@ -21,6 +21,15 @@ dev = [
     "pytest-cov>=4",
     "pyyaml>=6",
 ]
+notebook = [
+    "jupyter>=1",
+    "nbstripout>=0.7",
+    "nbval>=0.11",
+    "matplotlib>=3.8",
+]
+
+[tool.jupytext]
+formats = "ipynb,py:percent"
 
 [tool.ruff]
 line-length = 100
