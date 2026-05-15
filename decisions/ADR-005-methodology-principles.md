@@ -8,7 +8,7 @@ claim_id: CLAIM-005
 claim: The submission is governed by three project-level methodology principles surfaced during Phase 0-00 brief alignment — (1) methodology over metrics, (2) honest evaluation preferred even when models look worse, (3) structured limitations with extension conditions. These principles propagate to ADR rationale, WRITEUP tone, and downstream methodology decisions.
 source: Phase 0-00 brief alignment conversation (Q4 Signals 2-3, Q7 add-on)
 acceptance_criterion: Every methodology component has an ADR whose Consequences section names its extension condition; every scope-bound in the writeup is paired with the limitation it imposes and when it would or wouldn't make sense to extend; reported metrics include cases where the model looks worse under honest eval, named as such; comparisons interpreted via effect-size + uncertainty, not via dichotomous test outcomes.
-closing_commit:
+closing_commit: 2a7b123
 references:
   - https://journals.sagepub.com/doi/10.1177/0956797613504966
   - https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108

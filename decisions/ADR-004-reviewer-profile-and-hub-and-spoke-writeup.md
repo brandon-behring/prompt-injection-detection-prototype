@@ -8,7 +8,7 @@ claim_id: CLAIM-004
 claim: The submission is read by a dual audience — hiring manager (A1) and ML researcher (A2) — with no single reading-time bound. The PDF is the focused hub (≈ 10-15 pages, layered for both audiences); per-topic markdown spokes under WRITEUP/ carry depth that the PDF cross-links to.
 source: SPEC_GREENFIELD.md §Brief row 307 (Reviewer profile + expected reading time)
 acceptance_criterion: PDF has layered structure (exec summary + headlines for A1; methodology narrative + ADR-indexed appendix for A2); every section that could bloat emits a single inline link to a repo spoke; spokes are standalone-readable.
-closing_commit:
+closing_commit: 2a7b123
 references:
   - WRITEUP.md (this repo)
   - SUBMISSION_TEMPLATE.md

@@ -8,7 +8,7 @@ claim_id: CLAIM-012
 claim: Eight soft signals are explicitly named in the WRITEUP — calibration, OOD honesty, reproducibility, writing clarity, engineering taste, methodology over results, time-budgeted craftsmanship, honesty about limitations — each aligned by prior ADR locks and cited at the relevant section as the reason a particular methodology choice was made. The default external artifact engagement set covers — Lakera Guard / ProtectAI as reference scorer rungs (per ADR-007); JailbreakBench (Chao 2024), HarmBench (Mazeika 2024), InjecAgent (Zhan 2024) cited and acknowledged; NotInject (Li & Liu 2024) replicated via OOD inclusion; BIPIA (Yi 2023) compared against; PromptShield (Microsoft 2024) acknowledged as Recall@FPR-pinpoint influence; OWASP LLM Top 10 cited if industry-standard threat-model framing is relevant.
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C9 + Q5-C10)
 acceptance_criterion: Every soft signal listed appears explicitly in the WRITEUP at the relevant methodology section ("the brief emphasizes X, so we…"); every external artifact in the engagement set is either cited in the WRITEUP references or implemented as a rung / OOD slice as the engagement level mandates.
-closing_commit:
+closing_commit: e760faf
 references:
   - https://arxiv.org/abs/2404.01318
   - https://arxiv.org/abs/2402.04249

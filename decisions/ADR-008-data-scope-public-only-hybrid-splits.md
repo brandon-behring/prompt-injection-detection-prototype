@@ -8,7 +8,7 @@ claim_id: CLAIM-008
 claim: Training and evaluation data come from public sources only (HuggingFace-hosted; dataset revisions pinned by SHA at lock time); splits are hybrid (source-disjoint Leave-One-Dataset-Out for OOD slate + random k-fold within in-distribution sources); licenses are mixed and documented per source (full audit deliverable in Phase 0-02); NotInject-style benign-trigger hard negatives are included in the OOD slate to test over-defense per the InjecGuard 2024 methodology.
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C5) + §1 Data rows 323-329
 acceptance_criterion: Phase 0-02 produces a full source-slate manifest (per-source row counts, license, role, HF revision SHA); Phase 1 leakage scan confirms no train-eval overlap above thresholds documented in evals/leakage_report.json; the OOD slate includes a NotInject-equivalent benign-trigger slice.
-closing_commit:
+closing_commit: e760faf
 references:
   - https://huggingface.co/datasets/deepset/prompt-injections
   - https://huggingface.co/datasets/Lakera/gandalf_ignore_instructions

@@ -8,7 +8,7 @@ claim_id: CLAIM-010
 claim: Submission scope is bounded along six axes — language (English-only), attack class (direct + indirect), input length (per-backbone cap, 512 for DeBERTa-v3 and 8K for ModernBERT), model size (sub-1B parameters), deployment surface (text-only classifier + LLM-judge reference rungs), adversarial-strength budget (static attacks only). Each bound is paired with the explicit conditions under which extending past it would or wouldn't make sense, per ADR-005 Principle 3 (structured limitations with extension conditions). Decision-relevant extension framings replace generic "future work" boilerplate.
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C7) + §0 Threat rows 319-322 + §2 Model row 330 + §2 Model row 331
 acceptance_criterion: WRITEUP/limitations-and-future-work.md spoke enumerates all six scope bounds with their extension conditions; every ADR for a methodology component (per CLAUDE.md anti-pattern) names the bound it operates within.
-closing_commit:
+closing_commit: e760faf
 references:
   - https://arxiv.org/abs/2412.13663
   - https://arxiv.org/abs/2312.14197

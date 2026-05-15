@@ -8,7 +8,7 @@ claim_id: CLAIM-002
 claim: The submission deliverable is a focused PDF (rendered from WRITEUP.md + appendices) paired with a public GitHub repo containing ADRs, code, notebooks, training manifests, per-row predictions, and topic-focused markdown spokes for any reader who wants depth beyond the PDF.
 source: SPEC_GREENFIELD.md §Brief row 305 (Deliverable format)
 acceptance_criterion: At submission time, both artifacts exist and are mutually consistent — PDF cross-links to the repo at a stable git tag; repo contents reproduce the headline numbers in the PDF.
-closing_commit:
+closing_commit: 2a7b123
 references:
   - https://pandoc.org/MANUAL.html#creating-a-pdf
   - SUBMISSION_TEMPLATE.md

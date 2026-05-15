@@ -8,7 +8,7 @@ claim_id: CLAIM-009
 claim: Reproducibility is two-tier (laptop-only smoke + GPU-rental canonical, per SPEC_GREENFIELD row 355); testing discipline is marker-based (unit / smoke / integration / golden) with a 70% soft coverage floor on core modules; pre-commit hooks enforce discipline locally; no remote CI is set up (Tight calendar per ADR-001); notebooks are jupytext-paired with illustrative-only role (per ADR-013); GPU-hours + cost per rung are disclosed in the WRITEUP.
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C6) + §STYLE rows 350-351 + §Submission row 355
 acceptance_criterion: A laptop-only smoke target completes the full pipeline (data load → minimal training → eval → analysis) on a developer laptop without RunPod access; canonical reproduction instructions are documented for GPU rental; tests carry markers selectable via pytest -m; per-rung GPU-hours + dollar cost are reported in WRITEUP.
-closing_commit:
+closing_commit: e760faf
 references:
   - https://neurips.cc/Conferences/2024/PaperInformation/PaperChecklist
   - https://docs.pytest.org/en/stable/example/markers.html

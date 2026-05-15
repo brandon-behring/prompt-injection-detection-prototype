@@ -8,7 +8,7 @@ claim_id: CLAIM-013
 claim: Phase 0 strictness ratifies the kit default (all [OPEN] rows resolved before Phase 1); brief-intake protocol is live Phase 0-00 sub-session (kit default; transcript captured for ADR linkage); repo visibility is public from start (re-affirms ADR-003 from the kit-ratify frame); notebooks are jupytext-paired (kit default) with explicit illustrative-only role — GPU training runs are Python scripts, not notebook cells, and all RunPod-generated artifacts (per-row predictions, training manifests, checkpoints, logs, results JSON) are persisted to durable storage (local + HF Hub or S3-equivalent) before any pod is torn down.
 source: SPEC_GREENFIELD.md §Kit-Ratify rows 365-368 + Q9 walk surfacing notebook-role and RunPod persistence
 acceptance_criterion: Phase 1 cannot start until every [OPEN] ledger row is locked or explicitly deferred; the Phase 0-00 transcript references this ADR; notebooks in this repo contain no GPU-bound training code; before any RunPod pod is torn down, a pre-teardown persistence checklist is verified (per-row predictions present at evals/predictions/, training manifests present at training/runs/, eval results at evals/results.json, checkpoints pushed to HF Hub or downloaded locally).
-closing_commit:
+closing_commit: e760faf
 references:
   - https://jupytext.readthedocs.io/
 transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md

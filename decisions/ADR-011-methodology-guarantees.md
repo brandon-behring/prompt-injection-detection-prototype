@@ -8,7 +8,7 @@ claim_id: CLAIM-011
 claim: Eight methodology guarantees are committed and surfaced in the writeup (1-paragraph summary in PDF + WRITEUP/methodology-guarantees.md spoke), namely — (1) no tuning on test data; (2) no train-eval overlap (leakage scan + cross-source benign dedup); (3) no closed-source datasets; (4) no hand-labeling without inter-rater agreement (audited via Cohen's kappa, per ADR-007); (5) no cherry-picking seeds (seed-aggregate + per-seed transparency); (6) no adaptive threshold selection on test data (thresholds on validation only); (7) no data leakage train→eval (Phase 5 pre-submission grep suite); (8) no untracked methodology components (every component has an ADR).
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C8) + CLAUDE.md anti-patterns
 acceptance_criterion: WRITEUP/methodology-guarantees.md spoke enumerates all eight guarantees with the verification mechanism for each; the PDF exec summary or methodology narrative cites the spoke; the pre-Phase-5 grep suite runs cleanly with no leakage detected.
-closing_commit:
+closing_commit: e760faf
 references:
   - https://neurips.cc/Conferences/2024/PaperInformation/PaperChecklist
   - https://journals.sagepub.com/doi/10.1177/001316446002000104

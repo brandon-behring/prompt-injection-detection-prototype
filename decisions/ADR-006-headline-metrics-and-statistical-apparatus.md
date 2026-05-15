@@ -8,7 +8,7 @@ claim_id: CLAIM-006
 claim: The submission reports four headline metrics (AUPRC, AUROC, Recall@FPR=1%, ECE) at three operating-point pinpoints {0.1%, 1%, 5%} per rung; statistical inference is via 95% bootstrap CIs (10K iters, BCa for marginals, paired for rung-vs-rung differences) with MDE on every reported CI; multi-seed protocol is 3 seeds paired across rungs (adaptive escalation to 5 if budget permits per ADR-001 fallback ladder); no formal p-tests (estimation-over-testing, per ADR-005 Principle 2); cost-weighted thresholding is rejected as false precision and replaced by qualitative scenario discussion in WRITEUP/threshold-policy.md.
 source: SPEC_GREENFIELD.md §Brief row 308 (Brief-mandated metrics / constraints) + §3 Eval rows 340-347
 acceptance_criterion: All headline rung-tables show the four metrics with three Recall@FPR pinpoints; every reported metric has a bootstrap CI; rung-vs-rung comparisons are reported as Δ-CIs (paired bootstrap), not p-values; MDE is computed for every CI; cost-weighted thresholding is absent from the writeup and replaced by ≥3 deployment scenarios in the threshold-policy spoke.
-closing_commit:
+closing_commit: e760faf
 references:
   - https://journals.sagepub.com/doi/10.1177/0956797613504966
   - https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108

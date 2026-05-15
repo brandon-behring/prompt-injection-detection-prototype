@@ -8,7 +8,7 @@ claim_id: CLAIM-001
 claim: The submission targets 2026-05-18 morning (~2.5 working days from 2026-05-15); scope ambition is Long-bucket (2×3 trained-rung grid + multi-seed + full OOD slate + paired-bootstrap) leveraging runpod-deploy + eval-toolkit infrastructure; fallback ladder shrinks rung count before sacrificing methodology integrity.
 source: SPEC_GREENFIELD.md §Brief row 304 (Submission deadline / time budget)
 acceptance_criterion: All Phase 1-5 work is completed by 2026-05-18 morning; or the fallback ladder activates and the writeup honestly reports the realized rung set without pretending unrealized rungs.
-closing_commit:
+closing_commit: 2a7b123
 references:
   - docs/ROADMAP.md (phase checklist = work-completed, not metric thresholds)
   - SPEC_STRATEGY.md (scope-shrink-under-pressure discipline)

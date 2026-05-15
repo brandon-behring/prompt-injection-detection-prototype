@@ -8,7 +8,7 @@ claim_id: CLAIM-003
 claim: The submission GitHub repository is public from project start; the kit-level default (per .gitignore + SPEC_STRATEGY.md) is ratified without override. Transcripts remain gitignored; the brief itself is never committed.
 source: SPEC_GREENFIELD.md §Brief row 306 (Repo visibility) + §Kit-Ratify row 367
 acceptance_criterion: Repo is public on GitHub at submission time; transcripts/ remains gitignored except README.md; no brief contents committed.
-closing_commit:
+closing_commit: 2a7b123
 references:
   - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility
   - .gitignore (this repo)

@@ -8,7 +8,7 @@ claim_id: CLAIM-007
 claim: The rung slate comprises six trained rungs (DeBERTa-v3 + ModernBERT × {frozen-probe, LoRA, full-FT}) plus two LLM-judge reference rungs (one OpenAI model, one Anthropic model — specific model IDs finalized in Phase 0-03), plus optional existing-classifier baselines (Lakera Guard, ProtectAI LLM-Guard) as reference scorers. Cohen's kappa is computed pairwise across all rungs with bootstrap CIs on each kappa. Library stack — HuggingFace Transformers + PEFT + sentence-transformers; dependencies pinned via uv.lock.
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C4) + §2 Model rows 330-338
 acceptance_criterion: At Phase 3 close, every rung in the slate has been trained (or inference-scored for reference rungs) on the locked train/eval splits; per-row predictions are persisted for every rung × seed × fold; the pairwise kappa matrix is rendered as a heatmap in WRITEUP/reference-scorer-audit.md; LLM-judge calls are reproducible (temp=0; prompt template versioned in repo).
-closing_commit:
+closing_commit: e760faf
 references:
   - https://arxiv.org/abs/2111.09543
   - https://arxiv.org/abs/2412.13663
