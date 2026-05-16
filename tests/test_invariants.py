@@ -87,3 +87,48 @@ def test_truncation_policy_adaptive_chunked_max_pool() -> None:
     the locked policy and that aggregator equals max-pool.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_source_manifest_schema_valid() -> None:
+    """data/source_manifest.yaml parses, contains all 11 sources, each has SHA + license + role.
+
+    Per ADR-016 (Q3 lock), HF revisions and GitHub commit SHAs are pinned at
+    Phase 1 entry in unified data/source_manifest.yaml. This invariant asserts
+    the manifest parses as valid YAML, contains all 11 expected sources
+    (4 train positives + 2 train benigns + 5 OOD slices), and each source
+    record carries the required fields (type, revision/commit_sha, license,
+    role). Schema version equals 1.0; bump_history is a list.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_dedup_calibration_persisted() -> None:
+    """evals/dedup_calibration.json exists with FPR+FNR at threshold 0.80 plus cosine histograms.
+
+    Per ADR-016 (Q4 lock), the dedup encoder is all-MiniLM-L6-v2 cosine at
+    threshold 0.80 with simplified calibration evidence. This invariant
+    asserts the calibration JSON exists, contains FPR + FNR measured against
+    a 50-pair labeled holdout at threshold 0.80, includes dedup counts at
+    sensitivity thresholds {0.75, 0.80, 0.85}, and contains per-source cosine
+    distribution histograms (anisotropy sanity check per Ethayarajh 2019).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_benign_contamination_scan_clean() -> None:
+    """Benign sources (LMSYS + UltraChat) have <=2% contamination per A-005.
+
+    Per ADR-016 Phase 1 revisit triggers (assumption A-005), the contamination
+    scan flags any benign sample with MiniLM cosine >= 0.85 to a known
+    injection template. This invariant asserts contamination rate stays at
+    or below 2% in both LMSYS-Chat-1M (post English-only filter and
+    post-subsample) and UltraChat (post-subsample). If invariant fails,
+    A-005 fires and a superseding ADR adjusts source mix or filter threshold.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")

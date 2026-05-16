@@ -112,25 +112,33 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 ### 3.1 Train pool composition
 
-`[OPEN]` Source slate — populated at Phase 0 from `docs/research/datasets/` candidate set.
+`[LOCKED: Path α — full source slate (per ADR-016)]` — 4 positive sources + 2 benign sources + 5 OOD slices. HarmBench + Tensor Trust + LLMail-Inject deferred to afterword.
 
-| Source | Approx N | Role | License |
-|---|---|---|---|
-| `[OPEN]` | `[TBD: value]` | Train pos | `[TBD: value]` |
-| `[OPEN]` | `[TBD: value]` | Train neg | `[TBD: value]` |
-| `[OPEN]` | `[TBD: value]` | OOD only | `[TBD: value]` |
+| Source | Approx N (post-dedup, capped) | Role | License | LODO fold |
+|---|---|---|---|---|
+| `deepset/prompt-injections` | ~500-650 (use all) | Train pos | Apache-2.0 | 1 |
+| `Lakera/gandalf_ignore_instructions` | ~800-1000 (use all) | Train pos | MIT | 2 |
+| `Lakera/mosscap_prompt_injection` | 3000 (cap) | Train pos | MIT | 3 |
+| `hackaprompt/hackaprompt-dataset` | 3000 (cap) | Train pos | per dataset card | 4 |
+| `lmsys/lmsys-chat-1m` | 10000 (cap; English-only filter) | Train neg | CC-BY-4.0 | (stratified across folds) |
+| `HuggingFaceH4/ultrachat_200k` | 10000 (cap) | Train neg | Apache-2.0 | (stratified across folds) |
+| `leolee99/NotInject` | 339 | OOD hard-neg (over-defense) | MIT | (never trained) |
+| `paul-rottger/xstest` | 450 | OOD hard-neg (over-refusal) | per repo | (never trained) |
+| `JailbreakBench/JBB-Behaviors` | 200 (100 harmful + 100 benign) | OOD mixed | MIT | (never trained) |
+| `microsoft/BIPIA` | per-task | OOD indirect (zero-shot per ADR-014) | per repo | (never trained) |
+| `uiuc-kang-lab/InjecAgent` | 1054 | OOD agentic (stretch probe) | per repo | (never trained) |
 
-**Benign subsample ceilings per source**: `[OPEN]` — open-budget per source / per-source caps (e.g., per-source row-count ceilings to control source-mix proportions). Affects fold-level statistical power. See SPEC_GREENFIELD ledger §1 Data row "Benign subsample ceilings per source".
+**Benign subsample ceilings per source**: `[LOCKED: 3K positives per source for mosscap+HackAPrompt; use-all for deepset+Lakera-gandalf post-dedup; 10K benigns per source for LMSYS+UltraChat; random subsample at seed=42 (per ADR-016)]`. Class balance per LODO training pool ≈ 1:2 to 1:2.7 (positives:benigns). Quality-filtered HackAPrompt + attack-type-stratified + length-stratified subsamples deferred to afterword.
 
 ### 3.2 Splits
 
-`[OPEN]` Splits structure — Phase 0 selects from {single 70/15/15, k-fold, source-disjoint LODO, hybrid}. See SPEC_GREENFIELD ledger §1 Data row "Splits structure" for reference anchors.
+`[LOCKED: LODO k=4 over positive sources + 3 seeds per LODO fold; no internal k-fold (per ADR-016)]`. Source-disjoint Leave-One-Dataset-Out at outer level (4 folds, one held-out positive source per fold) + 3 random-initialization seeds = 12 observations per rung = 36 trained runs across the 3 ModernBERT-base conditions from ADR-015. Within each LODO fold: single 80/20 train/val random split (no nested k-fold); val used for threshold selection + calibration fitting + early-stopping per ADR-011 Guarantee 6. Per-rung bootstrap CIs from 12 observations (10K bootstrap iterations, BCa marginal per ADR-006); rung-vs-rung paired-bootstrap uses (LODO-fold × seed) pairing; MDE on Δ-AUROC ≈ 0.03. Stratified k-fold within LODO (Fomin 2025 / Nadeau-Bengio 2003 variance decomposition; ~5x compute) deferred to afterword.
 
 ### 3.3 Dedup, leakage prevention, cross-source label conflicts
 
-- **Semantic dedup**: `[OPEN]` encoder + threshold; calibrate against labelled holdouts per eval-toolkit `methodology/text_dedup.md`.
+- **Semantic dedup**: `[LOCKED: sentence-transformers/all-MiniLM-L6-v2 cosine at threshold 0.80; simplified calibration via FPR+FNR on 50-pair labeled holdout persisted to evals/dedup_calibration.json (per ADR-016)]`. Label-aware (within (source, label) cells); deterministic first-occurrence retention; cross-label minimal pairs preserved per SPEC_GREENFIELD lock. MPNet-base-v2 + full 4-gate selection rule + cross-encoder reranker deferred to afterword.
 - **Cross-source minimal pairs**: `[LOCKED]` preserve-and-flag.
-- **Cross-source benign dedup ordering**: `[OPEN]` before-split vs after-split.
+- **Cross-source benign dedup ordering**: `[LOCKED: within-source-first → cross-source (LMSYS-priority tiebreak) → LODO split (per ADR-016)]`. Pipeline: within-source dedup pass per source → cross-source dedup pass (LMSYS-priority on cross-source near-duplicates because LMSYS is real-user data; UltraChat is synthetic) → split into LODO folds with benign stratification.
 - **Leakage invariants**: `tests/test_leakage.py` asserts no exact-hash and no high-cosine train-test overlap.
 - **Reference-scorer training-overlap audit**: `[LOCKED]` see WRITEUP §3.3 + EVIDENCE.md §1–2.
 
@@ -138,13 +146,17 @@ Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
 
 ### 3.4 OOD slate
 
-`[OPEN]` slice list — populated at Phase 0 from `docs/research/benchmarks/` candidate set.
+`[LOCKED: 5 OOD slices (per ADR-016)]` — direct over-defense + over-refusal + mixed-direct + indirect zero-shot + agentic-stretch. HarmBench + Tensor Trust + LLMail-Inject deferred to afterword as named next-iteration extensions.
 
 | Slice | Source | Role | Why |
 |---|---|---|---|
-| `[OPEN]` | `[TBD: value]` | `[TBD: value]` | `[TBD: value]` |
+| NotInject | `leolee99/NotInject` | Hard-negative (benign-with-injection-triggers) | Tests over-defense per InjecGuard 2024 methodology; explicitly invites worse-but-honest evaluation per ADR-005 Principle 2 |
+| XSTest | `paul-rottger/xstest` | Hard-negative (over-refusal) | Tests exaggerated-safety patterns per Röttger 2024 NAACL |
+| JBB-Behaviors | `JailbreakBench/JBB-Behaviors` | Mixed (100 harmful + 100 benign) | Standardized misuse-behavior evaluation per Chao 2024 NeurIPS D&B |
+| BIPIA | `microsoft/BIPIA` | Indirect (zero-shot OOD per ADR-014 Q1) | Indirect-injection benchmark per Yi 2023 KDD; the load-bearing zero-shot transfer measurement |
+| InjecAgent | `uiuc-kang-lab/InjecAgent` | Agentic (stretch probe) | Tool-integrated agent injection per Zhan 2024 ACL; agentic transfer-of-transfer caveat per ADR-010 Bound 2 |
 
-**Linked ADRs**: ADR-NNN (threat model), ADR-NNN (dataset slate), ADR-NNN (dedup), ADR-NNN (splits + balance) — filled in once Phase 0 locks each row.
+**Linked ADRs**: ADR-014 (threat-model bundle — attack-class scope), ADR-015 (rung architecture — 3 ModernBERT-base trained + 4 reference rungs), ADR-016 (this — data design bundle), ADR-008 (data scope brief-level locks — preserved).
 
 ---
 
