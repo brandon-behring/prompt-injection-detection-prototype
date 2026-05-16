@@ -95,9 +95,10 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 |---|---|---|---|
 | `huggingface_hub` | `scripts/pin_source_manifest.py` (Commit 1) | `HfApi.dataset_info(repo_id).sha` for revision SHA discovery per ADR-041 Q2 | `>=0.25` (`pyproject.toml`) |
 | `pyyaml` (graduated dev → main dep) | `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` (Commit 1) | Manifest YAML parse/serialize per ADR-041 Q1 rich-schema | `>=6` (`pyproject.toml`) |
-| `datasets` | `src/data/loaders.py` (Commit 2) | `load_dataset(repo, revision=sha)` per ADR-041 Q4 HF dispatch | (Commit 2) |
+| `datasets` | `src/data/loaders.py` (Commit 2) | `load_dataset(repo, name=subset, split=split, revision=sha)` per ADR-041 Q4 HF dispatch | `>=3.0` (`pyproject.toml`) |
+| `pandas` + `pandas-stubs` | `src/data/loaders.py` (Commit 2) | DataFrame uniform schema `(text, label, source, row_idx_in_source)`; parquet IO at Commit 4 | `>=2.2` (`pyproject.toml`) + `>=2.2` dev |
+| `pyarrow` | `src/data/loaders.py` (transitive via pandas; Commit 4 parquet) | parquet engine | `>=17` (`pyproject.toml`) |
 | `sentence-transformers` | `src/data/dedup.py` (Commit 3) | `all-MiniLM-L6-v2` embedder per ADR-016 Q4 | (Commit 3) |
-| `pandas` + `pyarrow` | `src/data/splits.py` + `src/data/loaders.py` (Commits 2/4) | parquet IO for `data/raw/` + `data/processed/` per ADR-041 Q7 | (Commit 4) |
 | `scikit-learn` | `src/data/splits.py` (Commit 4) | `train_test_split` + `StratifiedKFold` for within-fold 80/20 + LODO stratification | (Commit 4) |
 
 **Pin script entrypoint**: `scripts/pin_source_manifest.py` (Commit 1) — one-time + bump-driven; live-fetches HF SHAs via `huggingface_hub.HfApi.dataset_info` + GitHub SHAs via `subprocess.run(["git", "ls-remote", url, "HEAD"])`; writes `data/source_manifest.yaml`; idempotent re-runs; SHA-mismatch raises `SHAMismatchError` unless `--force` records `bump_history` entry per ADR-036.

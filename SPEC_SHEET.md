@@ -170,7 +170,7 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 | Phase 1 commit | Deliverable | Invariant test | Status |
 |---|---|---|---|
 | Commit 1 | `data/source_manifest.yaml` (live-fetched SHAs; rich schema; bump_history=[]) + `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` | `test_source_manifest_schema_valid` | **green** |
-| Commit 2 | `src/data/loaders.py` (HF dispatch + 11 normalizers) | smoke tests per source | pending |
+| Commit 2 | `src/data/loaders.py` (HF dispatch + 11 normalizers) + `tests/smoke/test_loaders_smoke.py` (3 small HF sources) | smoke tests | **green** (3 smoke + dispatch unit) |
 | Commit 3 | `src/data/dedup.py` + `data/dedup_holdout.jsonl` (50 stratified-cosine-band pairs) + `evals/dedup_calibration.json` | `test_dedup_calibration_persisted` | pending |
 | Commit 4 | `src/data/splits.py` + 48 per-fold parquet files under `data/processed/` | (covered by commit 5 invariants) | pending |
 | Commit 5 | `evals/{data_audit,leakage_report,contamination_scan}.json` (corpus = slate + ~200 templates) | `test_benign_contamination_scan_clean` | pending |

@@ -3,7 +3,7 @@
 # Re-run the script to bump SHAs (see ADR-036 bump-trigger policy).
 
 schema_version: '1.0'
-generated_at_utc: '2026-05-16T14:30:49+00:00'
+generated_at_utc: '2026-05-16T19:22:21+00:00'
 pin_method: live_fetch_via_pin_source_manifest_script
 adr_ref: ADR-016 + ADR-041
 bump_history: []
@@ -97,7 +97,7 @@ sources:
   selection_seed: null
   language_filter: null
   subset: null
-  split: train
+  split: null
   citation_arxiv: '2410.22770'
 - name: xstest
   hf_id: paul-rottger/xstest
@@ -123,7 +123,7 @@ sources:
   selection_seed: null
   language_filter: null
   subset: behaviors
-  split: harmful
+  split: null
   citation_arxiv: '2404.01318'
 - name: bipia
   hf_id: microsoft/BIPIA

@@ -9,7 +9,8 @@ repos:
     rev: v1.8.0
     hooks:
       - id: mypy
-        additional_dependencies: [pytest, types-PyYAML, huggingface_hub>=0.25]
+        additional_dependencies:
+          [pytest, types-PyYAML, huggingface_hub>=0.25, pandas-stubs>=2.2]
         args: [--strict]
   - repo: https://github.com/kynan/nbstripout
     rev: 0.7.1

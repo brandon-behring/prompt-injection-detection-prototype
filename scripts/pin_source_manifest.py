@@ -171,7 +171,9 @@ SLATE: Final[tuple[SourceSpec, ...]] = (
         selection_seed=None,
         language_filter=None,
         subset=None,
-        split="train",
+        # split=None signals loader to stack NotInject_one + NotInject_two + NotInject_three
+        # (3 splits of 113 rows = 339 total per ADR-016); see _normalize_notinject.
+        split=None,
         citation_arxiv="2410.22770",
     ),
     SourceSpec(
@@ -199,7 +201,9 @@ SLATE: Final[tuple[SourceSpec, ...]] = (
         selection_seed=None,
         language_filter=None,
         subset="behaviors",
-        split="harmful",
+        # split=None signals loader to load both `harmful` + `benign` splits
+        # (per ADR-016 Q1 "100 harmful + 100 benign"); see _normalize_jbb_behaviors.
+        split=None,
         citation_arxiv="2404.01318",
     ),
     SourceSpec(
@@ -352,8 +356,8 @@ def _fetch_all_shas(token: str | None) -> dict[str, str]:
     return shas
 
 
-def _existing_shas(manifest_path: Path) -> dict[str, str] | None:
-    """Return the SHA map from an existing manifest, or None if missing.
+def _existing_rows(manifest_path: Path) -> dict[str, dict[str, Any]] | None:
+    """Return the {name -> full source row} map from an existing manifest, or None if missing.
 
     Parameters
     ----------
@@ -362,8 +366,8 @@ def _existing_shas(manifest_path: Path) -> dict[str, str] | None:
 
     Returns
     -------
-    dict[str, str] | None
-        None if manifest does not exist; otherwise name -> revision_sha map.
+    dict[str, dict] | None
+        None if manifest does not exist; otherwise name -> source-row dict.
     """
     if not manifest_path.exists():
         return None
@@ -374,16 +378,38 @@ def _existing_shas(manifest_path: Path) -> dict[str, str] | None:
     sources = parsed.get("sources")
     if not isinstance(sources, list):
         return None
-    return {row["name"]: row["revision_sha"] for row in sources if isinstance(row, dict)}
+    return {row["name"]: row for row in sources if isinstance(row, dict)}
 
 
-def _diff_shas(prior: dict[str, str], fresh: dict[str, str]) -> list[tuple[str, str, str]]:
-    """Return list of (name, prior_sha, fresh_sha) tuples where SHAs differ."""
+def _diff_shas(
+    prior_rows: dict[str, dict[str, Any]], fresh_shas: dict[str, str]
+) -> list[tuple[str, str, str]]:
+    """Return (name, prior_sha, fresh_sha) tuples where revision_sha differs."""
     diffs: list[tuple[str, str, str]] = []
-    for name, fresh_sha in fresh.items():
-        prior_sha = prior.get(name, "<absent>")
+    for name, fresh_sha in fresh_shas.items():
+        prior_sha = prior_rows.get(name, {}).get("revision_sha", "<absent>")
         if prior_sha != fresh_sha:
             diffs.append((name, prior_sha, fresh_sha))
+    return diffs
+
+
+def _diff_non_sha_fields(
+    prior_rows: dict[str, dict[str, Any]], fresh_rows: list[dict[str, Any]]
+) -> list[tuple[str, str, Any, Any]]:
+    """Return (name, field, prior_value, fresh_value) tuples for non-SHA field changes.
+
+    Skips `revision_sha` since SHA-drift has its own dedicated workflow + bump_history.
+    """
+    diffs: list[tuple[str, str, Any, Any]] = []
+    for fresh_row in fresh_rows:
+        name = fresh_row["name"]
+        prior_row = prior_rows.get(name, {})
+        for field, fresh_val in fresh_row.items():
+            if field == "revision_sha":
+                continue
+            prior_val = prior_row.get(field, "<absent>")
+            if prior_val != fresh_val:
+                diffs.append((name, field, prior_val, fresh_val))
     return diffs
 
 
@@ -436,16 +462,18 @@ def main() -> int:
     print(f"[pin_source_manifest] Fetching SHAs for {len(SLATE)} sources...")
     fresh_shas = _fetch_all_shas(token)
 
-    prior_shas = _existing_shas(args.output)
+    prior_rows = _existing_rows(args.output)
     bump_history: list[dict[str, Any]] = []
+    fresh_rows = [_build_source_row(spec, fresh_shas[spec.name]) for spec in SLATE]
 
-    if prior_shas is None:
+    if prior_rows is None:
         print(f"[pin_source_manifest] No existing manifest at {args.output} — writing fresh.")
     else:
-        diffs = _diff_shas(prior_shas, fresh_shas)
-        if not diffs:
-            print("[pin_source_manifest] All SHAs unchanged — manifest already current.")
-            # Still re-validate to surface any external schema drift.
+        sha_diffs = _diff_shas(prior_rows, fresh_shas)
+        field_diffs = _diff_non_sha_fields(prior_rows, fresh_rows)
+
+        if not sha_diffs and not field_diffs:
+            print("[pin_source_manifest] All SHAs + schema fields unchanged — manifest current.")
             try:
                 validate_manifest(args.output)
                 print("[pin_source_manifest] Manifest validates clean. No-op.")
@@ -454,24 +482,39 @@ def main() -> int:
                 print(f"[pin_source_manifest] ERROR: existing manifest fails validation: {err}")
                 return 2
 
-        print(f"[pin_source_manifest] Found {len(diffs)} SHA mismatch(es):")
-        for name, prior, fresh in diffs:
-            print(f"    {name:>36s}  prior={prior[:12]}  fresh={fresh[:12]}")
-        if not args.force:
-            print("[pin_source_manifest] Refusing to overwrite without --force.")
-            print("[pin_source_manifest] If this bump is intentional, re-run with --force.")
-            print("[pin_source_manifest] See ADR-036 + decisions/upstream_issues.md.")
-            raise SHAMismatchError("Upstream SHAs have moved; re-run with --force to record.")
+        if sha_diffs:
+            print(f"[pin_source_manifest] Found {len(sha_diffs)} SHA mismatch(es):")
+            for name, prior, fresh in sha_diffs:
+                print(f"    {name:>36s}  prior={prior[:12]}  fresh={fresh[:12]}")
+            if not args.force:
+                print("[pin_source_manifest] Refusing to overwrite without --force.")
+                print("[pin_source_manifest] If this bump is intentional, re-run with --force.")
+                print("[pin_source_manifest] See ADR-036 + decisions/upstream_issues.md.")
+                raise SHAMismatchError("Upstream SHAs have moved; re-run with --force to record.")
+            bump_history = [
+                {
+                    "bumped_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "trigger": "force-flag-set",
+                    "diffs": [
+                        {"name": name, "prior": prior, "fresh": fresh}
+                        for name, prior, fresh in sha_diffs
+                    ],
+                }
+            ]
 
-        bump_history = [
-            {
-                "bumped_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                "trigger": "force-flag-set",
-                "diffs": [
-                    {"name": name, "prior": prior, "fresh": fresh} for name, prior, fresh in diffs
-                ],
-            }
-        ]
+        if field_diffs and not sha_diffs:
+            print(
+                f"[pin_source_manifest] No SHA drift; "
+                f"{len(field_diffs)} schema field update(s) — rewriting:"
+            )
+            for name, field, prior, fresh in field_diffs:
+                print(f"    {name}.{field}  prior={prior!r}  fresh={fresh!r}")
+            with args.output.open("r", encoding="utf-8") as fh:
+                prior_parsed = yaml.safe_load(fh)
+            if isinstance(prior_parsed, dict):
+                prior_bump = prior_parsed.get("bump_history")
+                if isinstance(prior_bump, list):
+                    bump_history = prior_bump
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     _write_manifest(args.output, fresh_shas, bump_history)
