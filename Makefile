@@ -1,4 +1,6 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit headline-dry-run headline-cloud eval-from-hub site site-preview clean
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit headline-dry-run headline-cloud eval-from-hub site site-preview clean \
+        data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
+        data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate
 
 install:
 	uv sync --extra dev
@@ -78,3 +80,53 @@ site-preview:
 
 clean:
 	rm -rf .ruff_cache .mypy_cache .pytest_cache build dist *.egg-info __pycache__ _site .quarto
+
+# ---------------------------------------------------------------------------
+# Phase 1 (Data) targets — per ADR-016 + ADR-041 Q7 + ADR-043 leakage cleanup.
+# Source secrets via .env.local (HF_TOKEN gates: hackaprompt, lmsys-chat-1m).
+# ---------------------------------------------------------------------------
+
+# `make data-pin-manifest` — live-fetch HF + GitHub SHAs; write data/source_manifest.yaml
+# (per ADR-041 Q2). Idempotent — schema-drift detection rewrites on field changes.
+data-pin-manifest:
+	uv run python scripts/pin_source_manifest.py
+
+# `make data-prepare` — canonical Phase 1 umbrella per ADR-041 Q7.
+# Loads 11 sources + within-source dedup + cross-source LMSYS-priority dedup
+# + LODO k=4 x 3 seeds splits + ADR-043 post-split leakage cleanup +
+# materialize 36 parquets + 36 index masks + data_audit/leakage_report/
+# contamination_scan JSONs. Wall-clock ~10 min after HF caches warm.
+data-prepare:
+	uv run python scripts/run_data_pipeline.py
+
+# ADR-041 Q7 originally proposed 4 granular targets (data-fetch, data-dedup,
+# data-splits, data-audit). The actual implementation went monolithic via
+# run_data_pipeline.py because intermediate parquet materialization would add
+# disk + complexity without benefit at the ~10-min wall-clock. Granular partial
+# re-runs are a future-work axis (--from-stage / --to-stage flags). For now,
+# these targets all delegate to data-prepare; the names are preserved for
+# ADR-041 Q7 backward-compat and operator muscle memory.
+data-fetch: data-prepare
+data-dedup: data-prepare
+data-splits: data-prepare
+data-audit: data-prepare
+
+# `make data-templates` — extract ~200 successful-injection templates from
+# HackAPrompt for contamination corpus (per ADR-041 Q6).
+data-templates:
+	uv run python scripts/extract_hackaprompt_templates.py
+
+# `make data-dedup-holdout` — generate 50 stratified-cosine-band candidate pairs
+# for dedup threshold calibration (per ADR-041 Q5). Writes data/dedup_holdout.jsonl.
+data-dedup-holdout:
+	uv run python scripts/build_dedup_holdout.py
+
+# `make data-dedup-prelabel` — LLM-judge pre-label the 50 holdout pairs via
+# gpt-4o-2024-08-06 (per ADR-042). Requires OPENAI_API_KEY in env.
+data-dedup-prelabel:
+	uv run python scripts/llm_prelabel_dedup_holdout.py
+
+# `make data-dedup-calibrate` — read labeled holdout; compute FPR + FNR + sensitivity
+# table at {0.75, 0.80, 0.85}; write evals/dedup_calibration.json.
+data-dedup-calibrate:
+	uv run python scripts/calibrate_dedup.py

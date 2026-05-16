@@ -54,6 +54,8 @@ Phase 1 cannot start until all four hold.
 
 Sources defined and licensed; audit complete; semantic dedup applied and calibrated against labelled holdouts; cross-source benign dedup applied; leakage scan run; splits locked and persisted.
 
+**Status (2026-05-16)**: shipped across 6 commits (ecfa2b6, b8fe5ee, e988482, df72b01, 975b099, e4454c0). End-to-end pipeline produces 36 per-fold parquets + 36 index masks + 3 audit JSONs (`evals/data_audit.json`, `evals/leakage_report.json`, `evals/contamination_scan.json`) + preliminary `evals/dedup_calibration.json` (ADR-042 LLM-pre-label bootstrap). Locks: ADR-041 (implementation bundle), ADR-042 (LLM-pre-label refinement), ADR-043 (post-split leakage cleanup). 5 of 40 invariants green (manifest schema, dedup calibration, class balance, source disjoint, benign contamination). Operator follow-ups: (1) hand-examine `data/dedup_holdout.jsonl` per ADR-042 to raise `human_verified_pct` from 0 to 100 before v1.0.0 tag; (2) Phase 2 trainer reads `data/processed/fold-{0..3}/seed-{42,43,44}/{train,val,test}.parquet` directly.
+
 **Replanning checkpoint**: before exiting Phase 1, audit data assumptions; if any locked decision broke (e.g., a source license changed), file a superseding ADR before moving to Phase 2.
 
 ## Phase 2 — Training
