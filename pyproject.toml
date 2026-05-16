@@ -55,7 +55,7 @@ strict = true
 # Some upstreams do not ship pep-561 stubs; suppress missing-imports here so
 # the rule works identically in local mypy + pre-commit hook env.
 [[tool.mypy.overrides]]
-module = ["datasets", "sentence_transformers"]
+module = ["datasets", "sentence_transformers", "sklearn.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
