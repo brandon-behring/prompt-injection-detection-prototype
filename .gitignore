@@ -10,6 +10,13 @@ dist/
 .DS_Store
 evals/predictions/
 evals/checkpoints/
+# Phase 1 data outputs — large + private; manifest (data/source_manifest.yaml) is committed.
+data/raw/
+data/processed/
+data/dedup_holdout.jsonl
+data/contamination_templates.parquet
+# HF default cache may live under repo if HF_HOME points here — never commit.
+.hf_cache/
 # Secrets — never commit (repo is public)
 .env
 .env.*

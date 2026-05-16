@@ -89,6 +89,21 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 | `huggingface_hub.HfApi.list_repos` | `tests/test_invariants.py::test_hf_hub_publication_naming_convention` (Phase 5 verification) | Verify naming convention `BBehring/prompt-injection-<rung-name>` for all published rungs |
 | `huggingface_hub.snapshot_download` | `scripts/eval_from_hub.py` (Phase 3 deliverable; T0 reproducibility tier per ADR-034) | Download a published checkpoint for eval-only reproduction; pin via `revision=<SHA>` if drift detected per ADR-034 extension condition |
 
+## Phase 1 Data deps (introduced incrementally per ADR-041 across Commits 1–6)
+
+| Library | First imported in | Purpose | Pinned at |
+|---|---|---|---|
+| `huggingface_hub` | `scripts/pin_source_manifest.py` (Commit 1) | `HfApi.dataset_info(repo_id).sha` for revision SHA discovery per ADR-041 Q2 | `>=0.25` (`pyproject.toml`) |
+| `pyyaml` (graduated dev → main dep) | `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` (Commit 1) | Manifest YAML parse/serialize per ADR-041 Q1 rich-schema | `>=6` (`pyproject.toml`) |
+| `datasets` | `src/data/loaders.py` (Commit 2) | `load_dataset(repo, revision=sha)` per ADR-041 Q4 HF dispatch | (Commit 2) |
+| `sentence-transformers` | `src/data/dedup.py` (Commit 3) | `all-MiniLM-L6-v2` embedder per ADR-016 Q4 | (Commit 3) |
+| `pandas` + `pyarrow` | `src/data/splits.py` + `src/data/loaders.py` (Commits 2/4) | parquet IO for `data/raw/` + `data/processed/` per ADR-041 Q7 | (Commit 4) |
+| `scikit-learn` | `src/data/splits.py` (Commit 4) | `train_test_split` + `StratifiedKFold` for within-fold 80/20 + LODO stratification | (Commit 4) |
+
+**Pin script entrypoint**: `scripts/pin_source_manifest.py` (Commit 1) — one-time + bump-driven; live-fetches HF SHAs via `huggingface_hub.HfApi.dataset_info` + GitHub SHAs via `subprocess.run(["git", "ls-remote", url, "HEAD"])`; writes `data/source_manifest.yaml`; idempotent re-runs; SHA-mismatch raises `SHAMismatchError` unless `--force` records `bump_history` entry per ADR-036.
+
+**Manifest validator entrypoint**: `src/data/manifest_validation.py::validate_manifest(path)` (Commit 1) — invoked from `tests/test_invariants.py::test_source_manifest_schema_valid` + `scripts/pin_source_manifest.py` post-write sanity check.
+
 ## research_toolkit usage (https://github.com/brandon-behring/research_toolkit)
 
 The literature dossier at `docs/research/` was produced by this toolkit's skill pipeline. New dossier work invokes the same skills:

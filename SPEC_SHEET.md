@@ -161,7 +161,20 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 | BIPIA | `microsoft/BIPIA` | Indirect (zero-shot OOD per ADR-014 Q1) | Indirect-injection benchmark per Yi 2023 KDD; the load-bearing zero-shot transfer measurement |
 | InjecAgent | `uiuc-kang-lab/InjecAgent` | Agentic (stretch probe) | Tool-integrated agent injection per Zhan 2024 ACL; agentic transfer-of-transfer caveat per ADR-010 Bound 2 |
 
-**Linked ADRs**: ADR-014 (threat-model bundle — attack-class scope), ADR-015 (rung architecture — 3 ModernBERT-base trained + 4 reference rungs), ADR-016 (this — data design bundle), ADR-008 (data scope brief-level locks — preserved).
+**Linked ADRs**: ADR-014 (threat-model bundle — attack-class scope), ADR-015 (rung architecture — 3 ModernBERT-base trained + 4 reference rungs), ADR-016 (this — data design bundle), ADR-008 (data scope brief-level locks — preserved), ADR-041 (Phase 1 implementation bundle — manifest rich-schema + live-fetch SHA pinning + manifest_validation.py placement + loader dispatch + stratified-cosine-band dedup holdout + slate-plus-templates contamination corpus + per-fold parquet materialization).
+
+### 3.5 Phase 1 implementation status
+
+`[Phase 1 in progress per ADR-041]` Operationalization of §3.1–3.4 locks. Per-commit status:
+
+| Phase 1 commit | Deliverable | Invariant test | Status |
+|---|---|---|---|
+| Commit 1 | `data/source_manifest.yaml` (live-fetched SHAs; rich schema; bump_history=[]) + `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` | `test_source_manifest_schema_valid` | **green** |
+| Commit 2 | `src/data/loaders.py` (HF dispatch + 11 normalizers) | smoke tests per source | pending |
+| Commit 3 | `src/data/dedup.py` + `data/dedup_holdout.jsonl` (50 stratified-cosine-band pairs) + `evals/dedup_calibration.json` | `test_dedup_calibration_persisted` | pending |
+| Commit 4 | `src/data/splits.py` + 48 per-fold parquet files under `data/processed/` | (covered by commit 5 invariants) | pending |
+| Commit 5 | `evals/{data_audit,leakage_report,contamination_scan}.json` (corpus = slate + ~200 templates) | `test_benign_contamination_scan_clean` | pending |
+| Commit 6 | `Makefile` Phase 1 targets + SUBMISSION_AUDIT regen | n/a | pending |
 
 ---
 
@@ -367,7 +380,7 @@ Per-ADR `acceptance_criterion:` frontmatter fields collectively cover the granul
 7. **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR.
 8. **Tests-as-invariants**: every spec claim that can be made executable as a test, must be.
 
-**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034, ADR-035, ADR-036, ADR-037, ADR-038, ADR-039, ADR-040.
+**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034, ADR-035, ADR-036, ADR-037, ADR-038, ADR-039, ADR-040, ADR-041.
 
 ---
 

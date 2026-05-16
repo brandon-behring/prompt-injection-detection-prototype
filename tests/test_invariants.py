@@ -93,18 +93,39 @@ def test_truncation_policy_adaptive_chunked_max_pool() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_source_manifest_schema_valid() -> None:
     """data/source_manifest.yaml parses, contains all 11 sources, each has SHA + license + role.
 
-    Per ADR-016 (Q3 lock), HF revisions and GitHub commit SHAs are pinned at
-    Phase 1 entry in unified data/source_manifest.yaml. This invariant asserts
-    the manifest parses as valid YAML, contains all 11 expected sources
-    (4 train positives + 2 train benigns + 5 OOD slices), and each source
-    record carries the required fields (type, revision/commit_sha, license,
-    role). Schema version equals 1.0; bump_history is a list.
+    Per ADR-016 (Q3 lock) + ADR-041 (Q1 rich schema), HF revisions and GitHub
+    commit SHAs are pinned at Phase 1 entry in unified data/source_manifest.yaml.
+    This invariant asserts the manifest validates clean against the rich-schema
+    contract enforced by src/data/manifest_validation.py — 11 expected sources
+    (4 train positives + 2 train benigns + 5 OOD slices); each row carries the
+    13 required fields; schema_version == "1.0"; bump_history is a list.
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    from pathlib import Path
+
+    from src.data.manifest_validation import (
+        EXPECTED_ROLE_COUNTS,
+        EXPECTED_SOURCE_NAMES,
+        SCHEMA_VERSION,
+        validate_manifest,
+    )
+
+    repo_root = Path(__file__).resolve().parent.parent
+    manifest_path = repo_root / "data" / "source_manifest.yaml"
+    parsed = validate_manifest(manifest_path)
+
+    assert parsed["schema_version"] == SCHEMA_VERSION
+    assert isinstance(parsed["bump_history"], list)
+    seen_names = {row["name"] for row in parsed["sources"]}
+    assert (
+        seen_names == EXPECTED_SOURCE_NAMES
+    ), f"manifest source names mismatch ADR-016 slate: {seen_names ^ EXPECTED_SOURCE_NAMES}"
+    role_counts: dict[str, int] = {role: 0 for role in EXPECTED_ROLE_COUNTS}
+    for row in parsed["sources"]:
+        role_counts[row["role"]] += 1
+    assert role_counts == EXPECTED_ROLE_COUNTS
 
 
 @pytest.mark.unit
