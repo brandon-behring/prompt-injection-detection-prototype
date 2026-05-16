@@ -44,6 +44,28 @@ The ledger is **positive evidence**: not just "we don't hand-roll" but "here is 
 | Recipe: **cost-reconciliation** | `scripts/cost_rollup.py` | Post-run actual-vs-assumed reconciliation via `runpod_deploy_pull_manifest.json` (per ADR-020 dual-layer cost tracking) |
 | `events.emit_event` (in flash-attn-fallback recipe) | `src/training/load_modernbert.py` fallback branch | Audit-trail emission when fallback fires |
 
+## Quarto + GitHub Actions (introduced by ADR-030 + ADR-033)
+
+Quarto is the writeup-rendering engine introduced at Phase 0-07 close per ADR-030 (deliverable format = repo-only with Quarto-rendered HTML site via GH Actions; supersedes ADR-002 PDF + repo). Listed here to preserve the library-first discipline trail; Quarto version pinning is deferred to Phase 0-08 (library version pinning sub-session).
+
+| Library / action | Invoked in | Purpose |
+|---|---|---|
+| `quarto` (single-binary CLI; system install) | `Makefile` targets `site` + `site-preview` | Local Quarto site render (`quarto render`) + live-reload dev server (`quarto preview`) per ADR-030 |
+| `quarto-actions/setup@v2` | `.github/workflows/publish.yml` | CI Quarto install (per ADR-030 GH Actions hosting lock) |
+| `quarto-actions/publish@v2` | `.github/workflows/publish.yml` | Auto-publish rendered `_site/` to GH Pages via `gh-pages` branch on push to `main` and on tag push `v*` (per ADR-030 + ADR-033 tag-triggers-publish) |
+| `_quarto.yml` website config | repo root | Sidebar nav for 8 spokes + auto-include of all ADRs; `format: html` only (no PDF auxiliary per ADR-030 Q1.b lock) |
+| `index.qmd` entry-point | repo root | Reviewer reading-path guide (A1 + A2 + deep-dive paths per ADR-031) |
+
+## huggingface_hub publication-side use (introduced by ADR-032)
+
+Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), ADR-032 introduces *publication-side* use — pushing the headline rungs to public `BBehring/prompt-injection-<rung>` model repos with model card discipline.
+
+| Primitive | Invoked in | Purpose |
+|---|---|---|
+| `huggingface_hub.HfApi.upload_folder` | `scripts/generate_model_cards.py` (Phase 5 deliverable) | Push trained checkpoint + model card README to public HF Hub model repo per ADR-032 |
+| `huggingface_hub.HfApi.list_repos` | `tests/test_invariants.py::test_hf_hub_publication_naming_convention` (Phase 5 verification) | Verify naming convention `BBehring/prompt-injection-<rung-name>` for all published rungs |
+| `huggingface_hub.snapshot_download` | `scripts/eval_from_hub.py` (Phase 3 deliverable; T0 reproducibility tier per ADR-034) | Download a published checkpoint for eval-only reproduction; pin via `revision=<SHA>` if drift detected per ADR-034 extension condition |
+
 ## research_toolkit usage (https://github.com/brandon-behring/research_toolkit)
 
 The literature dossier at `docs/research/` was produced by this toolkit's skill pipeline. New dossier work invokes the same skills:

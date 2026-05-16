@@ -491,3 +491,125 @@ def test_pytest_markers_registered_and_in_sync() -> None:
     marker-remove post-lock requires a superseding ADR.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_quarto_site_config_present() -> None:
+    """_quarto.yml + .github/workflows/publish.yml + index.qmd present per ADR-030.
+
+    Per ADR-030 (deliverable format — repo-only with Quarto-rendered HTML site via
+    GH Actions; supersedes ADR-002), the repo must declare a Quarto website config
+    plus a GH Actions workflow that publishes the site to GH Pages. This invariant
+    asserts: (1) _quarto.yml exists at repo root; (2) _quarto.yml parses as valid
+    YAML and declares project.type=website; (3) _quarto.yml declares format.html
+    (HTML output target only — no PDF auxiliary per ADR-030 Q1.b lock); (4) the
+    sidebar block under website includes contents referencing all 8 spokes
+    (eval-design plus methodology-guarantees plus limitations-and-future-work plus
+    data-decisions plus model-rungs plus threshold-policy plus reference-scorer-audit
+    plus reproducibility) plus an auto: decisions/ADR-*.md glob for the ADRs
+    section; (5) .github/workflows/publish.yml exists and references both
+    quarto-actions/setup@v2 and quarto-actions/publish@v2 steps; (6) the workflow
+    triggers on push to main and on tag push v*; (7) the workflow declares
+    permissions block with contents=write plus pages=write plus id-token=write.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_index_qmd_reading_paths_present() -> None:
+    """index.qmd contains three reviewer reading paths per ADR-031.
+
+    Per ADR-031 (reviewer reading paths via index.qmd; supersedes ADR-004 PDF-as-hub
+    framing), index.qmd at repo root carries the entry-point reading-path guide
+    that replaces the PDF cover sheet role. This invariant asserts: (1) index.qmd
+    exists at repo root; (2) index.qmd contains a Quick-skim path section header
+    (A1 hiring manager 15-min path); (3) index.qmd contains an Audit path section
+    header (A2 ML researcher 60-min path); (4) index.qmd contains a Deep-dive
+    section header (reproduce-numbers path with T0 plus T1 plus T3 references per
+    ADR-034); (5) index.qmd contains a Repo map section enumerating src plus
+    scripts plus configs plus decisions plus results plus tests plus WRITEUP plus
+    WRITEUP/; (6) index.qmd contains a Submission anchors section listing the
+    three reviewer URLs (source pin at submission tag plus live Quarto site plus GH
+    release page) per ADR-033 reviewer-email URL plan; (7) WRITEUP/reproducibility.md
+    spoke exists (slotted by ADR-031 for ADR-034 content). Adding a new spoke or
+    reading-path section is allowed without superseding ADR; spoke removal requires
+    superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_hf_hub_publication_naming_convention() -> None:
+    """Published HF Hub model repos follow BBehring/prompt-injection-<rung> per ADR-032.
+
+    Per ADR-032 (HF Hub publication — primary headline rungs only with model card
+    discipline), every published rung must follow the BBehring/prompt-injection-
+    <rung-name> naming convention plus carry a model card with the locked
+    frontmatter schema. This invariant asserts at Phase 5 close: (1) for each
+    rung in the headline-publication set (frozen-probe plus LoRA plus
+    conditionally full-FT plus conditionally TF-IDF+LR per ADR-019 plus ADR-017
+    final composition), a public HF Hub repo exists at BBehring/prompt-injection-
+    <rung-name> (verified via huggingface_hub.HfApi().list_repos with author
+    BBehring filter); (2) each repo's README YAML frontmatter contains the
+    required keys — license (apache-2.0 inherited from ModernBERT-base) plus tags
+    (text-classification plus prompt-injection plus safety) plus datasets (HF
+    dataset IDs at the pinned SHAs per ADR-016) plus model-index.results
+    (per-rung headline metrics from results.json with the pooled-OOD column per
+    ADR-021) plus intended use plus limitations plus citation; (3) reference
+    scorers per ADR-018 are NOT present under BBehring/ namespace (they remain
+    at their canonical authors). Publication-set composition is provisional —
+    final list revisitable at Phase 5 per ADR-032 extension condition without
+    superseding this invariant.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_submission_tag_changelog_present() -> None:
+    """CHANGELOG.md follows Keep-a-Changelog 1.1.0 + has v1.0.0 section at submission per ADR-033.
+
+    Per ADR-033 (GitHub release strategy — rehearsal plus submission plus
+    patches), CHANGELOG.md is committed at repo root in Keep-a-Changelog 1.1.0
+    format with entries written in human language not git-shortlog dumps. This
+    invariant asserts: (1) CHANGELOG.md exists at repo root; (2) the file
+    references keepachangelog.com and semver.org in its preamble (format
+    declaration); (3) at v1.0.0 submission tag time, a [v1.0.0] section exists
+    with at minimum a Submission subsection naming the 4 publication artefacts
+    (Quarto site published to GH Pages plus HF Hub model repos published plus
+    methodology writeup plus reviewer URLs); (4) at v1.0.0 submission tag time,
+    a [v0.9.0-rc1] section exists naming the rehearsal tag's purpose; (5)
+    Keep-a-Changelog section structure is followed (Added plus Changed plus
+    Deprecated plus Removed plus Fixed plus Security as applicable); (6) version
+    links at file bottom match the SemVer tag format. Patch tags v1.0.x add
+    sections without changing existing ones (audit-trail discipline).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_reproducibility_tier_documented() -> None:
+    """WRITEUP/reproducibility.md documents T0+T1+T3 tier ladder per ADR-034.
+
+    Per ADR-034 (reproducibility tier — full ladder T0 eval-from-hub plus T1
+    smoke plus T3 headline-cloud), the WRITEUP/reproducibility.md spoke
+    documents the tier ladder with verbatim commands plus cost plus time plus
+    what-each-tier-verifies plus what-each-tier-does-NOT-verify. This invariant
+    asserts: (1) WRITEUP/reproducibility.md exists; (2) the spoke contains all
+    three tier names T0 plus T1 plus T3 in section headers; (3) each tier has a
+    verbatim command in a code block — make smoke plus make eval-from-hub plus
+    make headline-cloud; (4) the Makefile contains all three target names
+    (smoke plus eval-from-hub plus headline-cloud) as rules; (5) the spoke
+    contains the tier-coverage matrix with cost plus time plus verifies plus
+    does-not-verify columns for each tier; (6) the spoke explicitly carves out
+    T2 (test-integration) as a developer-tool tier with rationale (not promoted
+    to reviewer-facing per ADR-034 Q4 walk); (7) the spoke includes the ACM
+    artifact-badging mapping subsection (T0+T1 supply Functional+Reusable; T3
+    supplies Reproducible). Adding a new tier requires superseding ADR; tier
+    removal requires superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")

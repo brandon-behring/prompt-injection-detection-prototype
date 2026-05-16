@@ -3,7 +3,8 @@ adr_id: 002
 slug: deliverable-format-pdf-and-repo
 title: Deliverable format — focused PDF plus public GitHub repo as evidence locker
 date: 2026-05-15
-status: Accepted
+status: Superseded
+superseded_by: "030"
 claim_id: CLAIM-002
 claim: The submission deliverable is a focused PDF (rendered from WRITEUP.md + appendices) paired with a public GitHub repo containing ADRs, code, notebooks, training manifests, per-row predictions, and topic-focused markdown spokes for any reader who wants depth beyond the PDF.
 source: SPEC_GREENFIELD.md §Brief row 305 (Deliverable format)
@@ -19,7 +20,9 @@ transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md
 
 ## Status
 
-Accepted (2026-05-15)
+Superseded by ADR-030 (2026-05-16). Originally Accepted (2026-05-15).
+
+**Supersession context**: Phase 0-07 Q1 walk surfaced a user pivot away from PDF — "I think a pdf is not needed. The repo, can provide the write as a html documentation to hyperlink between the products. But it should have a clear guide/TOC to help someone examine the repo." ADR-030 replaces the PDF + repo dual-artifact decision with a repo-only deliverable rendered as a Quarto HTML site via GitHub Actions. See `decisions/ADR-030-deliverable-format-quarto-html-site.md` for the superseding decision.
 
 ## Context
 

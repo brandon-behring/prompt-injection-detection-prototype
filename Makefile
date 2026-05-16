@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit headline-dry-run headline-cloud clean
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit headline-dry-run headline-cloud eval-from-hub site site-preview clean
 
 install:
 	uv sync --extra dev
@@ -57,5 +57,24 @@ headline-cloud:
 	@echo "[headline-cloud] placeholder — implement at Phase 1 entry per ADR-027 + ADR-020"
 	@echo "[headline-cloud] expected wiring: runpod-deploy validate --all && runpod-deploy run --dry-run --config configs/runpod/headline.yaml && interactive-approval && runpod-deploy run --config configs/runpod/headline.yaml"
 
+# `make eval-from-hub RUNG=<name>` — T0 reproducibility tier (per ADR-034).
+# Downloads a published BBehring/prompt-injection-<rung-name> checkpoint per ADR-032
+# and runs eval-only against the data slate. Verifies headline scores reproduce
+# without re-training. Laptop-compatible (CPU-feasible eval).
+# Placeholder until `scripts/eval_from_hub.py` lands at Phase 3.
+eval-from-hub:
+	@if [ -z "$(RUNG)" ]; then echo "ERROR: RUNG=<rung-name> required (e.g., make eval-from-hub RUNG=modernbert-lora)"; exit 2; fi
+	@echo "[eval-from-hub] placeholder — implement at Phase 3 entry per ADR-034"
+	@echo "[eval-from-hub] expected wiring: uv run python scripts/eval_from_hub.py --rung $(RUNG) --output results/predictions/eval-from-hub__$(RUNG).parquet"
+
+# `make site` — render the Quarto HTML site to _site/ (per ADR-030).
+# Local render only; CI publishes to GH Pages on tag push via .github/workflows/publish.yml.
+site:
+	quarto render
+
+# `make site-preview` — live-reload dev server for local Quarto preview.
+site-preview:
+	quarto preview
+
 clean:
-	rm -rf .ruff_cache .mypy_cache .pytest_cache build dist *.egg-info __pycache__
+	rm -rf .ruff_cache .mypy_cache .pytest_cache build dist *.egg-info __pycache__ _site .quarto

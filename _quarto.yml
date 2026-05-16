@@ -1,0 +1,57 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Prompt-injection classifier — methodology submission"
+  description: "Methodology + capability characterization of a prompt-injection classifier rung ladder, with honest OOD evaluation."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Reading guide
+      - href: WRITEUP.md
+        text: Methodology
+      - text: Spokes
+        menu:
+          - WRITEUP/eval-design.md
+          - WRITEUP/methodology-guarantees.md
+          - WRITEUP/limitations-and-future-work.md
+          - WRITEUP/data-decisions.md
+          - WRITEUP/model-rungs.md
+          - WRITEUP/threshold-policy.md
+          - WRITEUP/reference-scorer-audit.md
+          - WRITEUP/reproducibility.md
+      - text: Decisions (ADRs)
+        href: decisions/README.md
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - section: "Reading guide"
+        contents:
+          - index.qmd
+      - section: "Methodology"
+        contents:
+          - WRITEUP.md
+          - WRITEUP/eval-design.md
+          - WRITEUP/methodology-guarantees.md
+          - WRITEUP/limitations-and-future-work.md
+          - WRITEUP/data-decisions.md
+          - WRITEUP/model-rungs.md
+          - WRITEUP/threshold-policy.md
+          - WRITEUP/reference-scorer-audit.md
+          - WRITEUP/reproducibility.md
+      - section: "Decisions (ADRs)"
+        contents:
+          - auto: "decisions/ADR-*.md"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    code-fold: false
+    code-tools: true
+    css: styles.css
+    link-external-newwindow: true

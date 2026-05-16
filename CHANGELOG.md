@@ -6,14 +6,36 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Versioning convention
 
-Three named tags map to phase gates:
+Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 - **`v0.0.0`** — public-seed tag (immediately after the public push)
 - **`v0.1.0`** — Phase 0 complete (all 50 `[OPEN]` decisions resolved + ADRs drafted + SPEC_SHEET filled + assumptions.md populated + invariant test stubs exist per Phase 0 close criterion)
 - Patch versions (`v0.1.1`, `v0.1.2`, ...) — substantial work-units during Phase 1+
-- **`v1.0.0`** — submission ready (PDF bundled, all WRITEUP `[TBD]` resolved, SUBMISSION_AUDIT clean)
+- **`v0.9.0-rc1`** — Phase 4 close release-candidate (per ADR-033) — fires the full publish pipeline (Quarto site build per ADR-030 + GH Pages deploy + HF Hub model card pushes per ADR-032) as a dress-rehearsal 24+ hours before submission day. Catches first-time-CI / auth / schema issues before the canonical tag fires. If rehearsal fails, fix-forward via new commits + `v0.9.0-rc2`
+- **`v1.0.0`** — submission ready (Quarto site published to GH Pages per ADR-030; HF Hub model repos published per ADR-032; CHANGELOG entry committed; all WRITEUP `[TBD]` resolved; SUBMISSION_AUDIT clean)
+- Post-submission patches (`v1.0.1`, `v1.0.2`, ...) — typo / link / reviewer-feedback fixes per ADR-033; reviewer URL stays pinned at `v1.0.0`; live Quarto site reflects latest patch
+- Major bump (`v2.0.0`) — reserved for actual methodology revisions; requires superseding ADR with rationale + reviewer-notification step
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
+
+## [Unreleased]
+
+### Added
+
+- Phase 0-07 submission deliverables locks — ADR-030 (Quarto HTML site supersedes ADR-002 PDF + repo) + ADR-031 (reviewer reading paths via `index.qmd` supersedes ADR-004 PDF-as-hub) + ADR-032 (HF Hub publication = headline rungs only with model card discipline) + ADR-033 (release strategy = rehearsal + submission + patches) + ADR-034 (reproducibility tier = full ladder T0+T1+T3)
+- `_quarto.yml` website config + sidebar nav for 8 spokes + auto-include of all ADRs
+- `index.qmd` reviewer entry-point with three reading paths (A1 quick-skim ~15 min, A2 audit ~60 min, deep-dive reproduce-numbers)
+- `.github/workflows/publish.yml` — `quarto-actions/setup@v2` + `quarto-actions/publish@v2` workflow auto-deploys site to GH Pages on push to `main` and on tag push `v*`
+- `WRITEUP/reproducibility.md` skeleton spoke documenting the T0+T1+T3 tier ladder with verbatim commands
+- `Makefile` targets — `make site` (Quarto render), `make site-preview` (live-reload dev server), `make eval-from-hub RUNG=<name>` (T0 placeholder; implementation deferred to Phase 3)
+
+### Changed
+
+- ADR-002 status changed from Accepted to Superseded (superseded by ADR-030)
+- ADR-004 status changed from Accepted to Superseded (superseded by ADR-031)
+- SPEC_GREENFIELD ledger rows 300, 302, 347, 348, 349, 350 updated with locks + supersession notes
+- SPEC_SHEET §Context paragraph + Phase 5 gates + new §9 Submission deliverables + §8 Linked ADRs trailer updated to reflect Phase 0-07 locks
+- Versioning convention (this file) — added `v0.9.0-rc1` rehearsal tag + `v1.0.x` post-submission patch convention per ADR-033
 
 ## [0.0.0] — 2026-05-15
 

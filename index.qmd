@@ -1,0 +1,80 @@
+---
+title: "Prompt-injection classifier — methodology submission"
+author: "Brandon Behring"
+date: "2026-05-16"
+description: "Reviewer reading-path guide + repo TOC."
+---
+
+# Welcome — reviewer reading guide
+
+This is the entry-point for the methodology submission. Three reading paths are documented below; pick the one matching your audit depth.
+
+The submission is a methodology + capability characterization of a prompt-injection classifier rung ladder, evaluated under an honest OOD slate. **No rung is promoted as a deployment recommendation** — each rung's trade-offs are characterized; readers with a specific deployment context map our characterization onto their cost constraints. See [`WRITEUP.md`](WRITEUP.md) for the full methodology narrative.
+
+---
+
+## Quick-skim path — A1 (hiring manager, ~15 min)
+
+For readers who want the headline narrative + what's interesting about the methodology, no code dive.
+
+1. [`WRITEUP.md` §1 Motivation + §2 Approach overview](WRITEUP.md) — the ask + the rung ladder framing.
+2. [Headline results section in `WRITEUP.md`](WRITEUP.md) — pooled IID + pooled OOD numbers per rung.
+3. [`WRITEUP/limitations-and-future-work.md`](WRITEUP/limitations-and-future-work.md) — what was deferred and why.
+
+---
+
+## Audit path — A2 (ML researcher, ~60 min)
+
+For readers who want to scrutinize the methodology before trusting the numbers.
+
+1. Full [`WRITEUP.md`](WRITEUP.md) cover-to-cover.
+2. [`WRITEUP/eval-design.md`](WRITEUP/eval-design.md) — OOD slate, calibration battery, paired-bootstrap protocol.
+3. [`WRITEUP/methodology-guarantees.md`](WRITEUP/methodology-guarantees.md) — banned approaches surfaced as guarantees.
+4. [`WRITEUP/reference-scorer-audit.md`](WRITEUP/reference-scorer-audit.md) — LLM-judge + kappa findings; contamination stratification.
+5. [`WRITEUP/threshold-policy.md`](WRITEUP/threshold-policy.md) — dual-policy detection + verification operating points.
+6. [`decisions/`](decisions/README.md) — full ADR ledger; Architecture Decision Records in Michael Nygard format. **34+ ADRs.**
+
+---
+
+## Deep-dive path — reproduce the numbers
+
+Three reproduction tiers per [ADR-034](decisions/ADR-034-reproducibility-tier-full-ladder.md). Pick the tier matching your audit depth + budget.
+
+| Tier | Command | Cost | Time | What it verifies |
+|---|---|---|---|---|
+| **T0** — eval-from-hub | `make eval-from-hub RUNG=modernbert-lora` | $0 (HF Hub bandwidth) | ~10-30 min | Headline scores reproduce on the published checkpoint |
+| **T1** — smoke | `make smoke` | $0 | ~10 min | Code health; fixture pipeline runs end-to-end |
+| **T3** — headline-cloud | `make headline-cloud` | ~$125+ per [ADR-020](decisions/ADR-020-compute-infrastructure-and-cost-discipline.md) | ~hours | Full retraining from scratch reproduces headline numbers |
+
+Detailed instructions in [`WRITEUP/reproducibility.md`](WRITEUP/reproducibility.md).
+
+---
+
+## Repo map
+
+| Path | Contents |
+|---|---|
+| [`src/`](src/) | Library code — `data/`, `training/`, `scoring/`, `eval/`, `utils/` per [ADR-026](decisions/ADR-026-module-layout-concern-grouped-subpackages.md) |
+| [`scripts/`](scripts/) | CLI entrypoint glue — argparse + IO orchestrating `src/` calls |
+| [`configs/`](configs/) | YAML rung + RunPod + profile configs |
+| [`decisions/`](decisions/README.md) | ADRs (immutable decision records) |
+| [`results/`](results/) | Per-row predictions + metrics (populated at Phase 3) |
+| [`tests/`](tests/) | Invariant tests + unit/smoke/integration suites |
+| [`WRITEUP.md`](WRITEUP.md) | Methodology hub document |
+| [`WRITEUP/`](WRITEUP/) | Topic-focused methodology spokes (8 files) |
+
+---
+
+## Submission anchors
+
+- **Source pin** (canonical; never drifts): `https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0`
+- **Live rendered site**: `https://brandon-behring.github.io/prompt-injection-detection-submission/`
+- **Release page** (CHANGELOG + offline-readable site bundle): `https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0`
+
+Per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md) — `v0.9.0-rc1` is a rehearsal tag (catches first-time-CI issues 24+ hours before submission); `v1.0.0` is the canonical submission tag; `v1.0.x` SemVer patch tags reserved for post-submission typo / link / reviewer-feedback fixes.
+
+---
+
+## Status
+
+This index file is the entry-point introduced at Phase 0-07 close (per [ADR-031](decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.md) — supersedes ADR-004 PDF-as-hub framing). Full methodology content lives in [`WRITEUP.md`](WRITEUP.md) + the 8 spokes under [`WRITEUP/`](WRITEUP/). At Phase 0-07 close, the spokes are skeletons; Phase 5 populates them.

@@ -15,7 +15,7 @@
 
 ## Context
 
-This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05 + Phase 0-06** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 4 reference rungs at their published native configs — `gpt-4o-2024-08-06` + `claude-sonnet-4-6` + `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 8-rung slate is stratified along ADR-005's three-state contamination taxonomy (per ADR-018) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination + LLM judges vendor_black_box — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a focused PDF rendered from `WRITEUP.md` + a public GitHub repo serving as the evidence locker (ADR-002 + ADR-003), structured as a **hub-and-spoke writeup** for a dual A1+A2 audience (hiring manager + ML researcher; ADR-004). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
+This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05 + Phase 0-06 + Phase 0-07** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 4 reference rungs at their published native configs — `gpt-4o-2024-08-06` + `claude-sonnet-4-6` + `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 8-rung slate is stratified along ADR-005's three-state contamination taxonomy (per ADR-018) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination + LLM judges vendor_black_box — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a public GitHub repo rendered as a Quarto-built static HTML site auto-published to GitHub Pages via a `quarto-actions/publish@v2` workflow (per ADR-030 supersedes ADR-002 — PDF removed; pandoc + LaTeX dependencies dropped). The site uses an `index.qmd` entry-point + Quarto sidebar nav declared in `_quarto.yml` to surface 8 spokes + decisions/ ADRs to a dual A1+A2 audience (hiring manager + ML researcher; per ADR-031 supersedes ADR-004 — A1+A2 + B4 + hub-and-spoke survive; hub artefact shifts from PDF to Quarto site). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
 
 - **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
 - **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview
@@ -71,7 +71,7 @@ Gate: every checkbox ticked; `tests/test_data.py` and `tests/test_leakage.py` gr
 - [ ] All rungs trained successfully on `[TBD: (candidate) H100 via runpod-deploy]`
 - [ ] Training artifacts captured per `runpod-deploy` manifest (git SHA, seed, GPU info, env)
 - [ ] **Per-row predictions persisted** at `evals/predictions/<rung>__<fold>__<seed>.parquet` `[LOCKED]`
-- [ ] Per-rung checkpoint persisted to `[TBD: HF Hub at BBehring/<project>; resolved at Phase 0]`
+- [ ] Per-rung checkpoint persisted to HF Hub `[LOCKED: BBehring/prompt-injection-<rung-name> for the headline rungs only — frozen-probe + LoRA + conditionally full-FT + conditionally TF-IDF+LR — with model card discipline (license + tags + datasets + model-index + intended use + limitations + citation); reference scorers per ADR-018 NOT republished; per ADR-032]`
 
 Gate: every checkbox ticked; training manifests schema-validated.
 
@@ -101,10 +101,13 @@ Gate: every checkbox ticked; analysis JSON outputs match schemas.
 - [ ] All  ADRs written and indexed in `decisions/README.md`
 - [ ] Transcripts linked from WRITEUP appendix
 - [ ] EVIDENCE.md populated for every external-evidence claim
-- [ ] PDF bundled: README + WRITEUP + NEXT_STEPS + SPEC_SHEET + EVIDENCE
+- [ ] Quarto site published to GH Pages (per ADR-030); `_quarto.yml` + `index.qmd` + `.github/workflows/publish.yml` exist; `quarto render` succeeds locally and via the GH Actions workflow
+- [ ] HF Hub model repos published per ADR-032 (headline rungs only with model card discipline)
+- [ ] CHANGELOG.md committed per ADR-033 (Keep-a-Changelog 1.1.0 format); `v0.9.0-rc1` rehearsal tag fired (catches first-time-CI issues); `v1.0.0` submission tag created; GH release object carries CHANGELOG + `_site.tar.gz` asset
+- [ ] `WRITEUP/reproducibility.md` spoke populated with T0+T1+T3 tier ladder per ADR-034
 - [ ] All `[TBD: value]` / `[OPEN]` markers in submission templates resolved or justified
 
-Gate: every checkbox ticked; PDF reads cleanly start-to-finish.
+Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Quarto site + GH release page) all resolve; transcripts ready for private email attachment.
 
 ---
 
@@ -356,7 +359,21 @@ Plus the standard quality gates that apply to every phase:
 7. **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR.
 8. **Tests-as-invariants**: every spec claim that can be made executable as a test, must be.
 
-**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029.
+**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034.
+
+---
+
+## 9. Submission deliverables (Phase 0-07)
+
+`[LOCKED]` Submission deliverables locked at Phase 0-07 — see ADR-030 (deliverable format = Quarto HTML site via GH Actions; supersedes ADR-002 PDF + repo) + ADR-031 (reviewer reading paths via `index.qmd` + sidebar nav; supersedes ADR-004 PDF-as-hub framing) + ADR-032 (HF Hub publication = headline rungs only with model card discipline) + ADR-033 (release strategy = `v0.9.0-rc1` rehearsal + `v1.0.0` submission + `v1.0.x` post-submission patches; CHANGELOG + `_site.tar.gz` release asset) + ADR-034 (reproducibility tier = full ladder T0 eval-from-hub + T1 smoke + T3 headline-cloud).
+
+**Reviewer email at submission** carries three URLs + private attachment:
+1. Source pin — `https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0`
+2. Live rendered Quarto site — `https://brandon-behring.github.io/prompt-injection-detection-submission/`
+3. GH release page — `https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0`
+4. Transcripts as private attachment per existing convention (gitignored).
+
+**Linked ADRs**: ADR-030, ADR-031, ADR-032, ADR-033, ADR-034.
 
 ---
 

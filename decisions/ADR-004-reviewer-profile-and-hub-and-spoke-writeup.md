@@ -3,7 +3,8 @@ adr_id: 004
 slug: reviewer-profile-and-hub-and-spoke-writeup
 title: Reviewer profile A1+A2 with hub-and-spoke writeup structure
 date: 2026-05-15
-status: Accepted
+status: Superseded
+superseded_by: "031"
 claim_id: CLAIM-004
 claim: The submission is read by a dual audience — hiring manager (A1) and ML researcher (A2) — with no single reading-time bound. The PDF is the focused hub (≈ 10-15 pages, layered for both audiences); per-topic markdown spokes under WRITEUP/ carry depth that the PDF cross-links to.
 source: SPEC_GREENFIELD.md §Brief row 307 (Reviewer profile + expected reading time)
@@ -20,7 +21,9 @@ transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md
 
 ## Status
 
-Accepted (2026-05-15)
+Superseded by ADR-031 (2026-05-16) for the hub-artefact framing. Originally Accepted (2026-05-15).
+
+**Supersession scope**: the A1+A2 dual-audience profile + B4 open-ended-layered reading-time stance + hub-and-spoke structure all survive. What changes: the *hub artefact* shifts from PDF (~10-15 pages) to the Quarto-rendered HTML site introduced by ADR-030, specifically the `index.qmd` entry-point file + Quarto sidebar nav declared in `_quarto.yml`. The spoke list is also finalized at 8 spokes (the 7 provisional spokes from ADR-004 + a new `WRITEUP/reproducibility.md` required by ADR-034 to document the T0+T1+T3 tier ladder). See `decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.md` for the superseding decision.
 
 ## Context
 
