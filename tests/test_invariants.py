@@ -63,13 +63,16 @@ def test_config_result_classes_frozen_slotted() -> None:
 @pytest.mark.unit
 @pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_trained_backbone_modernbert_only_invariant() -> None:
-    """Trained rung slate contains exactly ModernBERT-base across three conditions.
+    """Trained transformer rungs contain exactly ModernBERT-base across three conditions.
 
     Per ADR-015 (rung architecture refinement, supersedes ADR-007), the trained
-    slate is locked to ModernBERT-base x {frozen-probe, LoRA, full-FT}. A silent
-    fallback to DeBERTa-v3-base is prohibited; any backbone swap requires a
-    superseding ADR. This invariant asserts that the trained-rung config
-    enumeration matches the locked slate.
+    transformer slate is locked to ModernBERT-base x {frozen-probe, LoRA, full-FT}.
+    A silent fallback to DeBERTa-v3-base is prohibited; any backbone swap requires a
+    superseding ADR. Per ADR-017 (rung-slate expansion), the trained slate also
+    includes a TF-IDF+LR classical floor rung — this invariant asserts the transformer
+    portion of the trained slate (not all trained rungs) matches the locked
+    ModernBERT-base × 3-conditions enumeration; the classical-floor rung is carved out
+    and asserted separately by `test_classical_floor_rung_present`.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
 
@@ -130,5 +133,76 @@ def test_benign_contamination_scan_clean() -> None:
     or below 2% in both LMSYS-Chat-1M (post English-only filter and
     post-subsample) and UltraChat (post-subsample). If invariant fails,
     A-005 fires and a superseding ADR adjusts source mix or filter threshold.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_classical_floor_rung_present() -> None:
+    """TF-IDF + LR classical floor rung is in the trained-rung config enumeration.
+
+    Per ADR-017 (trained-rung-slate expansion), the trained slate is expanded
+    from 3 ModernBERT-base conditions to 4 rungs by prepending a TF-IDF + LR
+    classical floor rung. This invariant asserts the trained-rung config
+    enumeration contains exactly one classical-floor rung with the locked recipe —
+    sklearn TfidfVectorizer combining word 1-2-grams (max_features=15000,
+    sublinear_tf=True) + char 3-5-grams (max_features=15000) plus sklearn
+    LogisticRegression with solver=liblinear + C=1.0 + class_weight=balanced +
+    max_iter=1000. Restores the SPEC §2 line 121 common-pattern default.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_per_epoch_predictions_present() -> None:
+    """Per-epoch parquet predictions exist for every transformer (rung, seed, fold).
+
+    Per ADR-019 (LoRA + transformer training recipe), epoch-2 predictions are
+    the headline numbers and epoch-1 predictions are reported as a diagnostic
+    ablation. This invariant asserts the prediction directory contains exactly
+    72 transformer-rung parquet files for the 3 transformer rungs × 3 seeds ×
+    4 LODO folds × 2 epochs enumeration, with file paths matching the convention
+    evals/predictions/<rung>__fold<F>__seed<S>__epoch<N>.parquet. TF-IDF + LR
+    rung predictions (no epoch dimension; 12 files) and reference-rung
+    predictions (16 files) are asserted separately.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_flash_attn_fallback_present() -> None:
+    """ModernBERT loader has try/except fallback from flash_attention_2 to SDPA.
+
+    Per ADR-020 (compute infrastructure and cost discipline), the GPU-failover
+    ladder may land us on smaller GPU classes without flash_attention_2 support.
+    Per the runpod-deploy flash-attention-fallback recipe, the model loader must
+    wrap AutoModelForSequenceClassification.from_pretrained with attn_implementation
+    equals flash_attention_2 in a try/except catching (ValueError, ImportError) plus
+    fall through to a second load without attn_implementation set (stock SDPA). The
+    fallback path must log a flash_attn_fallback event so the audit trail captures
+    which physical config produced each per-row prediction. This invariant asserts
+    the production model-load function has the try/except structure with the
+    correct exception types caught and an event log call in the fallback branch.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_effective_batch_constant_across_gpu_classes() -> None:
+    """BATCH_TABLE preserves effective batch = 32 across all GPU classes.
+
+    Per ADR-020 (compute infrastructure), the per-GPU-class BATCH_TABLE
+    scales per_device_train_batch_size and gradient_accumulation_steps
+    together such that their product equals 32 for every GPU class in the
+    pod.gpu_order failover ladder. This invariant asserts the table covers
+    H100 + H200 + A100-80G + A100-40G + L40S + L40 (and any subsequent additions)
+    with per_device times grad_accum equals 32 for each entry. The effective batch
+    is the actual gradient-computation hyperparameter; per_device and grad_accum
+    are throughput knobs that do not change the gradient computation. Preserves
+    SPEC §2 hyperparameter-immutability invariant under GPU substitution.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
