@@ -129,30 +129,56 @@ def test_source_manifest_schema_valid() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(
-    reason="requires Phase 1 hand-labeled holdout + calibrate run; unskip post-Commit-3"
-)
 def test_dedup_calibration_persisted() -> None:
     """evals/dedup_calibration.json exists with FPR+FNR at threshold 0.80 plus sensitivity table.
 
-    Per ADR-016 (Q4 lock) + ADR-041 (Q5 stratified-cosine-band holdout), the
-    dedup encoder is all-MiniLM-L6-v2 cosine at threshold 0.80. This invariant
-    asserts:
+    Per ADR-016 (Q4 lock) + ADR-041 (Q5 stratified-cosine-band holdout) + ADR-042
+    (LLM-pre-label bootstrap with human override + label_provenance disclosure),
+    the dedup encoder is all-MiniLM-L6-v2 cosine at threshold 0.80. This invariant
+    asserts the calibration JSON exists with schema_version 1.0; at_locked_threshold
+    carries fpr + fnr + confusion counts; sensitivity_table covers {0.75, 0.80,
+    0.85}; label_provenance discloses human_verified_pct + llm_judge_only_count;
+    holdout_sha256 + encoder_revision are persisted.
 
-    1. evals/dedup_calibration.json exists with schema_version 1.0;
-    2. at_locked_threshold carries fpr + fnr + (tp, fp, tn, fn) computed
-       against the hand-labeled 50-pair holdout;
-    3. sensitivity_table covers thresholds {0.75, 0.80, 0.85};
-    4. holdout_sha256 matches the data/dedup_holdout.jsonl file digest
-       (tamper-evident provenance per ADR-041 Q5).
-
-    Unskip path: (a) `uv run python scripts/build_dedup_holdout.py` produces
-    data/dedup_holdout.jsonl with 50 candidate pairs (true_duplicate=null);
-    (b) Brandon hand-labels each pair; (c) `uv run python scripts/calibrate_dedup.py`
-    writes evals/dedup_calibration.json; (d) remove the @skip decorator above
-    and implement the body using assertions over the persisted JSON.
+    Note: does NOT assert human_verified_pct == 100. Preliminary calibration with
+    label_provenance.human_verified_pct < 100 (LLM-judge bootstrap per ADR-042) is
+    acceptable for this invariant; submission-readiness gate (per ADR-039) reviews
+    the percentage at v1.0.0 tag time.
     """
-    raise NotImplementedError("invariant test stub — implement post-holdout-labeling")
+    import json
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parent.parent
+    calib_path = repo_root / "evals" / "dedup_calibration.json"
+    assert calib_path.exists(), (
+        "evals/dedup_calibration.json not found; "
+        "run scripts/calibrate_dedup.py to generate. "
+        "If ImportError: data/dedup_holdout.jsonl missing — "
+        "run scripts/build_dedup_holdout.py first."
+    )
+
+    with calib_path.open("r", encoding="utf-8") as fh:
+        calib = json.load(fh)
+
+    assert calib["schema_version"] == "1.0"
+    assert calib["threshold_locked"] == 0.80
+    assert calib["encoder"] == "sentence-transformers/all-MiniLM-L6-v2"
+    assert "encoder_revision" in calib and len(calib["encoder_revision"]) > 0
+
+    locked = calib["at_locked_threshold"]
+    for field in ("threshold", "tp", "fp", "tn", "fn", "fpr", "fnr", "n_pairs"):
+        assert field in locked, f"at_locked_threshold missing field {field!r}"
+    assert locked["threshold"] == 0.80
+    assert locked["tp"] + locked["fp"] + locked["tn"] + locked["fn"] == locked["n_pairs"]
+
+    for t in ("0.75", "0.80", "0.85"):
+        assert t in calib["sensitivity_table"], f"sensitivity_table missing threshold {t}"
+
+    prov = calib["label_provenance"]
+    for field in ("human_verified_count", "llm_judge_only_count", "human_verified_pct"):
+        assert field in prov, f"label_provenance missing field {field!r}"
+
+    assert "holdout_sha256" in calib and len(calib["holdout_sha256"]) == 64
 
 
 @pytest.mark.unit

@@ -22,6 +22,8 @@ dependencies = [
     "sentence-transformers>=3.0",
     "numpy>=2.0",
     "scikit-learn>=1.5",
+    # OpenAI judge for LLM-pre-label dedup bootstrap (per ADR-042); same snapshot as ADR-018 headline rater.
+    "openai>=1.50",
 ]
 
 [project.optional-dependencies]

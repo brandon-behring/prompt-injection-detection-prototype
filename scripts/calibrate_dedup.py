@@ -39,7 +39,11 @@ class HoldoutNotLabeledError(RuntimeError):
 
 
 def _read_holdout(path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """Read JSONL holdout — first line is metadata; rest are labeled pairs."""
+    """Read JSONL holdout — first line is metadata; rest are labeled pairs.
+
+    For each pair, resolves `true_duplicate` as `human_label` (if non-null) else
+    `llm_judge_label` (per ADR-042 label-resolution rule). Errors if both are null.
+    """
     if not path.exists():
         raise FileNotFoundError(
             f"Holdout not found at {path}. Run scripts/build_dedup_holdout.py first."
@@ -54,11 +58,26 @@ def _read_holdout(path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
             else:
                 pairs.append(record)
 
+    # Resolve true_duplicate via ADR-042 priority: human_label > llm_judge_label.
+    for p in pairs:
+        human = p.get("human_label")
+        llm = p.get("llm_judge_label")
+        if human is not None:
+            p["true_duplicate"] = bool(human)
+            p["_label_provenance"] = "human"
+        elif llm is not None:
+            p["true_duplicate"] = bool(llm)
+            p["_label_provenance"] = "llm_judge"
+        else:
+            p["true_duplicate"] = None
+            p["_label_provenance"] = "unlabeled"
+
     unlabeled = [p["pair_id"] for p in pairs if p.get("true_duplicate") is None]
     if unlabeled:
         raise HoldoutNotLabeledError(
-            f"{len(unlabeled)} holdout pairs are unlabeled (null true_duplicate). "
-            f"Hand-label each row in {path} before running calibration. "
+            f"{len(unlabeled)} holdout pairs are unlabeled (both human_label and "
+            f"llm_judge_label are null). Run llm_prelabel_dedup_holdout.py and/or "
+            f"hand-label each row in {path} before running calibration. "
             f"Unlabeled pair_ids: {unlabeled[:10]}{'...' if len(unlabeled) > 10 else ''}"
         )
     return metadata, pairs
@@ -148,10 +167,15 @@ def main() -> int:
 
     sensitivity = {f"{t:.2f}": _confusion_at_threshold(pairs, t) for t in SENSITIVITY_THRESHOLDS}
 
+    # Label provenance disclosure (per ADR-042) — fraction of labels with human override.
+    n_human = sum(1 for p in pairs if p["_label_provenance"] == "human")
+    n_llm_only = sum(1 for p in pairs if p["_label_provenance"] == "llm_judge")
+    human_verified_pct = (n_human / len(pairs) * 100.0) if pairs else 0.0
+
     payload: dict[str, Any] = {
         "schema_version": "1.0",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "adr_ref": "ADR-016 Q4 + ADR-041 Q5",
+        "adr_ref": "ADR-016 Q4 + ADR-041 Q5 + ADR-042",
         "threshold_locked": THRESHOLD,
         "encoder": MINI_LM_MODEL,
         "encoder_revision": metadata.get("encoder_revision", "unknown"),
@@ -160,6 +184,12 @@ def main() -> int:
         "holdout_size": len(pairs),
         "holdout_n_banded": metadata.get("n_banded"),
         "holdout_n_random": metadata.get("n_random"),
+        "label_provenance": {
+            "human_verified_count": n_human,
+            "llm_judge_only_count": n_llm_only,
+            "human_verified_pct": round(human_verified_pct, 1),
+            "llm_judge_model": metadata.get("llm_prelabel_model"),
+        },
         "at_locked_threshold": locked,
         "sensitivity_table": sensitivity,
         "per_band_counts": _per_band_counts(pairs),

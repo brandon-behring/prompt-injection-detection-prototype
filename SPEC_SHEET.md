@@ -171,7 +171,7 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 |---|---|---|---|
 | Commit 1 | `data/source_manifest.yaml` (live-fetched SHAs; rich schema; bump_history=[]) + `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` | `test_source_manifest_schema_valid` | **green** |
 | Commit 2 | `src/data/loaders.py` (HF dispatch + 11 normalizers) + `tests/smoke/test_loaders_smoke.py` (3 small HF sources) | smoke tests | **green** (3 smoke + dispatch unit) |
-| Commit 3 | `src/data/dedup.py` (encoder + within-source + cross-source LMSYS-priority dedup) + `scripts/build_dedup_holdout.py` + `scripts/calibrate_dedup.py` + 4 smoke tests | `test_dedup_calibration_persisted` (still skipped — unskips after holdout labeling + calibrate run) | **code green**; holdout + calibration JSON pending hand-labeling |
+| Commit 3 | `src/data/dedup.py` + `scripts/build_dedup_holdout.py` + `scripts/calibrate_dedup.py` + 4 smoke tests; preliminary `evals/dedup_calibration.json` shipped via ADR-042 LLM-pre-label bootstrap (gpt-4o-2024-08-06; FPR=0.00 FNR=0.48 at locked 0.80) | `test_dedup_calibration_persisted` **green** | **green**; `human_verified_pct=0` pending Brandon's hand-examination per ADR-042 |
 | Commit 4 | `src/data/splits.py` + 48 per-fold parquet files under `data/processed/` | (covered by commit 5 invariants) | pending |
 | Commit 5 | `evals/{data_audit,leakage_report,contamination_scan}.json` (corpus = slate + ~200 templates) | `test_benign_contamination_scan_clean` | pending |
 | Commit 6 | `Makefile` Phase 1 targets + SUBMISSION_AUDIT regen | n/a | pending |
@@ -380,7 +380,7 @@ Per-ADR `acceptance_criterion:` frontmatter fields collectively cover the granul
 7. **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR.
 8. **Tests-as-invariants**: every spec claim that can be made executable as a test, must be.
 
-**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034, ADR-035, ADR-036, ADR-037, ADR-038, ADR-039, ADR-040, ADR-041.
+**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034, ADR-035, ADR-036, ADR-037, ADR-038, ADR-039, ADR-040, ADR-041, ADR-042.
 
 ---
 

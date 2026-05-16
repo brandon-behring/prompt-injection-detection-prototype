@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-05-16T21:09:01+00:00",
+  "adr_ref": "ADR-016 Q4 + ADR-041 Q5 + ADR-042",
+  "threshold_locked": 0.8,
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "encoder_revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+  "holdout_path": "data/dedup_holdout.jsonl",
+  "holdout_sha256": "3785b2022d2fc3ecebfafe346830f2b7d939d671e2107329c12cd3447985cf4a",
+  "holdout_size": 50,
+  "holdout_n_banded": 25,
+  "holdout_n_random": 25,
+  "label_provenance": {
+    "human_verified_count": 0,
+    "llm_judge_only_count": 50,
+    "human_verified_pct": 0.0,
+    "llm_judge_model": "gpt-4o-2024-08-06"
+  },
+  "at_locked_threshold": {
+    "threshold": 0.8,
+    "tp": 11,
+    "fp": 0,
+    "tn": 29,
+    "fn": 10,
+    "fpr": 0.0,
+    "fnr": 0.47619047619047616,
+    "n_pairs": 50
+  },
+  "sensitivity_table": {
+    "0.75": {
+      "threshold": 0.75,
+      "tp": 15,
+      "fp": 0,
+      "tn": 29,
+      "fn": 6,
+      "fpr": 0.0,
+      "fnr": 0.2857142857142857,
+      "n_pairs": 50
+    },
+    "0.80": {
+      "threshold": 0.8,
+      "tp": 11,
+      "fp": 0,
+      "tn": 29,
+      "fn": 10,
+      "fpr": 0.0,
+      "fnr": 0.47619047619047616,
+      "n_pairs": 50
+    },
+    "0.85": {
+      "threshold": 0.85,
+      "tp": 10,
+      "fp": 0,
+      "tn": 29,
+      "fn": 11,
+      "fpr": 0.0,
+      "fnr": 0.5238095238095238,
+      "n_pairs": 50
+    }
+  },
+  "per_band_counts": {
+    "[0.55, 0.65)": {
+      "n_total": 5,
+      "n_true_duplicate": 2
+    },
+    "[0.65, 0.75)": {
+      "n_total": 5,
+      "n_true_duplicate": 2
+    },
+    "[0.75, 0.85)": {
+      "n_total": 5,
+      "n_true_duplicate": 5
+    },
+    "[0.85, 0.95)": {
+      "n_total": 5,
+      "n_true_duplicate": 5
+    },
+    "[0.95, 1.00)": {
+      "n_total": 5,
+      "n_true_duplicate": 5
+    },
+    "random": {
+      "n_total": 25,
+      "n_true_duplicate": 2
+    }
+  }
+}

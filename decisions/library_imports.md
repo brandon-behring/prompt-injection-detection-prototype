@@ -102,6 +102,7 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 | `numpy` | `src/data/dedup.py` + `scripts/build_dedup_holdout.py` (Commit 3) | pairwise cosine matrix ops; `default_rng(seed)` for deterministic sampling | `>=2.0` (`pyproject.toml`) |
 | `scikit-learn` | `src/data/splits.py` (Commit 4) | `train_test_split` + `StratifiedKFold` for within-fold 80/20 + LODO stratification | `>=1.5` (`pyproject.toml`) |
 | `torch` (transitive via sentence-transformers) | `src/data/dedup.py` (Commit 3) | encoder backend; CPU-only inference on laptop; flash-attn fallback in Phase 2+ trainer | pinned by sentence-transformers transitive |
+| `openai` | `scripts/llm_prelabel_dedup_holdout.py` (Commit 3 supplement per ADR-042) | gpt-4o-2024-08-06 judge for dedup-pair-near-duplicate bootstrap labeling (same snapshot as ADR-018 headline rater); `chat.completions.create(temperature=0, response_format=json_object)` | `>=1.50` (`pyproject.toml`) |
 
 **Dedup pipeline entrypoints**:
 

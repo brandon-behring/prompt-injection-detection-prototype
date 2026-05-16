@@ -20,8 +20,9 @@ data/contamination_templates.parquet
 # Secrets — never commit (repo is public)
 .env
 .env.*
-# Exemption: .env.example is the committed placeholder template per ADR-035
+# Exemption: .env.example + .env.local.example are committed placeholder templates per ADR-035 + ADR-042
 !.env.example
+!.env.local.example
 *.key
 *.pem
 *.p12

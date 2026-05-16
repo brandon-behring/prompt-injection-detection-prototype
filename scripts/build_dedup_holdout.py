@@ -141,14 +141,33 @@ def main() -> int:
     print(f"[build_dedup_holdout] Loading + embedding {len(TRAIN_POSITIVE_SOURCES)} sources...")
     all_banded: list[dict[str, Any]] = []
     per_source_texts: dict[str, list[str]] = {}
+    failed_sources: list[tuple[str, str]] = []
     for src in TRAIN_POSITIVE_SOURCES:
-        df = load_source(src)
+        try:
+            df = load_source(src)
+        except Exception as exc:  # noqa: BLE001
+            failed_sources.append((src, str(exc)[:200]))
+            print(f"  {src:>36s}  FAILED: {type(exc).__name__} — skipping")
+            print(f"    {str(exc)[:200]}")
+            continue
         texts = df["text"].astype(str).tolist()
         per_source_texts[src] = texts
         print(f"  {src:>36s}  n={len(texts)}  enumerating pairs...")
         banded = _enumerate_within_source_pairs(src, texts)
         print(f"    {len(banded)} pairs in any band [0.55, 1.00)")
         all_banded.extend(banded)
+
+    if not per_source_texts:
+        raise RuntimeError("All sources failed to load — cannot build holdout.")
+    if failed_sources:
+        print(
+            f"[build_dedup_holdout] WARNING {len(failed_sources)} source(s) failed; "
+            f"proceeding with {len(per_source_texts)} of {len(TRAIN_POSITIVE_SOURCES)} sources."
+        )
+        print(
+            "[build_dedup_holdout] Methodology note: ADR-041 Q5 names all 4 train-positive sources; "
+            "re-run after access granted for full coverage."
+        )
 
     print(f"[build_dedup_holdout] Total banded candidates: {len(all_banded)}")
 
@@ -166,7 +185,8 @@ def main() -> int:
     # Random pairs: enumerate all pairs across the source pools (any cosine).
     print(f"[build_dedup_holdout] Sampling {RANDOM_PAIR_COUNT} random pairs (any cosine)...")
     random_pairs: list[dict[str, Any]] = []
-    src_choices = rng.choice(TRAIN_POSITIVE_SOURCES, size=RANDOM_PAIR_COUNT, replace=True)
+    available_sources = list(per_source_texts.keys())
+    src_choices = rng.choice(available_sources, size=RANDOM_PAIR_COUNT, replace=True)
     for src in src_choices:
         texts = per_source_texts[str(src)]
         if len(texts) < 2:
