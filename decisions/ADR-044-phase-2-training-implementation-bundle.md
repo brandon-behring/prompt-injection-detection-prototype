@@ -167,3 +167,4 @@ Total wall-clock target: under 5 minutes on a laptop CPU (no GPU, no network). V
 ## Transcript
 
 See `transcripts/2026-05-16__phase-2-implementation.md` for the `/exploring-options Phase-2` walkthrough that produced this bundle.
+

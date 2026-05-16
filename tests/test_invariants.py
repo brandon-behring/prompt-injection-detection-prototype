@@ -259,20 +259,54 @@ def test_benign_contamination_scan_clean() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_classical_floor_rung_present() -> None:
     """TF-IDF + LR classical floor rung is in the trained-rung config enumeration.
 
-    Per ADR-017 (trained-rung-slate expansion), the trained slate is expanded
-    from 3 ModernBERT-base conditions to 4 rungs by prepending a TF-IDF + LR
-    classical floor rung. This invariant asserts the trained-rung config
-    enumeration contains exactly one classical-floor rung with the locked recipe —
-    sklearn TfidfVectorizer combining word 1-2-grams (max_features=15000,
-    sublinear_tf=True) + char 3-5-grams (max_features=15000) plus sklearn
-    LogisticRegression with solver=liblinear + C=1.0 + class_weight=balanced +
-    max_iter=1000. Restores the SPEC §2 line 121 common-pattern default.
+    Per ADR-017 (trained-rung-slate expansion) + ADR-044 Q3 + Q4,
+    configs/rungs/classical_floor.yaml is the canonical source of truth for
+    the classical-floor recipe. This invariant asserts the YAML carries the
+    locked recipe — sklearn TfidfVectorizer FeatureUnion word 1-2-grams
+    (max_features=15000, sublinear_tf=True) + char 3-5-grams
+    (max_features=15000) plus sklearn LogisticRegression(solver=liblinear,
+    C=1.0, class_weight=balanced, max_iter=1000) + seeds slate (42, 43, 44)
+    per ADR-044 Q1. Restores the SPEC §2 line 121 common-pattern default.
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    from pathlib import Path
+
+    import yaml
+
+    repo_root = Path(__file__).resolve().parent.parent
+    cfg_path = repo_root / "configs" / "rungs" / "classical_floor.yaml"
+    assert cfg_path.exists(), f"{cfg_path} missing — Phase 2 Commit 3 deliverable"
+
+    with cfg_path.open("r", encoding="utf-8") as fh:
+        cfg = yaml.safe_load(fh)
+
+    assert cfg["rung_id"] == "classical_floor"
+    assert cfg["classifier_type"] == "classical"
+    assert cfg["contamination_state"] == "verified_disjoint"
+
+    # TF-IDF lock (per ADR-017).
+    tfidf = cfg["tfidf"]
+    assert tfidf["word_ngram_min"] == 1
+    assert tfidf["word_ngram_max"] == 2
+    assert tfidf["word_max_features"] == 15000
+    assert tfidf["char_ngram_min"] == 3
+    assert tfidf["char_ngram_max"] == 5
+    assert tfidf["char_max_features"] == 15000
+    assert tfidf["sublinear_tf"] is True
+    assert tfidf["lowercase"] is True
+    assert tfidf["strip_accents"] == "unicode"
+
+    # LogisticRegression lock (per ADR-017).
+    lr = cfg["logistic_regression"]
+    assert lr["solver"] == "liblinear"
+    assert lr["C"] == 1.0
+    assert lr["class_weight"] == "balanced"
+    assert lr["max_iter"] == 1000
+
+    # Seeds slate (per ADR-044 Q1).
+    assert cfg["seeds"] == [42, 43, 44]
 
 
 @pytest.mark.unit
