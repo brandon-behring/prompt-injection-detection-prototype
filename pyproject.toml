@@ -24,6 +24,12 @@ dependencies = [
     "scikit-learn>=1.5",
     # OpenAI judge for LLM-pre-label dedup bootstrap (per ADR-042); same snapshot as ADR-018 headline rater.
     "openai>=1.50",
+    # Phase 2 (Training) deps per ADR-019 + ADR-020 + ADR-044 — transformer rung primitives.
+    # ModernBERT-base requires transformers>=4.48.
+    "transformers>=4.48",
+    "peft>=0.13",
+    "torch>=2.5",
+    "accelerate>=1.0",
 ]
 
 [project.optional-dependencies]
@@ -54,8 +60,27 @@ strict = true
 
 # Some upstreams do not ship pep-561 stubs; suppress missing-imports here so
 # the rule works identically in local mypy + pre-commit hook env.
+# Cloned upstream sources under data/raw/git/ produce duplicate-module errors
+# (e.g., bipia/benchmark/{qa,abstract}/process.py). data/raw/ is gitignored
+# and reserved per ADR-026 / ADR-044 Q2; exclude from strict scan.
+exclude = [
+    "data/raw/.*",
+    "data/processed/.*",
+    ".hf_cache/.*",
+]
+
 [[tool.mypy.overrides]]
-module = ["datasets", "sentence_transformers", "sklearn.*"]
+module = [
+    "datasets",
+    "sentence_transformers",
+    "sklearn.*",
+    "transformers",
+    "transformers.*",
+    "peft",
+    "peft.*",
+    "accelerate",
+    "accelerate.*",
+]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

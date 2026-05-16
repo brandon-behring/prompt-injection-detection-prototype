@@ -176,6 +176,19 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 | Commit 5 | `src/data/audit.py` + `src/data/templates.py` + `scripts/extract_hackaprompt_templates.py` + `scripts/run_data_pipeline.py` end-to-end orchestrator + ADR-043 post-split leakage cleanup; `evals/{data_audit,leakage_report,contamination_scan}.json` materialized (4707 deduped positives + 17246 deduped benigns + 1101 OOD; 180 leaked train rows dropped via ADR-043; A-005 triggers 1+2 clean; leakage_clean=True) | `test_benign_contamination_scan_clean` + `test_class_balance_per_fold` + `test_source_disjoint_train_test` all **green** | **green** (5 invariants total) |
 | Commit 6 | `Makefile` Phase 1 targets (`data-pin-manifest`, `data-prepare` umbrella, `data-fetch`/`data-dedup`/`data-splits`/`data-audit` ADR-041-Q7-compat aliases, `data-templates`, `data-dedup-{holdout,prelabel,calibrate}`) + `docs/ROADMAP.md` Phase 1 close note + SUBMISSION_AUDIT regen + transcript checkpoint + push | n/a | **green** |
 
+### 3.6 Phase 2 implementation status
+
+`[Phase 2 in progress per ADR-044]` Operationalization of §4 locks. Per-commit status:
+
+| Phase 2 commit | Deliverable | Invariant test | Status |
+|---|---|---|---|
+| Commit 1 | ADR-044 (Phase 2 implementation bundle; partial supersession of ADR-019 seed slate `(42,1337,2025)→(42,43,44)`) + manifest move `data/`→`configs/data/` per Q2 + 10-file path-ref update | `test_source_manifest_schema_valid` (still green at new path) | **green** |
+| Commit 2 | `src/training/{batch_table, lora_config, training_args, weighted_trainer, load_modernbert, softmax_cast}.py` per ADR-019 + ADR-020 + 18 smoke tests | `test_flash_attn_fallback_present` + `test_effective_batch_constant_across_gpu_classes` **green** | **green** (7 invariants total) |
+| Commit 3 | `src/training/{tfidf_lr, train_classical}.py` per ADR-017 + `configs/rungs/classical_floor.yaml` + `scripts/train_classical_floor.py` | `test_classical_floor_rung_present` | pending |
+| Commit 4 | `src/training/train_modernbert.py` multi-rung HF Trainer dispatch + `configs/rungs/{frozen_probe, lora, full_ft}.yaml` + Phase 1 verification `evals/lora_target_modules.json` | `test_per_epoch_predictions_present` (Phase 2-canonical run) | pending |
+| Commit 5 | `configs/runpod/headline-{frozen_probe, lora, full_ft}.yaml` + `scripts/train_rung.py` per-rung sweep + `scripts/cost_rollup.py` + `evals/cost_ledger.csv` + library_imports.md updates | n/a (cloud runs at canonical) | pending |
+| Commit 6 | `tests/fixtures/` + `configs/profiles/fixtures.yaml` + smoke fixture-pipeline test + Makefile Phase 2 targets + ROADMAP Phase 2 close note + SUBMISSION_AUDIT regen + transcript checkpoint | n/a | pending |
+
 ---
 
 ## 4. Model recipe (locked, no gridsearch)

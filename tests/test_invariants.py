@@ -293,40 +293,64 @@ def test_per_epoch_predictions_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_flash_attn_fallback_present() -> None:
     """ModernBERT loader has try/except fallback from flash_attention_2 to SDPA.
 
-    Per ADR-020 (compute infrastructure and cost discipline), the GPU-failover
-    ladder may land us on smaller GPU classes without flash_attention_2 support.
-    Per the runpod-deploy flash-attention-fallback recipe, the model loader must
-    wrap AutoModelForSequenceClassification.from_pretrained with attn_implementation
-    equals flash_attention_2 in a try/except catching (ValueError, ImportError) plus
-    fall through to a second load without attn_implementation set (stock SDPA). The
-    fallback path must log a flash_attn_fallback event so the audit trail captures
-    which physical config produced each per-row prediction. This invariant asserts
-    the production model-load function has the try/except structure with the
-    correct exception types caught and an event log call in the fallback branch.
+    Per ADR-020 (compute infrastructure and cost discipline) + ADR-044 Commit 2,
+    src/training/load_modernbert.py wraps AutoModelForSequenceClassification
+    .from_pretrained with attn_implementation=flash_attention_2 in a try/except
+    catching (ValueError, ImportError) plus falls through to a second load without
+    attn_implementation set (stock SDPA). The fallback path emits a
+    flash_attn_fallback event so the audit trail captures which physical config
+    produced each per-row prediction. This invariant inspects the module source
+    for the required structure.
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    import inspect
+
+    from src.training import load_modernbert
+
+    src = inspect.getsource(load_modernbert)
+    assert "except (ValueError, ImportError)" in src, (
+        "load_modernbert must catch (ValueError, ImportError) per ADR-020 "
+        "flash-attn-fallback recipe"
+    )
+    assert "flash_attn_fallback" in src, (
+        "load_modernbert must emit flash_attn_fallback event in fallback branch "
+        "per ADR-020 line 124"
+    )
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_effective_batch_constant_across_gpu_classes() -> None:
     """BATCH_TABLE preserves effective batch = 32 across all GPU classes.
 
-    Per ADR-020 (compute infrastructure), the per-GPU-class BATCH_TABLE
-    scales per_device_train_batch_size and gradient_accumulation_steps
-    together such that their product equals 32 for every GPU class in the
-    pod.gpu_order failover ladder. This invariant asserts the table covers
-    H100 + H200 + A100-80G + A100-40G + L40S + L40 (and any subsequent additions)
-    with per_device times grad_accum equals 32 for each entry. The effective batch
-    is the actual gradient-computation hyperparameter; per_device and grad_accum
+    Per ADR-020 (compute infrastructure) + ADR-044 Commit 2,
+    src/training/batch_table.py BATCH_TABLE scales per_device_train_batch_size
+    and gradient_accumulation_steps together such that their product equals 32
+    for every GPU class in the pod.gpu_order failover ladder. This invariant
+    asserts the table covers H100 + H200 + A100-80G + A100-40G + L40S + L40
+    with per_device * grad_accum == 32 for each entry. The effective batch is
+    the actual gradient-computation hyperparameter; per_device and grad_accum
     are throughput knobs that do not change the gradient computation. Preserves
     SPEC §2 hyperparameter-immutability invariant under GPU substitution.
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    from src.training.batch_table import BATCH_TABLE, EFFECTIVE_BATCH
+
+    assert EFFECTIVE_BATCH == 32
+
+    required_classes = {"H100", "H200", "A100-80G", "A100-40G", "L40S", "L40"}
+    actual_classes = set(BATCH_TABLE.keys())
+    missing = required_classes - actual_classes
+    assert (
+        not missing
+    ), f"BATCH_TABLE missing GPU classes from ADR-020 pod.gpu_order: {sorted(missing)}"
+
+    for gpu_class, cfg in BATCH_TABLE.items():
+        product = cfg.per_device * cfg.grad_accum
+        assert product == EFFECTIVE_BATCH, (
+            f"GPU class {gpu_class!r}: per_device={cfg.per_device} * "
+            f"grad_accum={cfg.grad_accum} = {product} != {EFFECTIVE_BATCH}"
+        )
 
 
 @pytest.mark.unit
