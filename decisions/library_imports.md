@@ -98,8 +98,20 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 | `datasets` | `src/data/loaders.py` (Commit 2) | `load_dataset(repo, name=subset, split=split, revision=sha)` per ADR-041 Q4 HF dispatch | `>=3.0` (`pyproject.toml`) |
 | `pandas` + `pandas-stubs` | `src/data/loaders.py` (Commit 2) | DataFrame uniform schema `(text, label, source, row_idx_in_source)`; parquet IO at Commit 4 | `>=2.2` (`pyproject.toml`) + `>=2.2` dev |
 | `pyarrow` | `src/data/loaders.py` (transitive via pandas; Commit 4 parquet) | parquet engine | `>=17` (`pyproject.toml`) |
-| `sentence-transformers` | `src/data/dedup.py` (Commit 3) | `all-MiniLM-L6-v2` embedder per ADR-016 Q4 | (Commit 3) |
-| `scikit-learn` | `src/data/splits.py` (Commit 4) | `train_test_split` + `StratifiedKFold` for within-fold 80/20 + LODO stratification | (Commit 4) |
+| `sentence-transformers` | `src/data/dedup.py` (Commit 3) | `all-MiniLM-L6-v2` embedder per ADR-016 Q4 + `THRESHOLD=0.80` locked constant | `>=3.0` (`pyproject.toml`) |
+| `numpy` | `src/data/dedup.py` + `scripts/build_dedup_holdout.py` (Commit 3) | pairwise cosine matrix ops; `default_rng(seed)` for deterministic sampling | `>=2.0` (`pyproject.toml`) |
+| `scikit-learn` | `src/data/splits.py` (Commit 4) | `train_test_split` + `StratifiedKFold` for within-fold 80/20 + LODO stratification | `>=1.5` (`pyproject.toml`) |
+| `torch` (transitive via sentence-transformers) | `src/data/dedup.py` (Commit 3) | encoder backend; CPU-only inference on laptop; flash-attn fallback in Phase 2+ trainer | pinned by sentence-transformers transitive |
+
+**Dedup pipeline entrypoints**:
+
+- `scripts/build_dedup_holdout.py` — Generates 50 stratified-cosine-band candidate pairs from
+  the 4 train-positive sources; writes `data/dedup_holdout.jsonl` with `true_duplicate: null`
+  (TBD — hand-labeled by Brandon per ADR-041 Q5).
+- `scripts/calibrate_dedup.py` — Reads labeled holdout; writes `evals/dedup_calibration.json` with
+  FPR + FNR at locked threshold 0.80 + sensitivity table at {0.75, 0.80, 0.85}.
+
+Workflow: `build_dedup_holdout` → hand-label → `calibrate_dedup` → unskip `test_dedup_calibration_persisted`.
 
 **Pin script entrypoint**: `scripts/pin_source_manifest.py` (Commit 1) — one-time + bump-driven; live-fetches HF SHAs via `huggingface_hub.HfApi.dataset_info` + GitHub SHAs via `subprocess.run(["git", "ls-remote", url, "HEAD"])`; writes `data/source_manifest.yaml`; idempotent re-runs; SHA-mismatch raises `SHAMismatchError` unless `--force` records `bump_history` entry per ADR-036.
 

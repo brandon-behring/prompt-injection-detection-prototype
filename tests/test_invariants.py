@@ -129,18 +129,30 @@ def test_source_manifest_schema_valid() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(
+    reason="requires Phase 1 hand-labeled holdout + calibrate run; unskip post-Commit-3"
+)
 def test_dedup_calibration_persisted() -> None:
-    """evals/dedup_calibration.json exists with FPR+FNR at threshold 0.80 plus cosine histograms.
+    """evals/dedup_calibration.json exists with FPR+FNR at threshold 0.80 plus sensitivity table.
 
-    Per ADR-016 (Q4 lock), the dedup encoder is all-MiniLM-L6-v2 cosine at
-    threshold 0.80 with simplified calibration evidence. This invariant
-    asserts the calibration JSON exists, contains FPR + FNR measured against
-    a 50-pair labeled holdout at threshold 0.80, includes dedup counts at
-    sensitivity thresholds {0.75, 0.80, 0.85}, and contains per-source cosine
-    distribution histograms (anisotropy sanity check per Ethayarajh 2019).
+    Per ADR-016 (Q4 lock) + ADR-041 (Q5 stratified-cosine-band holdout), the
+    dedup encoder is all-MiniLM-L6-v2 cosine at threshold 0.80. This invariant
+    asserts:
+
+    1. evals/dedup_calibration.json exists with schema_version 1.0;
+    2. at_locked_threshold carries fpr + fnr + (tp, fp, tn, fn) computed
+       against the hand-labeled 50-pair holdout;
+    3. sensitivity_table covers thresholds {0.75, 0.80, 0.85};
+    4. holdout_sha256 matches the data/dedup_holdout.jsonl file digest
+       (tamper-evident provenance per ADR-041 Q5).
+
+    Unskip path: (a) `uv run python scripts/build_dedup_holdout.py` produces
+    data/dedup_holdout.jsonl with 50 candidate pairs (true_duplicate=null);
+    (b) Brandon hand-labels each pair; (c) `uv run python scripts/calibrate_dedup.py`
+    writes evals/dedup_calibration.json; (d) remove the @skip decorator above
+    and implement the body using assertions over the persisted JSON.
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    raise NotImplementedError("invariant test stub — implement post-holdout-labeling")
 
 
 @pytest.mark.unit

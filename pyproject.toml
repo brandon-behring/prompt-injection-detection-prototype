@@ -12,13 +12,16 @@ dependencies = [
     "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.31.0",
     "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7",
     "research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1",
-    # Phase 1 (Data) deps per ADR-041 — manifest infra (Commit 1) + loaders (Commit 2).
-    # sentence-transformers (Commit 3) + scikit-learn (Commit 4) land in later Phase 1 commits.
+    # Phase 1 (Data) deps per ADR-041 — manifest infra (Commit 1) + loaders (Commit 2)
+    # + dedup encoder (Commit 3) + splits + audit (Commits 4-5).
     "huggingface_hub>=0.25",
     "pyyaml>=6",
     "datasets>=3.0",
     "pandas>=2.2",
     "pyarrow>=17",
+    "sentence-transformers>=3.0",
+    "numpy>=2.0",
+    "scikit-learn>=1.5",
 ]
 
 [project.optional-dependencies]
@@ -47,10 +50,10 @@ line-length = 100
 [tool.mypy]
 strict = true
 
-# `datasets` (HF) does not ship pep-561 stubs; suppress missing-imports here so
+# Some upstreams do not ship pep-561 stubs; suppress missing-imports here so
 # the rule works identically in local mypy + pre-commit hook env.
 [[tool.mypy.overrides]]
-module = "datasets"
+module = ["datasets", "sentence_transformers"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
