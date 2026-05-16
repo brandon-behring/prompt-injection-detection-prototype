@@ -340,3 +340,56 @@ def test_cross_fold_ci_methodology() -> None:
     by this invariant (deferred to manual Phase 4 audit).
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_dual_policy_threshold_pairing() -> None:
+    """Dual-policy thresholds fit per-(rung, fold, seed) on val with paired CI propagation.
+
+    Per ADR-025 (dual-policy threshold characterization at symmetric 1% cost weights),
+    the Detection policy fits eval_toolkit.thresholds.TargetFPRSelector(0.01) on
+    validation per-(rung, fold, seed) and the Verification policy fits
+    eval_toolkit.thresholds.TargetRecallSelector(0.99) on validation per-(rung, fold, seed);
+    24 thresholds per trained rung × 4 trained rungs equals 96 threshold-pair
+    instances total; CI propagation uses eval_toolkit.bootstrap.paired_bootstrap_op_point_diff
+    (two-level bootstrap — refit threshold per val resample, apply on test resample,
+    compute paired diff) consistent with ADR-022's per-(seed) threshold protocol.
+    This invariant asserts: (1) the dual-policy threshold orchestrator
+    (scripts/fit_dual_policy_thresholds.py) calls TargetFPRSelector(0.01).select(y_val, s_val)
+    and TargetRecallSelector(0.99).select(y_val, s_val) for every (trained_rung, fold, seed)
+    tuple; (2) reference rungs (4 untrained rungs per ADR-018) are excluded from
+    dual-policy fitting (only recall@FPR pinpoints applied per SPEC §4 dual-policy
+    applicability lock); (3) the bootstrap battery (scripts/run_bootstrap_battery.py)
+    invokes paired_bootstrap_op_point_diff for trained-vs-trained dual-policy comparisons;
+    (4) the headline emit (evals/results.json) carries an "FPR @ recall ≥ 99%" column
+    on trained rungs and a footnote on the existing recall@FPR=1% column tagging it as
+    the detection-policy operating point.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_verification_reachability_audit() -> None:
+    """Verification-target reachability audit JSON is emitted per-(rung, fold, seed).
+
+    Per ADR-025 Q4 (infeasibility handling) and assumption A-009, when
+    TargetRecallSelector(0.99) cannot satisfy the recall ≥ 99% constraint on a
+    (rung, fold, seed) val slice, the reporting protocol emits per-(rung, fold, seed)
+    reachability evidence to evals/audit/verification_reachability.json and the
+    headline cell carries an asterisk flag. This invariant asserts:
+    (1) evals/audit/verification_reachability.json exists with the locked schema
+    (top-level dict keyed by rung_id, then fold_id, then seed; each leaf entry contains
+    target_reachable bool, target_recall=0.99, achieved_val_recall float, fallback_threshold
+    float, fallback_test_fpr float); (2) every (trained_rung, fold, seed) tuple has an
+    entry (96 entries total = 4 trained rungs × 4 folds × 3 seeds × 2 — but only the 96
+    verification-side entries appear; detection-side reachability is trivially 100% so
+    no audit needed); (3) any entry with target_reachable equals false has a corresponding
+    asterisk flag in the headline emit (evals/results.json) cell for that rung's
+    "FPR @ recall ≥ 99%" column at the matching aggregation level; (4) the spoke
+    (WRITEUP/threshold-policy.md) "Verification-target reachability across trained rungs"
+    subsection enumerates per-rung reachability rate (count of reachable cells / total
+    cells per rung) as a cross-rung comparison artifact.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
