@@ -206,3 +206,137 @@ def test_effective_batch_constant_across_gpu_classes() -> None:
     SPEC §2 hyperparameter-immutability invariant under GPU substitution.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_ood_aggregation_layout() -> None:
+    """OOD slate reports pooled-headline plus per-slice-spoke aggregation views.
+
+    Per ADR-021 (eval slate aggregation), the 5 OOD slices locked by ADR-016
+    (NotInject + XSTest + JBB-Behaviors + BIPIA + InjecAgent) are reported in
+    two complementary aggregation views. This invariant asserts: (1) the headline
+    emit (evals/results.json) contains a pooled-OOD column per rung concatenating
+    rows across the 5 slices yielding a single AUPRC + AUROC + recall@FPR + ECE +
+    Brier per rung; (2) the spoke artifact (evals/ood_per_slice.parquet) contains
+    a 5-by-rung grid with per-slice bootstrap CIs; (3) all 5 OOD slices appear in
+    the spoke artifact exactly once per rung.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_recall_at_fpr_pinpoint_volatility() -> None:
+    """Recall@FPR=0.1% pinpoint reports volatility surfaces at pooled level.
+
+    Per ADR-021 (recall@FPR pinpoint feasibility), the 0.1% pinpoint is computed
+    only at the pooled aggregation level and reports four volatility surfaces.
+    This invariant asserts: (1) per-rung headline emit contains half-width column
+    alongside point estimate for the 0.1% pinpoint; (2) evals/audit/per_rung_audit.json
+    contains a resample-degeneracy fraction (fraction of bootstrap resamples where
+    the FPR=0.001 threshold pinned at less than 1 false-positive count); (3)
+    evals/audit/pinpoint_threshold_drift.json contains the distribution of
+    *thresholds* across resamples for the 0.1% pinpoint; (4) per-slice and
+    per-LODO-fold aggregations report the 0.1% pinpoint cell as "not computable
+    at this aggregation level (n_neg too small)" rather than a numerical value.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_bootstrap_n_and_stability_check() -> None:
+    """Bootstrap apparatus runs 10K @ seed=1 headline + 10K @ seed=2 stability check.
+
+    Per ADR-022 (statistical inference apparatus), the bootstrap protocol for every
+    headline CI is: 10K iterations via eval_toolkit.bootstrap_ci (BCa for marginals)
+    at seed=1 as headline; 10K iterations at seed=2 as stability check; flag in
+    audit JSON when stability-check CI half-width differs from headline CI half-width
+    by more than 5 percent (signals resampling instability). This invariant asserts
+    the bootstrap orchestrator (scripts/run_bootstrap_battery.py) emits both the
+    seed=1 headline CI and the seed=2 stability-check CI to
+    evals/audit/bootstrap_stability_check.parquet, with a half-width-diff-percent
+    column and a flag column (boolean: True when diff > 5 percent).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_paired_across_rungs_pairing() -> None:
+    """Multi-seed pairing structure follows ADR-022 gap-honest defaults.
+
+    Per ADR-022 (multi-seed protocol details), trained-vs-trained rung comparisons
+    use row-level pairing via eval_toolkit.paired_bootstrap_diff; trained-vs-reference
+    rung comparisons use per-row replication of reference scores across the 12 trained
+    seeds (reference-side variance is correctly fold-only). This invariant asserts:
+    (1) for any trained-vs-trained comparison, the input to paired_bootstrap_diff
+    is a 1-D array of row-level predictions with shape matching the pooled test set;
+    (2) for any trained-vs-reference comparison, the reference rung's score for a
+    given row is identical across the 12 (fold, seed) slots of the trained rung
+    (replication invariant); (3) the per-(rung, fold, seed) observation parquet
+    (evals/audit/per_seed_observations.parquet) contains 12 rows per trained rung
+    and 4 rows per reference rung.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_calibration_battery_composition() -> None:
+    """Calibration battery emits raw plus temperature plus isotonic intervention states.
+
+    Per ADR-023 (calibration battery composition), the headline emit contains
+    ECE-equal-mass(n_bins=15, quantile binning) plus Brier per rung on raw scores
+    only. The spoke artifact contains all 4 ECE variants (L1/L2 plug-in/debiased)
+    plus Brier decomposition plus reliability diagrams plus temperature-applied and
+    isotonic-applied ECE/Brier deltas. This invariant asserts: (1) headline
+    evals/results.json contains exactly 2 calibration columns per rung
+    (ECE-equal-mass-raw, Brier-raw); (2) spoke evals/calibration_spoke.parquet
+    contains 4 ECE variants plus Brier plus temperature-applied and
+    isotonic-applied versions of each; (3) the calibrator-fit input rows are
+    drawn from the validation split only (no test rows; per ADR-011 Guarantee 6);
+    (4) per-(rung, fold, seed) calibrator artifacts exist at
+    evals/calibration/<rung>__fold<F>__seed<S>__intervention<temperature|isotonic|raw>.json.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_monotonic_intervention_preserves_ranks() -> None:
+    """Calibration interventions are monotonic and therefore preserve rank-based metrics.
+
+    Per ADR-023 (calibration battery), calibration interventions (temperature
+    scaling and isotonic regression) are monotonic by construction; rank-based
+    headline metrics (PR-AUC, ROC-AUC, recall@FPR) are unchanged by intervention.
+    This sanity-check invariant asserts that for any (rung, fold, seed) tuple,
+    PR-AUC and ROC-AUC after temperature scaling equal PR-AUC and ROC-AUC before
+    temperature scaling within numerical tolerance (1e-9); same for isotonic.
+    If false, the calibrator implementation is producing non-monotonic outputs —
+    a bug in the calibrator-fit chain.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_cross_fold_ci_methodology() -> None:
+    """Cross-fold CI machinery runs cv_clt_ci headline plus block-bootstrap-on-folds spoke.
+
+    Per ADR-024 (cross-fold CI methodology), the headline cross-fold CI uses
+    eval_toolkit.bootstrap.cv_clt_ci (Bayle 2020 Theorem 3.1) on the 12 per-(fold, seed)
+    metric values per rung; the spoke ablation uses block-bootstrap-on-folds
+    (resample 4 folds with replacement; per-resample compute mean-of-fold-metrics;
+    10K resamples; percentile CI); the sensitivity-check flag fires when
+    block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth > 1.5. This invariant asserts:
+    (1) cv_clt_ci primitive is invoked on 12 per-(fold, seed) values per rung;
+    (2) block-bootstrap-on-folds orchestrator produces percentile CI on 10K resamples;
+    (3) sensitivity-check flag column emits in evals/audit/cross_fold_ci_audit.parquet;
+    (4) when sensitivity flag fires, the methodology spoke contains the named
+    "LODO non-exchangeability" paragraph. The conditional stratified-k-fold-within-LODO
+    escalation is gated on evals/cost_ledger.csv state at Phase 4 entry — not asserted
+    by this invariant (deferred to manual Phase 4 audit).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")

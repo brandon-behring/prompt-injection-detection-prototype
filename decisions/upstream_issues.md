@@ -12,7 +12,7 @@ Triage label on filed issues: `tracked`.
 
 | Date | Repo | Issue # | Title | Local site (file:line) | Status |
 |---|---|---|---|---|---|
-| `[TBD]` | | | | | |
+| 2026-05-15 | `brandon-behring/eval-toolkit` | `[TBD at Phase 4 entry]` | Add optional `n_jobs` parameter to `paired_bootstrap_diff` for internal resample-loop parallelization | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable per ADR-022) | proposed; ledger-tracked pending Phase 4 file-time |
 
 ## How to use this ledger
 
