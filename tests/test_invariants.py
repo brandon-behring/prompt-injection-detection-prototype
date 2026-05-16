@@ -136,10 +136,11 @@ def test_truncation_policy_adaptive_chunked_max_pool() -> None:
 
 @pytest.mark.unit
 def test_source_manifest_schema_valid() -> None:
-    """data/source_manifest.yaml parses, contains all 11 sources, each has SHA + license + role.
+    """configs/data/source_manifest.yaml parses, contains all 11 sources, each has SHA + license + role.
 
-    Per ADR-016 (Q3 lock) + ADR-041 (Q1 rich schema), HF revisions and GitHub
-    commit SHAs are pinned at Phase 1 entry in unified data/source_manifest.yaml.
+    Per ADR-016 (Q3 lock) + ADR-041 (Q1 rich schema) + ADR-044 Q2 (location move),
+    HF revisions and GitHub commit SHAs are pinned at Phase 1 entry in unified
+    configs/data/source_manifest.yaml.
     This invariant asserts the manifest validates clean against the rich-schema
     contract enforced by src/data/manifest_validation.py — 11 expected sources
     (4 train positives + 2 train benigns + 5 OOD slices); each row carries the
@@ -155,7 +156,7 @@ def test_source_manifest_schema_valid() -> None:
     )
 
     repo_root = Path(__file__).resolve().parent.parent
-    manifest_path = repo_root / "data" / "source_manifest.yaml"
+    manifest_path = repo_root / "configs" / "data" / "source_manifest.yaml"
     parsed = validate_manifest(manifest_path)
 
     assert parsed["schema_version"] == SCHEMA_VERSION

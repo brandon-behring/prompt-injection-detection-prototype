@@ -10,7 +10,8 @@ dist/
 .DS_Store
 evals/predictions/
 evals/checkpoints/
-# Phase 1 data outputs — large + private; manifest (data/source_manifest.yaml) is committed.
+# Phase 1 data outputs — large + private; manifest is committed at configs/data/source_manifest.yaml per ADR-044 Q2.
+# data/ is reserved for non-committed HF cache + processed parquets + dedup-holdout JSONL per ADR-026 layout.
 data/raw/
 data/processed/
 data/dedup_holdout.jsonl
@@ -36,3 +37,5 @@ transcripts/*.md
 !transcripts/README.md
 # Auto-saved transcripts (SessionEnd hook output) — private like the rest
 transcripts/auto/
+
+.claude/scheduled_tasks.lock

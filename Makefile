@@ -86,8 +86,8 @@ clean:
 # Source secrets via .env.local (HF_TOKEN gates: hackaprompt, lmsys-chat-1m).
 # ---------------------------------------------------------------------------
 
-# `make data-pin-manifest` — live-fetch HF + GitHub SHAs; write data/source_manifest.yaml
-# (per ADR-041 Q2). Idempotent — schema-drift detection rewrites on field changes.
+# `make data-pin-manifest` — live-fetch HF + GitHub SHAs; write configs/data/source_manifest.yaml
+# (per ADR-041 Q2 + ADR-044 Q2 relocation). Idempotent — schema-drift detection rewrites on field changes.
 data-pin-manifest:
 	uv run python scripts/pin_source_manifest.py
 

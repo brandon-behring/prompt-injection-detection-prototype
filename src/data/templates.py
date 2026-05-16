@@ -43,7 +43,7 @@ def extract_hackaprompt_templates(
     Parameters
     ----------
     spec : dict
-        HackAPrompt source spec from data/source_manifest.yaml (carries
+        HackAPrompt source spec from configs/data/source_manifest.yaml (carries
         hf_id + revision_sha).
     target_count : int, optional
         Approximate number of templates to extract (default 200 per ADR-041 Q6).

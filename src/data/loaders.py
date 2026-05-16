@@ -4,7 +4,7 @@ Public API
 ----------
 `load_source(name: str) -> pd.DataFrame` is the single dispatch entry-point.
 Given a source name from `EXPECTED_SOURCE_NAMES`, the function reads
-`data/source_manifest.yaml`, resolves the HF or git_repo pin, fetches the
+`configs/data/source_manifest.yaml`, resolves the HF or git_repo pin, fetches the
 underlying data (HF default cache for HF datasets; clones to `data/raw/git/`
 for GitHub sources), applies the per-source normalizer, and returns a
 DataFrame with the uniform schema:
@@ -44,7 +44,7 @@ OUTPUT_COLUMNS: tuple[str, ...] = ("text", "label", "source", "row_idx_in_source
 
 # Repo root + locked cache paths.
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-_MANIFEST_PATH = _REPO_ROOT / "data" / "source_manifest.yaml"
+_MANIFEST_PATH = _REPO_ROOT / "configs" / "data" / "source_manifest.yaml"
 _GIT_RAW_ROOT = _REPO_ROOT / "data" / "raw" / "git"
 
 
@@ -81,7 +81,7 @@ def load_source(name: str) -> pd.DataFrame:
     SourceNotFoundError
         If `name` is not in the locked slate.
     FileNotFoundError
-        If `data/source_manifest.yaml` is absent (run `make data-fetch` first).
+        If `configs/data/source_manifest.yaml` is absent (run `make data-fetch` first).
     GitCloneError
         If a git_repo source fails to clone or checkout its pinned SHA.
     """

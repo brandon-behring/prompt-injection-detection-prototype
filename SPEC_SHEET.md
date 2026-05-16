@@ -169,7 +169,7 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 
 | Phase 1 commit | Deliverable | Invariant test | Status |
 |---|---|---|---|
-| Commit 1 | `data/source_manifest.yaml` (live-fetched SHAs; rich schema; bump_history=[]) + `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` | `test_source_manifest_schema_valid` | **green** |
+| Commit 1 | `configs/data/source_manifest.yaml` (live-fetched SHAs; rich schema; bump_history=[]; relocated from `data/` per ADR-044 Q2) + `src/data/manifest_validation.py` + `scripts/pin_source_manifest.py` | `test_source_manifest_schema_valid` | **green** |
 | Commit 2 | `src/data/loaders.py` (HF dispatch + 11 normalizers) + `tests/smoke/test_loaders_smoke.py` (3 small HF sources) | smoke tests | **green** (3 smoke + dispatch unit) |
 | Commit 3 | `src/data/dedup.py` + `scripts/build_dedup_holdout.py` + `scripts/calibrate_dedup.py` + 4 smoke tests; preliminary `evals/dedup_calibration.json` via ADR-042 LLM-pre-label bootstrap (gpt-4o-2024-08-06; full 4-source coverage; FPR=0.00 FNR=0.33 at locked 0.80; FPR jumps to 0.063 at 0.75 — 0.80 lock at the precision-recall knee) | `test_dedup_calibration_persisted` **green** | **green**; `human_verified_pct=0` pending Brandon's hand-examination per ADR-042 |
 | Commit 4 | `src/data/splits.py` (LODO k=4 x 3 seeds x stratified 80/20) + `materialize_splits` + `materialize_index_masks` + 9 smoke tests | `test_class_balance_per_fold` + `test_source_disjoint_train_test` (unskip in Commit 5 with real data) | **green** |

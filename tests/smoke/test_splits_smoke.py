@@ -106,10 +106,9 @@ def test_make_splits_stratified_class_balance() -> None:
         # = 290; class ratio ~ 0.31 pos. train + val each should match.
         train_pos_ratio = (split.train["label"] == 1).mean()
         val_pos_ratio = (split.val["label"] == 1).mean()
-        assert abs(train_pos_ratio - val_pos_ratio) < 0.05, (
-            f"train/val class ratios diverged: train={train_pos_ratio:.3f} "
-            f"val={val_pos_ratio:.3f}"
-        )
+        assert (
+            abs(train_pos_ratio - val_pos_ratio) < 0.05
+        ), f"train/val class ratios diverged: train={train_pos_ratio:.3f} val={val_pos_ratio:.3f}"
 
 
 @pytest.mark.smoke

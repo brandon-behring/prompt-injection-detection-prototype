@@ -1,4 +1,4 @@
-"""Schema validator for data/source_manifest.yaml (per ADR-016 Q3 + ADR-041 Q1).
+"""Schema validator for configs/data/source_manifest.yaml (per ADR-016 Q3 + ADR-041 Q1; relocated to configs/data per ADR-026 + ADR-044 Q2).
 
 The manifest is the Phase 1 deliverable that pins all 11 source revisions plus
 licenses plus per-source row counts plus selection seeds plus filters. Schema
@@ -73,7 +73,7 @@ ALLOWED_ROLES: Final[frozenset[str]] = frozenset({"train_positive", "train_benig
 
 
 class ManifestSchemaError(ValueError):
-    """Raised on any schema violation in data/source_manifest.yaml."""
+    """Raised on any schema violation in configs/data/source_manifest.yaml."""
 
 
 def _require(condition: bool, message: str) -> None:
@@ -165,7 +165,7 @@ def _validate_source_row(name: str, row: dict[str, Any]) -> None:
 
 
 def validate_manifest(manifest_path: Path) -> dict[str, Any]:
-    """Validate data/source_manifest.yaml against the rich-schema contract.
+    """Validate configs/data/source_manifest.yaml against the rich-schema contract.
 
     Parameters
     ----------
