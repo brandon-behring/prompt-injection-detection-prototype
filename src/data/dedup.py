@@ -228,6 +228,101 @@ def dedup_within_source(
     return kept_df, dropped_records
 
 
+def drop_train_test_leakage(
+    train_val_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    *,
+    threshold: float = 0.85,
+) -> tuple[pd.DataFrame, list[dict[str, Any]]]:
+    """Drop train+val rows that exact-match or cosine-near-match any test row.
+
+    Per ADR-016 Q3 hard-locked leakage invariant — no exact-hash and no high-cosine
+    train-test overlap. ADR-016 Q5 specified cross-source dedup for benigns only;
+    cross-source positive near-paraphrases leak across LODO folds (a near-paraphrase
+    of a held-out-source row in another source's train data effectively gives the
+    model a "seen it before" advantage). This function operates post-split: for
+    each (fold, seed) split, scan train+val vs test; drop the TRAIN-SIDE row of any
+    overlapping pair. Test set stays intact (it's the held-out source's full pool).
+
+    Per ADR-043 — this is the canonical leakage cleanup applied after make_splits +
+    before materialize_splits. The threshold (0.85) matches the leakage scan threshold
+    in compute_leakage_report.
+
+    Parameters
+    ----------
+    train_val_df : pandas.DataFrame
+        Combined train + val pool for one (fold, seed) split.
+    test_df : pandas.DataFrame
+        Test set for the same fold (seed-independent).
+    threshold : float, optional
+        Cosine threshold for near-paraphrase leakage (default 0.85 per ADR-016 Q3).
+
+    Returns
+    -------
+    cleaned_train_val : pandas.DataFrame
+        train_val_df with leaked rows dropped; index reset.
+    dropped_records : list[dict]
+        Per-pair drop record `{train_idx, train_text, test_idx, test_text, cosine, reason}`.
+    """
+    if {"text"} - set(train_val_df.columns) or {"text"} - set(test_df.columns):
+        raise DedupConfigError(
+            f"drop_train_test_leakage requires text column; "
+            f"train_val cols={list(train_val_df.columns)} test cols={list(test_df.columns)}"
+        )
+    if len(train_val_df) == 0 or len(test_df) == 0:
+        return train_val_df.reset_index(drop=True), []
+
+    # Exact-hash overlaps.
+    test_text_set = set(test_df["text"].astype(str))
+    train_val_texts = train_val_df["text"].astype(str)
+    exact_overlap_mask = train_val_texts.isin(test_text_set)
+    dropped: list[dict[str, Any]] = []
+    for idx in train_val_df.index[exact_overlap_mask]:
+        dropped.append(
+            {
+                "train_idx": int(idx),
+                "train_text": str(train_val_texts.loc[idx])[:120],
+                "test_idx": -1,
+                "test_text": "(exact-hash overlap; one of multiple test rows)",
+                "cosine": 1.0,
+                "reason": "exact-hash-leak",
+            }
+        )
+
+    # Cosine overlaps (excluding rows already flagged exact).
+    keep_mask = ~exact_overlap_mask
+    candidate_train_val = train_val_df[keep_mask]
+    if len(candidate_train_val) > 0:
+        train_val_emb = compute_embeddings(candidate_train_val["text"].astype(str).tolist())
+        test_emb = compute_embeddings(test_df["text"].astype(str).tolist())
+        # For each candidate train_val row, find max cosine to ANY test row.
+        BLOCK = 256
+        cosine_drop_indices: list[int] = []
+        for bstart in range(0, len(candidate_train_val), BLOCK):
+            block_emb = train_val_emb[bstart : bstart + BLOCK]
+            sims = block_emb @ test_emb.T  # shape (block_len, n_test)
+            max_per_row = sims.max(axis=1)
+            argmax_test = sims.argmax(axis=1)
+            for row_offset, (max_sim, test_argmax) in enumerate(zip(max_per_row, argmax_test)):
+                if max_sim >= threshold:
+                    abs_idx = candidate_train_val.index[bstart + row_offset]
+                    cosine_drop_indices.append(int(abs_idx))
+                    dropped.append(
+                        {
+                            "train_idx": int(abs_idx),
+                            "train_text": str(train_val_texts.loc[abs_idx])[:120],
+                            "test_idx": int(test_df.index[int(test_argmax)]),
+                            "test_text": str(test_df["text"].iloc[int(test_argmax)])[:120],
+                            "cosine": float(max_sim),
+                            "reason": "cosine-leak",
+                        }
+                    )
+        keep_mask.loc[cosine_drop_indices] = False
+
+    cleaned = train_val_df[keep_mask].reset_index(drop=True)
+    return cleaned, dropped
+
+
 def dedup_cross_source_benigns(
     dfs: dict[str, pd.DataFrame],
     *,

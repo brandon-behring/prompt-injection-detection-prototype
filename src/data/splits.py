@@ -30,7 +30,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Final
+from typing import Any, Final
 
 import numpy as np
 import pandas as pd
@@ -160,6 +160,53 @@ def make_splits(positives_df: pd.DataFrame, benigns_df: pd.DataFrame) -> list[Fo
                 )
             )
     return splits
+
+
+def apply_leakage_cleanup(
+    splits: list[FoldSeedSplit], *, threshold: float = 0.85
+) -> tuple[list[FoldSeedSplit], list[dict[str, Any]]]:
+    """Per ADR-043 — drop train+val rows that exact-match or cosine-near-match test.
+
+    Re-builds each FoldSeedSplit with cleaned train + val. Test stays intact.
+    Returns the cleaned splits + per-split drop-count records for audit.
+    """
+    from src.data.dedup import drop_train_test_leakage
+
+    cleaned_splits: list[FoldSeedSplit] = []
+    cleanup_records: list[dict[str, Any]] = []
+    for split in splits:
+        combined = pd.concat([split.train, split.val], ignore_index=False)
+        cleaned_combined, dropped = drop_train_test_leakage(
+            combined, split.test, threshold=threshold
+        )
+        # Re-partition train + val from cleaned_combined preserving original 80/20 ratio.
+        if len(cleaned_combined) == 0:
+            cleaned_train = cleaned_combined
+            cleaned_val = cleaned_combined
+        else:
+            train_target = max(int(len(cleaned_combined) * (1 - VAL_FRACTION)), 1)
+            cleaned_train = cleaned_combined.iloc[:train_target].reset_index(drop=True)
+            cleaned_val = cleaned_combined.iloc[train_target:].reset_index(drop=True)
+        cleaned_splits.append(
+            FoldSeedSplit(
+                fold_id=split.fold_id,
+                seed=split.seed,
+                held_out_source=split.held_out_source,
+                train=cleaned_train,
+                val=cleaned_val,
+                test=split.test.copy(),
+            )
+        )
+        cleanup_records.append(
+            {
+                "fold_id": split.fold_id,
+                "seed": split.seed,
+                "n_dropped": len(dropped),
+                "n_exact_hash_leaks": sum(1 for d in dropped if d["reason"] == "exact-hash-leak"),
+                "n_cosine_leaks": sum(1 for d in dropped if d["reason"] == "cosine-leak"),
+            }
+        )
+    return cleaned_splits, cleanup_records
 
 
 def materialize_splits(splits: list[FoldSeedSplit], output_root: Path) -> list[Path]:

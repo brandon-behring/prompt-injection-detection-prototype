@@ -118,6 +118,20 @@ Workflow: `build_dedup_holdout` → hand-label → `calibrate_dedup` → unskip 
 
 **Manifest validator entrypoint**: `src/data/manifest_validation.py::validate_manifest(path)` (Commit 1) — invoked from `tests/test_invariants.py::test_source_manifest_schema_valid` + `scripts/pin_source_manifest.py` post-write sanity check.
 
+**Audit + leakage + contamination pipeline (Commit 5)**:
+
+- `src/data/audit.py::compute_data_audit(...)` — per-source counts + per-fold class balance + length distribution; operationalizes ADR-016 A-005 triggers 2 + 4.
+- `src/data/audit.py::compute_leakage_report(splits)` — exact-hash + cosine >= 0.85 train+val vs test overlap per (fold, seed); ADR-016 Q3 hard-locked invariant.
+- `src/data/audit.py::compute_contamination_scan(benigns, ood, slate, templates)` — per-row max cosine to (slate ∪ templates) reference corpus; ADR-016 A-005 trigger 1 + A-006 + ADR-041 Q6.
+- `src/data/templates.py::extract_hackaprompt_templates(spec)` — ~200 successful-injection templates from HackAPrompt; balanced across 10 difficulty levels; disjoint sample seed (1337) from slate (42).
+- `scripts/run_data_pipeline.py` — end-to-end orchestrator (load + dedup + split + leakage-cleanup + materialize + audit + leakage + contamination); writes 3 evals/ JSONs + 36 per-fold parquets + 36 index masks.
+
+**ADR-043 post-split leakage cleanup**:
+
+- `src/data/dedup.py::drop_train_test_leakage(train_val_df, test_df, threshold=0.85)` — scans train+val vs test for exact-hash + cosine ≥0.85 overlaps; drops train-side rows; returns cleaned df + per-pair drop records.
+- `src/data/splits.py::apply_leakage_cleanup(splits, threshold=0.85)` — applies the above to all 12 (fold, seed) splits; re-partitions cleaned train+val at the 80/20 ratio.
+- Wired between `make_splits` and `materialize_splits` in `scripts/run_data_pipeline.py`. Pipeline log records `n_dropped` per split (exact + cosine breakdown) for audit.
+
 ## research_toolkit usage (https://github.com/brandon-behring/research_toolkit)
 
 The literature dossier at `docs/research/` was produced by this toolkit's skill pipeline. New dossier work invokes the same skills:

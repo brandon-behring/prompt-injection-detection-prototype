@@ -12,17 +12,59 @@ import pytest
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_class_balance_per_fold() -> None:
-    """Per-fold negative:positive ratio is within tolerance."""
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    """Per-fold negative:positive ratio is within ADR-016 A-005 trigger 2 range [1:3, 1:10].
+
+    Reads evals/data_audit.json (produced by scripts/run_data_pipeline.py) and
+    asserts the per-fold class balance falls in the ADR-016 A-005 trigger 2 range.
+    """
+    import json
+    from pathlib import Path
+
+    audit_path = Path(__file__).resolve().parent.parent / "evals" / "data_audit.json"
+    assert (
+        audit_path.exists()
+    ), "evals/data_audit.json not found; run scripts/run_data_pipeline.py first."
+    with audit_path.open("r", encoding="utf-8") as fh:
+        audit = json.load(fh)
+    assert (
+        audit["a_005_class_balance_clean"] is True
+    ), f"A-005 trigger 2 (class balance) fired: {audit.get('a_005_triggers_fired')}"
+    assert (
+        len(audit["per_fold_class_balance"]) == 12
+    ), f"expected 12 (fold, seed) records; got {len(audit['per_fold_class_balance'])}"
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_source_disjoint_train_test() -> None:
-    """Each test slice's source is not present in the train sources."""
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    """Each test slice's source is not present in the train sources (LODO disjointness).
+
+    Reads the 36 per-fold parquets under data/processed/ and verifies that for every
+    (fold, seed), the test set's source is NOT in the train+val sources. Source-level
+    disjointness is the LODO contract; text-level leakage is checked separately by
+    test_leakage_report_clean (covered by ADR-043 post-split cleanup).
+    """
+    from pathlib import Path
+
+    import pandas as pd
+
+    processed_root = Path(__file__).resolve().parent.parent / "data" / "processed"
+    assert (
+        processed_root.exists()
+    ), "data/processed/ not found; run scripts/run_data_pipeline.py first."
+    folds = sorted(processed_root.glob("fold-*"))
+    assert len(folds) == 4, f"expected 4 LODO folds; got {len(folds)}"
+    for fold_dir in folds:
+        for seed_dir in sorted(fold_dir.glob("seed-*")):
+            train = pd.read_parquet(seed_dir / "train.parquet")
+            val = pd.read_parquet(seed_dir / "val.parquet")
+            test = pd.read_parquet(seed_dir / "test.parquet")
+            train_sources = set(train["source"].unique()) | set(val["source"].unique())
+            test_sources = set(test["source"].unique())
+            assert test_sources.isdisjoint(train_sources), (
+                f"{fold_dir.name}/{seed_dir.name}: test sources {test_sources} "
+                f"leak into train sources {train_sources}"
+            )
 
 
 @pytest.mark.unit
@@ -182,18 +224,37 @@ def test_dedup_calibration_persisted() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_benign_contamination_scan_clean() -> None:
     """Benign sources (LMSYS + UltraChat) have <=2% contamination per A-005.
 
     Per ADR-016 Phase 1 revisit triggers (assumption A-005), the contamination
     scan flags any benign sample with MiniLM cosine >= 0.85 to a known
-    injection template. This invariant asserts contamination rate stays at
-    or below 2% in both LMSYS-Chat-1M (post English-only filter and
-    post-subsample) and UltraChat (post-subsample). If invariant fails,
-    A-005 fires and a superseding ADR adjusts source mix or filter threshold.
+    injection template (slate + ~200 HackAPrompt success-pattern templates per
+    ADR-041 Q6). This invariant asserts contamination rate stays at or below 2%
+    in both LMSYS-Chat-1M (post English-only filter and post-subsample) and
+    UltraChat (post-subsample) by reading evals/contamination_scan.json
+    (produced by scripts/run_data_pipeline.py).
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    import json
+    from pathlib import Path
+
+    scan_path = Path(__file__).resolve().parent.parent / "evals" / "contamination_scan.json"
+    assert (
+        scan_path.exists()
+    ), "evals/contamination_scan.json not found; run scripts/run_data_pipeline.py first."
+    with scan_path.open("r", encoding="utf-8") as fh:
+        scan = json.load(fh)
+    assert (
+        scan["a_005_benign_contamination_clean"] is True
+    ), f"A-005 trigger 1 (benign contamination) fired: {scan.get('a_005_triggers_fired')}"
+    for benign_source in ("lmsys_chat_1m", "ultrachat_200k"):
+        assert (
+            benign_source in scan["per_benign_source"]
+        ), f"contamination_scan missing benign source {benign_source!r}"
+        pct = scan["per_benign_source"][benign_source]["contamination_pct"]
+        assert (
+            pct <= 2.0
+        ), f"{benign_source} contamination {pct:.2f}% exceeds A-005 trigger 1 threshold (2.0%)"
 
 
 @pytest.mark.unit

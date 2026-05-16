@@ -373,10 +373,18 @@ def _normalize_lmsys_chat_1m(spec: dict[str, Any]) -> pd.DataFrame:
 
 
 def _extract_first_user_turn(conversation: Any) -> str:
-    """Extract the first user-turn `content` field from an LMSYS conversation list."""
-    if not isinstance(conversation, (list, tuple)):
+    """Extract the first user-turn `content` field from an LMSYS conversation iterable.
+
+    Accepts list, tuple, or numpy.ndarray (HF datasets to_pandas converts
+    list-of-dicts to ndarray; isinstance checks would miss the latter).
+    """
+    if conversation is None or isinstance(conversation, str):
         return ""
-    for turn in conversation:
+    try:
+        iterator = iter(conversation)
+    except TypeError:
+        return ""
+    for turn in iterator:
         if isinstance(turn, dict) and turn.get("role") == "user":
             content = turn.get("content", "")
             return str(content) if content is not None else ""
@@ -517,19 +525,20 @@ def _normalize_xstest(clone_path: Path) -> pd.DataFrame:
 
 
 def _normalize_bipia(clone_path: Path) -> pd.DataFrame:
-    """microsoft/BIPIA — OOD indirect-injection; canonical email-task attack file.
+    """microsoft/BIPIA — OOD indirect-injection; email-task JSONL.
 
-    BIPIA has multiple task types (email, code, abstract, qa, table); each has
-    a `benchmark/data/<task>/test.json` with `prompt` + `ideal` + indirect-injection
-    `attack` content. For Phase 1 simplicity we extract the email-task attack texts
-    (the canonical indirect-injection content); all rows label=1.
+    BIPIA's `benchmark/email/test.jsonl` carries columns `context` (the
+    injection-bearing email body) + `question` (the user task) + `ideal`
+    (expected benign output). We extract `context` since it carries the
+    embedded indirect-injection content; all rows label=1.
 
-    Schema is approximate — Phase 1 audit may refine which BIPIA file is canonical.
+    For broader BIPIA coverage (code/abstract/qa/table tasks) — afterword
+    extension per ADR-016 (currently only email task is loaded for Phase 1).
     """
     candidates = [
         clone_path / "benchmark" / "email" / "test.jsonl",
+        clone_path / "benchmark" / "email" / "train.jsonl",
         clone_path / "benchmark" / "data" / "email" / "test.json",
-        clone_path / "data" / "email_attacks.json",
     ]
     json_path = next((c for c in candidates if c.exists()), None)
     if json_path is None:
@@ -538,7 +547,8 @@ def _normalize_bipia(clone_path: Path) -> pd.DataFrame:
         )
     df = pd.read_json(json_path, lines=json_path.suffix == ".jsonl").reset_index(drop=False)
     text_col = next(
-        (c for c in ("attack_str", "attack", "prompt", "text") if c in df.columns), None
+        (c for c in ("attack_str", "attack", "context", "prompt", "text") if c in df.columns),
+        None,
     )
     if text_col is None:
         raise ValueError(f"BIPIA normalizer cannot find text column in {list(df.columns)}")
@@ -553,41 +563,48 @@ def _normalize_bipia(clone_path: Path) -> pd.DataFrame:
 
 
 def _normalize_injecagent(clone_path: Path) -> pd.DataFrame:
-    """uiuc-kang-lab/InjecAgent — OOD agentic injection; `Attacker Instruction` field.
+    """uiuc-kang-lab/InjecAgent — OOD agentic injection; stack DH + DS attacker cases.
 
-    InjecAgent attacker-cases JSONL files live under data/. The canonical
-    benchmark file is `data/attacker_cases_dh_base.jsonl` (direct-harm base set);
-    each row has `Attacker Instruction` (the agent-injection content) + tool
-    context. All rows label=1.
-
-    Schema is approximate per the same caveat as BIPIA — Phase 1 audit may refine.
+    InjecAgent ships `data/attacker_cases_dh.jsonl` (direct-harm attacker cases)
+    plus `data/attacker_cases_ds.jsonl` (data-stealing attacker cases); both have
+    `Attacker Instruction` as the agent-injection content. We stack both for
+    full OOD agentic coverage (ADR-016 Q1 expected_n=1054 ~= DH + DS combined).
+    All rows label=1.
     """
-    candidates = [
-        clone_path / "data" / "attacker_cases_dh_base.jsonl",
-        clone_path / "data" / "attacker_cases.jsonl",
-        clone_path / "data" / "attacker_simulated_responses_train.json",
-    ]
-    json_path = next((c for c in candidates if c.exists()), None)
-    if json_path is None:
+    dh_path = clone_path / "data" / "attacker_cases_dh.jsonl"
+    ds_path = clone_path / "data" / "attacker_cases_ds.jsonl"
+    if not dh_path.exists() and not ds_path.exists():
         raise FileNotFoundError(
-            f"InjecAgent JSONL not found in {clone_path}; tried {[str(c) for c in candidates]}"
+            f"InjecAgent attacker-cases JSONLs not found in {clone_path}/data/; "
+            f"tried {dh_path.name} + {ds_path.name}"
         )
-    df = pd.read_json(json_path, lines=json_path.suffix == ".jsonl").reset_index(drop=False)
-    text_col = next(
-        (
-            c
-            for c in ("Attacker Instruction", "attacker_instruction", "instruction")
-            if c in df.columns
-        ),
-        None,
-    )
-    if text_col is None:
-        raise ValueError(f"InjecAgent normalizer cannot find text column in {list(df.columns)}")
-    return pd.DataFrame(
-        {
-            "text": df[text_col].astype(str),
-            "label": 1,
-            "source": "injecagent",
-            "row_idx_in_source": df["index"],
-        }
-    )
+    frames: list[pd.DataFrame] = []
+    row_offset = 0
+    for path in (dh_path, ds_path):
+        if not path.exists():
+            continue
+        sub = pd.read_json(path, lines=True).reset_index(drop=False)
+        text_col = next(
+            (
+                c
+                for c in ("Attacker Instruction", "attacker_instruction", "instruction")
+                if c in sub.columns
+            ),
+            None,
+        )
+        if text_col is None:
+            raise ValueError(
+                f"InjecAgent normalizer cannot find text column in {list(sub.columns)} ({path.name})"
+            )
+        frames.append(
+            pd.DataFrame(
+                {
+                    "text": sub[text_col].astype(str),
+                    "label": 1,
+                    "source": "injecagent",
+                    "row_idx_in_source": sub["index"] + row_offset,
+                }
+            )
+        )
+        row_offset += len(sub)
+    return pd.concat(frames, ignore_index=True)

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-05-16T22:53:56+00:00",
+  "adr_ref": "ADR-016 A-005 trigger 1 + A-006 + ADR-041 Q6",
+  "cosine_threshold": 0.85,
+  "reference_corpus": {
+    "slate_n_rows": 4707,
+    "templates_n_rows": 200,
+    "total_ref_rows": 4907
+  },
+  "per_benign_source": {
+    "lmsys_chat_1m": {
+      "n_total": 7724,
+      "n_flagged": 23,
+      "contamination_pct": 0.298,
+      "max_cosine_p95": 0.576651394367218,
+      "max_cosine_p99": 0.7047922015190125
+    },
+    "ultrachat_200k": {
+      "n_total": 9522,
+      "n_flagged": 1,
+      "contamination_pct": 0.011,
+      "max_cosine_p95": 0.5210816264152527,
+      "max_cosine_p99": 0.592609167098999
+    }
+  },
+  "per_ood_source": {
+    "bipia": {
+      "n_total": 50,
+      "n_flagged": 0,
+      "contamination_pct": 0.0,
+      "max_cosine_p95": 0.3348741829395294,
+      "max_cosine_p99": 0.35073786973953247
+    },
+    "injecagent": {
+      "n_total": 62,
+      "n_flagged": 0,
+      "contamination_pct": 0.0,
+      "max_cosine_p95": 0.527510404586792,
+      "max_cosine_p99": 0.6490478515625
+    },
+    "xstest": {
+      "n_total": 450,
+      "n_flagged": 1,
+      "contamination_pct": 0.222,
+      "max_cosine_p95": 0.5068607926368713,
+      "max_cosine_p99": 0.6590083241462708
+    },
+    "notinject": {
+      "n_total": 339,
+      "n_flagged": 0,
+      "contamination_pct": 0.0,
+      "max_cosine_p95": 0.682294487953186,
+      "max_cosine_p99": 0.7604363560676575
+    },
+    "jbb_behaviors": {
+      "n_total": 200,
+      "n_flagged": 0,
+      "contamination_pct": 0.0,
+      "max_cosine_p95": 0.5368916988372803,
+      "max_cosine_p99": 0.6410141587257385
+    }
+  },
+  "a_005_triggers_fired": [],
+  "a_005_benign_contamination_clean": true
+}

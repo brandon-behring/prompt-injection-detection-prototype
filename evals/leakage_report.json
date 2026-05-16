@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-05-16T22:53:40+00:00",
+  "adr_ref": "ADR-016 Q3 hard-locked leakage invariant",
+  "cosine_threshold": 0.85,
+  "per_fold_seed": [
+    {
+      "fold_id": 0,
+      "seed": 42,
+      "held_out_source": "deepset_prompt_injections",
+      "n_train_val": 21781,
+      "n_test": 170,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 0,
+      "seed": 43,
+      "held_out_source": "deepset_prompt_injections",
+      "n_train_val": 21781,
+      "n_test": 170,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 0,
+      "seed": 44,
+      "held_out_source": "deepset_prompt_injections",
+      "n_train_val": 21779,
+      "n_test": 170,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 1,
+      "seed": 42,
+      "held_out_source": "lakera_gandalf_ignore_instructions",
+      "n_train_val": 21408,
+      "n_test": 525,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 1,
+      "seed": 43,
+      "held_out_source": "lakera_gandalf_ignore_instructions",
+      "n_train_val": 21410,
+      "n_test": 525,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 1,
+      "seed": 44,
+      "held_out_source": "lakera_gandalf_ignore_instructions",
+      "n_train_val": 21407,
+      "n_test": 525,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 2,
+      "seed": 42,
+      "held_out_source": "lakera_mosscap_prompt_injection",
+      "n_train_val": 19547,
+      "n_test": 2362,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 2,
+      "seed": 43,
+      "held_out_source": "lakera_mosscap_prompt_injection",
+      "n_train_val": 19545,
+      "n_test": 2362,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 2,
+      "seed": 44,
+      "held_out_source": "lakera_mosscap_prompt_injection",
+      "n_train_val": 19550,
+      "n_test": 2362,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 3,
+      "seed": 42,
+      "held_out_source": "hackaprompt",
+      "n_train_val": 20293,
+      "n_test": 1650,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 3,
+      "seed": 43,
+      "held_out_source": "hackaprompt",
+      "n_train_val": 20289,
+      "n_test": 1650,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    },
+    {
+      "fold_id": 3,
+      "seed": 44,
+      "held_out_source": "hackaprompt",
+      "n_train_val": 20293,
+      "n_test": 1650,
+      "exact_hash_overlaps": 0,
+      "cosine_ge_085_overlaps": 0
+    }
+  ],
+  "total_exact_hash_overlaps": 0,
+  "total_cosine_overlaps": 0,
+  "leakage_clean": true
+}
