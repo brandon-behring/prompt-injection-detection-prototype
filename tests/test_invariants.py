@@ -709,6 +709,31 @@ def test_roadmap_phase4_phase5_tailored() -> None:
 
 
 @pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 5 at v0.9.0-rc1 close")
+def test_phase_0_audit_findings_documented() -> None:
+    """ADR-040 + 7-assumption backfill from Phase 0 final audit present per ADR-040.
+
+    Per ADR-040 (Phase 0 final audit findings + 7-assumption backfill), the audit
+    cycle produced one new ADR (this ADR-040) plus 7 new entries in assumptions.md
+    (A-010 through A-016). This invariant asserts: (1) decisions/ADR-040-*.md exists;
+    (2) assumptions.md contains rows for each of A-010 through A-016 (regex grep for
+    the literal ID strings at start-of-row pipe pattern); (3) each new row's
+    severity field reads high or medium per the calibration lock (high — A-010 plus
+    A-012 plus A-013 plus A-014 plus A-016; medium — A-011 plus A-015 — 5 high plus
+    2 medium total); (4) each new row's Linked-to column references ADR-040 plus
+    the parent ADR that introduced the assumption (A-010 references ADR-030 plus
+    ADR-033 plus ADR-039; A-011 references ADR-020 plus A-002; A-012 references
+    ADR-020 plus ADR-001; A-013 references ADR-016 plus ADR-032 plus ADR-034;
+    A-014 references ADR-018 plus ADR-022 plus supplements A-007; A-015 references
+    ADR-018 plus ADR-016; A-016 references ADR-001). Dismissal rationales from
+    ADR-040 body (ADR-015 staleness; Mosbach 2021 citation; test-stub count) are
+    documentation-level and do NOT require additional invariant tests — they are
+    verified by reading ADR-040 body and matching grep observations.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 5 at v0.9.0-rc1 close")
+
+
+@pytest.mark.unit
 @pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_submission_readiness_gates_satisfied() -> None:
     """6-gate submission-readiness integration checklist passes at v1.0.0 tag per ADR-039.
