@@ -15,7 +15,7 @@
 
 ## Context
 
-This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 4 reference rungs at their published native configs — `gpt-4o-2024-08-06` + `claude-sonnet-4-6` + `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 8-rung slate is stratified along ADR-005's three-state contamination taxonomy (per ADR-018) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination + LLM judges vendor_black_box — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a focused PDF rendered from `WRITEUP.md` + a public GitHub repo serving as the evidence locker (ADR-002 + ADR-003), structured as a **hub-and-spoke writeup** for a dual A1+A2 audience (hiring manager + ML researcher; ADR-004). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
+This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05 + Phase 0-06** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 4 reference rungs at their published native configs — `gpt-4o-2024-08-06` + `claude-sonnet-4-6` + `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 8-rung slate is stratified along ADR-005's three-state contamination taxonomy (per ADR-018) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination + LLM judges vendor_black_box — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a focused PDF rendered from `WRITEUP.md` + a public GitHub repo serving as the evidence locker (ADR-002 + ADR-003), structured as a **hub-and-spoke writeup** for a dual A1+A2 audience (hiring manager + ML researcher; ADR-004). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
 
 - **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
 - **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview
@@ -277,6 +277,52 @@ The work spans three repos:
 
 The split is intentional: methodology curriculum and primitives live in `eval-toolkit` so they survive across iterations; cloud orchestration lives in `runpod-deploy` so it's reusable across projects.
 
+### 6.1 Module layout (per ADR-026)
+
+`[LOCKED: concern-grouped sub-packages under src/]`
+
+```
+src/
+  data/        # loaders, dedup, LODO splits, manifest validation
+  training/    # ModernBERT loader, LoRA configurator, trainer
+  scoring/     # reference-scorer adapters (one module per scorer)
+  eval/        # calibration_battery, operating_points, slice_analysis
+  utils/       # config_hash, paths, logging glue
+scripts/       # CLI entrypoints — argparse + IO; orchestrate src/ calls
+configs/
+  runpod/      # canonical RunPod config per ADR-020
+  rungs/       # per-rung YAML hyperparameters per SPEC §5 config discipline
+  profiles/    # smoke vs canonical profile configs per ADR-027
+  data/        # source manifest with HF SHAs per ADR-016
+tests/
+  conftest.py  # marker registration + shared fixtures
+  test_invariants.py  # 25+ tests-as-invariants per SPEC §5
+  fixtures/    # smoke-test fixture data (NOT real data)
+  unit/        # pytest -m unit
+  smoke/       # pytest -m smoke
+  integration/ # pytest -m integration
+```
+
+Boundaries — `src/` is library code (importable, no side effects); `scripts/` is entrypoint glue (argparse + IO; not importable); `configs/` is YAML data; `tests/` is verification. Adding or moving a top-level `src/` sub-package requires a superseding ADR.
+
+### 6.2 Smoke vs canonical separation (per ADR-027)
+
+`[LOCKED: three Makefile targets stratified by execution context]`
+
+| Target | Execution context | Compute | Network | Wall-clock | Purpose |
+|---|---|---|---|---|---|
+| `make smoke` | laptop only | no GPU | no network | <10 min | dev debugging + reviewer "does this wire together" check |
+| `make test-integration` | local GPU OR cloud pod | GPU when available; skip gracefully when not | optional | ~5-10 min | dev debugging on workstation GPU; pre-flight smoke on cloud pod |
+| `make headline-cloud` | RunPod (billed) | H100/equivalent per ADR-020 gpu_order failover | required | hours; cost-cap-gated $125/job per ADR-020 + A-002 | **canonical evaluation deliverable** — not a test |
+
+**Honest framing** (required in `WRITEUP/methodology.md`): math-correctness validation lives upstream in `eval-toolkit` (≥90% coverage floor, Hypothesis property tests, golden-output snapshots, doctests on math kernels). The local test layer in this prototype repo is debugging-grade — sufficient to catch glue-layer breakage before paying for cloud compute, not sufficient to substitute for upstream library validation. Reviewers consult eval-toolkit's test suite for math-correctness evidence.
+
+A separate `make headline-dry-run` target exposes `runpod-deploy run --dry-run` standalone for cost preview without provisioning.
+
+### 6.3 Linked ADRs
+
+ADR-026 (module layout), ADR-027 (smoke vs canonical), ADR-028 (coverage floor), ADR-029 (test marker strategy).
+
 ---
 
 ## 7. Verification & acceptance criteria
@@ -310,7 +356,7 @@ Plus the standard quality gates that apply to every phase:
 7. **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR.
 8. **Tests-as-invariants**: every spec claim that can be made executable as a test, must be.
 
-**Linked ADRs**: ADR-001, ADR-025, ADR-026.
+**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029.
 
 ---
 

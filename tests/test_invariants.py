@@ -393,3 +393,101 @@ def test_verification_reachability_audit() -> None:
     cells per rung) as a cross-rung comparison artifact.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_module_layout_taxonomy() -> None:
+    """src/ + scripts/ + configs/ + tests/ taxonomy matches ADR-026 contract.
+
+    Per ADR-026 (module layout — concern-grouped sub-packages under src/), the locked
+    layout is src/{data, training, scoring, eval, utils}/ with each sub-package being
+    a Python package (contains __init__.py); scripts/ contains entrypoint files only
+    (no library code; not importable as a package); configs/{runpod, rungs, profiles,
+    data}/ each contain at least one YAML file at Phase 1 entry; tests/{conftest.py,
+    test_invariants.py, fixtures/, unit/, smoke/, integration/} structure preserved.
+    This invariant asserts: (1) each of src/{data, training, scoring, eval, utils}
+    exists as a directory with an __init__.py; (2) scripts/ exists and contains no
+    __init__.py (entrypoints are scripts, not a package); (3) configs/{runpod, rungs,
+    profiles, data} exist as directories at Phase 1 entry; (4) tests/{fixtures, unit,
+    smoke, integration} exist as directories at Phase 1 entry; (5) the no-emoji
+    invariant scan globs already operate over src/ scripts/ configs/ tests/ docs/ so
+    the layout lock does not change scan-target enumeration. Adding or moving a
+    top-level src/ sub-package post-lock requires a superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_makefile_execution_context_stratification() -> None:
+    """Makefile carries the three-target execution-context stratification per ADR-027.
+
+    Per ADR-027 (smoke vs canonical separation — three Makefile targets stratified by
+    execution context), the Makefile must declare: (1) make smoke target — runs
+    pytest -m smoke + a fixture-data E2E pass through scripts/run_metrics_battery.py
+    with configs/profiles/fixtures.yaml; constraints — laptop only, no GPU calls, no
+    network calls, total wall-clock under 10 minutes; (2) make test-integration
+    target — runs pytest -m integration; integration tests use pytest.importorskip
+    plus pytest.mark.skipif idiom for GPU-conditional skipping (verified via grep of
+    @pytest.mark.integration tests in tests/integration/); same target invocation
+    works on laptop (skips GPU tests) and on cloud pod (runs them as pre-flight);
+    (3) make headline-cloud target — wraps runpod-deploy validate --all + run
+    --dry-run + run --config configs/runpod/headline.yaml; cost-cap-gated 125 USD
+    per job per ADR-020 + A-002; NOT a test target. (4) make headline-dry-run target
+    exposes runpod-deploy run --dry-run standalone for cost preview without
+    provisioning. This invariant asserts all 4 targets exist as Makefile rules and
+    that test-integration tests use the importorskip+skipif idiom rather than failing
+    on no-GPU laptops. The honest debugging-grade-here-rigorous-upstream framing
+    paragraph is required in WRITEUP/methodology.md (separately enforced by the
+    reporting-completeness invariant).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_coverage_floor_70pct_enforced() -> None:
+    """Makefile coverage target enforces 70% flat coverage floor per ADR-028.
+
+    Per ADR-028 (test coverage floor — 70% flat with upstream-issue-filing
+    discipline), the Makefile coverage target must invoke pytest with
+    --cov-fail-under=70 (replacing the prior ungated --cov=. --cov-report=term-missing
+    form). The CI command is uv run pytest --cov --cov-fail-under=70
+    --cov-report=term-missing. This invariant asserts: (1) the Makefile coverage
+    target string contains --cov-fail-under=70 (verified via subprocess grep on
+    Makefile); (2) the co-locked process commitment is documented in
+    decisions/upstream_issues.md "How to use this ledger" section under a
+    "Test-coverage-gap entries" subsection covering the [test-coverage-gap] +
+    [not-applicable] tag conventions; (3) STYLE.md project-deltas first bullet
+    references the locked 70% floor (no longer the [OPEN: ...] placeholder).
+    Behavioral verification — when synthetic coverage drops below 70%, the make
+    coverage exit code is non-zero — is deferred to a Phase 1 integration test that
+    constructs a temp-dir minimal repo to exercise the gate without polluting the
+    real coverage report.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_pytest_markers_registered_and_in_sync() -> None:
+    """Exactly 4 pytest markers registered + pyproject.toml + conftest.py in sync per ADR-029.
+
+    Per ADR-029 (test marker strategy — 4-marker ratification), the locked taxonomy is
+    exactly {unit, smoke, integration, network} — no property, no golden, no slow, no
+    gpu. Markers are registered in BOTH pyproject.toml [tool.pytest.ini_options]
+    markers list AND tests/conftest.py via pytest_configure addinivalue_line calls;
+    --strict-markers is enabled in pyproject addopts so unknown markers fail loudly.
+    This invariant asserts: (1) pyproject.toml [tool.pytest.ini_options] markers list
+    is exactly the set {unit, smoke, integration, network} — set-equality check (no
+    extras, no missing); (2) tests/conftest.py pytest_configure registers exactly the
+    same 4 markers via addinivalue_line; (3) --strict-markers appears in pyproject
+    addopts; (4) no test file in tests/ uses an unregistered marker (verified via
+    grep of @pytest.mark.<name> patterns in tests/ + comparison against the
+    registered set; pytest-builtin markers like skip, parametrize, skipif, xfail are
+    excluded from the comparison); (5) no marker file appears in eval-toolkit-only
+    set {property, golden} since math rigor lives upstream per ADR-027. Marker-add or
+    marker-remove post-lock requires a superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
