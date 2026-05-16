@@ -13,6 +13,8 @@ evals/checkpoints/
 # Secrets — never commit (repo is public)
 .env
 .env.*
+# Exemption: .env.example is the committed placeholder template per ADR-035
+!.env.example
 *.key
 *.pem
 *.p12

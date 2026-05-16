@@ -7,10 +7,11 @@ license = { file = "LICENSE" }
 requires-python = ">=3.13"
 dependencies = [
     # Load-bearing libraries (no hand-rolling allowed — see SPEC_GREENFIELD §Tech-Stack).
-    # Versions locked at Phase 0 (see SPEC_GREENFIELD ledger §Tech-Stack rows for library version pins):
-    # "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@vX.Y.Z",
-    # "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@vX.Y.Z",
-    # "research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@vX.Y.Z",
+    # Versions locked at Phase 0-08 per ADR-036 (tag pin + freeze for submission window).
+    # Bump triggers limited to blocking upstream bug + critical security fix + post-submission patch per ADR-033.
+    "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.31.0",
+    "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7",
+    "research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1",
 ]
 
 [project.optional-dependencies]

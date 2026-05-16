@@ -4,6 +4,29 @@ This repo uses three load-bearing libraries (see `SPEC_GREENFIELD.md` §Tech-Sta
 
 The ledger is **positive evidence**: not just "we don't hand-roll" but "here is exactly what we use from each library." Reviewer-readable; CI-friendly.
 
+## Version pinning lock (Phase 0-08 per ADR-036)
+
+| Library | Pinned version | pyproject.toml specifier |
+|---|---|---|
+| `eval-toolkit` | `v0.31.0` | `eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.31.0` |
+| `runpod-deploy` | `v0.7.7` (matches ADR-020 pre-existing pin) | `runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7` |
+| `research_toolkit` | `v1.9.1` | `research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1` |
+
+**Pinning strategy** (per ADR-036): tag pin + freeze for submission window (Phase 0-08 close → `v1.0.0` submission tag per ADR-033); `uv.lock` provides byte-level reproducibility on top.
+
+**Python pin** (per ADR-037): `requires-python = ">=3.13"` + `.python-version = 3.13`.
+
+**Bump triggers** — exactly three:
+1. Blocking upstream bug that breaks a use-pattern documented below.
+2. Critical security fix (CVE-grade) in the upstream.
+3. Post-submission reviewer-feedback patch per ADR-033 `v1.0.x` discipline.
+
+Routine "the upstream has a new release" is NOT a bump trigger. Each bump produces a new commit + an entry in `decisions/upstream_issues.md` referencing the trigger; bumps do NOT supersede ADR-036 (the discipline is locked; specific versions move). Freeze expires at `v2.0.0` per ADR-033 major-bump discipline.
+
+## Secrets discipline (Phase 0-08 per ADR-035)
+
+All consumer libraries (`huggingface_hub`, `openai`, `anthropic`, `runpod-deploy` CLI) discover tokens via their default env-var auto-discovery. Token storage uses a three-store split aligned with execution context — local `.env` (gitignored; per ADR-035) + RunPod pod-secrets via `runpod-deploy` config + GH Actions repo Secrets. `.env.example` committed at repo root as a placeholder template enumerating the four canonical env vars (`HF_TOKEN` + `RUNPOD_API_KEY` + `OPENAI_API_KEY` + `ANTHROPIC_API_KEY`). See ADR-035 for rotation protocol + preflight verification.
+
 ## eval-toolkit imports (https://github.com/brandon-behring/eval-toolkit)
 
 | Primitive | Imported in | Purpose |

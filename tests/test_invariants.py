@@ -613,3 +613,125 @@ def test_reproducibility_tier_documented() -> None:
     removal requires superseding ADR.
     """
     raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_env_example_template_present() -> None:
+    """.env.example template exists with 4 canonical env vars per ADR-035.
+
+    Per ADR-035 (secrets management — three-store split aligned with execution
+    context), .env.example is committed at repo root as a placeholder template
+    that enumerates the four canonical env vars consumer libraries discover via
+    env-var auto-discovery. This invariant asserts: (1) .env.example exists at
+    repo root; (2) the file enumerates all four canonical env vars HF_TOKEN
+    plus RUNPOD_API_KEY plus OPENAI_API_KEY plus ANTHROPIC_API_KEY (grep
+    each); (3) the values are placeholder-shaped not real tokens — HF_TOKEN
+    matches hf_x-times-pattern, OPENAI_API_KEY matches sk-x-times-pattern,
+    ANTHROPIC_API_KEY matches sk-ant-x-times-pattern, RUNPOD_API_KEY matches
+    YOUR_..._HERE pattern (regex check; no value matches real-token signature);
+    (4) .gitignore covers .env (verified via subprocess git check-ignore .env
+    returns nonzero exit code meaning ignored); (5) .gitignore explicitly
+    exempts .env.example via negation pattern (.env.example is NOT ignored;
+    verified via git check-ignore .env.example returns nonzero exit code
+    meaning NOT-ignored when negation matches); (6) pre-commit gitleaks hook
+    is enabled in .pre-commit-config.yaml (defense-in-depth).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_pyproject_library_version_pins() -> None:
+    """pyproject.toml contains the three locked library version pins per ADR-036.
+
+    Per ADR-036 (library version pins — tag pin plus freeze for submission
+    window), pyproject.toml dependencies stanza contains three git+URL+tag
+    specifiers at the locked versions. This invariant asserts: (1) pyproject.toml
+    dependencies stanza contains the eval-toolkit at v0.31.0 specifier (regex
+    grep for the literal version tag plus the brandon-behring slash eval-toolkit
+    path); (2) pyproject.toml dependencies stanza contains the runpod-deploy at
+    v0.7.7 specifier matching the ADR-020 pre-existing pin; (3) pyproject.toml
+    dependencies stanza contains the research_toolkit at v1.9.1 specifier;
+    (4) uv.lock includes all three libraries at the same versions (uv.lock
+    parse plus version field check); (5) no library is pinned to a main branch
+    or a non-tagged commit (regex check excluding the at-tag pattern); (6) all
+    three libraries install cleanly under requires-python >=3.13 per ADR-037
+    (verified via uv sync at Phase 0-08 close — if any conflict the lock
+    cannot be released without fix-forward).
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_python_version_pin_at_3_13() -> None:
+    """pyproject.toml requires-python equals >=3.13 + .python-version equals 3.13 per ADR-037.
+
+    Per ADR-037 (Python version pin — ratify requires-python >=3.13), the
+    pre-existing bc8ce4e commit lock is ratified at Phase 0-08. This invariant
+    asserts: (1) pyproject.toml line containing requires-python reads exactly
+    the value quote >=3.13 quote (regex grep); (2) .python-version file at
+    repo root contains exactly 3.13 (single-line read plus strip plus equality
+    check); (3) sys.version_info major-minor is at least (3, 13) when running
+    pytest — the test fails if invoked on Python <3.13 (sanity gate); (4) uv
+    sync exit code is 0 under the >=3.13 pin (verified via subprocess at lock
+    time only — Phase 1 plus implementation defers active enforcement to CI).
+    Bump triggers — 3.13-only feature dependency emergence tightens the pin
+    (no ADR supersession needed); 3.13 wheel-availability issue on RunPod
+    base images loosens to >=3.12 via superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_roadmap_phase4_phase5_tailored() -> None:
+    """docs/ROADMAP.md Phase 4 + Phase 5 tailored per ADR-038.
+
+    Per ADR-038 (Phase tailoring — light ROADMAP edits), docs/ROADMAP.md is
+    updated at Phase 0-08 close with three surface-area edits — Phase 4 close
+    gains a rehearsal-tag note; Phase 5 description rewritten with Quarto plus
+    HF Hub plus reproducibility expansions; decision-needed prompt at line 83
+    replaced. This invariant asserts: (1) docs/ROADMAP.md Phase 4 section
+    contains the literal string v0.9.0-rc1 (rehearsal tag name); (2)
+    docs/ROADMAP.md Phase 5 section contains all five ADR citations — ADR-030
+    plus ADR-031 plus ADR-032 plus ADR-033 plus ADR-034 (regex grep for each);
+    (3) docs/ROADMAP.md still declares exactly 5 phases past Phase 0 (no Phase
+    4.5 or 5a/5b splits; count headings matching # Phase N pattern; expected
+    count is 6 including Phase 0); (4) the kit-default Decision needed at line
+    83 prompt no longer reads "Decision needed (Phase 0)" — replaced with
+    Phase 0-08 lock note pointing at ADR-038. Restructure-options rejected at
+    Q6 walk (Phase 4.5 / Phase 5a-b-c / Phase 2b smoke-preflight / Phase 3+4
+    collapse) — any reopening requires superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+def test_submission_readiness_gates_satisfied() -> None:
+    """6-gate submission-readiness integration checklist passes at v1.0.0 tag per ADR-039.
+
+    Per ADR-039 (project-specific acceptance criteria — 6-gate integration
+    checklist for v1.0.0 submission tag), submission-readiness aggregates over
+    per-ADR acceptance_criterion fields plus the kit-default §6 gates. This
+    invariant asserts at v1.0.0 submission tag time — (1) grep -c quote-bracket
+    OPEN bracket-quote SPEC_SHEET.md returns 0 excluding the Status doc-header
+    OPEN line which transitions to LOCKED at Phase 0 close (verify via line-
+    matching not raw count); (2) awk slash-pipe open pipe-slash on
+    SPEC_GREENFIELD.md ledger appendix section returns 0 lines (all rows are
+    locked-to-X or superseded-by-NNN or deferred-to-phase-N); (3) pytest
+    --collect-only tests/test_invariants.py shows zero skip-marked tests (all
+    @pytest.mark.skip decorators removed at submission tag — this very test
+    among them); (4) make audit exits 0 (SUBMISSION_AUDIT.md regenerates with
+    every claim Accepted or Superseded; no Proposed claims); (5) git tag -l
+    v0.9.0-rc1-star returns at least one tag matching the rehearsal-tag
+    pattern per ADR-033; (6) the three reviewer URLs at v1.0.0 return HTTP 200
+    or 301-redirect-to-200 via curl --head — source pin at tree v1.0.0 plus
+    live Quarto site at brandon-behring.github.io plus GH release page at
+    releases tag v1.0.0. Adding a 7th-or-8th integration gate is allowed
+    without ADR supersession (the framing is locked; gates are extensible);
+    removing a gate requires superseding ADR.
+    """
+    raise NotImplementedError("invariant test stub — implement in Phase 1")

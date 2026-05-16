@@ -1,6 +1,6 @@
 # Project specification (filled at end of Phase 0)
 
-**Status**: `[OPEN]` (`DRAFT` → `PROPOSED` → `LOCKED` — locks once Phase 0 closes all decisions)
+**Status**: `[LOCKED]` (Phase 0 closed at Phase 0-08 — every [OPEN] ledger row in SPEC_GREENFIELD locked to ADR-NNN; 39 ADRs accepted across Phase 0-00 through Phase 0-08; remaining `[OPEN]` text references in this doc are documentation about the spec lifecycle convention, not unresolved decisions)
 **Type**: Single-version SDD spec; revisions tracked via ADRs (Michael Nygard format)
 
 > **Role of this document.** SPEC_GREENFIELD.md is the authoritative pre-Phase-0 spec — it defines the contract and the open decisions. SPEC_SHEET.md is the post-Phase-0 fill-in form: same skeleton, but each `[OPEN]` row gets replaced with `[LOCKED: <chosen value>]` once Phase 0 resolves it. Phase 1 cannot begin until SPEC_SHEET.md has zero `[OPEN]` rows.
@@ -15,7 +15,7 @@
 
 ## Context
 
-This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05 + Phase 0-06 + Phase 0-07** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 4 reference rungs at their published native configs — `gpt-4o-2024-08-06` + `claude-sonnet-4-6` + `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 8-rung slate is stratified along ADR-005's three-state contamination taxonomy (per ADR-018) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination + LLM judges vendor_black_box — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a public GitHub repo rendered as a Quarto-built static HTML site auto-published to GitHub Pages via a `quarto-actions/publish@v2` workflow (per ADR-030 supersedes ADR-002 — PDF removed; pandoc + LaTeX dependencies dropped). The site uses an `index.qmd` entry-point + Quarto sidebar nav declared in `_quarto.yml` to surface 8 spokes + decisions/ ADRs to a dual A1+A2 audience (hiring manager + ML researcher; per ADR-031 supersedes ADR-004 — A1+A2 + B4 + hub-and-spoke survive; hub artefact shifts from PDF to Quarto site). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
+This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05 + Phase 0-06 + Phase 0-07 + Phase 0-08** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 4 reference rungs at their published native configs — `gpt-4o-2024-08-06` + `claude-sonnet-4-6` + `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 8-rung slate is stratified along ADR-005's three-state contamination taxonomy (per ADR-018) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination + LLM judges vendor_black_box — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a public GitHub repo rendered as a Quarto-built static HTML site auto-published to GitHub Pages via a `quarto-actions/publish@v2` workflow (per ADR-030 supersedes ADR-002 — PDF removed; pandoc + LaTeX dependencies dropped). The site uses an `index.qmd` entry-point + Quarto sidebar nav declared in `_quarto.yml` to surface 8 spokes + decisions/ ADRs to a dual A1+A2 audience (hiring manager + ML researcher; per ADR-031 supersedes ADR-004 — A1+A2 + B4 + hub-and-spoke survive; hub artefact shifts from PDF to Quarto site). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
 
 - **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
 - **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview
@@ -33,8 +33,8 @@ This is an **exploration spec** for an SDD-disciplined iteration — not a produ
 - Not optimizing for SOTA PR-AUC.
 - Not building a deployable service. Deployment is not on the roadmap.
 - Not creating a publishable benchmark.
-- `[OPEN]` Not picking a leader rung — each rung's trade-offs are characterized, no rung is promoted as the deployment recommendation.
-- `[TBD: additional non-goals; populated at Phase 0]`
+- `[LOCKED: per ADR-005 + ADR-017]` Not picking a leader rung — each rung's trade-offs are characterized, no rung is promoted as the deployment recommendation. The rung-ladder IS the Pareto frontier (per ADR-005 methodology-over-metrics + ADR-017 trained-rung-slate-as-Pareto-instrument framing).
+- `[LOCKED-via-omission]` No additional non-goals surfaced during Phase 0-00 through Phase 0-08; the three above + the rung-recommendation non-goal cover the project scope.
 
 **Scope authority**: the spec itself is the scope cap. Anything not specified here is out of  scope. Adding scope post-spec-freeze requires an ADR with explicit "Why this is in scope now" justification.
 
@@ -90,7 +90,7 @@ Gate: every checkbox ticked; `evals/results.json` parses cleanly.
 - [ ] Bootstrap CIs computed for every headline metric
 - [ ] Paired-bootstrap differences computed for every rung-vs-rung comparison of interest
 - [ ] MDE estimated for every reported CI
-- [ ] Per-source / per-style breakdowns computed (LLM-as-rater rubric audit `[OPEN]`)
+- [ ] Per-source / per-style breakdowns computed (LLM-as-rater rubric audit `[TBD-at-Phase-4]` — invest only if regex-based per-style tagger proves conservative enough to warrant audit; deferred per ADR-005 methodology + ADR-018 reference-scorer framing)
 - [ ] Figures 1–7 (or the project's named slate) rendered to `docs/plots/`
 
 Gate: every checkbox ticked; analysis JSON outputs match schemas.
@@ -330,21 +330,29 @@ ADR-026 (module layout), ADR-027 (smoke vs canonical), ADR-028 (coverage floor),
 
 ## 7. Verification & acceptance criteria
 
-This iteration is considered complete when **all five Phase 5 gates pass**:
+### 6-gate integration checklist for `v1.0.0` submission tag (per ADR-039)
 
-- All WRITEUP sections drafted with `[TBD: value]` markers resolved.
-- All  ADRs written.
-- Transcripts linked.
-- EVIDENCE.md populated for every external-evidence claim.
-- PDF bundled.
-- Markers explained.
+This iteration is submission-ready when all six gates pass:
 
-Plus the standard quality gates that apply to every phase:
+1. **Zero `[OPEN]` in `SPEC_SHEET.md`** — every slot reads `[LOCKED: ... (per ADR-NNN)]` OR `[TBD-at-Phase-N]` with explicit rationale. Verified via `grep -c "\[OPEN\]" SPEC_SHEET.md` returns 0 (excluding the doc-header `Status: [OPEN]` line which transitions to `[LOCKED]` at Phase 0 close).
+2. **Zero `open` rows in `SPEC_GREENFIELD.md` ledger appendix** — every row reads `locked-to-X (see ADR-NNN)` OR `superseded-by-NNN` OR `deferred-to-phase-N` with explicit rationale. Verified via `awk '/^\| open \|/' SPEC_GREENFIELD.md` returns 0 lines.
+3. **All `tests/test_invariants.py` stubs unskipped + green** — every `@pytest.mark.skip` decorator removed; `pytest -m unit` exits clean. Verified via `pytest -m unit tests/test_invariants.py` + `pytest --collect-only` shows zero skipped tests.
+4. **`SUBMISSION_AUDIT.md` regenerates cleanly** — every claim in `Accepted` OR `Superseded` state (no `Proposed` at submission tag). Verified via `make audit` (wraps `scripts/regenerate_audit.py --check`) exits 0.
+5. **`v0.9.0-rc1` rehearsal tag fired successfully before `v1.0.0`** (per ADR-033) — verified via `git tag -l v0.9.0-rc1*` returns at least one tag + `gh run list --workflow publish.yml` shows green status for that tag.
+6. **All three reviewer URLs at `v1.0.0` resolve** — source pin at `tree/v1.0.0` + live Quarto site at GH Pages URL + GH release page with CHANGELOG + `_site.tar.gz` asset (per ADR-033). Verified via `curl --head` returns HTTP 200 (or 301-redirect-to-200) for all three URLs.
+
+Per-ADR `acceptance_criterion:` frontmatter fields collectively cover the granular gates (data manifests + calibration artefacts + threshold reachability + HF Hub model card schema + etc.). Gate 4 is the mechanical check that all per-ADR criteria are satisfied.
+
+### Kit-default §6 gates (preserved; subsumed by gates 3 + 4 above but listed explicitly for kit-level continuity)
 
 - `make test` passes (incl. invariants for class balance, source-disjoint, frozen-dataclass, no-emoji, reporting-completeness).
 - `make lint` clean.
 - `evals/results.json` schema-validated against eval-toolkit's `results.v1.json`.
 - All assumptions with severity ≥ medium in `assumptions.md` appear in the WRITEUP caveats block.
+
+### Submission-readiness sign-off
+
+`SUBMISSION_TEMPLATE.md` (or `SUBMISSION.md` cover-letter) quotes the 6 gates so the submission-readiness check is reviewer-readable at submission tag. The submission is not ready until every gate above passes.
 
 ---
 
@@ -359,7 +367,7 @@ Plus the standard quality gates that apply to every phase:
 7. **Assumption updates**: when an assumption is invalidated mid-implementation, update `assumptions.md` and write a corrective ADR.
 8. **Tests-as-invariants**: every spec claim that can be made executable as a test, must be.
 
-**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034.
+**Linked ADRs**: ADR-001, ADR-025, ADR-026, ADR-027, ADR-028, ADR-029, ADR-030, ADR-031, ADR-032, ADR-033, ADR-034, ADR-035, ADR-036, ADR-037, ADR-038, ADR-039.
 
 ---
 

@@ -74,10 +74,16 @@ Bootstrap CIs computed for every headline metric; paired-bootstrap differences c
 
 **Replanning checkpoint**: before exiting Phase 4, audit analysis assumptions; commit any superseding ADRs.
 
+**Pre-Phase-5 rehearsal** (per ADR-033 + ADR-038): before exiting Phase 4, fire the `v0.9.0-rc1` rehearsal tag — this triggers the full publish pipeline (Quarto site build per ADR-030 + GH Pages deploy + HF Hub model card pushes per ADR-032) as a 24+ hour dress-rehearsal. If rehearsal fails, fix-forward via new commits + `v0.9.0-rc2`.
+
 ## Phase 5 — Writeup
 
-All sections drafted; all ADRs written and indexed; transcripts linked from the writeup appendix; EVIDENCE.md populated; deliverable bundle assembled; all markers resolved.
+All `WRITEUP.md` sections + 8 spokes (per ADR-031) drafted and populated; `index.qmd` reading-paths guide complete; all ADRs written and indexed; transcripts linked from the writeup appendix; EVIDENCE.md populated for every external-evidence claim; Quarto site renders cleanly via `make site` and via the `.github/workflows/publish.yml` GH Actions workflow per ADR-030; HF Hub model repos for headline rungs published per ADR-032 via `scripts/generate_model_cards.py`; `WRITEUP/reproducibility.md` documents T0+T1+T3 tier ladder per ADR-034.
 
-**Replanning checkpoint**: before submission, run the full leak-audit grep + verification grep suite. Fix-forward any leakage. Tag `v1.0.0` after all checks pass.
+**Phase 5 close fires `v1.0.0` submission tag per ADR-033** — CHANGELOG entry committed; `gh release create v1.0.0` with `_site.tar.gz` asset; all markers resolved.
 
-> **Decision needed (Phase 0):** project-specific tailoring of the phase structure (e.g., add a Phase 2b for a smoke-train preflight; collapse Phase 3+4 if analysis is light).
+**Replanning checkpoint**: before submission, run the full leak-audit grep + verification grep suite. Fix-forward any leakage.
+
+Gate: every checkbox in `SPEC_SHEET.md` §2 Phase 5 ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Quarto site + GH release page) all resolve; transcripts ready for private email attachment; all 6 submission-readiness integration gates per ADR-039 satisfied.
+
+> *Phase tailoring locked at Phase 0-08 (per ADR-038):* 5-phase structure preserved; no Phase 4.5 / Phase 5a-b-c split; the rehearsal is a tag per ADR-033 not a phase; Phase 2b smoke-train preflight is unnecessary since `make smoke` per ADR-027 already covers laptop-only fixture-data preflight without a phase split; Phase 3+4 collapse is rejected since Phase 4 carries first-class statistical-inference work (paired-bootstrap + cv_clt_ci + MDE + reference-scorer audit per ADR-022 + ADR-024) that deserves its own phase-gate discipline.
