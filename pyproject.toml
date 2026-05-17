@@ -35,6 +35,9 @@ dependencies = [
     "pydantic>=2.5",
     # anthropic client for claude-sonnet-4-6 LLM judge per ADR-018.
     "anthropic>=0.40",
+    # Phase 4 (Analysis) deps per ADR-046 Q6 — figures library-first hybrid.
+    # eval_toolkit.plotting requires matplotlib; SVG output to docs/plots/ per ADR-030.
+    "matplotlib>=3.8",
 ]
 
 [project.optional-dependencies]
@@ -51,7 +54,6 @@ notebook = [
     "jupyter>=1",
     "nbstripout>=0.7",
     "nbval>=0.11",
-    "matplotlib>=3.8",
 ]
 
 [tool.jupytext]
@@ -91,6 +93,8 @@ module = [
     "eval_toolkit.*",
     "scipy",
     "scipy.*",
+    "matplotlib",
+    "matplotlib.*",
 ]
 ignore_missing_imports = true
 

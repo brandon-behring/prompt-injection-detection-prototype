@@ -2453,6 +2453,7 @@ dependencies = [
     { name = "datasets" },
     { name = "eval-toolkit" },
     { name = "huggingface-hub" },
+    { name = "matplotlib" },
     { name = "numpy" },
     { name = "openai" },
     { name = "pandas" },
@@ -2480,7 +2481,6 @@ dev = [
 ]
 notebook = [
     { name = "jupyter" },
-    { name = "matplotlib" },
     { name = "nbstripout" },
     { name = "nbval" },
 ]
@@ -2493,7 +2493,7 @@ requires-dist = [
     { name = "eval-toolkit", git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.31.0" },
     { name = "huggingface-hub", specifier = ">=0.25" },
     { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1" },
-    { name = "matplotlib", marker = "extra == 'notebook'", specifier = ">=3.8" },
+    { name = "matplotlib", specifier = ">=3.8" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.8" },
     { name = "nbstripout", marker = "extra == 'notebook'", specifier = ">=0.7" },
     { name = "nbval", marker = "extra == 'notebook'", specifier = ">=0.11" },

@@ -784,6 +784,49 @@ def test_a_008_flag_fired_when_ratio_exceeds_1_5() -> None:
 
 
 @pytest.mark.unit
+@pytest.mark.skip(reason="deferred to Phase 4 Commit 5 orchestration — needs render_figures.py")
+def test_figures_slate_7_svgs_present() -> None:
+    """All 7 figure SVGs land at docs/plots/F{1..7}.svg per ADR-046 Q6 + ADR-030.
+
+    Per ADR-046 Q6 (Phase 4 Commit 4 figures slate) + ADR-030 (Quarto site
+    embeds figures from docs/plots/), the render_figures.py orchestrator
+    (Commit 5) emits the canonical 7-figure slate as SVG files at
+    docs/plots/F1.svg + docs/plots/F2.svg + ... + docs/plots/F7.svg. This
+    invariant asserts:
+    (1) all 7 files exist under docs/plots/ after `make render-figures`;
+    (2) each is a non-empty valid SVG (starts with `<svg`);
+    (3) FIGURE_SLATE_NAMES in src/eval/figures.py matches the filenames;
+    (4) Quarto site config (_quarto.yml) references at least one figure for
+    cross-link sanity.
+    Skipped until Commit 5 orchestration lands + canonical evals complete.
+    """
+    raise NotImplementedError(
+        "invariant test stub — unskip when render_figures.py orchestrates the canonical slate"
+    )
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="deferred to Phase 4 Commit 5 orchestration — needs render_figures.py")
+def test_save_figure_provenance_chunks_present() -> None:
+    """Every rendered figure carries provenance metadata via eval_toolkit.save_figure.
+
+    Per ADR-046 Q6 + ADR-030 (provenance-aware SVG output), every figure
+    produced by render_figures.py is written through eval_toolkit.plotting.save_figure
+    with a provenance dict containing at minimum: figure_id (one of F1..F7),
+    adr (ADR-046), git_commit_sha, generated_at (ISO timestamp). save_figure
+    embeds the provenance dict as a <desc> chunk in the SVG so the reviewer
+    can inspect each figure's origin without re-running. This invariant asserts:
+    (1) every docs/plots/F{1..7}.svg contains the literal string "ADR-046";
+    (2) every SVG contains a git_commit_sha matching a HEAD ancestor at render
+    time; (3) every SVG contains a generated_at ISO-8601 timestamp.
+    Skipped until Commit 5 orchestration lands.
+    """
+    raise NotImplementedError(
+        "invariant test stub — unskip when render_figures.py orchestrates the canonical slate"
+    )
+
+
+@pytest.mark.unit
 @pytest.mark.skip(reason="deferred to canonical Phase 4 evals — needs 84 trained-rung parquets")
 def test_cv_clt_ci_headline_present() -> None:
     """Cross-fold CI audit emits cv_clt headline for every (rung, slice, metric) cell.
