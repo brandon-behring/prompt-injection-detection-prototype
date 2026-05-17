@@ -165,7 +165,9 @@ def test_render_f5_slice_heatmap_returns_figure() -> None:
 @pytest.mark.smoke
 def test_render_f5_slice_heatmap_shape_mismatch_raises() -> None:
     grid = np.zeros((2, 3))
-    with pytest.raises(ValueError, match="does not match"):
+    # Upstream eval-toolkit v0.33.0 plot_slice_metric_heatmap message:
+    # "row_labels length 1 != grid.shape[0] 2". Match loosely.
+    with pytest.raises(ValueError, match=r"row_labels|does not match|shape"):
         render_f5_slice_heatmap(metric_grid=grid, row_labels=["a"], col_labels=["b", "c", "d"])
 
 

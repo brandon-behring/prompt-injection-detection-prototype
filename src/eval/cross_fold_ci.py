@@ -25,18 +25,16 @@ Library-first
 - `eval_toolkit.metrics.{pr_auc, roc_auc}` are the per-fold metric callbacks.
 
 Project glue is per-(fold, seed) grouping + within-fold mean aggregation +
-inline block-bootstrap-on-folds (workaround pending upstream eval-toolkit
-issue #21) + `CrossFoldCIModel` schema validator. No re-implementation of
-the headline cv_clt CI math.
+`CrossFoldCIModel` schema validator. Both the cv_clt headline AND the
+block-bootstrap spoke math are now upstream — closed in eval-toolkit
+v0.34.0 (#21).
 
-Upstream gap
-------------
+Upstream
+--------
 Block-bootstrap-on-folds (CV-aware block bootstrap; complement to `cv_clt_ci`)
-is filed at eval-toolkit issue #21. The inline NumPy implementation below
-draws K blocks-with-replacement from the per-fold metric vector and feeds
-the resulting empirical distribution into a percentile CI per ADR-022. The
-algorithm is straightforward — the upstream issue requests an API that
-shares typing + reporting conventions with `cv_clt_ci`.
+is now `eval_toolkit.block_bootstrap_on_folds` per eval-toolkit v0.34.0.
+The wrapper below adapts the BootstrapCI return to this project's
+`(ci_lo, ci_hi)` tuple shape; the actual algorithm lives upstream.
 """
 
 from __future__ import annotations
@@ -79,10 +77,11 @@ def compute_block_bootstrap_on_folds(
     confidence: float = 0.95,
     seed: int = BLOCK_BOOTSTRAP_SEED,
 ) -> tuple[float, float]:
-    """Block-bootstrap-on-folds: resample K folds with replacement; percentile CI on mean.
+    """Block-bootstrap-on-folds: thin wrapper over `eval_toolkit.block_bootstrap_on_folds`.
 
-    Inline implementation pending upstream eval-toolkit issue #21
-    (`block_bootstrap_on_folds` as a sibling to `cv_clt_ci`). The algorithm:
+    Adapts the upstream `BootstrapCI` return to this project's
+    `(ci_lo, ci_hi)` tuple shape. The algorithm + validation live upstream
+    in eval-toolkit v0.34.0+ (closes upstream #21):
 
         1. Draw n_resamples K-element samples with replacement from
            per_fold_metrics (each draw represents a hypothetical alternative
@@ -109,20 +108,15 @@ def compute_block_bootstrap_on_folds(
     -------
     (ci_lo, ci_hi) : tuple[float, float]
     """
-    if per_fold_metrics.ndim != 1 or per_fold_metrics.shape[0] < 2:
-        raise ValueError(
-            f"per_fold_metrics must be 1-D with K >= 2; got shape={per_fold_metrics.shape}"
-        )
-    if not (0.0 < confidence < 1.0):
-        raise ValueError(f"confidence must be in (0, 1); got {confidence}")
-    rng = np.random.default_rng(seed)
-    k = per_fold_metrics.shape[0]
-    # Vectorized: draw (n_resamples, k) indices, gather, then mean along axis=1.
-    idx = rng.integers(0, k, size=(n_resamples, k))
-    resample_means = per_fold_metrics[idx].mean(axis=1)
-    alpha = 1.0 - confidence
-    ci_lo, ci_hi = np.quantile(resample_means, [alpha / 2.0, 1.0 - alpha / 2.0])
-    return float(ci_lo), float(ci_hi)
+    from eval_toolkit import block_bootstrap_on_folds
+
+    ci = block_bootstrap_on_folds(
+        per_fold_metrics,
+        n_resamples=n_resamples,
+        confidence=confidence,
+        seed=seed,
+    )
+    return float(ci.ci_low), float(ci.ci_high)
 
 
 def compute_a_008_flag(*, cv_clt_halfwidth: float, block_bootstrap_halfwidth: float) -> bool:

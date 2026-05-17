@@ -3,36 +3,29 @@
 MDE (minimum detectable effect) wraps any upstream CI half-width into a
 detectable-effect figure at (alpha=0.05, power=0.8) by default per ADR-006.
 
-The paired-CI path delegates directly to `eval_toolkit.bootstrap.mde_from_ci`
-which accepts a `PairedBootstrapCI`. The marginal-CI / cross-fold-CI path uses
-the closed-form fallback below pending upstream eval-toolkit issue #20
-(generalize `mde_from_ci` to accept `BootstrapCI | PairedBootstrapCI`).
-
-Closed-form fallback derivation
--------------------------------
-For a normal-distribution approximation of the CI:
-
-    sigma = (ci_hi - ci_lo) / (2 * z_{alpha/2})
-
-The standard two-sided MDE formula is then:
-
-    MDE = (z_{alpha/2} + z_{beta}) * sigma
-
-This matches the inner derivation of `eval_toolkit.bootstrap.mde_from_ci`
-(same numerical formula); the upstream issue is API surface, not math.
+Both the paired-CI and marginal-CI paths delegate to
+`eval_toolkit.bootstrap.mde_from_ci` (eval-toolkit v0.34.0 generalized the
+signature to accept `BootstrapCI | PairedBootstrapCI` — closes upstream
+issue #20). Project glue is the `MDECellModel` schema wrapping that
+carries cell metadata (rung_a/rung_b, slice_name, source_ci_kind) the
+upstream primitive doesn't track.
 
 Library-first
 -------------
-- `eval_toolkit.bootstrap.mde_from_ci` covers the paired path exactly.
-- `scipy.stats.norm.ppf` supplies the quantile constants.
+- `eval_toolkit.bootstrap.mde_from_ci` covers BOTH the paired path AND
+  the marginal-CI path as of v0.34.0 (single Union'd entry point).
 """
 
 from __future__ import annotations
 
 from typing import Literal
 
-from eval_toolkit.bootstrap import MDEEstimate, PairedBootstrapCI, mde_from_ci
-from scipy.stats import norm
+from eval_toolkit.bootstrap import (
+    BootstrapCI,
+    MDEEstimate,
+    PairedBootstrapCI,
+    mde_from_ci,
+)
 
 from src.eval.schemas import MDECellModel
 
@@ -90,24 +83,32 @@ def mde_from_marginal_ci_record(
     alpha: float = 0.05,
     power: float = 0.8,
 ) -> MDECellModel:
-    """Closed-form MDE from a marginal-CI half-width.
+    """MDE from a marginal-CI half-width via eval-toolkit `mde_from_ci`.
 
-    Workaround pending upstream eval-toolkit issue #20; the math is identical
-    to `mde_from_ci`'s inner formula. ``n`` is sentinel -1 if unknown (matches
-    eval-toolkit MDEEstimate.n convention when the source arrays are unavailable).
+    eval-toolkit v0.34.0 generalized `mde_from_ci` to accept
+    `BootstrapCI | PairedBootstrapCI` (closes upstream #20). This wrapper
+    constructs a synthetic `BootstrapCI` from the (ci_lo, ci_hi) inputs +
+    delegates to the upstream primitive — no math here; just the schema-
+    wrapping into `MDECellModel`.
+
+    ``n`` is sentinel -1 if unknown (matches eval-toolkit MDEEstimate.n
+    convention when the source arrays are unavailable). The synthetic
+    BootstrapCI's `point_estimate` is set to the CI midpoint (informational
+    only; the MDE formula only uses ci_lo/ci_hi/confidence).
     """
-    if not (0.0 < alpha < 1.0):
-        raise ValueError(f"alpha must be in (0, 1); got {alpha}")
-    if not (0.0 < power < 1.0):
-        raise ValueError(f"power must be in (0, 1); got {power}")
     if ci_hi <= ci_lo:
         raise ValueError(f"Require ci_hi > ci_lo; got ci_lo={ci_lo}, ci_hi={ci_hi}")
 
-    z_alpha_half = float(norm.ppf(1.0 - alpha / 2.0))
-    z_beta = float(norm.ppf(power))
+    ci = BootstrapCI(
+        point_estimate=(ci_lo + ci_hi) / 2.0,
+        ci_low=ci_lo,
+        ci_high=ci_hi,
+        confidence=0.95,
+        n_resamples=1,  # informational; not used by mde_from_ci
+        method=source_ci_kind,
+    )
+    est = mde_from_ci(ci, alpha=alpha, power=power)
     halfwidth = (ci_hi - ci_lo) / 2.0
-    sigma = halfwidth / z_alpha_half
-    mde = (z_alpha_half + z_beta) * sigma
     return MDECellModel(
         rung_a=rung,
         rung_b=None,
@@ -117,6 +118,6 @@ def mde_from_marginal_ci_record(
         ci_halfwidth=halfwidth,
         alpha=alpha,
         power=power,
-        mde=mde,
+        mde=float(est.mde),
         n=n,
     )

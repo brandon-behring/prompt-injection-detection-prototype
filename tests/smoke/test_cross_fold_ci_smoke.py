@@ -169,7 +169,8 @@ def test_block_bootstrap_seed_determinism() -> None:
 
 @pytest.mark.smoke
 def test_block_bootstrap_rejects_single_fold() -> None:
-    with pytest.raises(ValueError, match="K >= 2"):
+    # Upstream eval-toolkit v0.34.0 message uses unicode ≥; match loosely.
+    with pytest.raises(ValueError, match=r"K\s*[≥>=]+\s*2"):
         compute_block_bootstrap_on_folds(np.array([0.5], dtype=np.float64), n_resamples=10)
 
 

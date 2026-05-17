@@ -67,14 +67,16 @@ def render_f1_pareto(
     title: str = "Pareto frontier — AUPRC vs compute",
     figsize: tuple[float, float] = (7.0, 5.0),
 ) -> Figure:
-    """Scatter rungs in (compute, AUPRC) space; overlay convex-frontier polyline.
+    """Scatter rungs in (compute, AUPRC) space; overlay Pareto frontier.
 
-    Project glue per ADR-046 Q6 figures hybrid. Upstream gap filed at
-    eval-toolkit issue #15 (`plot_pareto_frontier`); when upstream lands,
-    delete this body and dispatch directly to the primitive.
+    Project glue per ADR-046 Q6: domain inputs (per-rung dicts) → key
+    intersection → numpy arrays → upstream `plot_pareto_frontier`.
+    eval-toolkit v0.34.0 (closes #15) ships the primitive — this body
+    is now just the dict → array adapter + axis label setup.
     """
+    from eval_toolkit import plot_pareto_frontier
+
     set_plot_style()
-    fig, ax = plt.subplots(figsize=figsize)
 
     keys = sorted(set(rung_to_auprc) & set(rung_to_compute))
     if not keys:
@@ -83,35 +85,18 @@ def render_f1_pareto(
     xs = np.array([rung_to_compute[k] for k in keys], dtype=np.float64)
     ys = np.array([rung_to_auprc[k] for k in keys], dtype=np.float64)
 
-    ax.scatter(xs, ys, s=60, color=PALETTE["positive"], zorder=3)
-    for k, x, y in zip(keys, xs, ys):
-        ax.annotate(k, (x, y), textcoords="offset points", xytext=(6, 4), fontsize=9)
-
-    # Frontier overlay — upper-left convex envelope (min compute, max AUPRC).
-    order = np.argsort(xs)
-    xs_s, ys_s = xs[order], ys[order]
-    frontier_x: list[float] = []
-    frontier_y: list[float] = []
-    best_y = -np.inf
-    for x, y in zip(xs_s, ys_s):
-        if y > best_y:
-            frontier_x.append(float(x))
-            frontier_y.append(float(y))
-            best_y = y
-    ax.plot(
-        frontier_x,
-        frontier_y,
-        color=PALETTE["negative"],
-        linestyle="--",
-        marker="o",
-        label="Pareto frontier",
-        zorder=2,
+    fig = plot_pareto_frontier(
+        cost=xs,
+        metric=ys,
+        point_labels=keys,
+        higher_metric_is_better=True,  # AUPRC higher = better
+        title=title,
+        figsize=figsize,
     )
-
+    # Domain-specific axis labels (upstream is metric-agnostic).
+    ax = fig.axes[0]
     ax.set_xlabel("Compute (training cost proxy)")
     ax.set_ylabel("AUPRC")
-    ax.set_title(title)
-    ax.legend(loc="lower right")
     fig.tight_layout()
     return fig
 
@@ -129,55 +114,24 @@ def render_f2_roc_per_rung(
     title: str = "ROC per rung",
     figsize: tuple[float, float] = (7.0, 5.5),
 ) -> Figure:
-    """One-axes ROC overlay for all rungs.
+    """One-axes ROC overlay for all rungs via `eval_toolkit.plot_roc_curve`.
 
-    Project glue per ADR-046 Q6 figures hybrid. Upstream gap filed at
-    eval-toolkit issue #14 — once `plot_roc_curve` lands, replace body with a
-    loop calling the upstream primitive on each rung's curve.
+    Library-first direct dispatch (mirrors F3's `plot_pr_curve` loop) —
+    looped over rungs onto a shared axes via the `ax` kwarg per the
+    upstream API. eval-toolkit v0.33.0 (closes #14) ships
+    `plot_roc_curve` as the sibling primitive; no project glue beyond
+    the loop + axis title.
     """
+    from eval_toolkit import plot_roc_curve
+
     set_plot_style()
     fig, ax = plt.subplots(figsize=figsize)
-
-    palette_cycle = (
-        PALETTE["negative"],
-        PALETTE["positive"],
-        PALETTE["accent"],
-        PALETTE["baseline"],
-    )
-    for i, (rung, (y_true, y_score)) in enumerate(rung_to_y_score.items()):
-        fpr, tpr = _roc_curve_points(y_true, y_score)
-        ax.plot(
-            fpr,
-            tpr,
-            label=rung,
-            color=palette_cycle[i % len(palette_cycle)],
-            linewidth=1.6,
-        )
-
-    ax.plot([0, 1], [0, 1], linestyle=":", color=PALETTE["baseline"], label="chance")
-    ax.set_xlabel("False positive rate")
-    ax.set_ylabel("True positive rate")
+    fig_returned: Figure | None = None
+    for rung, (y_true, y_score) in rung_to_y_score.items():
+        fig_returned = plot_roc_curve(y_true, y_score, label=rung, ax=ax)
     ax.set_title(title)
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.legend(loc="lower right")
     fig.tight_layout()
-    return fig
-
-
-def _roc_curve_points(
-    y_true: NDArray[np.int_], y_score: NDArray[np.float64]
-) -> tuple[NDArray[np.float64], NDArray[np.float64]]:
-    """Sort descending by score; compute cumulative TPR + FPR sweep."""
-    order = np.argsort(-y_score, kind="stable")
-    y = y_true[order]
-    n_pos = int(y.sum())
-    n_neg = int(y.shape[0] - n_pos)
-    if n_pos == 0 or n_neg == 0:
-        raise ValueError("ROC requires both classes; got degenerate label vector.")
-    tpr = np.concatenate([[0.0], np.cumsum(y) / n_pos])
-    fpr = np.concatenate([[0.0], np.cumsum(1 - y) / n_neg])
-    return fpr.astype(np.float64), tpr.astype(np.float64)
+    return fig_returned if fig_returned is not None else fig
 
 
 # --------------------------------------------------------------------------- #
@@ -277,43 +231,25 @@ def render_f5_slice_heatmap(
 ) -> Figure:
     """Heatmap of (rung x slice x metric) cell values.
 
-    Project glue per ADR-046 Q6 figures hybrid. Upstream gap filed at
-    eval-toolkit issue #16 — once `plot_slice_metric_heatmap` lands, replace
-    body with a direct call to the primitive.
+    Library-first dispatch to `eval_toolkit.plot_slice_metric_heatmap`
+    (closes upstream issue #16; shipped in v0.33.0). Project glue beyond
+    the upstream primitive: domain-specific colorbar label ("metric") +
+    annotation formatting + figsize defaults.
     """
-    if metric_grid.ndim != 2:
-        raise ValueError(f"metric_grid must be 2-D; got shape={metric_grid.shape}")
-    if metric_grid.shape != (len(row_labels), len(col_labels)):
-        raise ValueError(
-            f"metric_grid shape {metric_grid.shape} does not match "
-            f"({len(row_labels)} rows x {len(col_labels)} cols)"
-        )
+    from eval_toolkit import plot_slice_metric_heatmap
 
     set_plot_style()
-    fig, ax = plt.subplots(figsize=figsize)
-    im = ax.imshow(metric_grid, aspect="auto", cmap=cmap, origin="lower")
-    ax.set_xticks(range(len(col_labels)))
-    ax.set_xticklabels(col_labels, rotation=30, ha="right")
-    ax.set_yticks(range(len(row_labels)))
-    ax.set_yticklabels(row_labels)
-    fig.colorbar(im, ax=ax, label="metric")
-
-    # Annotate cell values for reviewer readability.
-    for i in range(metric_grid.shape[0]):
-        for j in range(metric_grid.shape[1]):
-            ax.text(
-                j,
-                i,
-                f"{metric_grid[i, j]:.3f}",
-                ha="center",
-                va="center",
-                fontsize=8,
-                color="white" if metric_grid[i, j] < metric_grid.mean() else "black",
-            )
-
-    ax.set_title(title)
-    fig.tight_layout()
-    return fig
+    return plot_slice_metric_heatmap(
+        grid=metric_grid,
+        row_labels=row_labels,
+        col_labels=col_labels,
+        metric_name="metric",
+        cmap=cmap,
+        annotate=True,
+        annot_fmt="{:.3f}",
+        title=title,
+        figsize=figsize,
+    )
 
 
 # --------------------------------------------------------------------------- #
