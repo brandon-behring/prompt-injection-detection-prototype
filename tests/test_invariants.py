@@ -721,6 +721,49 @@ def test_cross_fold_ci_methodology() -> None:
 
 
 @pytest.mark.unit
+@pytest.mark.skip(reason="deferred to canonical Phase 4 evals — needs 84 trained-rung parquets")
+def test_marginal_bootstrap_seed_stability() -> None:
+    """Marginal-bootstrap battery emits both seed=1 headline and seed=2 stability check.
+
+    Per ADR-022 multi-seed protocol + ADR-046 Q1 (Phase 4 Commit 2), every (rung, slice,
+    metric) cell in the marginal-bootstrap battery is computed at seed=1 (headline) and
+    again at seed=2 (stability check); both cells persist to
+    evals/bootstrap/marginal_cells.parquet so the half-width comparison is queryable
+    from disk per ADR-013. This invariant asserts:
+    (1) for every (rung, slice, metric) tuple, the parquet contains exactly 2 rows
+    (one per seed); (2) the n_resamples column equals 10000 for both seeds at canonical-run
+    time; (3) when |headline_halfwidth - stability_halfwidth| / headline_halfwidth > 0.05
+    the bootstrap_stability_check audit row carries a True flag (cross-references
+    test_bootstrap_n_and_stability_check); (4) every cell roundtrips through
+    MarginalBootstrapCellModel pydantic validation. Skipped until canonical Phase 4 evals
+    fire against the 84 trained-rung prediction parquets.
+    """
+    raise NotImplementedError("invariant test stub — unskip at canonical Phase 4 evals run")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="deferred to canonical Phase 4 evals — needs 84 trained-rung parquets")
+def test_cv_clt_ci_headline_present() -> None:
+    """Cross-fold CI audit emits cv_clt headline for every (rung, slice, metric) cell.
+
+    Per ADR-024 + ADR-046 Q3 (Phase 4 Commit 2 headline), the cross-fold CI orchestrator
+    (scripts/run_cv_clt_ci.py landing at Commit 5) emits one row per (rung, slice, metric)
+    cell to evals/audit/cross_fold_ci_audit.parquet with the cv_clt_point_estimate +
+    cv_clt_ci_lo + cv_clt_ci_hi + cv_clt_ci_halfwidth + k_folds + n_seeds_per_fold columns
+    populated by eval_toolkit.bootstrap.cv_clt_ci on the per-fold metric vector. This
+    invariant asserts:
+    (1) the audit parquet contains one row per (trained_rung, slice, metric) tuple
+    (4 trained rungs * (5 OOD slices + 1 IID + 1 pooled_ood) * 2 metrics = 56 rows);
+    (2) cv_clt_ci_halfwidth > 0 for every row (degenerate halfwidths surface as data-quality
+    flags upstream); (3) k_folds == 4 per ADR-016 Q2; (4) n_seeds_per_fold == 3 per ADR-006;
+    (5) every cell roundtrips through CrossFoldCIModel pydantic validation. Commit 3 will
+    add block-bootstrap spoke fields + a_008_flag_fired; this invariant asserts only the
+    Commit 2 headline contract. Skipped until canonical Phase 4 evals run.
+    """
+    raise NotImplementedError("invariant test stub — unskip at canonical Phase 4 evals run")
+
+
+@pytest.mark.unit
 @pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
 def test_dual_policy_threshold_pairing() -> None:
     """Dual-policy thresholds fit per-(rung, fold, seed) on val with paired CI propagation.

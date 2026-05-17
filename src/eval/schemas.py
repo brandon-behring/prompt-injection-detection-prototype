@@ -262,3 +262,113 @@ class BootstrapCellModel(BaseModel):
     ci_lo: float
     ci_hi: float
     ci_method: CIMethod
+
+
+class MarginalBootstrapCellModel(BaseModel):
+    """One per-(rung, slice, metric) marginal-bootstrap CI cell per ADR-022 + ADR-046 Q1 (Commit 2).
+
+    Marginal CI (single-rung, no pairing) wraps `eval_toolkit.bootstrap.bootstrap_ci`.
+    Per ADR-022, the headline protocol fires 10000 iterations at seed=1 and a stability
+    check at 10000 iterations at seed=2; both seeds are persisted as separate cells so
+    the stability-check half-width comparison is queryable from disk per ADR-013.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    rung: str = Field(..., min_length=1)
+    slice_name: str = Field(..., min_length=1)
+    metric: str = Field(..., min_length=1)
+    n_resamples: int = Field(..., gt=0)
+    seed: int = Field(..., description="1=headline, 2=stability check per ADR-022")
+    point_estimate: float = Field(..., ge=0.0, le=1.0)
+    ci_lo: float = Field(..., ge=0.0, le=1.0)
+    ci_hi: float = Field(..., ge=0.0, le=1.0)
+    ci_method: CIMethod
+    n_obs: int = Field(..., gt=0, description="Number of source rows the CI was computed over")
+
+
+class CrossFoldCIModel(BaseModel):
+    """One per-(rung, slice, metric) cross-fold CI cell per ADR-024 + ADR-046 Q3.
+
+    Always emits the cv_clt headline (Bayle 2020 Theorem 3.1 via
+    `eval_toolkit.bootstrap.cv_clt_ci`). Commit 3 extension fills the block-bootstrap
+    spoke fields + `a_008_flag_fired` boolean per A-008 sensitivity check; Commit 2
+    leaves the spoke fields as None pending the extension.
+
+    Persisted to `evals/audit/cross_fold_ci_audit.parquet` for the full per-cell
+    audit trail per ADR-013 persist-everything-report-selectively pattern.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    rung: str = Field(..., min_length=1)
+    slice_name: str = Field(..., min_length=1)
+    metric: str = Field(..., min_length=1)
+    k_folds: int = Field(..., ge=2, description="Number of folds the metric vector spans")
+    n_seeds_per_fold: int = Field(..., ge=1, description="Within-fold seeds aggregated per ADR-022")
+
+    cv_clt_point_estimate: float = Field(..., ge=0.0, le=1.0)
+    cv_clt_ci_lo: float = Field(..., ge=0.0, le=1.0)
+    cv_clt_ci_hi: float = Field(..., ge=0.0, le=1.0)
+    cv_clt_ci_halfwidth: float = Field(..., ge=0.0)
+
+    block_bootstrap_ci_lo: float | None = Field(
+        default=None,
+        description="Filled by Commit 3 block-bootstrap-on-folds spoke per A-008.",
+    )
+    block_bootstrap_ci_hi: float | None = Field(default=None)
+    block_bootstrap_ci_halfwidth: float | None = Field(default=None, ge=0.0)
+    block_bootstrap_n_resamples: int | None = Field(default=None, gt=0)
+    a_008_flag_fired: bool | None = Field(
+        default=None,
+        description=(
+            "True iff block_bootstrap_ci_halfwidth / cv_clt_ci_halfwidth > 1.5 per A-008. "
+            "Commit 2 leaves this None; Commit 3 always fills it."
+        ),
+    )
+
+
+class MDECellModel(BaseModel):
+    """One per-(rung-or-pair, slice, metric, source_ci) MDE cell per ADR-006 + ADR-046 Q4.
+
+    Derived from an upstream CI (`PairedBootstrapCI` or marginal `BootstrapCI`) via
+    `eval_toolkit.bootstrap.mde_from_ci` for the paired case; an inline closed-form
+    fallback covers the marginal case pending upstream eval-toolkit issue #20.
+
+    `source_ci_kind` discriminates the upstream CI provenance:
+        - "paired_bootstrap"  -> ADR-022 trained-vs-trained / trained-vs-reference
+        - "marginal_bootstrap" -> Commit 2 marginal per-rung CIs
+        - "cv_clt"             -> Commit 2 + 3 cross-fold headline
+        - "block_bootstrap"    -> Commit 3 cross-fold spoke (A-008)
+        - "paired_op_point"    -> ADR-025 dual-policy operating-point diffs
+        - "paired_ece"         -> ADR-023 calibration battery ECE deltas
+
+    All cells persisted to `evals/audit/mde_per_cell.parquet` so the Phase 5 WRITEUP
+    can draw any reporting subset without re-running.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    rung_a: str = Field(..., min_length=1)
+    rung_b: str | None = Field(
+        default=None,
+        description="None for marginal / cross-fold cells; populated for paired cells.",
+    )
+    slice_name: str = Field(..., min_length=1)
+    metric: str = Field(..., min_length=1)
+    source_ci_kind: Literal[
+        "paired_bootstrap",
+        "marginal_bootstrap",
+        "cv_clt",
+        "block_bootstrap",
+        "paired_op_point",
+        "paired_ece",
+    ]
+    ci_halfwidth: float = Field(..., ge=0.0, description="Upstream CI half-width input")
+    alpha: float = Field(default=0.05, gt=0.0, lt=1.0)
+    power: float = Field(default=0.8, gt=0.0, lt=1.0)
+    mde: float = Field(..., gt=0.0, description="Minimum detectable effect at (alpha, power)")
+    n: int = Field(
+        ...,
+        description="Source n where known; -1 sentinel when derived from CI-only path per eval-toolkit MDEEstimate.n convention",
+    )

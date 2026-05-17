@@ -89,6 +89,8 @@ module = [
     "anthropic.*",
     "eval_toolkit",
     "eval_toolkit.*",
+    "scipy",
+    "scipy.*",
 ]
 ignore_missing_imports = true
 
