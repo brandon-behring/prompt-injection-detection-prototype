@@ -1,4 +1,10 @@
-"""Phase 1 audit + leakage + contamination scans (per ADR-016 §A-005 + ADR-041 Q6).
+"""Phase 1 audit + leakage + contamination scans.
+
+Per ADR-016 §A-005 + ADR-041 Q6 (methodology) + ADR-047 (library-first refactor —
+leakage detection delegated to `eval_toolkit.leakage.run_leakage_checks` with
+`CrossSplitLeakageCheck`; per-row max-cosine contamination scan delegated to
+`eval_toolkit.text_dedup.EmbeddingCosineStrategy.pairs_across`; project glue
+preserves the per-fold-seed iteration + project-dict output schemas).
 
 Public API
 ----------
@@ -24,12 +30,14 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+from eval_toolkit.harness import EvalSlice
+from eval_toolkit.leakage import CrossSplitLeakageCheck, run_leakage_checks
+from eval_toolkit.text_dedup import EmbeddingCosineStrategy
 from numpy.typing import NDArray
 
 from src.data.dedup import (
     CONTAMINATION_THRESHOLD,
     compute_embeddings,
-    pairwise_cosines,
 )
 from src.data.splits import FoldSeedSplit, class_balance_per_split
 
@@ -150,27 +158,72 @@ def compute_data_audit(
     }
 
 
+def _embedding_strategy() -> EmbeddingCosineStrategy:
+    """Build EmbeddingCosineStrategy bound to the project-owned embedder per ADR-047."""
+    return EmbeddingCosineStrategy(embedder=compute_embeddings)
+
+
 def compute_leakage_report(splits: list[FoldSeedSplit]) -> dict[str, Any]:
     """Exact-hash + cosine >=0.85 train+val vs test overlap per (fold, seed).
 
     Per ADR-016 §Q3 hard-locked leakage invariant — zero overlap expected.
+
+    Per ADR-047 Commit 4 — cosine layer delegated to
+    `eval_toolkit.leakage.CrossSplitLeakageCheck` (via `run_leakage_checks`),
+    which wraps `eval_toolkit.text_dedup.cross_dedup` at the project-owned
+    embedder strategy. Exact-hash layer preserved as project-specific
+    set-intersection (per ADR-016 §Q3 the layers are conceptually distinct
+    and the project-dict output schema separates their counts).
+
+    Note: ADR-047 acceptance criterion specified
+    `run_leakage_checks([ExactDuplicateCheck, NearDuplicateCheck,
+    CrossSplitLeakageCheck], splits)`. Implementation uses only
+    `CrossSplitLeakageCheck` since ExactDuplicateCheck + NearDuplicateCheck
+    operate within-split and would always report zero findings post-
+    `dedup_within_source` (which runs upstream in the data pipeline per ADR-041
+    Q7). The ADR's library-first intent is preserved.
     """
+    strategy = _embedding_strategy()
+    leakage_check = CrossSplitLeakageCheck(
+        train_split="train_val",
+        eval_splits=["test"],
+        threshold=0.85,
+        strategy=strategy,
+    )
+
     per_fold: list[dict[str, Any]] = []
     total_exact = 0
     total_cosine = 0
     for split in splits:
         train_val_texts = pd.concat([split.train["text"], split.val["text"]], ignore_index=True)
         test_texts = split.test["text"]
+
+        # Exact-hash layer — project-specific set intersection per ADR-016 §Q3.
         train_val_set = set(train_val_texts.astype(str))
         test_set = set(test_texts.astype(str))
         exact_overlaps = train_val_set & test_set
 
+        # Cosine layer — upstream CrossSplitLeakageCheck (project glue assembles
+        # the per-fold splits dict + extracts the test-side drop count from
+        # the LeakageFinding).
         cosine_overlaps = 0
         if len(test_texts) > 0 and len(train_val_texts) > 0:
-            tv_emb = compute_embeddings(train_val_texts.astype(str).tolist())
-            t_emb = compute_embeddings(test_texts.astype(str).tolist())
-            cos = pairwise_cosines(tv_emb, t_emb)
-            cosine_overlaps = int((cos >= 0.85).any(axis=0).sum())
+            train_val_slice = EvalSlice(
+                name="train_val",
+                df=pd.DataFrame(
+                    {"text": train_val_texts.astype(str), "label": [0] * len(train_val_texts)}
+                ),
+            )
+            test_slice = EvalSlice(
+                name="test",
+                df=pd.DataFrame({"text": test_texts.astype(str), "label": [0] * len(test_texts)}),
+            )
+            report = run_leakage_checks(
+                [leakage_check],
+                {"train_val": train_val_slice, "test": test_slice},
+            )
+            test_drop_indices = (report.findings[0].drop_indices or {}).get("test", [])
+            cosine_overlaps = len(test_drop_indices)
 
         per_fold.append(
             {
@@ -198,19 +251,6 @@ def compute_leakage_report(splits: list[FoldSeedSplit]) -> dict[str, Any]:
     }
 
 
-def _per_row_max_cosine_to_ref(
-    target_emb: NDArray[np.float32], ref_emb: NDArray[np.float32]
-) -> NDArray[np.float32]:
-    """Compute per-row max-cosine over a reference corpus. Block-wise across target."""
-    n = target_emb.shape[0]
-    out = np.zeros(n, dtype=np.float32)
-    BLOCK = 256
-    for i in range(0, n, BLOCK):
-        sims = target_emb[i : i + BLOCK] @ ref_emb.T  # shape (block, n_ref)
-        out[i : i + BLOCK] = sims.max(axis=1)
-    return out
-
-
 def compute_contamination_scan(
     benigns_df: pd.DataFrame,
     ood_dfs: dict[str, pd.DataFrame],
@@ -224,12 +264,27 @@ def compute_contamination_scan(
     ADR-016 §A-005 audit trigger 1 (benign contamination) + assumption A-006
     (eval-data contamination with public training-data mirrors; per ADR-041 Q6
     interpreted operationally as slate + ~200 extracted HackAPrompt templates).
+
+    Per ADR-047 Commit 4 — max-cosine machinery delegated to
+    `eval_toolkit.text_dedup.EmbeddingCosineStrategy.pairs_across(k=1)`; project
+    glue handles per-source aggregation + percentile stats + A-005 trigger
+    evaluation + output dict schema.
     """
+    strategy = _embedding_strategy()
     ref_texts = (
         pd.concat([slate_df["text"], templates_df["text"]], ignore_index=True).astype(str).tolist()
     )
     print(f"[contamination_scan] embedding {len(ref_texts)} reference rows...")
-    ref_emb = compute_embeddings(ref_texts)
+
+    def _scan_one(source_texts: list[str]) -> NDArray[np.float32]:
+        """Per-row top-1 cosine to reference corpus via upstream pairs_across."""
+        sims, _idx = strategy.pairs_across(
+            query_texts=source_texts,
+            reference_texts=ref_texts,
+            k=1,
+        )
+        max_cos: NDArray[np.float32] = sims[:, 0].astype(np.float32)
+        return max_cos
 
     per_benign: dict[str, dict[str, Any]] = {}
     triggers_fired: list[dict[str, Any]] = []
@@ -239,8 +294,7 @@ def compute_contamination_scan(
             per_benign[src] = {"n_total": 0, "n_flagged": 0, "contamination_pct": 0.0}
             continue
         print(f"[contamination_scan] scanning {src} n={len(sub)}...")
-        emb = compute_embeddings(sub["text"].astype(str).tolist())
-        max_cos = _per_row_max_cosine_to_ref(emb, ref_emb)
+        max_cos = _scan_one(sub["text"].astype(str).tolist())
         flagged = max_cos >= CONTAMINATION_THRESHOLD
         pct = float(flagged.mean() * 100.0)
         per_benign[str(src)] = {
@@ -266,8 +320,7 @@ def compute_contamination_scan(
             per_ood[src] = {"n_total": 0, "n_flagged": 0, "contamination_pct": 0.0}
             continue
         print(f"[contamination_scan] scanning OOD {src} n={len(df)}...")
-        emb = compute_embeddings(df["text"].astype(str).tolist())
-        max_cos = _per_row_max_cosine_to_ref(emb, ref_emb)
+        max_cos = _scan_one(df["text"].astype(str).tolist())
         flagged = max_cos >= CONTAMINATION_THRESHOLD
         per_ood[src] = {
             "n_total": int(len(df)),

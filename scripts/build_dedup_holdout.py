@@ -37,11 +37,12 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
+from eval_toolkit.text_dedup import EmbeddingCosineStrategy  # noqa: E402
+
 from src.data.dedup import (  # noqa: E402
     MINI_LM_MODEL,
     compute_embeddings,
     encoder_revision_sha,
-    pairwise_cosines,
 )
 from src.data.loaders import load_source  # noqa: E402
 
@@ -97,16 +98,28 @@ def _sample_banded_pairs(
 
 
 def _enumerate_within_source_pairs(source: str, df_texts: list[str]) -> list[dict[str, Any]]:
-    """Enumerate all within-source pairs with cosine in any band; tag with band."""
-    if len(df_texts) < 2:
-        return []
-    emb = compute_embeddings(df_texts)
-    cos = pairwise_cosines(emb, emb)
+    """Enumerate all within-source pairs with cosine in any band; tag with band.
+
+    Per ADR-047 — k-NN machinery delegated to
+    `eval_toolkit.text_dedup.EmbeddingCosineStrategy.pairs_within(k_neighbors=N-1)`
+    (returns top-k similarities + indices per query, where k=N-1 covers every
+    other row). Project glue dedupes (i, j>i) ordered pairs + assigns each to
+    its cosine band.
+    """
     n = len(df_texts)
+    if n < 2:
+        return []
+    strategy = EmbeddingCosineStrategy(embedder=compute_embeddings)
+    sims, idx = strategy.pairs_within(df_texts, n - 1)
+    # sims/idx have shape (n, k); for each query row i, iterate neighbors j > i
+    # to dedupe ordered pairs.
     out: list[dict[str, Any]] = []
     for i in range(n):
-        for j in range(i + 1, n):
-            c = float(cos[i, j])
+        for sim, j in zip(sims[i], idx[i]):
+            j_int = int(j)
+            if j_int <= i:  # only i < j ordered pairs
+                continue
+            c = float(sim)
             band = next((b for b in COSINE_BANDS if b[0] <= c < b[1]), None)
             if band is None:
                 continue
@@ -115,9 +128,9 @@ def _enumerate_within_source_pairs(source: str, df_texts: list[str]) -> list[dic
                     "source_a": source,
                     "source_b": source,
                     "idx_a": i,
-                    "idx_b": j,
+                    "idx_b": j_int,
                     "text_a": df_texts[i],
-                    "text_b": df_texts[j],
+                    "text_b": df_texts[j_int],
                     "cosine": c,
                     "band": list(band),
                 }

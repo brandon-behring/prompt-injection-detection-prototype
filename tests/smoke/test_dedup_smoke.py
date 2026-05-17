@@ -20,7 +20,6 @@ from src.data.dedup import (
     compute_embeddings,
     dedup_cross_source_benigns,
     dedup_within_source,
-    pairwise_cosines,
 )
 
 
@@ -34,17 +33,6 @@ def test_compute_embeddings_shape_and_norm() -> None:
     # L2 norm of each row approximately 1.0.
     norms = np.linalg.norm(emb, axis=1)
     assert np.allclose(norms, 1.0, atol=1e-4)
-
-
-@pytest.mark.smoke
-@pytest.mark.network
-def test_pairwise_cosines_symmetric() -> None:
-    """pairwise_cosines(a, a) is symmetric and has 1.0 on the diagonal."""
-    emb = compute_embeddings(["short prompt", "different content", "totally unrelated text"])
-    cos = pairwise_cosines(emb, emb)
-    assert cos.shape == (3, 3)
-    assert np.allclose(cos, cos.T, atol=1e-5)
-    assert np.allclose(np.diag(cos), 1.0, atol=1e-4)
 
 
 @pytest.mark.smoke

@@ -12,8 +12,6 @@ Public API
 ----------
 - `compute_embeddings(texts) -> np.ndarray` — encode + L2-normalize via MiniLM-L6-v2
   (project-owned embedder callable; passed as `embedder=` to `EmbeddingCosineStrategy`).
-- `pairwise_cosines(a, b, block_size) -> np.ndarray` — block-wise cosine for memory
-  safety (retained pending Commit 4 audit.py refactor; deletion deferred).
 - `dedup_within_source(df, threshold) -> (kept_df, dropped_pairs)` — label-aware
   per-(source, label) cell via upstream `near_dedup`.
 - `dedup_cross_source_benigns(dfs, priority_source, threshold)
@@ -124,34 +122,6 @@ def compute_embeddings(texts: Sequence[str], *, batch_size: int = 64) -> NDArray
         convert_to_numpy=True,
     )
     return np.asarray(arr, dtype=np.float32)
-
-
-def pairwise_cosines(
-    a: NDArray[np.float32], b: NDArray[np.float32], *, block_size: int = 1024
-) -> NDArray[np.float32]:
-    """Block-wise cosine matrix between L2-normalized embedding arrays.
-
-    Assumes inputs are L2-normalized (output is the dot product).
-
-    Parameters
-    ----------
-    a : numpy.ndarray
-        Shape (n_a, d) L2-normalized.
-    b : numpy.ndarray
-        Shape (n_b, d) L2-normalized.
-    block_size : int, optional
-        Row-block size for memory-bounded compute (default 1024).
-
-    Returns
-    -------
-    numpy.ndarray
-        Shape (n_a, n_b) float32; symmetric when a == b.
-    """
-    n_a, n_b = a.shape[0], b.shape[0]
-    out = np.empty((n_a, n_b), dtype=np.float32)
-    for i in range(0, n_a, block_size):
-        out[i : i + block_size] = a[i : i + block_size] @ b.T
-    return out
 
 
 def _embedding_strategy() -> EmbeddingCosineStrategy:
