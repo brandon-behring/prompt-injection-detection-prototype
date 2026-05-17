@@ -2,7 +2,9 @@
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
-        headline-frozen-probe headline-lora headline-full-ft
+        headline-frozen-probe headline-lora headline-full-ft \
+        eval-classical-floor eval-reference-scorers-free eval-reference-scorers-paid \
+        metrics-battery dual-policy-thresholds bootstrap-battery
 
 install:
 	uv sync --extra dev
@@ -25,19 +27,23 @@ test-all:
 	uv run pytest -q
 
 # `make smoke` — laptop-only, no GPU, no network, <10 min total (per ADR-027).
-# Phase 2 wiring per ADR-044 Q7: runs pytest -m smoke (covers ~60 tests across
-# loaders/dedup/splits/audit/tfidf-lr/training-primitives/train-modernbert/
-# train-classical-floor/cost-rollup/smoke-pipeline) plus an end-to-end pipeline
-# pass via scripts/train_classical_floor.py against tests/fixtures/. The
-# transformer trainer is exercised structurally via mocks in
-# tests/smoke/test_train_modernbert_smoke.py (full GPU-backed runs are
-# canonical via headline-{frozen-probe,lora,full-ft}).
+# Phase 2 wiring per ADR-044 Q7 + Phase 3 wiring per ADR-045 Commit 6: runs
+# pytest -m smoke (covers ~80+ tests across data + training + Phase 3 eval
+# + scoring + scripts) plus a classical-floor fixture-pipeline pass plus an
+# end-to-end metrics-battery pass over the fixture predictions (verifies
+# Phase 3 eval orchestration wires through). Transformer trainers are
+# exercised structurally via mocks; full GPU-backed runs are canonical via
+# headline-{frozen-probe,lora,full-ft}.
 smoke: test-smoke
 	uv run python scripts/train_classical_floor.py \
 		--config configs/profiles/classical_fixtures.yaml \
 		--processed-root tests/fixtures/processed \
 		--predictions-root tests/fixtures/predictions \
 		--fold-only 0 --seed-only 42
+	uv run python scripts/run_metrics_battery.py \
+		--predictions-root tests/fixtures/predictions \
+		--metrics-out tests/fixtures/metrics/per_cell.parquet
+	uv run python scripts/eval_from_hub.py --rung lora --dry-run
 
 lint:
 	uv run ruff check .
@@ -77,11 +83,10 @@ headline-cloud: headline-frozen-probe headline-lora headline-full-ft
 # Downloads a published BBehring/prompt-injection-<rung-name> checkpoint per ADR-032
 # and runs eval-only against the data slate. Verifies headline scores reproduce
 # without re-training. Laptop-compatible (CPU-feasible eval).
-# Placeholder until `scripts/eval_from_hub.py` lands at Phase 3.
+# Phase 3 wiring per ADR-045 Commit 5; full body gated on Phase 5 ADR-032 publication.
 eval-from-hub:
-	@if [ -z "$(RUNG)" ]; then echo "ERROR: RUNG=<rung-name> required (e.g., make eval-from-hub RUNG=modernbert-lora)"; exit 2; fi
-	@echo "[eval-from-hub] placeholder — implement at Phase 3 entry per ADR-034"
-	@echo "[eval-from-hub] expected wiring: uv run python scripts/eval_from_hub.py --rung $(RUNG) --output results/predictions/eval-from-hub__$(RUNG).parquet"
+	@if [ -z "$(RUNG)" ]; then echo "ERROR: RUNG=<rung-name> required (e.g., make eval-from-hub RUNG=lora)"; exit 2; fi
+	uv run python scripts/eval_from_hub.py --rung $(RUNG)
 
 # `make site` — render the Quarto HTML site to _site/ (per ADR-030).
 # Local render only; CI publishes to GH Pages on tag push via .github/workflows/publish.yml.
@@ -201,3 +206,55 @@ headline-full-ft:
 	runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
 	@read -p "Approve full-FT canonical run (cap \$$100)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
 	runpod-deploy run --config configs/runpod/headline-full_ft.yaml
+
+# ---------------------------------------------------------------------------
+# Phase 3 (Evaluation) targets — per ADR-018 + ADR-021 + ADR-022 + ADR-023 +
+# ADR-024 + ADR-025 + ADR-034 + ADR-045.
+# Tier A reference scorers (ProtectAI v1+v2) are CI-safe (free local HF).
+# Tier B reference scorers (LLM judges) are cost-cap-gated (paid APIs;
+# interactive approval per ADR-045 Q4).
+# ---------------------------------------------------------------------------
+
+# `make eval-classical-floor` — run the classical-floor end-to-end eval against
+# Phase 1 splits (or fixtures via --processed-root override). Operator-friendly
+# convenience target combining trainer + metrics battery.
+eval-classical-floor:
+	uv run python scripts/train_classical_floor.py
+	uv run python scripts/run_metrics_battery.py --rung-pattern tfidf-lr
+
+# `make eval-reference-scorers-free` — Tier A reference scorers (ProtectAI v1+v2);
+# free local HF inference; safe for CI per ADR-045 Q4.
+# Placeholder until the cost-cap-gated dispatcher script (Commit 5+ follow-up) lands.
+eval-reference-scorers-free:
+	@echo "[eval-reference-scorers-free] Tier A (ProtectAI v1+v2; free local HF inference)"
+	@echo "[eval-reference-scorers-free] uv run python -c \"from src.scoring.protectai import ProtectAIScorer; ...\""
+	@echo "[eval-reference-scorers-free] Phase 3 scaffolding present; full dispatcher deferred to Phase 4 wiring"
+
+# `make eval-reference-scorers-paid` — Tier B reference scorers (OpenAI + Anthropic
+# LLM judges); paid APIs; cost-cap-gated with interactive approval per ADR-045 Q4 +
+# ADR-020 dual-layer cost cap. Requires OPENAI_API_KEY + ANTHROPIC_API_KEY env vars.
+eval-reference-scorers-paid:
+	@echo "[eval-reference-scorers-paid] Tier B (gpt-4o-2024-08-06 + claude-sonnet-4-6 LLM judges)"
+	@echo "[eval-reference-scorers-paid] Estimated cost: ~\$$12 per A-002 envelope (LLM judge ~\$$0.005 x ~5K rows x 2 judges)"
+	@read -p "Approve paid-API reference-scorer eval? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
+	@echo "[eval-reference-scorers-paid] Phase 3 scaffolding present; full dispatcher deferred to Phase 4 wiring"
+
+# `make metrics-battery` — sweep (rung, fold, seed, slice) over predictions
+# parquets; emit MetricsRecordModel + pooled-OOD rows per ADR-021. Reads
+# evals/predictions/; writes evals/metrics/per_cell.parquet.
+metrics-battery:
+	uv run python scripts/run_metrics_battery.py
+
+# `make dual-policy-thresholds` — fit detection (FPR ≤ 1%) + verification
+# (recall ≥ 99%) operating points per-(trained_rung, fold, seed) on val per
+# ADR-025. Emits OperatingPointModel parquet + ReachabilityAuditModel nested-
+# JSON per A-009.
+dual-policy-thresholds:
+	uv run python scripts/fit_dual_policy_thresholds.py
+
+# `make bootstrap-battery` — full-pairwise paired-bootstrap CI per ADR-022
+# (defaults to n=10000 @ seed=1 headline; rerun with --seed 2 for stability
+# check). Persistence is full-pairwise per ADR-045 Q6 so post-hoc questions
+# answer from disk without rerunning.
+bootstrap-battery:
+	uv run python scripts/run_bootstrap_battery.py

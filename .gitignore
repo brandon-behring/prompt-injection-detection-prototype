@@ -38,10 +38,12 @@ transcripts/*.md
 # Auto-saved transcripts (SessionEnd hook output) — private like the rest
 transcripts/auto/
 
-# Smoke-time fixture outputs (per ADR-027 + ADR-044 Q7) — committed inputs
-# live at tests/fixtures/processed/; predictions + checkpoints are runtime.
+# Smoke-time fixture outputs (per ADR-027 + ADR-044 Q7 + ADR-045 Commit 6) —
+# committed inputs live at tests/fixtures/processed/; predictions + checkpoints +
+# metrics are runtime artifacts of the smoke pipeline pass.
 tests/fixtures/predictions/
 tests/fixtures/checkpoints/
+tests/fixtures/metrics/
 
 # Phase 3 LLM-judge response cache (per A-007 + A-014 + ADR-045 Q4) — cache
 # files carry vendor responses + are not part of the methodology contract.
