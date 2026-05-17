@@ -189,6 +189,19 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 | Commit 5 | `configs/runpod/headline-{frozen_probe, lora, full_ft}.yaml` (runpod-deploy schema_version 2 — H100/H200/A100/L40S failover; cost caps $40/$60/$100) + `scripts/train_rung.py` per-rung sweep + `scripts/cost_rollup.py` aggregator + 8 smoke tests | n/a (cloud runs at canonical) | **green** (code lands; runs deferred to canonical) |
 | Commit 6 | `tests/fixtures/processed/fold-0/seed-42/*.parquet` (100/24/24 rows; 12KB total; reproducible via `scripts/generate_fixtures.py` at seed=1337) + `configs/profiles/classical_fixtures.yaml` + `tests/smoke/test_smoke_pipeline.py` (3 tests; fixture-pipeline + idempotency) + `Makefile` Phase 2 targets (`generate-fixtures`, `train-classical-floor`, `train-rung RUNG=<...>`, `cost-rollup`, `cost-rollup-check`, `headline-{frozen-probe,lora,full-ft}`) + `make smoke` extended to fixture-pipeline pass per ADR-027 line 75 + `docs/ROADMAP.md` Phase 2 close note | n/a | **green** |
 
+### 3.7 Phase 3 implementation status
+
+`[Phase 3 in progress per ADR-045]` Operationalization of §5 locks. Per-commit status:
+
+| Phase 3 commit | Deliverable | Invariant test | Status |
+|---|---|---|---|
+| Commit 1 | ADR-045 (Phase 3 implementation bundle; scoring-first contract + 6-commit cadence + tiered ref-scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation) + SPEC_SHEET §3.7 status table + SUBMISSION_AUDIT regen | n/a | **in progress** |
+| Commit 2 | `src/scoring/{protectai, lakera_api, llm_judge}.py` per ADR-018 + `src/eval/schemas.py` (pydantic models — PredictionsRowModel, MetricsRecordModel, SliceMetricsModel, OperatingPointModel, CalibrationRecordModel, ReachabilityAuditModel, BootstrapCellModel) + Tier-A (ProtectAI) CI smoke + Tier-B (LLM judges + Lakera) cache scaffolding at `evals/audit/llm_judge_cache/` per A-007 + A-014 | `test_reference_scorer_schema_uniform` (Phase 3 stub unskip) | pending |
+| Commit 3 | `src/eval/calibration_battery.py` per ADR-023 (eval-toolkit ECE 4-variant matrix + Brier + reliability + temperature + isotonic; validation-only fit per ADR-011 Guarantee 6) + smoke tests with synthetic predictions | `test_calibration_battery_outputs_4ece_plus_brier` | pending |
+| Commit 4 | `src/eval/{operating_points, slice_analysis}.py` per ADR-025 + ADR-021 (dual-policy thresholds with verification-reachability audit per A-009 + 5-slice OOD aggregation: pooled-headline + per-slice-spoke + 0.1% pinpoint pooled-only volatility-surfacing) + smoke tests | `test_dual_policy_threshold_pairing` + `test_verification_reachability_audit` + `test_ood_aggregation_layout` + `test_recall_at_fpr_pinpoint_volatility` (all Phase 3 stubs unskip) | pending |
+| Commit 5 | `scripts/{fit_dual_policy_thresholds, run_metrics_battery, run_bootstrap_battery, eval_from_hub}.py` per ADR-022 + ADR-024 + ADR-034 (full-pairwise paired-bootstrap persistence per Q6 user refinement: ~30 cells persisted to `evals/bootstrap/`; WRITEUP features 3 headline comparisons; joblib orchestrator-layer on 64-core Threadripper; T0-tier `eval_from_hub.py` via `huggingface_hub.snapshot_download`) + smoke end-to-end on classical-floor fixtures | `test_full_pairwise_bootstrap_persisted` (Phase 3 stub unskip on classical-floor cells; transformer cells deferred to canonical) | pending |
+| Commit 6 | Makefile Phase 3 targets (`eval-classical-floor`, `eval-reference-scorers-free`, `eval-reference-scorers-paid`, `calibration-battery`, `dual-policy-thresholds`, `bootstrap-battery`, `eval-from-hub`, `metrics-battery`) + `tests/smoke/test_smoke_pipeline.py` extension (end-to-end calibration + threshold-fit pass on classical-floor fixture predictions; sub-10-min budget per ADR-027) + `docs/ROADMAP.md` Phase 3 close note + SUBMISSION_AUDIT regen + transcript checkpoint + push | n/a | pending |
+
 ---
 
 ## 4. Model recipe (locked, no gridsearch)
