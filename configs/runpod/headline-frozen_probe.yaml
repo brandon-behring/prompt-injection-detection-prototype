@@ -30,20 +30,26 @@ variables:
 
 pod:
   image: runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel
-  datacenters: [US-MD-1, EU-RO-1]
-  # Per ADR-020 §GPU failover ladder — 8-class priority. Tier 1 (H100/H200/
-  # A100-80G) — bf16 native + flash-attn-2 native; tier 2 (L40S) — degrade
-  # gracefully via load_modernbert flash-attn-fallback recipe; tier 3 emergency
-  # (A100-40G) — may need batch-size adjustment via batch_table BATCH_TABLE.
+  # Datacenters per ADR-049 priority refresh — US-MD-1 + US-WA-1 both carry
+  # A100-SXM4-80GB at Low stock (2026-05-17 snapshot); US-CA-2 nominal fallback
+  # (A100-SXM4-80GB present in DC but stockStatus=""; recovery candidate).
+  # EU-RO-1 dropped per ADR-049 (no A100-80G stock; no Hopper SKUs in DC).
+  datacenters: [US-MD-1, US-WA-1, US-CA-2]
+  # GPU SET + TIER STRUCTURE per ADR-020 §GPU failover ladder unchanged.
+  # PRIORITY ORDER refreshed per ADR-049 — A100-SXM4-80GB moved to position 1
+  # (only provisionable T2 SKU at 2026-05-17 stock snapshot); H100/H200 family
+  # kept at positions 3-8 as mid-Phase-2 stock-recovery fallback (orchestrator
+  # re-runs preflight.check_gpu_availability per pod). L40S + A100-40G retained
+  # at positions 9-10 per ADR-020 flash-attn-fallback + emergency tiers.
   gpu_order:
+    - NVIDIA A100-SXM4-80GB
+    - NVIDIA A100 80GB PCIe
     - NVIDIA H100 80GB HBM3
     - NVIDIA H100 NVL
     - NVIDIA H100 SXM
     - NVIDIA H100 PCIe
     - NVIDIA H200
     - NVIDIA H200 NVL
-    - NVIDIA A100-SXM4-80GB
-    - NVIDIA A100 80GB PCIe
     - NVIDIA L40S
     - NVIDIA A100-SXM4-40GB
 

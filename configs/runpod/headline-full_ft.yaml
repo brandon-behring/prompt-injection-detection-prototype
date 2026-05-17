@@ -28,16 +28,22 @@ variables:
 
 pod:
   image: runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel
-  datacenters: [US-MD-1, EU-RO-1]
+  # Datacenters + gpu_order priority refreshed per ADR-049 — same change as
+  # headline-frozen_probe + headline-lora; full-FT canonical run DEFERRED to
+  # post-rehearsal per ADR-049 §Per-rung scope (fires after v0.9.0-rc1 dress-
+  # rehearsal passes cleanly per ADR-046 Q7 + ADR-033; gated by follow-up ADR
+  # superseding ADR-049's defer status when fired). Config kept in lockstep
+  # so full-FT is ready to fire without further edits when stock improves.
+  datacenters: [US-MD-1, US-WA-1, US-CA-2]
   gpu_order:
+    - NVIDIA A100-SXM4-80GB
+    - NVIDIA A100 80GB PCIe
     - NVIDIA H100 80GB HBM3
     - NVIDIA H100 NVL
     - NVIDIA H100 SXM
     - NVIDIA H100 PCIe
     - NVIDIA H200
     - NVIDIA H200 NVL
-    - NVIDIA A100-SXM4-80GB
-    - NVIDIA A100 80GB PCIe
     - NVIDIA L40S
     - NVIDIA A100-SXM4-40GB
 

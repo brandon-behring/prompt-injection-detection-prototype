@@ -92,6 +92,7 @@ Bootstrap CIs computed for every headline metric; paired-bootstrap differences c
 4. `docs/plots/F{1..7}.svg` all exist with provenance sidecars carrying the headline commit SHA.
 5. SPEC_SHEET §3.8 all 6 commits marked green; SUBMISSION_AUDIT.md regenerates cleanly via `make audit`.
 6. `git tag v0.9.0-rc1` -> `git push origin v0.9.0-rc1` -> watch `.github/workflows/publish.yml` for the 24+ hour dress-rehearsal window. Failures route to fix-forward `v0.9.0-rc2` per ADR-033 tag discipline.
+7. **Full-FT canonical run fires post-rehearsal only** per ADR-049 Per-rung scope. After `v0.9.0-rc1` dress-rehearsal completes cleanly, write a follow-up ADR superseding ADR-049's defer status + fire `make headline-full-ft` (interactive approval per ADR-020; ~6-12h wall on A100-SXM4-80GB; cap $100). Rehearsal site initially renders a 3-rung comparison (classical + frozen-probe + LoRA); the post-rehearsal full-FT run extends to the 4-rung comparison before `v1.0.0` tag fires.
 
 ## Phase 5 — Writeup
 

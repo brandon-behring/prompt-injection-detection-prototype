@@ -25,16 +25,21 @@ variables:
 
 pod:
   image: runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel
-  datacenters: [US-MD-1, EU-RO-1]
+  # Datacenters + gpu_order priority refreshed per ADR-049 — see
+  # configs/runpod/headline-frozen_probe.yaml comments + ADR-049 §Decision for
+  # the full rationale (2026-05-17 stock snapshot; A100-80G is the only
+  # provisionable T2 SKU; H100/H200 retained as mid-Phase-2 stock-recovery
+  # fallback). SET + TIER STRUCTURE + cap discipline per ADR-020 unchanged.
+  datacenters: [US-MD-1, US-WA-1, US-CA-2]
   gpu_order:
+    - NVIDIA A100-SXM4-80GB
+    - NVIDIA A100 80GB PCIe
     - NVIDIA H100 80GB HBM3
     - NVIDIA H100 NVL
     - NVIDIA H100 SXM
     - NVIDIA H100 PCIe
     - NVIDIA H200
     - NVIDIA H200 NVL
-    - NVIDIA A100-SXM4-80GB
-    - NVIDIA A100 80GB PCIe
     - NVIDIA L40S
     - NVIDIA A100-SXM4-40GB
 
