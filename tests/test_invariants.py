@@ -495,6 +495,65 @@ def test_reference_scorer_schema_uniform() -> None:
 
 
 @pytest.mark.unit
+def test_calibration_battery_outputs_4ece_plus_brier() -> None:
+    """src/eval/calibration_battery.py emits the locked 4-ECE matrix + Brier per ADR-023.
+
+    Per ADR-023 (calibration battery composition), the spoke battery must emit
+    all 4 ECE variants from eval-toolkit (L1/L2 x plug-in/debiased) plus Brier
+    plus Brier decomposition (reliability/resolution/uncertainty); headline is
+    ECE-equal-mass(n_bins=15) plus Brier on raw scores per rung. This invariant
+    asserts the compute_calibration_record function returns a fully-populated
+    CalibrationRecordModel for a synthetic (rung, fold, seed, calibrator) cell
+    and that the locked n_bins=15 constant is exposed at module scope.
+
+    Phase 3 Commit 3 scope — module-level contract; integration test
+    (test_calibration_battery_composition) is deferred to Commit 5 when
+    scripts/run_metrics_battery.py wires the per-(rung, fold, seed) loop
+    end-to-end.
+    """
+    import numpy as np
+
+    from src.eval.calibration_battery import HEADLINE_N_BINS, compute_calibration_record
+    from src.eval.schemas import CalibrationRecordModel
+
+    # Locked binning per ADR-023 line 8.
+    assert HEADLINE_N_BINS == 15
+
+    rng = np.random.default_rng(0)
+    y = rng.integers(0, 2, size=200).astype(np.int_)
+    s = rng.uniform(0, 1, size=200).astype(np.float64)
+
+    record = compute_calibration_record(
+        rung="lora",
+        fold=0,
+        seed=42,
+        calibrator="raw",
+        y_true=y,
+        y_score=s,
+    )
+    assert isinstance(record, CalibrationRecordModel)
+
+    # Headline columns per ADR-023.
+    assert record.ece_equal_mass >= 0.0
+    assert record.brier >= 0.0
+
+    # Spoke columns per ADR-023 (4 ECE variants + Brier decomposition).
+    for ece_field in (
+        "ece_l1_plug_in",
+        "ece_l1_debiased",
+        "ece_l2_plug_in",
+        "ece_l2_debiased",
+    ):
+        value = getattr(record, ece_field)
+        assert value >= 0.0, f"{ece_field} negative: {value}"
+
+    # Brier decomposition fields populated per eval-toolkit brier_decomposition.
+    for brier_field in ("brier_reliability", "brier_resolution", "brier_uncertainty"):
+        value = getattr(record, brier_field)
+        assert value >= 0.0, f"{brier_field} negative: {value}"
+
+
+@pytest.mark.unit
 def test_effective_batch_constant_across_gpu_classes() -> None:
     """BATCH_TABLE preserves effective batch = 32 across all GPU classes.
 

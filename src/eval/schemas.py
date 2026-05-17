@@ -196,9 +196,24 @@ class CalibrationRecordModel(BaseModel):
     ece_l2_plug_in: float = Field(..., ge=0.0, le=1.0)
     ece_l2_debiased: float = Field(..., ge=0.0, le=1.0)
     brier: float = Field(..., ge=0.0, le=1.0)
-    brier_refinement: float = Field(..., ge=0.0, le=1.0)
-    brier_reliability: float = Field(..., ge=0.0, le=1.0)
-    brier_uncertainty: float = Field(..., ge=0.0, le=1.0)
+    brier_reliability: float = Field(
+        ...,
+        ge=0.0,
+        le=1.0,
+        description="Per eval-toolkit brier_decomposition — calibration error component",
+    )
+    brier_resolution: float = Field(
+        ...,
+        ge=0.0,
+        le=1.0,
+        description="Per eval-toolkit brier_decomposition — discrimination component",
+    )
+    brier_uncertainty: float = Field(
+        ...,
+        ge=0.0,
+        le=1.0,
+        description="Per eval-toolkit brier_decomposition — base-rate variance component",
+    )
 
 
 class ReachabilityAuditModel(BaseModel):

@@ -233,8 +233,8 @@ def test_calibration_record_carries_full_4ece_per_adr023() -> None:
         ece_l2_plug_in=0.06,
         ece_l2_debiased=0.055,
         brier=0.12,
-        brier_refinement=0.05,
         brier_reliability=0.01,
+        brier_resolution=0.05,
         brier_uncertainty=0.06,
     )
     assert rec.calibrator == "temperature"
