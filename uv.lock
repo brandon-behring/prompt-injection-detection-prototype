@@ -2464,7 +2464,6 @@ dependencies = [
     { name = "pydantic" },
     { name = "pyyaml" },
     { name = "research-toolkit" },
-    { name = "runpod-deploy" },
     { name = "scikit-learn" },
     { name = "sentence-transformers" },
     { name = "torch" },
@@ -2479,6 +2478,7 @@ dev = [
     { name = "pytest-cov" },
     { name = "pyyaml" },
     { name = "ruff" },
+    { name = "runpod-deploy" },
     { name = "types-pyyaml" },
 ]
 notebook = [
@@ -2512,7 +2512,7 @@ requires-dist = [
     { name = "pyyaml", marker = "extra == 'dev'", specifier = ">=6" },
     { name = "research-toolkit", git = "https://github.com/brandon-behring/research_toolkit?rev=v1.9.1" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
-    { name = "runpod-deploy", git = "https://github.com/brandon-behring/runpod-deploy?rev=v0.7.7" },
+    { name = "runpod-deploy", marker = "extra == 'dev'", git = "https://github.com/brandon-behring/runpod-deploy?rev=v0.7.7" },
     { name = "scikit-learn", specifier = ">=1.5" },
     { name = "sentence-transformers", specifier = ">=3.0" },
     { name = "torch", specifier = ">=2.5", index = "https://download.pytorch.org/whl/cu128" },

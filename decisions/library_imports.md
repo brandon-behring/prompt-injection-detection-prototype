@@ -9,7 +9,7 @@ The ledger is **positive evidence**: not just "we don't hand-roll" but "here is 
 | Library | Pinned version | pyproject.toml specifier |
 |---|---|---|
 | `eval-toolkit` | `v0.31.0` | `eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.31.0` |
-| `runpod-deploy` | `v0.7.7` (matches ADR-020 pre-existing pin) | `runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7` |
+| `runpod-deploy` | `v0.7.7` (matches ADR-020 pre-existing pin) | `runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7` — moved to `[project.optional-dependencies] dev` per Phase 4 X3 (validator-flagged 2026-05-17; runpod-deploy is a local orchestrator, pod never imports it) |
 | `research_toolkit` | `v1.9.1` | `research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1` |
 
 **Pinning strategy** (per ADR-036): tag pin + freeze for submission window (Phase 0-08 close → `v1.0.0` submission tag per ADR-033); `uv.lock` provides byte-level reproducibility on top.
