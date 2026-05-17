@@ -89,6 +89,23 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 | `huggingface_hub.HfApi.list_repos` | `tests/test_invariants.py::test_hf_hub_publication_naming_convention` (Phase 5 verification) | Verify naming convention `BBehring/prompt-injection-<rung-name>` for all published rungs |
 | `huggingface_hub.snapshot_download` | `scripts/eval_from_hub.py` (Phase 3 deliverable; T0 reproducibility tier per ADR-034) | Download a published checkpoint for eval-only reproduction; pin via `revision=<SHA>` if drift detected per ADR-034 extension condition |
 
+## Phase 3 Evaluation deps (introduced incrementally per ADR-045 across Commits 1–6)
+
+| Library | First imported in | Purpose | Pinned at |
+|---|---|---|---|
+| `pydantic` | `src/eval/schemas.py` (Commit 2) | v2 BaseModel contract for PredictionsRowModel + MetricsRecordModel + SliceMetricsModel + OperatingPointModel + CalibrationRecordModel + ReachabilityAuditModel + BootstrapCellModel per ADR-045 Q7 | `>=2.5` (`pyproject.toml`) |
+| `anthropic` | `src/scoring/anthropic_judge.py` (Commit 2) | claude-sonnet-4-6 LLM-judge client per ADR-018 line 58; `client.messages.create(temperature=0)` | `>=0.40` (`pyproject.toml`) |
+| `transformers.AutoModelForSequenceClassification` + `AutoTokenizer` | `src/scoring/protectai.py` (Commit 2) | ProtectAI v1 + v2 inference loaders per ADR-018 line 76 (DeBERTa-v3-base; head-truncation 512; bf16 GPU) | `>=4.48` (already pinned for Phase 2) |
+| `openai.OpenAI` | `src/scoring/openai_judge.py` (Commit 2) | gpt-4o-2024-08-06 LLM-judge client per ADR-018 line 58; `chat.completions.create(temperature=0, response_format=json_object)` | `>=1.50` (already pinned for Phase 1 ADR-042) |
+
+**Phase 3 scoring entrypoints**:
+
+- `src/scoring/protectai.py::ProtectAIScorer(version, revision)` — ProtectAI v1+v2 wrapper; reads HF model+tokenizer at pinned SHA; runs in CI smoke with mock model.
+- `src/scoring/llm_judge_base.py::LLMJudgeBase` — abstract base with cache infra at `evals/audit/llm_judge_cache/<judge>__<text_sha256_first_16>.json` per A-007 + A-014.
+- `src/scoring/openai_judge.py::OpenAIJudge` — gpt-4o-2024-08-06 subclass.
+- `src/scoring/anthropic_judge.py::AnthropicJudge` — claude-sonnet-4-6 subclass.
+- `src/scoring/prompts/prompt_template_v1.md` — versioned LLM-judge prompt template per ADR-018 line 67.
+
 ## Phase 1 Data deps (introduced incrementally per ADR-041 across Commits 1–6)
 
 | Library | First imported in | Purpose | Pinned at |

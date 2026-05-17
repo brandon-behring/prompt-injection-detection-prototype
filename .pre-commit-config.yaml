@@ -21,6 +21,8 @@ repos:
             "peft>=0.13",
             "torch>=2.5",
             "accelerate>=1.0",
+            "pydantic>=2.5",
+            "anthropic>=0.40",
           ]
         args: [--strict]
   - repo: https://github.com/kynan/nbstripout

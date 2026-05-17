@@ -30,6 +30,11 @@ dependencies = [
     "peft>=0.13",
     "torch>=2.5",
     "accelerate>=1.0",
+    # Phase 3 (Evaluation) deps per ADR-018 + ADR-045 — reference scorers + pydantic contracts.
+    # pydantic v2 used for src/eval/schemas.py per ADR-045 Q7.
+    "pydantic>=2.5",
+    # anthropic client for claude-sonnet-4-6 LLM judge per ADR-018.
+    "anthropic>=0.40",
 ]
 
 [project.optional-dependencies]
@@ -80,6 +85,8 @@ module = [
     "peft.*",
     "accelerate",
     "accelerate.*",
+    "anthropic",
+    "anthropic.*",
 ]
 ignore_missing_imports = true
 

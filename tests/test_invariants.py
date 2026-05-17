@@ -374,6 +374,127 @@ def test_flash_attn_fallback_present() -> None:
 
 
 @pytest.mark.unit
+def test_reference_scorer_schema_uniform() -> None:
+    """All Phase 3 reference scorers conform to the unified PredictionsRowModel contract.
+
+    Per ADR-045 Q3 + Q7, every src/scoring/ adapter must emit a DataFrame whose
+    rows pass src.eval.schemas.PredictionsRowModel validation. This invariant
+    asserts the structural contract — instantiates each scorer with fake clients
+    (no real API calls) and verifies the output DataFrame's first row validates
+    cleanly. Production runs use real ProtectAI weights + paid APIs (cost-cap-
+    gated per ADR-045 Q4).
+    """
+    import json
+    from typing import Any
+    from unittest.mock import MagicMock
+
+    import pandas as pd
+    import torch
+    from transformers import BatchEncoding
+
+    from src.eval.schemas import PredictionsRowModel
+    from src.scoring.anthropic_judge import AnthropicJudge
+    from src.scoring.openai_judge import OpenAIJudge
+    from src.scoring.protectai import ProtectAIScorer
+
+    # Tiny fake HF tokenizer + model so ProtectAIScorer can build without
+    # downloading weights (mirrors the smoke test pattern).
+    class _T:
+        def __call__(self, texts: list[str], **kw: Any) -> Any:
+            del kw
+            n = len(texts)
+            return BatchEncoding(
+                {
+                    "input_ids": torch.zeros((n, 2), dtype=torch.long),
+                    "attention_mask": torch.ones((n, 2), dtype=torch.long),
+                }
+            )
+
+    class _M(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self._p = torch.nn.Parameter(torch.zeros(1))
+
+        def forward(self, **kw: Any) -> Any:
+            n = kw["input_ids"].shape[0]
+            logits = torch.zeros((n, 2))
+            out = MagicMock()
+            out.logits = logits
+            return out
+
+        def to(self, *args: Any, **kwargs: Any) -> "_M":
+            del args, kwargs
+            return self
+
+        def eval(self) -> "_M":
+            return self
+
+    # Tiny fake OpenAI + Anthropic clients (canned JSON responses).
+    payload = json.dumps({"is_injection": True, "confidence": 0.8})
+
+    class _OAClient:
+        @property
+        def chat(self) -> Any:
+            return self
+
+        @property
+        def completions(self) -> Any:
+            return self
+
+        def create(self, **kw: Any) -> Any:
+            del kw
+            c = MagicMock()
+            c.message.content = payload
+            r = MagicMock()
+            r.choices = [c]
+            return r
+
+    class _ATClient:
+        @property
+        def messages(self) -> Any:
+            return self
+
+        def create(self, **kw: Any) -> Any:
+            del kw
+            b = MagicMock()
+            b.text = payload
+            r = MagicMock()
+            r.content = [b]
+            return r
+
+    df_in = pd.DataFrame(
+        {
+            "text": ["a", "b"],
+            "label": [1, 0],
+            "source": ["src1", "src2"],
+            "row_idx_in_source": [0, 1],
+        }
+    )
+
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        from pathlib import Path
+
+        cache_root = Path(tmpdir)
+
+        protectai = ProtectAIScorer(version="v1", model=_M(), tokenizer=_T())
+        openai_judge = OpenAIJudge(client=_OAClient(), cache_root=cache_root)  # type: ignore[arg-type]
+        anthropic_judge = AnthropicJudge(client=_ATClient(), cache_root=cache_root)  # type: ignore[arg-type]
+
+        for scorer_name, df_out in (
+            ("protectai-v1", protectai.score_dataframe(df_in)),
+            ("openai", openai_judge.score_dataframe(df_in, use_cache=False)),
+            ("anthropic", anthropic_judge.score_dataframe(df_in, use_cache=False)),
+        ):
+            assert len(df_out) > 0, f"{scorer_name} produced empty output"
+            row = df_out.iloc[0].to_dict()
+            if pd.isna(row.get("epoch")):
+                row["epoch"] = None
+            PredictionsRowModel.model_validate(row)
+
+
+@pytest.mark.unit
 def test_effective_batch_constant_across_gpu_classes() -> None:
     """BATCH_TABLE preserves effective batch = 32 across all GPU classes.
 
