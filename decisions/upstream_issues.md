@@ -12,7 +12,12 @@ Triage label on filed issues: `tracked`.
 
 | Date | Repo | Issue # | Title | Local site (file:line) | Status |
 |---|---|---|---|---|---|
-| 2026-05-15 | `brandon-behring/eval-toolkit` | `[TBD at Phase 4 entry]` | Add optional `n_jobs` parameter to `paired_bootstrap_diff` for internal resample-loop parallelization | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable per ADR-022) | proposed; ledger-tracked pending Phase 4 file-time |
+| 2026-05-15 | `brandon-behring/eval-toolkit` | [#17](https://github.com/brandon-behring/eval-toolkit/issues/17) | Add optional `n_jobs` parameter to `paired_bootstrap_diff` for internal resample-loop parallelization | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable per ADR-022) | filed 2026-05-16 at Phase 4 entry; awaiting upstream triage |
+| 2026-05-16 | `brandon-behring/eval-toolkit` | [#14](https://github.com/brandon-behring/eval-toolkit/issues/14) | Add `plot_roc_curve` (sibling to `plot_pr_curve`) | `src/eval/figures.py` Phase 4 F2 deliverable per ADR-046 | filed; PR candidate (mirrors `plot_pr_curve` signature) |
+| 2026-05-16 | `brandon-behring/eval-toolkit` | [#15](https://github.com/brandon-behring/eval-toolkit/issues/15) | Add `plot_pareto_frontier` for cost-vs-performance scatter with frontier overlay | `src/eval/figures.py` Phase 4 F1 deliverable per ADR-046 | filed; awaiting upstream scoping triage |
+| 2026-05-16 | `brandon-behring/eval-toolkit` | [#16](https://github.com/brandon-behring/eval-toolkit/issues/16) | Add `plot_slice_metric_heatmap` for `(group_x × group_y × metric)` grids | `src/eval/figures.py` Phase 4 F5 deliverable per ADR-046 | filed; awaiting upstream scoping triage |
+| 2026-05-16 | `brandon-behring/eval-toolkit` | [#18](https://github.com/brandon-behring/eval-toolkit/issues/18) | Wire dedup-holdout golden test against this project's 50-pair adversarial dataset | `data/dedup_holdout.jsonl` + `scripts/calibrate_dedup.py` + `evals/dedup_calibration.json` | filed at Phase 1 library-first audit (per ADR-047); golden-test contribution candidate |
+| 2026-05-16 | `brandon-behring/eval-toolkit` | [#19](https://github.com/brandon-behring/eval-toolkit/issues/19) | Add cookbook docs: 3 compositional patterns (nested-seed splits + callable-embedder strategy + pairs_across contamination scan) | `src/data/{splits, dedup, audit}.py` (Phase 1 hand-rolls that motivated this) | filed at Phase 1 library-first audit (per ADR-047); docs PR candidate |
 
 ## How to use this ledger
 

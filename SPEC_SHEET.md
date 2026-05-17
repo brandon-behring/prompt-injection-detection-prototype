@@ -176,6 +176,19 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 | Commit 5 | `src/data/audit.py` + `src/data/templates.py` + `scripts/extract_hackaprompt_templates.py` + `scripts/run_data_pipeline.py` end-to-end orchestrator + ADR-043 post-split leakage cleanup; `evals/{data_audit,leakage_report,contamination_scan}.json` materialized (4707 deduped positives + 17246 deduped benigns + 1101 OOD; 180 leaked train rows dropped via ADR-043; A-005 triggers 1+2 clean; leakage_clean=True) | `test_benign_contamination_scan_clean` + `test_class_balance_per_fold` + `test_source_disjoint_train_test` all **green** | **green** (5 invariants total) |
 | Commit 6 | `Makefile` Phase 1 targets (`data-pin-manifest`, `data-prepare` umbrella, `data-fetch`/`data-dedup`/`data-splits`/`data-audit` ADR-041-Q7-compat aliases, `data-templates`, `data-dedup-{holdout,prelabel,calibrate}`) + `docs/ROADMAP.md` Phase 1 close note + SUBMISSION_AUDIT regen + transcript checkpoint + push | n/a | **green** |
 
+#### 3.5.1 Phase 1 library-first carryforward refactor (per ADR-047)
+
+`[Phase 1 carryforward refactor in progress per ADR-047]` Triggered by Phase 4 entry walkthrough Q6 user reaffirmation of the library-first invariant as project-wide; retroactive audit identified 4 hand-rolls in `src/data/` where `eval-toolkit` ships fitting primitives. Two upstream contributions filed at audit close: issue [#18](https://github.com/brandon-behring/eval-toolkit/issues/18) (wire 50-pair golden dedup-holdout into eval-toolkit CI fixtures); issue [#19](https://github.com/brandon-behring/eval-toolkit/issues/19) (3-pattern cookbook docs). Each refactor commit deletes orphaned local helpers in-commit per the no-orphaned-code discipline (saved as memory 2026-05-16).
+
+| Refactor commit | Deliverable | Invariants verified | Status |
+|---|---|---|---|
+| Commit 1 (ADR-047 setup) | ADR-047 + SPEC_SHEET §3.5.1 + upstream issues #18 + #19 filed + `decisions/upstream_issues.md` ledger updated + SUBMISSION_AUDIT regen | n/a | **pending commit** |
+| Commit 2 (splits refactor) | `src/data/splits.py::make_splits` consumes `eval_toolkit.splits.SourceDisjointKFoldSplitter`; round-robin source-bucket logic deleted in-commit; project glue for (3-seed × stratified 80/20 train/val) preserved per ADR-016 Q2 | `test_splits_lodo_partition_disjoint` + `test_splits_per_seed_stratification` | pending |
+| Commit 3 (dedup refactor) | `src/data/dedup.py::{dedup_within_source, drop_train_test_leakage, dedup_cross_source_benigns}` consume `eval_toolkit.text_dedup.{near_dedup, cross_dedup, EmbeddingCosineStrategy(embedder=compute_embeddings)}`; local `pairwise_cosines` + `_greedy_first_occurrence_mask` deleted in-commit; project-owned embedder glue (`get_encoder` + `compute_embeddings` + `encoder_revision_sha`) preserved | `test_dedup_within_source_threshold_applied` + `test_dedup_cross_source_lmsys_priority` + dedup-holdout calibration re-runs cleanly | pending |
+| Commit 4 (audit refactor + close) | `src/data/audit.py::compute_leakage_report` consumes `eval_toolkit.leakage.run_leakage_checks([ExactDuplicateCheck(), NearDuplicateCheck(threshold=0.85), CrossSplitLeakageCheck()])`; `compute_contamination_scan` consumes `EmbeddingCosineStrategy.pairs_across(query, reference, k=1)` + project per-source aggregation glue; local `_per_row_max_cosine_to_ref` deleted in-commit; `evals/leakage_report.json` schema migrated; `make data-prepare` regenerates 36 split parquets cleanly | `test_leakage_report_persisted` + `test_contamination_scan_persisted` + 3 prior data-pipeline invariants | pending |
+
+After Commit 4 lands + all data-pipeline invariants pass, ADR-046 (Phase 4 implementation bundle per prior ratification) writing begins.
+
 ### 3.6 Phase 2 implementation status
 
 `[Phase 2 in progress per ADR-044]` Operationalization of §4 locks. Per-commit status:
