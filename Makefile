@@ -73,12 +73,12 @@ audit:
 # `make headline-dry-run` — cost preview without provisioning (per ADR-027 + ADR-020).
 # Phase 2 wiring per ADR-044 Q6: dry-runs all 3 per-rung configs.
 headline-dry-run:
-	runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
-	runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
-	runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
-	runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
-	runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
-	runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
+	uv run runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
+	uv run runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
+	uv run runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
 
 # `make headline-cloud` — Phase 2 umbrella. Fires all 3 transformer rungs in
 # sequence (frozen-probe → lora → full-ft) per ADR-044 Q6. Each gated by its
@@ -194,24 +194,24 @@ cost-rollup-check:
 # `make headline-frozen-probe` — canonical frozen-probe rung run on RunPod
 # (per ADR-020 + ADR-044 Q6). Cost-cap $40/pod. Interactive-approval gated.
 headline-frozen-probe:
-	runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
-	runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
+	uv run runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
 	@read -p "Approve frozen-probe canonical run (cap \$$40)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	runpod-deploy run --config configs/runpod/headline-frozen_probe.yaml
+	uv run runpod-deploy run --config configs/runpod/headline-frozen_probe.yaml
 
 # `make headline-lora` — canonical LoRA rung run on RunPod. Cost-cap $60/pod.
 headline-lora:
-	runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
-	runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
+	uv run runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
 	@read -p "Approve LoRA canonical run (cap \$$60)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	runpod-deploy run --config configs/runpod/headline-lora.yaml
+	uv run runpod-deploy run --config configs/runpod/headline-lora.yaml
 
 # `make headline-full-ft` — canonical full-FT rung run on RunPod. Cost-cap $100/pod.
 headline-full-ft:
-	runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
-	runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
+	uv run runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
 	@read -p "Approve full-FT canonical run (cap \$$100)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	runpod-deploy run --config configs/runpod/headline-full_ft.yaml
+	uv run runpod-deploy run --config configs/runpod/headline-full_ft.yaml
 
 # ---------------------------------------------------------------------------
 # Phase 3 (Evaluation) targets — per ADR-018 + ADR-021 + ADR-022 + ADR-023 +
