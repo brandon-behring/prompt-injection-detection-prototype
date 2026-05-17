@@ -31,8 +31,8 @@ All consumer libraries (`huggingface_hub`, `openai`, `anthropic`, `runpod-deploy
 
 | Primitive | Imported in | Purpose |
 |---|---|---|
-| `eval_toolkit.bootstrap.bootstrap_ci` | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable) | Per-rung marginal BCa-bootstrap CI; 10K iterations @ seed=1 headline + 10K @ seed=2 stability check (per ADR-022) |
-| `eval_toolkit.bootstrap.paired_bootstrap_diff` | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable) | Rung-vs-rung paired-bootstrap Δ-CI on persisted row-level predictions; percentile CI per `bootstrap.py:489` (per ADR-022 + ADR-006) |
+| `eval_toolkit.bootstrap.bootstrap_ci` | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable — marginal CI wiring; the Phase 3 Commit 5 script handles paired-only) | Per-rung marginal BCa-bootstrap CI; 10K iterations @ seed=1 headline + 10K @ seed=2 stability check (per ADR-022) |
+| `eval_toolkit.bootstrap.paired_bootstrap_diff` | `scripts/run_bootstrap_battery.py` (Phase 3 Commit 5, landed) | Rung-vs-rung paired-bootstrap Δ-CI on persisted row-level predictions; full-pairwise persistence per ADR-045 Q6 (~C(rungs, 2) × slices × metrics cells); percentile CI per `bootstrap.py:489` (per ADR-022 + ADR-006) |
 | `eval_toolkit.bootstrap.paired_bootstrap_ece_diff` | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable) | Paired-bootstrap Δ-CI specifically for ECE (per ADR-023 calibration battery + ADR-022 paired-across-rungs) |
 | `eval_toolkit.bootstrap.cv_clt_ci` | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable) | Cross-fold CI via Bayle 2020 Theorem 3.1 on 12 per-(fold, seed) per-rung metric values; headline cross-fold CI machinery per ADR-024 |
 | `eval_toolkit.metrics.pr_auc` + `roc_auc` (entry above for Phase 3 Commit 4 landing) | `scripts/run_metrics_battery.py` (Phase 3 Commit 5) | Aggregator script orchestrates per-(rung, fold, seed, slice) calls to `src/eval/slice_analysis.py::compute_metric_record` (no separate `recall_at_fpr` primitive exists in eval-toolkit; recall@FPR is computed via `TargetFPRSelector(t).select(y, s).recall` wrapped in `src/eval/slice_analysis.py::compute_recall_at_fpr` per ADR-021) |
