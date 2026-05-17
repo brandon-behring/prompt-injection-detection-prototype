@@ -119,6 +119,8 @@ module = [
     "scipy.*",
     "matplotlib",
     "matplotlib.*",
+    "runpod_deploy",
+    "runpod_deploy.*",
 ]
 ignore_missing_imports = true
 

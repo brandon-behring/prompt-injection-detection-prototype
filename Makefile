@@ -197,21 +197,21 @@ headline-frozen-probe:
 	uv run runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
 	uv run runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
 	@read -p "Approve frozen-probe canonical run (cap \$$40)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	uv run runpod-deploy run --config configs/runpod/headline-frozen_probe.yaml
+	uv run python scripts/runpod_deploy_long_ssh.py run --config configs/runpod/headline-frozen_probe.yaml
 
 # `make headline-lora` — canonical LoRA rung run on RunPod. Cost-cap $60/pod.
 headline-lora:
 	uv run runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
 	uv run runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
 	@read -p "Approve LoRA canonical run (cap \$$60)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	uv run runpod-deploy run --config configs/runpod/headline-lora.yaml
+	uv run python scripts/runpod_deploy_long_ssh.py run --config configs/runpod/headline-lora.yaml
 
 # `make headline-full-ft` — canonical full-FT rung run on RunPod. Cost-cap $100/pod.
 headline-full-ft:
 	uv run runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
 	uv run runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
 	@read -p "Approve full-FT canonical run (cap \$$100)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	uv run runpod-deploy run --config configs/runpod/headline-full_ft.yaml
+	uv run python scripts/runpod_deploy_long_ssh.py run --config configs/runpod/headline-full_ft.yaml
 
 # ---------------------------------------------------------------------------
 # Phase 3 (Evaluation) targets — per ADR-018 + ADR-021 + ADR-022 + ADR-023 +
