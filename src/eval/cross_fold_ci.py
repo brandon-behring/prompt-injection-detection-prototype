@@ -1,30 +1,42 @@
-"""Phase 4 cross-fold CI primitives per ADR-024 + ADR-046 Q3 (Commit 2 headline).
+"""Phase 4 cross-fold CI primitives per ADR-024 + ADR-046 Q3.
 
-Commit 2 ships the **headline cv_clt CI** via `eval_toolkit.bootstrap.cv_clt_ci`
-(Bayle 2020 Annals of Statistics Theorem 3.1). Commit 3 will extend this module
-with the always-emit block-bootstrap-on-folds spoke + the `a_008_flag_fired`
-boolean per the A-008 sensitivity check (LODO non-exchangeability dominates
-within-fold variance when `block_bootstrap_halfwidth / cv_clt_halfwidth > 1.5`).
+Commit 2 shipped the **headline cv_clt CI** via `eval_toolkit.bootstrap.cv_clt_ci`
+(Bayle 2020 Annals of Statistics Theorem 3.1). Commit 3 (this update) adds the
+always-emit **block-bootstrap-on-folds spoke** + the `a_008_flag_fired` boolean
+per the A-008 sensitivity check (LODO non-exchangeability dominates within-fold
+variance when `block_bootstrap_halfwidth / cv_clt_halfwidth > 1.5`).
 
 The headline takes per-(fold, seed) metric values (K folds x S seeds-per-fold)
 and reduces them to per-fold means before feeding `cv_clt_ci`. Per ADR-022 the
 seed-within-fold replications average together to yield a single point per fold,
 which is the regime Bayle 2020's CV-CLT assumes (K independent fold estimates).
 
+The block-bootstrap spoke resamples K folds with replacement from the same
+per-fold vector and computes a percentile CI on the resulting empirical
+distribution of fold-mean draws. This is robust to LODO non-exchangeability
+(folds carry different sources with different size + attack-style character;
+they are not exchangeable in the CV-CLT sense) so a wider block-bootstrap CI
+than the cv_clt headline indicates LODO variance dominates within-fold variance
+— surfaced via `a_008_flag_fired` per A-008.
+
 Library-first
 -------------
-- `eval_toolkit.bootstrap.cv_clt_ci` does the Bayle 2020 CI math.
+- `eval_toolkit.bootstrap.cv_clt_ci` does the Bayle 2020 CI math (headline).
 - `eval_toolkit.metrics.{pr_auc, roc_auc}` are the per-fold metric callbacks.
 
-Project glue is per-(fold, seed) grouping + within-fold mean aggregation + the
-`CrossFoldCIModel` schema validator. No re-implementation of CI math.
+Project glue is per-(fold, seed) grouping + within-fold mean aggregation +
+inline block-bootstrap-on-folds (workaround pending upstream eval-toolkit
+issue #21) + `CrossFoldCIModel` schema validator. No re-implementation of
+the headline cv_clt CI math.
 
 Upstream gap
 ------------
-Block-bootstrap-on-folds (CV-aware block bootstrap) is filed at eval-toolkit
-issue #21. Until that lands, Commit 3 supplies an inline NumPy implementation
-that draws K blocks-with-replacement from the per-fold metric vector and feeds
-the resulting empirical distribution into a percentile CI per ADR-022.
+Block-bootstrap-on-folds (CV-aware block bootstrap; complement to `cv_clt_ci`)
+is filed at eval-toolkit issue #21. The inline NumPy implementation below
+draws K blocks-with-replacement from the per-fold metric vector and feeds
+the resulting empirical distribution into a percentile CI per ADR-022. The
+algorithm is straightforward — the upstream issue requests an API that
+shares typing + reporting conventions with `cv_clt_ci`.
 """
 
 from __future__ import annotations
@@ -46,6 +58,80 @@ CROSS_FOLD_METRIC_REGISTRY: Final[
     "auprc": pr_auc,
     "auroc": roc_auc,
 }
+
+# Block-bootstrap-on-folds default budget (per ADR-022 statistical-inference
+# apparatus + ADR-046 Q3). 10K resamples mirror the marginal/paired bootstrap
+# budget; the resampling unit here is a complete fold (K-element draw with
+# replacement), not a row, so 10K runs in O(seconds) per cell.
+BLOCK_BOOTSTRAP_N_RESAMPLES: Final[int] = 10_000
+BLOCK_BOOTSTRAP_SEED: Final[int] = 1
+
+# A-008 sensitivity-check threshold. When the block-bootstrap CI half-width
+# exceeds 1.5x the cv_clt CI half-width, the methodology spoke names "LODO
+# non-exchangeability dominates within-fold variance" per ADR-024.
+A_008_RATIO_THRESHOLD: Final[float] = 1.5
+
+
+def compute_block_bootstrap_on_folds(
+    per_fold_metrics: NDArray[np.float64],
+    *,
+    n_resamples: int = BLOCK_BOOTSTRAP_N_RESAMPLES,
+    confidence: float = 0.95,
+    seed: int = BLOCK_BOOTSTRAP_SEED,
+) -> tuple[float, float]:
+    """Block-bootstrap-on-folds: resample K folds with replacement; percentile CI on mean.
+
+    Inline implementation pending upstream eval-toolkit issue #21
+    (`block_bootstrap_on_folds` as a sibling to `cv_clt_ci`). The algorithm:
+
+        1. Draw n_resamples K-element samples with replacement from
+           per_fold_metrics (each draw represents a hypothetical alternative
+           cross-validation outcome under fold-exchangeability).
+        2. Compute the mean of each resample.
+        3. Return the [alpha/2, 1 - alpha/2] percentile CI on the empirical
+           distribution of resample means.
+
+    Wider CI than `cv_clt_ci` on the same per-fold vector indicates LODO
+    non-exchangeability dominates within-fold variance per A-008.
+
+    Parameters
+    ----------
+    per_fold_metrics : np.ndarray, shape (K,)
+        K per-fold metric estimates. Need K >= 2.
+    n_resamples : int, optional
+        Number of bootstrap resamples (default 10000 per ADR-022).
+    confidence : float, optional
+        Two-sided confidence level (default 0.95).
+    seed : int, optional
+        RNG seed for reproducibility.
+
+    Returns
+    -------
+    (ci_lo, ci_hi) : tuple[float, float]
+    """
+    if per_fold_metrics.ndim != 1 or per_fold_metrics.shape[0] < 2:
+        raise ValueError(
+            f"per_fold_metrics must be 1-D with K >= 2; got shape={per_fold_metrics.shape}"
+        )
+    if not (0.0 < confidence < 1.0):
+        raise ValueError(f"confidence must be in (0, 1); got {confidence}")
+    rng = np.random.default_rng(seed)
+    k = per_fold_metrics.shape[0]
+    # Vectorized: draw (n_resamples, k) indices, gather, then mean along axis=1.
+    idx = rng.integers(0, k, size=(n_resamples, k))
+    resample_means = per_fold_metrics[idx].mean(axis=1)
+    alpha = 1.0 - confidence
+    ci_lo, ci_hi = np.quantile(resample_means, [alpha / 2.0, 1.0 - alpha / 2.0])
+    return float(ci_lo), float(ci_hi)
+
+
+def compute_a_008_flag(*, cv_clt_halfwidth: float, block_bootstrap_halfwidth: float) -> bool:
+    """Return True iff block_bootstrap_halfwidth / cv_clt_halfwidth > A_008_RATIO_THRESHOLD."""
+    if cv_clt_halfwidth <= 0.0:
+        # Degenerate cv_clt halfwidth (all-folds-identical) — A-008 trivially fires
+        # if any block-bootstrap variance is present.
+        return block_bootstrap_halfwidth > 0.0
+    return (block_bootstrap_halfwidth / cv_clt_halfwidth) > A_008_RATIO_THRESHOLD
 
 
 def compute_per_fold_metric_vector(
@@ -101,35 +187,52 @@ def compute_cross_fold_ci_cell(
     rung: str,
     slice_name: str,
     metric_name: str,
+    block_bootstrap_n_resamples: int = BLOCK_BOOTSTRAP_N_RESAMPLES,
+    block_bootstrap_seed: int = BLOCK_BOOTSTRAP_SEED,
 ) -> CrossFoldCIModel:
-    """Compute the headline cv_clt cross-fold CI cell for (rung, slice, metric).
+    """Compute the full cross-fold CI cell — cv_clt headline + block-bootstrap spoke.
 
-    Commit 2 fills the cv_clt fields and leaves block-bootstrap fields as None;
-    Commit 3 extends this function to also populate the block-bootstrap spoke
-    + `a_008_flag_fired` per the A-008 sensitivity check.
+    Per ADR-046 Q3, this function always emits both the cv_clt headline and the
+    block-bootstrap-on-folds spoke; the `a_008_flag_fired` boolean is filled
+    deterministically from the two half-widths per A-008 + ADR-024.
     """
     per_fold = compute_per_fold_metric_vector(
         df, rung=rung, slice_name=slice_name, metric_name=metric_name
     )
     n_seeds_per_fold = _infer_seeds_per_fold(df=df, rung=rung, slice_name=slice_name)
-    ci = cv_clt_ci(per_fold, confidence=0.95)
-    halfwidth = (float(ci.ci_high) - float(ci.ci_low)) / 2.0
+
+    # Headline cv_clt CI (Bayle 2020 Theorem 3.1) via eval-toolkit.
+    cv_clt = cv_clt_ci(per_fold, confidence=0.95)
+    cv_clt_halfwidth = (float(cv_clt.ci_high) - float(cv_clt.ci_low)) / 2.0
+
+    # Block-bootstrap-on-folds spoke per A-008 — inline impl pending upstream #21.
+    block_ci_lo, block_ci_hi = compute_block_bootstrap_on_folds(
+        per_fold,
+        n_resamples=block_bootstrap_n_resamples,
+        confidence=0.95,
+        seed=block_bootstrap_seed,
+    )
+    block_halfwidth = (block_ci_hi - block_ci_lo) / 2.0
+
+    a_008_flag = compute_a_008_flag(
+        cv_clt_halfwidth=cv_clt_halfwidth, block_bootstrap_halfwidth=block_halfwidth
+    )
+
     return CrossFoldCIModel(
         rung=rung,
         slice_name=slice_name,
         metric=metric_name,
         k_folds=int(per_fold.shape[0]),
         n_seeds_per_fold=n_seeds_per_fold,
-        cv_clt_point_estimate=float(ci.point_estimate),
-        cv_clt_ci_lo=float(ci.ci_low),
-        cv_clt_ci_hi=float(ci.ci_high),
-        cv_clt_ci_halfwidth=halfwidth,
-        # Commit 3 will populate these:
-        block_bootstrap_ci_lo=None,
-        block_bootstrap_ci_hi=None,
-        block_bootstrap_ci_halfwidth=None,
-        block_bootstrap_n_resamples=None,
-        a_008_flag_fired=None,
+        cv_clt_point_estimate=float(cv_clt.point_estimate),
+        cv_clt_ci_lo=float(cv_clt.ci_low),
+        cv_clt_ci_hi=float(cv_clt.ci_high),
+        cv_clt_ci_halfwidth=cv_clt_halfwidth,
+        block_bootstrap_ci_lo=block_ci_lo,
+        block_bootstrap_ci_hi=block_ci_hi,
+        block_bootstrap_ci_halfwidth=block_halfwidth,
+        block_bootstrap_n_resamples=block_bootstrap_n_resamples,
+        a_008_flag_fired=a_008_flag,
     )
 
 

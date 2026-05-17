@@ -743,6 +743,48 @@ def test_marginal_bootstrap_seed_stability() -> None:
 
 @pytest.mark.unit
 @pytest.mark.skip(reason="deferred to canonical Phase 4 evals — needs 84 trained-rung parquets")
+def test_block_bootstrap_folds_spoke_present() -> None:
+    """Cross-fold CI audit always emits the block-bootstrap-on-folds spoke per A-008.
+
+    Per ADR-024 + ADR-046 Q3 (Phase 4 Commit 3), the cross-fold CI orchestrator
+    populates the block_bootstrap_ci_lo + block_bootstrap_ci_hi +
+    block_bootstrap_ci_halfwidth + block_bootstrap_n_resamples columns for every
+    (rung, slice, metric) cell in evals/audit/cross_fold_ci_audit.parquet — never
+    None at canonical-run time. Per ADR-046 Q3, emission is unconditional (audit
+    trail completeness) — the WRITEUP methodology spoke only references the
+    LODO non-exchangeability claim conditionally on `a_008_flag_fired`. This
+    invariant asserts:
+    (1) every audit row has block_bootstrap_* fields non-null;
+    (2) block_bootstrap_n_resamples == 10000 per ADR-022 budget;
+    (3) block_bootstrap_ci_halfwidth >= 0 for every row;
+    (4) block_bootstrap_ci_lo <= block_bootstrap_ci_hi for every row.
+    Skipped until canonical Phase 4 evals run.
+    """
+    raise NotImplementedError("invariant test stub — unskip at canonical Phase 4 evals run")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="deferred to canonical Phase 4 evals — needs 84 trained-rung parquets")
+def test_a_008_flag_fired_when_ratio_exceeds_1_5() -> None:
+    """`a_008_flag_fired` column matches the cv_clt vs block-bootstrap halfwidth ratio.
+
+    Per ADR-046 Q3 + A-008 + ADR-024 (Phase 4 Commit 3), every audit row's
+    `a_008_flag_fired` boolean is True iff
+    block_bootstrap_ci_halfwidth / cv_clt_ci_halfwidth > 1.5 (strict inequality
+    per A_008_RATIO_THRESHOLD). Degenerate cv_clt halfwidth (== 0) yields True
+    iff block_bootstrap_halfwidth > 0. This invariant asserts:
+    (1) the boolean column is present in evals/audit/cross_fold_ci_audit.parquet;
+    (2) the boolean value matches the ratio rule on every row (no audit drift);
+    (3) when the flag fires for any (rung, slice, metric) cell, the methodology
+    spoke `WRITEUP/methodology.md` contains the named "LODO non-exchangeability
+    dominates within-fold variance" paragraph (Phase 5 Writeup integration).
+    Skipped until canonical Phase 4 evals run.
+    """
+    raise NotImplementedError("invariant test stub — unskip at canonical Phase 4 evals run")
+
+
+@pytest.mark.unit
+@pytest.mark.skip(reason="deferred to canonical Phase 4 evals — needs 84 trained-rung parquets")
 def test_cv_clt_ci_headline_present() -> None:
     """Cross-fold CI audit emits cv_clt headline for every (rung, slice, metric) cell.
 
