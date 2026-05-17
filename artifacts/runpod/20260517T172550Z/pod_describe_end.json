@@ -1,0 +1,47 @@
+{
+  "containerDiskInGb": 20,
+  "costPerHr": 1.49,
+  "createdAt": "2026-05-17 17:25:51.354 +0000 UTC",
+  "desiredStatus": "RUNNING",
+  "env": {
+    "PUBLIC_KEY": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoye7YtPuBmPAYHaRj8UY5ClN+w+rPq2Qj4G+MIYaGt   \n  brandonzinho@me.com\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpnidk1yjgvwouUEGRM+ukvQEMT8wGHr5dxIBG9gE4mVvyZpqq2+VqnApfop34Fdex+d7CcfcG7Bjg3xAvdsnQ9Xciu9+SNeQt8rTjOjVc5rGUHFKVm5weV7/7CvrhRtQBqJ8rlpb/g3WKEpBtI6ooqzt30x46P7CzaT+IHxCElNRzVSjtfxKaqMVf/D3F3FLCEcBtm7lc7xWD34YbWRbRDywPtjgX094v9u/ktvLiEOokzQWruPOmfRxeMzTuWAJs/vNzkMR1QVUt2P+MXqD52UZ8hWt0YJwRnWZZhCle7DQWDux84dm/Tm3ZrKyi/qO/S5yLYHSDYqIs3obaCCPJ RunPod-Key-Go\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD7QakgfSnziYk1oiuYYL2SpxyVo9qTMKrZWxlDAKKR6buDB+qlMYXqLIMeQ+o9ql86/24a0d+iZyvVgCdEtU2fiNqDTXvUKHH5tNGdDwGWN8HHTD/lMoe6ausXvG8It6RI5df9LBIuwDm1URMQwLc1dWwWMn4t9CRrD6kY4lUSd7qC0fKWZq0el/ims32xioKQum2aJhJhUbKtMtPonoLKsYaMpelnluBsBOgPGBNiP2Do2pE2I2uyKQC6S+bczFBzkINNOiaEECVEnn/ETZ5NbMit2DNmcwoODP9j5g/fnch70l+FWIs2iVys1pqv72VgBKtY/gMpeGCz8UESPdNd RunPod-Key-Go\n\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErGfbM21ZWEGom8RxV9Tp54V70smERdg5WuHChfmksb brandonzinho@me.com"
+  },
+  "gpuCount": 1,
+  "id": "b1iol4pu1i0wvl",
+  "imageName": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "lastStatusChange": "Rented by User: Sun May 17 2026 17:25:51 GMT+0000 (Coordinated Universal Time)",
+  "machine": {
+    "dataCenterId": "US-MD-1",
+    "diskThroughputMBps": 6384,
+    "gpuId": "NVIDIA A100-SXM4-80GB",
+    "location": "US",
+    "maxDownloadSpeedMbps": 3672,
+    "maxUploadSpeedMbps": 2079,
+    "reservedCountVersion": 6548,
+    "secureCloud": true,
+    "supportPublicIp": true
+  },
+  "memoryInGb": 250,
+  "name": "pid-lora-20260517T172550Z",
+  "ports": [
+    "22/tcp"
+  ],
+  "ssh": {
+    "id": "b1iol4pu1i0wvl",
+    "ip": "154.54.102.23",
+    "name": "pid-lora-20260517T172550Z",
+    "port": 18466,
+    "ssh_command": "ssh -i /home/brandon_behring/.runpod/ssh/RunPod-Key-Go root@154.54.102.23 -p 18466",
+    "ssh_key": {
+      "exists": true,
+      "fingerprint": "SHA256:kEm3brK6W7Cr/aVYk7xVJHK2Ue2HCCu8UaplJjYLM5U",
+      "in_account": true,
+      "path": "/home/brandon_behring/.runpod/ssh/RunPod-Key-Go",
+      "source": "runpodctl doctor"
+    }
+  },
+  "uptimeSeconds": 0,
+  "vcpuCount": 16,
+  "volumeInGb": 100,
+  "volumeMountPath": "/workspace"
+}

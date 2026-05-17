@@ -1,0 +1,49 @@
+{
+  "schema_version": "v1",
+  "pulled_at_utc": "2026-05-17T20:29:00Z",
+  "failed": false,
+  "job_name": "pid-phase2-lora",
+  "run_id": "manual-lora-20260517T172549Z",
+  "config_path": "configs/runpod/headline-lora.yaml",
+  "storage_mode": "ephemeral",
+  "datacenter_id": "US-MD-1",
+  "gpu_id": "NVIDIA A100-SXM4-80GB",
+  "gpu_price_per_hour_usd": 1.49,
+  "pod_id": "b1iol4pu1i0wvl",
+  "image": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "cost_cap_usd": 60.0,
+  "volume_mount": "/workspace",
+  "volume_name": null,
+  "volume_gb": 100,
+  "wall_time_sec": 4261.0,
+  "estimated_cost_usd": 1.76,
+  "pod_final_state": "still-running-for-full-ft-chain",
+  "manual_recovery": true,
+  "manual_recovery_notes": "LoRA orchestrator fire crashed mid-cell 4 at 17:53 UTC with OSError EIO on FUSE checkpoint save (peft create_or_update_model_card -> huggingface_hub repocard.save atomic-rename on MooseFS F_SETLKW). Original orchestrator manifest at artifacts/runpod/20260517T172550Z/ captured the failed portion ($0.89 / 36min). RECOVERY: X9 code fix landed locally (commit 1170805), pushed updated train_rung.py + train_modernbert.py to pod via rsync, manually launched 'for fold in 1 2 3; do python scripts/train_rung.py --rung lora --fold-only $fold --checkpoint-staging-root /root/training_staging; done' in nohup at 18:11 UTC. Cells 4-12 (re-trained cell 4 + cells 5-12 new) completed at 19:22:12 UTC. All 24 parquets safe on disk. wall_time_sec covers 18:11:11 -> 19:22:12 (71 min); estimated_cost = 71/60 * $1.49 = $1.76. Idle 18-min gap (17:53-18:11) used for X9 code fix + commit + rsync code to pod; that downtime not attributed to any manifest.",
+  "artifacts": [
+    {
+      "label": "pid-predictions-lora",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/predictions/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/predictions",
+      "required": true,
+      "excludes": [],
+      "delete": false
+    },
+    {
+      "label": "pid-checkpoints-lora",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/checkpoints/evals/checkpoints/lora/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/checkpoints/lora",
+      "required": true,
+      "excludes": [],
+      "delete": false
+    },
+    {
+      "label": "log",
+      "remote_path": "/workspace/pid_phase2_lora_resume.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/manual-lora-20260517T172549Z",
+      "required": false,
+      "excludes": [],
+      "delete": false
+    }
+  ]
+}

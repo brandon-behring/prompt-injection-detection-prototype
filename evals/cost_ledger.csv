@@ -1,4 +1,7 @@
 timestamp,target,est_cost_usd,actual_cost_usd,gpu_hours,api_calls,notes
 pid-frozen-probe-20260517T053302Z,pid-phase2-frozen-probe,0.8416,0.8416,0.565,0,gpu_id=NVIDIA A100-SXM4-80GB state=None dc=US-MD-1
 pid-frozen-probe-20260517T151217Z,pid-phase2-frozen-probe,0.9432,0.9432,0.633,0,gpu_id=NVIDIA A100-SXM4-80GB state=None dc=US-MD-1
+pid-lora-20260517T172550Z,pid-phase2-lora,0.8946,0.8946,0.6,0,gpu_id=NVIDIA A100-SXM4-80GB state=RUNNING dc=US-MD-1
 manual-20260517T155912Z,pid-phase2-frozen-probe,2.13,2.13,1.433,0,gpu_id=NVIDIA A100-SXM4-80GB state=deleted dc=US-MD-1
+manual-full-ft-20260517T192349Z,pid-phase2-full-ft,1.61,1.61,1.071,0,gpu_id=NVIDIA A100-SXM4-80GB state=deleted dc=US-MD-1
+manual-lora-20260517T172549Z,pid-phase2-lora,1.76,1.76,1.184,0,gpu_id=NVIDIA A100-SXM4-80GB state=still-running-for-full-ft-chain dc=US-MD-1

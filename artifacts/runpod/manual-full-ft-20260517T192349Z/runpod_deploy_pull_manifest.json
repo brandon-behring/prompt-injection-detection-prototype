@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "pulled_at_utc": "2026-05-17T20:30:00Z",
+  "failed": false,
+  "job_name": "pid-phase2-full-ft",
+  "run_id": "manual-full-ft-20260517T192349Z",
+  "config_path": "configs/runpod/headline-full_ft.yaml",
+  "storage_mode": "ephemeral",
+  "datacenter_id": "US-MD-1",
+  "gpu_id": "NVIDIA A100-SXM4-80GB",
+  "gpu_price_per_hour_usd": 1.49,
+  "pod_id": "b1iol4pu1i0wvl",
+  "image": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "cost_cap_usd": 100.0,
+  "volume_mount": "/workspace",
+  "volume_name": null,
+  "volume_gb": 100,
+  "wall_time_sec": 3854.3,
+  "estimated_cost_usd": 1.61,
+  "pod_final_state": "deleted",
+  "manual_recovery": true,
+  "manual_recovery_notes": "Chained on the SAME pod as the LoRA manual recovery (pod b1iol4pu1i0wvl) per memory entry 'multi-rung-pod-reuse-over-disposal'. Saved 1 stock-roulette event + image-pull + setup overhead. Launched 'python scripts/train_rung.py --rung full_ft --checkpoint-staging-root /root/training_staging' in nohup at 19:23 UTC immediately after LoRA's '[resume] ALL DONE' marker (19:22:12 UTC). X9 fix (checkpoint output_dir staged on /root, copied to /workspace after training) survived ALL 12 cells without a single FUSE hang. Final marker '[train_rung] DONE rung=full_ft 12 cells / 24 parquets in 3854.3s' at 20:27 UTC. wall_time_sec = 3854.3 (training time) which closely tracks pod-billed time for this rung. estimated_cost = 3854.3/3600 * $1.49 = $1.60 (rounded $1.61). Empty checkpoint dirs left on /workspace because configs/rungs/full_ft.yaml has cleanup_intermediate_checkpoints=true per ADR-019 storage discipline (predictions parquets are the audit artifact; weights would be ~150MB each + ~1.8GB optimizer.pt each). Full-FT trained noticeably faster than LoRA (avg 3.3-4.1 it/s vs LoRA's 2-3 it/s) because there's no adapter forward-pass overhead.",
+  "artifacts": [
+    {
+      "label": "pid-predictions-full-ft",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/predictions/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/predictions",
+      "required": true,
+      "excludes": [],
+      "delete": false
+    },
+    {
+      "label": "log",
+      "remote_path": "/workspace/pid_phase2_full_ft.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/manual-full-ft-20260517T192349Z",
+      "required": false,
+      "excludes": [],
+      "delete": false
+    }
+  ]
+}
