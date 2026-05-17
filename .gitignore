@@ -44,6 +44,7 @@ transcripts/auto/
 tests/fixtures/predictions/
 tests/fixtures/checkpoints/
 tests/fixtures/metrics/
+tests/fixtures/plots/
 
 # Phase 3 LLM-judge response cache (per A-007 + A-014 + ADR-045 Q4) — cache
 # files carry vendor responses + are not part of the methodology contract.

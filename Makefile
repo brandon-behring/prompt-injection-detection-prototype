@@ -4,7 +4,9 @@
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
         headline-frozen-probe headline-lora headline-full-ft \
         eval-classical-floor eval-reference-scorers-free eval-reference-scorers-paid \
-        metrics-battery dual-policy-thresholds bootstrap-battery
+        metrics-battery dual-policy-thresholds bootstrap-battery \
+        marginal-bootstrap cv-clt-ci mde-battery render-figures audit-reference-scorers \
+        phase4-all
 
 install:
 	uv sync --extra dev
@@ -27,13 +29,14 @@ test-all:
 	uv run pytest -q
 
 # `make smoke` — laptop-only, no GPU, no network, <10 min total (per ADR-027).
-# Phase 2 wiring per ADR-044 Q7 + Phase 3 wiring per ADR-045 Commit 6: runs
-# pytest -m smoke (covers ~80+ tests across data + training + Phase 3 eval
-# + scoring + scripts) plus a classical-floor fixture-pipeline pass plus an
-# end-to-end metrics-battery pass over the fixture predictions (verifies
-# Phase 3 eval orchestration wires through). Transformer trainers are
-# exercised structurally via mocks; full GPU-backed runs are canonical via
-# headline-{frozen-probe,lora,full-ft}.
+# Phase 2 wiring per ADR-044 Q7 + Phase 3 wiring per ADR-045 Commit 6 +
+# Phase 4 wiring per ADR-046 Commit 6: runs pytest -m smoke (covers ~169
+# tests across data + training + eval + scoring + scripts + figures + Phase 4
+# orchestration) plus a classical-floor fixture-pipeline pass plus an
+# end-to-end metrics-battery pass over the fixture predictions plus the
+# render-figures scaffold pass (verifies all 7 SVG + .meta.json sidecars
+# write cleanly). Transformer trainers are exercised structurally via mocks;
+# full GPU-backed runs are canonical via headline-{frozen-probe,lora,full-ft}.
 smoke: test-smoke
 	uv run python scripts/train_classical_floor.py \
 		--config configs/profiles/classical_fixtures.yaml \
@@ -44,6 +47,9 @@ smoke: test-smoke
 		--predictions-root tests/fixtures/predictions \
 		--metrics-out tests/fixtures/metrics/per_cell.parquet
 	uv run python scripts/eval_from_hub.py --rung lora --dry-run
+	uv run python scripts/render_figures.py \
+		--scaffold \
+		--out-dir tests/fixtures/plots
 
 lint:
 	uv run ruff check .
@@ -258,3 +264,50 @@ dual-policy-thresholds:
 # answer from disk without rerunning.
 bootstrap-battery:
 	uv run python scripts/run_bootstrap_battery.py
+
+# ============================================================================ #
+# Phase 4 (Analysis) targets per ADR-046 Q1 (Commit 6)                          #
+# ============================================================================ #
+
+# `make marginal-bootstrap` — sweep marginal-bootstrap CI cells per ADR-046 Q1.
+# Reads evals/predictions/; writes evals/bootstrap/marginal_cells.parquet.
+# Defaults: n_resamples=10000, seeds=1,2 per ADR-022 multi-seed protocol.
+marginal-bootstrap:
+	uv run python scripts/run_marginal_bootstrap.py
+
+# `make cv-clt-ci` — sweep cross-fold CI cells per ADR-046 Q3 + ADR-024.
+# Reads evals/predictions/; always emits both cv_clt headline (Bayle 2020)
+# + block-bootstrap-on-folds spoke (inline impl per upstream issue #21)
+# + a_008_flag_fired boolean per A-008 sensitivity check.
+# Writes evals/audit/cross_fold_ci_audit.parquet.
+cv-clt-ci:
+	uv run python scripts/run_cv_clt_ci.py
+
+# `make mde-battery` — aggregate MDE cells across all source CI parquets
+# per ADR-046 Q4 + ADR-006 mandate (every reported CI gets an MDE cell).
+# Reads paired + marginal + cross-fold parquets; writes ~100-cell matrix
+# to evals/audit/mde_per_cell.parquet. Closed-form path per upstream issue #20.
+mde-battery:
+	uv run python scripts/run_mde.py
+
+# `make render-figures` — render the canonical 7-figure slate per ADR-046 Q6 +
+# ADR-030 (Quarto site embedding). Writes docs/plots/F{1..7}.svg + per-figure
+# .meta.json provenance sidecars (figure_id + ADR-046 + commit_sha + timestamp).
+# Falls back to scaffold renderer when evals/predictions/ is empty.
+render-figures:
+	uv run python scripts/render_figures.py
+
+# `make audit-reference-scorers` — fire the LLM-rater audit of reference rungs
+# per ADR-046 Q5 user override. Samples disagreement pairs (reference vs
+# trained rung at threshold 0.5) + interactive approval gate per ADR-020.
+# Reads evals/predictions/; writes evals/audit/reference_scorer_rater_audit.json.
+# Pass --dry-run for the cost preview without billing; --assume-yes to skip
+# the approval gate (scripted use only).
+audit-reference-scorers:
+	uv run python scripts/audit_reference_scorers.py
+
+# `make phase4-all` — Phase 4 umbrella per ADR-046 Q1 6-commit cadence.
+# Runs marginal + cv_clt + mde + figures sequentially. Reference-scorer audit
+# is gated behind interactive approval per ADR-020 and is NOT included in the
+# umbrella; invoke `make audit-reference-scorers` separately.
+phase4-all: marginal-bootstrap cv-clt-ci mde-battery render-figures
