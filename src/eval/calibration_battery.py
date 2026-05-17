@@ -31,7 +31,7 @@ is afterword scope per ADR-005 + SPEC §scope.
 
 from __future__ import annotations
 
-from typing import Any, Final, NamedTuple
+from typing import Any, Final, Literal, NamedTuple
 
 import numpy as np
 import pandas as pd
@@ -307,7 +307,7 @@ def compute_reliability_curve(
     y_true: NDArray[np.int_],
     y_score: NDArray[np.float64],
     n_bins: int = HEADLINE_N_BINS,
-    strategy: str = "quantile",
+    strategy: Literal["uniform", "quantile"] = "quantile",
 ) -> dict[str, Any]:
     """Return reliability-curve dict from eval-toolkit for the spoke diagrams.
 
