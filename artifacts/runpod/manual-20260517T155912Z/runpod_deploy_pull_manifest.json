@@ -1,0 +1,48 @@
+{
+  "schema_version": "v1",
+  "pulled_at_utc": "2026-05-17T16:38:00Z",
+  "failed": false,
+  "job_name": "pid-phase2-frozen-probe",
+  "run_id": "manual-20260517T155912Z",
+  "config_path": "configs/runpod/headline-frozen_probe.yaml",
+  "storage_mode": "ephemeral",
+  "datacenter_id": "US-MD-1",
+  "gpu_id": "NVIDIA A100-SXM4-80GB",
+  "pod_id": "i5p43hfq88zpqt",
+  "image": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "cost_cap_usd": 40.0,
+  "volume_mount": "/workspace",
+  "volume_name": null,
+  "volume_gb": 100,
+  "wall_time_sec": 5160.0,
+  "estimated_cost_usd": 2.13,
+  "pod_final_state": "deleted",
+  "manual_recovery": true,
+  "manual_recovery_notes": "Orchestrator preflight hung on FUSE F_SETLKW lock acquisition (uv git resolution + uv install-phase atomic writes on /workspace FUSE/MooseFS). Recovery: SSH into pod, kill stuck uv, set UV_CACHE_DIR=/root/uv_cache + UV_PROJECT_ENVIRONMENT=/root/.venv, run uv sync + python scripts/train_rung.py --rung frozen_probe manually. 24/24 parquets + 12 final-epoch checkpoints pulled successfully. Cell 7 (fold2/seed42) HF Trainer atomic checkpoint save also stalled ~10 min on FUSE before self-resolving — same MooseFS F_SETLKW bug class. Pod deleted post-rsync. Refs: uv#17801, MooseFS#380, FUSE kernel patch 2025-12-23. Fix-forward: X8 commit applied UV_CACHE_DIR + UV_PROJECT_ENVIRONMENT off /workspace to all 3 canonical-fire yamls for future orchestrator-fired runs.",
+  "artifacts": [
+    {
+      "label": "pid-predictions-frozen-probe",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/predictions/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/predictions",
+      "required": true,
+      "excludes": [],
+      "delete": false
+    },
+    {
+      "label": "pid-checkpoints-frozen-probe-final-only",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/checkpoints/evals/checkpoints/frozen_probe/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/checkpoints/frozen_probe",
+      "required": true,
+      "excludes": ["checkpoint-489", "checkpoint-508", "checkpoint-536", "checkpoint-545"],
+      "delete": false
+    },
+    {
+      "label": "log",
+      "remote_path": "/workspace/pid_phase2_frozen_probe.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/manual-20260517T155912Z",
+      "required": false,
+      "excludes": [],
+      "delete": false
+    }
+  ]
+}

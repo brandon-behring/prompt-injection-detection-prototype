@@ -1,0 +1,71 @@
+{
+  "schema_version": "v2",
+  "pulled_at_utc": "2026-05-17T15:51:45.290451+00:00",
+  "failed": true,
+  "job_name": "pid-phase2-frozen-probe",
+  "run_id": "pid-frozen-probe-20260517T151217Z",
+  "config_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/configs/runpod/headline-frozen_probe.yaml",
+  "storage_mode": "ephemeral",
+  "datacenter_id": "US-MD-1",
+  "gpu_id": "NVIDIA A100-SXM4-80GB",
+  "gpu_price_per_hour_usd": 1.49,
+  "gpu_price_source": "pod_describe",
+  "pod_id": "i5p43hfq88zpqt",
+  "pod_final_state": null,
+  "image": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "cost_cap_usd": 40.0,
+  "wall_time_sec": 2278.7625271780007,
+  "estimated_cost_usd": 0.9432,
+  "volume_mount": "/workspace",
+  "volume_name": null,
+  "volume_gb": 100,
+  "deploy_metadata": {
+    "local_git_sha": "e00439efde3399022f2a7f13e47f8ec5e1c55e8a",
+    "local_git_dirty": true,
+    "local_git_branch": "main",
+    "payload_lockfile": "uv.lock",
+    "payload_lockfile_sha256": "bd0f0299d13d64cb328fd05ecabd9a980298d8420628efb26e882a70ac441b1d"
+  },
+  "artifacts": [
+    {
+      "label": "pid-predictions-frozen-probe",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/predictions/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/predictions/",
+      "required": true,
+      "excludes": [],
+      "delete": false,
+      "status": null,
+      "bytes_transferred": null,
+      "duration_sec": null
+    },
+    {
+      "label": "pid-checkpoints-frozen-probe",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/checkpoints/frozen_probe/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/checkpoints/frozen_probe/",
+      "required": true,
+      "excludes": [],
+      "delete": false,
+      "status": null,
+      "bytes_transferred": null,
+      "duration_sec": null
+    },
+    {
+      "label": "log",
+      "remote_path": "/workspace/pid_phase2_frozen_probe.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/20260517T151217Z",
+      "required": false,
+      "excludes": [],
+      "delete": false,
+      "status": null,
+      "bytes_transferred": null,
+      "duration_sec": null
+    }
+  ],
+  "telemetry_files": [
+    "events.jsonl",
+    "nvidia_smi_start.txt",
+    "pod_describe_start.json",
+    "remote_env.json",
+    "pip_freeze.txt"
+  ]
+}
