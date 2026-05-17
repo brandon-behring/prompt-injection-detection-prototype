@@ -167,7 +167,11 @@ run:
     cd {remote_repo}
 
     echo "[pid-phase2-frozen-probe] START $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-    uv run python scripts/train_rung.py --rung frozen_probe
+    # X9 (2026-05-17): see comments in configs/runpod/headline-lora.yaml run.body.
+    # frozen-probe's cell 7 hit the same FUSE-checkpoint-save hang for ~10 min in
+    # the original fire (eventually self-resolved). Staging to /root removes the
+    # risk entirely for future re-fires.
+    uv run python scripts/train_rung.py --rung frozen_probe --checkpoint-staging-root /root/training_staging
     echo "[pid-phase2-frozen-probe] DONE $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 artifacts:

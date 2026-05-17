@@ -68,7 +68,21 @@ def main() -> int:
         "--checkpoint-root",
         type=Path,
         default=_REPO_ROOT / "evals" / "checkpoints",
-        help="Path to evals/checkpoints/ for HF Trainer state",
+        help="Path to evals/checkpoints/ for the final-epoch checkpoint dir per cell.",
+    )
+    parser.add_argument(
+        "--checkpoint-staging-root",
+        type=Path,
+        default=None,
+        help=(
+            "Optional: if set, HF Trainer writes per-step checkpoints here during training, "
+            "then the final-epoch dir is copied to --checkpoint-root after training completes. "
+            "Workaround for FUSE F_SETLKW hangs on /workspace (HF Trainer atomic-save protocol "
+            "stalls on MooseFS-backed paths; see memory entry "
+            "fuse-workspace-needs-uv-link-mode-copy.md). On RunPod pods, set this to "
+            "/root/training_staging (container overlay disk; POSIX locks work normally). "
+            "Default: None (Trainer writes directly to --checkpoint-root; safe locally but hangs on FUSE)."
+        ),
     )
     parser.add_argument(
         "--fold-only",
@@ -120,6 +134,7 @@ def main() -> int:
                 processed_root=args.processed_root,
                 predictions_root=args.predictions_root,
                 checkpoint_root=args.checkpoint_root,
+                checkpoint_staging_root=args.checkpoint_staging_root,
             )
             n_cells_done += 1
             n_files_written += len(written)

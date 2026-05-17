@@ -141,7 +141,11 @@ run:
     cd {remote_repo}
 
     echo "[pid-phase2-full-ft] START $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-    uv run python scripts/train_rung.py --rung full_ft
+    # X9 (2026-05-17): see comments in configs/runpod/headline-lora.yaml run.body.
+    # /root/training_staging required to bypass FUSE F_SETLKW hang during HF
+    # Trainer atomic-save. Full-FT writes more frequent intermediate checkpoints
+    # than LoRA, so the bypass is doubly important here.
+    uv run python scripts/train_rung.py --rung full_ft --checkpoint-staging-root /root/training_staging
     echo "[pid-phase2-full-ft] DONE $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 artifacts:

@@ -136,7 +136,13 @@ run:
     cd {remote_repo}
 
     echo "[pid-phase2-lora] START $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-    uv run python scripts/train_rung.py --rung lora
+    # X9 (2026-05-17): --checkpoint-staging-root pins HF Trainer's per-step
+    # checkpoint writes to /root (overlay disk; NOT FUSE). After training, the
+    # final-epoch dir is copied to evals/checkpoints (the orchestrator-pull path).
+    # Bypasses the FUSE F_SETLKW hang in Trainer._save() that crashed re-fire #6
+    # mid cell 4 with OSError: [Errno 5] (peft create_or_update_model_card +
+    # huggingface_hub repocard.save). See src/training/train_modernbert.py.
+    uv run python scripts/train_rung.py --rung lora --checkpoint-staging-root /root/training_staging
     echo "[pid-phase2-lora] DONE $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 artifacts:

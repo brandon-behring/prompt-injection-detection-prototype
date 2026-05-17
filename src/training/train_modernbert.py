@@ -339,6 +339,7 @@ def train_one_cell(
     processed_root: Path,
     predictions_root: Path,
     checkpoint_root: Path,
+    checkpoint_staging_root: Path | None = None,
     event_logger: Callable[..., None] | None = None,
 ) -> list[Path]:
     """Train one ``(rung, fold, seed)`` cell; write per-epoch predictions parquets.
@@ -356,7 +357,17 @@ def train_one_cell(
     predictions_root : Path
         Per-epoch parquet output root (``evals/predictions/``).
     checkpoint_root : Path
-        HF Trainer checkpoint root (e.g., ``evals/checkpoints/``).
+        Final-checkpoint root. After training completes the final-epoch dir
+        is copied here (``evals/checkpoints/``); orchestrator artifact-pull
+        finds it at this path.
+    checkpoint_staging_root : Path, optional
+        If set, HF Trainer writes per-step checkpoints here during training;
+        after ``trainer.train()`` + ``_cleanup_intermediate_checkpoints`` the
+        remaining final-epoch dir is copied to ``checkpoint_root``. Workaround
+        for FUSE F_SETLKW hangs (HF Trainer atomic-save stalls on MooseFS).
+        On RunPod pods set this to ``/root/training_staging`` (overlay disk).
+        Default ``None`` keeps prior behavior (Trainer writes directly to
+        ``checkpoint_root``).
     event_logger : Callable, optional
         Forwarded to flash-attn fallback recipe in ``load_modernbert``.
 
@@ -407,9 +418,19 @@ def train_one_cell(
     )
 
     batch_cfg = _get_batch_config()
-    output_dir = checkpoint_root / cfg["checkpoint_dir_template"].format(fold=fold, seed=seed)
+    rel_dir = cfg["checkpoint_dir_template"].format(fold=fold, seed=seed)
+    final_output_dir = checkpoint_root / rel_dir
+    # Staging dir: where HF Trainer writes during training. Defaults to final_output_dir
+    # (preserves prior behavior). When staging_root differs, atomic-save hangs on FUSE
+    # paths (HF Trainer's atomic-rename protocol stalls on MooseFS F_SETLKW); pinning
+    # staging to /root (overlay disk) bypasses the bug. Final-epoch dir is copied to
+    # final_output_dir after training completes for orchestrator artifact pull.
+    if checkpoint_staging_root is not None:
+        staging_output_dir = checkpoint_staging_root / rel_dir
+    else:
+        staging_output_dir = final_output_dir
     training_args = build_training_args(
-        output_dir=output_dir,
+        output_dir=staging_output_dir,
         seed=seed,
         per_device_train_batch_size=batch_cfg.per_device,
         gradient_accumulation_steps=batch_cfg.grad_accum,
@@ -444,6 +465,23 @@ def train_one_cell(
     # Full-FT storage discipline (per ADR-019 line 154) — predictions are the
     # audit-relevant artifact; intermediate ~150 MB weight checkpoints are not.
     if cfg.get("cleanup_intermediate_checkpoints", False):
-        _cleanup_intermediate_checkpoints(output_dir)
+        _cleanup_intermediate_checkpoints(staging_output_dir)
+
+    # If we trained into a staging dir off-/workspace (FUSE bypass), copy the
+    # remaining final-epoch contents to final_output_dir for orchestrator pull.
+    # Simple file-by-file copy (NOT atomic-rename) sidesteps the FUSE F_SETLKW
+    # bug that broke HF Trainer's atomic-save. shutil.copytree's recursive copy
+    # uses ordinary open()/write() syscalls on FUSE — those work normally.
+    if checkpoint_staging_root is not None and staging_output_dir != final_output_dir:
+        if staging_output_dir.exists():
+            final_output_dir.mkdir(parents=True, exist_ok=True)
+            for child in staging_output_dir.iterdir():
+                dest = final_output_dir / child.name
+                if child.is_dir():
+                    shutil.copytree(child, dest, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(child, dest)
+            # Free /root space — staging dir no longer needed after copy succeeds
+            shutil.rmtree(staging_output_dir, ignore_errors=True)
 
     return callback.written_paths
