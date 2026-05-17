@@ -26,7 +26,12 @@ local:
 
 variables:
   remote_repo: /workspace/prompt-injection-detection-submission
-  remote_venv: /workspace/.venv
+  # X8 (2026-05-17): venv on overlay disk (/root), NOT on /workspace (FUSE/MooseFS).
+  # Discovery: HF Trainer's atomic checkpoint save + uv install-phase atomic writes
+  # acquire POSIX exclusive locks (F_SETLKW). MooseFS#380 documents F_SETLKW hangs on
+  # FUSE; uv#17801 confirms hardlink-mode alone (X7's UV_LINK_MODE=copy) is insufficient.
+  # /root is container overlay disk where POSIX locks work normally.
+  remote_venv: /root/.venv
 
 pod:
   # Image refreshed 2026-05-17 per Phase 4 X5 — the previous tag
@@ -93,12 +98,17 @@ remote_env:
     HF_HOME: /workspace/.hf_cache
     HUGGINGFACE_HUB_CACHE: /workspace/.hf_cache
     HF_HUB_DOWNLOAD_TIMEOUT: "120"
-    UV_CACHE_DIR: /workspace/uv_cache
+    # X8 (2026-05-17): uv_cache on overlay disk, NOT FUSE. uv's resolution phase
+    # does `git reset --hard <sha>` on cached git+https deps (eval-toolkit /
+    # research_toolkit / runpod-deploy); on FUSE this hangs in `request_wait_answer`
+    # waiting for MooseFS to grant the F_SETLKW lock on `.git/index.lock`. /root is
+    # overlay disk → normal POSIX semantics → no hang.
+    UV_CACHE_DIR: /root/uv_cache
     UV_PROJECT_ENVIRONMENT: "{remote_venv}"
-    # Phase 4 X7 fix-forward 2026-05-17 — /workspace is FUSE (mfs#<dc>.runpod.net:9421);
-    # uv default --link-mode=hardlink hangs silently with stale-file-handle (os error 116).
-    # Per v5 lesson (v5_canonical_refscorers.yaml 2026-05-15) + memory entry
-    # fuse-workspace-needs-uv-link-mode-copy.md. Full-copy mode adds ~10-30s but eliminates hang.
+    # X7 (2026-05-17): UV_LINK_MODE=copy avoids stale-file-handle (os error 116) on
+    # FUSE-mounted /workspace during wheel install. Kept after X8 as defense-in-depth
+    # for any residual /workspace touchpoints. Refs: uv#17801, MooseFS#380, FUSE kernel
+    # patch 2025-12-23. See memory/fuse-workspace-needs-uv-link-mode-copy.md.
     UV_LINK_MODE: copy
 
 setup:
@@ -151,7 +161,7 @@ run:
     export HF_HOME=/workspace/.hf_cache
     export HUGGINGFACE_HUB_CACHE=/workspace/.hf_cache
     export HF_HUB_DOWNLOAD_TIMEOUT=120
-    export UV_CACHE_DIR=/workspace/uv_cache
+    export UV_CACHE_DIR=/root/uv_cache
     export UV_PROJECT_ENVIRONMENT={remote_venv}
     export PYTHONUNBUFFERED=1
     cd {remote_repo}
