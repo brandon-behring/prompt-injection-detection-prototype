@@ -59,6 +59,22 @@ notebook = [
 [tool.jupytext]
 formats = "ipynb,py:percent"
 
+# Pin torch to a CUDA-12.8 wheel via the pytorch-cu128 index.
+# RunPod pods (as of 2026-05) support CUDA up to 12.8; newer torch wheels
+# from default PyPI can resolve to a CUDA build that fails torch.cuda.is_available()
+# silently despite the GPU being functional. Surfaced by `runpod-deploy validate`
+# at Phase 4 close on the headline-* configs (see ADR-049 + docs/runpod-gotchas.md
+# pattern referenced from the runpod-deploy preflight scan).
+# `explicit = true` prevents uv from transparently pulling torch from this index
+# for any other package; only direct dispatch via [tool.uv.sources] uses it.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
 [tool.ruff]
 line-length = 100
 
