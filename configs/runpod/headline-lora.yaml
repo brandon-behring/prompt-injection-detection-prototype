@@ -24,7 +24,10 @@ variables:
   remote_venv: /workspace/.venv
 
 pod:
-  image: runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel
+  # Image refreshed 2026-05-17 per Phase 4 X5 — see comments in
+  # configs/runpod/headline-frozen_probe.yaml for the full rationale
+  # (previous phantom-image diagnosis + cost burned).
+  image: runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204
   # Datacenters + gpu_order priority refreshed per ADR-049 — see
   # configs/runpod/headline-frozen_probe.yaml comments + ADR-049 §Decision for
   # the full rationale (2026-05-17 stock snapshot; A100-80G is the only

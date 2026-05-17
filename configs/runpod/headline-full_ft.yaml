@@ -27,7 +27,9 @@ variables:
   remote_venv: /workspace/.venv
 
 pod:
-  image: runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel
+  # Image refreshed 2026-05-17 per Phase 4 X5 — see comments in
+  # configs/runpod/headline-frozen_probe.yaml for the full rationale.
+  image: runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204
   # Datacenters + gpu_order priority refreshed per ADR-049 — same change as
   # headline-frozen_probe + headline-lora; full-FT canonical run DEFERRED to
   # post-rehearsal per ADR-049 §Per-rung scope (fires after v0.9.0-rc1 dress-

@@ -29,7 +29,19 @@ variables:
   remote_venv: /workspace/.venv
 
 pod:
-  image: runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel
+  # Image refreshed 2026-05-17 per Phase 4 X5 — the previous tag
+  # `runpod/pytorch:2.5.0-py3.13-cuda12.4.1-cudnn9-devel` was a phantom
+  # (does NOT exist on Docker Hub; RunPod's pod create succeeded because the
+  # API does not validate image existence upfront, but the host got stuck in
+  # image-pull-backoff with `uptimeSeconds: 0` indefinitely — cost ~$0.62
+  # burned across 2 failed pods before diagnosis).
+  #
+  # `1.0.3-cu1281-torch290-ubuntu2204` matches our pinned torch 2.11.0+cu128
+  # (CUDA 12.8.1 base); pod's pre-installed PyTorch 2.9.0 is overridden by
+  # `uv sync --extra dev` in preflight which installs our pinned torch into
+  # the .venv per pyproject.toml [tool.uv.sources]. Last upstream update
+  # 2025-12-17; confirmed extant via Docker Hub tag listing.
+  image: runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204
   # Datacenters per ADR-049 priority refresh — US-MD-1 + US-WA-1 both carry
   # A100-SXM4-80GB at Low stock (2026-05-17 snapshot); US-CA-2 nominal fallback
   # (A100-SXM4-80GB present in DC but stockStatus=""; recovery candidate).
