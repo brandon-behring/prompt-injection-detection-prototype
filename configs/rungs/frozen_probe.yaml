@@ -1,0 +1,59 @@
+# configs/rungs/frozen_probe.yaml
+#
+# Locked per ADR-015 (single-backbone ModernBERT-base transformer slate)
+# + ADR-017 (frozen-probe dual role — candidate detector + diagnostic anchor)
+# + ADR-019 (transformer training recipe — uniform across the 3 transformer rungs)
+# + ADR-044 Q1 (seeds) + Q4 (YAML canonical) + Q5 (transformer trainer split).
+#
+# Do not edit without superseding ADR. The YAML is the config-hash source of
+# truth per SPEC-§5 + ADR-026 line 33 — code reads YAML and instantiates the
+# locked recipe; mismatches between code defaults and YAML fail loud.
+
+rung_id: frozen_probe
+rung_label: ModernBERT-base frozen-probe
+classifier_type: frozen_probe
+adr_lock: ADR-015 + ADR-017 + ADR-019
+contamination_state: backbone-partial-disjoint
+
+# ModernBERT-base backbone (per ADR-015 single-backbone lock).
+# revision SHA captured 2026-05-16 via HfApi.model_info; pinned per SDD
+# reproducibility discipline (per ADR-016 spirit applied to model weights).
+# Phase 2 follow-up — migrate to manifest models section per ADR-018 line 124
+# alongside ProtectAI v1/v2 SHA pinning (currently a Phase 1 gap).
+backbone:
+  hf_id: answerdotai/ModernBERT-base
+  revision: 8949b909ec900327062f0ebf497f51aef5e6f0c8
+
+# Training recipe (per ADR-019 — uniform across the 3 transformer rungs).
+# These values mirror src/training/training_args.py defaults; YAML is the
+# canonical source per ADR-044 Q4; runtime assert verifies match.
+training:
+  learning_rate: 1.0e-4
+  warmup_ratio: 0.10
+  lr_scheduler_type: cosine
+  num_train_epochs: 2
+  bf16: true
+  fp16: false
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  effective_batch: 32      # per_device * grad_accum = 32 (ADR-020 BATCH_TABLE)
+  save_strategy: epoch
+  eval_strategy: 'no'
+
+# Tokenization (per ADR-014 Q3 + Q4 — ModernBERT 8192 native; head-truncation
+# when exceeded; padding to multiple of 8 for tensor-core alignment).
+tokenizer:
+  max_length: 8192
+  pad_to_multiple_of: 8
+  truncation: true
+
+# Class weighting (per ADR-019 — sklearn balanced, per-fold recomputed).
+class_weight: balanced
+
+# Seeds slate (per ADR-044 Q1 partial supersession of ADR-019 line 99).
+seeds: [42, 43, 44]
+
+# Output paths (per ADR-019 line 153 — per-epoch parquet save discipline).
+predictions_dir: evals/predictions
+predictions_file_template: frozen-probe__fold{fold}__seed{seed}__epoch{epoch}.parquet
+checkpoint_dir_template: evals/checkpoints/frozen_probe/fold{fold}/seed{seed}

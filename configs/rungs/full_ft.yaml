@@ -1,0 +1,53 @@
+# configs/rungs/full_ft.yaml
+#
+# Locked per ADR-015 (single-backbone ModernBERT-base) + ADR-017 (rung-slate
+# expansion) + ADR-019 (transformer training recipe — uniform with frozen-probe
+# and LoRA) + ADR-044 Q1 (seeds) + Q4 (YAML canonical) + Q5 (transformer trainer
+# split). Storage discipline (per ADR-019 line 154) — intermediate checkpoint
+# subdirs are deleted post-training (~150 MB per checkpoint × 12 runs = ~1.8 GB
+# of throwaway weights avoided); per-row predictions remain as the audit
+# artifact.
+#
+# Do not edit without superseding ADR.
+
+rung_id: full_ft
+rung_label: ModernBERT-base full-FT
+classifier_type: full_ft
+adr_lock: ADR-015 + ADR-017 + ADR-019
+contamination_state: backbone-partial-disjoint
+
+backbone:
+  hf_id: answerdotai/ModernBERT-base
+  revision: 8949b909ec900327062f0ebf497f51aef5e6f0c8
+
+# Training recipe (per ADR-019 — shared with frozen-probe + LoRA).
+training:
+  learning_rate: 1.0e-4
+  warmup_ratio: 0.10
+  lr_scheduler_type: cosine
+  num_train_epochs: 2
+  bf16: true
+  fp16: false
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  effective_batch: 32
+  save_strategy: epoch
+  eval_strategy: 'no'
+
+tokenizer:
+  max_length: 8192
+  pad_to_multiple_of: 8
+  truncation: true
+
+class_weight: balanced
+
+seeds: [42, 43, 44]
+
+predictions_dir: evals/predictions
+predictions_file_template: full-ft__fold{fold}__seed{seed}__epoch{epoch}.parquet
+checkpoint_dir_template: evals/checkpoints/full_ft/fold{fold}/seed{seed}
+
+# Storage discipline (per ADR-019 line 154) — intermediate epoch checkpoint
+# subdirs are deleted post-training by the trainer. Per-row predictions are
+# the audit-relevant artifact; intermediate weights are not.
+cleanup_intermediate_checkpoints: true

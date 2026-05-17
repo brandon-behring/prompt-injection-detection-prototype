@@ -1,0 +1,57 @@
+# configs/rungs/lora.yaml
+#
+# Locked per ADR-015 (single-backbone ModernBERT-base) + ADR-017 (rung-slate
+# expansion) + ADR-019 (LoRA hyperparameters + transformer training recipe)
+# + ADR-044 Q1 (seeds) + Q4 (YAML canonical) + Q5 (transformer trainer split).
+#
+# Do not edit without superseding ADR.
+
+rung_id: lora
+rung_label: ModernBERT-base LoRA
+classifier_type: lora
+adr_lock: ADR-015 + ADR-017 + ADR-019
+contamination_state: backbone-partial-disjoint
+
+backbone:
+  hf_id: answerdotai/ModernBERT-base
+  revision: 8949b909ec900327062f0ebf497f51aef5e6f0c8
+
+# LoRA-specific hyperparameters (per ADR-019 §Decision — locked LoraConfig).
+# Per-encoder-layer count — 4 LoRA modules (Wqkv + attn.Wo + mlp.Wi + mlp.Wo);
+# 22 encoder layers in ModernBERT-base = 88 LoRA adapter modules total.
+# Trainable parameter ratio target — approximately 0.5 to 1 percent of total.
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.1
+  target_modules: [Wqkv, attn.Wo, mlp.Wo, mlp.Wi]
+  modules_to_save: [classifier]
+  task_type: SEQ_CLS
+  bias: none
+
+# Training recipe (per ADR-019 — shared with frozen-probe + full-FT).
+training:
+  learning_rate: 1.0e-4
+  warmup_ratio: 0.10
+  lr_scheduler_type: cosine
+  num_train_epochs: 2
+  bf16: true
+  fp16: false
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  effective_batch: 32
+  save_strategy: epoch
+  eval_strategy: 'no'
+
+tokenizer:
+  max_length: 8192
+  pad_to_multiple_of: 8
+  truncation: true
+
+class_weight: balanced
+
+seeds: [42, 43, 44]
+
+predictions_dir: evals/predictions
+predictions_file_template: lora__fold{fold}__seed{seed}__epoch{epoch}.parquet
+checkpoint_dir_template: evals/checkpoints/lora/fold{fold}/seed{seed}

@@ -54,7 +54,7 @@ class WeightedTrainer(Trainer):
         return (loss, outputs) if return_outputs else loss
 
 
-def compute_class_weights_tensor(train_labels: NDArray[np.int_]) -> torch.Tensor:
+def compute_class_weights_tensor(train_labels: NDArray[Any]) -> torch.Tensor:
     """Compute sklearn-style class_weight balanced as a torch tensor.
 
     Parameters

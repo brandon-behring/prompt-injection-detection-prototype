@@ -310,7 +310,7 @@ def test_classical_floor_rung_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="deferred to canonical run — needs GPU per ADR-027 headline-cloud target")
 def test_per_epoch_predictions_present() -> None:
     """Per-epoch parquet predictions exist for every transformer (rung, seed, fold).
 
@@ -322,8 +322,27 @@ def test_per_epoch_predictions_present() -> None:
     evals/predictions/<rung>__fold<F>__seed<S>__epoch<N>.parquet. TF-IDF + LR
     rung predictions (no epoch dimension; 12 files) and reference-rung
     predictions (16 files) are asserted separately.
+
+    Phase 2 status — trainer code lands in Commit 4 (ADR-044 Q5); actual 72
+    parquets are produced by the canonical run via scripts/train_rung.py
+    (ADR-044 Q6 + ADR-027 headline-cloud target). Unskip when those files
+    exist on disk; until then this invariant is skipped not failed.
     """
-    raise NotImplementedError("invariant test stub — implement in Phase 1")
+    from pathlib import Path
+
+    predictions_root = Path(__file__).resolve().parent.parent / "evals" / "predictions"
+    expected_files = [
+        f"{rung}__fold{fold}__seed{seed}__epoch{epoch}.parquet"
+        for rung in ("frozen-probe", "lora", "full-ft")
+        for fold in range(4)
+        for seed in (42, 43, 44)
+        for epoch in (1, 2)
+    ]
+    missing = [f for f in expected_files if not (predictions_root / f).exists()]
+    assert not missing, (
+        f"Missing {len(missing)} of 72 expected per-epoch transformer parquets; "
+        f"first 5 missing: {missing[:5]}"
+    )
 
 
 @pytest.mark.unit
