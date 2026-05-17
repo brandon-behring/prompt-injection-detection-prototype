@@ -1,4 +1,11 @@
-"""LODO k=4 x 3 seeds x within-fold stratified 80/20 splits (per ADR-016 Q2 + ADR-041 Q7).
+"""LODO k=4 x 3 seeds x within-fold stratified 80/20 splits.
+
+Per ADR-016 Q2 + ADR-041 Q7 (methodology) + ADR-047 (library-first refactor —
+the LODO source-disjoint partition is delegated to
+`eval_toolkit.splits.SourceDisjointKFoldSplitter`; project glue retains the
+nested-seed loop + stratified 80/20 train/val + benigns-in-every-train-pool
+discipline that is specific to this project's LODO-over-positives-only
+protocol).
 
 Public API
 ----------
@@ -34,6 +41,8 @@ from typing import Any, Final
 
 import numpy as np
 import pandas as pd
+from eval_toolkit.harness import EvalSlice
+from eval_toolkit.splits import SourceDisjointKFoldSplitter
 from numpy.typing import NDArray
 from sklearn.model_selection import train_test_split
 
@@ -50,6 +59,11 @@ SEEDS: Final[tuple[int, ...]] = (42, 43, 44)
 
 # Locked per ADR-016 Q2 — single 80/20 train/val random split (NOT nested k-fold).
 VAL_FRACTION: Final[float] = 0.20
+
+# Per ADR-047 — fixed seed for the upstream LODO partition step; project glue
+# remaps the upstream-shuffled fold order back to TRAIN_POSITIVE_SOURCES tuple
+# order so fold_id-to-source mapping stays deterministic across refactors.
+_LODO_PARTITION_SEED: Final[int] = 42
 
 
 class SplitsConfigError(ValueError):
@@ -114,6 +128,13 @@ def _validate_inputs(positives_df: pd.DataFrame, benigns_df: pd.DataFrame) -> No
 def make_splits(positives_df: pd.DataFrame, benigns_df: pd.DataFrame) -> list[FoldSeedSplit]:
     """Build the 12 (fold, seed) LODO + stratified-80/20 splits.
 
+    Source-disjoint LODO partition delegated to
+    `eval_toolkit.splits.SourceDisjointKFoldSplitter` per ADR-047; project glue
+    orders the resulting folds by `TRAIN_POSITIVE_SOURCES` tuple (preserving
+    fold_id-to-source mapping), composes the per-seed stratified 80/20 train/val
+    nested split, and applies the benigns-in-every-train-pool discipline that
+    is specific to this project's LODO-over-positives-only protocol.
+
     Parameters
     ----------
     positives_df : pandas.DataFrame
@@ -132,14 +153,43 @@ def make_splits(positives_df: pd.DataFrame, benigns_df: pd.DataFrame) -> list[Fo
     Raises
     ------
     SplitsConfigError
-        If input DataFrames violate the ADR-016 contract.
+        If input DataFrames violate the ADR-016 contract, or if the upstream
+        splitter produces a fold whose test set contains other than exactly
+        one source (would violate the LODO contract).
     """
     _validate_inputs(positives_df, benigns_df)
 
+    # Delegate LODO source-disjoint partition to upstream per ADR-047.
+    positives_slice = EvalSlice(
+        name="train_positives_lodo",
+        df=positives_df.reset_index(drop=True),
+    )
+    splitter = SourceDisjointKFoldSplitter(
+        source_col="source",
+        k=len(TRAIN_POSITIVE_SOURCES),
+        seed=_LODO_PARTITION_SEED,
+    )
+
+    # Map upstream's shuffled fold order back to TRAIN_POSITIVE_SOURCES tuple
+    # order so fold_id-to-source mapping stays deterministic across refactors.
+    # Each fold's test set must contain exactly one source per the LODO contract.
+    fold_by_source: dict[str, dict[str, EvalSlice]] = {}
+    for fold_dict in splitter.iter_folds(positives_slice):
+        test_sources = fold_dict["test"].df["source"].unique()
+        if len(test_sources) != 1:
+            raise SplitsConfigError(
+                f"upstream SourceDisjointKFoldSplitter produced fold with "
+                f"{len(test_sources)} test sources; expected exactly 1 per "
+                f"LODO contract (per ADR-016 Q2). Sources: "
+                f"{sorted(test_sources.tolist())}"
+            )
+        fold_by_source[str(test_sources[0])] = fold_dict
+
     splits: list[FoldSeedSplit] = []
     for fold_id, held_out in enumerate(TRAIN_POSITIVE_SOURCES):
-        test_df = positives_df[positives_df["source"] == held_out].reset_index(drop=True)
-        train_pool_pos = positives_df[positives_df["source"] != held_out]
+        fold_dict = fold_by_source[held_out]
+        test_df = fold_dict["test"].df.reset_index(drop=True)
+        train_pool_pos = fold_dict["train"].df  # 3 other positive sources
         train_pool = pd.concat([train_pool_pos, benigns_df], ignore_index=True)
 
         for seed in SEEDS:
