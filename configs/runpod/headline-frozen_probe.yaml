@@ -95,6 +95,11 @@ remote_env:
     HF_HUB_DOWNLOAD_TIMEOUT: "120"
     UV_CACHE_DIR: /workspace/uv_cache
     UV_PROJECT_ENVIRONMENT: "{remote_venv}"
+    # Phase 4 X7 fix-forward 2026-05-17 — /workspace is FUSE (mfs#<dc>.runpod.net:9421);
+    # uv default --link-mode=hardlink hangs silently with stale-file-handle (os error 116).
+    # Per v5 lesson (v5_canonical_refscorers.yaml 2026-05-15) + memory entry
+    # fuse-workspace-needs-uv-link-mode-copy.md. Full-copy mode adds ~10-30s but eliminates hang.
+    UV_LINK_MODE: copy
 
 setup:
   - command: "test -d /workspace && touch /workspace/.runpod-deploy-write-test && rm /workspace/.runpod-deploy-write-test"
@@ -128,7 +133,9 @@ staging:
     destination: "{remote_repo}/data/processed/"
 
 preflight:
-  - command: "export PATH=$HOME/.local/bin:$PATH && cd {remote_repo} && uv sync --extra dev"
+  # -v adds wheel-by-wheel progress logging per Phase 4 X7 — if uv sync hangs
+  # again, the orchestrator's log surfaces exactly which wheel was being processed.
+  - command: "export PATH=$HOME/.local/bin:$PATH && cd {remote_repo} && uv sync --extra dev -v"
     timeout_sec: 3600
     with_env: true
 
