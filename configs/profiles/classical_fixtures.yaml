@@ -1,0 +1,41 @@
+# configs/profiles/classical_fixtures.yaml
+#
+# Smoke-profile config for the classical floor — laptop CPU, no GPU, no
+# network, ~3 min wall-clock. Per ADR-027 + ADR-044 Q7. DO NOT use for
+# canonical runs; the tiny max_features yields underfit predictions by design.
+#
+# Structurally identical to configs/rungs/classical_floor.yaml but with
+# tiny knobs + fixtures paths so the full classical-floor trainer code
+# path can be exercised in ``make smoke`` without touching production data.
+
+rung_id: classical_floor_smoke
+rung_label: TF-IDF + LR classical floor (smoke profile)
+classifier_type: classical
+adr_lock: ADR-017 + ADR-027 + ADR-044 Q7
+contamination_state: verified_disjoint
+
+# Tiny TF-IDF — keeps memory + fit-time small for laptop smoke.
+tfidf:
+  word_ngram_min: 1
+  word_ngram_max: 2
+  word_max_features: 100
+  char_ngram_min: 3
+  char_ngram_max: 5
+  char_max_features: 100
+  sublinear_tf: true
+  lowercase: true
+  strip_accents: unicode
+
+# Same LR recipe as production (recipe is fast on small data).
+logistic_regression:
+  solver: liblinear
+  C: 1.0
+  class_weight: balanced
+  max_iter: 1000
+
+# Only one seed for smoke (smoke validates structure; production sweeps 3).
+seeds: [42]
+
+# Paths point at fixtures, not production data.
+predictions_dir: tests/fixtures/predictions
+predictions_file_template: tfidf-lr__fold{fold}__seed{seed}.parquet

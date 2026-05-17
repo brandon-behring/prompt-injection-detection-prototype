@@ -1,6 +1,8 @@
 .PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit headline-dry-run headline-cloud eval-from-hub site site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
-        data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate
+        data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
+        generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
+        headline-frozen-probe headline-lora headline-full-ft
 
 install:
 	uv sync --extra dev
@@ -23,9 +25,19 @@ test-all:
 	uv run pytest -q
 
 # `make smoke` — laptop-only, no GPU, no network, <10 min total (per ADR-027).
-# Phase 0 close: equivalent to test-smoke until configs/profiles/fixtures.yaml lands at Phase 1.
-# Phase 1+ extension: `uv run python scripts/run_metrics_battery.py --config configs/profiles/fixtures.yaml --output evals/smoke/results.json`.
+# Phase 2 wiring per ADR-044 Q7: runs pytest -m smoke (covers ~60 tests across
+# loaders/dedup/splits/audit/tfidf-lr/training-primitives/train-modernbert/
+# train-classical-floor/cost-rollup/smoke-pipeline) plus an end-to-end pipeline
+# pass via scripts/train_classical_floor.py against tests/fixtures/. The
+# transformer trainer is exercised structurally via mocks in
+# tests/smoke/test_train_modernbert_smoke.py (full GPU-backed runs are
+# canonical via headline-{frozen-probe,lora,full-ft}).
 smoke: test-smoke
+	uv run python scripts/train_classical_floor.py \
+		--config configs/profiles/classical_fixtures.yaml \
+		--processed-root tests/fixtures/processed \
+		--predictions-root tests/fixtures/predictions \
+		--fold-only 0 --seed-only 42
 
 lint:
 	uv run ruff check .
@@ -47,17 +59,19 @@ audit:
 	uv run python scripts/regenerate_audit.py --check
 
 # `make headline-dry-run` — cost preview without provisioning (per ADR-027 + ADR-020).
-# Placeholder until `configs/runpod/headline.yaml` lands at Phase 1.
+# Phase 2 wiring per ADR-044 Q6: dry-runs all 3 per-rung configs.
 headline-dry-run:
-	@echo "[headline-dry-run] placeholder — implement at Phase 1 entry per ADR-027 + ADR-020"
-	@echo "[headline-dry-run] expected wiring: runpod-deploy validate --all && runpod-deploy run --dry-run --config configs/runpod/headline.yaml"
+	runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
+	runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
+	runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
+	runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
+	runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
+	runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
 
-# `make headline-cloud` — canonical evaluation deliverable (per ADR-027 + ADR-020).
-# NOT a test target. Cost-cap-gated at \$$125/job per ADR-020 + A-002.
-# Placeholder until `configs/runpod/headline.yaml` lands at Phase 1.
-headline-cloud:
-	@echo "[headline-cloud] placeholder — implement at Phase 1 entry per ADR-027 + ADR-020"
-	@echo "[headline-cloud] expected wiring: runpod-deploy validate --all && runpod-deploy run --dry-run --config configs/runpod/headline.yaml && interactive-approval && runpod-deploy run --config configs/runpod/headline.yaml"
+# `make headline-cloud` — Phase 2 umbrella. Fires all 3 transformer rungs in
+# sequence (frozen-probe → lora → full-ft) per ADR-044 Q6. Each gated by its
+# own interactive approval. Use headline-{rung} targets for per-rung control.
+headline-cloud: headline-frozen-probe headline-lora headline-full-ft
 
 # `make eval-from-hub RUNG=<name>` — T0 reproducibility tier (per ADR-034).
 # Downloads a published BBehring/prompt-injection-<rung-name> checkpoint per ADR-032
@@ -130,3 +144,60 @@ data-dedup-prelabel:
 # table at {0.75, 0.80, 0.85}; write evals/dedup_calibration.json.
 data-dedup-calibrate:
 	uv run python scripts/calibrate_dedup.py
+
+# ---------------------------------------------------------------------------
+# Phase 2 (Training) targets — per ADR-015 + ADR-017 + ADR-019 + ADR-020 + ADR-044.
+# Source secrets via .env.local (HF_TOKEN gates ModernBERT-base download).
+# ---------------------------------------------------------------------------
+
+# `make generate-fixtures` — regenerate tests/fixtures/processed/* parquets
+# (per ADR-027 + ADR-044 Q7). Idempotent (seeded by 1337).
+generate-fixtures:
+	uv run python scripts/generate_fixtures.py
+
+# `make train-classical-floor` — train all 12 (fold, seed) cells of the
+# TF-IDF + LR classical-floor rung locally on CPU (per ADR-017 + ADR-044 Q6).
+# Wall-clock ~5 min; near-zero cost. Reads configs/rungs/classical_floor.yaml.
+train-classical-floor:
+	uv run python scripts/train_classical_floor.py
+
+# `make train-rung RUNG=<frozen_probe|lora|full_ft>` — train one transformer
+# rung's 12 (fold, seed) cells (per ADR-019 + ADR-044 Q5 + Q6).
+# Intended for cloud runs via runpod-deploy; local GPU OK for debugging.
+# For canonical headline runs use `make headline-<rung>` (cost-cap gated).
+train-rung:
+	@if [ -z "$(RUNG)" ]; then echo "ERROR: RUNG=<frozen_probe|lora|full_ft> required"; exit 2; fi
+	uv run python scripts/train_rung.py --rung $(RUNG)
+
+# `make cost-rollup` — aggregate artifacts/runpod/*/runpod_deploy_pull_manifest.json
+# files plus evals/audit/llm_judge_cache/*.json into evals/cost_ledger.csv
+# (per ADR-020 dual-layer cost cap discipline).
+cost-rollup:
+	uv run python scripts/cost_rollup.py
+
+# `make cost-rollup-check` — fail exit 1 if cumulative spend > $200 hard cap
+# (CI-gated per ADR-020 + ADR-044 Q6).
+cost-rollup-check:
+	uv run python scripts/cost_rollup.py --check
+
+# `make headline-frozen-probe` — canonical frozen-probe rung run on RunPod
+# (per ADR-020 + ADR-044 Q6). Cost-cap $40/pod. Interactive-approval gated.
+headline-frozen-probe:
+	runpod-deploy validate --config configs/runpod/headline-frozen_probe.yaml --all
+	runpod-deploy run --dry-run --config configs/runpod/headline-frozen_probe.yaml
+	@read -p "Approve frozen-probe canonical run (cap \$$40)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
+	runpod-deploy run --config configs/runpod/headline-frozen_probe.yaml
+
+# `make headline-lora` — canonical LoRA rung run on RunPod. Cost-cap $60/pod.
+headline-lora:
+	runpod-deploy validate --config configs/runpod/headline-lora.yaml --all
+	runpod-deploy run --dry-run --config configs/runpod/headline-lora.yaml
+	@read -p "Approve LoRA canonical run (cap \$$60)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
+	runpod-deploy run --config configs/runpod/headline-lora.yaml
+
+# `make headline-full-ft` — canonical full-FT rung run on RunPod. Cost-cap $100/pod.
+headline-full-ft:
+	runpod-deploy validate --config configs/runpod/headline-full_ft.yaml --all
+	runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
+	@read -p "Approve full-FT canonical run (cap \$$100)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
+	runpod-deploy run --config configs/runpod/headline-full_ft.yaml

@@ -129,7 +129,11 @@ def main() -> int:
                 flush=True,
             )
             for p in written:
-                print(f"[train_rung]      {p.relative_to(_REPO_ROOT)}")
+                try:
+                    display_p: Path | str = p.relative_to(_REPO_ROOT)
+                except ValueError:
+                    display_p = p
+                print(f"[train_rung]      {display_p}")
 
     total_elapsed = time.monotonic() - t_start
     # The success_marker in configs/runpod/headline-<rung>.yaml matches this line.

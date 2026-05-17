@@ -38,4 +38,9 @@ transcripts/*.md
 # Auto-saved transcripts (SessionEnd hook output) — private like the rest
 transcripts/auto/
 
+# Smoke-time fixture outputs (per ADR-027 + ADR-044 Q7) — committed inputs
+# live at tests/fixtures/processed/; predictions + checkpoints are runtime.
+tests/fixtures/predictions/
+tests/fixtures/checkpoints/
+
 .claude/scheduled_tasks.lock

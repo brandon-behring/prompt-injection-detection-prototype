@@ -98,10 +98,14 @@ def main() -> int:
             )
             n_written += 1
             elapsed = time.monotonic() - t_cell
-            print(
-                f"-> {out_path.relative_to(_REPO_ROOT)} ({elapsed:.1f}s)",
-                flush=True,
-            )
+            # Display relative path when output is inside the repo (typical case);
+            # fall back to absolute when --predictions-root points outside (e.g.
+            # tmp_path in smoke tests).
+            try:
+                display_path: Path | str = out_path.relative_to(_REPO_ROOT)
+            except ValueError:
+                display_path = out_path
+            print(f"-> {display_path} ({elapsed:.1f}s)", flush=True)
 
     total_elapsed = time.monotonic() - t_start
     print(
