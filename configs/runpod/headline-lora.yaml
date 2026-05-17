@@ -108,7 +108,7 @@ staging:
 
 preflight:
   - command: "export PATH=$HOME/.local/bin:$PATH && cd {remote_repo} && uv sync --extra dev"
-    timeout_sec: 1800
+    timeout_sec: 3600
     with_env: true
 
 run:
