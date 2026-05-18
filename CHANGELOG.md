@@ -18,6 +18,42 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.2] — 2026-05-18
+
+Governance patch — closes the two `REPO_AUDIT_2026-05-18` findings
+that v1.0.0 + v1.0.1 documented as carryforwards but did not formally
+supersede via ADR. Zero code changes; ADR + ledger update only.
+Reviewer URL stays pinned at `tree/v1.0.0`; live Quarto site reflects
+this patch.
+
+### Added
+
+- **`decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md`** —
+  narrow supersession of ADR-034 (T0 score-match wiring axis only;
+  T1 + T3 tiers unchanged) and ADR-039 (gate 3 invariant-scaffold
+  unskip axis only; gates 1+2+4+5+6 unchanged). Explicit v1.1.x
+  landing conditions for both blocks. Per the audit's explicit
+  invitation: *"Either finish this path or write a superseding ADR
+  that explicitly waives it for submission"*; this ADR is the
+  supersession path closure.
+
+### Changed
+
+- **`decisions/ADR-034-reproducibility-tier-full-ladder.md`** —
+  frontmatter gains `superseded_by: [ADR-051]`.
+- **`decisions/ADR-039-acceptance-criteria-six-gate-integration-checklist.md`** —
+  same.
+- **`SUBMISSION_AUDIT.md`** regenerated via
+  `scripts/regenerate_audit.py` to reflect ADR-051 + the two narrow
+  supersessions.
+
+### Decisions
+
+- 51 ADRs accepted across Phase 0-00 through v1.0.2 close.
+- Reviewer URL pin stays at `tree/v1.0.0`; live Quarto site at
+  `brandon-behring.github.io/prompt-injection-detection-prototype/`
+  reflects v1.0.2 (and all subsequent v1.0.x patches).
+
 ## [1.0.1] — 2026-05-18
 
 Post-submission polish patch (per ADR-033 v1.0.x patch convention).

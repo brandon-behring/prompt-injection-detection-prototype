@@ -9,6 +9,8 @@ claim: Phase 0-08 locks SPEC_GREENFIELD ledger row 351 (Project-specific accepta
 source: SPEC_GREENFIELD.md §6 Verify ledger row 351 + Phase 0-08 walk Q7 + SPEC_GREENFIELD §6 line 252 decision-needed prompt
 acceptance_criterion: SPEC_GREENFIELD ledger row 351 carries locked-to-six-gate-integration-checklist status (see ADR-039); SPEC_SHEET §7 Verification and acceptance criteria gains the 6-gate integration checklist with the per-ADR-criteria pointer plus the kit-default §6 gates preserved; SUBMISSION_TEMPLATE.md or a SUBMISSION.md sign-off section quotes the 6 gates so the submission-readiness check is reviewer-readable at submission tag; tests/test_invariants.py contains skip-marked stub test_submission_readiness_gates_satisfied asserting at v1.0.0 submission tag (1) grep -c open SPEC_GREENFIELD.md decision-ledger appendix section returns 0; (2) grep -c [OPEN] SPEC_SHEET.md returns 0 excluding the Status [OPEN] document-level header which transitions to [LOCKED] at Phase 0 close; (3) pytest --collect-only tests/test_invariants.py shows zero skip-marked tests; (4) make audit exits 0; (5) git tag -l v0.9.0-rc1 returns the tag name (rehearsal fired); (6) the three reviewer URLs return HTTP 200 (or 301 redirect to a 200) — checkable via curl --head; SUBMISSION_AUDIT.md regenerates from the new ADR.
 closing_commit: 5427b95
+superseded_by:
+  - ADR-051
 references:
   - SPEC_SHEET.md
   - SPEC_GREENFIELD.md

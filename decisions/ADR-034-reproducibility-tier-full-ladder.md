@@ -9,6 +9,8 @@ claim: Phase 0-07 locks SPEC_GREENFIELD ledger row 350 (Reproducibility tier) at
 source: SPEC_GREENFIELD.md §Submission ledger row 350 + SPEC_GREENFIELD §6 line 249 (kit-level reproducibility claim) + Phase 0-07 walk Q4
 acceptance_criterion: SPEC_GREENFIELD ledger row 350 carries locked-to-full-ladder-T0-T1-T3 status (see ADR-034); WRITEUP/reproducibility.md spoke exists with at minimum a title plus a tier-ladder table stub (full content populated at Phase 5 — verbatim commands plus cost plus time plus what-verifies plus what-does-not-verify); Makefile has a make eval-from-hub target placeholder (Phase 3 implementation; can be a stub echo at Phase 0-07 close); tests/test_invariants.py contains skip-marked stub test_reproducibility_tier_documented asserting (1) WRITEUP/reproducibility.md exists; (2) the spoke contains all three tier names (T0 plus T1 plus T3) in section headers; (3) each tier has a verbatim command (make smoke plus make eval-from-hub plus make headline-cloud) in a code block; (4) Makefile contains all three target names (smoke plus eval-from-hub plus headline-cloud) as rules; SUBMISSION_AUDIT.md regenerates from the new ADR.
 closing_commit: 7979dc9
+superseded_by:
+  - ADR-051
 references:
   - https://www.acm.org/publications/policies/artifact-review-and-badging-current
   - https://github.com/brandon-behring/runpod-deploy
