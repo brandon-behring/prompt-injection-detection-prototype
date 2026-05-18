@@ -51,4 +51,9 @@ tests/fixtures/plots/
 # files carry vendor responses + are not part of the methodology contract.
 evals/audit/llm_judge_cache/
 
+# Phase 6+7 background-job logs (val inference + bootstrap + cv-clt-ci) — operational
+# noise; some are >100 MB (marginal_bootstrap_*.log). Manifest .md files in this
+# dir stay tracked as the durable artifact summaries.
+artifacts/local/*.log
+
 .claude/scheduled_tasks.lock
