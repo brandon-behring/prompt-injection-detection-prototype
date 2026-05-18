@@ -75,8 +75,10 @@ acceptance_criterion: >-
   remaining contamination tiers are still active); cost_ledger.csv shows 0
   USD LLM-judge entries and the full-FT re-fire entry carries the failed
   status + manual_recovery true + the FUSE EIO crash notes.
-closing_commit:
+closing_commit: 3b16036
 supersedes:
+  - ADR-018
+  - ADR-021
 superseded_by:
 references:
   - decisions/ADR-005-honest-methodology-over-claimed-best-numbers.md
