@@ -76,9 +76,9 @@ def test_classical_floor_smoke_pipeline_end_to_end(tmp_path: Path) -> None:
         text=True,
         timeout=60,
     )
-    assert (
-        result.returncode == 0
-    ), f"train_classical_floor.py failed:\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+    assert result.returncode == 0, (
+        f"train_classical_floor.py failed:\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+    )
 
     out_path = predictions_root / "tfidf-lr__fold0__seed42.parquet"
     assert out_path.exists(), f"predictions parquet missing at {out_path}"
@@ -95,9 +95,9 @@ def test_classical_floor_smoke_pipeline_end_to_end(tmp_path: Path) -> None:
         "label",
         "predicted_proba_class1",
     }
-    assert expected_cols <= set(
-        preds.columns
-    ), f"predictions schema missing fields: {expected_cols - set(preds.columns)}"
+    assert expected_cols <= set(preds.columns), (
+        f"predictions schema missing fields: {expected_cols - set(preds.columns)}"
+    )
     assert (preds["rung"] == "tfidf-lr").all()
     assert (preds["fold"] == 0).all()
     assert (preds["seed"] == 42).all()

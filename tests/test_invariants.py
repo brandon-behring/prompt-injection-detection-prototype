@@ -57,12 +57,12 @@ def test_class_balance_per_fold() -> None:
         )
     with audit_path.open("r", encoding="utf-8") as fh:
         audit = json.load(fh)
-    assert (
-        audit["a_005_class_balance_clean"] is True
-    ), f"A-005 trigger 2 (class balance) fired: {audit.get('a_005_triggers_fired')}"
-    assert (
-        len(audit["per_fold_class_balance"]) == 12
-    ), f"expected 12 (fold, seed) records; got {len(audit['per_fold_class_balance'])}"
+    assert audit["a_005_class_balance_clean"] is True, (
+        f"A-005 trigger 2 (class balance) fired: {audit.get('a_005_triggers_fired')}"
+    )
+    assert len(audit["per_fold_class_balance"]) == 12, (
+        f"expected 12 (fold, seed) records; got {len(audit['per_fold_class_balance'])}"
+    )
 
 
 @pytest.mark.unit
@@ -194,9 +194,9 @@ def test_source_manifest_schema_valid() -> None:
     assert parsed["schema_version"] == SCHEMA_VERSION
     assert isinstance(parsed["bump_history"], list)
     seen_names = {row["name"] for row in parsed["sources"]}
-    assert (
-        seen_names == EXPECTED_SOURCE_NAMES
-    ), f"manifest source names mismatch ADR-016 slate: {seen_names ^ EXPECTED_SOURCE_NAMES}"
+    assert seen_names == EXPECTED_SOURCE_NAMES, (
+        f"manifest source names mismatch ADR-016 slate: {seen_names ^ EXPECTED_SOURCE_NAMES}"
+    )
     role_counts: dict[str, int] = {role: 0 for role in EXPECTED_ROLE_COUNTS}
     for row in parsed["sources"]:
         role_counts[row["role"]] += 1
@@ -272,22 +272,22 @@ def test_benign_contamination_scan_clean() -> None:
     from pathlib import Path
 
     scan_path = Path(__file__).resolve().parent.parent / "evals" / "contamination_scan.json"
-    assert (
-        scan_path.exists()
-    ), "evals/contamination_scan.json not found; run scripts/run_data_pipeline.py first."
+    assert scan_path.exists(), (
+        "evals/contamination_scan.json not found; run scripts/run_data_pipeline.py first."
+    )
     with scan_path.open("r", encoding="utf-8") as fh:
         scan = json.load(fh)
-    assert (
-        scan["a_005_benign_contamination_clean"] is True
-    ), f"A-005 trigger 1 (benign contamination) fired: {scan.get('a_005_triggers_fired')}"
+    assert scan["a_005_benign_contamination_clean"] is True, (
+        f"A-005 trigger 1 (benign contamination) fired: {scan.get('a_005_triggers_fired')}"
+    )
     for benign_source in ("lmsys_chat_1m", "ultrachat_200k"):
-        assert (
-            benign_source in scan["per_benign_source"]
-        ), f"contamination_scan missing benign source {benign_source!r}"
+        assert benign_source in scan["per_benign_source"], (
+            f"contamination_scan missing benign source {benign_source!r}"
+        )
         pct = scan["per_benign_source"][benign_source]["contamination_pct"]
-        assert (
-            pct <= 2.0
-        ), f"{benign_source} contamination {pct:.2f}% exceeds A-005 trigger 1 threshold (2.0%)"
+        assert pct <= 2.0, (
+            f"{benign_source} contamination {pct:.2f}% exceeds A-005 trigger 1 threshold (2.0%)"
+        )
 
 
 @pytest.mark.unit
@@ -606,9 +606,9 @@ def test_effective_batch_constant_across_gpu_classes() -> None:
     required_classes = {"H100", "H200", "A100-80G", "A100-40G", "L40S", "L40"}
     actual_classes = set(BATCH_TABLE.keys())
     missing = required_classes - actual_classes
-    assert (
-        not missing
-    ), f"BATCH_TABLE missing GPU classes from ADR-020 pod.gpu_order: {sorted(missing)}"
+    assert not missing, (
+        f"BATCH_TABLE missing GPU classes from ADR-020 pod.gpu_order: {sorted(missing)}"
+    )
 
     for gpu_class, cfg in BATCH_TABLE.items():
         product = cfg.per_device * cfg.grad_accum

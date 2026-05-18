@@ -78,12 +78,12 @@ def test_make_splits_test_set_source_disjoint() -> None:
     for split in splits:
         train_sources = set(split.train["source"].unique())
         val_sources = set(split.val["source"].unique())
-        assert (
-            split.held_out_source not in train_sources
-        ), f"fold {split.fold_id} test source {split.held_out_source} leaked into train"
-        assert (
-            split.held_out_source not in val_sources
-        ), f"fold {split.fold_id} test source {split.held_out_source} leaked into val"
+        assert split.held_out_source not in train_sources, (
+            f"fold {split.fold_id} test source {split.held_out_source} leaked into train"
+        )
+        assert split.held_out_source not in val_sources, (
+            f"fold {split.fold_id} test source {split.held_out_source} leaked into val"
+        )
         # Test set contains ONLY the held-out source.
         test_sources = set(split.test["source"].unique())
         assert test_sources == {split.held_out_source}
@@ -99,16 +99,16 @@ def test_make_splits_stratified_class_balance() -> None:
         train_pool_size = len(split.train) + len(split.val)
         val_size = len(split.val)
         # 80/20 +/- 1 row for rounding.
-        assert (
-            abs(val_size / train_pool_size - VAL_FRACTION) < 0.02
-        ), f"val fraction {val_size / train_pool_size:.3f} far from {VAL_FRACTION}"
+        assert abs(val_size / train_pool_size - VAL_FRACTION) < 0.02, (
+            f"val fraction {val_size / train_pool_size:.3f} far from {VAL_FRACTION}"
+        )
         # Stratification — train pool minus held-out source has 90 positives + 200 benigns
         # = 290; class ratio ~ 0.31 pos. train + val each should match.
         train_pos_ratio = (split.train["label"] == 1).mean()
         val_pos_ratio = (split.val["label"] == 1).mean()
-        assert (
-            abs(train_pos_ratio - val_pos_ratio) < 0.05
-        ), f"train/val class ratios diverged: train={train_pos_ratio:.3f} val={val_pos_ratio:.3f}"
+        assert abs(train_pos_ratio - val_pos_ratio) < 0.05, (
+            f"train/val class ratios diverged: train={train_pos_ratio:.3f} val={val_pos_ratio:.3f}"
+        )
 
 
 @pytest.mark.smoke
