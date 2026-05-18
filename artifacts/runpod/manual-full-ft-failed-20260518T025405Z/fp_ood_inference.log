@@ -1,0 +1,90 @@
+[fp-ood] START 2026-05-18T07:35:44Z
+[inference-battery] tier=trained sources=['notinject', 'xstest', 'jbb_behaviors', 'bipia', 'injecagent']
+[inference-battery] pre-loading 5 sources ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[inference-battery] loading frozen_probe/fold0/seed42/checkpoint-1090
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  77%|███████▋  | 106/138 [00:00<00:00, 1051.89it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1141.35it/s]
+[inference-battery] wrote frozen_probe/fold0/seed42/notinject: 339 rows in 1.0s
+[inference-battery] wrote frozen_probe/fold0/seed42/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold0/seed42/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold0/seed42/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold0/seed42/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold0/seed43/checkpoint-1090
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  77%|███████▋  | 106/138 [00:00<00:00, 986.10it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1114.20it/s]
+[inference-battery] wrote frozen_probe/fold0/seed43/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold0/seed43/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold0/seed43/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold0/seed43/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold0/seed43/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold0/seed44/checkpoint-1090
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  82%|████████▏ | 113/138 [00:00<00:00, 1099.59it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1215.68it/s]
+[inference-battery] wrote frozen_probe/fold0/seed44/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold0/seed44/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold0/seed44/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold0/seed44/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold0/seed44/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold1/seed42/checkpoint-1072
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  70%|██████▉   | 96/138 [00:00<00:00, 938.25it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1113.51it/s]
+[inference-battery] wrote frozen_probe/fold1/seed42/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold1/seed42/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold1/seed42/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold1/seed42/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold1/seed42/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold1/seed43/checkpoint-1072
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  78%|███████▊  | 107/138 [00:00<00:00, 1027.11it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1128.41it/s]
+[inference-battery] wrote frozen_probe/fold1/seed43/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold1/seed43/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold1/seed43/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold1/seed43/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold1/seed43/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold1/seed44/checkpoint-1072
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  68%|██████▊   | 94/138 [00:00<00:00, 912.39it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1062.86it/s]
+[inference-battery] wrote frozen_probe/fold1/seed44/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold1/seed44/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold1/seed44/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold1/seed44/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold1/seed44/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold2/seed42/checkpoint-978
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  71%|███████   | 98/138 [00:00<00:00, 915.29it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1008.34it/s]
+[inference-battery] wrote frozen_probe/fold2/seed42/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold2/seed42/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold2/seed42/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold2/seed42/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold2/seed42/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold2/seed43/checkpoint-978
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  75%|███████▌  | 104/138 [00:00<00:00, 1039.80it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1104.41it/s]
+[inference-battery] wrote frozen_probe/fold2/seed43/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold2/seed43/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold2/seed43/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold2/seed43/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold2/seed43/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold2/seed44/checkpoint-978
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 103/138 [00:00<00:00, 1009.80it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1140.15it/s]
+[inference-battery] wrote frozen_probe/fold2/seed44/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold2/seed44/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold2/seed44/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold2/seed44/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold2/seed44/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold3/seed42/checkpoint-1016
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  69%|██████▉   | 95/138 [00:00<00:00, 936.02it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1085.11it/s]
+[inference-battery] wrote frozen_probe/fold3/seed42/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold3/seed42/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold3/seed42/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold3/seed42/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold3/seed42/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold3/seed43/checkpoint-1016
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  79%|███████▉  | 109/138 [00:00<00:00, 1086.95it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1145.81it/s]
+[inference-battery] wrote frozen_probe/fold3/seed43/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold3/seed43/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold3/seed43/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold3/seed43/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold3/seed43/injecagent: 62 rows in 0.1s
+[inference-battery] loading frozen_probe/fold3/seed44/checkpoint-1016
+Loading weights:   0%|          | 0/138 [00:00<?, ?it/s]Loading weights:  80%|████████  | 111/138 [00:00<00:00, 1086.31it/s]Loading weights: 100%|██████████| 138/138 [00:00<00:00, 1181.64it/s]
+[inference-battery] wrote frozen_probe/fold3/seed44/notinject: 339 rows in 0.7s
+[inference-battery] wrote frozen_probe/fold3/seed44/xstest: 450 rows in 0.9s
+[inference-battery] wrote frozen_probe/fold3/seed44/jbb_behaviors: 200 rows in 0.4s
+[inference-battery] wrote frozen_probe/fold3/seed44/bipia: 50 rows in 0.1s
+[inference-battery] wrote frozen_probe/fold3/seed44/injecagent: 62 rows in 0.1s
+[inference-battery] DONE tier=trained: 60 cells in 39.8s
+[fp-ood] DONE 2026-05-18T07:36:30Z

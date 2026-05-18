@@ -1,0 +1,217 @@
+[lora-ood-inference] START 2026-05-18T07:30:02Z
+[inference-battery] tier=trained sources=['notinject', 'xstest', 'jbb_behaviors', 'bipia', 'injecagent']
+[inference-battery] pre-loading 5 sources ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating NotInject_one split:   0%|          | 0/113 [00:00<?, ? examples/s]Generating NotInject_one split: 100%|██████████| 113/113 [00:00<00:00, 10764.64 examples/s]
+Generating NotInject_two split:   0%|          | 0/113 [00:00<?, ? examples/s]Generating NotInject_two split: 100%|██████████| 113/113 [00:00<00:00, 14619.71 examples/s]
+Generating NotInject_three split:   0%|          | 0/113 [00:00<?, ? examples/s]Generating NotInject_three split: 100%|██████████| 113/113 [00:00<00:00, 15126.91 examples/s]
+Generating harmful split: 0 examples [00:00, ? examples/s]Generating harmful split: 100 examples [00:00, 14095.18 examples/s]
+Generating benign split: 0 examples [00:00, ? examples/s]Generating benign split: 100 examples [00:00, 16960.39 examples/s]
+[inference-battery] loading lora/fold0/seed42/checkpoint-1090
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights:   3%|▎         | 4/136 [00:00<00:11, 11.57it/s]Loading weights:  20%|█▉        | 27/136 [00:00<00:01, 67.22it/s]Loading weights:  32%|███▏      | 44/136 [00:00<00:00, 93.53it/s]Loading weights:  42%|████▏     | 57/136 [00:00<00:00, 101.48it/s]Loading weights:  53%|█████▎    | 72/136 [00:00<00:00, 102.04it/s]Loading weights:  64%|██████▍   | 87/136 [00:00<00:00, 112.87it/s]Loading weights:  74%|███████▎  | 100/136 [00:01<00:00, 108.48it/s]Loading weights:  82%|████████▏ | 112/136 [00:01<00:00, 104.37it/s]Loading weights:  92%|█████████▏| 125/136 [00:01<00:00, 109.50it/s]Loading weights: 100%|██████████| 136/136 [00:01<00:00, 97.41it/s] 
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[transformers] `use_return_dict` is deprecated! Use `return_dict` instead!
+[inference-battery] wrote lora/fold0/seed42/notinject: 339 rows in 1.5s
+[inference-battery] wrote lora/fold0/seed42/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold0/seed42/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold0/seed42/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold0/seed42/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold0/seed43/checkpoint-1090
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 1858.64it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold0/seed43/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold0/seed43/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold0/seed43/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold0/seed43/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold0/seed43/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold0/seed44/checkpoint-1090
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 2798.52it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold0/seed44/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold0/seed44/xstest: 450 rows in 1.5s
+[inference-battery] wrote lora/fold0/seed44/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold0/seed44/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold0/seed44/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold1/seed42/checkpoint-1072
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 1398.44it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold1/seed42/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold1/seed42/xstest: 450 rows in 1.5s
+[inference-battery] wrote lora/fold1/seed42/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold1/seed42/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold1/seed42/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold1/seed43/checkpoint-1072
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 1635.92it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold1/seed43/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold1/seed43/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold1/seed43/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold1/seed43/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold1/seed43/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold1/seed44/checkpoint-1072
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 2490.47it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold1/seed44/notinject: 339 rows in 1.3s
+[inference-battery] wrote lora/fold1/seed44/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold1/seed44/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold1/seed44/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold1/seed44/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold2/seed42/checkpoint-978
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 1837.59it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold2/seed42/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold2/seed42/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold2/seed42/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold2/seed42/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold2/seed42/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold2/seed43/checkpoint-978
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 1974.72it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold2/seed43/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold2/seed43/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold2/seed43/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold2/seed43/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold2/seed43/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold2/seed44/checkpoint-978
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 3445.51it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold2/seed44/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold2/seed44/xstest: 450 rows in 1.5s
+[inference-battery] wrote lora/fold2/seed44/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold2/seed44/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold2/seed44/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold3/seed42/checkpoint-1016
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 3435.10it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold3/seed42/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold3/seed42/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold3/seed42/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold3/seed42/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold3/seed42/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold3/seed43/checkpoint-1016
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 3537.85it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold3/seed43/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold3/seed43/xstest: 450 rows in 1.6s
+[inference-battery] wrote lora/fold3/seed43/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold3/seed43/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold3/seed43/injecagent: 62 rows in 0.2s
+[inference-battery] loading lora/fold3/seed44/checkpoint-1016
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]Loading weights: 100%|██████████| 136/136 [00:00<00:00, 3118.03it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[inference-battery] wrote lora/fold3/seed44/notinject: 339 rows in 1.2s
+[inference-battery] wrote lora/fold3/seed44/xstest: 450 rows in 1.5s
+[inference-battery] wrote lora/fold3/seed44/jbb_behaviors: 200 rows in 0.7s
+[inference-battery] wrote lora/fold3/seed44/bipia: 50 rows in 0.2s
+[inference-battery] wrote lora/fold3/seed44/injecagent: 62 rows in 0.2s
+[inference-battery] DONE tier=trained: 60 cells in 58.4s
+[lora-ood-inference] DONE 2026-05-18T07:31:07Z

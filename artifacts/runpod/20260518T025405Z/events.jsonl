@@ -1,0 +1,7 @@
+{"ts_utc": "2026-05-18T02:55:19.814267+00:00", "event": "gpu_selected", "gpu_id": "NVIDIA A100-SXM4-80GB", "datacenter_id": "US-MD-1"}
+{"ts_utc": "2026-05-18T03:12:12.978399+00:00", "event": "artifact_pull_started", "label": "pid-predictions-full-ft"}
+{"ts_utc": "2026-05-18T03:12:13.393538+00:00", "event": "artifact_pull_completed", "label": "pid-predictions-full-ft", "duration_sec": 0.415}
+{"ts_utc": "2026-05-18T03:12:13.393656+00:00", "event": "artifact_pull_started", "label": "pid-checkpoints-full-ft"}
+{"ts_utc": "2026-05-18T03:12:13.858825+00:00", "event": "artifact_pull_failed", "label": "pid-checkpoints-full-ft", "duration_sec": 0.465, "error": "Command '['rsync', '-az', '--no-owner', '--no-group', '--no-perms', '--omit-dir-times', '-e', 'ssh -p 18632 -i /home/brandon_behring/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new', 'root@154.54.102.43:/workspace/prompt-injection-detection-submission/evals/checkpoints/full_ft/', '/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/checkpoints/full_ft']' returned non-zero exit status 23."}
+{"ts_utc": "2026-05-18T03:12:13.859025+00:00", "event": "artifact_pull_started", "label": "log"}
+{"ts_utc": "2026-05-18T03:12:14.223838+00:00", "event": "artifact_pull_completed", "label": "log", "duration_sec": 0.365}

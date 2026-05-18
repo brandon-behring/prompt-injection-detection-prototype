@@ -1,0 +1,59 @@
+{
+  "schema_version": "v1",
+  "pulled_at_utc": "2026-05-18T07:41:00Z",
+  "failed": true,
+  "job_name": "pid-phase2-full-ft-X11-then-2rung-ood-recovery",
+  "run_id": "manual-full-ft-failed-20260518T025405Z",
+  "config_path": "configs/runpod/headline-full_ft.yaml",
+  "storage_mode": "ephemeral",
+  "datacenter_id": "US-MD-1",
+  "gpu_id": "NVIDIA A100-SXM4-80GB",
+  "gpu_price_per_hour_usd": 1.49,
+  "pod_id": "4fhhhcpu0utbvp",
+  "image": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "cost_cap_usd": 100.0,
+  "volume_mount": "/workspace",
+  "volume_name": null,
+  "volume_gb": 150,
+  "wall_time_sec": 17244.0,
+  "estimated_cost_usd": 7.14,
+  "pod_final_state": "deleted",
+  "manual_recovery": true,
+  "manual_recovery_notes": "X11 full-FT re-fire FAILED with FUSE EIO crash during post-training checkpoint persistence. Cell 1 (fold0/seed42) trained successfully but on shutil.copytree of checkpoint-545/optimizer.pt (598 MB) from /root/training_staging to /workspace/.../evals/checkpoints/full_ft/, MooseFS returned [Errno 5] Input/output error. Trainer process crashed; orchestrator's checkpoint rsync returned exit-23 (file vanished). Orchestrator pulled 0 trained-rung predictions and 0 checkpoints for full-FT. Per Round 4 user decision after FUSE crash analysis: ABANDON full-FT OOD; ship 2-rung OOD (frozen-probe + LoRA) via the alive pod. Recovery sequence on the same alive pod: (1) rsync UP local frozen-probe + LoRA checkpoints, (2) SSH-fire scripts/run_inference_battery.py --tier trained --rung {lora,frozen_probe} --sources notinject,xstest,jbb_behaviors,bipia,injecagent against the now-uploaded checkpoints, (3) rsync DOWN 120 OOD prediction parquets (60 LoRA + 60 frozen-probe). LoRA OOD inference: 58.4s wall × A100; frozen-probe OOD inference: 39.8s wall × A100. Both completed cleanly; FUSE only broke on the giant atomic full-FT checkpoint write. ADR-018 OOD slate now ships with 2 trained rungs (frozen-probe + LoRA) + 1 classical floor (tfidf-lr) + 2 reference scorers (protectai-v1 + protectai-v2) = 5 rungs vs original 6-rung plan (full-FT dropped). ADR-018 supersession pending Phase 5 close. Pod 4fhhhcpu0utbvp deleted 2026-05-18T07:41Z after final rsync verified.",
+  "artifacts": [
+    {
+      "label": "pid-predictions-2rung-ood",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/predictions/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/predictions",
+      "required": true,
+      "excludes": [],
+      "delete": false,
+      "row_count_added": 120,
+      "notes": "60 LoRA OOD + 60 frozen-probe OOD parquets (12 cells x 5 OOD sources each = 60 per rung)."
+    },
+    {
+      "label": "log-lora-ood-inference",
+      "remote_path": "/workspace/pid_lora_ood.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/manual-full-ft-failed-20260518T025405Z/lora_ood_inference.log",
+      "required": false,
+      "excludes": [],
+      "delete": false
+    },
+    {
+      "label": "log-frozen-probe-ood-inference",
+      "remote_path": "/workspace/pid_fp_ood.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/manual-full-ft-failed-20260518T025405Z/fp_ood_inference.log",
+      "required": false,
+      "excludes": [],
+      "delete": false
+    },
+    {
+      "label": "log-full-ft-failed",
+      "remote_path": "/workspace/pid_phase2_full_ft.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/manual-full-ft-failed-20260518T025405Z/pid_phase2_full_ft.log",
+      "required": false,
+      "excludes": [],
+      "delete": false
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": "v2",
+  "pulled_at_utc": "2026-05-18T03:12:16.223522+00:00",
+  "failed": true,
+  "job_name": "pid-phase2-full-ft",
+  "run_id": "pid-full-ft-20260518T025405Z",
+  "config_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/configs/runpod/headline-full_ft.yaml",
+  "storage_mode": "ephemeral",
+  "datacenter_id": "US-MD-1",
+  "gpu_id": "NVIDIA A100-SXM4-80GB",
+  "gpu_price_per_hour_usd": 1.49,
+  "gpu_price_source": "pod_describe",
+  "pod_id": "4fhhhcpu0utbvp",
+  "pod_final_state": "RUNNING",
+  "image": "runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204",
+  "cost_cap_usd": 100.0,
+  "wall_time_sec": 1016.4089760920033,
+  "estimated_cost_usd": 0.4207,
+  "volume_mount": "/workspace",
+  "volume_name": null,
+  "volume_gb": 150,
+  "deploy_metadata": {
+    "local_git_sha": "1dc556963290e7a298c14d84483a7d3744b7818d",
+    "local_git_dirty": false,
+    "local_git_branch": "main",
+    "payload_lockfile": "uv.lock",
+    "payload_lockfile_sha256": "b7680f198fef9f17a582db0aebd0a62cd125640f7403c5920887f145586b68d5"
+  },
+  "artifacts": [
+    {
+      "label": "pid-predictions-full-ft",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/predictions/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/predictions/",
+      "required": true,
+      "excludes": [],
+      "delete": false,
+      "status": "success",
+      "bytes_transferred": null,
+      "duration_sec": 0.415
+    },
+    {
+      "label": "pid-checkpoints-full-ft",
+      "remote_path": "/workspace/prompt-injection-detection-submission/evals/checkpoints/full_ft/",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/checkpoints/full_ft/",
+      "required": true,
+      "excludes": [],
+      "delete": false,
+      "status": "failed",
+      "bytes_transferred": null,
+      "duration_sec": 0.465,
+      "error": "Command '['rsync', '-az', '--no-owner', '--no-group', '--no-perms', '--omit-dir-times', '-e', 'ssh -p 18632 -i /home/brandon_behring/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new', 'root@154.54.102.43:/workspace/prompt-injection-detection-submission/evals/checkpoints/full_ft/', '/home/brandon_behring/Claude/prompt-injection-detection-submission/evals/checkpoints/full_ft']' returned non-zero exit status 23."
+    },
+    {
+      "label": "log",
+      "remote_path": "/workspace/pid_phase2_full_ft.log",
+      "local_path": "/home/brandon_behring/Claude/prompt-injection-detection-submission/artifacts/runpod/20260518T025405Z",
+      "required": false,
+      "excludes": [],
+      "delete": false,
+      "status": "success",
+      "bytes_transferred": null,
+      "duration_sec": 0.365
+    }
+  ],
+  "telemetry_files": [
+    "events.jsonl",
+    "nvidia_smi_start.txt",
+    "pod_describe_start.json",
+    "remote_env.json",
+    "pip_freeze.txt",
+    "metrics.jsonl",
+    "nvidia_smi_end.txt",
+    "pod_describe_end.json",
+    "dmesg_tail.txt"
+  ]
+}
