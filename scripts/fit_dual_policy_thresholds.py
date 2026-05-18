@@ -48,7 +48,10 @@ from src.eval.operating_points import (  # noqa: E402
 from src.eval.schemas import OperatingPointModel, ReachabilityAuditModel  # noqa: E402
 
 # Trained-rung allowlist per ADR-025 + SPEC §4 dual-policy applicability lock.
-TRAINED_RUNGS: frozenset[str] = frozenset({"tfidf-lr", "frozen-probe", "lora", "full-ft"})
+# Rung canonical names per src.eval.schemas.PredictionsRowModel `rung` column —
+# transformer rungs persist with underscore form (frozen_probe, full_ft); the
+# classical/reference scorers use dash form (tfidf-lr, protectai-v1, protectai-v2).
+TRAINED_RUNGS: frozenset[str] = frozenset({"tfidf-lr", "frozen_probe", "lora", "full_ft"})
 
 
 def _load_predictions(root: Path, rung_filter: str | None) -> pd.DataFrame:

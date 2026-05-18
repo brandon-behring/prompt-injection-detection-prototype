@@ -1,0 +1,284 @@
+{
+  "frozen_probe": {
+    "fold-0": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900771775082691,
+        "fallback_threshold": 0.23440666496753693,
+        "fallback_test_fpr": 0.8519593613933236
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900771775082691,
+        "fallback_threshold": 0.24490436911582947,
+        "fallback_test_fpr": 0.8272859216255443
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900662251655629,
+        "fallback_threshold": 0.207857146859169,
+        "fallback_test_fpr": 0.9332365747460087
+      }
+    },
+    "fold-1": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903846153846154,
+        "fallback_threshold": 0.2544163167476654,
+        "fallback_test_fpr": 0.8026124818577649
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903961584633854,
+        "fallback_threshold": 0.2260993868112564,
+        "fallback_test_fpr": 0.8664731494920174
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903846153846154,
+        "fallback_threshold": 0.17781086266040802,
+        "fallback_test_fpr": 0.9738751814223512
+      }
+    },
+    "fold-2": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9913978494623656,
+        "fallback_threshold": 0.23161423206329346,
+        "fallback_test_fpr": 0.9579100145137881
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9913978494623656,
+        "fallback_threshold": 0.19049803912639618,
+        "fallback_test_fpr": 0.795355587808418
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9914529914529915,
+        "fallback_threshold": 0.19559407234191895,
+        "fallback_test_fpr": 0.8679245283018868
+      }
+    },
+    "fold-3": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901800327332242,
+        "fallback_threshold": 0.2158462107181549,
+        "fallback_test_fpr": 0.918722786647315
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901639344262295,
+        "fallback_threshold": 0.1937568634748459,
+        "fallback_test_fpr": 0.9492017416545718
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901800327332242,
+        "fallback_threshold": 0.2030746340751648,
+        "fallback_test_fpr": 0.9506531204644412
+      }
+    }
+  },
+  "lora": {
+    "fold-0": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900771775082691,
+        "fallback_threshold": 0.01912403665482998,
+        "fallback_test_fpr": 0.41219158200290273
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900771775082691,
+        "fallback_threshold": 0.015306354500353336,
+        "fallback_test_fpr": 0.41944847605224966
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900662251655629,
+        "fallback_threshold": 0.046421416103839874,
+        "fallback_test_fpr": 0.3381712626995646
+      }
+    },
+    "fold-1": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903846153846154,
+        "fallback_threshold": 0.022457055747509003,
+        "fallback_test_fpr": 0.42525399129172714
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903961584633854,
+        "fallback_threshold": 0.04240383207798004,
+        "fallback_test_fpr": 0.420899854862119
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903846153846154,
+        "fallback_threshold": 0.01233610138297081,
+        "fallback_test_fpr": 0.46589259796806964
+      }
+    },
+    "fold-2": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9913978494623656,
+        "fallback_threshold": 0.02161533385515213,
+        "fallback_test_fpr": 0.21190130624092887
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9913978494623656,
+        "fallback_threshold": 0.0016743994783610106,
+        "fallback_test_fpr": 0.3555878084179971
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9914529914529915,
+        "fallback_threshold": 0.01784873753786087,
+        "fallback_test_fpr": 0.2844702467343977
+      }
+    },
+    "fold-3": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901800327332242,
+        "fallback_threshold": 0.008445627987384796,
+        "fallback_test_fpr": 0.4455732946298984
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901639344262295,
+        "fallback_threshold": 0.001622966956347227,
+        "fallback_test_fpr": 0.7184325108853411
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901800327332242,
+        "fallback_threshold": 0.02460992895066738,
+        "fallback_test_fpr": 0.4397677793904209
+      }
+    }
+  },
+  "tfidf-lr": {
+    "fold-0": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900771775082691,
+        "fallback_threshold": 0.15464385720974164,
+        "fallback_test_fpr": 0.5442670537010159
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900771775082691,
+        "fallback_threshold": 0.20006750840756818,
+        "fallback_test_fpr": 0.41509433962264153
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9900662251655629,
+        "fallback_threshold": 0.19547065354733786,
+        "fallback_test_fpr": 0.45573294629898403
+      }
+    },
+    "fold-1": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903846153846154,
+        "fallback_threshold": 0.21932746659980507,
+        "fallback_test_fpr": 0.432510885341074
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903961584633854,
+        "fallback_threshold": 0.10915075851205483,
+        "fallback_test_fpr": 0.6821480406386067
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9903846153846154,
+        "fallback_threshold": 0.1428571428683361,
+        "fallback_test_fpr": 0.5950653120464441
+      }
+    },
+    "fold-2": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9913978494623656,
+        "fallback_threshold": 0.22461332531780256,
+        "fallback_test_fpr": 0.23802612481857766
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9913978494623656,
+        "fallback_threshold": 0.09934016457074103,
+        "fallback_test_fpr": 0.432510885341074
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9914529914529915,
+        "fallback_threshold": 0.25608890999061673,
+        "fallback_test_fpr": 0.21480406386066764
+      }
+    },
+    "fold-3": {
+      "seed-42": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901800327332242,
+        "fallback_threshold": 0.12878722551888536,
+        "fallback_test_fpr": 0.6748911465892597
+      },
+      "seed-43": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901639344262295,
+        "fallback_threshold": 0.09455135298856236,
+        "fallback_test_fpr": 0.760522496371553
+      },
+      "seed-44": {
+        "target_reachable": true,
+        "target_recall": 0.99,
+        "achieved_val_recall": 0.9901800327332242,
+        "fallback_threshold": 0.12379253929477872,
+        "fallback_test_fpr": 0.6531204644412192
+      }
+    }
+  }
+}
