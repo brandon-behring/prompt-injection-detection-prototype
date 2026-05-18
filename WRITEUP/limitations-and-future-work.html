@@ -177,6 +177,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../EVIDENCE.html"> 
 <span class="menu-text">Evidence</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
+        <li>
+    <a class="dropdown-item" href="../SPEC_SHEET.html">
+ <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
+ <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../NEXT_STEPS.html">
+ <span class="dropdown-text">Next steps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../assumptions.html">
+ <span class="dropdown-text">Assumptions registry</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../decisions/README.html"> 
 <span class="menu-text">Decisions (ADRs)</span></a>
@@ -314,21 +337,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Decisions (ADRs)</span></a>
+ <span class="menu-text">Reference</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submission audit — claim status ledger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../NEXT_STEPS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Next steps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assumptions registry</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Decisions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions (ADRs)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/README.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Architecture Decision Records (ADRs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/upstream_issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Upstream issues filed during this iteration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Decisions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
@@ -739,8 +809,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Headline characterisation that exposes these limitations</strong> → <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results</li>
 <li><strong>Adversarial robustness scope (§5.6)</strong> → <a href="../WRITEUP/reference-scorer-audit.html"><code>reference-scorer-audit.md</code></a></li>
-<li><strong>NEXT_STEPS forward-looking work</strong> → <a href="../NEXT_STEPS.md"><code>../NEXT_STEPS.md</code></a></li>
-<li><strong>Upstream issues ledger</strong> → <a href="../decisions/upstream_issues.md"><code>../decisions/upstream_issues.md</code></a></li>
+<li><strong>NEXT_STEPS forward-looking work</strong> → <a href="../NEXT_STEPS.html"><code>../NEXT_STEPS.md</code></a></li>
+<li><strong>Upstream issues ledger</strong> → <a href="../decisions/upstream_issues.html"><code>../decisions/upstream_issues.md</code></a></li>
 </ul>
 <p><strong>Linked ADRs</strong>: ADR-001 (brief alignment), ADR-013 (deliverable scope), ADR-015 (single-backbone lock — supersedes ADR-007), ADR-016 (data design), ADR-018 (reference slate), ADR-019 (training recipe), ADR-022 (statistical apparatus), ADR-042 (dedup calibration), ADR-047 (library-first carryforward refactor), ADR-050 (rung-slate narrowing).</p>
 

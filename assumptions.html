@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>assumptions – Prompt-injection classifier — methodology submission</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Reading guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./WRITEUP.html"> 
+<span class="menu-text">Methodology (TOC)</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spokes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Spokes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spokes">    
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/data-decisions.html">
+ <span class="dropdown-text">Data decisions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/model-rungs.html">
+ <span class="dropdown-text">Model rungs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/eval-design.html">
+ <span class="dropdown-text">Evaluation design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/threshold-policy.html">
+ <span class="dropdown-text">Threshold policy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/reference-scorer-audit.html">
+ <span class="dropdown-text">Reference-scorer audit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/methodology-guarantees.html">
+ <span class="dropdown-text">Methodology guarantees</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/limitations-and-future-work.html">
+ <span class="dropdown-text">Limitations and future work</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP/reproducibility.html">
+ <span class="dropdown-text">Reproducibility — three reproduction tiers</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./EVIDENCE.html"> 
+<span class="menu-text">Evidence</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
+        <li>
+    <a class="dropdown-item" href="./SPEC_SHEET.html">
+ <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./SUBMISSION_AUDIT.html">
+ <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./NEXT_STEPS.html">
+ <span class="dropdown-text">Next steps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assumptions.html">
+ <span class="dropdown-text">Assumptions registry</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./decisions/README.html"> 
+<span class="menu-text">Decisions (ADRs)</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./SPEC_SHEET.html">Reference</a></li><li class="breadcrumb-item"><a href="./assumptions.html">Assumptions registry</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reading guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classifier — methodology submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Methodology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classification — methodology + capability characterisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/data-decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data decisions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model rungs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/eval-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evaluation design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/threshold-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threshold policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/reference-scorer-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/limitations-and-future-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Limitations and future work</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP/reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility — three reproduction tiers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Evidence + audit</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EVIDENCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evidence — audit trail</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submission audit — claim status ledger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./NEXT_STEPS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Next steps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./assumptions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Assumptions registry</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions (ADRs)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/README.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Architecture Decision Records (ADRs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/upstream_issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Upstream issues filed during this iteration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Decisions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submission deadline 2026-05-18 morning with infra-leveraged Long-scope attempt and fallback ladder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-003-repo-visibility-public.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repository visibility — public from start (kit default ratified)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer profile A1+A2 with hub-and-spoke writeup structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-005-methodology-principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-level methodology principles — methodology over metrics, honest evaluation preferred, structured limitations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-006-headline-metrics-and-statistical-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Headline metrics, operating-point pinpoints, and statistical apparatus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-007-rung-architecture-and-reference-scorers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology rung architecture — trained backbones, LLM-judge reference rungs, Cohen’s kappa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-008-data-scope-public-only-hybrid-splits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data scope — public-only sources, hybrid splits, NotInject inclusion (brief-level lock)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-009-process-mandates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Process mandates — two-tier reproducibility, marker-based testing, compute disclosure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-010-scope-limits-with-extension-conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scope limits with per-bound extension conditions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-011-methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees — eight banned approaches surfaced as project commitments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-012-soft-signals-and-artifact-engagement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Soft-signals naming discipline and external artifact engagement set</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kit-ratify bulk — Phase 0 strictness, brief-intake protocol, notebook role and RunPod persistence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-014-threat-model-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threat-model bundle — attack-class scope, language, length cap, truncation policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-015-rung-architecture-refinement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-016-data-design-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data design bundle — source slate, splits, HF pinning, dedup, ordering, ceilings, ref-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-017-trained-rung-slate-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference scorer slate and contamination stratification — OpenAI plus Anthropic LLM-judges plus ProtectAI v1 and v2 plus per-axis matched-budget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-019-lora-and-transformer-training-recipe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-020-compute-infrastructure-and-cost-discipline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eval slate aggregation — pooled headline plus per-slice spoke and recall@FPR pinpoint feasibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-022-statistical-inference-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-023-calibration-battery-and-interventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calibration battery composition — raw plus temperature plus isotonic interventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-024-cross-fold-ci-methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-025-dual-policy-threshold-characterization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dual-policy threshold characterization at symmetric 1% cost weights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-026-module-layout-concern-grouped-subpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module layout — concern-grouped sub-packages under src/</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Smoke vs canonical separation — three Makefile targets stratified by execution context</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-029-test-marker-strategy-four-marker-ratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-030-deliverable-format-quarto-html-site.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-032-hf-hub-publication-headline-rungs-only.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-034-reproducibility-tier-full-ladder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-035-secrets-management-three-store-split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Secrets management — three-store split aligned with execution context (.env + RunPod pod-secrets + GH Actions repo Secrets)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library version pins — tag pin to latest stable plus freeze for submission window (eval-toolkit v0.31.0 + runpod-deploy v0.7.7 + research_toolkit v1.9.1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-037-python-version-pin-3-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-038-phase-tailoring-light-roadmap-edits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase tailoring — light ROADMAP edits to Phase 4 close + Phase 5 description (preserves 5-phase structure)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-039-acceptance-criteria-six-gate-integration-checklist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-specific acceptance criteria — 6-gate integration checklist for v1.0.0 submission tag</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-040-phase-0-audit-findings-and-assumption-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 0 final audit findings + 7-assumption backfill (A-010 through A-016)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-041-phase-1-data-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 (Data) implementation bundle — manifest schema, SHA pinning, validator placement, loader arch, holdout sourcing, contamination corpus, output materialization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-043-post-split-cross-source-leakage-cleanup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-044-phase-2-training-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 2 training implementation bundle — seed slate reconciliation + manifest move + classical-floor location + YAML config schema + trainer split + per-rung orchestration + fixture preflight</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-045-phase-3-evaluation-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 3 evaluation implementation bundle — scoring-first contract + 6-commit cadence + tiered reference scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-046-phase-4-analysis-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-047-phase-1-library-first-carryforward-refactor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 library-first carryforward refactor — audit findings + remediation plan (splits + dedup + leakage_report + contamination_scan migration to eval-toolkit primitives; orphaned code removed in-commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-049-gpu-order-priority-refresh-a100-80g.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GPU failover ladder priority refresh — A100-SXM4-80GB to position 1 + US-WA-1/US-CA-2 datacenter additions + EU-RO-1 drop (frozen-probe + LoRA canonical; full-FT deferred to post-rehearsal)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash); narrow supersession of ADR-018 reference slate + ADR-021 OOD comparison scope</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#assumptions-registry" id="toc-assumptions-registry" class="nav-link active" data-scroll-target="#assumptions-registry">Assumptions registry</a>
+  <ul class="collapse">
+  <li><a href="#severity" id="toc-severity" class="nav-link" data-scroll-target="#severity">Severity</a></li>
+  <li><a href="#discipline" id="toc-discipline" class="nav-link" data-scroll-target="#discipline">Discipline</a></li>
+  <li><a href="#registry" id="toc-registry" class="nav-link" data-scroll-target="#registry">Registry</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./SPEC_SHEET.html">Reference</a></li><li class="breadcrumb-item"><a href="./assumptions.html">Assumptions registry</a></li></ol></nav><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+
+
+
+
+<section id="assumptions-registry" class="level1">
+<h1>Assumptions registry</h1>
+<p>Unverified assumptions made during the project. Severity tags drive whether the assumption appears in WRITEUP caveats and whether an ADR is required when it’s invalidated.</p>
+<section id="severity" class="level2">
+<h2 class="anchored" data-anchor-id="severity">Severity</h2>
+<ul>
+<li><strong>low</strong> — assumption is a stylistic choice with minimal evidential impact</li>
+<li><strong>medium</strong> — assumption affects interpretation but doesn’t invalidate conclusions</li>
+<li><strong>high</strong> — assumption is load-bearing; if false, conclusions need revisiting</li>
+<li><strong>critical</strong> — assumption is foundational; if false, the project’s framing changes</li>
+</ul>
+</section>
+<section id="discipline" class="level2">
+<h2 class="anchored" data-anchor-id="discipline">Discipline</h2>
+<ul>
+<li>Every severity ≥ medium assumption appears in WRITEUP’s caveats block (invariant test: <code>test_reporting_completeness_assumptions_in_caveats</code>).</li>
+<li>When an assumption is invalidated mid-implementation, update this file and write a corrective ADR. Do not silently revise.</li>
+</ul>
+</section>
+<section id="registry" class="level2">
+<h2 class="anchored" data-anchor-id="registry">Registry</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Description</th>
+<th>Severity</th>
+<th>Verification status</th>
+<th>Linked to (ADR / EVIDENCE.md §)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A-001</td>
+<td>runpod-deploy 0.7.7 + eval-toolkit infrastructure can compress a 4-trained-rung-slate (TF-IDF+LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015) + 3-seed multi-seed + 4-fold LODO + 48-run workload (12 sklearn CPU + 36 H100/equivalent transformer) + per-epoch prediction save + 4-reference-rung inference + full OOD slate + paired-bootstrap into ~2.5 working days. Originally framed as 2×3=6 trained rungs per ADR-007; refined to 1×3 per ADR-015 supersedes ADR-007; expanded to classical-floor + 3-transformer = 4 trained rungs per ADR-017 (classical-floor adds approximately 5 minutes total CPU compute). GPU-class failover via runpod-deploy <code>pod.gpu_order</code> ladder per ADR-020 (8-class failover H100 → H200 → A100-80G → A100-40G → L40S) plus dual-DC failover (US-MD-1 + EU-RO-1) handles H100 stockout. If false, the updated fallback ladder (transformer rungs 1×3 → 1×2 → 1×1; classical floor always retained per ADR-017) activates and the writeup honestly reports what was achieved, not what was attempted.</td>
+<td>high</td>
+<td>unverified</td>
+<td>ADR-001 + ADR-015 + ADR-017 + ADR-020</td>
+<td>Mid-Phase-2 checkpoint triggers fallback evaluation.</td>
+</tr>
+<tr class="even">
+<td>A-002</td>
+<td>Total project budget for LLM-judge reference rungs (<code>gpt-4o-2024-08-06</code> + <code>claude-sonnet-4-6</code> per ADR-018, both at temperature=0, one call per eval row) plus GPU training compute (3 transformer rungs × 3 seeds × 4 LODO folds = 36 H100/equivalent runs at $3-3.50/hr spot via runpod-deploy <code>pod.gpu_order</code> failover per ADR-020) plus classical-floor sklearn CPU compute (12 runs at near-zero cost per ADR-017) plus reference-rung inference (ProtectAI v1 + v2 GPU inference per ADR-018; LLM-judge API calls ~$10-12 total for both judges across ~5K eval rows) lands in the <strong>$25-$125 range</strong>. Per-job orchestrator-enforced soft cap is <code>budget.cost_cap_usd=125.0</code> per ADR-020; project-wide hard cap $200 enforced by <code>scripts/cost_rollup.py</code> CI gate aggregating per-pod manifests + API call logs. If actual cost exceeds the soft cap (cumulative $125), escalation discussion documented in <code>evals/cost_decisions.md</code> is required before further spend; if hard cap is reached ($200), superseding ADR documenting extension rationale is required.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-007 (revised by ADR-015 + ADR-017 + ADR-018 + ADR-020)</td>
+<td>Verification at end of Phase 3 against cumulative API + GPU cost rolled up in <code>evals/cost_ledger.csv</code>.</td>
+</tr>
+<tr class="odd">
+<td>A-003</td>
+<td>Pre-teardown persistence checklist is enforced for every RunPod pod before destruction (per-row predictions + manifests + checkpoints + logs + results.json). If false, a mid-run pod loss reverts the affected rung and the fallback ladder may activate to recover.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-013</td>
+<td>Phase 2 entry creates <code>scripts/pre_teardown_check.sh</code> (or equivalent) and verifies runpod-deploy’s incremental persistence support.</td>
+</tr>
+<tr class="even">
+<td>A-004</td>
+<td>BIPIA samples with token-length above 8192 (ModernBERT-base native context cap) stay at or below 15 percent of the slice under the ModernBERT-base tokenizer. Per dossier characterization the rate is approximately 5 percent (3x tolerance). If false, the adaptive-chunked-scoring policy from ADR-014 becomes load-bearing on the headline indirect-injection slice (not just a conditional safeguard); a future superseding ADR (ADR-017+) adjusts chunk-stride or aggregation policy (e.g., hierarchical encoding, learned aggregator, or tighter stride). Note: ADR-014 body references “ADR-016” as the supersession placeholder; ADR-016 was actually used for Phase 0-02 data design — the truncation-policy supersession path uses the next available ADR number.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-014 + ADR-015</td>
+<td>Phase 1 length-histogram audit produces <code>evals/length_histograms.{train,ood}.json</code> with per-slice quantiles on ModernBERT-base tokenizer.</td>
+</tr>
+<tr class="odd">
+<td>A-005</td>
+<td>The Phase 0-02 data-design locks (ADR-016) depend on the Phase 1 empirical data audit confirming dossier estimates. Specific invalidation triggers — any one of which fires the superseding-ADR requirement: (1) benign contamination scan flags &gt;2% of either LMSYS or UltraChat as injection-template-match (MiniLM cosine &gt;=0.85 to a known injection template); (2) post-dedup per-LODO-fold training-pool class-balance falls outside 1:3 to 1:10 positive:negative range; (3) systematic mislabeling detected in any source via spot-check (~50 random samples per source); (4) actual per-source length distribution diverges materially (5x or more on a percentile) from dossier estimates.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-016</td>
+<td>Phase 1 deliverables: <code>evals/data_audit.{contamination,balance,length,labeling}.json</code> operationalize these triggers.</td>
+</tr>
+<tr class="even">
+<td>A-006</td>
+<td>All reference rungs (and the ModernBERT-base backbone used by trained rungs 2-4) carry uncontrolled training-data leakage relative to our eval slate. Specifically: (1) ProtectAI v1 and v2 disclose only a partial training corpus, which may include eval positive sources (mosscap, HackAPrompt, etc.); (2) <code>gpt-4o-2024-08-06</code> and <code>claude-sonnet-4-6</code> are closed corpora trained on web-scale text that almost certainly includes public injection-detection benchmarks via crawl; (3) the ModernBERT-base backbone pretrain corpus (<code>fineweb-edu</code> + others per Warner et al.&nbsp;2024) may include eval sources via web crawl. Only TF-IDF + LR (trained on our LODO splits by construction per ADR-017) is <code>verified_disjoint</code>. <strong>Reporting consequence</strong>: every reference-rung headline metric is reported with explicit contamination-state tag per the ADR-005 three-state taxonomy (<code>verified_disjoint</code> / <code>backbone-partial-disjoint</code> / <code>suspected_contamination</code> / <code>vendor_black_box</code>); the WRITEUP methodology spoke includes a dedicated <strong>Contamination stratification</strong> subsection explaining the four-tier disclosure gradient (per ADR-018); the trained-rung-vs-reference comparison is framed as “what trained-from-scratch (TF-IDF+LR anchor) achieves versus what potentially-memorized off-the-shelf models achieve.” <strong>Phase 1 mitigation</strong>: contamination scan via MiniLM cosine between eval set and known public mirrors of training data provides partial evidence of overlap for ProtectAI; the scan cannot help for LLM judges (closed corpora).</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-018</td>
+<td>Phase 1 deliverable: <code>evals/contamination_scan.json</code> with per-eval-row maximum cosine to known public training-data mirrors; per-rung contamination-state column in headline-table emit.</td>
+</tr>
+<tr class="odd">
+<td>A-007</td>
+<td>LLM-judge reference rungs (<code>gpt-4o-2024-08-06</code> and <code>claude-sonnet-4-6</code> per ADR-018) at temperature=0 are not strictly deterministic across calls. Both OpenAI and Anthropic document that temperature=0 reduces but does not eliminate non-determinism due to GPU non-determinism, batched scheduling, multi-region routing, etc. The “single inference per row” treatment in ADR-022 is a simplification by fiat — reference-rung scores are cached at first call and re-run only on cache miss; inter-call variance is not measured. If false (i.e., if reference-rung scores drift materially between cache writes and reads), per-row predictions become non-reproducible across submission re-runs and the comparison structure (trained-vs-reference paired bootstrap per ADR-022) could be invalidated. <strong>Phase 1 mitigation</strong>: response cache stored at <code>evals/audit/llm_judge_cache/&lt;judge&gt;__&lt;row_hash&gt;.json</code> with timestamp + temperature + prompt-template version; re-runs verify cache hit before billing; cache hits checked against expected hash. <strong>Reporting consequence</strong>: the methodology spoke at WRITEUP/reference-scorer-audit.md gains a one-paragraph note “Reference-rung scores treated as single-observations by fiat; inter-call variance not measured.”</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-022 + ADR-018</td>
+<td>Phase 1 deliverable: cache infrastructure at <code>evals/audit/llm_judge_cache/</code>; cache-hit verification scripted; per-cache-entry timestamp + temperature + prompt-template-version recorded.</td>
+</tr>
+<tr class="even">
+<td>A-008</td>
+<td>The 4 LODO folds defined by ADR-016 are not exchangeable — each fold holds out a different positive source (<code>deepset/prompt-injections</code> ~500-650, <code>Lakera/gandalf_ignore_instructions</code> ~800-1000, <code>Lakera/mosscap_prompt_injection</code> 3K cap, <code>hackaprompt/hackaprompt-dataset</code> 3K cap) with 1.5x to 6x size variation and distinct attack styles (classical / Gandalf-CTF / Mosscap-CTF / competition red-team). The eval-toolkit <code>cv_clt_ci</code> primitive (Bayle 2020 Annals of Statistics Theorem 3.1) used as the headline cross-fold CI machinery per ADR-024 was derived for exchangeable k-fold cross-validation; the LODO non-exchangeability is a real assumption violation. <strong>Reporting consequence</strong>: the methodology spoke at WRITEUP/methodology.md reports both <code>cv_clt_ci</code> CI and block-bootstrap-on-folds CI per rung; if the ratio <code>block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth &gt; 1.5</code> for any rung, the spoke flags “LODO non-exchangeability dominates within-fold variance; headline CI may understate uncertainty” — turning the assumption violation into a named methodology finding. <strong>Phase 4 conditional mitigation</strong>: if Phase 4 entry cost ledger shows cumulative spend below ~$75 (well below ADR-020 $125 soft cap), escalate to stratified-k-fold-within-LODO (Fomin 2025 / Nadeau-Bengio 2003 variance decomposition; ~5x compute) for full LODO-source-character vs within-source variance decomposition; else deferred to afterword.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-024 + ADR-016</td>
+<td>Phase 4 deliverable: <code>evals/audit/cross_fold_ci_audit.parquet</code> with per-rung headline-CI + spoke-ablation-CI + sensitivity-flag; conditional stratified-k-fold escalation gated on <code>evals/cost_ledger.csv</code> cumulative state at Phase 4 entry.</td>
+</tr>
+<tr class="odd">
+<td>A-009</td>
+<td>The verification-policy operating point locked by ADR-025 (recall ≥ 99% via <code>TargetRecallSelector(0.99)</code> on validation per-(rung, fold, seed)) is rung-dependent and not guaranteed to be reachable on every (rung, fold, seed) val slice. Reachability can fail when (1) the PR curve at high-recall regime is too noisy on a small val slice (per-fold val n ≈ 250-1300 rows, especially LODO val with positive sources held out); (2) the model genuinely cannot reach 99% recall on that fold’s positives without flagging nearly all benigns (recall plateaus &lt; 99%); (3) score quantization gaps prevent the achievable recall lattice from containing a point at recall ≥ 99% even when the limit is approachable. <strong>Reporting consequence</strong>: the audit JSON <code>evals/audit/verification_reachability.json</code> is a load-bearing surface for honest dual-policy interpretation — every unreachable (rung, fold, seed) cell carries an asterisk in the headline emit, the audit JSON records <code>target_reachable: false</code> plus <code>achieved_val_recall</code> plus <code>fallback_threshold</code> plus <code>fallback_test_fpr</code>, and the <code>WRITEUP/threshold-policy.md</code> spoke gains a “Verification-target reachability across trained rungs” subsection turning per-rung reachability rate into a cross-rung comparison artifact. <strong>Phase 5 mitigation pre-commit</strong>: if reachability is poor on the headline rungs, the persistence pre-commit (per ADR-013 + ADR-025 Q4) enables a one-commit “Recall-floor sensitivity sweep” afterword regenerating verification operating points at recall floors {95%, 99%, 99.9%} from persisted predictions with zero new training compute.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-025 + ADR-013</td>
+<td>Phase 4 deliverable: <code>evals/audit/verification_reachability.json</code> per-(rung, fold, seed) with target_reachable + achieved_val_recall + fallback_threshold + fallback_test_fpr; Phase 5 conditional sensitivity sweep at {95%, 99%, 99.9%} recall floors gated on reachability-rate observations.</td>
+</tr>
+<tr class="even">
+<td>A-010</td>
+<td>GitHub Pages + GitHub Actions free-tier infrastructure (deploy workflow at <code>.github/workflows/publish.yml</code> per ADR-030; <code>quarto-actions/setup@v2</code> + <code>quarto-actions/publish@v2</code> actions; <code>gh-pages</code> branch serving) remains available through submission day 2026-05-18. ADR-039 gate 6 verifies “all three reviewer URLs at v1.0.0 resolve” including the live Quarto site at <code>https://brandon-behring.github.io/prompt-injection-detection-prototype/</code>. If GitHub Pages experiences a &gt;12-hour outage spanning the submission window, gate 6 fails and submission verification is blocked. <strong>Phase 5 mitigation</strong>: ADR-033 v0.9.0-rc1 rehearsal tag fires the full publish pipeline 24+ hours before v1.0.0 submission tag — first-time-CI / GH Pages enablement / <code>quarto-actions</code> action availability all exercised at rehearsal. <strong>Fallback if rehearsal fails</strong>: fix-forward via new commits + v0.9.0-rc2; if persistent CI failure at rehearsal-tag time, fallback is to commit <code>_site/</code> directly to a <code>submission-site</code> branch and point reviewer URL at a raw HTML-Preview URL per ADR-030 extension condition.</td>
+<td>high</td>
+<td>unverified</td>
+<td>ADR-030 + ADR-033 + ADR-039 + ADR-040</td>
+<td>Phase 5 deliverable: v0.9.0-rc1 rehearsal tag fires successfully (verified via <code>gh run list --workflow publish.yml</code>); rehearsal-failure runbook in <code>docs/REPRODUCIBILITY.md</code> documents the raw-HTML-Preview fallback.</td>
+</tr>
+<tr class="odd">
+<td>A-011</td>
+<td>RunPod H100 spot pricing remains stable at the <code>assumed_hourly_rate_usd=$3.50</code> estimate locked by ADR-020 (H100 spot midpoint estimate from runpod-deploy cost-reconciliation recipe). Material drift above $5/hr would shrink the cost-cap window (ADR-020 per-job soft cap $125; project-wide hard cap $200) before training completes; cumulative spend could hit the $80 trigger flag earlier than expected. <strong>Phase 1+ mitigation</strong>: ADR-020 cost-reconciliation recipe specifies post-first-run rate update — <code>scripts/cost_rollup.py</code> compares manifest <code>gpu_price_per_hour_usd</code> vs assumed rate; if actual differs materially (&gt;15% drift), the assumed rate is bumped in subsequent runs or split per GPU class. <strong>Fallback if drift is sustained</strong>: ADR-001 fallback ladder (1×3 → 1×2 → 1×1 transformer rungs; classical floor always retained per ADR-017) reduces training compute scope to fit the cost-cap window.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-020 + A-002 + ADR-040</td>
+<td>Phase 2 deliverable: <code>evals/cost_ledger.csv</code> first-row update against actual <code>runpod_deploy_pull_manifest.json</code> <code>gpu_price_per_hour_usd</code> after first billed pod; rate-drift alert if first-run rate exceeds $4.50/hr.</td>
+</tr>
+<tr class="even">
+<td>A-012</td>
+<td>At least one of the 8 GPU classes in ADR-020’s <code>pod.gpu_order</code> failover ladder (H100 family → H200 family → A100-SXM4-80GB → A100 80GB PCIe → L40S → A100-SXM4-40GB emergency) is available at submission-window spot pricing across the 2026-05-15 → 2026-05-18 window. RunPod spot inventory fluctuates; full exhaustion of H100/H200/A100-80G/L40S would leave only A100-40G (emergency tier), which may hit OOM at max_len=8192 batch despite BATCH_TABLE scaling. <strong>Phase 2 mitigation</strong>: <code>runpod-deploy validate --all</code> preflight + <code>runpod-deploy run --dry-run</code> cost preview detect stockout before billing; ADR-020 dual-DC failover (US-MD-1 + EU-RO-1) doubles the inventory surface. <strong>Fallback if all 8 classes exhausted</strong>: ADR-001 fallback ladder activates — rung-count reduction (1×3 → 1×2 → 1×1) preserves the methodology contribution at smaller scale; classical floor (TF-IDF + LR; sklearn CPU) always retained per ADR-017 as the methodology floor.</td>
+<td>high</td>
+<td>unverified</td>
+<td>ADR-020 + ADR-001 + ADR-040</td>
+<td>Phase 2 entry: <code>runpod-deploy validate --all</code> plus <code>runpod-deploy run --dry-run</code> outputs persisted at <code>evals/audit/gpu_preflight_&lt;timestamp&gt;.json</code>; stockout-induced fallback documented in <code>evals/cost_decisions.md</code> if triggered.</td>
+</tr>
+<tr class="odd">
+<td>A-013</td>
+<td>HuggingFace Hub infrastructure remains available across the submission lifecycle: (a) datasets remain accessible at pinned SHAs per ADR-016 manifest; (b) license terms don’t shift mid-Phase; (c) <code>HF_TOKEN</code> write scope continues to allow ADR-032 model publication; (d) published <code>BBehring/prompt-injection-&lt;rung&gt;</code> model card schema stays backward-compatible; (e) the T0 reproducibility tier per ADR-034 (<code>make eval-from-hub</code> via <code>huggingface_hub.snapshot_download</code>) functions for reviewer-side reproduction. HF Hub outage or license/scope change would block dataset loading (Phase 1) or model publication (Phase 5) or T0 reproducibility (post-submission). <strong>Phase 1+ mitigation</strong>: ADR-016 SHA pinning + local dataset cache means data loading is resilient to short-term outages (cache-hit avoids HF Hub round trip); ADR-032 model publication step runs at Phase 5 close — outage at that moment can be re-attempted up to v1.0.0 tag firing. <strong>Fallback if persistent outage</strong>: dataset loading falls back to local pre-fetched cache; model publication deferred to post-v1.0.0 patch tag (v1.0.1) per ADR-033 patch-tag discipline; T0 tier in <code>WRITEUP/reproducibility.md</code> notes the deferral.</td>
+<td>high</td>
+<td>unverified</td>
+<td>ADR-016 + ADR-032 + ADR-034 + ADR-040</td>
+<td>Phase 1 deliverable: local dataset cache at <code>~/.cache/huggingface/datasets/</code> (uv handles via HF_HOME env var if pinned); cache-hit verification at every dataset load; Phase 5 deliverable: publication-retry loop in <code>scripts/generate_model_cards.py</code>.</td>
+</tr>
+<tr class="even">
+<td>A-014</td>
+<td>LLM judge reference rungs remain callable across the submission lifecycle: <code>gpt-4o-2024-08-06</code> (OpenAI; stable snapshot per ADR-018) and <code>claude-sonnet-4-6</code> (Anthropic; date-suffixed snapshot ID pinned at Phase 1 per Anthropic API docs) snapshots are not deprecated mid-Phase-3 eval execution. Distinct from A-007 which covers temperature=0 non-determinism: A-014 covers availability/deprecation specifically. OpenAI has deprecated stable snapshots before (e.g., <code>gpt-3.5-turbo-0301</code>); if either model is discontinued before Phase 5 close, ADR-018 reference-rung slate loses 2 of 4 rungs, contamination axis (per ADR-005 + A-006) loses 2 of 4 contamination-state cells. <strong>Phase 1+ mitigation</strong>: per A-007 cache infrastructure (<code>evals/audit/llm_judge_cache/</code>), all reference-rung scores are cached at first call; deprecation mid-Phase-3 invalidates <em>future</em> calls but cached scores remain valid for reporting. <strong>Fallback if mid-Phase deprecation</strong>: superseding ADR (e.g., ADR-NNN) swaps the deprecated model for its successor snapshot (e.g., <code>gpt-4o-2024-11-20</code>); contamination caveat updated in WRITEUP.</td>
+<td>high</td>
+<td>unverified</td>
+<td>ADR-018 + ADR-022 + ADR-040 (supplements A-007)</td>
+<td>Phase 1 deliverable: cache infrastructure persists scores so deprecation invalidates only future calls; Phase 3 deliverable: <code>evals/audit/llm_judge_cache/</code> populated before Phase 4 close so cached evidence survives deprecation.</td>
+</tr>
+<tr class="odd">
+<td>A-015</td>
+<td>ProtectAI <code>deberta-v3-base-prompt-injection</code> v1 + v2 HF model repos remain public with stable revision SHAs through the submission lifecycle: (a) repos not deleted, (b) repos not relicensed (currently MIT/Apache per HF model card; relicensing could block redistribution), (c) pinned revision SHAs persist if ProtectAI re-trains and overwrites tags. <strong>Phase 1 mitigation</strong>: ADR-016 manifest SHA-pins both v1 + v2 at Phase 1 entry; HF Hub’s revision-pin mechanism preserves access to the specific commit even after subsequent re-uploads. <strong>Fallback if persistent unavailability</strong>: 2 reference rungs reduce to LLM-judges-only (OpenAI + Anthropic remain); contamination axis (per ADR-005 + A-006) loses 2 of 4 cells but retains 2 (<code>vendor_black_box</code>); TF-IDF + LR anchor (<code>verified_disjoint</code>) unaffected; methodology still publishable with narrower reference-rung surface. <strong>Severity</strong>: medium not high because other reference rungs remain and the contamination story preserved via remaining LLM-judges-and-classical-floor structure.</td>
+<td>medium</td>
+<td>unverified</td>
+<td>ADR-018 + ADR-016 + ADR-040</td>
+<td>Phase 1 deliverable: <code>configs/data/source_manifest.yaml</code> SHA-pins both v1 + v2; local checkpoint cache via <code>huggingface_hub.snapshot_download</code> at Phase 1 entry preserves model weights even if upstream removed.</td>
+</tr>
+<tr class="even">
+<td>A-016</td>
+<td>Brandon Behring has approximately 16-20 productive work-hours available across the 2026-05-15 → 2026-05-18 calendar window. A-001 frames the <em>workload-fits-the-calendar</em> assumption; A-016 frames the <em>human-time-underneath</em> assumption (the load-bearing prerequisite for A-001). If Brandon becomes unavailable for &gt;8 contiguous hours unexpectedly (illness, emergency, unanticipated commitments), the 2.5-day calendar from Phase 0-00 (2026-05-15) to submission (2026-05-18) is at risk; ADR-001 fallback ladder reduces <em>compute</em> scope (rung-count reduction) but does NOT reduce human-time required for Phase 5 writeup + ADR-039 submission-readiness gates + transcript capture + reviewer-email composition. <strong>No automated recovery primitive</strong> — this is the only A-XXX assumption without a corresponding ADR-mechanized fallback. <strong>Phase 5 mitigation</strong>: ADR-033 v0.9.0-rc1 rehearsal tag fires at Phase 4 close (~24-36 hours before v1.0.0 submission tag), providing early signal of work-time pressure; if rehearsal slips by &gt;12 hours, the v1.0.0 tag plus submission email can be deferred to a 2026-05-19 patch window (acknowledged in submission-readiness sign-off). <strong>Severity</strong>: high (load-bearing on calendar deadline; no automated fallback) but NOT critical (project-framing-changing) because methodology contribution is preserved if deadline slips.</td>
+<td>high</td>
+<td>unverified</td>
+<td>ADR-001 + ADR-040</td>
+<td>Phase 0-08 close to v1.0.0 submission: implicit calendar gate; no mechanical verification artefact (assumption inherently un-testable in CI).</td>
+</tr>
+</tbody>
+</table>
+<p><code>[Phase 0-07 (submission deliverables) + 0-08 (tech-stack remainder) + Phase 0 final audit (ADR-040 cycle 2026-05-16) added 7 new severity-≥-medium assumptions (A-010 through A-016) that were not surfaced at parent-ADR lock time. The backfill was prompted by a 3-agent meta-audit (methodology consistency + unstated assumptions + source faithfulness) at user request before Phase 1 entry. The audit produced 1 actionable finding (this backfill) plus 3 dismissed false-alarm findings (ADR-015 acceptance_criterion staleness — point-in-time correct per immutability discipline; Mosbach 2021 citation — defensible per ICLR 2021 publication-year convention; test-stub count of 39 — exact</code>^<span class="citation" data-cites="pytest.mark.skip">@pytest.mark.skip</span><code>matches 39 = 32 ADR-specific + 7 kit-level). Severity calibration per ADR-040: 5 high (A-010, A-012, A-013, A-014, A-016 — load-bearing without automated recovery) + 2 medium (A-011, A-015 — load-bearing with built-in recovery primitive). The existing A-001 through A-009 conservative "medium"-only convention preserved (not retro-calibrated). Phase 0-06 closed with no severity ≥ medium assumptions because the locked decisions (concern-grouped sub-packages, three-target Makefile execution-context stratification, 70%-flat coverage floor with upstream-issue-filing escape, 4-marker test taxonomy) are project-internal-discipline contracts whose failure modes are reviewer-friction or code-organization drift, not methodology validity.]</code></p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brandon-behring\.github\.io\/prompt-injection-detection-prototype\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Assumptions registry</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Unverified assumptions made during the project. Severity tags drive whether the assumption appears in WRITEUP caveats and whether an ADR is required when it's invalidated.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Severity</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**low** — assumption is a stylistic choice with minimal evidential impact</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**medium** — assumption affects interpretation but doesn't invalidate conclusions</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**high** — assumption is load-bearing; if false, conclusions need revisiting</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**critical** — assumption is foundational; if false, the project's framing changes</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Discipline</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Every severity ≥ medium assumption appears in WRITEUP's caveats block (invariant test: <span class="in">`test_reporting_completeness_assumptions_in_caveats`</span>).</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When an assumption is invalidated mid-implementation, update this file and write a corrective ADR. Do not silently revise.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Registry</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ID <span class="pp">|</span> Description <span class="pp">|</span> Severity <span class="pp">|</span> Verification status <span class="pp">|</span> Linked to (ADR / EVIDENCE.md §) <span class="pp">|</span> Notes <span class="pp">|</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-001 <span class="pp">|</span> runpod-deploy 0.7.7 + eval-toolkit infrastructure can compress a 4-trained-rung-slate (TF-IDF+LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015) + 3-seed multi-seed + 4-fold LODO + 48-run workload (12 sklearn CPU + 36 H100/equivalent transformer) + per-epoch prediction save + 4-reference-rung inference + full OOD slate + paired-bootstrap into ~2.5 working days. Originally framed as 2×3=6 trained rungs per ADR-007; refined to 1×3 per ADR-015 supersedes ADR-007; expanded to classical-floor + 3-transformer = 4 trained rungs per ADR-017 (classical-floor adds approximately 5 minutes total CPU compute). GPU-class failover via runpod-deploy <span class="in">`pod.gpu_order`</span> ladder per ADR-020 (8-class failover H100 → H200 → A100-80G → A100-40G → L40S) plus dual-DC failover (US-MD-1 + EU-RO-1) handles H100 stockout. If false, the updated fallback ladder (transformer rungs 1×3 → 1×2 → 1×1; classical floor always retained per ADR-017) activates and the writeup honestly reports what was achieved, not what was attempted. <span class="pp">|</span> high <span class="pp">|</span> unverified <span class="pp">|</span> ADR-001 + ADR-015 + ADR-017 + ADR-020 <span class="pp">|</span> Mid-Phase-2 checkpoint triggers fallback evaluation. <span class="pp">|</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-002 <span class="pp">|</span> Total project budget for LLM-judge reference rungs (<span class="in">`gpt-4o-2024-08-06`</span> + <span class="in">`claude-sonnet-4-6`</span> per ADR-018, both at temperature=0, one call per eval row) plus GPU training compute (3 transformer rungs × 3 seeds × 4 LODO folds = 36 H100/equivalent runs at $3-3.50/hr spot via runpod-deploy <span class="in">`pod.gpu_order`</span> failover per ADR-020) plus classical-floor sklearn CPU compute (12 runs at near-zero cost per ADR-017) plus reference-rung inference (ProtectAI v1 + v2 GPU inference per ADR-018; LLM-judge API calls ~$10-12 total for both judges across ~5K eval rows) lands in the **$25-$125 range**. Per-job orchestrator-enforced soft cap is <span class="in">`budget.cost_cap_usd=125.0`</span> per ADR-020; project-wide hard cap $200 enforced by <span class="in">`scripts/cost_rollup.py`</span> CI gate aggregating per-pod manifests + API call logs. If actual cost exceeds the soft cap (cumulative $125), escalation discussion documented in <span class="in">`evals/cost_decisions.md`</span> is required before further spend; if hard cap is reached ($200), superseding ADR documenting extension rationale is required. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-007 (revised by ADR-015 + ADR-017 + ADR-018 + ADR-020) <span class="pp">|</span> Verification at end of Phase 3 against cumulative API + GPU cost rolled up in <span class="in">`evals/cost_ledger.csv`</span>. <span class="pp">|</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-003 <span class="pp">|</span> Pre-teardown persistence checklist is enforced for every RunPod pod before destruction (per-row predictions + manifests + checkpoints + logs + results.json). If false, a mid-run pod loss reverts the affected rung and the fallback ladder may activate to recover. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-013 <span class="pp">|</span> Phase 2 entry creates <span class="in">`scripts/pre_teardown_check.sh`</span> (or equivalent) and verifies runpod-deploy's incremental persistence support. <span class="pp">|</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-004 <span class="pp">|</span> BIPIA samples with token-length above 8192 (ModernBERT-base native context cap) stay at or below 15 percent of the slice under the ModernBERT-base tokenizer. Per dossier characterization the rate is approximately 5 percent (3x tolerance). If false, the adaptive-chunked-scoring policy from ADR-014 becomes load-bearing on the headline indirect-injection slice (not just a conditional safeguard); a future superseding ADR (ADR-017+) adjusts chunk-stride or aggregation policy (e.g., hierarchical encoding, learned aggregator, or tighter stride). Note: ADR-014 body references "ADR-016" as the supersession placeholder; ADR-016 was actually used for Phase 0-02 data design — the truncation-policy supersession path uses the next available ADR number. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-014 + ADR-015 <span class="pp">|</span> Phase 1 length-histogram audit produces <span class="in">`evals/length_histograms.{train,ood}.json`</span> with per-slice quantiles on ModernBERT-base tokenizer. <span class="pp">|</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-005 <span class="pp">|</span> The Phase 0-02 data-design locks (ADR-016) depend on the Phase 1 empirical data audit confirming dossier estimates. Specific invalidation triggers — any one of which fires the superseding-ADR requirement: (1) benign contamination scan flags &gt;2% of either LMSYS or UltraChat as injection-template-match (MiniLM cosine &gt;=0.85 to a known injection template); (2) post-dedup per-LODO-fold training-pool class-balance falls outside 1:3 to 1:10 positive:negative range; (3) systematic mislabeling detected in any source via spot-check (~50 random samples per source); (4) actual per-source length distribution diverges materially (5x or more on a percentile) from dossier estimates. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-016 <span class="pp">|</span> Phase 1 deliverables: <span class="in">`evals/data_audit.{contamination,balance,length,labeling}.json`</span> operationalize these triggers. <span class="pp">|</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-006 <span class="pp">|</span> All reference rungs (and the ModernBERT-base backbone used by trained rungs 2-4) carry uncontrolled training-data leakage relative to our eval slate. Specifically: (1) ProtectAI v1 and v2 disclose only a partial training corpus, which may include eval positive sources (mosscap, HackAPrompt, etc.); (2) <span class="in">`gpt-4o-2024-08-06`</span> and <span class="in">`claude-sonnet-4-6`</span> are closed corpora trained on web-scale text that almost certainly includes public injection-detection benchmarks via crawl; (3) the ModernBERT-base backbone pretrain corpus (<span class="in">`fineweb-edu`</span> + others per Warner et al. 2024) may include eval sources via web crawl. Only TF-IDF + LR (trained on our LODO splits by construction per ADR-017) is <span class="in">`verified_disjoint`</span>. **Reporting consequence**: every reference-rung headline metric is reported with explicit contamination-state tag per the ADR-005 three-state taxonomy (`verified_disjoint` / `backbone-partial-disjoint` / `suspected_contamination` / `vendor_black_box`); the WRITEUP methodology spoke includes a dedicated **Contamination stratification** subsection explaining the four-tier disclosure gradient (per ADR-018); the trained-rung-vs-reference comparison is framed as "what trained-from-scratch (TF-IDF+LR anchor) achieves versus what potentially-memorized off-the-shelf models achieve." **Phase 1 mitigation**: contamination scan via MiniLM cosine between eval set and known public mirrors of training data provides partial evidence of overlap for ProtectAI; the scan cannot help for LLM judges (closed corpora). <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-018 <span class="pp">|</span> Phase 1 deliverable: <span class="in">`evals/contamination_scan.json`</span> with per-eval-row maximum cosine to known public training-data mirrors; per-rung contamination-state column in headline-table emit. <span class="pp">|</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-007 <span class="pp">|</span> LLM-judge reference rungs (<span class="in">`gpt-4o-2024-08-06`</span> and <span class="in">`claude-sonnet-4-6`</span> per ADR-018) at temperature=0 are not strictly deterministic across calls. Both OpenAI and Anthropic document that temperature=0 reduces but does not eliminate non-determinism due to GPU non-determinism, batched scheduling, multi-region routing, etc. The "single inference per row" treatment in ADR-022 is a simplification by fiat — reference-rung scores are cached at first call and re-run only on cache miss; inter-call variance is not measured. If false (i.e., if reference-rung scores drift materially between cache writes and reads), per-row predictions become non-reproducible across submission re-runs and the comparison structure (trained-vs-reference paired bootstrap per ADR-022) could be invalidated. **Phase 1 mitigation**: response cache stored at `evals/audit/llm_judge_cache/&lt;judge&gt;__&lt;row_hash&gt;.json` with timestamp + temperature + prompt-template version; re-runs verify cache hit before billing; cache hits checked against expected hash. **Reporting consequence**: the methodology spoke at WRITEUP/reference-scorer-audit.md gains a one-paragraph note "Reference-rung scores treated as single-observations by fiat; inter-call variance not measured." <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-022 + ADR-018 <span class="pp">|</span> Phase 1 deliverable: cache infrastructure at <span class="in">`evals/audit/llm_judge_cache/`</span>; cache-hit verification scripted; per-cache-entry timestamp + temperature + prompt-template-version recorded. <span class="pp">|</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-008 <span class="pp">|</span> The 4 LODO folds defined by ADR-016 are not exchangeable — each fold holds out a different positive source (<span class="in">`deepset/prompt-injections`</span> ~500-650, <span class="in">`Lakera/gandalf_ignore_instructions`</span> ~800-1000, <span class="in">`Lakera/mosscap_prompt_injection`</span> 3K cap, <span class="in">`hackaprompt/hackaprompt-dataset`</span> 3K cap) with 1.5x to 6x size variation and distinct attack styles (classical / Gandalf-CTF / Mosscap-CTF / competition red-team). The eval-toolkit <span class="in">`cv_clt_ci`</span> primitive (Bayle 2020 Annals of Statistics Theorem 3.1) used as the headline cross-fold CI machinery per ADR-024 was derived for exchangeable k-fold cross-validation; the LODO non-exchangeability is a real assumption violation. **Reporting consequence**: the methodology spoke at WRITEUP/methodology.md reports both `cv_clt_ci` CI and block-bootstrap-on-folds CI per rung; if the ratio `block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth &gt; 1.5` for any rung, the spoke flags "LODO non-exchangeability dominates within-fold variance; headline CI may understate uncertainty" — turning the assumption violation into a named methodology finding. **Phase 4 conditional mitigation**: if Phase 4 entry cost ledger shows cumulative spend below ~$75 (well below ADR-020 $125 soft cap), escalate to stratified-k-fold-within-LODO (Fomin 2025 / Nadeau-Bengio 2003 variance decomposition; ~5x compute) for full LODO-source-character vs within-source variance decomposition; else deferred to afterword. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-024 + ADR-016 <span class="pp">|</span> Phase 4 deliverable: <span class="in">`evals/audit/cross_fold_ci_audit.parquet`</span> with per-rung headline-CI + spoke-ablation-CI + sensitivity-flag; conditional stratified-k-fold escalation gated on <span class="in">`evals/cost_ledger.csv`</span> cumulative state at Phase 4 entry. <span class="pp">|</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-009 <span class="pp">|</span> The verification-policy operating point locked by ADR-025 (recall ≥ 99% via <span class="in">`TargetRecallSelector(0.99)`</span> on validation per-(rung, fold, seed)) is rung-dependent and not guaranteed to be reachable on every (rung, fold, seed) val slice. Reachability can fail when (1) the PR curve at high-recall regime is too noisy on a small val slice (per-fold val n ≈ 250-1300 rows, especially LODO val with positive sources held out); (2) the model genuinely cannot reach 99% recall on that fold's positives without flagging nearly all benigns (recall plateaus &lt; 99%); (3) score quantization gaps prevent the achievable recall lattice from containing a point at recall ≥ 99% even when the limit is approachable. **Reporting consequence**: the audit JSON `evals/audit/verification_reachability.json` is a load-bearing surface for honest dual-policy interpretation — every unreachable (rung, fold, seed) cell carries an asterisk in the headline emit, the audit JSON records `target_reachable: false` plus `achieved_val_recall` plus `fallback_threshold` plus `fallback_test_fpr`, and the `WRITEUP/threshold-policy.md` spoke gains a "Verification-target reachability across trained rungs" subsection turning per-rung reachability rate into a cross-rung comparison artifact. **Phase 5 mitigation pre-commit**: if reachability is poor on the headline rungs, the persistence pre-commit (per ADR-013 + ADR-025 Q4) enables a one-commit "Recall-floor sensitivity sweep" afterword regenerating verification operating points at recall floors {95%, 99%, 99.9%} from persisted predictions with zero new training compute. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-025 + ADR-013 <span class="pp">|</span> Phase 4 deliverable: <span class="in">`evals/audit/verification_reachability.json`</span> per-(rung, fold, seed) with target_reachable + achieved_val_recall + fallback_threshold + fallback_test_fpr; Phase 5 conditional sensitivity sweep at {95%, 99%, 99.9%} recall floors gated on reachability-rate observations. <span class="pp">|</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-010 <span class="pp">|</span> GitHub Pages + GitHub Actions free-tier infrastructure (deploy workflow at <span class="in">`.github/workflows/publish.yml`</span> per ADR-030; <span class="in">`quarto-actions/setup@v2`</span> + <span class="in">`quarto-actions/publish@v2`</span> actions; <span class="in">`gh-pages`</span> branch serving) remains available through submission day 2026-05-18. ADR-039 gate 6 verifies "all three reviewer URLs at v1.0.0 resolve" including the live Quarto site at <span class="in">`https://brandon-behring.github.io/prompt-injection-detection-prototype/`</span>. If GitHub Pages experiences a &gt;12-hour outage spanning the submission window, gate 6 fails and submission verification is blocked. **Phase 5 mitigation**: ADR-033 v0.9.0-rc1 rehearsal tag fires the full publish pipeline 24+ hours before v1.0.0 submission tag — first-time-CI / GH Pages enablement / `quarto-actions` action availability all exercised at rehearsal. **Fallback if rehearsal fails**: fix-forward via new commits + v0.9.0-rc2; if persistent CI failure at rehearsal-tag time, fallback is to commit <span class="in">`_site/`</span> directly to a <span class="in">`submission-site`</span> branch and point reviewer URL at a raw HTML-Preview URL per ADR-030 extension condition. <span class="pp">|</span> high <span class="pp">|</span> unverified <span class="pp">|</span> ADR-030 + ADR-033 + ADR-039 + ADR-040 <span class="pp">|</span> Phase 5 deliverable: v0.9.0-rc1 rehearsal tag fires successfully (verified via <span class="in">`gh run list --workflow publish.yml`</span>); rehearsal-failure runbook in <span class="in">`docs/REPRODUCIBILITY.md`</span> documents the raw-HTML-Preview fallback. <span class="pp">|</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-011 <span class="pp">|</span> RunPod H100 spot pricing remains stable at the <span class="in">`assumed_hourly_rate_usd=$3.50`</span> estimate locked by ADR-020 (H100 spot midpoint estimate from runpod-deploy cost-reconciliation recipe). Material drift above $5/hr would shrink the cost-cap window (ADR-020 per-job soft cap $125; project-wide hard cap $200) before training completes; cumulative spend could hit the $80 trigger flag earlier than expected. **Phase 1+ mitigation**: ADR-020 cost-reconciliation recipe specifies post-first-run rate update — `scripts/cost_rollup.py` compares manifest `gpu_price_per_hour_usd` vs assumed rate; if actual differs materially (&gt;15% drift), the assumed rate is bumped in subsequent runs or split per GPU class. **Fallback if drift is sustained**: ADR-001 fallback ladder (1×3 → 1×2 → 1×1 transformer rungs; classical floor always retained per ADR-017) reduces training compute scope to fit the cost-cap window. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-020 + A-002 + ADR-040 <span class="pp">|</span> Phase 2 deliverable: <span class="in">`evals/cost_ledger.csv`</span> first-row update against actual <span class="in">`runpod_deploy_pull_manifest.json`</span> <span class="in">`gpu_price_per_hour_usd`</span> after first billed pod; rate-drift alert if first-run rate exceeds $4.50/hr. <span class="pp">|</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-012 <span class="pp">|</span> At least one of the 8 GPU classes in ADR-020's <span class="in">`pod.gpu_order`</span> failover ladder (H100 family → H200 family → A100-SXM4-80GB → A100 80GB PCIe → L40S → A100-SXM4-40GB emergency) is available at submission-window spot pricing across the 2026-05-15 → 2026-05-18 window. RunPod spot inventory fluctuates; full exhaustion of H100/H200/A100-80G/L40S would leave only A100-40G (emergency tier), which may hit OOM at max_len=8192 batch despite BATCH_TABLE scaling. **Phase 2 mitigation**: `runpod-deploy validate --all` preflight + `runpod-deploy run --dry-run` cost preview detect stockout before billing; ADR-020 dual-DC failover (US-MD-1 + EU-RO-1) doubles the inventory surface. **Fallback if all 8 classes exhausted**: ADR-001 fallback ladder activates — rung-count reduction (1×3 → 1×2 → 1×1) preserves the methodology contribution at smaller scale; classical floor (TF-IDF + LR; sklearn CPU) always retained per ADR-017 as the methodology floor. <span class="pp">|</span> high <span class="pp">|</span> unverified <span class="pp">|</span> ADR-020 + ADR-001 + ADR-040 <span class="pp">|</span> Phase 2 entry: <span class="in">`runpod-deploy validate --all`</span> plus <span class="in">`runpod-deploy run --dry-run`</span> outputs persisted at <span class="in">`evals/audit/gpu_preflight_&lt;timestamp&gt;.json`</span>; stockout-induced fallback documented in <span class="in">`evals/cost_decisions.md`</span> if triggered. <span class="pp">|</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-013 <span class="pp">|</span> HuggingFace Hub infrastructure remains available across the submission lifecycle: (a) datasets remain accessible at pinned SHAs per ADR-016 manifest; (b) license terms don't shift mid-Phase; (c) <span class="in">`HF_TOKEN`</span> write scope continues to allow ADR-032 model publication; (d) published <span class="in">`BBehring/prompt-injection-&lt;rung&gt;`</span> model card schema stays backward-compatible; (e) the T0 reproducibility tier per ADR-034 (<span class="in">`make eval-from-hub`</span> via <span class="in">`huggingface_hub.snapshot_download`</span>) functions for reviewer-side reproduction. HF Hub outage or license/scope change would block dataset loading (Phase 1) or model publication (Phase 5) or T0 reproducibility (post-submission). **Phase 1+ mitigation**: ADR-016 SHA pinning + local dataset cache means data loading is resilient to short-term outages (cache-hit avoids HF Hub round trip); ADR-032 model publication step runs at Phase 5 close — outage at that moment can be re-attempted up to v1.0.0 tag firing. **Fallback if persistent outage**: dataset loading falls back to local pre-fetched cache; model publication deferred to post-v1.0.0 patch tag (v1.0.1) per ADR-033 patch-tag discipline; T0 tier in <span class="in">`WRITEUP/reproducibility.md`</span> notes the deferral. <span class="pp">|</span> high <span class="pp">|</span> unverified <span class="pp">|</span> ADR-016 + ADR-032 + ADR-034 + ADR-040 <span class="pp">|</span> Phase 1 deliverable: local dataset cache at <span class="in">`~/.cache/huggingface/datasets/`</span> (uv handles via HF_HOME env var if pinned); cache-hit verification at every dataset load; Phase 5 deliverable: publication-retry loop in <span class="in">`scripts/generate_model_cards.py`</span>. <span class="pp">|</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-014 <span class="pp">|</span> LLM judge reference rungs remain callable across the submission lifecycle: <span class="in">`gpt-4o-2024-08-06`</span> (OpenAI; stable snapshot per ADR-018) and <span class="in">`claude-sonnet-4-6`</span> (Anthropic; date-suffixed snapshot ID pinned at Phase 1 per Anthropic API docs) snapshots are not deprecated mid-Phase-3 eval execution. Distinct from A-007 which covers temperature=0 non-determinism: A-014 covers availability/deprecation specifically. OpenAI has deprecated stable snapshots before (e.g., <span class="in">`gpt-3.5-turbo-0301`</span>); if either model is discontinued before Phase 5 close, ADR-018 reference-rung slate loses 2 of 4 rungs, contamination axis (per ADR-005 + A-006) loses 2 of 4 contamination-state cells. **Phase 1+ mitigation**: per A-007 cache infrastructure (`evals/audit/llm_judge_cache/`), all reference-rung scores are cached at first call; deprecation mid-Phase-3 invalidates *future* calls but cached scores remain valid for reporting. **Fallback if mid-Phase deprecation**: superseding ADR (e.g., ADR-NNN) swaps the deprecated model for its successor snapshot (e.g., <span class="in">`gpt-4o-2024-11-20`</span>); contamination caveat updated in WRITEUP. <span class="pp">|</span> high <span class="pp">|</span> unverified <span class="pp">|</span> ADR-018 + ADR-022 + ADR-040 (supplements A-007) <span class="pp">|</span> Phase 1 deliverable: cache infrastructure persists scores so deprecation invalidates only future calls; Phase 3 deliverable: <span class="in">`evals/audit/llm_judge_cache/`</span> populated before Phase 4 close so cached evidence survives deprecation. <span class="pp">|</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-015 <span class="pp">|</span> ProtectAI <span class="in">`deberta-v3-base-prompt-injection`</span> v1 + v2 HF model repos remain public with stable revision SHAs through the submission lifecycle: (a) repos not deleted, (b) repos not relicensed (currently MIT/Apache per HF model card; relicensing could block redistribution), (c) pinned revision SHAs persist if ProtectAI re-trains and overwrites tags. **Phase 1 mitigation**: ADR-016 manifest SHA-pins both v1 + v2 at Phase 1 entry; HF Hub's revision-pin mechanism preserves access to the specific commit even after subsequent re-uploads. **Fallback if persistent unavailability**: 2 reference rungs reduce to LLM-judges-only (OpenAI + Anthropic remain); contamination axis (per ADR-005 + A-006) loses 2 of 4 cells but retains 2 (`vendor_black_box`); TF-IDF + LR anchor (`verified_disjoint`) unaffected; methodology still publishable with narrower reference-rung surface. **Severity**: medium not high because other reference rungs remain and the contamination story preserved via remaining LLM-judges-and-classical-floor structure. <span class="pp">|</span> medium <span class="pp">|</span> unverified <span class="pp">|</span> ADR-018 + ADR-016 + ADR-040 <span class="pp">|</span> Phase 1 deliverable: <span class="in">`configs/data/source_manifest.yaml`</span> SHA-pins both v1 + v2; local checkpoint cache via <span class="in">`huggingface_hub.snapshot_download`</span> at Phase 1 entry preserves model weights even if upstream removed. <span class="pp">|</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A-016 <span class="pp">|</span> Brandon Behring has approximately 16-20 productive work-hours available across the 2026-05-15 → 2026-05-18 calendar window. A-001 frames the *workload-fits-the-calendar* assumption; A-016 frames the *human-time-underneath* assumption (the load-bearing prerequisite for A-001). If Brandon becomes unavailable for &gt;8 contiguous hours unexpectedly (illness, emergency, unanticipated commitments), the 2.5-day calendar from Phase 0-00 (2026-05-15) to submission (2026-05-18) is at risk; ADR-001 fallback ladder reduces *compute* scope (rung-count reduction) but does NOT reduce human-time required for Phase 5 writeup + ADR-039 submission-readiness gates + transcript capture + reviewer-email composition. **No automated recovery primitive** — this is the only A-XXX assumption without a corresponding ADR-mechanized fallback. **Phase 5 mitigation**: ADR-033 v0.9.0-rc1 rehearsal tag fires at Phase 4 close (~24-36 hours before v1.0.0 submission tag), providing early signal of work-time pressure; if rehearsal slips by &gt;12 hours, the v1.0.0 tag plus submission email can be deferred to a 2026-05-19 patch window (acknowledged in submission-readiness sign-off). **Severity**: high (load-bearing on calendar deadline; no automated fallback) but NOT critical (project-framing-changing) because methodology contribution is preserved if deadline slips. <span class="pp">|</span> high <span class="pp">|</span> unverified <span class="pp">|</span> ADR-001 + ADR-040 <span class="pp">|</span> Phase 0-08 close to v1.0.0 submission: implicit calendar gate; no mechanical verification artefact (assumption inherently un-testable in CI). <span class="pp">|</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="in">`[Phase 0-07 (submission deliverables) + 0-08 (tech-stack remainder) + Phase 0 final audit (ADR-040 cycle 2026-05-16) added 7 new severity-≥-medium assumptions (A-010 through A-016) that were not surfaced at parent-ADR lock time. The backfill was prompted by a 3-agent meta-audit (methodology consistency + unstated assumptions + source faithfulness) at user request before Phase 1 entry. The audit produced 1 actionable finding (this backfill) plus 3 dismissed false-alarm findings (ADR-015 acceptance_criterion staleness — point-in-time correct per immutability discipline; Mosbach 2021 citation — defensible per ICLR 2021 publication-year convention; test-stub count of 39 — exact `</span>^@pytest.mark.skip<span class="in">` matches 39 = 32 ADR-specific + 7 kit-level). Severity calibration per ADR-040: 5 high (A-010, A-012, A-013, A-014, A-016 — load-bearing without automated recovery) + 2 medium (A-011, A-015 — load-bearing with built-in recovery primitive). The existing A-001 through A-009 conservative "medium"-only convention preserved (not retro-calibrated). Phase 0-06 closed with no severity ≥ medium assumptions because the locked decisions (concern-grouped sub-packages, three-target Makefile execution-context stratification, 70%-flat coverage floor with upstream-issue-filing escape, 4-marker test taxonomy) are project-internal-discipline contracts whose failure modes are reviewer-friction or code-organization drift, not methodology validity.]`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
