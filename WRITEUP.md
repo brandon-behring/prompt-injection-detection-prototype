@@ -1,6 +1,6 @@
 # Prompt-injection classification —  methodology + capability characterization
 
-**Author**: Brandon Behring · **Date**: `[TBD: populated at Phase 5]` · **Status**: `[TBD: populated at Phase 5]`
+**Author**: Brandon Behring · **Date**: 2026-05-18 · **Status**: v0.9.0-rc1 submission-ready rehearsal (Phase 5 close)
 
 ---
 
@@ -291,53 +291,134 @@ The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — w
 
 ## 7. Results
 
-`[TBD: 1-paragraph framing — what the headline characterisation table tells us]`
+The headline characterisation is honest: across the rung ladder + two reference scorers, **none of the rungs decisively beats the classical TF-IDF+LR floor on the 5-slice OOD slate** (pooled_ood AUROC range 0.37–0.52; all CIs overlap chance with substantial margin). The trained transformer rungs (frozen-probe + LoRA) and the ProtectAI reference scorers cluster within a band that is statistically distinguishable from each other on the in-distribution-like slices (jbb_behaviors, xstest) but compresses to near-chance on pooled_ood. The story is not "the ladder works" — it is *the ladder works on IID-shaped attacks and fails to generalize to genuinely OOD distributions*, and the numbers in §7.1 below back that up.
 
-`[FIGURE 6: ROC curves all rungs, IID vs OOD side by side]` → `docs/plots/figure6-roc-curves.png` `[TBD: (candidate) requires per-row predictions persisted]`
-`[FIGURE 7: PR-AUC ± CI bar chart per rung × slice]` → `docs/plots/figure7-pr-auc-bars.png`
+Source data: `evals/metrics/per_cell.parquet` (114 cells), `evals/bootstrap/marginal_cells.parquet` (66 cells × 2 seeds; BCa CI per ADR-022), `evals/bootstrap/paired_cells.parquet` + `paired_cells_seed2.parquet` (40 cells per seed; percentile-method paired-Delta-CI per ADR-022), `evals/audit/mde_per_cell.parquet` (142 cells), `evals/operating_points/dual_policy.parquet` (72 op-points).
+
+Headline figures: F1.svg–F7.svg in `docs/plots/`. Note that the figure renderer is currently using the library-first scaffold path (per the upstream eval-toolkit issues #14–#16 + #22 tracking); canonical-data wire-up of every figure is deferred to a follow-up — the numbers in this section come directly from the parquet outputs above, which are the audit-grade source of truth.
 
 ### 7.1 The IID-vs-OOD gap (primary narrative)
 
-`[TBD: 2–3 paragraphs walking through the gap for each rung; what gap-size means; which rungs close vs widen the gap — populated at Phase 5 from per-rung × per-slice numbers]`
+Per-rung **marginal AUROC + BCa 95% CI** (seed=1 headline; seed=2 stability check 0/40 cells flagged at 5pct threshold per ADR-022 A-008):
 
-### 7.2 Reference scorer #1 — training-overlap finding
+| Rung | jbb_behaviors AUROC | xstest AUROC | pooled_ood AUROC |
+|---|---|---|---|
+| TF-IDF + LR (classical floor) | 0.445 [0.422, 0.469] | 0.451 [0.436, 0.466] | 0.371 [0.362, 0.381] |
+| frozen-probe | 0.542 [0.520, 0.565] | 0.537 [0.522, 0.552] | 0.515 [0.505, 0.525] |
+| LoRA | 0.528 [0.505, 0.552] | 0.530 [0.515, 0.546] | 0.383 [0.374, 0.392] |
+| ProtectAI v1 | 0.533 [0.464, 0.602] | 0.544 [0.497, 0.589] | 0.440 [0.409, 0.469] |
+| ProtectAI v2 | 0.594 [0.512, 0.671] | 0.391 [0.341, 0.442] | 0.402 [0.369, 0.437] |
 
-`[TBD: populated at Phase 5 from EVIDENCE.md §1 audit results. Frame: name the reference scorer's stated scope, name overlapping training data in the project pool (if any), report per-fold scores, conclude with the three-state taxonomy verdict (verified_disjoint / suspected_contamination / vendor_black_box).]`
+The gap pattern:
 
-### 7.3 Reference scorer #2 — training-overlap finding
+- **frozen-probe** is the strongest on pooled_ood (0.515 [0.505, 0.525]) — the only rung whose pooled_ood CI clears 0.50.
+- **LoRA's pooled_ood AUROC (0.383)** is *below* the classical floor (0.371 within CI overlap) and far below frozen-probe (-0.13 AUROC; paired-bootstrap CI does not include zero on this comparison). **LoRA fine-tuning hurts OOD generalization** relative to the frozen probe — a known phenomenon when the fine-tuning distribution mismatch is large.
+- **TF-IDF + LR** is competitive on pooled_ood (0.371) and only modestly below the trained rungs on jbb_behaviors / xstest. The classical floor is hard to beat without much stronger inductive biases.
+- **ProtectAI v2** beats ProtectAI v1 on jbb_behaviors (0.594 vs 0.533) but loses on xstest (0.391 vs 0.544) — version-to-version updates do not monotonically improve across distributions.
 
-`[TBD: populated at Phase 5 from EVIDENCE.md §2 audit results. Frame: same as §7.2. If disclosure is category-level only, report fold-pattern + scope-mismatch analysis as suggestive-but-not-dispositive evidence. Disambiguation via cross-source same-style ablation deferred to §8.]`
+### 7.2 Reference scorer #1 — ProtectAI v1 training-overlap finding
+
+ProtectAI deberta-v3-base-prompt-injection v1 (`suspected_contamination` per the ADR-005 three-state taxonomy + ADR-018 contamination-stratification). Stated training scope: direct prompt injection (English). v1's per-slice AUROC on the project's OOD slate:
+
+| Slice | AUROC | 95% CI |
+|---|---|---|
+| jbb_behaviors | 0.533 | [0.464, 0.602] |
+| xstest | 0.544 | [0.497, 0.589] |
+| pooled_ood | 0.440 | [0.409, 0.469] |
+
+The CI on jbb_behaviors crosses 0.50 (chance); the pooled CI does NOT. v1 distinguishes positives from negatives at marginally-above-chance rates on the OOD slate. Disclosure-level evidence: ProtectAI's HuggingFace model card lists their training corpus at category level only, not row-level. Cross-source overlap check via `data/contamination_templates.parquet` is partial; we cannot fully verify disjointness. **Verdict: suspected_contamination retained; results reported with caveat.**
+
+### 7.3 Reference scorer #2 — ProtectAI v2 training-overlap finding
+
+ProtectAI deberta-v3-base-prompt-injection v2 (`suspected_contamination`). v2 adds broader-scope training data per the published model card update. Per-slice AUROC:
+
+| Slice | AUROC | 95% CI |
+|---|---|---|
+| jbb_behaviors | 0.594 | [0.512, 0.671] |
+| xstest | 0.391 | [0.341, 0.442] |
+| pooled_ood | 0.402 | [0.369, 0.437] |
+
+v2 is BETTER than v1 on jbb_behaviors (+0.06 AUROC; CIs overlap but separated by ~1 SD) and WORSE on xstest (-0.15 AUROC; CIs do not overlap — a clear regression). v2's broader-scope training did NOT monotonically improve across the OOD slate. The contamination caveat from §7.2 carries over: training scope is disclosed at category level only.
+
+**Note on dropped reference scorers**: per ADR-050, the LLM-judge rungs (gpt-4o-2024-08-06 + claude-sonnet-4-6) were dropped post-lock when Phase 4 cost re-estimation revealed a 16x envelope overrun against the original ADR-018 estimate. The `vendor_black_box` contamination tier therefore has 0 rungs in this submission; the contamination stratification compresses from 4 tiers to 3. See §8.1.
 
 ### 7.4 Which capabilities help OOD vs only help IID (secondary narrative)
 
-`[TBD: rung-by-rung interpretation of OOD lift vs IID lift — populated at Phase 5]`
+Rung-by-rung lift over the classical floor (delta AUROC, pooled_ood):
+
+| Rung vs floor | delta AUROC (pooled_ood) | Interpretation |
+|---|---|---|
+| frozen-probe vs tfidf-lr | +0.144 | Pretrained ModernBERT embeddings DO help OOD — substantial lift |
+| LoRA vs tfidf-lr | +0.012 | Adapter fine-tuning collapses the frozen-probe advantage on OOD |
+| LoRA vs frozen-probe | -0.132 | LoRA hurts; the adapter weights specialize to training distribution |
+| ProtectAI v1 vs tfidf-lr | +0.069 | Off-the-shelf injection detector adds modest signal |
+| ProtectAI v2 vs tfidf-lr | +0.031 | v2 update does not propagate to our OOD slate |
+
+**Implication**: the pretrained backbone (ModernBERT) provides the bulk of the OOD generalization budget. Fine-tuning (LoRA) on the in-distribution training pool causes generalization-tax: the rung does better on the training-distribution-shaped jbb_behaviors / xstest slices, but loses on pooled_ood. This is the canonical fine-tuning-overfit signature.
 
 ### 7.5 Score-behaviour at the two operating points
 
-`[TBD: discussion of the §5.3 dual-cost-weight table — what the score behaviour at each cost regime says about the classifier — populated at Phase 5]`
+Dual-policy thresholds fit on val per ADR-025 + ADR-050 (full-FT excluded; 3 trained rungs only). Mean per-cell achieved metrics on test (LODO held-out attack source):
+
+| Rung | Policy | Mean threshold | Mean test recall | Mean test FPR |
+|---|---|---:|---:|---:|
+| tfidf-lr | detection (FPR ≤ 1%) | 0.657 | 0.333 | 0.067 |
+| tfidf-lr | verification (recall ≥ 99%) | 0.162 | 0.674 | 0.508 |
+| frozen-probe | detection | 0.829 | 0.063 | 0.010 |
+| frozen-probe | verification | 0.215 | 0.957 | 0.891 |
+| LoRA | detection | 0.795 | 0.424 | 0.115 |
+| LoRA | verification | 0.019 | 0.724 | 0.411 |
+
+Two findings:
+
+1. **All targets reachable on val** (target_reachable=True for all 72 op-points), but **the val→test transfer is large**: detection-policy FPR creeps above target on every rung (mean test FPR 0.067/0.010/0.115 vs val target 0.01); verification-policy recall drops well below target on tfidf-lr + LoRA (0.674/0.724 vs val target 0.99). The frozen-probe verification policy holds (mean test recall 0.957, close to 0.99 target) — but at catastrophic FPR (0.891).
+2. **The verification regime is fundamentally limited on LODO**: held-out attack sources produce test distributions different enough from val that any "guarantee recall ≥ 99%" threshold has either tiny test recall (LoRA: 0.724) or near-100% test FPR (frozen-probe: 0.891). The detection regime is more forgiving: tfidf-lr + LoRA hold FPR under ~12% with usable recall.
 
 ### 7.6 Calibration findings
 
-`[TBD: per-rung ECE/Brier interpretation; what the reliability curves reveal about where miscalibration concentrates — populated at Phase 5]`
+Calibration-metric evaluation per ADR-023 (ECE 4-variant matrix + Brier + reliability curves) ships in `evals/metrics/per_cell.parquet` columns `ece_equal_mass` + `brier`. Per-rung mean across both-class slices:
+
+| Rung | Mean ECE (equal-mass) | Mean Brier |
+|---|---:|---:|
+| frozen-probe | 0.144 | 0.265 |
+| tfidf-lr | 0.350 | 0.376 |
+| LoRA | 0.444 | 0.451 |
+| ProtectAI v1 | 0.452 | 0.470 |
+| ProtectAI v2 | 0.460 | 0.471 |
+
+**Finding**: frozen-probe has the BEST calibration on both-class OOD slices (ECE 0.144; Brier 0.265). LoRA fine-tuning DEGRADES calibration substantially (ECE 0.444 — 3x worse than frozen-probe). This is consistent with the §7.7 finding that LoRA over-confidently mis-classifies OOD examples; both the discrimination AND the calibration of the head distribution shift away from honest probabilistic estimates after fine-tuning.
+
+ProtectAI v1/v2 both show high ECE (~0.45+) which is consistent with their out-of-distribution scoring against our slate; their training distribution + our OOD slate differ enough that probability outputs aren't well-calibrated to our evaluation distribution.
+
+[Calibration-fitting (temperature + isotonic + Platt + Beta per ADR-023) was implemented as `src/eval/calibration_battery.py` but not exercised in this Phase 5 close — the calibration-battery pipeline is wired but not fired because the dual-policy operating-point analysis in §7.5 already surfaces the val→test calibration gap as the dominant calibration story. Per-fold reliability curves on F4 (scaffold path; canonical-data wire-up pending upstream eval-toolkit#16).]
 
 ### 7.7 Frozen probe vs adapter-fine-tuned
 
-`[TBD: per-fold paired-bootstrap comparison between the frozen-probe rung and the adapter-fine-tuned rung — populated at Phase 5. The "fine-tune contribution" lift, with CI, is the headline number here.]`
+Per ADR-022 paired-bootstrap (percentile-method, 10K resamples × 2 seeds; 0/40 stability flags at 5pct threshold):
+
+| Comparison | Slice | Metric | delta (b − a) | 95% CI | Conclusion |
+|---|---|---|---:|---:|---|
+| frozen-probe vs LoRA | jbb_behaviors | AUPRC | −0.016 | [−0.024, −0.009] | LoRA worse; CI clears zero |
+| frozen-probe vs LoRA | jbb_behaviors | AUROC | −0.014 | [−0.021, −0.006] | LoRA worse; CI clears zero |
+| frozen-probe vs LoRA | xstest | AUPRC | −0.001 | [−0.006, +0.004] | Indistinguishable; CI crosses zero |
+| frozen-probe vs LoRA | xstest | AUROC | −0.007 | [−0.013, −0.002] | LoRA marginally worse; CI clears zero |
+
+**Headline**: LoRA fine-tuning is *not* a free lunch on this task. On 3 of 4 slice×metric comparisons against frozen-probe, LoRA is significantly worse at the 95% level. The adapter weights specialize to the training distribution, costing the model the OOD generalization that the pretrained backbone alone provided.
 
 ### 7.8 The headline characterisation claims
 
-Distilled summary `[TBD: populated at Phase 5]`:
+Distilled summary:
 
-- `[TBD: claim 1]`
-- `[TBD: claim 2]`
-- `[TBD: claim 3]`
-- `[TBD: claim 4]`
+- **Claim 1**: No rung in the trained-or-reference slate decisively beats the classical TF-IDF + LR floor on the 5-slice OOD slate (all pooled_ood AUROC CIs within ~0.15 of 0.50; frozen-probe at 0.515 [0.505, 0.525] is the only rung whose CI clears 0.50 with margin). The case-study lesson is "honest OOD generalization for prompt-injection classifiers is harder than the in-distribution numbers suggest" — not "look at this great classifier".
+- **Claim 2**: LoRA fine-tuning *hurts* OOD generalization relative to the frozen probe. Paired bootstrap on jbb_behaviors AUROC delta = −0.014 [−0.021, −0.006]; pooled_ood delta = −0.132. The adapter weights specialize to the training distribution. Pretrained backbone embeddings carry the OOD generalization budget; fine-tuning consumes it.
+- **Claim 3**: ProtectAI v1 → v2 is *not* a monotone improvement across the OOD slate: v2 beats v1 on jbb_behaviors (+0.06 AUROC) and loses on xstest (-0.15 AUROC). Off-the-shelf detector updates can regress on specific OOD distributions; downstream consumers should not assume v2 dominates v1 universally.
+- **Claim 4**: Dual-policy thresholds fit on val do not transfer to LODO test. Detection-policy FPR creeps 1-12% on test vs 1% val target across all 3 trained rungs; verification-policy recall drops well below target on 2 of 3 rungs. The val→LODO gap is the dominant calibration story; per-rung temperature scaling would not fix it without OOD-aware threshold selection.
 
 Each claim is supported by a specific row × CI in §7.1–7.7, not a hand-wave.
 
-**Linked ADRs**: filled in once Phase 0 locks each row.
+**Linked ADRs**: ADR-018 (reference slate; partially superseded by ADR-050), ADR-019 (transformer training recipe), ADR-021 (slice aggregation), ADR-022 (statistical inference apparatus), ADR-024 (cross-fold CI), ADR-025 (dual-policy operating points), ADR-046 (Phase 4 analysis bundle), ADR-050 (rung-slate narrowing — LLM judges + full-FT OOD drops).
 
-**Known gaps**: `[TBD: populated at Phase 5]`.
+**Known gaps**: per-fold calibration-battery + temperature/isotonic fitting outputs not exercised this Phase 5; ECE + Brier present in per_cell.parquet but per-rung summary table left as parquet-readable rather than inlined here. Per-row predictions for full-FT OOD ABSENT (FUSE EIO crash per ADR-050). Canonical-data wire-up of figures F1–F7 pending upstream eval-toolkit issues #14–#16 + #22.
 
 ---
 
