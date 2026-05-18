@@ -138,6 +138,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Reading guide</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./RESULTS.html"> 
+<span class="menu-text">Results</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./WRITEUP.html"> 
 <span class="menu-text">Methodology (TOC)</span></a>
   </li>  
@@ -261,6 +265,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Prompt-injection classifier — reviewer reading guide</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Results — model-run artifacts, grids, figures, raw data</span></a>
   </div>
 </li>
       </ul>
@@ -730,6 +740,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Reading-guide governance + newcomer onboarding paths — two entry artifacts + 3 reading paths + Headline-finding-block + interpretation pedagogy + pointer convention</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RESULTS.md as third entry artifact — narrow supersession of ADR-053 dimension 1 (two-entry-artifacts); dimensions 2-5 unchanged</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -855,7 +871,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>For the per-slice breakdown + AUROC diagnostic + 5-rung × 5-slice grid, see <a href="./WRITEUP.html#results">WRITEUP §Results</a> + <a href="./WRITEUP/eval-design.html">WRITEUP/eval-design.md §5</a>.</p>
+<p>For the <strong>full 5-rung × 5-slice grid</strong> with AUPRC + AUROC + recall@FPR1% + 7 figures + raw-data pointers, see <a href="./RESULTS.html"><code>RESULTS.md</code></a> — the third entry artifact in the reading-guide architecture per <a href="./decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.html">ADR-054</a>. For the methodology-rooted narrative, see <a href="./WRITEUP.html#results">WRITEUP §Results</a> + <a href="./WRITEUP/eval-design.html">WRITEUP/eval-design.md §5</a>.</p>
 <hr>
 </section>
 <section id="how-to-read-these-numbers-5-interpretation-patterns" class="level2">
@@ -1507,7 +1523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v1 (reference) <span class="pp">|</span> 0.361 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span> <span class="pp">|</span> below baseline (CI upper bound clears it) <span class="pp">|</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v2 (reference) <span class="pp">|</span> 0.314 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span> <span class="pp">|</span> far below; v2 does NOT monotonically improve over v1 <span class="pp">|</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>For the per-slice breakdown + AUROC diagnostic + 5-rung × 5-slice grid, see <span class="co">[</span><span class="ot">WRITEUP §Results</span><span class="co">](WRITEUP.md#results)</span> + <span class="co">[</span><span class="ot">WRITEUP/eval-design.md §5</span><span class="co">](WRITEUP/eval-design.md)</span>.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>For the **full 5-rung × 5-slice grid** with AUPRC + AUROC + recall@FPR1% + 7 figures + raw-data pointers, see <span class="co">[</span><span class="ot">`RESULTS.md`</span><span class="co">](RESULTS.md)</span> — the third entry artifact in the reading-guide architecture per <span class="co">[</span><span class="ot">ADR-054</span><span class="co">](decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md)</span>. For the methodology-rooted narrative, see <span class="co">[</span><span class="ot">WRITEUP §Results</span><span class="co">](WRITEUP.md#results)</span> + <span class="co">[</span><span class="ot">WRITEUP/eval-design.md §5</span><span class="co">](WRITEUP/eval-design.md)</span>.</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
