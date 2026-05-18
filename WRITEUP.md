@@ -91,39 +91,43 @@ Each rung answers *what does this capability layer add over the rung below?* Hyp
 
 ### 4.1 Rung 1 — *the linear floor*
 
-`[OPEN]` Linear baseline (e.g. n-gram features + logistic regression). Deterministic; one fit per fold. *Why this rung exists*: a linear model is the minimum-viable classifier for the task; everything above it has to earn its complexity.
+TF-IDF (1-3-grams, sublinear TF, max_features=200k) + logistic regression (class-balanced, L2, C=1.0). Deterministic; one fit per fold × seed. Per ADR-017 + ADR-044. *Why this rung exists*: a linear model is the minimum-viable classifier for the task; everything above it has to earn its complexity.
 
-`[TBD: one-paragraph result interpretation against §7 numbers]`
+**Result**: tfidf-lr's OOD pooled-AUROC is 0.371 [0.362, 0.381] — slightly below chance, but with a tight CI that does NOT cross 0.50 (CI upper bound 0.381). On the IID-shaped slices it lands at 0.445 [0.422, 0.469] (jbb_behaviors) and 0.451 [0.436, 0.466] (xstest). This is the floor everything else has to beat to earn its complexity. *Result*: only frozen-probe clears this floor on pooled_ood with margin (delta +0.144 AUROC).
 
 ### 4.2 Rung 2 — *what the backbone already encodes*
 
-`[OPEN]` Frozen-transformer representations + linear head. *Why this rung exists*: it separates *pretraining alone* from *fine-tuning*. If the frozen probe matches or beats Rung 1 but the fine-tuned rung doesn't lift further, fine-tuning isn't adding capability — it's overfitting.
+ModernBERT-base (`answerdotai/ModernBERT-base`, revision pinned at SHA `8949b909`) with all backbone weights FROZEN; only the 2-class classification head is trained per ADR-015 + ADR-019. 2 epochs × class-balanced loss × bf16 × 12 cells (4 folds × 3 seeds). *Why this rung exists*: separates *pretraining alone* from *fine-tuning*. If the frozen probe matches or beats Rung 1 but the fine-tuned rung doesn't lift further, fine-tuning isn't adding capability — it's overfitting.
 
-`[TBD: one-paragraph result interpretation]`
+**Result**: frozen-probe's pooled_ood AUROC is 0.515 [0.505, 0.525] — *the only rung whose CI clears 0.50 with margin*. Net OOD lift over tfidf-lr is +0.144 AUROC. The pretrained ModernBERT embeddings carry significant generalization budget; the classifier head needs ONLY linear access to those embeddings to land above chance on the OOD slate. This is the headline finding of §7.
 
 ### 4.3 Rung 3 — *the fine-tuning ceiling at the project's compute budget*
 
-`[OPEN]` Adapter-fine-tuned transformer. Backbone, adapter rank, training-time scope, epoch count, precision, batch size, seed protocol — all locked at Phase 0 per SPEC_GREENFIELD §2 Model ledger rows. *Why this rung exists*: it's the maximally-adapted model in the compute budget. If anything above the frozen probe is worth doing, this rung is where it shows.
+ModernBERT-base with LoRA adapters (rank=16, alpha=32, dropout=0.05, target_modules=[query, key, value, dense]) per ADR-015 + ADR-019. 2 epochs × class-balanced loss × bf16 × 12 cells. ~1% of parameters trainable. *Why this rung exists*: it's the maximally-adapted model in the project compute budget. If anything above the frozen probe is worth doing, this rung is where it shows.
 
-`[TBD: result interpretation]`
+**Result**: LoRA's pooled_ood AUROC is 0.383 [0.374, 0.392] — *below* the frozen-probe baseline (-0.132 AUROC; paired-bootstrap CI excludes zero). The adapter weights specialize to the training distribution; on the OOD slate they degrade generalization vs the bare backbone embeddings. LoRA fine-tuning on this task at this compute budget is a NEGATIVE result — it works on jbb_behaviors / xstest (in-distribution-shaped slices) and overfits relative to the frozen probe on genuinely OOD distributions. See §7.7 for the paired-bootstrap detail.
+
+Note on full-FT: full-FT was the planned Rung 3.5 (full backbone trainable) per ADR-019; per ADR-050 it was DROPPED from OOD comparison due to a Phase 5 FUSE EIO crash on /workspace MooseFS storage. full-FT remains in the LODO LODO comparison (3-rung ladder narrative survives via the 24 surviving LODO predictions from Phase 2); OOD comparison ships 2 trained rungs (frozen-probe + LoRA).
 
 ### 4.4 Rung 4 — *narrow-scope reference scorer (optional)*
 
-`[OPEN]` Off-the-shelf classifier with narrow scope (e.g. direct-injection only). Inference-only. *Why this rung exists*: a publicly-trained narrow-scope detector is the "is this better than something already on the shelf for this attack class" bar.
+ProtectAI deberta-v3-base-prompt-injection v1 (`suspected_contamination` per ADR-005). Stated training scope: direct prompt injection (English). Inference-only via `transformers.AutoModelForSequenceClassification` per ADR-018. *Why this rung exists*: a publicly-trained narrow-scope detector is the "is this better than something already on the shelf for this attack class" bar.
 
 *Caveat*: reference scorers carry training-overlap audit obligations per EVIDENCE.md §1. Reported as diagnostic reference, not as a clean baseline.
 
-`[TBD: result interpretation]`
+**Result**: ProtectAI v1's pooled_ood AUROC is 0.440 [0.409, 0.469]. Slightly above tfidf-lr (+0.069); well below frozen-probe (-0.075). The off-the-shelf narrow-scope detector beats a linear floor but does not match a frozen pretrained backbone on this slate. Suspected-contamination caveat retained.
 
 ### 4.5 Rung 5 — *broad-scope reference scorer (optional)*
 
-`[OPEN]` Off-the-shelf classifier with broader stated scope. Inference-only. *Why this rung exists*: a broader-scope reference completes the reference picture. Caveat: when training-data disclosure is at category level only, contamination cannot be verified; the audit shifts to fold-pattern + scope-mismatch analysis per EVIDENCE.md §2.
+ProtectAI deberta-v3-base-prompt-injection v2 (`suspected_contamination`). v2 adds broader-scope training data per the published model card update per ADR-018. *Why this rung exists*: a broader-scope reference completes the reference picture. Caveat: training-data disclosure is at category level only; contamination cannot be verified; audit shifts to fold-pattern + scope-mismatch analysis per EVIDENCE.md §2.
 
-`[TBD: result interpretation]`
+**Result**: ProtectAI v2's pooled_ood AUROC is 0.402 [0.369, 0.437] — slightly worse than v1 (-0.04 on pooled). v2 BEATS v1 on jbb_behaviors (+0.06 AUROC) but LOSES on xstest (-0.15 AUROC; CIs do not overlap — a clear regression). The lesson: off-the-shelf detector updates do not monotonically improve across distributions; consumers cannot assume v2 dominates v1.
 
-**Linked ADRs**: filled in once Phase 0 locks each rung.
+**Note on dropped reference rungs**: LLM-judge rungs (gpt-4o-2024-08-06 + claude-sonnet-4-6) were locked at Phase 0-03 per ADR-018 and DROPPED at Phase 4 cost re-estimation per ADR-050 (16x envelope overrun against the original $14 estimate). The `vendor_black_box` contamination tier therefore has 0 rungs in this submission. See §8.1.
 
-**Known gaps**: `[TBD: surfaced during Phase 0 + Phase 1 work; populated at Phase 5]`.
+**Linked ADRs**: ADR-015 (single-backbone slate), ADR-017 (classical floor), ADR-018 (reference slate), ADR-019 (transformer training recipe), ADR-044 (Phase 2 implementation), ADR-050 (rung-slate narrowing).
+
+**Known gaps**: full-FT OOD inference not present (FUSE EIO crash per ADR-050). LLM-judge rungs not present (cost overrun per ADR-050).
 
 ---
 
@@ -207,14 +211,29 @@ Symmetric cost-weight configurations of the same primitive. Operationally-interp
 
 #### 5.3.c Dual-cost-weight characterisation (in-house rungs)
 
-For a representative rung (`[TBD: (candidate) DeBERTa-LoRA, the fine-tuned ceiling]`), we report both policies side by side:
+For the representative rung **LoRA** (the fine-tuned-ceiling-in-budget on this submission per ADR-019 + ADR-050; full-FT was the planned representative but is excluded from val-set inference due to the FUSE EIO crash per §8.1), we report both policies side by side. Numbers are *mean across 12 cells* (4 LODO folds × 3 seeds) on LODO held-out test, with val-fitted thresholds per ADR-025:
 
-| Policy | Threshold | Recall | Precision | TPR | FPR | FNR | TNR |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Detection (FPR ≤ 1%) | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` |
-| Verification (FNR ≤ 1%) | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` |
+| Policy | Mean threshold | Mean test recall | Mean test precision | Mean test TPR | Mean test FPR | Reachable? |
+|---|---:|---:|---:|---:|---:|---:|
+| Detection (FPR ≤ 1%) | 0.795 | 0.424 | (see operating_points.parquet) | 0.424 | 0.115 | val: 12/12; test: 0/12 within target |
+| Verification (recall ≥ 99%) | 0.019 | 0.724 | (see operating_points.parquet) | 0.724 | 0.411 | val: 12/12; test: 0/12 within target |
+
+For comparison, the **frozen-probe** rung at the same policies:
+
+| Policy | Mean threshold | Mean test recall | Mean test precision | Mean test FPR | Reachable? |
+|---|---:|---:|---:|---:|---:|
+| Detection (FPR ≤ 1%) | 0.829 | 0.063 | (see operating_points.parquet) | 0.010 | val: 12/12; test: 11/12 within target |
+| Verification (recall ≥ 99%) | 0.215 | 0.957 | (see operating_points.parquet) | 0.891 | val: 12/12; test: 5/12 within target |
 
 This is **characterisation, not deployment recommendation**. We are showing what the scores deliver under each cost weight, not advocating either policy for any deployment.
+
+**Key val→test transfer findings**:
+- All 72 op-points are reachable on val (the threshold-fitting set by ADR-025); transfer to LODO held-out test is partial-to-poor. The val→LODO gap is the dominant calibration story per §7.5.
+- LoRA detection on test: mean FPR creeps to 0.115 (11.5×) vs 1% target. Recall trades favorably (0.42) for the higher FPR.
+- frozen-probe detection on test: mean FPR holds tight (0.010 ≈ target) but recall collapses to 0.063 (the threshold is too conservative for the LODO distribution shift).
+- frozen-probe verification on test: mean recall lands at 0.957 (close to 0.99 target) BUT at mean FPR 0.891 — almost everything is flagged positive. The verification regime over-floods at the cost of selectivity on LODO.
+
+Source: `evals/operating_points/dual_policy.parquet` (72 OperatingPointModel rows) + `evals/audit/verification_reachability.json` (36 ReachabilityAuditModel records).
 
 ### 5.4 Per-source / per-style breakdown
 
