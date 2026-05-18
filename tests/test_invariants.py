@@ -100,6 +100,39 @@ def test_source_disjoint_train_test() -> None:
 
 
 @pytest.mark.unit
+def test_leakage_report_clean() -> None:
+    """`evals/leakage_report.json` shows leakage_clean=True.
+
+    Verifies the post-split leakage scrub (exact-hash + cosine ≥ 0.85
+    cross-split) ran successfully and reports zero overlaps. Per
+    ADR-016 Q3 + ADR-043 + ADR-039 gate 3 intent: leakage_clean=True
+    is a submission-readiness invariant.
+
+    Mirrors the CI hard-gate at `.github/workflows/ci.yml::leakage`
+    + the local CLI at `scripts/audit_leakage.py`. Landed at v1.0.6
+    per /exploring-options batch 6 Q1 (§1.5 close).
+    """
+    import json
+    from pathlib import Path
+
+    report_path = Path(__file__).resolve().parent.parent / "evals" / "leakage_report.json"
+    if not report_path.exists():
+        pytest.skip(
+            "evals/leakage_report.json not present (data pipeline not run); "
+            "CI runs the same gate as the leakage workflow job."
+        )
+    report = json.loads(report_path.read_text())
+    assert "leakage_clean" in report, (
+        f"leakage_report.json at {report_path} missing required key `leakage_clean`"
+    )
+    assert report["leakage_clean"] is True, (
+        f"leakage_clean=False: {report.get('total_exact_hash_overlaps', '?')} "
+        f"exact-hash overlaps + {report.get('total_cosine_overlaps', '?')} "
+        f"cosine >= {report.get('cosine_threshold', 0.85)} overlaps detected"
+    )
+
+
+@pytest.mark.unit
 @pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_hyperparameter_immutability() -> None:
     """Config hash matches the committed value (no silent hyperparameter mutation)."""

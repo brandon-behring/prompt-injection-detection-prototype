@@ -22,6 +22,9 @@ from typing import Final
 
 import numpy as np
 import pandas as pd
+from eval_toolkit import (
+    is_metric_defined_for_slice as _et_is_metric_defined_for_slice,
+)
 from eval_toolkit.metrics import metrics_at_threshold, pr_auc, roc_auc
 from eval_toolkit.thresholds import TargetFPRSelector
 from numpy.typing import NDArray
@@ -48,24 +51,29 @@ OOD_SLICE_NAMES: Final[tuple[str, ...]] = (
 # filter excludes them from bootstrap / cross-fold-CI / MDE artifacts
 # rather than emitting degenerate 1.0/0.0 values. WRITEUP §Methodology
 # caveats documents the convention.
+#
+# This set is project-specific knowledge (which slice names in this
+# OOD slate are single-class by design). The is-metric-degenerate
+# decision is delegated to upstream `eval_toolkit.is_metric_defined_for_slice`
+# per the library-first invariant (v1.0.6; consuming eval-toolkit#39
+# resolved 2026-05-18).
 SINGLE_CLASS_SLICES: Final[frozenset[str]] = frozenset({"bipia", "injecagent", "notinject"})
-
-# Metrics that are mathematically undefined on single-class slices.
-# Threshold-keyed metrics (recall_at_fpr_*, ece_*, brier) remain defined.
-SINGLE_CLASS_INCOMPATIBLE_METRICS: Final[frozenset[str]] = frozenset({"auroc", "auprc"})
 
 
 def is_metric_defined_for_slice(slice_name: str, metric_name: str) -> bool:
-    """Return False iff the (slice, metric) pair is mathematically undefined.
+    """Thin project wrapper around ``eval_toolkit.is_metric_defined_for_slice``.
 
-    Threshold-free ranking metrics (AUROC, AUPRC) are undefined on
-    single-class slices because either the TPR/FPR sweep is degenerate
-    (all-positive: TPR=1, FPR undefined) or the precision-recall sweep
-    is degenerate (all-negative: recall undefined). Threshold-keyed
-    metrics (recall@FPR pinpoints, ECE variants, Brier) remain defined
-    via well-defined per-row prediction comparisons.
+    Maps the project's slice-name → single-class-class-distribution
+    knowledge (``SINGLE_CLASS_SLICES``) onto the upstream primitive's
+    ``is_single_class`` boolean kwarg. Returns ``False`` iff the
+    (slice, metric) pair is mathematically undefined and should be
+    filtered at source rather than emitting degenerate values.
 
-    See WRITEUP §Methodology caveats for the convention.
+    The actual degenerate-detection logic + the canonical incompatible-
+    metrics set (``auroc`` + ``auprc``) lives upstream at
+    ``eval_toolkit.SINGLE_CLASS_INCOMPATIBLE_METRICS``. See
+    WRITEUP §Methodology caveats for the convention; see
+    eval-toolkit#39 (closed 2026-05-18) for the upstream primitive.
 
     Parameters
     ----------
@@ -79,12 +87,14 @@ def is_metric_defined_for_slice(slice_name: str, metric_name: str) -> bool:
     -------
     bool
         ``True`` if the metric is defined on the slice and should be
-        computed; ``False`` if the pairing is mathematically undefined
-        and should be filtered at source.
+        computed; ``False`` if the pairing is mathematically undefined.
     """
-    if slice_name in SINGLE_CLASS_SLICES and metric_name in SINGLE_CLASS_INCOMPATIBLE_METRICS:
-        return False
-    return True
+    return bool(
+        _et_is_metric_defined_for_slice(
+            metric_name,
+            is_single_class=slice_name in SINGLE_CLASS_SLICES,
+        )
+    )
 
 
 # Pooled-aggregation special name (not an OOD slice name, sits alongside).
@@ -396,7 +406,6 @@ __all__ = [
     "OOD_SLICE_NAMES",
     "POOLED_OOD_SLICE_NAME",
     "RECALL_AT_FPR_PINPOINTS",
-    "SINGLE_CLASS_INCOMPATIBLE_METRICS",
     "SINGLE_CLASS_SLICES",
     "VOLATILITY_WIDE_CI_RATIO",
     "aggregate_slice_across_observations",

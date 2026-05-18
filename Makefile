@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit headline-dry-run headline-cloud eval-from-hub site site-preview clean \
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage headline-dry-run headline-cloud eval-from-hub site site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
@@ -69,6 +69,9 @@ coverage:
 
 audit:
 	uv run python scripts/regenerate_audit.py --check
+
+audit-leakage:
+	uv run python scripts/audit_leakage.py --check
 
 # `make headline-dry-run` — cost preview without provisioning (per ADR-027 + ADR-020).
 # Phase 2 wiring per ADR-044 Q6: dry-runs all 3 per-rung configs.

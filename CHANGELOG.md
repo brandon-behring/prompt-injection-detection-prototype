@@ -18,6 +18,140 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.6] — 2026-05-18
+
+eval-toolkit pin v0.34.0 → v0.39.0 bump consuming 3 upstream
+resolutions (filed v1.0.3) + library-first refactor of hand-rolled
+glue + leakage CI hard-gate + NEXT_STEPS §1 honest accounting +
+upstream issue #43 filed for v1.0.8 prep. First patch of the
+Path-3 NEXT_STEPS §1 closure sweep per /exploring-options batches
+7-9 locks.
+
+### Added
+
+- **`scripts/audit_leakage.py`** — standalone CLI verifying
+  `evals/leakage_report.json` shows `leakage_clean=True`. Two
+  modes: `--check` (CI-friendly minimal output; exit 0/1) and
+  default (human-readable summary). Wraps the same logic as the
+  CI hard-gate so operators can run the check locally.
+
+- **`tests/test_invariants.py::test_leakage_report_clean`** —
+  implemented (previously named in a docstring comment but absent
+  as a function). Asserts `leakage_clean=True` from
+  `evals/leakage_report.json`; skips if file missing (CI runs
+  the same gate separately).
+
+- **`.github/workflows/ci.yml::leakage`** — new hard-gate job
+  failing CI if `leakage_clean != True` in
+  `evals/leakage_report.json`. ADR-039 gate 3 intent (leakage
+  audit unskipped + green) now met for the leakage axis.
+
+- **`Makefile::audit-leakage`** target — `make audit-leakage`
+  invokes `scripts/audit_leakage.py --check`.
+
+- **`decisions/upstream_issues.md` row for eval-toolkit
+  [#43](https://github.com/brandon-behring/eval-toolkit/issues/43)** —
+  filed at v1.0.6: "Add `fit_platt_binary` + `fit_beta_binary`
+  calibrators (binary-class scalar-prob adapters; siblings of
+  `fit_temperature_binary` shipped in v0.35.0)". Per
+  /exploring-options batch 8 Q1 lock (library-first invariant:
+  file upstream before local impl). v1.0.8 will consume when
+  shipped; otherwise §1.4 close deferred to v1.1.x.
+  (#42 was already taken by an open Croissant verification
+  issue; ours got #43.)
+
+### Changed
+
+- **`pyproject.toml`** — eval-toolkit pin bumped
+  `git+...@v0.34.0` → `git+...@v0.39.0`. `uv.lock` regenerated.
+  Consumes upstream resolutions of 3 issues filed v1.0.3:
+  [#39](https://github.com/brandon-behring/eval-toolkit/issues/39)
+  `is_metric_defined_for_slice` primitive +
+  [#40](https://github.com/brandon-behring/eval-toolkit/issues/40)
+  `LeakageCheck.name` read-only `@property` +
+  [#41](https://github.com/brandon-behring/eval-toolkit/issues/41)
+  `parallel_map` worker-copy memory documentation. All 3 closed
+  upstream on 2026-05-18 at 20:13 UTC. Bonus primitives also
+  available: `fit_temperature_binary` (v0.35.0), `n_jobs` on
+  `evaluate()` / `evaluate_folded()` (v0.36.0),
+  `TokenizationLeakageCheck` (v0.37.0).
+
+- **`src/eval/slice_analysis.py`** — refactored to use upstream
+  `eval_toolkit.is_metric_defined_for_slice` per #39 resolution.
+  Local `SINGLE_CLASS_INCOMPATIBLE_METRICS` constant **deleted**
+  (uses upstream `eval_toolkit.SINGLE_CLASS_INCOMPATIBLE_METRICS`).
+  Local `is_metric_defined_for_slice(slice_name, metric_name)`
+  function preserved as a thin wrapper that derives
+  `is_single_class=slice_name in SINGLE_CLASS_SLICES` and
+  delegates to upstream. Project-specific knowledge of which
+  slice names are single-class stays local (`SINGLE_CLASS_SLICES`
+  frozen-set kept). `__all__` updated. No callsite changes (the
+  wrapper preserves the local signature).
+
+- **`src/data/audit.py`** — `cast(LeakageCheck, leakage_check)`
+  workaround at line 222 removed per #40 resolution
+  (`LeakageCheck.name` is now an `@property`; frozen-dataclass
+  `CrossSplitLeakageCheck` is mypy-strict-compatible without
+  cast). Unused `LeakageCheck` import removed from line 34.
+  Unused `cast` import removed from line 29.
+
+- **`decisions/upstream_issues.md`** — 3 rows for #39 / #40 /
+  #41 marked **RESOLVED** with consumption notes. New row for
+  #43 added (Platt + Beta calibrator request).
+
+- **`decisions/library_imports.md`** — version pin table updated
+  v0.31.0 → v0.39.0 (the v0.31.0 entry was stale since X8;
+  v1.0.6 brings the doc in sync with the actual pin lifecycle).
+
+- **`NEXT_STEPS.md` §1** — Status (v1.0.6) lines added per Path
+  3 honest accounting:
+  - §1.1 carryforward to v1.0.7 (4 notebooks).
+  - §1.2 carryforward to v1.0.7 (CSV mirror + per_source_rates).
+  - §1.3 BH-FDR primitive available since eval-toolkit v0.32
+    (unused locally); DeLong + BH-FDR wired in v1.0.7
+    `notebooks/02_frozen_vs_lora`.
+  - §1.4 6 of 7 components landed; Platt + Beta filed
+    upstream #43; v1.0.8 conditional close.
+  - **§1.5 closed**: CI hard-gate + invariant + standalone CLI.
+  - §1.6 closed (HYPERPARAMETER_DISCLOSURE complete at v1.0.0).
+  - §1.7 closed (EXECUTIVE_SUMMARY landed v1.0.3).
+  - §1.8 **closed as not-adopted** (WRITEUP uses markdown links;
+    citation pattern was never load-bearing).
+  - §1.9 carryforward to v1.0.8 (manifest backfill).
+  - §1.10 carryforward to v1.1.0 (DeBERTa medium ablation;
+    same-session per batch 8 Q3 lock).
+
+- **`NEXT_STEPS.md` §2.4** (new) — Refactor F1/F2/F5 figures
+  to upstream eval-toolkit `plot_*` primitives. Deferred from
+  v1.0.7 per /exploring-options batch 8 Q4 lock (scope discipline
+  on notebook patch); lands at next figure regen or v1.1.1+.
+
+### Notes
+
+- No methodology change. No metric values change. The v0.39.0
+  eval-toolkit bump introduces no breaking changes; 171/171 smoke
+  tests pass post-bump.
+- The library-first invariant just paid off: 3 upstream issues
+  filed v1.0.3 + waited; all 3 resolved upstream within ~2 days
+  + consumed at v1.0.6 with cleaner local code.
+
+### Files modified (10 file touches)
+
+- `pyproject.toml` (eval-toolkit pin bump).
+- `uv.lock` (regenerated via `uv sync`).
+- `src/eval/slice_analysis.py` (refactor + `__all__` update).
+- `src/data/audit.py` (cast workaround + 2 unused imports removed).
+- `decisions/upstream_issues.md` (4 row updates: 3 RESOLVED + 1 NEW).
+- `decisions/library_imports.md` (version pin table update).
+- `NEXT_STEPS.md` (Status lines added to 10 rows + §2.4 new).
+- `.github/workflows/ci.yml` (new leakage hard-gate job).
+- `scripts/audit_leakage.py` (new standalone CLI).
+- `tests/test_invariants.py` (`test_leakage_report_clean` added).
+- `Makefile` (audit-leakage target + .PHONY update).
+- `CHANGELOG.md` (this entry).
+
+---
+
 ## [1.0.5] — 2026-05-18
 
 README badges + `RESULTS.md` rendered page + ADR-054 reading-guide

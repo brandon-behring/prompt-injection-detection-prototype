@@ -13,36 +13,42 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Why*: paper-figure notebooks are reviewer-facing deliverables; paired `.ipynb` + `.py` (via `jupytext`) lets reviewers diff notebook logic, not just outputs.
 *Scope*: `notebooks/01_canonical_results.ipynb` (headline table population); `02_frozen_vs_lora.ipynb` (paired-bootstrap rung-comparison); `03_calibration.ipynb` (reliability curves + ECE per rung); `04_ood_slate.ipynb` (per-slice IID-vs-OOD gap viz).
 *Effort*: ~1 hour per notebook once Phase 4 analysis outputs exist. Library-first: use `eval_toolkit.bootstrap_ci` / `plot_pr_curve` / `plot_reliability_diagram`.
+*Status (v1.0.6)*: carryforward to v1.0.7. Jupytext config + `notebooks/README.md` scaffolded at Phase 2; 4 notebooks themselves deferred to v1.0.7 (Path 3 close per /exploring-options batches 7-9).
 
 ### 1.2 Analysis output templating
 
 *Why*: reproducibility benefits when each analysis run lives in a versioned directory with consistent CSV/Parquet outputs.
 *Scope*: establish `analysis/v<version>_<name>/` directory structure with metadata header (analyzer version, date, config hash). Outputs: `paired_tests.csv` (fold × seed × delta_prauc + CI bounds + DeLong + BH-FDR), `ece_per_cell.csv` (calibration per scorer/fold/method), `per_source_rates.csv` (label audit).
 *Effort*: ~30 min scaffolding + per-analysis ~15 min.
+*Status (v1.0.6)*: outputs partially landed at `evals/` flat structure (parquet not CSV; `paired_cells.parquet` + `per_cell.parquet` exist); CSV mirror + `per_source_rates.csv` + `analysis/v1.0.7_canonical/` versioned dir deferred to v1.0.7 (Path 3; 1:1 parquet mirror per /exploring-options batch 9 Q3).
 
 ### 1.3 Paired bootstrap + DeLong infrastructure (Phase 4+)
 
 *Why*: paired comparisons across rungs need paired-error correlation handling; DeLong gives parametric AUC-difference CI for sanity-check; BH-FDR corrects multi-comparison.
 *Scope*: use `eval_toolkit.paired_bootstrap_diff` + DeLong primitive. Wire into `notebooks/02_frozen_vs_lora.ipynb`.
 *Effort*: ~2 hours including the BH-FDR wrapper.
+*Status (v1.0.6)*: `paired_bootstrap_diff` landed at v0.9.0-rc series via `scripts/run_bootstrap_battery.py:46` (40 cells × 2 seeds persisted). BH-FDR is now trivially library-first via `eval_toolkit.bootstrap.fdr_bh_correct` (eval-toolkit v0.32.0+; just unused locally). DeLong (`eval_toolkit.bootstrap.delong_roc_variance`) also available upstream + unused. Both wired in v1.0.7 `notebooks/02_frozen_vs_lora` (Path 3 close).
 
 ### 1.4 Calibration audit suite (Phase 3-4)
 
 *Why*: deployment-policy claims require calibrated probabilities; ECE alone is incomplete — reliability curves + Brier + temperature/Platt/isotonic fits round out the audit.
 *Scope*: `eval_toolkit.calibration` (Platt + Beta + Isotonic + ECE equal-mass + ECE debiased + Brier + reliability_curve). Render in `03_calibration.ipynb`.
 *Effort*: ~3 hours including notebook narrative.
+*Status (v1.0.6)*: 6 of 7 components landed (ECE equal-mass + Brier + reliability curves + temperature + isotonic + four-ECE-variant matrix). Platt + Beta NOT in eval-toolkit v0.39.0; **upstream issue [#43](https://github.com/brandon-behring/eval-toolkit/issues/43) filed at v1.0.6** per /exploring-options batch 8 Q1 lock (library-first invariant). v1.0.8 will consume upstream when shipped; otherwise §1.4 close deferred to v1.1.x. Notebook deferred to v1.0.7 `notebooks/03_calibration`.
 
 ### 1.5 Leakage audit framework (Phase 1-4)
 
 *Why*: SHA-256 disjoint check + TF-IDF cross-split check catches train↔test contamination; both invariants currently land in `manifest.json` guardrails.
 *Scope*: integrate `eval_toolkit.leakage` primitives into the data-loading + eval pipelines; fail-loud if any guardrail asserts.
 *Effort*: ~2 hours.
+*Status (v1.0.6)*: **closed**. SHA-256 + TF-IDF cosine ≥ 0.85 checks landed via `src/data/audit.py` (eval_toolkit.leakage primitives); `evals/leakage_report.json` carries clean flag. v1.0.6 adds the missing enforcement layer: CI hard-gate at `.github/workflows/ci.yml::leakage` + `tests/test_invariants.py::test_leakage_report_clean` + standalone `scripts/audit_leakage.py` + `make audit-leakage` target. ADR-039 gate 3 intent now met for the leakage axis.
 
 ### 1.6 HYPERPARAMETER_DISCLOSURE depth (Phase 5)
 
 *Why*: reviewers may suspect cherry-picking; disclosing what was explored vs deliberately not explored is the anti-cherry-pick defense.
 *Scope*: expand `docs/HYPERPARAMETER_DISCLOSURE.md` to four sections: §1 seed recipe (locked values), §2 exploration trajectory (what was actually swept), §3 axes held constant (why deferred), §4 caveats (budget-dependence, etc.).
 *Effort*: ~1 hour once Phase 4 controls have run.
+*Status (v1.0.0)*: **closed**. All 4 prescribed sections present at `docs/HYPERPARAMETER_DISCLOSURE.md` (196 lines).
 
 ### 1.7 EXECUTIVE_SUMMARY (Phase 5, written LAST)
 
@@ -56,12 +62,14 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Why*: WRITEUP / EVIDENCE will accumulate citations to `docs/research/<topic>/<file>.md:<line>` and external URLs. A machine-enforced auditor (CI hard-gate) prevents broken citations as the writeup grows.
 *Scope*: `scripts/audit_citations.py` — scans `.md` files for citation patterns (`docs/research/<path>` + `<file>:<line>` + external URLs); verifies cited files exist + lines exist + URLs respond. Add as CI hard-gate alongside `regenerate_audit.py`.
 *Effort*: ~3 hours.
+*Status (v1.0.6)*: **closed as not-adopted** per /exploring-options batch 8 Q2 lock. WRITEUP + spokes use standard markdown link syntax (`[text](path)`) + EVIDENCE.md as the external-citation audit surface; the `<file>:<line>` citation pattern was never load-bearing for the project's documentation discipline. No auditor needed; CI gate not added.
 
 ### 1.9 Manifest backfill pipeline (Phase 4+)
 
 *Why*: post-eval-run manifest fixups (injecting `git_sha` + `config_hash` + `contamination_flags` if the eval-toolkit version doesn't emit them automatically).
 *Scope*: `scripts/backfill_provenance.py` — reads `evals/<run>/predictions.parquet` + `config.yaml` + `git log`; emits `manifest.json` per the upstream schema.
 *Effort*: ~2 hours.
+*Status (v1.0.6)*: carryforward to v1.0.8. Provenance currently distributed across `evals/{data_audit,results,leakage_report,contamination_scan,dedup_calibration}.json`; prediction parquets lack `git_sha` / `config_hash` / `contamination_flags` columns. v1.0.8 lands `scripts/backfill_provenance.py` + new ADR-055 (Manifest schema v3 backfill conventions) per Path 3 close.
 
 ### 1.10 DeBERTa-v3-base long-context ablation (v1.1.x)
 
@@ -72,6 +80,7 @@ Prior v4/v5 iterations of this project did partial DeBERTa-v3 tests but had to m
 *Scope*: v1.1.x iteration adds DeBERTa-v3-base as a separately-evaluated rung with a controlled truncation strategy (e.g., chunk-and-average over 512-token windows vs head-truncation) so the truncation handling is methodologically addressable rather than load-bearing for the architecture comparison. Lands as an ablation appendix, not a co-equal rung in the headline ladder.
 
 *Effort*: ~3-4 hours wallclock if the truncation-handling design lands quickly; longer if the chunk-and-average baseline needs validation against the source-disjoint LODO protocol.
+*Status (v1.0.6)*: carryforward to v1.1.0 — same-session per Path 3 batch 8 Q3 lock. Medium-ablation scope locked (2 truncation strategies × full 5-slice OOD slate; ablation-appendix framing in RESULTS §1B; NOT integrated as 6th rung; ~$8-10 GPU; new ADR-057 for truncation methodology).
 
 ---
 
@@ -93,6 +102,13 @@ Things that would require rethinking the project's design rather than extending 
 
 *Why*: source-disjoint k=3 LODO with calibrated MiniLM-style semantic dedup + TF-IDF same-label hard gate + cross-label warn gate is the gold-standard data discipline. The seed locks the discipline; full pipeline + per-fold leakage audit could land at Phase 1+.
 *What the project was missing*: time to set up the full dedup-calibration loop + leakage-audit pipeline within scope.
+
+### 2.4 Refactor F1/F2/F5 figures to use upstream eval-toolkit plot_* primitives (v1.1.1+)
+
+*Why*: library-first invariant. eval-toolkit v0.36+ shipped `plot_roc_curve` (#14; F2 source), `plot_pareto_frontier` (#15; F1 source), `plot_slice_metric_heatmap` (#16; F5 source) — exactly the figure types our hand-rolled implementations cover at `src/eval/figures.py::render_f1_pareto` / `render_f2_roc_overlay` / `render_f5_per_slice_heatmap`. Deferred from v1.0.7 to avoid scope creep on the notebook patch.
+*Scope*: replace 3 hand-rolled rendering functions with upstream primitive calls; delete the local implementations (no-orphaned-code invariant); re-render F1/F2/F5 to verify visual parity. ~2 hours.
+*Trigger*: next figure regen need (e.g., post-DeBERTa-ablation re-render that pulls F5 per-slice heatmap with the 6th rung in scope) OR v1.1.1 polish patch (whichever lands first).
+*Status (v1.0.6)*: deferred per /exploring-options batch 8 Q4 lock.
 
 ---
 

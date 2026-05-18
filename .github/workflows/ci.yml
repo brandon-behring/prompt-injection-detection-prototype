@@ -67,6 +67,26 @@ jobs:
       - name: regenerate_audit.py --check
         run: uv run python scripts/regenerate_audit.py --check
 
+  leakage:
+    name: leakage_report.leakage_clean=True (hard gate; v1.0.6 + per §1.5 + ADR-039 gate 3 intent)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assert leakage_report.json shows clean
+        run: |
+          python -c "
+          import json
+          import sys
+          from pathlib import Path
+          report_path = Path('evals/leakage_report.json')
+          if not report_path.exists():
+              sys.exit('FAIL: evals/leakage_report.json does not exist')
+          r = json.loads(report_path.read_text())
+          if not r.get('leakage_clean', False):
+              sys.exit(f'FAIL: leakage_clean is not True; report = {r}')
+          print(f'OK: leakage_clean=True; {r.get(\"total_exact_hash_overlaps\", \"?\")} exact-hash overlaps + {r.get(\"total_cosine_overlaps\", \"?\")} cosine >= 0.85 overlaps')
+          "
+
   test-smoke:
     name: test-smoke (soft gate)
     runs-on: ubuntu-latest

@@ -770,8 +770,8 @@ wheels = [
 
 [[package]]
 name = "eval-toolkit"
-version = "0.34.0"
-source = { git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.34.0#d2d5ca791b1682eb1f0841bfa2846f75f5cfa60d" }
+version = "0.39.0"
+source = { git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.39.0#0c1dc001a88e39535c922d3f9f0f609037adda03" }
 dependencies = [
     { name = "jsonschema" },
     { name = "numpy" },
@@ -2492,7 +2492,7 @@ requires-dist = [
     { name = "accelerate", specifier = ">=1.0" },
     { name = "anthropic", specifier = ">=0.40" },
     { name = "datasets", specifier = ">=3.0" },
-    { name = "eval-toolkit", git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.34.0" },
+    { name = "eval-toolkit", git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.39.0" },
     { name = "huggingface-hub", specifier = ">=0.25" },
     { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1" },
     { name = "matplotlib", specifier = ">=3.8" },

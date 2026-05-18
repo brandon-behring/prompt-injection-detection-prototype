@@ -26,12 +26,12 @@ Thresholds:
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Any, cast
+from typing import Any
 
 import numpy as np
 import pandas as pd
 from eval_toolkit.harness import EvalSlice
-from eval_toolkit.leakage import CrossSplitLeakageCheck, LeakageCheck, run_leakage_checks
+from eval_toolkit.leakage import CrossSplitLeakageCheck, run_leakage_checks
 from eval_toolkit.text_dedup import EmbeddingCosineStrategy
 from numpy.typing import NDArray
 
@@ -218,14 +218,13 @@ def compute_leakage_report(splits: list[FoldSeedSplit]) -> dict[str, Any]:
                 name="test",
                 df=pd.DataFrame({"text": test_texts.astype(str), "label": [0] * len(test_texts)}),
             )
-            # cast — upstream CrossSplitLeakageCheck is @dataclass(frozen=True),
-            # which makes `name` read-only and fails mypy strict against the
-            # LeakageCheck Protocol's settable-name expectation. Runtime is
-            # fine (CrossSplitLeakageCheck IS a LeakageCheck via the
-            # @runtime_checkable Protocol's structural match). Upstream
-            # issue candidate: relax Protocol to `name: str` read-only.
+            # Per v1.0.6 eval-toolkit bump v0.34→v0.39: cast() workaround
+            # removed. Upstream eval-toolkit#40 (resolved 2026-05-18) relaxed
+            # LeakageCheck.name from settable-attr to @property; frozen-
+            # dataclass CrossSplitLeakageCheck is now mypy-strict-compatible
+            # via structural match (@runtime_checkable Protocol).
             report = run_leakage_checks(
-                [cast(LeakageCheck, leakage_check)],
+                [leakage_check],
                 {"train_val": train_val_slice, "test": test_slice},
             )
             test_drop_indices = (report.findings[0].drop_indices or {}).get("test", [])
