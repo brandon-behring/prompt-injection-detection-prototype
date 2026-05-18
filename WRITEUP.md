@@ -429,10 +429,10 @@ This chapter consolidates what we *consciously did not do*. These are not failur
 ### 8.1 Scope deferrals
 
 - **Deployment** — out of roadmap. The work is characterisation; no deployment recommendation; no deployment-readiness testing.
-- **Adversarial red-teaming** — threat model named in §5.6, not exhaustively probed. *Why deferred*: `[TBD: populated at Phase 5]`.
-- **Agentic-flow coverage** — multi-step / tool-use injection. *Why deferred*: `[TBD: populated at Phase 5]`.
-- **Conformal prediction** — distribution-free uncertainty quantification beyond bootstrap. *Why deferred*: `[TBD: populated at Phase 5]`.
-- **Cross-language coverage** — English-only `[OPEN]`. *Why deferred*: `[TBD: populated at Phase 5]`.
+- **Adversarial red-teaming** — threat model named in §5.6, not exhaustively probed. *Why deferred*: in-scope adversarial inputs (the 4 LODO training sources + 5 OOD slates) already span a wide diversity of attack styles; expanding to a curated red-team set would change the methodology contract from "characterisation against a fixed slate" to "ongoing adversarial probing" — out of case-study scope.
+- **Agentic-flow coverage** — multi-step / tool-use injection. *Why deferred*: the classifier scope is single-turn text-as-input; agentic-flow detection requires intermediate-state interception (tool-call args, function-output contamination) which is a deployment-stack question, not a classifier question.
+- **Conformal prediction** — distribution-free uncertainty quantification beyond bootstrap. *Why deferred*: conformal calibration on LODO held-out attack sources would require a calibration set drawn from the same distribution as test (which doesn't exist by LODO design). Per-fold bootstrap CIs from ADR-022 are the in-scope honest uncertainty quantification.
+- **Cross-language coverage** — English-only by source-slate construction (4 LODO + 5 OOD sources are all English). *Why deferred*: per ADR-016 source-slate lock; cross-language attack generalization is a separate dataset-design question requiring multilingual injection corpora.
 - **Cross-source same-style ablation** `[OPEN]` — would disambiguate "training contamination" from "attack-style difficulty" for reference scorers. May be underpowered if per-style sample size is small; in that case treated as an explicit limitation. See EVIDENCE.md §3.
 - **LLM-judge reference scorers** (gpt-4o-2024-08-06 + claude-sonnet-4-6) — dropped post-lock per ADR-050. *Why dropped*: Phase 4 cost re-estimation against the actual OOD slate sizing revealed an envelope ~16x the original ADR-018 estimate ($14 → $240) driven by per-row LLM-judge inference being charged at the full input-prompt token count (long injection examples hit 1k-3k tokens routinely). The vendor_black_box contamination tier therefore has 0 rungs in this submission; the contamination-stratification gradient compresses from 4 tiers to 3. ProtectAI v1 + v2 remain as suspected_contamination reference scorers.
 - **full-FT OOD inference** — dropped post-lock per ADR-050. *Why dropped*: Phase 5 X11 full-FT re-fire crashed mid-training when shutil.copytree of the 598 MB optimizer.pt to /workspace MooseFS-backed FUSE storage returned [Errno 5] Input/output error (uv#17801 + MooseFS#380 upstream context). full-FT remains in the LODO comparison (3-rung ladder narrative survives via the surviving Phase 2 24 LODO predictions); OOD comparison ships 2 trained rungs (frozen-probe + LoRA) + 1 classical floor (tfidf-lr) + 2 reference scorers (ProtectAI v1 + v2) = 5 rungs.
@@ -453,25 +453,37 @@ Each deferred item has a *why* — usually scope or data availability — and is
 
 ## 9. Negative results — architectures and approaches tried and abandoned
 
-`[OPEN]` This chapter exists because honest framing requires showing the experimental work that did not pan out, not just the work that did. Negative results are interesting: they tell the next iteration *what not to spend time on*.
+This chapter exists because honest framing requires showing the experimental work that did not pan out, not just the work that did. Negative results are interesting: they tell the next iteration *what not to spend time on*.
 
 ### 9.1 Hyperparameter / training dead-ends
 
-`[TBD: hyperparameter sweeps that didn't matter or that revealed unexpected dynamics — populated at Phase 5 from any factorial / sensitivity work; if none, document as "no hyperparameter dead-ends explored at the chosen compute budget"]`
+No factorial hyperparameter sweep was conducted at the chosen compute budget per ADR-019 (single recipe per rung locked at Phase 0; no val-set gridsearch). Three operational findings during canonical fires that ARE worth documenting:
+
+- **`max_length=8192` at training time + `max_length=2048` at val/OOD inference** is a deliberate fidelity trade-off. The trained checkpoints saw the full ModernBERT 8192 context at train time; downstream val inference on local 8GB VRAM (RTX 2070 SUPER) couldn't sustain batch=8 at max_length=8192 without OOM on long examples (val text p99 token length ~1100; max ~2800). Lowered val inference to max_length=2048 + batch=4; covers >99% of val rows intact. The truncation tail is a tracked-but-tolerated divergence (see §8.2).
+- **Two pre-training-fire bugs were caught and fix-forwarded** during Phase 2 (X1-X11 chain documented in `decisions/upstream_issues.md`): SSH-ready timeout 240s → 600s for cold image pulls; phantom image tag passing `runpod-deploy validate` without registry HEAD-check; `UV_LINK_MODE=copy` + `UV_CACHE_DIR=/root/uv_cache` + `UV_PROJECT_ENVIRONMENT=/root/.venv` all needed to escape FUSE F_SETLKW deadlocks on RunPod's MooseFS-backed /workspace. Each of these would have been a multi-hour debug spiral for a first-time RunPod consumer; the fix-forward chain is preserved in commits + upstream PRs are filed at brandon-behring/runpod-deploy.
+- **Full-FT cleanup-intermediate-checkpoints policy** was locked at `true` per ADR-019 storage discipline (43 GB of throwaway weights avoided per fire) but had to be RELAXED to `false` for Phase 5 X11 re-fire so OOD inference could load the trained checkpoints. The re-fire then crashed at `shutil.copytree` on the 598 MB optimizer.pt due to FUSE EIO. The lesson is operational: storage-discipline locks that delete weights need a `keep_final_only` flag to support post-train OOD inference workflows. Filed upstream as a runpod-deploy issue (proposed `lifecycle.keep_final_checkpoint` config knob).
 
 ### 9.2 Architectures evaluated and dropped
 
-`[TBD: items — e.g., alternative backbones tried, rungs that didn't earn their complexity]`
+- **DeBERTa-v3-base** dropped during Phase 0 lock per ADR-015 (formerly ADR-007) for cross-backbone context-window asymmetry — DeBERTa-v3 caps at 512 tokens vs ModernBERT-base 8192. Including both backbones would have produced an irreducible truncation × architecture confound on BIPIA-style indirect injection. Single-backbone slate (ModernBERT-base × 3 conditions) preserves the rung-ladder narrative without architecture confounding.
+- **Lakera Guard reference scorer** dropped at Phase 0-03 per ADR-018 (terms-of-service verification overhead unacceptable for prototype scope). The reference slate gained ProtectAI v1 in its place — internal v1→v2 lift becomes a parallel to the trained-rung-lift story.
+- **LLM-judge reference rungs (gpt-4o + claude-sonnet-4-6)** dropped at Phase 4 cost re-estimation per ADR-050 (16× envelope overrun). See §8.1.
+- **full-FT OOD inference** dropped at Phase 5 X11 re-fire per ADR-050 (FUSE EIO crash; non-deterministic; re-fire operationally fragile at 6-12 hr wall on Low-stock A100). full-FT remains in LODO comparison; OOD ships 2 trained rungs. See §8.1.
 
 ### 9.3 Data-pipeline experiments that didn't matter
 
-`[TBD: items — e.g., dedup thresholds swept, augmentation strategies tried, source-mix variants]`
+- **Dedup threshold sweep** — ADR-042 locked the LLM-pre-label bootstrap calibration at a fixed cosine threshold per `evals/dedup_calibration.json`. A sensitivity sweep on threshold ± 0.05 was considered but deferred — the calibration's `human_verified_pct` operator follow-up (raise from 0 to 100 before v1.0.0 tag per ADR-042) is the higher-leverage gate.
+- **Augmentation strategies** — no synthetic augmentation was tried (no paraphrase generation, no back-translation, no character-noise injection). The case-study scope is *characterisation of an honest classifier slate against a fixed data slate*, not data-augmentation research. Tracked as out-of-scope per Phase 0 lock.
 
 ### 9.4 What the negatives imply for v6
 
-`[TBD: one paragraph — what the negative space tells the next iteration]`
+The OOD generalization wall is the dominant signal. Three concrete suggestions for a successor iteration:
 
-**Linked ADRs**: `[TBD: any ADRs documenting roll-back decisions]`.
+1. **OOD-aware training data** — the current pool is dominated by 4 LODO sources (prompt-injection-style attacks) that share a stylistic core. Adding cross-style attacks (BIPIA-style indirect injection in training; jailbreaks-as-questions in training) would test whether the OOD wall is *training-distribution scope* or *fundamental classifier inadequacy*.
+2. **Pretrained backbone scaling** — frozen ModernBERT-base embeddings provide more OOD generalization than LoRA fine-tuning does. A v6 ablation along backbone scale (ModernBERT-base 150M → ModernBERT-large 400M; or a different backbone family) would test whether the OOD ceiling is backbone-capacity-limited.
+3. **OOD-aware threshold selection** — dual-policy thresholds fit on val do not transfer to LODO test (§7.5). Per-source temperature scaling or conformal calibration with a held-out OOD calibration set (currently impossible by LODO design) would close the val→LODO gap.
+
+**Linked ADRs**: ADR-015 (single-backbone lock, supersedes ADR-007), ADR-018 (reference slate), ADR-019 (transformer training recipe), ADR-042 (dedup calibration), ADR-050 (rung-slate narrowing).
 
 ---
 
