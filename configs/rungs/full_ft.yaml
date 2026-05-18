@@ -50,4 +50,15 @@ checkpoint_dir_template: evals/checkpoints/full_ft/fold{fold}/seed{seed}
 # Storage discipline (per ADR-019 line 154) — intermediate epoch checkpoint
 # subdirs are deleted post-training by the trainer. Per-row predictions are
 # the audit-relevant artifact; intermediate weights are not.
-cleanup_intermediate_checkpoints: true
+#
+# X11 (2026-05-17): RELAXED from `true` to `false` for the canonical-recovery
+# re-fire. Reason: ADR-019's cleanup was set under the assumption that we
+# only needed LODO predictions. The Phase 3 OOD inference (per ADR-021 5-slice
+# OOD slate) requires the trained-rung checkpoints to score OOD slices. With
+# cleanup=true the weights were deleted on the pod BEFORE the orchestrator
+# could rsync them back — full-FT weights permanently lost; X11 re-fire is
+# needed to recover. After this re-fire we MUST persist the final-epoch
+# checkpoint per cell so OOD inference can run. ADR-019 supersession deferred
+# to a follow-up (the cleanup was always a storage convenience, not a
+# methodology lock; relaxing it doesn't change any audit-relevant artifact).
+cleanup_intermediate_checkpoints: false
