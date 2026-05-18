@@ -23,22 +23,40 @@ This spoke is referenced by `index.qmd`'s "Deep-dive path — reproduce the numb
 
 ## T0 — eval-from-hub (laptop, ~$0, ~10-30 min)
 
-**Status**: skeleton — Phase 5 populates the verbatim commands + score-match table once HF Hub publication completes per [ADR-032](../decisions/ADR-032-hf-hub-publication-headline-rungs-only.md).
+**Status**: published rungs `frozen-probe` + `lora` per ADR-032 + Q10
+lock; full-FT skipped per ADR-050 (FUSE EIO crash; weights missing
+locally). Canonical fold0/seed42 checkpoint per rung.
 
 ```bash
-# Phase 5 will fill in the rung enumeration once the headline rung list settles.
-make eval-from-hub RUNG=modernbert-lora
-make eval-from-hub RUNG=modernbert-frozen-probe
-# (and full-FT + classical-floor conditionally per ADR-032 final composition)
+make eval-from-hub RUNG=frozen-probe
+make eval-from-hub RUNG=lora
 ```
 
 What this does (per [ADR-034](../decisions/ADR-034-reproducibility-tier-full-ladder.md)):
-1. Calls `huggingface_hub.snapshot_download` for `BBehring/prompt-injection-<rung-name>`.
-2. Loads the model via `AutoModelForSequenceClassification.from_pretrained`.
-3. Runs scoring against `configs/profiles/eval.yaml`'s data slate.
-4. Emits per-row predictions to `results/predictions/eval-from-hub__<rung>.parquet`.
-5. Prints a score-match table comparing this run's metrics against the committed `results.json`.
-6. Exits non-zero if any headline metric drifts beyond seed-variance tolerance.
+
+1. Calls `huggingface_hub.snapshot_download` for
+   `BBehring/prompt-injection-<rung>`.
+2. Loads the model via `AutoModelForSequenceClassification.from_pretrained`
+   (CPU; bf16 if CUDA available; otherwise fp32).
+3. Runs scoring against the local val slate
+   (`evals/predictions/<rung>__fold0__seed42__*.parquet`).
+4. Emits per-row predictions to
+   `evals/predictions/t0_eval_from_hub.parquet`.
+5. Score-matches against `evals/results.json` headline metrics within
+   1e-4 absolute tolerance (ADR-034 contract).
+6. Exits non-zero if any headline metric drifts beyond tolerance.
+
+**Full-FT note**: `make eval-from-hub RUNG=full-ft` is intentionally
+unsupported — the canonical full-FT checkpoint was lost in a Phase 5
+X11 FUSE EIO crash per ADR-050. The 3-rung LODO ladder narrative
+survives via the 24 surviving Phase 2 LODO predictions in
+`evals/predictions/full-ft__*.parquet`; OOD inference for full-FT is
+methodologically impossible without a fresh 6-12 hour A100 80GB
+re-fire and is out of scope for v1.0.0.
+
+**Publishing**: maintainers refresh the published checkpoints via
+`make publish-hub` (requires `HF_TOKEN` with write scope). See
+`scripts/publish_to_hub.py` for the upload-folder pattern.
 
 ---
 

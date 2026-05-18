@@ -62,3 +62,7 @@ artifacts/local/*.log
 
 # Quarto rendered site (built locally; CI publishes to gh-pages branch)
 /_site/
+
+# Local-only scratch drafts + review notes (not part of submission)
+/draft.md
+/draft_review.md

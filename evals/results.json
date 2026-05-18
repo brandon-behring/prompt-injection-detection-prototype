@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-05-18T14:52:43.249969+00:00",
+  "git_sha": "957d1047e4dc",
+  "adr_ref": "ADR-032 + ADR-034 + ADR-050",
+  "published_rungs": [
+    "frozen-probe",
+    "lora"
+  ],
+  "score_match_tolerance": 0.0001,
+  "per_rung": {
+    "frozen-probe": {
+      "contamination_tier": "backbone-partial-disjoint",
+      "canonical_checkpoint": "fold0/seed42",
+      "metrics": {
+        "jbb_behaviors/auprc": {
+          "point": 0.5516580877073045,
+          "ci_lo": 0.5203345898641211,
+          "ci_hi": 0.580362864027391,
+          "ci_method": "bca",
+          "n_obs": 2400
+        },
+        "jbb_behaviors/auroc": {
+          "point": 0.5420770833333333,
+          "ci_lo": 0.519531860656196,
+          "ci_hi": 0.5652648897686673,
+          "ci_method": "bca",
+          "n_obs": 2400
+        },
+        "xstest/auprc": {
+          "point": 0.467741360774407,
+          "ci_lo": 0.44823069474162375,
+          "ci_hi": 0.4860486445890798,
+          "ci_method": "bca",
+          "n_obs": 5400
+        },
+        "xstest/auroc": {
+          "point": 0.5372081944444445,
+          "ci_lo": 0.5221281350548601,
+          "ci_hi": 0.551956649517304,
+          "ci_method": "bca",
+          "n_obs": 5400
+        },
+        "pooled_ood/auprc": {
+          "point": 0.36398067355347163,
+          "ci_lo": 0.3535980254585307,
+          "ci_hi": 0.3745854371339576,
+          "ci_method": "bca",
+          "n_obs": 13212
+        },
+        "pooled_ood/auroc": {
+          "point": 0.5148812319654049,
+          "ci_lo": 0.5048188841642978,
+          "ci_hi": 0.5248979825583228,
+          "ci_method": "bca",
+          "n_obs": 13212
+        },
+        "jbb_behaviors/recall_at_fpr_1_mean": 0.04,
+        "jbb_behaviors/ece_equal_mass_mean": 0.17870335166187337,
+        "jbb_behaviors/brier_mean": 0.2748901771196349,
+        "xstest/recall_at_fpr_1_mean": 0.011250000000000001,
+        "xstest/ece_equal_mass_mean": 0.11644548112595525,
+        "xstest/brier_mean": 0.25850499391836906,
+        "pooled_ood/recall_at_fpr_1_mean": 0.0026294498381877023,
+        "pooled_ood/ece_equal_mass_mean": 0.1383042181206203,
+        "pooled_ood/brier_mean": 0.2616606076144353
+      }
+    },
+    "lora": {
+      "contamination_tier": "backbone-partial-disjoint",
+      "canonical_checkpoint": "fold0/seed42",
+      "metrics": {
+        "jbb_behaviors/auprc": {
+          "point": 0.5351745109233225,
+          "ci_lo": 0.5042411274320096,
+          "ci_hi": 0.5632650596627738,
+          "ci_method": "bca",
+          "n_obs": 2400
+        },
+        "jbb_behaviors/auroc": {
+          "point": 0.5284350694444445,
+          "ci_lo": 0.5053528655794239,
+          "ci_hi": 0.5521066356475175,
+          "ci_method": "bca",
+          "n_obs": 2400
+        },
+        "xstest/auprc": {
+          "point": 0.46678867779316824,
+          "ci_lo": 0.44651364486534284,
+          "ci_hi": 0.485669561590101,
+          "ci_method": "bca",
+          "n_obs": 5400
+        },
+        "xstest/auroc": {
+          "point": 0.5300477777777778,
+          "ci_lo": 0.5150139356700729,
+          "ci_hi": 0.5457774515668571,
+          "ci_method": "bca",
+          "n_obs": 5400
+        },
+        "pooled_ood/auprc": {
+          "point": 0.29339667102849293,
+          "ci_lo": 0.2855144889449345,
+          "ci_hi": 0.30122375629888354,
+          "ci_method": "bca",
+          "n_obs": 13212
+        },
+        "pooled_ood/auroc": {
+          "point": 0.38300800117582035,
+          "ci_lo": 0.3737314389634854,
+          "ci_hi": 0.39248408028247395,
+          "ci_method": "bca",
+          "n_obs": 13212
+        },
+        "jbb_behaviors/recall_at_fpr_1_mean": 0.021666666666666667,
+        "jbb_behaviors/ece_equal_mass_mean": 0.47209295928577993,
+        "jbb_behaviors/brier_mean": 0.4803380937390231,
+        "xstest/recall_at_fpr_1_mean": 0.015000000000000005,
+        "xstest/ece_equal_mass_mean": 0.413852031507808,
+        "xstest/brier_mean": 0.4245425081770522,
+        "pooled_ood/recall_at_fpr_1_mean": 0.0,
+        "pooled_ood/ece_equal_mass_mean": 0.4461277756486157,
+        "pooled_ood/brier_mean": 0.44835764076101775
+      }
+    }
+  }
+}

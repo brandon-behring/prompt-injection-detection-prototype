@@ -106,6 +106,28 @@ site:
 site-preview:
 	HF_TOKEN=stub RUNPOD_API_KEY=stub OPENAI_API_KEY=stub quarto preview
 
+# `make build-results-json` — aggregate per_cell + marginal_cells into
+# evals/results.json (the HF Hub model-card data source + T0 score-match
+# reference) per ADR-032 + ADR-034.
+build-results-json:
+	uv run python scripts/build_results_json.py
+
+# `make generate-model-cards` — emit per-rung README.md model cards
+# (frozen-probe + LoRA) following the expansive ADR-032 schema, ready
+# for HF Hub publication. Sources evals/results.json.
+generate-model-cards: build-results-json
+	uv run python scripts/generate_model_cards.py
+
+# `make publish-hub` — push canonical fold0/seed42 checkpoints to
+# BBehring/prompt-injection-<rung> on HF Hub per ADR-032 + Q10 lock
+# (canonical fold0/seed42 only; full-FT skipped per ADR-050).
+# Requires HF_TOKEN with write scope; rotate via huggingface-cli login.
+publish-hub: generate-model-cards
+	uv run python scripts/publish_to_hub.py
+
+publish-hub-dry-run: generate-model-cards
+	uv run python scripts/publish_to_hub.py --dry-run
+
 clean:
 	rm -rf .ruff_cache .mypy_cache .pytest_cache build dist *.egg-info __pycache__ _site .quarto
 
