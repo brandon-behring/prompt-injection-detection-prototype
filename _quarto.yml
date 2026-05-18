@@ -1,26 +1,42 @@
 project:
   type: website
   output-dir: _site
+  # Render allowlist — locked at Item 2 of the v1.0.0 closure sweep
+  # (Q6 lock: WRITEUP + EVIDENCE + ADRs + README + CHANGELOG only).
+  # Excludes transcripts/, data/raw/git/**, evals/, configs/, src/,
+  # scripts/, tests/, and the rest of docs/ from rendered output;
+  # those remain reachable via in-text repo links from spokes.
+  render:
+    - index.qmd
+    - README.md
+    - CHANGELOG.md
+    - WRITEUP.md
+    - WRITEUP/*.md
+    - EVIDENCE.md
+    - decisions/README.md
+    - decisions/ADR-*.md
 
 website:
   title: "Prompt-injection classifier — methodology submission"
-  description: "Methodology + capability characterization of a prompt-injection classifier rung ladder, with honest OOD evaluation."
+  description: "Methodology + capability characterisation of a prompt-injection classifier rung ladder, with honest OOD evaluation."
   navbar:
     left:
       - href: index.qmd
         text: Reading guide
       - href: WRITEUP.md
-        text: Methodology
+        text: Methodology (TOC)
       - text: Spokes
         menu:
-          - WRITEUP/eval-design.md
-          - WRITEUP/methodology-guarantees.md
-          - WRITEUP/limitations-and-future-work.md
           - WRITEUP/data-decisions.md
           - WRITEUP/model-rungs.md
+          - WRITEUP/eval-design.md
           - WRITEUP/threshold-policy.md
           - WRITEUP/reference-scorer-audit.md
+          - WRITEUP/methodology-guarantees.md
+          - WRITEUP/limitations-and-future-work.md
           - WRITEUP/reproducibility.md
+      - href: EVIDENCE.md
+        text: Evidence
       - text: Decisions (ADRs)
         href: decisions/README.md
   sidebar:
@@ -33,14 +49,17 @@ website:
       - section: "Methodology"
         contents:
           - WRITEUP.md
-          - WRITEUP/eval-design.md
-          - WRITEUP/methodology-guarantees.md
-          - WRITEUP/limitations-and-future-work.md
           - WRITEUP/data-decisions.md
           - WRITEUP/model-rungs.md
+          - WRITEUP/eval-design.md
           - WRITEUP/threshold-policy.md
           - WRITEUP/reference-scorer-audit.md
+          - WRITEUP/methodology-guarantees.md
+          - WRITEUP/limitations-and-future-work.md
           - WRITEUP/reproducibility.md
+      - section: "Evidence + audit"
+        contents:
+          - EVIDENCE.md
       - section: "Decisions (ADRs)"
         contents:
           - auto: "decisions/ADR-*.md"
@@ -53,5 +72,4 @@ format:
     toc-location: right
     code-fold: false
     code-tools: true
-    css: styles.css
     link-external-newwindow: true

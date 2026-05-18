@@ -57,3 +57,8 @@ evals/audit/llm_judge_cache/
 artifacts/local/*.log
 
 .claude/scheduled_tasks.lock
+
+/.quarto/
+
+# Quarto rendered site (built locally; CI publishes to gh-pages branch)
+/_site/

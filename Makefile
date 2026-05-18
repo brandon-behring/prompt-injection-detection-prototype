@@ -96,12 +96,15 @@ eval-from-hub:
 
 # `make site` — render the Quarto HTML site to _site/ (per ADR-030).
 # Local render only; CI publishes to GH Pages on tag push via .github/workflows/publish.yml.
+# Quarto's dotenv loader treats .env.example as a hard-required env-var manifest;
+# render itself is a pure static-doc step that doesn't need real secrets. Pass
+# stub values to satisfy the validator per Item 2 Q7 lock (v1.0.0 closure sweep).
 site:
-	quarto render
+	HF_TOKEN=stub RUNPOD_API_KEY=stub OPENAI_API_KEY=stub quarto render
 
 # `make site-preview` — live-reload dev server for local Quarto preview.
 site-preview:
-	quarto preview
+	HF_TOKEN=stub RUNPOD_API_KEY=stub OPENAI_API_KEY=stub quarto preview
 
 clean:
 	rm -rf .ruff_cache .mypy_cache .pytest_cache build dist *.egg-info __pycache__ _site .quarto

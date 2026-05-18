@@ -36,3 +36,9 @@ jobs:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Quarto's dotenv loader treats .env.example as a hard-required env-var
+          # manifest at render time. Render itself is a pure static-doc step;
+          # provide stubs so CI doesn't need real secrets (Item 2 Q7 lock).
+          HF_TOKEN: stub
+          RUNPOD_API_KEY: stub
+          OPENAI_API_KEY: stub
