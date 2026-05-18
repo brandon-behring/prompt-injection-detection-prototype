@@ -258,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Prompt-injection classifier — methodology submission</span></a>
+ <span class="menu-text">Prompt-injection classifier — reviewer reading guide</span></a>
   </div>
 </li>
       </ul>
@@ -722,6 +722,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Full-FT OOD inference drop — methodological reframing; narrow supersession of ADR-050 Revision 2 (FUSE-crash-only framing)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-053-reading-guide-governance-and-newcomer-paths.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading-guide governance + newcomer onboarding paths — two entry artifacts + 3 reading paths + Headline-finding-block + interpretation pedagogy + pointer convention</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -808,7 +814,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Rendering</strong>: Quarto static-site renderer. <code>_quarto.yml</code> at repo root declares the site configuration. Output target is <strong>HTML only</strong> (<code>format: html</code>); no PDF auxiliary.</p>
 <p><strong>Source format</strong>: existing <code>.md</code> files unchanged. Quarto natively renders <code>.md</code> files — no migration to <code>.qmd</code> (except <code>index.qmd</code> as the new entry-point file).</p>
 <p><strong>Hosting</strong>: GitHub Pages via <code>.github/workflows/publish.yml</code> workflow using <code>quarto-actions/setup@v2</code> + <code>quarto-actions/publish@v2</code> with <code>target: gh-pages</code>. Triggers on push to <code>main</code> (continuous deploy) and on tag push <code>v*</code> (per ADR-033 release tags also trigger publish for the canonical-submission build).</p>
-<p><strong>Reviewer submission URL plan</strong> (3 URLs + private attachment): 1. Source pin — <code>https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0</code> (canonical submission anchor; never drifts; per ADR-033). 2. Live rendered site — <code>https://brandon-behring.github.io/prompt-injection-detection-submission/</code> (reflects latest publish; reviewer reads here). 3. GH release page — <code>https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0</code> (carries CHANGELOG.md + <code>_site.tar.gz</code> asset for offline readers; per ADR-033). 4. Transcripts as private email attachment per existing convention (gitignored, not committed).</p>
+<p><strong>Reviewer submission URL plan</strong> (3 URLs + private attachment): 1. Source pin — <code>https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0</code> (canonical submission anchor; never drifts; per ADR-033). 2. Live rendered site — <code>https://brandon-behring.github.io/prompt-injection-detection-prototype/</code> (reflects latest publish; reviewer reads here). 3. GH release page — <code>https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0</code> (carries CHANGELOG.md + <code>_site.tar.gz</code> asset for offline readers; per ADR-033). 4. Transcripts as private email attachment per existing convention (gitignored, not committed).</p>
 <p><strong>Removed scope</strong>: PDF build pipeline. <code>pandoc</code> and any LaTeX dependencies drop out of <code>pyproject.toml</code> and <code>Makefile</code>. <code>make pdf</code> target (if previously planned) is removed; <code>make site</code> target (Quarto render) is added per ADR-027’s Makefile pattern.</p>
 </section>
 <section id="consequences" class="level2">
@@ -1404,9 +1410,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>**Hosting**: GitHub Pages via <span class="in">`.github/workflows/publish.yml`</span> workflow using <span class="in">`quarto-actions/setup@v2`</span> + <span class="in">`quarto-actions/publish@v2`</span> with <span class="in">`target: gh-pages`</span>. Triggers on push to <span class="in">`main`</span> (continuous deploy) and on tag push <span class="in">`v*`</span> (per ADR-033 release tags also trigger publish for the canonical-submission build).</span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>**Reviewer submission URL plan** (3 URLs + private attachment):</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Source pin — <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0`</span> (canonical submission anchor; never drifts; per ADR-033).</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Live rendered site — <span class="in">`https://brandon-behring.github.io/prompt-injection-detection-submission/`</span> (reflects latest publish; reviewer reads here).</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>GH release page — <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0`</span> (carries CHANGELOG.md + <span class="in">`_site.tar.gz`</span> asset for offline readers; per ADR-033).</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Source pin — <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0`</span> (canonical submission anchor; never drifts; per ADR-033).</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Live rendered site — <span class="in">`https://brandon-behring.github.io/prompt-injection-detection-prototype/`</span> (reflects latest publish; reviewer reads here).</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>GH release page — <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0`</span> (carries CHANGELOG.md + <span class="in">`_site.tar.gz`</span> asset for offline readers; per ADR-033).</span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Transcripts as private email attachment per existing convention (gitignored, not committed).</span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**Removed scope**: PDF build pipeline. <span class="in">`pandoc`</span> and any LaTeX dependencies drop out of <span class="in">`pyproject.toml`</span> and <span class="in">`Makefile`</span>. <span class="in">`make pdf`</span> target (if previously planned) is removed; <span class="in">`make site`</span> target (Quarto render) is added per ADR-027's Makefile pattern.</span>
