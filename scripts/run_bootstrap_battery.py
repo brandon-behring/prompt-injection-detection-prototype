@@ -156,6 +156,8 @@ def main() -> int:
 
                 point_a = float(np.clip(metric_fn(y, score_a), 0.0, 1.0))
                 point_b = float(np.clip(metric_fn(y, score_b), 0.0, 1.0))
+                # eval-toolkit PairedBootstrapCI dataclass exposes:
+                #   delta (b - a), ci_low, ci_high, overlaps_zero, confidence, n_resamples
                 cell = BootstrapCellModel(
                     rung_a=rung_a,
                     rung_b=rung_b,
@@ -165,9 +167,9 @@ def main() -> int:
                     seed=args.seed,
                     point_estimate_a=point_a,
                     point_estimate_b=point_b,
-                    point_estimate_diff=float(getattr(result, "diff", point_b - point_a)),
-                    ci_lo=float(getattr(result, "ci_lo", getattr(result, "lo", 0.0))),
-                    ci_hi=float(getattr(result, "ci_hi", getattr(result, "hi", 0.0))),
+                    point_estimate_diff=float(result.delta),
+                    ci_lo=float(result.ci_low),
+                    ci_hi=float(result.ci_high),
                     ci_method="percentile",
                 )
                 cells.append(cell)
