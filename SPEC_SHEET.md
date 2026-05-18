@@ -1,6 +1,6 @@
 # Project specification (filled at end of Phase 0)
 
-**Status**: `[LOCKED]` (Phase 0 closed at Phase 0-08 — every [OPEN] ledger row in SPEC_GREENFIELD locked to ADR-NNN; 39 ADRs accepted across Phase 0-00 through Phase 0-08; remaining `[OPEN]` text references in this doc are documentation about the spec lifecycle convention, not unresolved decisions)
+**Status**: `[LOCKED]` (Phase 0 through Phase 5 closed; 50 ADRs accepted across Phase 0-00 through Phase 5 close at ADR-050; every `[OPEN]` ledger row in SPEC_GREENFIELD locked to an ADR; remaining `[OPEN]` text references in this doc are documentation about the spec lifecycle convention, not unresolved decisions; rung-language alignment to ADR-050 narrowing landed at Item 7 of the v1.0.0 closure sweep)
 **Type**: Single-version SDD spec; revisions tracked via ADRs (Michael Nygard format)
 
 > **Role of this document.** SPEC_GREENFIELD.md is the authoritative pre-Phase-0 spec — it defines the contract and the open decisions. SPEC_SHEET.md is the post-Phase-0 fill-in form: same skeleton, but each `[OPEN]` row gets replaced with `[LOCKED: <chosen value>]` once Phase 0 resolves it. Phase 1 cannot begin until SPEC_SHEET.md has zero `[OPEN]` rows.
@@ -27,7 +27,16 @@ This is an **exploration spec** for an SDD-disciplined iteration — not a produ
 
 ## 1. Goal & non-goals
 
-**Goal**: `[TBD: one-paragraph statement of what  commits to deliver]`
+**Goal**: deliver a methodology-disciplined characterisation of what
+successive capability layers (classical TF-IDF + LR floor → frozen
+ModernBERT-base linear probe → LoRA adapters → full fine-tune) add to
+prompt-injection detection across a 4-source LODO IID test slate + a
+5-slice OOD slate (BIPIA + InjecAgent + JBB-Behaviors + XSTest +
+NotInject), with bootstrap CIs + paired-bootstrap rung-vs-rung +
+calibration battery + dual-policy threshold characterisation per
+ADRs 005-046, published as a Quarto static site + HF Hub model cards
++ `v1.0.0` GitHub release. No rung promoted as a winner; honest
+unflattering results retained.
 
 **Non-goals**:
 - Not optimizing for SOTA PR-AUC.
@@ -46,52 +55,52 @@ the project work is structured into six phases. Each phase has a gate checklist 
 
 ### Phase 0: Spec lock-in interview `[LOCKED]`
 
-- [ ] Agent reads this spec end-to-end
-- [ ] Every `[OPEN]` / `[TBD: value]` decision is surfaced as a clarifying question
-- [ ] Human picks options for each surfaced decision
-- [ ] Decisions are recorded as ADRs (Michael Nygard format)
-- [ ] Phase 1 cannot start until every decision is resolved or explicitly deferred
+- [x] Agent reads this spec end-to-end
+- [x] Every `[OPEN]` / `[TBD: value]` decision is surfaced as a clarifying question
+- [x] Human picks options for each surfaced decision
+- [x] Decisions are recorded as ADRs (Michael Nygard format)
+- [x] Phase 1 cannot start until every decision is resolved or explicitly deferred
 
 Gate: `decisions/` directory contains an ADR for every Phase-0-resolved decision; `transcripts/` directory contains the interview transcript.
 
 ### Phase 1: Data
 
-- [ ] Sources defined and licenses verified
-- [ ] Audit complete; counts and class balance documented in `evals/data_audit.json`
-- [ ] Semantic dedup applied per `[ADR-003]` (calibrated MiniLM @ 0.80); calibration evidence persisted at `evals/dedup_calibration.json`
-- [ ] Cross-source benign dedup applied before split
-- [ ] Leakage scan run; results in `evals/leakage_report.json`
-- [ ] Train/val/test splits locked and persisted
+- [x] Sources defined and licenses verified
+- [x] Audit complete; counts and class balance documented in `evals/data_audit.json`
+- [x] Semantic dedup applied per `[ADR-003]` (calibrated MiniLM @ 0.80); calibration evidence persisted at `evals/dedup_calibration.json`
+- [x] Cross-source benign dedup applied before split
+- [x] Leakage scan run; results in `evals/leakage_report.json`
+- [x] Train/val/test splits locked and persisted
 
 Gate: every checkbox ticked; `tests/test_data.py` and `tests/test_leakage.py` green.
 
 ### Phase 2: Training
 
-- [ ] Each rung's config persisted at `config/<rung>.yaml`
-- [ ] All rungs trained successfully on `[TBD: (candidate) H100 via runpod-deploy]`
-- [ ] Training artifacts captured per `runpod-deploy` manifest (git SHA, seed, GPU info, env)
-- [ ] **Per-row predictions persisted** at `evals/predictions/<rung>__<fold>__<seed>.parquet` `[LOCKED]`
-- [ ] Per-rung checkpoint persisted to HF Hub `[LOCKED: BBehring/prompt-injection-<rung-name> for the headline rungs only — frozen-probe + LoRA + conditionally full-FT + conditionally TF-IDF+LR — with model card discipline (license + tags + datasets + model-index + intended use + limitations + citation); reference scorers per ADR-018 NOT republished; per ADR-032]`
+- [x] Each rung's config persisted at `config/<rung>.yaml`
+- [x] All rungs trained successfully on A100 80GB via runpod-deploy (frozen-probe + LoRA full LODO matrix; full-FT LODO via Phase 2 24 predictions; full-FT OOD dropped per ADR-050 X11 FUSE crash)
+- [x] Training artifacts captured per `runpod-deploy` manifest (git SHA, seed, GPU info, env)
+- [x] **Per-row predictions persisted** at `evals/predictions/<rung>__<fold>__<seed>.parquet` `[LOCKED]`
+- [x] Per-rung checkpoint persisted to HF Hub `[LOCKED: BBehring/prompt-injection-<rung-name> for the headline rungs only — frozen-probe + LoRA + conditionally full-FT + conditionally TF-IDF+LR — with model card discipline (license + tags + datasets + model-index + intended use + limitations + citation); reference scorers per ADR-018 NOT republished; per ADR-032]`
 
 Gate: every checkbox ticked; training manifests schema-validated.
 
 ### Phase 3: Evaluation
 
-- [ ] All rung × slice metrics computed via `eval-toolkit`
-- [ ] OOD slate evaluated end-to-end (~4 slices typical; final composition resolved at Phase 0)
-- [ ] Calibration battery run (ECE + Brier + reliability) for every rung
-- [ ] Thresholds selected on validation only (detection-policy and verification-policy on in-house rungs; recall@FPR pinpoints on all rungs)
-- [ ] `evals/results.json` schema-validated against `eval-toolkit`'s `results.v1.json` schema
+- [x] All rung × slice metrics computed via `eval-toolkit`
+- [x] OOD slate evaluated end-to-end (~4 slices typical; final composition resolved at Phase 0)
+- [x] Calibration battery run (ECE + Brier + reliability) for every rung
+- [x] Thresholds selected on validation only (detection-policy and verification-policy on in-house rungs; recall@FPR pinpoints on all rungs)
+- [x] `evals/results.json` schema-validated against `eval-toolkit`'s `results.v1.json` schema
 
 Gate: every checkbox ticked; `evals/results.json` parses cleanly.
 
 ### Phase 4: Analysis
 
-- [ ] Bootstrap CIs computed for every headline metric
-- [ ] Paired-bootstrap differences computed for every rung-vs-rung comparison of interest
-- [ ] MDE estimated for every reported CI
-- [ ] Per-source / per-style breakdowns computed (LLM-as-rater rubric audit `[TBD-at-Phase-4]` — invest only if regex-based per-style tagger proves conservative enough to warrant audit; deferred per ADR-005 methodology + ADR-018 reference-scorer framing)
-- [ ] Figures 1–7 (or the project's named slate) rendered to `docs/plots/`
+- [x] Bootstrap CIs computed for every headline metric
+- [x] Paired-bootstrap differences computed for every rung-vs-rung comparison of interest
+- [x] MDE estimated for every reported CI
+- [x] Per-source / per-style breakdowns computed via regex tagger (LLM-as-rater rubric audit dropped per ADR-050 — Phase 4 cost re-estimation showed envelope ~16× original ADR-018 estimate; per-style heuristic tagger output in `evals/data_audit.json` per ADR-041)
+- [x] Figures 1–7 (or the project's named slate) rendered to `docs/plots/`
 
 Gate: every checkbox ticked; analysis JSON outputs match schemas.
 
@@ -165,7 +174,7 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 
 ### 3.5 Phase 1 implementation status
 
-`[Phase 1 in progress per ADR-041]` Operationalization of §3.1–3.4 locks. Per-commit status:
+`[Phase 1 closed per ADR-041]` Operationalisation of §3.1–3.4 locks; all 6 commits green. Per-commit status:
 
 | Phase 1 commit | Deliverable | Invariant test | Status |
 |---|---|---|---|
@@ -178,11 +187,11 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 
 #### 3.5.1 Phase 1 library-first carryforward refactor (per ADR-047)
 
-`[Phase 1 carryforward refactor in progress per ADR-047]` Triggered by Phase 4 entry walkthrough Q6 user reaffirmation of the library-first invariant as project-wide; retroactive audit identified 4 hand-rolls in `src/data/` where `eval-toolkit` ships fitting primitives. Two upstream contributions filed at audit close: issue [#18](https://github.com/brandon-behring/eval-toolkit/issues/18) (wire 50-pair golden dedup-holdout into eval-toolkit CI fixtures); issue [#19](https://github.com/brandon-behring/eval-toolkit/issues/19) (3-pattern cookbook docs). Each refactor commit deletes orphaned local helpers in-commit per the no-orphaned-code discipline (saved as memory 2026-05-16).
+`[Phase 1 carryforward refactor closed per ADR-047 at Commit 4 2026-05-16]` Triggered by Phase 4 entry walkthrough Q6 user reaffirmation of the library-first invariant as project-wide; retroactive audit identified 4 hand-rolls in `src/data/` where `eval-toolkit` ships fitting primitives. Two upstream contributions filed at audit close: issue [#18](https://github.com/brandon-behring/eval-toolkit/issues/18) (wire 50-pair golden dedup-holdout into eval-toolkit CI fixtures); issue [#19](https://github.com/brandon-behring/eval-toolkit/issues/19) (3-pattern cookbook docs). Each refactor commit deletes orphaned local helpers in-commit per the no-orphaned-code discipline (saved as memory 2026-05-16).
 
 | Refactor commit | Deliverable | Invariants verified | Status |
 |---|---|---|---|
-| Commit 1 (ADR-047 setup) | ADR-047 + SPEC_SHEET §3.5.1 + upstream issues #18 + #19 filed + `decisions/upstream_issues.md` ledger updated + SUBMISSION_AUDIT regen | n/a | **pending commit** |
+| Commit 1 (ADR-047 setup) | ADR-047 + SPEC_SHEET §3.5.1 + upstream issues #18 + #19 filed + `decisions/upstream_issues.md` ledger updated + SUBMISSION_AUDIT regen | n/a | **green** |
 | Commit 2 (splits refactor) | `src/data/splits.py::make_splits` consumes `eval_toolkit.splits.SourceDisjointKFoldSplitter`; project glue maps upstream-shuffled fold order back to TRAIN_POSITIVE_SOURCES tuple order (deterministic fold_id-to-source mapping preserved across refactor); per-seed stratified 80/20 train/val + benigns-in-every-train-pool preserved | 9 splits smoke tests + 5 invariants (`test_class_balance_per_fold` + `test_source_disjoint_train_test` + ...) all pass | **green** |
 | Commit 3 (dedup refactor) | `src/data/dedup.py::{dedup_within_source, drop_train_test_leakage, dedup_cross_source_benigns}` consume `eval_toolkit.text_dedup.{near_dedup, EmbeddingCosineStrategy(embedder=compute_embeddings), EmbeddingCosineStrategy.pairs_across}`; `_greedy_first_occurrence_mask` deleted in-commit (no remaining callers); `pairwise_cosines` retained pending Commit 4 (still has callers in `audit.py` + `build_dedup_holdout.py` + test); project-owned embedder glue (`get_encoder` + `compute_embeddings` + `encoder_revision_sha`) preserved; `compute_embeddings` signature broadened from `list[str]` to `Sequence[str]` for upstream `Callable[[Sequence[str]], ndarray]` Protocol compat (non-breaking — all callers pass list) | 4 dedup smoke tests pass (including `test_dedup_cross_source_lmsys_priority` priority-source reason preservation); 123/123 smoke total + 10 invariants pass; mypy + ruff green | **green** |
 | Commit 4 (audit refactor + close) | `src/data/audit.py::compute_leakage_report` consumes `run_leakage_checks([CrossSplitLeakageCheck])` per fold (ExactDuplicateCheck + NearDuplicateCheck dropped per implementation note — they would always report zero findings post-`dedup_within_source`); `compute_contamination_scan` consumes `EmbeddingCosineStrategy.pairs_across(query, reference, k=1)` + project per-source aggregation glue; project-dict output schemas preserved for both. `_per_row_max_cosine_to_ref` (audit.py local helper) deleted in-commit. `pairwise_cosines` (dedup.py) deleted in-commit (now truly orphaned after audit.py + `build_dedup_holdout.py` refactors away from it). `test_pairwise_cosines_symmetric` (tested deleted primitive) deleted in-commit. `scripts/build_dedup_holdout.py::_enumerate_within_source_pairs` refactored to use `EmbeddingCosineStrategy.pairs_within(texts, n-1)` so the script's `pairwise_cosines` import dependency is severed. Output schema for `evals/leakage_report.json` preserved (CrossSplitLeakageCheck count maps to existing `cosine_ge_085_overlaps` field) — no schema migration needed | 6 audit+dedup smoke tests pass (test_compute_data_audit_yields_per_source_counts + test_compute_leakage_report_zero_overlaps_on_disjoint_splits + test_compute_contamination_scan_unrelated_benigns_clean + test_compute_embeddings_shape_and_norm + test_dedup_within_source_drops_near_duplicates + test_dedup_cross_source_lmsys_priority); 122/122 smoke total (was 123; -1 from deleted test_pairwise_cosines_symmetric) + 10 invariants pass; mypy + ruff green | **green** |
@@ -191,7 +200,7 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 
 ### 3.6 Phase 2 implementation status
 
-`[Phase 2 in progress per ADR-044]` Operationalization of §4 locks. Per-commit status:
+`[Phase 2 closed per ADR-044]` Operationalisation of §4 locks; all 6 commits green. Per-commit status:
 
 | Phase 2 commit | Deliverable | Invariant test | Status |
 |---|---|---|---|
@@ -204,11 +213,11 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 
 ### 3.7 Phase 3 implementation status
 
-`[Phase 3 in progress per ADR-045]` Operationalization of §5 locks. Per-commit status:
+`[Phase 3 closed per ADR-045]` Operationalisation of §5 locks; all 6 commits green. Per-commit status:
 
 | Phase 3 commit | Deliverable | Invariant test | Status |
 |---|---|---|---|
-| Commit 1 | ADR-045 (Phase 3 implementation bundle; scoring-first contract + 6-commit cadence + tiered ref-scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation) + SPEC_SHEET §3.7 status table + SUBMISSION_AUDIT regen | n/a | **in progress** |
+| Commit 1 | ADR-045 (Phase 3 implementation bundle; scoring-first contract + 6-commit cadence + tiered ref-scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation) + SPEC_SHEET §3.7 status table + SUBMISSION_AUDIT regen | n/a | **green** |
 | Commit 2 | `src/scoring/{protectai, llm_judge_base, openai_judge, anthropic_judge}.py` per ADR-018 + `src/eval/schemas.py` (pydantic models — PredictionsRowModel, MetricsRecordModel, SliceMetricsModel, OperatingPointModel, CalibrationRecordModel, ReachabilityAuditModel, BootstrapCellModel) + versioned prompt template at `src/scoring/prompts/prompt_template_v1.md` + Tier-A (ProtectAI) CI smoke + Tier-B (LLM judges) cache infrastructure at `evals/audit/llm_judge_cache/<judge>__<sha256-prefix>.json` per A-007 + A-014 + 22 smoke tests | `test_reference_scorer_schema_uniform` **green** | **green** (9 invariants total) |
 | Commit 3 | `src/eval/calibration_battery.py` per ADR-023 (eval-toolkit ECE 4-variant matrix `expected_calibration_error{,_debiased,_l2,_l2_debiased}` + `expected_calibration_error_equal_mass` headline at n_bins=15 + `brier_score` + `brier_decomposition` reliability/resolution/uncertainty + `fit_temperature` + `fit_isotonic_calibrator` + `reliability_curve`; validation-only fit per ADR-011 Guarantee 6; `proba_to_logprobs` + `apply_temperature` helpers for binary-to-2-col-logit conversion) + 12 smoke tests | `test_calibration_battery_outputs_4ece_plus_brier` **green** | **green** (10 invariants total) |
 | Commit 4 | `src/eval/operating_points.py` per ADR-025 (TargetFPRSelector(0.01) detection + TargetRecallSelector(0.99) verification per-(rung, fold, seed) val fit; `fit_operating_point` + `fit_dual_policy_for_cell` + `compute_reachability_audit` per A-009) + `src/eval/slice_analysis.py` per ADR-021 (5-slice OOD slate `compute_metric_record` + pooled-headline `compute_pooled_ood_record` + per-slice spoke `aggregate_slice_across_observations` + 0.1% pinpoint volatility surfaces `compute_pinpoint_volatility` per ADR-021 line 53-65) + 20 smoke tests | module-level smoke tests cover contract (`test_dual_policy_threshold_pairing` + `test_verification_reachability_audit` + `test_ood_aggregation_layout` + `test_recall_at_fpr_pinpoint_volatility` are integration-level invariants deferred to Commit 5 when scripts wire end-to-end) | **green** (10 invariants total; 4 stubs deferred to Commit 5) |
@@ -217,7 +226,7 @@ Gate: every checkbox ticked; reviewer URLs (source pin at `tree/v1.0.0` + live Q
 
 ### 3.8 Phase 4 implementation status
 
-`[Phase 4 in progress per ADR-046]` Operationalization of §5 plus ADR-006 + ADR-022 + ADR-024 + ADR-025 (plus partial supersession of ROADMAP `[TBD-at-Phase-4]` reference-scorer-audit-deferred framing per ADR-046 Q5 user override → include-now-locked). Per-commit status:
+`[Phase 4 closed per ADR-046]` Operationalisation of §5 plus ADR-006 + ADR-022 + ADR-024 + ADR-025 (plus partial supersession of ROADMAP TBD-at-Phase-4 reference-scorer-audit-deferred framing per ADR-046 Q5 user override → include-now-locked); all 6 commits green. Reference-scorer slate further narrowed by ADR-050 at Phase 4-5 transition (LLM judges dropped on cost; full-FT OOD dropped on FUSE crash). Per-commit status:
 
 | Phase 4 commit | Deliverable | Invariant test | Status |
 |---|---|---|---|
@@ -327,11 +336,11 @@ Anchored to [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) prim
 
 ### 5.4 Per-source and per-style breakdowns
 
-Required for any OOD claim — aggregate metrics hide heterogeneity. Reported alongside the headline IID/OOD numbers. Per-style heuristic tagger regex-based) is conservative;  may `[TBD: (candidate) invest in LLM-as-rater rubric audit]`.
+Required for any OOD claim — aggregate metrics hide heterogeneity. Reported alongside the headline IID/OOD numbers. Per-style heuristic tagger (regex-based) is conservative; LLM-as-rater rubric audit dropped per ADR-050 (Phase 4 cost re-estimation showed envelope ~16× original ADR-018 estimate; see EVIDENCE.md §3).
 
 ### 5.5 Adversarial robustness
 
-`[TBD: largely deferred; named but not exhaustively probed]` — the threat model (paraphrase, encoded payloads, multi-turn injection, base64/leetspeak obfuscation) is named; what was not tested is named explicitly in WRITEUP §5.6 and §8.
+**Largely deferred** — named but not exhaustively probed. The threat model (paraphrase, encoded payloads, multi-turn injection, base64/leetspeak obfuscation) is named per ADR-014; what was not tested is named explicitly in WRITEUP §5.6 and §8.
 
 **Linked ADRs**: ADR-021 (eval slate aggregation + recall@FPR pinpoints), ADR-022 (statistical inference apparatus — bootstrap N + multi-comparison + multi-seed + paired-test), ADR-023 (calibration battery — raw + temperature + isotonic), ADR-024 (cross-fold CI methodology — cv_clt_ci headline + block-bootstrap-on-folds spoke), ADR-025 (dual-policy threshold characterization — symmetric 1% targets + per-(rung, fold, seed) fitting + verification-reachability audit).
 
@@ -454,13 +463,24 @@ Per-ADR `acceptance_criterion:` frontmatter fields collectively cover the granul
 
 ## 9. Open questions deferred to future iterations
 
-`[TBD — populate as  work proceeds]`
+Pointer: see [`NEXT_STEPS.md`](./NEXT_STEPS.md) §3 for the consolidated
+list of open questions surfaced during Phase 0-5. Live as of `v1.0.0`:
 
-- `[TBD: value]`
-- `[TBD: value]`
+- Does the contamination-tier ordering hold under harder OOD slates?
+- Does the LoRA → full-FT gap survive higher seed counts?
+- Does the single-class-slice convention generalize beyond AUPRC / AUROC
+  to calibration metrics?
+
+Future-iteration tactical work in `NEXT_STEPS.md` §1; aspirational
+directions in `NEXT_STEPS.md` §2.
 
 ---
 
 ## Appendix: decision trace
 
-`[TBD: link to the planning artifact at ~/.claude/plans/<planning-slug>.md]`
+50 ADRs accepted across Phase 0-00 through Phase 5 (`decisions/ADR-001-*.md`
+through `decisions/ADR-050-*.md`). `SUBMISSION_AUDIT.md` regenerates from
+the ADR frontmatter via `scripts/regenerate_audit.py` and is a CI hard gate.
+Transcripts for the multi-turn decision conversations live under
+`transcripts/<YYYY-MM-DD>__<slug>.md` (gitignored; emailed to the reviewer
+separately at submission).
