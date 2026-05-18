@@ -443,9 +443,9 @@ Per-ADR `acceptance_criterion:` frontmatter fields collectively cover the granul
 `[LOCKED]` Submission deliverables locked at Phase 0-07 — see ADR-030 (deliverable format = Quarto HTML site via GH Actions; supersedes ADR-002 PDF + repo) + ADR-031 (reviewer reading paths via `index.qmd` + sidebar nav; supersedes ADR-004 PDF-as-hub framing) + ADR-032 (HF Hub publication = headline rungs only with model card discipline) + ADR-033 (release strategy = `v0.9.0-rc1` rehearsal + `v1.0.0` submission + `v1.0.x` post-submission patches; CHANGELOG + `_site.tar.gz` release asset) + ADR-034 (reproducibility tier = full ladder T0 eval-from-hub + T1 smoke + T3 headline-cloud).
 
 **Reviewer email at submission** carries three URLs + private attachment:
-1. Source pin — `https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0`
-2. Live rendered Quarto site — `https://brandon-behring.github.io/prompt-injection-detection-submission/`
-3. GH release page — `https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0`
+1. Source pin — `https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0`
+2. Live rendered Quarto site — `https://brandon-behring.github.io/prompt-injection-detection-prototype/`
+3. GH release page — `https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0`
 4. Transcripts as private attachment per existing convention (gitignored).
 
 **Linked ADRs**: ADR-030, ADR-031, ADR-032, ADR-033, ADR-034.

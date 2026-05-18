@@ -13,20 +13,33 @@ make test           # tests/test_invariants.py invariants
 make coverage       # pytest --cov
 ```
 
-## Expected runtime (current seed state)
+## Expected runtime (post-Phase 4 state)
 
 - `make install`: ~30 seconds with warm uv cache; ~2 minutes from scratch
 - `make lint`: ~5 seconds
-- `make test`: ~1 second (7 skip-marked invariant stubs at seed; populated at Phase 1)
-- `make coverage`: same as `make test` at seed; meaningful once code lands
+- `make test`: ~30 seconds (~220 tests; invariants live + smoke parametrised)
+- `make test-smoke`: ~1 minute (laptop-friendly, no GPU, no network)
+- `make coverage`: ~45 seconds (currently 89.82 %)
+- `make audit`: ~5 seconds (`scripts/regenerate_audit.py --check`)
 
-Phase 1+ targets (planned, not yet implemented):
-- `make diagnostics-smoke`: laptop-friendly smoke pass `[OPEN: resolved at Phase 0-05]`
-- `make canonical-eval`: full eval matrix via runpod-deploy `[OPEN: resolved at Phase 0-08]`
+Headline + cloud reproduction targets (Phase 4):
+
+- `make headline-frozen-probe`: frozen-probe headline eval via runpod-deploy
+  (~30 min on A100 80GB; ~$3 per cell)
+- `make headline-lora`: LoRA headline eval (~45 min; ~$5)
+- `make headline-full-ft`: full-FT headline eval (~6h; ~$20; LODO only —
+  OOD dropped per ADR-050)
+- `make headline-cloud`: meta-target for all three above
+- `make eval-from-hub RUNG=<frozen-probe|lora>`: T0 reproducibility — pulls
+  the canonical fold0/seed42 checkpoint from HF Hub and score-matches
+  within 1e-4 (per ADR-034). CPU-only (~10-30 min per rung).
+- `make metrics-battery`: regenerate the full per-cell metrics parquet +
+  bootstrap CIs from existing prediction parquets (CPU-only; ~5 minutes)
 
 ## Environment
 
-Python `>=3.10` (pinned at Phase 0-08; see `pyproject.toml`). Load-bearing dependencies pinned at Phase 0:
+Python `>=3.13` (pinned at Phase 0-08; see `pyproject.toml` + `.python-version`).
+Load-bearing dependencies pinned at Phase 0:
 
 - `eval-toolkit` (evaluation primitives) — version locked at Phase 0-08
 - `runpod-deploy` (cloud orchestration) — version locked at Phase 0-08
@@ -60,7 +73,24 @@ Full field list: `docs/MANIFEST_SCHEMA.md`. The schema is owned upstream by `eva
 
 ## Reviewer reproduction tier
 
-`[OPEN: reproducibility tier; resolved at Phase 0-07]` — Phase 0 decides whether canonical numbers are reproducible from laptop-only (smoke) or require GPU rental (canonical-eval). Default if unsure: both — laptop-only smoke + a one-shot `make canonical-eval` that documents the GPU class + expected runtime + expected cost.
+Two-tier reproduction (locked at Phase 0-07 via ADR-029):
+
+- **Tier 0 (T0) — HF Hub score match** (no GPU): `make eval-from-hub
+  RUNG=frozen-probe` and `make eval-from-hub RUNG=lora` pull the canonical
+  fold0/seed42 checkpoint from `BBehring/prompt-injection-<rung>`, run CPU
+  inference against the local val slate, and score-match against
+  `evals/results.json` within 1e-4 absolute (ADR-034 tolerance). ~10-30
+  min per rung. Verifies eval-pipeline integrity + checkpoint-download
+  integrity.
+- **Tier 1 (T1) — full canonical re-eval** (GPU; A100 80GB): `make
+  headline-cloud` re-runs frozen-probe + LoRA + full-FT through the full
+  LODO matrix via `runpod-deploy`. ~7h wall-clock; ~$28 GPU spend (per
+  ADR-039 cost envelope). Verifies the full training-through-eval
+  pipeline.
+
+T0 is the recommended reviewer path. T1 is offered for the reviewer who
+wants to independently verify training-side numerics; T0 alone covers
+the methodology-and-eval-side reproducibility claim.
 
 ## Cross-references
 

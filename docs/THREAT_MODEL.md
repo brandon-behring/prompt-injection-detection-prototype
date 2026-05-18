@@ -6,18 +6,18 @@ This file is a convenience aggregator. Canonical content lives in `WRITEUP.md` �
 
 | Class | In scope? | Spec lock |
 |---|---|---|
-| Direct injection — adversarial text in user input attempting to override system instructions | `[OPEN: resolved at Phase 0-01]` | SPEC_GREENFIELD §0 Threat row "Attack classes in scope" |
-| Indirect injection — adversarial text arriving via context channels (retrieved docs, tool outputs, file attachments) | `[OPEN: resolved at Phase 0-01]` | same |
-| Multi-turn injection — adversarial payload split across multiple conversation turns | `[OPEN: typically deferred]` | WRITEUP §5.6 |
-| Encoded payloads — base64 / leetspeak / hex / Unicode confusables | `[OPEN: typically deferred]` | WRITEUP §5.6 |
-| Paraphrase attacks — semantic equivalents of training-set injections | `[OPEN: typically deferred]` | WRITEUP §5.6 |
-| Adversarial perturbations — gradient-guided or search-based evasion against a specific classifier | `[OPEN: named but default-deferred]` | SPEC_GREENFIELD §0 |
+| Direct injection — adversarial text in user input attempting to override system instructions | **In scope** | ADR-014 (Phase 0-01) |
+| Indirect injection — adversarial text arriving via context channels (retrieved docs, tool outputs, file attachments) | **In scope** | ADR-014 (Phase 0-01) |
+| Multi-turn injection — adversarial payload split across multiple conversation turns | Deferred | ADR-014; see WRITEUP §5.6 |
+| Encoded payloads — base64 / leetspeak / hex / Unicode confusables | Deferred | ADR-014; see WRITEUP §5.6 |
+| Paraphrase attacks — semantic equivalents of training-set injections | Deferred | ADR-014; see WRITEUP §5.6 |
+| Adversarial perturbations — gradient-guided or search-based evasion against a specific classifier | Deferred (named, not silently dropped) | ADR-014 |
 
-## Scope decisions (all locked at Phase 0-01)
+## Scope decisions (all locked at Phase 0-01 via ADR-014)
 
-- **Attack classes in scope**: `[OPEN: resolved at Phase 0]`
-- **Language scope**: `[OPEN: resolved at Phase 0]` (default if unsure: English-only)
-- **Length cap**: `[OPEN: resolved at Phase 0]` (default if unsure: 512 tokens, single-turn)
+- **Attack classes in scope**: direct + indirect injection (multi-turn / encoded / paraphrase / adversarial perturbations deferred)
+- **Language scope**: English-only
+- **Length cap**: 512 tokens, single-turn
 
 ## Reference-scorer training-overlap audit (locked discipline)
 

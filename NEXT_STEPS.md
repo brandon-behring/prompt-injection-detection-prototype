@@ -87,11 +87,30 @@ Things that would require rethinking the project's design rather than extending 
 
 ## 3. Open questions raised during the project
 
-Open questions surfaced during scoping; not yet answered.
+Open questions surfaced during Phase 0-5; not yet answered. Each is a
+genuine candidate for a future iteration's research-plan slot.
 
-- `[TBD: open question]` — populated incrementally
-- `[TBD: open question]`
-- `[TBD: open question]`
+- **Does the contamination-tier ordering hold under harder OOD slates?**
+  ADR-005's three-state taxonomy (`verified_disjoint` <
+  `backbone-partial-disjoint` < `suspected_contamination`) was inferred
+  from a single OOD slate composition (BIPIA + InjecAgent + JBB + XSTest +
+  NotInject). A harder slate — adversarial-style attacks not in the
+  training corpus — might re-order the rungs or compress the gap. The
+  invariant test ordering (frozen-probe < LoRA < full-FT on LODO) may not
+  generalize.
+- **Does the LoRA → full-FT gap survive higher seed counts?** Phase 4
+  ran 3 seeds × 4 folds; the LoRA-vs-full-FT gap on LODO sits within
+  the paired-bootstrap CI. A 5-seed or 10-seed run would either widen
+  the gap into significance or confirm that the marginal capacity from
+  full-FT doesn't pay for itself on this data scale.
+- **Does the single-class-slice convention generalize beyond AUPRC /
+  AUROC?** The skip-filter rule (locked at Phase 5 — see WRITEUP §5 and
+  the SUBMISSION_AUDIT regen at ADR-050) drops single-class rows from
+  AUPRC/AUROC artifacts but leaves them in calibration metrics (ECE,
+  Brier, reliability curves). ECE on an all-positive slice is still
+  defined but may carry similar pathologies; a future iteration could
+  surface a unified "metric-defined-for-this-slice-composition" type
+  primitive in `eval-toolkit`.
 
 ---
 
