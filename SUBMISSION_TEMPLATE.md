@@ -40,7 +40,7 @@ The package separates in-pool competitiveness, external shift, benign over-defen
 ### Reproducibility infrastructure
 
 - **`docs/REPRODUCIBILITY.md`** — fresh-clone reproducibility runbook.
-- **`make diagnostics-smoke`** `[OPEN: smoke-test target; resolved at Phase 0]` — one-shot install + lint + test + analysis-pipeline smoke.
+- **`make test-smoke`** — one-shot install + lint + test + analysis-pipeline smoke (canonical target per ADR-027 Makefile pattern; previously `make diagnostics-smoke` at Phase 0 stub time).
 - **GitHub Actions CI** — every push runs lint + invariant tests; badge in `README.md`.
 - **HF Hub** `[TBD: URL once checkpoints uploaded at Phase 2]` — checkpoints with per-row predictions persisted (see `EVIDENCE.md` §6).
 - **GitHub release** `[TBD: v1.0.0 at submission per CHANGELOG]` — predictions tarball + evidence files for canonical reproduction.

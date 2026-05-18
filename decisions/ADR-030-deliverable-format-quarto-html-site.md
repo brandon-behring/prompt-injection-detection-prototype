@@ -59,9 +59,9 @@ The hub-and-spoke pattern locked by ADR-004 (now superseded by ADR-031) survives
 **Hosting**: GitHub Pages via `.github/workflows/publish.yml` workflow using `quarto-actions/setup@v2` + `quarto-actions/publish@v2` with `target: gh-pages`. Triggers on push to `main` (continuous deploy) and on tag push `v*` (per ADR-033 release tags also trigger publish for the canonical-submission build).
 
 **Reviewer submission URL plan** (3 URLs + private attachment):
-1. Source pin — `https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0` (canonical submission anchor; never drifts; per ADR-033).
-2. Live rendered site — `https://brandon-behring.github.io/prompt-injection-detection-submission/` (reflects latest publish; reviewer reads here).
-3. GH release page — `https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0` (carries CHANGELOG.md + `_site.tar.gz` asset for offline readers; per ADR-033).
+1. Source pin — `https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0` (canonical submission anchor; never drifts; per ADR-033).
+2. Live rendered site — `https://brandon-behring.github.io/prompt-injection-detection-prototype/` (reflects latest publish; reviewer reads here).
+3. GH release page — `https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0` (carries CHANGELOG.md + `_site.tar.gz` asset for offline readers; per ADR-033).
 4. Transcripts as private email attachment per existing convention (gitignored, not committed).
 
 **Removed scope**: PDF build pipeline. `pandoc` and any LaTeX dependencies drop out of `pyproject.toml` and `Makefile`. `make pdf` target (if previously planned) is removed; `make site` target (Quarto render) is added per ADR-027's Makefile pattern.

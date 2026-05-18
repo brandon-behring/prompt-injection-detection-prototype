@@ -47,8 +47,9 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 ### 1.7 EXECUTIVE_SUMMARY (Phase 5, written LAST)
 
 *Why*: 1-page decision-maker-facing layer above the full WRITEUP. Reviewer who skims first reads this; deep-readers continue to WRITEUP.
-*Scope*: `docs/EXECUTIVE_SUMMARY.md` — headline characterization claims (max 4), what's locked vs deferred, recommended-reading-order pointer.
+*Scope*: `EXECUTIVE_SUMMARY.md` at repo root — headline characterization claims (max 4), what's locked vs deferred, recommended-reading-order pointer.
 *Effort*: ~1 hour; written **after** Phase 5 WRITEUP narrative stabilizes.
+*Status (v1.0.3+)*: Landed at v1.0.3 (`EXECUTIVE_SUMMARY.md` at repo root, not under `docs/`). Role retroactively anchored at v1.0.4 via [ADR-053](decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md) — `EXECUTIVE_SUMMARY` is one of the two governed entry artifacts (decision-maker layer); `index.qmd` is the parallel reviewer-landing reading guide with interpretation pedagogy.
 
 ### 1.8 Generic citation auditor (Phase 3-5)
 

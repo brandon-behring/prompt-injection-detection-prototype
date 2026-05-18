@@ -80,7 +80,7 @@ All notable changes documented per Keep-a-Changelog 1.1.0.
 - Initial Ciphero take-home submission.
 - Quarto site published to GH Pages.
 - 3 trained-rung checkpoints published to HF Hub per ADR-032.
-- See methodology writeup at https://brandon-behring.github.io/prompt-injection-detection-submission/
+- See methodology writeup at https://brandon-behring.github.io/prompt-injection-detection-prototype/
 
 ## [v0.9.0-rc1] - 2026-05-17
 ### Release candidate
@@ -110,9 +110,9 @@ NOT attached as release binaries:
 
 | URL | Purpose | Drift behavior |
 |---|---|---|
-| `https://github.com/brandon-behring/prompt-injection-detection-submission/tree/v1.0.0` | Canonical source pin | Never drifts |
-| `https://brandon-behring.github.io/prompt-injection-detection-submission/` | Live rendered Quarto site | Reflects latest patch (`v1.0.x`) |
-| `https://github.com/brandon-behring/prompt-injection-detection-submission/releases/tag/v1.0.0` | GH release page | CHANGELOG + `_site.tar.gz` download |
+| `https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0` | Canonical source pin | Never drifts |
+| `https://brandon-behring.github.io/prompt-injection-detection-prototype/` | Live rendered Quarto site | Reflects latest patch (`v1.0.x`) |
+| `https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0` | GH release page | CHANGELOG + `_site.tar.gz` download |
 
 Plus transcripts as private email attachment (gitignored, per existing convention).
 

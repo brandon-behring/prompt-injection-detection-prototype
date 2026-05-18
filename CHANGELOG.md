@@ -18,6 +18,159 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.4] — 2026-05-18
+
+Reading-guide refresh + repo-wide stale-content sweep + ADR-053
+reading-guide governance. Driver: user question *"does the reading
+guide clearly say what the final results were? is it organized in
+a way that makes sense to someone coming to the project. Does it
+conform to our initial guidance and/or does our ADRs need to be
+enriched?"* — answered NO + YES (ADR enrichment needed). v1.0.4
+fixes the staleness across 9 files + lands ADR-053 in a single
+atomic patch. Reviewer URL stays pinned at `tree/v1.0.0`; live
+Quarto site reflects this patch.
+
+### Added
+
+- **`decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md`** —
+  new ADR governing the reading-guide architecture in 5
+  dimensions: (1) two entry artifacts (EXECUTIVE_SUMMARY +
+  index.qmd) with distinct roles; (2) 3-path canonical reading
+  order (A1 Quick-skim / A2 Audit / A3 Reproduce); (3) Headline-
+  finding-block-on-index requirement (numbers stated up-front,
+  not buried behind WRITEUP pointers); (4) interpretation-
+  pedagogy requirement on index.qmd (5 patterns:
+  prevalence-baseline, cross-family-OOD, negative-LoRA-delta,
+  ProtectAI non-monotone, val→LODO threshold transfer); (5)
+  pointer convention (index.qmd → EXECUTIVE_SUMMARY → WRITEUP →
+  spokes → ADRs). Retroactively anchors EXECUTIVE_SUMMARY.md
+  (added v1.0.3 per NEXT_STEPS §1.7 alone — no prior ADR
+  coverage). `supersedes: []` (additive enrichment); `related:
+  [ADR-030, ADR-033]`. NEXT_STEPS §1.7 gains a backref to
+  ADR-053.
+
+- **`index.qmd` Results section** — verified pooled_ood AUPRC
+  trio sourced from `evals/bootstrap/marginal_cells.parquet`
+  (BCa CI, 10000 resamples; 12 cells per rung = 4 folds × 3
+  seeds × 1101 rows): ModernBERT frozen-probe 0.364 [0.354,
+  0.375]; LoRA 0.293 [0.286, 0.301]; TF-IDF+LR 0.291 [0.283,
+  0.298]; ProtectAI v1 0.361 [0.330, 0.391]; v2 0.314 [0.283,
+  0.345]. Plus prevalence baseline (0.3742 = 412 positives /
+  1101 rows).
+
+- **`index.qmd` "How to read these numbers" section** — 5
+  interpretation patterns walking the reviewer through
+  prevalence baseline vs chance, cross-family vs cross-source
+  OOD, negative LoRA delta meaning, ProtectAI v1→v2 non-monotone,
+  val→LODO threshold transfer.
+
+- **`index.qmd` "Headline ADRs to read"** sub-list in the A2
+  Audit path — curated 11-ADR list (ADR-005, 015, 016, 017, 018,
+  022, 046, 050, 051, 052, 053) so audit-path readers don't
+  face the full 53-ADR ledger.
+
+### Changed
+
+- **`index.qmd`** — full rewrite per the ADR-053 conventions.
+  Status section anchored in v1.0.4 reality ("Phase 5 closed at
+  v1.0.0; reading-guide architecture anchored at v1.0.4"; 53
+  ADRs); previously read as Phase-0-time scaffolding ("At Phase
+  0-07 close, the spokes are skeletons; Phase 5 populates them").
+  EXECUTIVE_SUMMARY promoted as A1 Quick-skim step 1. HF Hub
+  model-card URLs added as a 4th submission anchor.
+
+- **Repo-wide stale-content sweep** — 23 stale items across 9
+  files corrected:
+
+  **URL slug** (`prompt-injection-detection-submission` →
+  `…-prototype`; 9 hits across 4 files):
+  - `index.qmd` lines 70-72 (3 submission-anchor URLs).
+  - `decisions/ADR-030-deliverable-format-quarto-html-site.md`
+    lines 62 + 68 (source-pin + release-page URLs). **In-place
+    edit** — treated as typo-class factual correction (slug
+    rename); the canonical-source-pin + 3-URL reviewer set
+    decision is unchanged. Per [ADR-029](decisions/ADR-029-immutable-adrs-supersede-dont-edit.md)
+    immutability convention, a typo-class slug rename in a URL
+    component is not a decision change.
+  - `decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md`
+    (3 hits in claim text + governance table cells). Same
+    in-place rationale.
+  - `assumptions.md:30` A-010 fallback branch name
+    `submission-site` → `prototype-site`.
+
+  **ADR counts** (4 hits; actual at v1.0.4 = 53 incl. ADR-053):
+  - `README.md:26` `50 ADRs` → `53 ADRs`.
+  - `SPEC_SHEET.md:3` + `:481` `50 ADRs accepted` → `53 ADRs
+    accepted across Phase 0-00 through v1.0.4 close (ADR-050 +
+    ADR-051 + ADR-052 + ADR-053)`.
+  - `CLAUDE.md:9` (project root) `~50 decisions` → `~53
+    decisions`.
+
+  **Rung-slate framing in `SPEC_SHEET.md:18` headline** (2 hits;
+  line 261's `[LOCKED:…]` had post-ADR-050 R1 narrowing; the
+  line-18 headline paragraph was missed at v1.0.0 Item 7):
+  - `4 reference rungs … gpt-4o + claude-sonnet + ProtectAI v1
+    + v2` → `2 reference rungs … ProtectAI v1 + v2 per ADR-018
+    (superseded by ADR-050 R1; LLM judges dropped Phase 4 on
+    cost)`.
+  - `8-rung slate … LLM judges vendor_black_box` → `5-rung OOD
+    slate (2 trained + 2 reference + 1 classical) + 4-rung LODO
+    ladder … (vendor_black_box tier empty per ADR-050 R1; 3-tier
+    gradient compressed from the original 4)`.
+
+  **Makefile-target / rung-name references** (3 hits across 2
+  files; canonical per ADR-027 + ADR-050):
+  - `index.qmd:45` `RUNG=modernbert-lora` → `RUNG=frozen-probe`
+    + `RUNG=lora`.
+  - `index.qmd:46` `make smoke` → `make test-smoke`.
+  - `SUBMISSION_TEMPLATE.md:43` `make diagnostics-smoke` →
+    `make test-smoke`.
+
+  **`index.qmd` other staleness** (5 hits):
+  - Line 21 `pooled IID + pooled OOD numbers per rung` (silent
+    on actual finding) → new Results table + 5 interpretation
+    patterns.
+  - Line 35 `34+ ADRs` → `53 ADRs` + curated Headline ADRs list.
+  - Line 61 repo-map row `results/` → `evals/`.
+  - Lines 78-80 Phase-0-time Status section → v1.0.4 reality.
+  - EXECUTIVE_SUMMARY.md promoted to A1 Quick-skim step 1.
+
+- **`SUBMISSION_AUDIT.md`** regenerated via
+  `scripts/regenerate_audit.py` — adds the CLAIM-053 row;
+  total 53 claim rows.
+
+### Governance notes
+
+- ADR-030 + ADR-033 received in-place URL edits per
+  /exploring-options batch 2 Q1.1 lock (2026-05-18). Both
+  ADRs' decision text is unchanged; only the repo-identity slug
+  component of the URLs updated to match the v1.0.0 repo rename
+  from `prompt-injection-detection-submission` to
+  `prompt-injection-detection-prototype`. Treated as
+  typo-class factual correction (not a decision change). The
+  immutability convention (per ADR-029 / CLAUDE.md
+  anti-patterns) targets decision changes; a URL-slug typo
+  fix to match a repo rename is not in scope. Decision audit
+  trail: git history of `decisions/ADR-030-*.md` + `ADR-033-*.md`
+  shows the edit + this CHANGELOG entry documents the rationale.
+
+### Files modified
+
+- `index.qmd` (full rewrite; ~180 lines).
+- `README.md` (1-line ADR count).
+- `SPEC_SHEET.md` (3 edits: lines 3 + 18 + 481).
+- `assumptions.md` (1-line A-010 fallback branch).
+- `SUBMISSION_TEMPLATE.md` (1-line make target).
+- `CLAUDE.md` project root (1-line decision count).
+- `decisions/ADR-030-*.md` (2 in-place URL edits).
+- `decisions/ADR-033-*.md` (3 in-place URL edits).
+- `decisions/ADR-053-…-reading-guide-governance-and-newcomer-paths.md` (new ~280 lines).
+- `NEXT_STEPS.md` (§1.7 backref to ADR-053).
+- `SUBMISSION_AUDIT.md` (regenerated).
+- `CHANGELOG.md` (this entry).
+
+---
+
 ## [1.0.3] — 2026-05-18
 
 Narrative-import + housekeeping patch. Reframes the full-FT OOD
