@@ -78,7 +78,7 @@ Total benign pool: **17246 rows**.
 
 All 11 sources are pinned at HF revision SHAs (where applicable) per `data/source_manifest.yaml` per ADR-016 + ADR-041.
 
-Sources: `[OPEN]` — Phase 0 picks from candidates documented in `docs/research/datasets/`. Full table in [`SPEC_SHEET.md` §3.1](./SPEC_SHEET.md).
+Sources locked at Phase 0-02 per ADR-016: 4 positive-attack sources + 2 benign sources + 5 held-out OOD slates as detailed in §3.1 above. Full table in [`SPEC_SHEET.md` §3.1](./SPEC_SHEET.md).
 
 ### 3.2 Dedup — *why this matters more than people think*
 
@@ -96,24 +96,24 @@ Three checks for in-pool leakage, plus a separate reference-scorer audit:
 
 1. **Exact-hash overlap** — no test row's hash appears in train.
 2. **High-cosine overlap** — no test row has cosine ≥ `[OPEN: threshold]` to any train row of the same label.
-3. **Cross-source benign dedup** — `[OPEN]` ordering (before-split / after-split). The rule prevents fold-leakage failures when within-source dedup leaves benign duplicates that survive the split.
+3. **Cross-source benign dedup** — locked at *after-split* per ADR-043 (post-split leakage cleanup). The rule prevents fold-leakage failures when within-source dedup leaves benign duplicates that survive the split.
 4. **Reference-scorer training-overlap audit** — `[LOCKED]` any external reference scorer gets its publicly-named training datasets crossed with project sources. Where disclosure is only at category level, the audit shifts to fold-pattern + scope-mismatch analysis — see EVIDENCE.md §1–2.
 
 Reported as 0 exact-hash overlaps + 0 cosine overlaps at threshold 0.85 across all (train, val, test) per-fold-seed pairs — `evals/leakage_report.json` carries `leakage_clean: True`. The eval-toolkit leakage check suite operationalizes the 8-type taxonomy from Kapoor & Narayanan 2023 (arXiv:2207.07048) — 294 non-replicating papers traced to leakage — via reference implementations: `ExactDuplicateCheck`, `NearDuplicateCheck`, `NormalizedFormLeakageCheck`, `CrossSplitLeakageCheck`, `LabelConflictCheck`, `GroupLeakageCheck`, `TemporalLeakageCheck`. See [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
 
 ### 3.4 Splits
 
-`[OPEN]` Splits structure (single / k-fold / source-disjoint LODO / hybrid). When ≥3 positive sources are available, source-disjoint LODO is the field-standard choice (Fomin 2025, "When Benchmarks Lie"). See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+Splits structure locked at *source-disjoint LODO* (4-fold; 3 seeds = 12 cells per rung) per ADR-016. When ≥3 positive sources are available, source-disjoint LODO is the field-standard choice (Fomin 2025, "When Benchmarks Lie"). See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
 
 **Linked ADRs**: filled in once Phase 0 locks each row.
 
-**Known gaps**: `[TBD: surfaced during Phase 0 + Phase 1 work; populated at Phase 5]`.
+**Known gaps**: see relevant ADR-XXX entry in the appendix index.
 
 ---
 
 ## 4. Model recipe — the rung ladder
 
-Each rung answers *what does this capability layer add over the rung below?* Hyperparameters are locked before training begins; no val-set gridsearch. Training compute target is `[OPEN]` (Phase 0 locks per SPEC_GREENFIELD §Tech-Stack). Per-rung detail below; the locked recipe lives in [`SPEC_SHEET.md` §4](./SPEC_SHEET.md).
+Each rung answers *what does this capability layer add over the rung below?* Hyperparameters are locked before training begins; no val-set gridsearch. Training compute target locked at A100-SXM4-80GB × 12 cells × 2 epochs per ADR-019 + ADR-049 (per-pod cap $40/$60/$100 per ADR-020). Per-rung detail below; the locked recipe lives in [`SPEC_SHEET.md` §4](./SPEC_SHEET.md).
 
 ### 4.1 Rung 1 — *the linear floor*
 
@@ -163,11 +163,11 @@ This section is the heart of the writeup. Every test below is reported with effe
 
 ### 5.1 Headline descriptive metrics
 
-`[TBD: results per §7]` reported with bootstrap CIs:
+The headline metric battery (results in §7.1) reports with BCa bootstrap CIs:
 
 - **PR-AUC** — the most relevant ranking metric for class-imbalanced tasks where precision and recall both matter. F1 alone is misleading at any chosen threshold; PR-AUC integrates over thresholds.
 - **ROC-AUC** — reported alongside for class-prior-independent ranking. Less useful than PR-AUC under our priors but standard for cross-paper comparison.
-- **recall@FPR ∈ {0.1%, 1%, 5%}** `[TBD: 0.1% pinpoint, if recall@0.1%FPR is selected at Phase 0]` — operational pinpoints. The 1% point is the canonical reporting threshold (PromptShield 2025).
+- **recall@FPR ∈ {0.1%, 1%, 5%}** — operational pinpoints. The 1% point is the canonical reporting threshold (PromptShield 2025). The 0.1% point is included in `evals/metrics/per_cell.parquet` per ADR-021 + ADR-023 volatility-surface protocol but is noisy at our sample sizes and not surfaced in §7 headlines.
 - **ECE (equal-mass + Kumar-2019 debiased) + Brier** — calibration; see §5.2 calibration battery.
 
 See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md) for why each metric is preferred over plain F1.
@@ -200,7 +200,7 @@ Method: derive MDE from CI width at α=0.05, power=0.80. Report alongside every 
 
 **ECE choice matters**: prefer L2-debiased ECE (Kumar et al. 2019, arXiv:1909.10155) for headline reporting — preserves rank ordering and removes small-sample inflation (`expected_calibration_error_l2_debiased`). Equal-mass ECE (`expected_calibration_error_equal_mass`) is more robust under class imbalance via quantile binning (Naeini et al. 2015, arXiv:1411.0760). **Pin `n_bins` across comparisons** — ECE is a binned estimator; small bin counts understate, large bin counts overstate.
 
-`[FIGURE 4: reliability curves all rungs (IID + OOD)]` → `docs/plots/figure4-reliability-curves.png` `[TBD: (candidate) requires per-row predictions persisted;  adds]`
+`[FIGURE 4: reliability curves all rungs (IID + OOD)]` → `docs/plots/F4.svg` (rendered via `scripts/render_figures.py` from per-row predictions in `evals/predictions/`; current scaffold path per upstream eval-toolkit#16; canonical-data wire-up deferred).
 
 See [methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md).
 
@@ -267,21 +267,25 @@ Source: `evals/operating_points/dual_policy.parquet` (72 OperatingPointModel row
 
 `[FIGURE 5: per-source PR-AUC ± CI for the fine-tuned rung]` → `docs/plots/figure5-per-source-pr-auc.png`
 
-The project also ships a per-attack-style heuristic tagger (regex-based; conservative). `[TBD: tagger coverage report — populated at Phase 5]`. See EVIDENCE.md §3.
+The project also ships a per-attack-style heuristic tagger (regex-based; conservative). Tagger coverage on the LODO training pool is **not exhaustively measured** in this submission — the tagger is used at data-audit time per ADR-041 to spot-check coverage of the four attack-source slates; per-row tag → per-cell coverage rates ARE in `evals/data_audit.json` per-source breakdowns. See EVIDENCE.md §3.
 
 ### 5.5 OOD slate
 
-`[OPEN]` OOD slate composition — populated at Phase 0 from `docs/research/benchmarks/` candidate set.
+The 5-slice OOD slate per ADR-021 + ADR-016, populated at Phase 0-04 from `docs/research/benchmarks/` candidate set:
 
 | Slice | Source | Class composition | Probe target | Why chosen |
 |---|---|---|---|---|
-| `[OPEN]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` | `[TBD: populated at Phase 5]` |
+| `notinject` | HF Hub `wikd/NotInject` (SHA pinned per source_manifest.yaml) | All-negative (benign-but-injection-like) | False-positive robustness on injection-shaped benign | Tests whether classifier discriminates *intent* from *form* |
+| `xstest` | HF Hub `paul-rottger/xstest-v2-copy` | Both classes (safe/unsafe instructions) | Cross-distribution shift to jailbreak-as-question | Tests against an actively-different distribution from training |
+| `jbb_behaviors` | HF Hub `JailbreakBench/JBB-Behaviors` | Both classes (harmful behavior elicitations + benign refusal) | Adversarial-elicitation generalization | Canonical jailbreak benchmark; community-recognized |
+| `bipia` | Local git repo (release-pinned SHA in source_manifest.yaml) | All-positive (indirect prompt injection via email body) | Indirect injection generalization | Tests indirect-injection (BIPIA paper benchmark) |
+| `injecagent` | Local git repo (release-pinned SHA in source_manifest.yaml) | All-positive (multi-turn agentic injection) | Agentic-flow generalization | Tests agentic-flow injection |
 
 See [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md) for the source-disjoint discipline we apply.
 
 ### 5.6 Adversarial robustness
 
-`[TBD: largely deferred; named but not exhaustively probed]`
+Adversarial robustness is **largely deferred** in this submission per §8.1 (named but not exhaustively probed beyond the in-pool LODO + OOD attack diversity).
 
 The adversarial threat model for a prompt-injection classifier includes:
 
@@ -290,13 +294,13 @@ The adversarial threat model for a prompt-injection classifier includes:
 - **Multi-turn injection** — payload split across multiple conversation turns.
 - **Indirect injection via context channels** — payload arriving via retrieved documents, tool outputs, or user-attached files.
 
-What was tested: `[TBD: populated at Phase 5]`. What was deliberately not tested: `[TBD: populated at Phase 5]`. *Why deferred*: `[TBD — typically scope/data-availability]`. See §8 for the consolidated deferred list.
+What was tested: the in-pool LODO + OOD slate already spans (a) direct vs indirect injection (BIPIA covers indirect), (b) jailbreak vs ignore-instructions (xstest + jbb_behaviors cover jailbreak-as-question), (c) agentic injection (injecagent), and (d) benign-but-injection-shaped (notinject). What was deliberately not tested: curated adversarial probes (paraphrase generation; encoded payloads at the row level; multi-turn injection splits). *Why deferred*: would expand the methodology contract from "characterisation against a fixed slate" to "ongoing adversarial probing" — see §8.1.
 
 This sub-section exists so that an evaluator from a security-focused company can see the threat model is named even where the work was not done. It is not a claim of coverage.
 
-**Linked ADRs**: `[ADR-008, ADR-021, ADR-022, ADR-023, ADR-024]`.
+**Linked ADRs**: ADR-008 (threat model), ADR-016 (data design), ADR-021 (slice aggregation), ADR-022 (statistical inference), ADR-023 (calibration battery), ADR-024 (cross-fold CI), ADR-046 (Phase 4 analysis).
 
-**Known gaps**: `[TBD: populated at Phase 5]`.
+**Known gaps**: see §8.2 methodology caveats — single-class OOD slices break threshold-free metrics; LODO test sets all-positive by design; val inference max_length 2048 vs train 8192 tolerated divergence.
 
 ---
 
@@ -318,7 +322,7 @@ Plus a [17-chapter methodology curriculum](https://github.com/brandon-behring/ev
 
 ### 6.2 [runpod-deploy](https://github.com/brandon-behring/runpod-deploy) — cloud orchestration
 
-Cloud orchestration for training and evaluation runs on rented GPUs. *Why deployment is a separate concern*: cost-bearing infrastructure (rented H100 hours) needs different discipline from modelling code; separating it makes both auditable independently. See `[TBD: (candidate) docs/cloud-canonical-runbook.md]`.
+Cloud orchestration for training and evaluation runs on rented GPUs. *Why deployment is a separate concern*: cost-bearing infrastructure (rented H100 hours) needs different discipline from modelling code; separating it makes both auditable independently. See `configs/runpod/headline-*.yaml` for the canonical-run yaml templates; runbook commentary inlined in §10.2 above.
 
 **Prediction-persistence pattern** `[LOCKED]`: `runpod-deploy` pulls per-row score artifacts in addition to metrics JSON, so downstream threshold/calibration analyses run from persisted predictions without re-running inference.
 
@@ -330,7 +334,7 @@ The phase-by-phase process gates in [`SPEC_SHEET.md` §2](./SPEC_SHEET.md) — w
 
 **Linked ADRs**: filled in once Phase 0 locks each row.
 
-**Known gaps**: `[TBD: populated at Phase 5]`.
+**Known gaps**: see relevant ADR in the appendix index.
 
 ---
 
@@ -481,14 +485,14 @@ This chapter consolidates what we *consciously did not do*. These are not failur
 - **Cross-source same-style ablation** `[OPEN]` — would disambiguate "training contamination" from "attack-style difficulty" for reference scorers. May be underpowered if per-style sample size is small; in that case treated as an explicit limitation. See EVIDENCE.md §3.
 - **LLM-judge reference scorers** (gpt-4o-2024-08-06 + claude-sonnet-4-6) — dropped post-lock per ADR-050. *Why dropped*: Phase 4 cost re-estimation against the actual OOD slate sizing revealed an envelope ~16x the original ADR-018 estimate ($14 → $240) driven by per-row LLM-judge inference being charged at the full input-prompt token count (long injection examples hit 1k-3k tokens routinely). The vendor_black_box contamination tier therefore has 0 rungs in this submission; the contamination-stratification gradient compresses from 4 tiers to 3. ProtectAI v1 + v2 remain as suspected_contamination reference scorers.
 - **full-FT OOD inference** — dropped post-lock per ADR-050. *Why dropped*: Phase 5 X11 full-FT re-fire crashed mid-training when shutil.copytree of the 598 MB optimizer.pt to /workspace MooseFS-backed FUSE storage returned [Errno 5] Input/output error (uv#17801 + MooseFS#380 upstream context). full-FT remains in the LODO comparison (3-rung ladder narrative survives via the surviving Phase 2 24 LODO predictions); OOD comparison ships 2 trained rungs (frozen-probe + LoRA) + 1 classical floor (tfidf-lr) + 2 reference scorers (ProtectAI v1 + v2) = 5 rungs.
-- `[TBD: additional scope deferrals — populated at Phase 0]`
+- (no additional scope deferrals beyond those listed above)
 
 ### 8.2 Methodology caveats
 
 - **Single-class OOD slices break threshold-free metrics** — BIPIA + InjecAgent are all-positive attack-only datasets per their source design; NotInject is all-negative benign-only. AUROC and AUPRC are mathematically undefined on these slices and the metrics pipeline correctly skips them (the per-cell parquet `evals/metrics/per_cell.parquet` covers jbb_behaviors + xstest + pooled_ood). Per-slice recall-at-threshold is reported on the single-class slices instead.
 - **LODO test sets are intentionally all-positive** per ADR-016 design (held-out attack source = cross-source generalization test). Recall@threshold is the well-defined metric on LODO; AUROC/AUPRC are undefined and not reported there.
 - **Val-set inference for trained rungs uses max_length 2048** (vs the Phase 2 training max_length 8192). Covers >99% of val token-length distribution per char-to-token ~4:1 ratio; p99 token length ~1100 in val. Fidelity loss negligible for the dual-policy threshold-fitting purpose; the long-tail truncation is a tracked-but-tolerated divergence from the training-time configuration.
-- `[TBD: additional caveats — populated at Phase 5 from Phase 4 metric distributions]`
+- (no additional caveats beyond those listed above)
 
 Each deferred item has a *why* — usually scope or data availability — and is named in [`NEXT_STEPS.md`](./NEXT_STEPS.md) where applicable.
 
@@ -550,27 +554,28 @@ make diagnostics-smoke  # [OPEN] no-external-services smoke pass (~10 min)
 Canonical numbers reproduce from `runpod-deploy`:
 
 ```bash
-make preflight    # [TBD] CPU preflight — gates invariants before GPU spend
-make h100         # [TBD] canonical H100 path
+make headline-frozen-probe   # ~$0.84-$2.13 (frozen-probe canonical fire; A100-80G ~20-50 min)
+make headline-lora           # ~$0.89-$1.76 (LoRA canonical fire)
+make headline-full-ft        # ~$1.61-$7.14 (full-FT canonical fire — note FUSE EIO risk per ADR-050)
 ```
 
-Runbook: `[TBD: (candidate) docs/cloud-canonical-runbook.md]`.
+Runbook: per-RunPod-yaml in `configs/runpod/headline-*.yaml`; orchestration via `runpod-deploy run` per ADR-020 (cost-cap-gated; interactive approval; multi-DC failover ladder).
 
 ### 10.3 Evaluation
 
-Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `evals/manifest.json` covering seeds, git SHA, data hashes, GPU info, and a leakage report. `evals/results.json` is schema-validated against eval-toolkit's `results.v1.json`. **The project persists per-row predictions** at `evals/predictions.parquet` `[TBD: scoped at Phase 0]`.
+Eval invocation captures a NeurIPS-aligned manifest at `artifacts/runpod/<run-id>/runpod_deploy_pull_manifest.json` covering pod ID, GPU class, datacenter, image SHA, wall time, estimated cost, payload lockfile SHA. **The project persists per-row predictions** at `evals/predictions/<rung>__fold<F>__seed<S>__<source>.parquet` per ADR-013 + ADR-021 (per-row predictions schema-validated against `src.eval.schemas.PredictionsRowModel`). 282 prediction parquets land post-Phase-5: 84 LODO (24 frozen-probe + 24 LoRA + 24 full-FT + 12 tfidf-lr) + 138 OOD trained-rung (60 frozen-probe + 60 LoRA + 60 tfidf-lr + 18 ProtectAI). Aggregated metric outputs land at `evals/metrics/per_cell.parquet`, `evals/bootstrap/`, `evals/audit/`, `evals/operating_points/` per the §7 source references.
 
 ### 10.4 Data + checkpoints
 
-- Data sources: licenses + download instructions in [`SPEC_SHEET.md` §3](./SPEC_SHEET.md). HF revisions `[LOCKED]` SHA-pinned at  build time (forward-only).
-- Checkpoints: `[TBD: HF Hub URL for checkpoints]`.
-- Predictions: `[TBD: GitHub release tag with predictions tarball]`.
+- **Data sources**: licenses + download instructions in [`SPEC_SHEET.md` §3](./SPEC_SHEET.md). HF revisions SHA-pinned at build time per `data/source_manifest.yaml` (forward-only).
+- **Checkpoints**: NOT published to HF Hub for this rc1 submission (frozen-probe + LoRA checkpoints stay in local `evals/checkpoints/` per the case-study scope; HF Hub publish gated on the v1.0.0 tag per ADR-032). full-FT checkpoints DO NOT EXIST (FUSE EIO crash per ADR-050).
+- **Predictions**: bundled in this repo as gitignored parquets under `evals/predictions/` (regeneration via `make` recipes against the committed checkpoints + data). GitHub release tag with a predictions tarball is gated on v1.0.0 per ADR-033.
 
 ### 10.5 Transcripts
 
-`[TBD: populated at Phase 5]` Selected Claude-Code transcripts illustrating key decision points are in `transcripts/` and referenced from the appendix. Examples: `[transcript: dedup-threshold-bake-off]`, `[transcript: ood-slice-selection]`, `[transcript: protectai-overlap-audit]`.
+Selected Claude-Code transcripts illustrating key decision points are in `transcripts/` (private by default; gitignored per `transcripts/README.md`; emailed to the reviewer at submission time). Phase 0-NN transcripts cover threat-model + brief alignment, model scope, data design, evaluation framework, deployment scope, etc. Phase 4-5 transcripts cover the canonical-recovery /exploring-options rounds. Each ADR references its source transcript by filename in the frontmatter `transcript:` field.
 
-**Linked ADRs**: `[ADR-016, ADR-025, ADR-027]`.
+**Linked ADRs**: ADR-013 (deliverable scope), ADR-016 (data design), ADR-025 (operating points), ADR-027 (per-row predictions schema), ADR-032 (HF Hub publish gate), ADR-033 (tag discipline).
 
 ---
 
@@ -618,7 +623,7 @@ What surprised: the OOD wall. Going in I expected the rung ladder to be a positi
 
 ### E. Linked Claude transcripts
 
-`[TBD: populated at Phase 5]` Resolved from `[transcript: <slug>]` placeholders to `transcripts/<slug>.md` once the transcript-export skill exists.
+Transcripts referenced by ADR `transcript:` frontmatter fields are bundled and emailed to the reviewer at submission time per `transcripts/README.md`; the `/save-transcript` skill produces them.
 
 ### F. eval-toolkit methodology curriculum
 
