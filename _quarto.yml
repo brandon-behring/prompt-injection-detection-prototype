@@ -11,6 +11,7 @@ project:
   render:
     - index.qmd
     - README.md
+    - EXECUTIVE_SUMMARY.md
     - CHANGELOG.md
     - WRITEUP.md
     - WRITEUP/*.md
@@ -28,6 +29,8 @@ website:
   description: "Methodology + capability characterisation of a prompt-injection classifier rung ladder, with honest OOD evaluation."
   navbar:
     left:
+      - href: EXECUTIVE_SUMMARY.md
+        text: Executive summary
       - href: index.qmd
         text: Reading guide
       - href: WRITEUP.md
@@ -58,6 +61,7 @@ website:
     contents:
       - section: "Reading guide"
         contents:
+          - EXECUTIVE_SUMMARY.md
           - index.qmd
       - section: "Methodology"
         contents:

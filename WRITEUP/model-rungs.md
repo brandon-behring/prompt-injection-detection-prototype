@@ -89,12 +89,19 @@ at 0.383 [0.374, 0.392], -0.132 below frozen-probe. See WRITEUP
 detail.
 
 **Note on full-FT**: full-FT was the planned Rung 3.5 (full backbone
-trainable) per ADR-019; per ADR-050 it was DROPPED from OOD comparison
-due to a Phase 5 FUSE EIO crash on /workspace MooseFS storage. full-FT
-remains in the LODO comparison (3-rung ladder narrative survives via
-the 24 surviving LODO predictions from Phase 2); OOD comparison ships
-2 trained rungs (frozen-probe + LoRA). See
-[`limitations-and-future-work.md`](./limitations-and-future-work.md) §8.1.
+trainable) per ADR-019 and was trained for LODO at Phase 2 (24
+prediction parquets retained); OOD inference was dropped at Phase 5
+X11 per ADR-052 (narrow supersession of ADR-050 R2). Load-bearing
+reason: LoRA's paired-bootstrap CI vs frozen-probe on `pooled_ood`
+already showed fine-tuning on the LODO direct-injection pool was
+HURTING OOD generalization; full-FT is a larger version of the
+same mechanism (~149M params vs LoRA's ~1.5M trainable), so the
+expected marginal benefit on OOD was low. The FUSE EIO crash on
+/workspace MooseFS storage was the operational trigger that exposed
+the decision. OOD comparison ships 2 trained rungs (frozen-probe +
+LoRA); LODO 3-rung ladder narrative survives via the 24 Phase 2
+LODO predictions. See ADR-052 + [`limitations-and-future-work.md`](./limitations-and-future-work.md)
+§8.1 for the full methodological + retrospective framing.
 
 ## 4.4 Rung 4 — *narrow-scope reference scorer*
 

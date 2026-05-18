@@ -62,6 +62,16 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Scope*: `scripts/backfill_provenance.py` — reads `evals/<run>/predictions.parquet` + `config.yaml` + `git log`; emits `manifest.json` per the upstream schema.
 *Effort*: ~2 hours.
 
+### 1.10 DeBERTa-v3-base long-context ablation (v1.1.x)
+
+*Why*: indirect injection (BIPIA email-body) is the dominant cross-family OOD gap surfaced in v1.0.x. A long-context comparator (ModernBERT-base 8192 native) vs short-context (DeBERTa-v3-base 512 with explicit truncation handling) ablation would isolate context-length effect from architecture effect on BIPIA-style indirect injection.
+
+Prior v4/v5 iterations of this project did partial DeBERTa-v3 tests but had to manage truncation differently across the two backbones; in this submission DeBERTa was deliberately dropped at Phase 0 per ADR-015 to avoid the truncation × architecture confound on the headline rung-vs-rung comparison (`WRITEUP/limitations-and-future-work.md` §9.2 documents the drop reasoning).
+
+*Scope*: v1.1.x iteration adds DeBERTa-v3-base as a separately-evaluated rung with a controlled truncation strategy (e.g., chunk-and-average over 512-token windows vs head-truncation) so the truncation handling is methodologically addressable rather than load-bearing for the architecture comparison. Lands as an ablation appendix, not a co-equal rung in the headline ladder.
+
+*Effort*: ~3-4 hours wallclock if the truncation-handling design lands quickly; longer if the chunk-and-average baseline needs validation against the source-disjoint LODO protocol.
+
 ---
 
 ## 2. Aspirational future directions

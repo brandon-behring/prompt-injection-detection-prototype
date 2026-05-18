@@ -28,6 +28,8 @@ For the per-decision ADR record, see [`decisions/`](./decisions/) +
 
 ## 1. Motivation
 
+> My main concern after reading the literature: most prompt-injection detectors are evaluated on data that leaks into training, so their reported OOD numbers don't tell you much. A classifier that cross-validates on a single direct-prompt-injection dataset is trivial to build, but it gives a poor read on OOD performance and raises real leakage concerns. This project is my attempt to build a fairer evaluation harness around that — not to find the best model, but to lay the groundwork for fairer evaluation and to identify weaknesses of our model and of some existing reference scorers.
+
 Prompt-injection — text designed to override or subvert the instructions an LLM-based system is operating under — is one of the load-bearing failure modes for any system that exposes an LLM to untrusted input. Ciphero's verification-layer thesis is that we cannot govern what we cannot verify; one primitive in that stack is a classifier that scores whether a span of text is an injection attempt.
 
 The same scores serve two operational contexts:
@@ -37,7 +39,7 @@ The same scores serve two operational contexts:
 
 These are not two classifiers; they are two threshold policies on the same scores, with different cost weights. See [`WRITEUP/threshold-policy.md`](./WRITEUP/threshold-policy.md) for how the same primitive is configured to characterise both.
 
-This writeup characterises a 5-rung ladder of prompt-injection classifiers — TF-IDF+LR classical floor + ModernBERT-base × {frozen-probe, LoRA, full-FT} + ProtectAI v1 + ProtectAI v2 reference scorers (locked at Phase 0-03 per ADR-015 + ADR-017 + ADR-018 + ADR-050) — across an OOD slate, with the question: *what does each capability layer add, and where does the IID/OOD gap fall?* The work is **methodology + capability characterisation braided**: the ladder is the instrument; the eval methodology rigor is what makes the characterisation defensible; the brief's two asks (models of increasing complexity + OOD coverage) are the targets.
+This writeup characterises a 5-rung ladder of prompt-injection classifiers — TF-IDF+LR classical floor + ModernBERT-base × {frozen-probe, LoRA, full-FT} + ProtectAI v1 + ProtectAI v2 reference scorers (locked at Phase 0-03 per ADR-015 + ADR-017 + ADR-018 + ADR-050 + ADR-052) — across an OOD slate, with the question: *what does each capability layer add, and where does the IID/OOD gap fall?* The work is **methodology + capability characterisation braided**: the ladder is the instrument; the eval methodology rigor is what makes the characterisation defensible; the brief's two asks (models of increasing complexity + OOD coverage) are the targets.
 
 **Honest-OOD thesis**: IID numbers are the easy part. The interesting question for any classifier that might one day touch a deployment surface is *which capabilities help when the distribution shifts, and which ones only inflate the IID number*. That question — not "what's the best PR-AUC" — drives this document's structure.
 
@@ -92,6 +94,8 @@ Five operationally-distinct injection types are relevant to this submission. Eac
 
 The §Results section reads against this table — performance per OOD slice tracks whether that slice's injection type is represented in the training pool.
 
+**Note on what "OOD" means here.** "In-domain test" is still a direct-injection attack — just an unseen source held out by LODO. The 5-slice "OOD" slate is something else entirely: **indirect injection via email-body context (BIPIA), multi-turn agentic-flow attacks (InjecAgent), jailbreaks (JBB-Behaviors), and benign-but-injection-shaped texts that test false-positive robustness (NotInject, XSTest).** The OOD wall in §Results is **cross-family**, not cross-source: the trained rungs are tested on attack types absent from their training pool. Direct prompt-injection training and evaluation performance alone do not translate into these other attack families — that is the load-bearing finding of this submission.
+
 ---
 
 ## 2. Approach overview
@@ -115,7 +119,9 @@ We do **not** pick a deployment leader. The intent is to demonstrate what each r
 
 ## Results
 
-The headline characterisation is honest: across the rung ladder + two reference scorers, **none of the rungs clears the `pooled_ood` positive-class prevalence baseline (0.374) under AUPRC** (range 0.291–0.364; even frozen-probe at 0.364 lands just under prevalence). The trained transformer rungs (frozen-probe + LoRA) and the ProtectAI reference scorers cluster within a band that is statistically distinguishable on the in-distribution-like slices (jbb_behaviors, xstest) but compresses to at-or-below the prevalence baseline on pooled_ood. The story is not "the ladder works" — it is *the ladder works on IID-shaped attacks and fails to generalize to genuinely OOD distributions*, and the numbers below back that up.
+**The negative result IS the result.** None of the rungs decisively beats the classical TF-IDF+LR floor on the 5-slice OOD slate, and the OOD wall is **cross-family** (read against the §1.5 train/test table): training pool is 4 direct-injection sources; OOD slate probes indirect injection via email-body context (BIPIA), multi-turn agentic-flow (InjecAgent), jailbreaks (JBB-Behaviors), and benign-but-injection-shaped texts that test false-positive robustness (NotInject, XSTest) — attack types absent from training. Direct prompt-injection training and evaluation performance alone do not translate into these other attack families. That finding is the argument for a fairer evaluation framework, which is what this project is.
+
+Specifically: across the rung ladder + two reference scorers, **none of the rungs clears the `pooled_ood` positive-class prevalence baseline (0.374) under AUPRC** (range 0.291–0.364; even frozen-probe at 0.364 lands just under prevalence). The trained transformer rungs (frozen-probe + LoRA) and the ProtectAI reference scorers cluster within a band that is statistically distinguishable on the in-distribution-like slices (jbb_behaviors, xstest) but compresses to at-or-below the prevalence baseline on pooled_ood. The story is not "the ladder works" — it is *the ladder works on IID-shaped attacks and fails to generalize to genuinely OOD distributions*, and the numbers below back that up.
 
 **Metric note.** Headline metric is **AUPRC** per WRITEUP/eval-design.md §5.1 ("the most relevant ranking metric for class-imbalanced tasks where precision and recall both matter"). Random-predictor AUPRC equals the positive-class prevalence on each slice. AUROC (chance baseline 0.5, prior-independent) is reported as a secondary diagnostic for cross-paper comparison.
 

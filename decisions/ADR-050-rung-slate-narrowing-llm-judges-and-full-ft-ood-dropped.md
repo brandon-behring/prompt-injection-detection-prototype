@@ -80,6 +80,7 @@ supersedes:
   - ADR-018
   - ADR-021
 superseded_by:
+  - ADR-052  # narrow — Revision 2 (full-FT OOD drop) axis only; Revision 1 (LLM-judge cost drop) unchanged
 references:
   - decisions/ADR-005-honest-methodology-over-claimed-best-numbers.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md

@@ -54,15 +54,31 @@ These are not failures — they are scope decisions we can defend.
   therefore has 0 rungs in this submission; the contamination-
   stratification gradient compresses from 4 tiers to 3. ProtectAI
   v1 + v2 remain as `suspected_contamination` reference scorers.
-- **full-FT OOD inference** — dropped post-lock per ADR-050. *Why
-  dropped*: Phase 5 X11 full-FT re-fire crashed mid-training when
-  `shutil.copytree` of the 598 MB optimizer.pt to /workspace
-  MooseFS-backed FUSE storage returned `[Errno 5] Input/output
-  error` (uv#17801 + MooseFS#380 upstream context). full-FT remains
-  in the LODO comparison (3-rung ladder narrative survives via the
-  surviving Phase 2 24 LODO predictions); OOD comparison ships 2
-  trained rungs (frozen-probe + LoRA) + 1 classical floor
-  (tfidf-lr) + 2 reference scorers (ProtectAI v1 + v2) = 5 rungs.
+- **full-FT OOD inference** — dropped at Phase 5 X11 per ADR-052
+  (narrow supersession of ADR-050 Revision 2's FUSE-crash-only
+  framing). *Methodological reasoning was load-bearing*: LoRA's
+  -0.071 AUPRC vs frozen-probe on `pooled_ood` (paired-bootstrap
+  CI clears zero per ADR-022) already showed fine-tuning on the
+  LODO direct-injection training pool was actively HURTING OOD
+  generalization. Full-FT is a larger version of the same
+  fine-tuning mechanism (~149M parameters trainable vs LoRA's
+  ~1.5M); the expected marginal benefit of full-FT-OOD over
+  LoRA-OOD on the same pool was low, and the re-fire cost + risk
+  (~6-12 hours wall-clock on Low-stock A100 80GB + repeat-FUSE-risk
+  + ~$5-12 GPU spend) did not justify the investment. The FUSE EIO
+  crash on /workspace MooseFS storage was the operational trigger
+  that exposed this decision; ADR-052 makes the methodological
+  reasoning explicit. *Retrospective self-awareness*: with the
+  data-set sizes used (≈4.7K positives + ≈17K benigns post-dedup,
+  no augmentation) the rung-ladder + CI inspection now suggests
+  the full-FT LODO investment itself was likely not load-bearing
+  for the characterisation conclusions; a v1.1.x iteration with a
+  larger or augmented training pool would justify revisiting.
+  full-FT remains in the LODO comparison (3-rung ladder narrative
+  survives via the surviving Phase 2 24 LODO predictions); OOD
+  comparison ships 2 trained rungs (frozen-probe + LoRA) + 1
+  classical floor (tfidf-lr) + 2 reference scorers (ProtectAI v1
+  + v2) = 5 rungs.
 
 ## 8.2 Methodology caveats
 
@@ -141,9 +157,12 @@ canonical fires that ARE worth documenting:
   dropped at Phase 4 cost re-estimation per ADR-050 (16× envelope
   overrun). See §8.1.
 - **full-FT OOD inference** dropped at Phase 5 X11 re-fire per
-  ADR-050 (FUSE EIO crash; non-deterministic; re-fire operationally
-  fragile at 6-12 hr wall on Low-stock A100). full-FT remains in
-  LODO comparison; OOD ships 2 trained rungs. See §8.1.
+  ADR-052 (narrow supersession of ADR-050 R2). Load-bearing
+  reason: methodological — LoRA's paired-bootstrap evidence
+  already showed fine-tuning on the LODO pool was hurting OOD;
+  full-FT's expected marginal benefit was low. FUSE EIO crash was
+  the operational trigger. full-FT remains in LODO comparison;
+  OOD ships 2 trained rungs. See §8.1.
 
 ## 9.3 Data-pipeline experiments that didn't matter
 

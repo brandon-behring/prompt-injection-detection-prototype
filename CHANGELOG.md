@@ -18,6 +18,98 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.3] — 2026-05-18
+
+Narrative-import + housekeeping patch. Reframes the full-FT OOD
+drop as methodological judgment + operational trigger (ADR-052
+narrow supersession of ADR-050 R2); imports the cover-letter
+draft's load-bearing phrasings into README + WRITEUP; adds the
+1-page EXECUTIVE_SUMMARY public artifact + the SUBMISSION.md
+cover-letter (gitignored); files 3 long-standing upstream
+eval-toolkit issues with real URLs. Reviewer URL stays pinned at
+`tree/v1.0.0`; live Quarto site reflects this patch.
+
+### Added
+
+- **`decisions/ADR-052-...md`** — narrow supersession of
+  ADR-050 Revision 2 (FUSE-crash-only framing of full-FT OOD
+  drop). New framing: **methodological reasoning was
+  load-bearing** (LoRA's -0.071 AUPRC vs frozen-probe on
+  `pooled_ood` already showed fine-tuning on the LODO direct-
+  injection pool was actively HURTING OOD generalization;
+  expected marginal benefit of full-FT-OOD over LoRA-OOD on the
+  same pool was low; cost + risk did not justify the re-fire).
+  FUSE EIO crash retained as operational trigger that exposed
+  the decision. Retrospective self-awareness on full-FT LODO
+  investment + a v1.1.x landing condition (larger pool +
+  augmentation strategy needed before revisiting). ADR-050
+  Revision 1 (LLM-judge cost drop) unchanged.
+- **`EXECUTIVE_SUMMARY.md`** — 1-page decision-maker-facing
+  layer above the full WRITEUP per NEXT_STEPS §1.7. Thesis + 4
+  headline claims + what-was-characterised + what-is-deferred +
+  reading-path pointer + honest reading. Third-person register;
+  no apology / personal voice (those live in SUBMISSION.md).
+- **`SUBMISSION.md`** (gitignored per `.gitignore:35`) — polished
+  cover letter using the user's draft language verbatim where
+  applicable; first-person voice + family-emergency context
+  preserved. 3 factual fixes applied (DeBERTa sentence dropped;
+  full-FT framing aligned to ADR-052; URLs verified to resolve).
+- **NEXT_STEPS §1.10** — DeBERTa-v3-base long-context ablation
+  entry (v1.1.x scope): controlled truncation handling for a
+  defensible cross-architecture comparison on BIPIA-style
+  indirect injection.
+- 3 upstream eval-toolkit issues filed with real URLs and
+  ledger rows updated:
+  [#39](https://github.com/brandon-behring/eval-toolkit/issues/39) `is_metric_defined_for_slice` primitive,
+  [#40](https://github.com/brandon-behring/eval-toolkit/issues/40) `LeakageCheck` Protocol `name` read-only relaxation,
+  [#41](https://github.com/brandon-behring/eval-toolkit/issues/41) `parallel_map` worker-copy memory documentation +
+  shared-state pattern.
+
+### Changed
+
+- **`README.md` — thesis-first opening + library-first
+  ecosystem block.** Eval-fairness thesis (first-person; user's
+  draft voice) promoted ABOVE the 3 status callouts. The 3
+  companion OSS repos (eval-toolkit / runpod-deploy /
+  research_toolkit) get substantive one-line descriptors
+  replacing the previous parenthetical placeholders. SDD +
+  immutable Michael-Nygard ADR convention named in the opening
+  paragraph. §Headline characterisation lead re-anchored to the
+  cross-family OOD framing (training pool is 4 direct-injection
+  sources; OOD slate probes 4 attack families absent from
+  training).
+- **`WRITEUP.md` §1 Motivation** — first-person thesis
+  blockquote added above the existing motivation prose. §1.5
+  Attack-type taxonomy gains a "Note on what 'OOD' means here"
+  callout under the train/test composition table — explicitly
+  contrasts "in-domain test is still direct-injection, just an
+  unseen source" with "the 5-slice OOD slate probes different
+  attack FAMILIES". §Results headline lead rewritten with
+  "The negative result IS the result" framing tied to the
+  cross-family contrast.
+- **`WRITEUP/limitations-and-future-work.md` §8.1** — full-FT
+  bullet rewritten to ADR-052 framing (methodological reasoning
+  load-bearing; FUSE crash as operational trigger;
+  retrospective self-awareness on full-FT LODO investment).
+  §9.2 full-FT entry similarly updated.
+- **`WRITEUP/model-rungs.md` §4.3 Note on full-FT** — reframed
+  to ADR-052 language; methodological reasoning load-bearing.
+- **`_quarto.yml`** — `EXECUTIVE_SUMMARY.md` added to
+  `project.render` allowlist + sidebar "Reading guide" section
+  (above index.qmd) + new navbar entry.
+- **`decisions/ADR-050-...md`** frontmatter:
+  `superseded_by: [ADR-052]` (narrow — Revision 2 axis only;
+  Revision 1 LLM-judge drop axis unchanged).
+- `SUBMISSION_AUDIT.md` regenerated via
+  `scripts/regenerate_audit.py`.
+
+### Decisions
+
+- 52 ADRs accepted across Phase 0-00 through v1.0.3 close.
+- Reviewer URL pin stays at `tree/v1.0.0`; live Quarto site at
+  `brandon-behring.github.io/prompt-injection-detection-prototype/`
+  reflects v1.0.3 (and all subsequent v1.0.x patches).
+
 ## [1.0.2] — 2026-05-18
 
 Governance patch — closes the two `REPO_AUDIT_2026-05-18` findings
