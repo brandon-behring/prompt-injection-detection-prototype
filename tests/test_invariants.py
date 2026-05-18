@@ -50,9 +50,11 @@ def test_class_balance_per_fold() -> None:
     from pathlib import Path
 
     audit_path = Path(__file__).resolve().parent.parent / "evals" / "data_audit.json"
-    assert (
-        audit_path.exists()
-    ), "evals/data_audit.json not found; run scripts/run_data_pipeline.py first."
+    if not audit_path.exists():
+        pytest.skip(
+            "evals/data_audit.json not present (gitignored canonical-run artifact); "
+            "run scripts/run_data_pipeline.py locally to populate. CI runs without data."
+        )
     with audit_path.open("r", encoding="utf-8") as fh:
         audit = json.load(fh)
     assert (
@@ -77,9 +79,11 @@ def test_source_disjoint_train_test() -> None:
     import pandas as pd
 
     processed_root = Path(__file__).resolve().parent.parent / "data" / "processed"
-    assert (
-        processed_root.exists()
-    ), "data/processed/ not found; run scripts/run_data_pipeline.py first."
+    if not processed_root.exists():
+        pytest.skip(
+            "data/processed/ not present (gitignored canonical-run artifact); "
+            "run scripts/run_data_pipeline.py locally to populate. CI runs without data."
+        )
     folds = sorted(processed_root.glob("fold-*"))
     assert len(folds) == 4, f"expected 4 LODO folds; got {len(folds)}"
     for fold_dir in folds:
