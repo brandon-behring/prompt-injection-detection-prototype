@@ -700,6 +700,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash); narrow supersession of ADR-018 reference slate + ADR-021 OOD comparison scope</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">v1.0.x carryforward of ADR-034 T0 score-match wiring + ADR-039 gate-3 invariant-scaffold unskip; narrow supersession with explicit v1.1.x landing condition</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1419,136 +1425,138 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §6 Verify ledger row 351 + Phase 0-08 walk Q7 + SPEC_GREENFIELD §6 line 252 decision-needed prompt</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 351 carries locked-to-six-gate-integration-checklist status (see ADR-039); SPEC_SHEET §7 Verification and acceptance criteria gains the 6-gate integration checklist with the per-ADR-criteria pointer plus the kit-default §6 gates preserved; SUBMISSION_TEMPLATE.md or a SUBMISSION.md sign-off section quotes the 6 gates so the submission-readiness check is reviewer-readable at submission tag; tests/test_invariants.py contains skip-marked stub test_submission_readiness_gates_satisfied asserting at v1.0.0 submission tag (1) grep -c open SPEC_GREENFIELD.md decision-ledger appendix section returns 0; (2) grep -c [OPEN] SPEC_SHEET.md returns 0 excluding the Status [OPEN] document-level header which transitions to [LOCKED] at Phase 0 close; (3) pytest --collect-only tests/test_invariants.py shows zero skip-marked tests; (4) make audit exits 0; (5) git tag -l v0.9.0-rc1 returns the tag name (rehearsal fired); (6) the three reviewer URLs return HTTP 200 (or 301 redirect to a 200) — checkable via curl --head; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 5427b95</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - SPEC_SHEET.md</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - SPEC_GREENFIELD.md</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/README.md</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-project-level-methodology-principles.md</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-039: Project-specific acceptance criteria — 6-gate integration checklist for `v1.0.0` submission tag</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - ADR-051</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - SPEC_SHEET.md</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - SPEC_GREENFIELD.md</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/README.md</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-project-level-methodology-principles.md</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-039: Project-specific acceptance criteria — 6-gate integration checklist for `v1.0.0` submission tag</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes SPEC_GREENFIELD ledger row 351 (Project-specific acceptance criteria) + the <span class="in">`[Decision needed]`</span> prompt at SPEC_GREENFIELD §6 line 252. Companion to ADR-033 (release strategy — <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission cadence that this checklist gates).</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes SPEC_GREENFIELD ledger row 351 (Project-specific acceptance criteria) + the <span class="in">`[Decision needed]`</span> prompt at SPEC_GREENFIELD §6 line 252. Companion to ADR-033 (release strategy — <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission cadence that this checklist gates).</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="in">`SPEC_GREENFIELD.md`</span> §6 line 252 prompts: *"Decision needed: project-specific acceptance criteria (e.g., required reproducibility tier, runtime targets, CI gates)."*</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>The kit-default acceptance criteria already on the table (per <span class="in">`SPEC_SHEET.md`</span> §7):</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="in">`SPEC_GREENFIELD.md`</span> §6 line 252 prompts: *"Decision needed: project-specific acceptance criteria (e.g., required reproducibility tier, runtime targets, CI gates)."*</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All WRITEUP sections drafted with <span class="in">`[TBD]`</span> markers resolved.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All ADRs written + indexed.</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Transcripts linked.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>EVIDENCE.md populated for external-evidence claims.</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>~~PDF bundled~~ (superseded by ADR-030 — Quarto site published).</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make test`</span> passes (including all <span class="in">`tests/test_invariants.py`</span> stubs unskipped + green).</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make lint`</span> clean.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`evals/results.json`</span> schema-validated against <span class="in">`eval-toolkit`</span>'s <span class="in">`results.v1.json`</span> schema.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All severity-≥-medium assumptions in <span class="in">`assumptions.md`</span> appear in WRITEUP caveats block.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>The **operational acceptance criteria** are largely already encoded as the 39+ skip-marked invariant tests in <span class="in">`tests/test_invariants.py`</span> (29 from prior Phase 0 work + 5 from Phase 0-07 + 5 from Phase 0-08 invariant stubs). Each ADR's <span class="in">`acceptance_criterion:`</span> frontmatter field names the specific gates that ADR is responsible for; <span class="in">`SUBMISSION_AUDIT.md`</span> auto-generates from these via <span class="in">`scripts/regenerate_audit.py`</span>.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>The kit-default acceptance criteria already on the table (per <span class="in">`SPEC_SHEET.md`</span> §7):</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All WRITEUP sections drafted with <span class="in">`[TBD]`</span> markers resolved.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All ADRs written + indexed.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Transcripts linked.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>EVIDENCE.md populated for external-evidence claims.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>~~PDF bundled~~ (superseded by ADR-030 — Quarto site published).</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make test`</span> passes (including all <span class="in">`tests/test_invariants.py`</span> stubs unskipped + green).</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make lint`</span> clean.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`evals/results.json`</span> schema-validated against <span class="in">`eval-toolkit`</span>'s <span class="in">`results.v1.json`</span> schema.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All severity-≥-medium assumptions in <span class="in">`assumptions.md`</span> appear in WRITEUP caveats block.</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Row 351 asks: what **additional** project-specific submission-readiness criteria to layer on top — the integration-level gates that aggregate over the per-ADR criteria.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>The **operational acceptance criteria** are largely already encoded as the 39+ skip-marked invariant tests in <span class="in">`tests/test_invariants.py`</span> (29 from prior Phase 0 work + 5 from Phase 0-07 + 5 from Phase 0-08 invariant stubs). Each ADR's <span class="in">`acceptance_criterion:`</span> frontmatter field names the specific gates that ADR is responsible for; <span class="in">`SUBMISSION_AUDIT.md`</span> auto-generates from these via <span class="in">`scripts/regenerate_audit.py`</span>.</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Three options were considered (per Phase 0-08 Q7 walk):</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Row 351 asks: what **additional** project-specific submission-readiness criteria to layer on top — the integration-level gates that aggregate over the per-ADR criteria.</span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>(A) Layer 8-10 explicit project-specific submission gates.</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>(B) Cite per-ADR criteria as collectively sufficient — minimal additional spec.</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>(C) Hybrid — small set of 5-7 integration-level gates + cite per-ADR criteria for detail.</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>User selection at Q7 walk: **C**.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>Three options were considered (per Phase 0-08 Q7 walk):</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>(A) Layer 8-10 explicit project-specific submission gates.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>(B) Cite per-ADR criteria as collectively sufficient — minimal additional spec.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>(C) Hybrid — small set of 5-7 integration-level gates + cite per-ADR criteria for detail.</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>User selection at Q7 walk: **C**.</span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6-gate integration checklist for `v1.0.0` submission tag</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> # <span class="pp">|</span> Gate <span class="pp">|</span> Verification <span class="pp">|</span> Source <span class="pp">|</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Zero <span class="in">`[OPEN]`</span> in <span class="in">`SPEC_SHEET.md`</span> <span class="pp">|</span> every slot reads <span class="in">`[LOCKED: ... (per ADR-NNN)]`</span> OR <span class="in">`[TBD-at-Phase-N]`</span> with explicit rationale <span class="pp">|</span> <span class="in">`grep -c "\[OPEN\]" SPEC_SHEET.md`</span> returns 0 (excluding the doc-header <span class="in">`Status: [OPEN]`</span> line which transitions to <span class="in">`[LOCKED]`</span> at Phase 0 close) <span class="pp">|</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Zero <span class="in">`open`</span> rows in <span class="in">`SPEC_GREENFIELD.md`</span> ledger appendix <span class="pp">|</span> every row reads <span class="in">`locked-to-X (see ADR-NNN)`</span> OR <span class="in">`superseded-by-NNN`</span> OR <span class="in">`deferred-to-phase-N`</span> with explicit rationale <span class="pp">|</span> <span class="in">`awk '/^\| open \|/' SPEC_GREENFIELD.md`</span> returns 0 lines <span class="pp">|</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> All <span class="in">`tests/test_invariants.py`</span> stubs unskipped + green <span class="pp">|</span> every <span class="in">`@pytest.mark.skip`</span> decorator removed; <span class="in">`pytest -m unit`</span> exits clean <span class="pp">|</span> <span class="in">`pytest -m unit tests/test_invariants.py`</span> exits 0; <span class="in">`pytest --collect-only`</span> shows zero skipped tests <span class="pp">|</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> <span class="in">`SUBMISSION_AUDIT.md`</span> regenerates cleanly <span class="pp">|</span> every claim in <span class="in">`Accepted`</span> OR <span class="in">`Superseded`</span> state (no <span class="in">`Proposed`</span> at submission tag) <span class="pp">|</span> <span class="in">`make audit`</span> (wraps <span class="in">`scripts/regenerate_audit.py --check`</span>) exits 0 <span class="pp">|</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> <span class="in">`v0.9.0-rc1`</span> rehearsal tag fired successfully before <span class="in">`v1.0.0`</span> <span class="pp">|</span> rehearsal tag exists + corresponding GH Actions workflow run shows green status <span class="pp">|</span> <span class="in">`git tag -l v0.9.0-rc1*`</span> returns at least one tag; <span class="in">`gh run list --workflow publish.yml`</span> shows green status for that tag <span class="pp">|</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> All three reviewer URLs at <span class="in">`v1.0.0`</span> resolve <span class="pp">|</span> source pin at <span class="in">`tree/v1.0.0`</span> + live Quarto site at GH Pages URL + GH release page with CHANGELOG + <span class="in">`_site.tar.gz`</span> asset (per ADR-033) <span class="pp">|</span> <span class="in">`curl --head`</span> returns HTTP 200 (or 301-redirect-to-200) for all three URLs <span class="pp">|</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Per-ADR `acceptance_criterion` fields collectively cover the granular gates</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6-gate integration checklist for `v1.0.0` submission tag</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> # <span class="pp">|</span> Gate <span class="pp">|</span> Verification <span class="pp">|</span> Source <span class="pp">|</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Zero <span class="in">`[OPEN]`</span> in <span class="in">`SPEC_SHEET.md`</span> <span class="pp">|</span> every slot reads <span class="in">`[LOCKED: ... (per ADR-NNN)]`</span> OR <span class="in">`[TBD-at-Phase-N]`</span> with explicit rationale <span class="pp">|</span> <span class="in">`grep -c "\[OPEN\]" SPEC_SHEET.md`</span> returns 0 (excluding the doc-header <span class="in">`Status: [OPEN]`</span> line which transitions to <span class="in">`[LOCKED]`</span> at Phase 0 close) <span class="pp">|</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Zero <span class="in">`open`</span> rows in <span class="in">`SPEC_GREENFIELD.md`</span> ledger appendix <span class="pp">|</span> every row reads <span class="in">`locked-to-X (see ADR-NNN)`</span> OR <span class="in">`superseded-by-NNN`</span> OR <span class="in">`deferred-to-phase-N`</span> with explicit rationale <span class="pp">|</span> <span class="in">`awk '/^\| open \|/' SPEC_GREENFIELD.md`</span> returns 0 lines <span class="pp">|</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> All <span class="in">`tests/test_invariants.py`</span> stubs unskipped + green <span class="pp">|</span> every <span class="in">`@pytest.mark.skip`</span> decorator removed; <span class="in">`pytest -m unit`</span> exits clean <span class="pp">|</span> <span class="in">`pytest -m unit tests/test_invariants.py`</span> exits 0; <span class="in">`pytest --collect-only`</span> shows zero skipped tests <span class="pp">|</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> <span class="in">`SUBMISSION_AUDIT.md`</span> regenerates cleanly <span class="pp">|</span> every claim in <span class="in">`Accepted`</span> OR <span class="in">`Superseded`</span> state (no <span class="in">`Proposed`</span> at submission tag) <span class="pp">|</span> <span class="in">`make audit`</span> (wraps <span class="in">`scripts/regenerate_audit.py --check`</span>) exits 0 <span class="pp">|</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> <span class="in">`v0.9.0-rc1`</span> rehearsal tag fired successfully before <span class="in">`v1.0.0`</span> <span class="pp">|</span> rehearsal tag exists + corresponding GH Actions workflow run shows green status <span class="pp">|</span> <span class="in">`git tag -l v0.9.0-rc1*`</span> returns at least one tag; <span class="in">`gh run list --workflow publish.yml`</span> shows green status for that tag <span class="pp">|</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> All three reviewer URLs at <span class="in">`v1.0.0`</span> resolve <span class="pp">|</span> source pin at <span class="in">`tree/v1.0.0`</span> + live Quarto site at GH Pages URL + GH release page with CHANGELOG + <span class="in">`_site.tar.gz`</span> asset (per ADR-033) <span class="pp">|</span> <span class="in">`curl --head`</span> returns HTTP 200 (or 301-redirect-to-200) for all three URLs <span class="pp">|</span></span>
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>Each ADR's <span class="in">`acceptance_criterion:`</span> frontmatter field names the specific verification gate for that ADR's decision. The 6 integration gates aggregate over these per-ADR fields without restating them. <span class="in">`SUBMISSION_AUDIT.md`</span> regeneration (gate 4) is the single mechanical check that all per-ADR criteria are satisfied.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Per-ADR `acceptance_criterion` fields collectively cover the granular gates</span></span>
 <span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>This avoids:</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Duplicating granular gates** in this ADR (would drift from the per-ADR sources of truth).</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hiding integration-level gates** in scattered per-ADR criteria (some gates aggregate across multiple ADRs — gate 5 spans ADR-030 + ADR-032 + ADR-033; gate 6 spans ADR-030 + ADR-033).</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Kit-default §6 gates preserved</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>Each ADR's <span class="in">`acceptance_criterion:`</span> frontmatter field names the specific verification gate for that ADR's decision. The 6 integration gates aggregate over these per-ADR fields without restating them. <span class="in">`SUBMISSION_AUDIT.md`</span> regeneration (gate 4) is the single mechanical check that all per-ADR criteria are satisfied.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>This avoids:</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Duplicating granular gates** in this ADR (would drift from the per-ADR sources of truth).</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hiding integration-level gates** in scattered per-ADR criteria (some gates aggregate across multiple ADRs — gate 5 spans ADR-030 + ADR-032 + ADR-033; gate 6 spans ADR-030 + ADR-033).</span>
 <span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>The kit-default acceptance criteria (per <span class="in">`SPEC_SHEET.md`</span> §7) carry forward unchanged:</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### Kit-default §6 gates preserved</span></span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make test`</span> passes (incl. invariants).</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make lint`</span> clean.</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`evals/results.json`</span> schema-validated against <span class="in">`eval-toolkit`</span>'s <span class="in">`results.v1.json`</span> schema.</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All severity-≥-medium assumptions in <span class="in">`assumptions.md`</span> appear in WRITEUP caveats block.</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>These gates are subsumed by gates 3 + 4 in the integration checklist but listed explicitly in <span class="in">`SPEC_SHEET.md`</span> §7 for kit-level continuity.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>The kit-default acceptance criteria (per <span class="in">`SPEC_SHEET.md`</span> §7) carry forward unchanged:</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make test`</span> passes (incl. invariants).</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make lint`</span> clean.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`evals/results.json`</span> schema-validated against <span class="in">`eval-toolkit`</span>'s <span class="in">`results.v1.json`</span> schema.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All severity-≥-medium assumptions in <span class="in">`assumptions.md`</span> appear in WRITEUP caveats block.</span>
 <span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Submission-readiness sign-off location</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>These gates are subsumed by gates 3 + 4 in the integration checklist but listed explicitly in <span class="in">`SPEC_SHEET.md`</span> §7 for kit-level continuity.</span>
 <span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>The 6-gate checklist lives at <span class="in">`SPEC_SHEET.md`</span> §7 (existing kit-default section, expanded with the integration gates + per-ADR-criteria pointer + per-Phase-5-gate reference). The <span class="in">`SUBMISSION_TEMPLATE.md`</span> (or <span class="in">`SUBMISSION.md`</span> cover-letter) quotes the 6 gates so the submission-readiness check is reviewer-readable at submission tag.</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Submission-readiness sign-off location</span></span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>The 6-gate checklist lives at <span class="in">`SPEC_SHEET.md`</span> §7 (existing kit-default section, expanded with the integration gates + per-ADR-criteria pointer + per-Phase-5-gate reference). The <span class="in">`SUBMISSION_TEMPLATE.md`</span> (or <span class="in">`SUBMISSION.md`</span> cover-letter) quotes the 6 gates so the submission-readiness check is reviewer-readable at submission tag.</span>
 <span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
 <span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single sign-off checklist** for <span class="in">`v1.0.0`</span> submission tag — explicit + verifiable + auditable.</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-033 cadence** — gate 5 (rehearsal-tag-fired) explicitly bridges Phase 4 close → Phase 5 close transition.</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Avoids duplication** — per-ADR <span class="in">`acceptance_criterion`</span> fields stay source-of-truth for granular gates; integration ADR aggregates without restating.</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Auditable via mechanical checks** — every gate has a verifiable command (grep / awk / pytest / make audit / git tag / curl).</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Compatible with kit-default §6** — kit gates preserved + augmented; reviewer familiar with the kit recognizes the structure.</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single sign-off checklist** for <span class="in">`v1.0.0`</span> submission tag — explicit + verifiable + auditable.</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-033 cadence** — gate 5 (rehearsal-tag-fired) explicitly bridges Phase 4 close → Phase 5 close transition.</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Avoids duplication** — per-ADR <span class="in">`acceptance_criterion`</span> fields stay source-of-truth for granular gates; integration ADR aggregates without restating.</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Auditable via mechanical checks** — every gate has a verifiable command (grep / awk / pytest / make audit / git tag / curl).</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Compatible with kit-default §6** — kit gates preserved + augmented; reviewer familiar with the kit recognizes the structure.</span>
 <span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Integration-level gates assume per-ADR `acceptance_criterion` fields are well-formed** — an ADR with vague acceptance criteria can pass aggregation while leaving real gaps. Mitigation: each new ADR's acceptance criterion is reviewed at lock time for verifiability (already standard practice across the 39 ADRs).</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The "all invariant tests unskipped + green" gate is a single-bit gate** — doesn't capture coverage or test-quality nuance. Mitigation: ADR-028's 70% coverage floor + upstream-issue-filing discipline covers this from a different angle.</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**6 gates is the right number, not 5 or 7** — judgment call; mitigation: gate-add/remove via Phase 1+ ADR amendment if Phase 1+ surfaces a missing or redundant gate.</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Integration-level gates assume per-ADR `acceptance_criterion` fields are well-formed** — an ADR with vague acceptance criteria can pass aggregation while leaving real gaps. Mitigation: each new ADR's acceptance criterion is reviewed at lock time for verifiability (already standard practice across the 39 ADRs).</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The "all invariant tests unskipped + green" gate is a single-bit gate** — doesn't capture coverage or test-quality nuance. Mitigation: ADR-028's 70% coverage floor + upstream-issue-filing discipline covers this from a different angle.</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**6 gates is the right number, not 5 or 7** — judgment call; mitigation: gate-add/remove via Phase 1+ ADR amendment if Phase 1+ surfaces a missing or redundant gate.</span>
 <span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-ADR criteria stay the source of truth** for granular gates.</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Kit-default §6 gates remain in scope** — gate 3 + gate 4 subsume them mechanically but listing them explicitly in SPEC_SHEET §7 preserves kit-level continuity.</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-ADR criteria stay the source of truth** for granular gates.</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Kit-default §6 gates remain in scope** — gate 3 + gate 4 subsume them mechanically but listing them explicitly in SPEC_SHEET §7 preserves kit-level continuity.</span>
 <span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>The 6 gates cover *submission-readiness for the canonical methodology submission*. They do NOT cover:</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
 <span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Post-submission reviewer-feedback responsiveness** — patches under <span class="in">`v1.0.x`</span> per ADR-033 are not gated by this checklist; they're individual fix-forward commits.</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade deployment** — out-of-scope per ADR-005 + ADR-027 prototype-grade framing; production scope extension requires a superseding ADR-039 with additional deployment-readiness gates.</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Test coverage nuance** — gate 3 verifies invariants run green; gate 4 verifies audit cleanliness; neither captures the 70% coverage floor per ADR-028 (that's a separate <span class="in">`make coverage`</span> gate, kit-default).</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>The 6 gates cover *submission-readiness for the canonical methodology submission*. They do NOT cover:</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Post-submission reviewer-feedback responsiveness** — patches under <span class="in">`v1.0.x`</span> per ADR-033 are not gated by this checklist; they're individual fix-forward commits.</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade deployment** — out-of-scope per ADR-005 + ADR-027 prototype-grade framing; production scope extension requires a superseding ADR-039 with additional deployment-readiness gates.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Test coverage nuance** — gate 3 verifies invariants run green; gate 4 verifies audit cleanliness; neither captures the 70% coverage floor per ADR-028 (that's a separate <span class="in">`make coverage`</span> gate, kit-default).</span>
 <span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Phase 1+ reveals a missing integration gate** (e.g., "verify the cost ledger CSV passes schema validation"; "verify the per-row predictions parquet files all parse via the locked schema") — add a 7th/8th gate via Phase 1+ ADR amendment without superseding ADR-039 (the framing is locked; specific gates are extensible).</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology revision (post-submission `v2.0.0` per ADR-033 major-bump)** materially changes the gate set — supersedes ADR-039 with a new gates ADR.</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade deployment scope extension** triggers superseding ADR with additional deployment-readiness gates (uptime + monitoring + rollback + canary release).</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Phase 1+ reveals a missing integration gate** (e.g., "verify the cost ledger CSV passes schema validation"; "verify the per-row predictions parquet files all parse via the locked schema") — add a 7th/8th gate via Phase 1+ ADR amendment without superseding ADR-039 (the framing is locked; specific gates are extensible).</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology revision (post-submission `v2.0.0` per ADR-033 major-bump)** materially changes the gate set — supersedes ADR-039 with a new gates ADR.</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade deployment scope extension** triggers superseding ADR with additional deployment-readiness gates (uptime + monitoring + rollback + canary release).</span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) Layer 8-10 explicit project-specific submission gates** — more text to maintain; partial redundancy with SPEC_SHEET §2 Phase 5 gates; rejected in favor of C (6 gates with per-ADR pointer for detail).</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) Cite per-ADR criteria as collectively sufficient** — minimal additional spec but hides integration-level gates that don't sit naturally in any one ADR (e.g., gate 5 spans multiple ADRs). Rejected per Q7 walk.</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) Layer 8-10 explicit project-specific submission gates** — more text to maintain; partial redundancy with SPEC_SHEET §2 Phase 5 gates; rejected in favor of C (6 gates with per-ADR pointer for detail).</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) Cite per-ADR criteria as collectively sufficient** — minimal additional spec but hides integration-level gates that don't sit naturally in any one ADR (e.g., gate 5 spans multiple ADRs). Rejected per Q7 walk.</span>
 <span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`SPEC_SHEET.md`</span> §7 (existing kit-default acceptance criteria; this ADR expands)</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`SPEC_GREENFIELD.md`</span> §6 (kit-level acceptance criteria framing + the <span class="in">`[Decision needed]`</span> prompt at line 252)</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/README.md`</span> (ADRs are source of truth; each ADR's <span class="in">`acceptance_criterion`</span> frontmatter field)</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (project-level methodology principles — informs the prototype-grade scope framing)</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-033 (release strategy — <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission cadence that this checklist gates)</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`SPEC_SHEET.md`</span> §7 (existing kit-default acceptance criteria; this ADR expands)</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`SPEC_GREENFIELD.md`</span> §6 (kit-level acceptance criteria framing + the <span class="in">`[Decision needed]`</span> prompt at line 252)</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/README.md`</span> (ADRs are source of truth; each ADR's <span class="in">`acceptance_criterion`</span> frontmatter field)</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (project-level methodology principles — informs the prototype-grade scope framing)</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-033 (release strategy — <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission cadence that this checklist gates)</span>
 <span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md`</span> for the conversation that led to this decision (Q7 walk + option C selection).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md`</span> for the conversation that led to this decision (Q7 walk + option C selection).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
