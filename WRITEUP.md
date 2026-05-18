@@ -21,9 +21,9 @@ This writeup characterises a rung ladder of prompt-injection classifiers — `[O
 
 **Deployment is not on the roadmap.** This is characterisation, not recommendation. No rung is promoted as the deployment choice; each rung's trade-offs are reported and the reader is left to draw their own deployment conclusions if they have one to make.
 
-**Linked ADRs**: `[ADR-001, ADR-017]`.
+**Linked ADRs**: ADR-001 (brief alignment), ADR-013 (deliverable scope + WRITEUP shape), ADR-017 (rung-slate expansion).
 
-**Known gaps**: `[TBD: any motivation-level caveats]`.
+**Known gaps**: this submission characterises a *prompt-injection text classifier* against an English-only fixed slate of 4 LODO training sources + 5 OOD slates. Cross-language attacks, agentic-flow injection, conformal calibration, and adversarial red-teaming are out of scope per §8.1.
 
 ---
 
@@ -40,9 +40,9 @@ The brief asked for two things: *models of increasing complexity* and *the right
 
 We do **not** pick a deployment leader. The intent is to demonstrate what each rung delivers and where it breaks; readers with a specific deployment context can map our characterisation onto their cost constraints.
 
-**Linked ADRs**: `[ADR-002, ADR-014, ADR-017, ADR-021]`.
+**Linked ADRs**: ADR-002 (approach scaffold), ADR-014 (single-backbone slate framing), ADR-017 (rung-slate expansion), ADR-021 (slice aggregation + headline-metric protocol).
 
-**Known gaps**: `[TBD: populated at Phase 5]`.
+**Known gaps**: this approach evaluates EACH rung against the same slate; cross-rung-ensemble strategies (e.g., LoRA-with-frozen-probe-temperature) are out of scope per the project compute budget.
 
 ---
 
@@ -50,7 +50,33 @@ We do **not** pick a deployment leader. The intent is to demonstrate what each r
 
 ### 3.1 Why these sources
 
-`[TBD: paragraph naming each source and why it earned a place in the pool — populated at Phase 5 from Phase 0 source-slate lock]`
+The data slate locked at Phase 0-02 per ADR-016 (data design bundle): 4 positive-attack sources (LODO training pool) + 2 benign sources + 5 held-out OOD slates. Per-source rationale + post-dedup counts:
+
+**Positive attack sources (LODO training pool)** — each source provides a stylistically-distinct slice of the prompt-injection space; LODO ensures held-out generalization on attack style, not just held-out rows:
+
+- `deepset_prompt_injections` — 170 rows (post-dedup; raw 203). Short curated direct-injection probes. Earned its place as the smallest-but-canonical reference source.
+- `lakera_gandalf_ignore_instructions` — 525 rows (raw 777). Formulaic "ignore the above" patterns from the Gandalf game; representative of the most-common direct-injection style.
+- `lakera_mosscap_prompt_injection` — 2362 rows (raw 3000). Longer, more diverse Mosscap game attacks; stylistically different from Gandalf.
+- `hackaprompt` — 1650 rows (raw 2891). Mixed-style adversarial attempts from the HackAPrompt competition; many multi-paragraph attacks.
+
+Total positive pool post-dedup: **4707 rows**. Cross-source dedup at cosine threshold 0.80 (encoder: `sentence-transformers/all-MiniLM-L6-v2`) per ADR-042.
+
+**Benign sources** — provide the negative class (label=0):
+
+- `lmsys_chat_1m` — 7724 rows (raw 10000; ~22% dedup). User-vs-ChatGPT chat logs. Earned its place as a high-volume, stylistically-realistic negative source.
+- `ultrachat_200k` — 9522 rows (raw 10000; ~5% dedup). Synthetic multi-turn conversations. Provides a benign-text variety class lmsys_chat_1m doesn't cover (e.g., creative writing, structured Q&A).
+
+Total benign pool: **17246 rows**.
+
+**OOD slates** — 5 held-out distributions per ADR-021 NOT used during training; evaluation-only:
+
+- `notinject` (HF Hub) — synthetic prompt-injection-LIKE-but-benign sequences; tests false-positive robustness. All-negative by design.
+- `xstest` (HF Hub) — exaggerated safety + jailbreak-as-questions; cross-distribution shift from training. Both classes present.
+- `jbb_behaviors` (HF Hub) — JailbreakBench harmful-behavior elicitations. Both classes present.
+- `bipia` (local git repo) — indirect prompt injection via email body content. All-positive by source design.
+- `injecagent` (local git repo) — multi-turn agentic-flow injections. All-positive by source design.
+
+All 11 sources are pinned at HF revision SHAs (where applicable) per `data/source_manifest.yaml` per ADR-016 + ADR-041.
 
 Sources: `[OPEN]` — Phase 0 picks from candidates documented in `docs/research/datasets/`. Full table in [`SPEC_SHEET.md` §3.1](./SPEC_SHEET.md).
 
@@ -60,7 +86,7 @@ Label-blind dedup looks innocuous and is wrong. It removes minimal pairs — cas
 
 `[FIGURE 3: dedup-threshold calibration histogram for the selected encoder]` → `docs/plots/figure3-dedup-calibration.png`
 
-Calibration evidence: `evals/dedup_calibration.json` `[TBD: populated at Phase 5]`.
+Calibration evidence: `evals/dedup_calibration.json` records `threshold_locked: 0.80` (cosine) for the cross-source benign-vs-attack pair classifier per ADR-042. Encoder: `sentence-transformers/all-MiniLM-L6-v2`. Operator follow-up gated at v1.0.0: raise `human_verified_pct` from 0 to 100 by manually examining `data/dedup_holdout.jsonl` and confirming each LLM-pre-label is correct.
 
 See [methodology/text_dedup.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/text_dedup.md) for the general framework.
 
@@ -73,7 +99,7 @@ Three checks for in-pool leakage, plus a separate reference-scorer audit:
 3. **Cross-source benign dedup** — `[OPEN]` ordering (before-split / after-split). The rule prevents fold-leakage failures when within-source dedup leaves benign duplicates that survive the split.
 4. **Reference-scorer training-overlap audit** — `[LOCKED]` any external reference scorer gets its publicly-named training datasets crossed with project sources. Where disclosure is only at category level, the audit shifts to fold-pattern + scope-mismatch analysis — see EVIDENCE.md §1–2.
 
-Reported as `[TBD: per-slice overlap percentages]`. The eval-toolkit leakage check suite operationalizes the 8-type taxonomy from Kapoor & Narayanan 2023 (arXiv:2207.07048) — 294 non-replicating papers traced to leakage — via reference implementations: `ExactDuplicateCheck`, `NearDuplicateCheck`, `NormalizedFormLeakageCheck`, `CrossSplitLeakageCheck`, `LabelConflictCheck`, `GroupLeakageCheck`, `TemporalLeakageCheck`. See [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
+Reported as 0 exact-hash overlaps + 0 cosine overlaps at threshold 0.85 across all (train, val, test) per-fold-seed pairs — `evals/leakage_report.json` carries `leakage_clean: True`. The eval-toolkit leakage check suite operationalizes the 8-type taxonomy from Kapoor & Narayanan 2023 (arXiv:2207.07048) — 294 non-replicating papers traced to leakage — via reference implementations: `ExactDuplicateCheck`, `NearDuplicateCheck`, `NormalizedFormLeakageCheck`, `CrossSplitLeakageCheck`, `LabelConflictCheck`, `GroupLeakageCheck`, `TemporalLeakageCheck`. See [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
 
 ### 3.4 Splits
 
@@ -550,11 +576,16 @@ Eval invocation through `eval-toolkit` captures a NeurIPS-aligned manifest at `e
 
 ## 11. Lessons & reflections
 
-`[TBD: populated at Phase 5]` Short. What surprised. What the SDD process bought; what it cost.
+Short list of what was surprising, what the SDD process bought, and what it cost.
 
-- `[TBD: lesson 1]`
-- `[TBD: lesson 2]`
-- `[TBD: lesson 3]`
+- **OOD generalization is genuinely hard, and the honest finding is methodologically richer than the "look at this great classifier" version**. The trained transformer rungs hover near chance on the OOD slate (§7.1); LoRA fine-tuning is a *negative* result vs the frozen probe on pooled_ood (-0.132 AUROC; CI clears zero). A submission framed as "we built a great classifier" would have HIDDEN this finding; a submission framed as "we characterised the honest performance ladder" SURFACES it. The Phase 0-locked methodology (LODO + bootstrap CIs + paired-bootstrap rung-vs-rung + dual-policy threshold characterisation) forced the honest story to land.
+- **The SDD process bought reproducibility + audit trail at the cost of a 9-decision-per-sub-session interview flow at Phase 0**. ~50 decisions across ~9 topic-focused sub-sessions per `SPEC_GREENFIELD.md`. Each `[OPEN]` lock produced an ADR; SUBMISSION_AUDIT.md regenerates from ADRs as a single source of truth. The cost was the time investment up front; the benefit was zero methodology drift later — every Phase 1-7 commit traced cleanly back to an ADR claim. ADR-050 (rung-slate narrowing) is itself the supersession-on-supersession proof point: when reality forced a methodology drift, the SDD discipline ate it cleanly via a narrow ADR-018 / ADR-021 partial supersession rather than a silent code change.
+- **Library-first invariant retrofit happened mid-project** (memory: `library-first-is-project-wide-invariant`). Phase 1-3 had accumulated 3 sites where eval-toolkit primitives were duplicated locally; ADR-047 retrofitted them in a single landing rather than fix-forward per-site. The lesson: at every module-design step audit `eval-toolkit + runpod-deploy + research_toolkit` for an existing primitive BEFORE writing project glue. Cost overrun on the LLM judges (ADR-050 driver 1) was a similar discipline lapse — original estimate didn't account for the actual token volume.
+- **The /exploring-options multi-round pattern unblocked complex decisions** that ExitPlanMode-on-first-attempt would have committed prematurely. Four rounds for the Phase 4 canonical-recovery plan (each round surfaced a risk the prior rounds didn't see). Two rounds for the GitHub-push-blocked recovery (initial Option B was rejected; second round confirmed Option A). The /exploring-options skill is a forcing function for explicit option-space surfacing.
+- **FUSE-on-RunPod is a non-deterministic bug class** (memory: `fuse-workspace-needs-uv-link-mode-copy`; `runpod-rsync-everything-before-delete`). The X1-X11 fix-forward chain documents four distinct FUSE failure modes (SSH-ready timeout, phantom image, UV link-mode, atomic checkpoint copy); each cost a real fraction of the $15.74 cumulative spend (~50% of cost is FUSE-recovery overhead). Filed upstream issues + PRs at brandon-behring/runpod-deploy so future consumers don't re-discover them. The library-first invariant cuts both ways: when an upstream gap surfaces, file an upstream issue BEFORE local workaround.
+- **Per-step commits + a 2-checkpoint push cadence survived context auto-compaction**. The session spanned multiple Claude context windows + ran for many hours; commit per work-unit + intermediate pushes meant no work was lost when context boundaries hit. The discipline overhead was small; the resilience benefit was large.
+
+What surprised: the OOD wall. Going in I expected the rung ladder to be a positive story (each rung adds something over the floor); the LoRA-fine-tuning regression on pooled_ood was the methodologically richest finding. Going forward (v6): the §9.4 prescriptions — OOD-aware training data, backbone scaling, OOD-aware threshold selection — would test whether the wall is data-distribution or capacity-bounded.
 
 ---
 
