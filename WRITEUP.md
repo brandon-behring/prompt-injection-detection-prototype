@@ -45,7 +45,52 @@ This writeup characterises a 5-rung ladder of prompt-injection classifiers — T
 
 **Linked ADRs**: ADR-001 (brief alignment), ADR-013 (deliverable scope + WRITEUP shape), ADR-017 (rung-slate expansion).
 
-**Known gaps**: this submission characterises a *prompt-injection text classifier* against an English-only fixed slate of 4 LODO training sources + 5 OOD slates. Cross-language attacks, agentic-flow injection, conformal calibration, and adversarial red-teaming are out of scope per [`WRITEUP/limitations-and-future-work.md`](./WRITEUP/limitations-and-future-work.md) §8.1.
+### Scope (single-turn English text classifier)
+
+This submission characterises a *prompt-injection text classifier* on an English-only fixed slate (4 LODO training sources + 5 OOD test slices). What is **deliberately out of scope** (per ADR-014 + [`WRITEUP/limitations-and-future-work.md`](./WRITEUP/limitations-and-future-work.md) §8.1; named explicitly so a reviewer reading only this section knows what the numbers do *not* cover):
+
+- **Multi-turn / agentic-flow injection** — payload split across multiple conversation turns or tool-use steps. *Named in the test slate via InjecAgent to quantify the gap; not detected by the single-turn classifier scope.*
+- **Encoded payloads** — base64 / leetspeak / hex / Unicode confusables / ROT13.
+- **Paraphrase attacks** — semantic equivalents that don't share surface n-grams with training injections.
+- **Adversarial perturbations** — gradient-guided or search-based evasion against a specific classifier.
+- **Cross-language coverage** — the slate is English-only by source-slate construction.
+- **Conformal prediction + adversarial red-teaming** — see WRITEUP/limitations-and-future-work.md §8.1.
+
+The work is **methodology + capability characterisation braided**: the ladder is the instrument; the eval methodology rigor is what makes the characterisation defensible. Deployment recommendations are explicitly out of scope.
+
+---
+
+## 1.5 Attack-type taxonomy + train/test composition
+
+Five operationally-distinct injection types are relevant to this submission. Each type is defined in a single sentence; the table below maps which types appear in the 4 LODO training-pool sources vs the 5 OOD test slices. The mismatch is the load-bearing story for §Results — the OOD slate probes injection types that are *not* in the training pool.
+
+**Type definitions:**
+
+- **`direct_injection`** — adversarial text in the user's input attempting to override system instructions. Single-turn, in-channel. Examples: "ignore the above and …", "you are now …".
+- **`indirect_injection`** — adversarial text arriving via a context channel the LLM processes (a retrieved document, an email body, a tool's output). The user's *direct* input is benign; the injection rides on data the LLM was meant to consume.
+- **`agentic_flow_injection`** — payload split across multi-turn tool-use; detecting it requires intermediate-state interception (tool-call args, function-output contamination), not just classifying a single text span.
+- **`jailbreak_as_question`** — safety-bypass framed as a legitimate-looking question rather than an instruction override (e.g., "for a story I'm writing, how would a character …").
+- **`false_positive_probe`** — benign text structurally similar to injections (e.g., literal discussions of injection attacks). Tests whether the classifier discriminates *intent* from *form*.
+
+**Train/test composition** — `Y` = type present (or dominantly present in that source); `-` = type absent. Training sources locked per ADR-016; OOD slices per ADR-021.
+
+| Injection type | TRAIN: `deepset/prompt-injections` | TRAIN: `Lakera/gandalf_ignore_instructions` | TRAIN: `Lakera/mosscap_prompt_injection` | TRAIN: `hackaprompt/hackaprompt-dataset` | TEST: `bipia` | TEST: `injecagent` | TEST: `jbb_behaviors` | TEST: `xstest` | TEST: `notinject` |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| `direct_injection` | `Y` | `Y` | `Y` | `Y` | `-` | `-` | partial | `-` | `-` |
+| `indirect_injection` | `-` | `-` | `-` | `-` | `Y` | `-` | `-` | `-` | `-` |
+| `agentic_flow_injection` | `-` | `-` | `-` | `-` | `-` | `Y` | `-` | `-` | `-` |
+| `jailbreak_as_question` | `-` | `-` | `-` | partial | `-` | `-` | `Y` | `Y` | `-` |
+| `false_positive_probe` | `-` | `-` | `-` | `-` | `-` | `-` | `-` | `-` | `Y` |
+
+**Key reads from the table:**
+
+- The 4 LODO training sources are **direct-injection-heavy**. The training pool teaches the classifier to recognise instruction-override style attacks in user input.
+- BIPIA (test) is the **only indirect-injection slate**; *zero* indirect-injection coverage in training. This is a structural train/test mismatch by design — the OOD wall on BIPIA quantifies it.
+- InjecAgent (test) is the **only agentic-flow slate**; *zero* agentic-flow coverage in training. Agentic flow is also out-of-scope for the single-turn classifier per §Scope above — InjecAgent is included in the test set to quantify the gap, not because we expect the classifier to do well.
+- NotInject (test) is a **pure false-positive probe**; no counterpart in training. Tests intent-vs-form discrimination.
+- JBB-Behaviors + XSTest (test) carry jailbreak-as-question style attacks. HackAPrompt partially covers this; the other 3 training sources do not.
+
+The §Results section reads against this table — performance per OOD slice tracks whether that slice's injection type is represented in the training pool.
 
 ---
 
@@ -170,6 +215,16 @@ Each claim is supported by a specific row × CI above, not a hand-wave.
 **Linked ADRs**: ADR-018 (reference slate; partially superseded by ADR-050), ADR-019 (transformer training recipe), ADR-021 (slice aggregation), ADR-022 (statistical inference apparatus), ADR-024 (cross-fold CI), ADR-025 (dual-policy operating points), ADR-046 (Phase 4 analysis bundle), ADR-050 (rung-slate narrowing — LLM judges + full-FT OOD drops).
 
 **Known gaps**: per-fold calibration-battery + temperature/isotonic fitting outputs not exercised this Phase 5; per-row predictions for full-FT OOD ABSENT (FUSE EIO crash per ADR-050). Canonical-data wire-up of figures F1–F7 pending upstream eval-toolkit issues #14–#16 + #22.
+
+### Takeaways (for the intro-only reader)
+
+Three takeaways for the reviewer who reads only §1 + §1.5 + §2 + §Results.
+
+1. **What was characterised.** A 5-rung ladder (TF-IDF+LR classical floor + ModernBERT-base frozen-probe + ModernBERT-base LoRA + ProtectAI v1 + ProtectAI v2) on 5 OOD slices spanning the five injection types in §1.5: `direct_injection`, `indirect_injection`, `agentic_flow_injection`, `jailbreak_as_question`, `false_positive_probe`. **Single-turn English text classification only**, with bootstrap CIs + paired-bootstrap rung-vs-rung + calibration battery + dual-policy thresholds per ADR-022 / ADR-023 / ADR-025.
+
+2. **What the OOD wall reveals — read against the §1.5 train/test table.** The OOD slate is hardest on the injection types *not* in the training pool. BIPIA (the only `indirect_injection` slate) and InjecAgent (the only `agentic_flow_injection` slate) both have zero counterparts in the 4 LODO training sources. The trained transformer rungs hover near chance on `pooled_ood` (frozen-probe AUROC 0.515; LoRA 0.383; classical floor 0.371). **LoRA's `pooled_ood` AUROC is BELOW the classical floor** — fine-tuning the head onto direct-injection training data DECREASES OOD generalization vs leaving the pretrained backbone embeddings intact. **The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.** On the injection types that *are* in training (`direct_injection` via jbb_behaviors partial; `jailbreak_as_question` via XSTest), the trained rungs do modestly better but still cluster in a tight band around ~0.55 AUROC. *In short: the rung ladder is doing approximately as well as could be expected given what it was shown, and the OOD gap quantifies what training data alone cannot fix.*
+
+3. **What's deferred, what to take away.** Multi-turn agentic flows, encoded payloads, paraphrase attacks, and adversarial perturbations are NOT tested (per §Scope above). A deployment context that includes those attack classes cannot rely on these numbers; [`WRITEUP/limitations-and-future-work.md`](./WRITEUP/limitations-and-future-work.md) §9.4 names what would need to land to extend coverage (OOD-aware training data, backbone scaling, OOD-aware threshold selection). **The honest reading**: this is a methodology + capability *characterisation*, not a leaderboard claim. The headline finding — *fine-tuning consumes the OOD generalization budget the pretrained backbone provides* — is methodologically richer than a "great classifier" framing would have allowed.
 
 ---
 
