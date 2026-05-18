@@ -353,11 +353,16 @@ This chapter consolidates what we *consciously did not do*. These are not failur
 - **Conformal prediction** — distribution-free uncertainty quantification beyond bootstrap. *Why deferred*: `[TBD: populated at Phase 5]`.
 - **Cross-language coverage** — English-only `[OPEN]`. *Why deferred*: `[TBD: populated at Phase 5]`.
 - **Cross-source same-style ablation** `[OPEN]` — would disambiguate "training contamination" from "attack-style difficulty" for reference scorers. May be underpowered if per-style sample size is small; in that case treated as an explicit limitation. See EVIDENCE.md §3.
+- **LLM-judge reference scorers** (gpt-4o-2024-08-06 + claude-sonnet-4-6) — dropped post-lock per ADR-050. *Why dropped*: Phase 4 cost re-estimation against the actual OOD slate sizing revealed an envelope ~16x the original ADR-018 estimate ($14 → $240) driven by per-row LLM-judge inference being charged at the full input-prompt token count (long injection examples hit 1k-3k tokens routinely). The vendor_black_box contamination tier therefore has 0 rungs in this submission; the contamination-stratification gradient compresses from 4 tiers to 3. ProtectAI v1 + v2 remain as suspected_contamination reference scorers.
+- **full-FT OOD inference** — dropped post-lock per ADR-050. *Why dropped*: Phase 5 X11 full-FT re-fire crashed mid-training when shutil.copytree of the 598 MB optimizer.pt to /workspace MooseFS-backed FUSE storage returned [Errno 5] Input/output error (uv#17801 + MooseFS#380 upstream context). full-FT remains in the LODO comparison (3-rung ladder narrative survives via the surviving Phase 2 24 LODO predictions); OOD comparison ships 2 trained rungs (frozen-probe + LoRA) + 1 classical floor (tfidf-lr) + 2 reference scorers (ProtectAI v1 + v2) = 5 rungs.
 - `[TBD: additional scope deferrals — populated at Phase 0]`
 
 ### 8.2 Methodology caveats
 
-- `[TBD: e.g., single-seed primary; small-N OOD slices; reference-scorer leakage caveats — populated at Phase 5]`
+- **Single-class OOD slices break threshold-free metrics** — BIPIA + InjecAgent are all-positive attack-only datasets per their source design; NotInject is all-negative benign-only. AUROC and AUPRC are mathematically undefined on these slices and the metrics pipeline correctly skips them (the per-cell parquet `evals/metrics/per_cell.parquet` covers jbb_behaviors + xstest + pooled_ood). Per-slice recall-at-threshold is reported on the single-class slices instead.
+- **LODO test sets are intentionally all-positive** per ADR-016 design (held-out attack source = cross-source generalization test). Recall@threshold is the well-defined metric on LODO; AUROC/AUPRC are undefined and not reported there.
+- **Val-set inference for trained rungs uses max_length 2048** (vs the Phase 2 training max_length 8192). Covers >99% of val token-length distribution per char-to-token ~4:1 ratio; p99 token length ~1100 in val. Fidelity loss negligible for the dual-policy threshold-fitting purpose; the long-tail truncation is a tracked-but-tolerated divergence from the training-time configuration.
+- `[TBD: additional caveats — populated at Phase 5 from Phase 4 metric distributions]`
 
 Each deferred item has a *why* — usually scope or data availability — and is named in [`NEXT_STEPS.md`](./NEXT_STEPS.md) where applicable.
 
