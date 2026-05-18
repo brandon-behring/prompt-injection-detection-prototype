@@ -12,6 +12,7 @@ project:
     - index.qmd
     - README.md
     - EXECUTIVE_SUMMARY.md
+    - RESULTS.md
     - CHANGELOG.md
     - WRITEUP.md
     - WRITEUP/*.md
@@ -33,6 +34,8 @@ website:
         text: Executive summary
       - href: index.qmd
         text: Reading guide
+      - href: RESULTS.md
+        text: Results
       - href: WRITEUP.md
         text: Methodology (TOC)
       - text: Spokes
@@ -63,6 +66,7 @@ website:
         contents:
           - EXECUTIVE_SUMMARY.md
           - index.qmd
+          - RESULTS.md
       - section: "Methodology"
         contents:
           - WRITEUP.md

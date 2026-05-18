@@ -86,7 +86,8 @@ evidence + FUSE-EIO operational trigger); details in
 1. This summary.
 2. [WRITEUP §1 Motivation + §1.5 Attack-type taxonomy + train/test composition](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html).
 3. [WRITEUP §Results headline characterisation](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#results) (cross-family framing + 4 claims).
-4. [EVIDENCE.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html) — external-evidence audit trail (ProtectAI v1/v2 contamination findings).
+4. [RESULTS.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/RESULTS.html) — full 5-rung × 5-slice AUPRC + AUROC + recall@FPR1% grid + 7 Phase 4 figures + raw-data pointers (the third entry artifact per ADR-054).
+5. [EVIDENCE.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html) — external-evidence audit trail (ProtectAI v1/v2 contamination findings).
 5. [decisions/](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html) — 52-ADR governance trail (the deep cut; ADR-005, ADR-015–022, ADR-050, ADR-052 are the headline locks).
 
 ## Honest reading

@@ -29,7 +29,7 @@ This reading-guide architecture (two entry artifacts + 3 reading paths + Headlin
 | ProtectAI v1 (reference) | 0.361 | [0.330, 0.391] | below baseline (CI upper bound clears it) |
 | ProtectAI v2 (reference) | 0.314 | [0.283, 0.345] | far below; v2 does NOT monotonically improve over v1 |
 
-For the per-slice breakdown + AUROC diagnostic + 5-rung × 5-slice grid, see [WRITEUP §Results](WRITEUP.md#results) + [WRITEUP/eval-design.md §5](WRITEUP/eval-design.md).
+For the **full 5-rung × 5-slice grid** with AUPRC + AUROC + recall@FPR1% + 7 figures + raw-data pointers, see [`RESULTS.md`](RESULTS.md) — the third entry artifact in the reading-guide architecture per [ADR-054](decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md). For the methodology-rooted narrative, see [WRITEUP §Results](WRITEUP.md#results) + [WRITEUP/eval-design.md §5](WRITEUP/eval-design.md).
 
 ---
 

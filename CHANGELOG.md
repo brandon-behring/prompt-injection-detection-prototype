@@ -18,6 +18,137 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.5] — 2026-05-18
+
+README badges + `RESULTS.md` rendered page + ADR-054 reading-guide
+governance extension. Closes two post-v1.0.4 polish gaps surfaced in
+the same session:
+
+1. **Badges**: user — *"can the documentation be a badge on the top?
+   any other badges?"* — README had 0 badges. 9 text-only shields.io
+   badges added under H1.
+2. **Results visibility on Quarto**: user — *"in the qquatro it seems
+   that the actual results of our model runs are either missing or so
+   hard to find that no one can easily access them"* — the rendered
+   Quarto site never surfaced the full 5-rung × 5-slice grid, the
+   7 Phase 4 figures, or raw-data pointers. New `RESULTS.md` (third
+   entry artifact) closes the artifact-discovery gap.
+
+### Added
+
+- **`README.md` 9-badge row** under H1, above the thesis blockquote:
+  Documentation (live site) + CI workflow + Publish workflow +
+  latest Release + HF Hub frozen-probe model card + HF Hub lora
+  model card + License MIT + Python 3.13 + ADR count. Text-only
+  shields.io URLs (no emoji per project no-emoji invariant; pre-
+  commit catches U+1F000-0x1FAFF + U+2600-0x27BF). Documentation
+  badge is the user's primary ask (live-site visibility above-
+  the-fold); other 8 are standard repo signals.
+
+- **`RESULTS.md`** (new; ~250 lines) — third entry artifact in the
+  reading-guide architecture per ADR-054. Sections:
+  - **§1 5-rung × 5-slice AUPRC grid** with N/A markers in
+    single-class cells (bipia, injecagent, notinject) per
+    ADR-050. Each N/A cell points at the raw prediction
+    parquet. Above-grid "How to read this grid" callout
+    explaining prevalence-baseline convention.
+  - **§2 5×5 AUROC grid** (secondary diagnostic per ADR-006 +
+    eval-design.md §5.1).
+  - **§3 5×5 recall@FPR1% grid** (operational policy slice;
+    means across 4 folds × 3 seeds per ADR-025 + threshold-
+    policy.md §7).
+  - **§4 7 embedded Phase 4 figures** (F1-F7 from `docs/plots/`;
+    Pareto + ROC overlay + PR per rung + reliability triptych +
+    per-slice heatmap + LODO breakdown + dual-policy grid).
+    Provenance: commit 948c50a (v1.0.1; post Item-4 single-class
+    filter; fresh).
+  - **§5 Raw-data access** — direct GitHub blob URLs at
+    `tree/v1.0.5/evals/...` for every artifact (results.json +
+    per_cell + marginal_cells + paired_cells + paired_cells_seed2 +
+    cross_fold_ci_audit + mde_per_cell + verification_reachability +
+    dual_policy + 282-file predictions/ tree + predictions_val/ +
+    data_audit + dedup_calibration + leakage_report +
+    contamination_scan + cost_ledger). Single-class slice
+    predictions accessible despite N/A in §1-§3.
+  - **§6 Reproducibility** — T0/T1/T3 tier mirror.
+
+- **`decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md`**
+  (new; ~320 lines) — narrow supersession of ADR-053 dimension 1
+  only ("two entry artifacts" → "three entry artifacts"); dimensions
+  2-5 (3-path canonical order + Headline-finding-block requirement
+  + interpretation pedagogy + pointer convention) carry forward
+  unchanged. RESULTS role = data-disclosure / artifact-discovery
+  (distinct from EXECUTIVE_SUMMARY = thesis-distillation and
+  index.qmd = reviewer-orientation). Frontmatter
+  `supersedes: [ADR-053]`; `related: [ADR-050, ADR-046, ADR-029,
+  ADR-032]`.
+
+### Changed
+
+- **`_quarto.yml`** — `RESULTS.md` added to `project.render`
+  allowlist; sidebar "Reading guide" section gains RESULTS as the
+  third entry (after EXECUTIVE_SUMMARY + index.qmd); navbar gains
+  a "Results" link between "Reading guide" and "Methodology (TOC)"
+  for top-level discoverability.
+
+- **Cross-reference pointers added** — `index.qmd` Results
+  section + `EXECUTIVE_SUMMARY.md` reading-path step 4 +
+  `WRITEUP.md §Results` source-data paragraph all gain pointers
+  to `RESULTS.md` as the canonical artifact-disclosure page.
+  index.qmd specifically: replaces the "see WRITEUP §Results +
+  WRITEUP/eval-design.md" pointer (under the 3-row trio table)
+  with a RESULTS-first pointer.
+
+- **`decisions/ADR-053-*.md` frontmatter** — `superseded_by:`
+  field updated from `[]` to `["054"]` with inline note
+  "narrow supersession of dimension 1 (two-entry-artifacts) only;
+  dimensions 2-5 unchanged. ADR-054 adds RESULTS.md as third
+  entry artifact." Body unchanged (per ADR-029 immutability;
+  frontmatter field updates for supersession tracking are the
+  established exception — ADR-050 had `superseded_by: [ADR-052]`
+  added at v1.0.3 under the same pattern).
+
+- **`README.md` governance trail line** — `53 ADRs` → `54 ADRs`;
+  inline note adds ADR-054 narrow supersession of ADR-053
+  dimension 1.
+
+- **`SUBMISSION_AUDIT.md`** — regenerated via
+  `scripts/regenerate_audit.py`. Now 54 CLAIM rows; CLAIM-054
+  added.
+
+### Governance notes
+
+- **In-place ADR-053 frontmatter edit** documented under the
+  established convention (ADR-050 + ADR-053 both edited under
+  this pattern when narrowly superseded). Decision text /
+  body unchanged; only `superseded_by` field updated to track
+  the supersession trail. Pre-commit hooks (gitleaks, no-emoji,
+  SUBMISSION_AUDIT-in-sync) verify the edit doesn't introduce
+  secrets, emoji, or audit drift.
+
+- **No methodology change.** ADR-054 governs reader-facing
+  artifact-discovery, not metrics or methodology. The
+  `evals/` parquets are unchanged at v1.0.5 (no re-running
+  of inference); only their disclosure surface gained a
+  rendered page.
+
+### Files modified (10 file touches)
+
+- `README.md` (badges + governance-trail count update).
+- `RESULTS.md` (new; ~250 lines).
+- `index.qmd` (cross-reference pointer added).
+- `EXECUTIVE_SUMMARY.md` (reading-path step 4 added pointing at
+  RESULTS).
+- `WRITEUP.md` §Results (cross-reference paragraph added).
+- `decisions/ADR-054-*.md` (new; ~320 lines).
+- `decisions/ADR-053-*.md` (in-place frontmatter `superseded_by`
+  edit only).
+- `_quarto.yml` (render allowlist + sidebar + navbar).
+- `SUBMISSION_AUDIT.md` (regenerated; 54 rows).
+- `CHANGELOG.md` (this entry).
+
+---
+
 ## [1.0.4] — 2026-05-18
 
 Reading-guide refresh + repo-wide stale-content sweep + ADR-053

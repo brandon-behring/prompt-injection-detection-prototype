@@ -68,7 +68,7 @@ acceptance_criterion: >-
   in the sidebar.
 closing_commit: v1.0.4
 supersedes: []
-superseded_by: []
+superseded_by: ["054"]  # narrow supersession of dimension 1 (two-entry-artifacts) only; dimensions 2-5 unchanged. ADR-054 adds RESULTS.md as third entry artifact.
 references:
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/index.qmd
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/EXECUTIVE_SUMMARY.md

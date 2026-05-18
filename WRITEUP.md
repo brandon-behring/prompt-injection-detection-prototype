@@ -127,6 +127,8 @@ Specifically: across the rung ladder + two reference scorers, **none of the rung
 
 Source data: `evals/metrics/per_cell.parquet` (per-cell, post-Item-4 single-class filter), `evals/bootstrap/marginal_cells.parquet` (BCa CI per ADR-022), `evals/bootstrap/paired_cells.parquet` + `paired_cells_seed2.parquet` (paired-Δ CI per ADR-022), `evals/audit/mde_per_cell.parquet`, `evals/operating_points/dual_policy.parquet` (72 op-points).
 
+**Full tabulated grid + figures + raw-data pointers**: see [`RESULTS.md`](RESULTS.md) — the third entry artifact in the reading-guide architecture (governance: [ADR-054](decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md) narrowly supersedes ADR-053 dimension 1 to add this artifact-disclosure surface). The 5-rung × 5-slice AUPRC + AUROC + recall@FPR1% grid + 7 Phase 4 figures (Pareto + ROC overlay + PR per rung + reliability triptych + per-slice heatmap + LODO breakdown + dual-policy grid) + direct GitHub blob URLs to every parquet artifact live there.
+
 ### The IID-vs-OOD gap (primary narrative)
 
 Per-rung marginal AUPRC + BCa 95 % CI (seed=1 headline; seed=2 stability check 0/40 cells flagged at 5 pct threshold per ADR-022 + A-008):
