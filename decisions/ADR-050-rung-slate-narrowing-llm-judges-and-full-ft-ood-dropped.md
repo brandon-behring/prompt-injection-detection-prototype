@@ -86,7 +86,7 @@ references:
   - decisions/upstream_issues.md
   - https://github.com/astral-sh/uv/issues/17801
   - https://github.com/moosefs/moosefs/discussions/380
-transcript:
+transcript: transcripts/2026-05-18__phase-4-5-canonical-recovery-and-adr-050.md
 ---
 
 # ADR-050: Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash)
