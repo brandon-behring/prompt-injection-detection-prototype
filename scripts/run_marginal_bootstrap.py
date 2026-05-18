@@ -79,6 +79,19 @@ def main() -> int:
         type=Path,
         default=_REPO_ROOT / "evals" / "bootstrap" / "marginal_cells.parquet",
     )
+    parser.add_argument(
+        "--n-jobs",
+        type=int,
+        default=1,
+        help=(
+            "Parallel cell evaluation via eval_toolkit.parallel_map. "
+            "Default 1 (sequential, safe). Each loky worker copies the "
+            "predictions DataFrame + ~3-4 GB bootstrap state at 10K "
+            "resamples; n_jobs > 1 needs ~4 GB RAM headroom per worker. "
+            "Use 4-8 on a 32-64 GB box; n_jobs=-1 (all cores) WILL OOM "
+            "on a many-core machine."
+        ),
+    )
     args = parser.parse_args()
 
     metric_names = [m.strip() for m in args.metrics.split(",") if m.strip()]
@@ -120,6 +133,7 @@ def main() -> int:
         metric_names=metric_names,
         n_resamples=args.n_resamples,
         seeds=seeds,
+        n_jobs=args.n_jobs,
     )
     if not cells:
         print("[marginal-bootstrap] no cells produced", file=sys.stderr)

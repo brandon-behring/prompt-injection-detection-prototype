@@ -39,6 +39,54 @@ OOD_SLICE_NAMES: Final[tuple[str, ...]] = (
     "injecagent",
 )
 
+# Single-class OOD slices per source design (locked per ADR-016 + ADR-021):
+# - bipia: all-positive (indirect injection via email body)
+# - injecagent: all-positive (multi-turn agentic injection)
+# - notinject: all-negative (benign-but-injection-like)
+# Per Item 4 of the v1.0.0 closure sweep (Q9 lock), AUROC/AUPRC are
+# mathematically undefined on single-class slices and the source-level
+# filter excludes them from bootstrap / cross-fold-CI / MDE artifacts
+# rather than emitting degenerate 1.0/0.0 values. WRITEUP §Methodology
+# caveats documents the convention.
+SINGLE_CLASS_SLICES: Final[frozenset[str]] = frozenset({"bipia", "injecagent", "notinject"})
+
+# Metrics that are mathematically undefined on single-class slices.
+# Threshold-keyed metrics (recall_at_fpr_*, ece_*, brier) remain defined.
+SINGLE_CLASS_INCOMPATIBLE_METRICS: Final[frozenset[str]] = frozenset({"auroc", "auprc"})
+
+
+def is_metric_defined_for_slice(slice_name: str, metric_name: str) -> bool:
+    """Return False iff the (slice, metric) pair is mathematically undefined.
+
+    Threshold-free ranking metrics (AUROC, AUPRC) are undefined on
+    single-class slices because either the TPR/FPR sweep is degenerate
+    (all-positive: TPR=1, FPR undefined) or the precision-recall sweep
+    is degenerate (all-negative: recall undefined). Threshold-keyed
+    metrics (recall@FPR pinpoints, ECE variants, Brier) remain defined
+    via well-defined per-row prediction comparisons.
+
+    See WRITEUP §Methodology caveats for the convention.
+
+    Parameters
+    ----------
+    slice_name : str
+        The slice identifier (e.g., ``"bipia"``, ``"pooled_ood"``).
+    metric_name : str
+        The metric identifier (e.g., ``"auroc"``, ``"auprc"``,
+        ``"recall_at_fpr_1"``, ``"ece_equal_mass"``).
+
+    Returns
+    -------
+    bool
+        ``True`` if the metric is defined on the slice and should be
+        computed; ``False`` if the pairing is mathematically undefined
+        and should be filtered at source.
+    """
+    if slice_name in SINGLE_CLASS_SLICES and metric_name in SINGLE_CLASS_INCOMPATIBLE_METRICS:
+        return False
+    return True
+
+
 # Pooled-aggregation special name (not an OOD slice name, sits alongside).
 POOLED_OOD_SLICE_NAME: Final[str] = "pooled_ood"
 IID_SLICE_NAME: Final[str] = "iid"
@@ -348,11 +396,14 @@ __all__ = [
     "OOD_SLICE_NAMES",
     "POOLED_OOD_SLICE_NAME",
     "RECALL_AT_FPR_PINPOINTS",
+    "SINGLE_CLASS_INCOMPATIBLE_METRICS",
+    "SINGLE_CLASS_SLICES",
     "VOLATILITY_WIDE_CI_RATIO",
     "aggregate_slice_across_observations",
     "compute_metric_record",
     "compute_pinpoint_volatility",
     "compute_pooled_ood_record",
     "compute_recall_at_fpr",
+    "is_metric_defined_for_slice",
     "use_metrics_at_threshold_for_diagnostic",
 ]

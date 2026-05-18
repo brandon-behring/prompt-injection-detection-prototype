@@ -13,6 +13,8 @@ Library-first
 -------------
 - `eval_toolkit.bootstrap.bootstrap_ci` does the BCa CI (single-rung marginal).
 - `eval_toolkit.metrics.{pr_auc, roc_auc}` are the metric callbacks.
+- `eval_toolkit._parallel.parallel_map` parallelises the per-cell sweep
+  (each cell is independent; n_jobs=-1 uses all cores).
 
 Project glue is row-level slice filtering + (rung, slice, metric) iteration + the
 `MarginalBootstrapCellModel` schema validator. No re-implementation of CI math.
@@ -25,6 +27,7 @@ from typing import Final
 
 import numpy as np
 import pandas as pd
+from eval_toolkit._parallel import parallel_map
 from eval_toolkit.bootstrap import bootstrap_ci
 from eval_toolkit.metrics import pr_auc, roc_auc
 from numpy.typing import NDArray
@@ -121,6 +124,28 @@ def compute_marginal_bootstrap_cell(
     )
 
 
+def _compute_one_cell_or_none(
+    spec: tuple[pd.DataFrame, str, str, str, int, int],
+) -> MarginalBootstrapCellModel | None:
+    """Worker for parallel_map; returns None for empty-filter cells.
+
+    Top-level def + tuple-spec signature is required: joblib's loky backend
+    can only pickle named functions, not closures.
+    """
+    df, rung, slice_name, metric_name, n_resamples, seed = spec
+    try:
+        return compute_marginal_bootstrap_cell(
+            df,
+            rung=rung,
+            slice_name=slice_name,
+            metric_name=metric_name,
+            n_resamples=n_resamples,
+            seed=seed,
+        )
+    except ValueError:
+        return None
+
+
 def compute_marginal_battery(
     df: pd.DataFrame,
     *,
@@ -129,29 +154,44 @@ def compute_marginal_battery(
     metric_names: list[str],
     n_resamples: int = HEADLINE_N_RESAMPLES,
     seeds: tuple[int, ...] = (HEADLINE_SEED, STABILITY_CHECK_SEED),
+    n_jobs: int = 1,
 ) -> list[MarginalBootstrapCellModel]:
     """Sweep marginal CIs across (rung x slice x metric x seed).
 
-    Skips cells where the rung/slice filter is empty (e.g., reference scorer on a
-    transformer-only slice) rather than raising — return value lists only the cells
-    that produced output. Caller persists the resulting list to parquet.
+    Optional parallelism via ``eval_toolkit._parallel.parallel_map`` —
+    each cell is independent. **Default is ``n_jobs=1`` (sequential)** —
+    parallel mode (``n_jobs > 1`` or ``-1`` for all cores) is opt-in
+    because each loky worker copies the DataFrame and the BCa
+    intermediate state (~hundreds of MB per cell), so unbounded
+    parallelism can OOM on a many-core machine. Recommended ceiling:
+    ``min(8, available_RAM_GB / 4)`` — at 10K resamples each worker
+    uses ~3-4 GB peak for the typical OOD-pool cell size.
+
+    Skips cells where the rung/slice filter is empty (e.g., reference scorer
+    on a transformer-only slice) rather than raising. Also applies the Q9
+    source-level filter to drop AUROC/AUPRC × single-class-slice cells.
+    Return value lists only the cells that produced output.
     """
-    cells: list[MarginalBootstrapCellModel] = []
+    # Local import — avoid a circular import via slice_analysis ←→ marginal_bootstrap.
+    from src.eval.slice_analysis import is_metric_defined_for_slice
+
+    # Materialise the cell spec list (filtered + (rung x slice x metric x seed)).
+    specs: list[tuple[pd.DataFrame, str, str, str, int, int]] = []
     for rung in rungs:
         for slice_name in slice_names:
             for metric_name in metric_names:
+                # Source-level filter (Q9 lock): AUROC/AUPRC undefined on
+                # single-class slices (bipia/injecagent/notinject); skip
+                # rather than emit degenerate 1.0/0.0 values.
+                if not is_metric_defined_for_slice(slice_name, metric_name):
+                    continue
                 for seed in seeds:
-                    try:
-                        cell = compute_marginal_bootstrap_cell(
-                            df,
-                            rung=rung,
-                            slice_name=slice_name,
-                            metric_name=metric_name,
-                            n_resamples=n_resamples,
-                            seed=seed,
-                        )
-                    except ValueError:
-                        # Empty filter — skip cell (caller can grep for missing rows).
-                        continue
-                    cells.append(cell)
-    return cells
+                    specs.append((df, rung, slice_name, metric_name, n_resamples, seed))
+
+    results = parallel_map(
+        _compute_one_cell_or_none,
+        specs,
+        n_jobs=n_jobs,
+        description="marginal_bootstrap_cells",
+    )
+    return [cell for cell in results if cell is not None]

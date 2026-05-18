@@ -98,11 +98,17 @@ def main() -> int:
     rungs = sorted(df["rung"].unique())
     slice_names = sorted(set(df["slice_name"].unique()))
 
+    from src.eval.slice_analysis import is_metric_defined_for_slice
+
     cells = []
     n_flagged = 0
     for rung in rungs:
         for slice_name in slice_names:
             for metric_name in metric_names:
+                # Source-level filter (Q9 lock): AUROC/AUPRC undefined on
+                # single-class slices (bipia/injecagent/notinject).
+                if not is_metric_defined_for_slice(str(slice_name), metric_name):
+                    continue
                 try:
                     cell = compute_cross_fold_ci_cell(
                         df,
