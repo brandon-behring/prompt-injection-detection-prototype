@@ -127,7 +127,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page"> 
+    <a class="nav-link active" href="../EXECUTIVE_SUMMARY.html" aria-current="page"> 
+<span class="menu-text">Executive summary</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Reading guide</span></a>
   </li>  
   <li class="nav-item">
@@ -244,6 +248,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
@@ -705,6 +715,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">v1.0.x carryforward of ADR-034 T0 score-match wiring + ADR-039 gate-3 invariant-scaffold unskip; narrow supersession with explicit v1.1.x landing condition</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Full-FT OOD inference drop — methodological reframing; narrow supersession of ADR-050 Revision 2 (FUSE-crash-only framing)</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -760,7 +776,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>2 epochs × class-balanced loss × bf16 × 12 cells. Approximately 0.5 % to 1 % of parameters trainable. Contamination tier: <code>backbone-partial-disjoint</code> per ADR-005.</p>
 <p><em>Why this rung exists</em>: it’s the maximally-adapted model in the project compute budget. If anything above the frozen probe is worth doing, this rung is where it shows.</p>
 <p><strong>Result</strong>: LoRA’s <code>pooled_ood</code> AUPRC is 0.293 [0.286, 0.301] — <em>below</em> the frozen-probe baseline (-0.071 AUPRC; paired-bootstrap CI excludes zero) and essentially tied with the classical floor (0.291). The adapter weights specialise to the training distribution; on the OOD slate they degrade generalization vs the bare backbone embeddings. LoRA fine-tuning on this task at this compute budget is a NEGATIVE result — it works on jbb_behaviors / xstest (in-distribution-shaped slices) and overfits relative to the frozen probe on genuinely OOD distributions. By AUROC, LoRA lands at 0.383 [0.374, 0.392], -0.132 below frozen-probe. See WRITEUP §Results §Frozen probe vs adapter fine-tuned for the paired-bootstrap detail.</p>
-<p><strong>Note on full-FT</strong>: full-FT was the planned Rung 3.5 (full backbone trainable) per ADR-019; per ADR-050 it was DROPPED from OOD comparison due to a Phase 5 FUSE EIO crash on /workspace MooseFS storage. full-FT remains in the LODO comparison (3-rung ladder narrative survives via the 24 surviving LODO predictions from Phase 2); OOD comparison ships 2 trained rungs (frozen-probe + LoRA). See <a href="../WRITEUP/limitations-and-future-work.html"><code>limitations-and-future-work.md</code></a> §8.1.</p>
+<p><strong>Note on full-FT</strong>: full-FT was the planned Rung 3.5 (full backbone trainable) per ADR-019 and was trained for LODO at Phase 2 (24 prediction parquets retained); OOD inference was dropped at Phase 5 X11 per ADR-052 (narrow supersession of ADR-050 R2). Load-bearing reason: LoRA’s paired-bootstrap CI vs frozen-probe on <code>pooled_ood</code> already showed fine-tuning on the LODO direct-injection pool was HURTING OOD generalization; full-FT is a larger version of the same mechanism (~149M params vs LoRA’s ~1.5M trainable), so the expected marginal benefit on OOD was low. The FUSE EIO crash on /workspace MooseFS storage was the operational trigger that exposed the decision. OOD comparison ships 2 trained rungs (frozen-probe + LoRA); LODO 3-rung ladder narrative survives via the 24 Phase 2 LODO predictions. See ADR-052 + <a href="../WRITEUP/limitations-and-future-work.html"><code>limitations-and-future-work.md</code></a> §8.1 for the full methodological + retrospective framing.</p>
 </section>
 <section id="rung-4-narrow-scope-reference-scorer" class="level2">
 <h2 class="anchored" data-anchor-id="rung-4-narrow-scope-reference-scorer">4.4 Rung 4 — <em>narrow-scope reference scorer</em></h2>
@@ -1340,77 +1356,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>detail.</span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>**Note on full-FT**: full-FT was the planned Rung 3.5 (full backbone</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>trainable) per ADR-019; per ADR-050 it was DROPPED from OOD comparison</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>due to a Phase 5 FUSE EIO crash on /workspace MooseFS storage. full-FT</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>remains in the LODO comparison (3-rung ladder narrative survives via</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>the 24 surviving LODO predictions from Phase 2); OOD comparison ships</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>2 trained rungs (frozen-probe + LoRA). See</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">`limitations-and-future-work.md`</span><span class="co">](./limitations-and-future-work.md)</span> §8.1.</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.4 Rung 4 — *narrow-scope reference scorer*</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>ProtectAI <span class="in">`deberta-v3-base-prompt-injection`</span> v1</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>(<span class="in">`suspected_contamination`</span> per ADR-005). Stated training scope: direct</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>prompt injection (English). Inference-only via</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="in">`transformers.AutoModelForSequenceClassification`</span> per ADR-018. *Why</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>this rung exists*: a publicly-trained narrow-scope detector is the</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>"is this better than something already on the shelf for this attack</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>class" bar.</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>*Caveat*: reference scorers carry training-overlap audit obligations</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>per <span class="co">[</span><span class="ot">`../EVIDENCE.md`</span><span class="co">](../EVIDENCE.md)</span> §1. Reported as diagnostic</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>reference, not as a clean baseline.</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>**Result**: ProtectAI v1's <span class="in">`pooled_ood`</span> AUPRC is 0.361 <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>— essentially at parity with frozen-probe (0.364) and well above</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>tfidf-lr (+0.070 AUPRC over the classical floor). Like frozen-probe,</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>it lands just below the <span class="in">`pooled_ood`</span> prevalence baseline (0.374).</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>The off-the-shelf narrow-scope detector beats a linear floor and</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>matches the frozen pretrained backbone on this slate within CI</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>overlap — but the suspected-contamination caveat retained means</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>this read is diagnostic, not a clean baseline. By AUROC, ProtectAI</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>v1 lands at 0.440 <span class="co">[</span><span class="ot">0.409, 0.469</span><span class="co">]</span> (-0.075 below frozen-probe's</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>AUROC).</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.5 Rung 5 — *broad-scope reference scorer*</span></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>ProtectAI <span class="in">`deberta-v3-base-prompt-injection-v2`</span></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>(<span class="in">`suspected_contamination`</span>). v2 adds broader-scope training data per</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>the published model card update per ADR-018. *Why this rung exists*:</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>a broader-scope reference completes the reference picture. Caveat:</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>training-data disclosure is at category level only; contamination</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>cannot be verified; audit shifts to fold-pattern + scope-mismatch</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>analysis per <span class="co">[</span><span class="ot">`../EVIDENCE.md`</span><span class="co">](../EVIDENCE.md)</span> §2.</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>**Result**: ProtectAI v2's <span class="in">`pooled_ood`</span> AUPRC is 0.314 <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>— substantially worse than v1 (-0.047 AUPRC on pooled). v2 BEATS</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>v1 on jbb_behaviors (+0.037 AUPRC) but LOSES on xstest (-0.087</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>AUPRC; CIs overlap but with separation). The lesson: off-the-shelf</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>detector updates do not monotonically improve across distributions;</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>consumers cannot assume v2 dominates v1. By AUROC, v2 lands at</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>0.402 <span class="co">[</span><span class="ot">0.369, 0.437</span><span class="co">]</span> (-0.04 below v1) — same direction as AUPRC.</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Note on dropped reference rungs</span></span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>**LLM-judge rungs** (gpt-4o-2024-08-06 + claude-sonnet-4-6) were</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>locked at Phase 0-03 per ADR-018 and DROPPED at Phase 4 cost</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>re-estimation per ADR-050 (16× envelope overrun against the original</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>$14 estimate driven by per-row LLM-judge inference being charged at</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>the full input-prompt token count — long injection examples hit 1k-3k</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>tokens routinely). The <span class="in">`vendor_black_box`</span> contamination tier therefore</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>has 0 rungs in this submission; the contamination-stratification</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>gradient compresses from 4 tiers to 3.</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross-references</span></span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hyperparameter disclosure (locked recipe + axes-not-searched)** → <span class="co">[</span><span class="ot">`../docs/HYPERPARAMETER_DISCLOSURE.md`</span><span class="co">](../docs/HYPERPARAMETER_DISCLOSURE.md)</span></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Headline results consuming the rung ladder** → <span class="co">[</span><span class="ot">`../WRITEUP.md`</span><span class="co">](../WRITEUP.md)</span> §Results</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reference-scorer contamination audit detail** → <span class="co">[</span><span class="ot">`reference-scorer-audit.md`</span><span class="co">](./reference-scorer-audit.md)</span></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>**Linked ADRs**: ADR-015 (single-backbone slate), ADR-017 (classical</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>floor + trained-rung slate), ADR-018 (reference slate), ADR-019</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>(transformer training recipe), ADR-044 (Phase 2 implementation),</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>ADR-049 (GPU order priority refresh), ADR-050 (rung-slate narrowing).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>trainable) per ADR-019 and was trained for LODO at Phase 2 (24</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>prediction parquets retained); OOD inference was dropped at Phase 5</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>X11 per ADR-052 (narrow supersession of ADR-050 R2). Load-bearing</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>reason: LoRA's paired-bootstrap CI vs frozen-probe on <span class="in">`pooled_ood`</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>already showed fine-tuning on the LODO direct-injection pool was</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>HURTING OOD generalization; full-FT is a larger version of the</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>same mechanism (~149M params vs LoRA's ~1.5M trainable), so the</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>expected marginal benefit on OOD was low. The FUSE EIO crash on</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>/workspace MooseFS storage was the operational trigger that exposed</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>the decision. OOD comparison ships 2 trained rungs (frozen-probe +</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>LoRA); LODO 3-rung ladder narrative survives via the 24 Phase 2</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>LODO predictions. See ADR-052 + <span class="co">[</span><span class="ot">`limitations-and-future-work.md`</span><span class="co">](./limitations-and-future-work.md)</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>§8.1 for the full methodological + retrospective framing.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.4 Rung 4 — *narrow-scope reference scorer*</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>ProtectAI <span class="in">`deberta-v3-base-prompt-injection`</span> v1</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>(<span class="in">`suspected_contamination`</span> per ADR-005). Stated training scope: direct</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>prompt injection (English). Inference-only via</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="in">`transformers.AutoModelForSequenceClassification`</span> per ADR-018. *Why</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>this rung exists*: a publicly-trained narrow-scope detector is the</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>"is this better than something already on the shelf for this attack</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>class" bar.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>*Caveat*: reference scorers carry training-overlap audit obligations</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>per <span class="co">[</span><span class="ot">`../EVIDENCE.md`</span><span class="co">](../EVIDENCE.md)</span> §1. Reported as diagnostic</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>reference, not as a clean baseline.</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>**Result**: ProtectAI v1's <span class="in">`pooled_ood`</span> AUPRC is 0.361 <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>— essentially at parity with frozen-probe (0.364) and well above</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>tfidf-lr (+0.070 AUPRC over the classical floor). Like frozen-probe,</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>it lands just below the <span class="in">`pooled_ood`</span> prevalence baseline (0.374).</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>The off-the-shelf narrow-scope detector beats a linear floor and</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>matches the frozen pretrained backbone on this slate within CI</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>overlap — but the suspected-contamination caveat retained means</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>this read is diagnostic, not a clean baseline. By AUROC, ProtectAI</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>v1 lands at 0.440 <span class="co">[</span><span class="ot">0.409, 0.469</span><span class="co">]</span> (-0.075 below frozen-probe's</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>AUROC).</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.5 Rung 5 — *broad-scope reference scorer*</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>ProtectAI <span class="in">`deberta-v3-base-prompt-injection-v2`</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>(<span class="in">`suspected_contamination`</span>). v2 adds broader-scope training data per</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>the published model card update per ADR-018. *Why this rung exists*:</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>a broader-scope reference completes the reference picture. Caveat:</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>training-data disclosure is at category level only; contamination</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>cannot be verified; audit shifts to fold-pattern + scope-mismatch</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>analysis per <span class="co">[</span><span class="ot">`../EVIDENCE.md`</span><span class="co">](../EVIDENCE.md)</span> §2.</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>**Result**: ProtectAI v2's <span class="in">`pooled_ood`</span> AUPRC is 0.314 <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>— substantially worse than v1 (-0.047 AUPRC on pooled). v2 BEATS</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>v1 on jbb_behaviors (+0.037 AUPRC) but LOSES on xstest (-0.087</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>AUPRC; CIs overlap but with separation). The lesson: off-the-shelf</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>detector updates do not monotonically improve across distributions;</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>consumers cannot assume v2 dominates v1. By AUROC, v2 lands at</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>0.402 <span class="co">[</span><span class="ot">0.369, 0.437</span><span class="co">]</span> (-0.04 below v1) — same direction as AUPRC.</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## Note on dropped reference rungs</span></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>**LLM-judge rungs** (gpt-4o-2024-08-06 + claude-sonnet-4-6) were</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>locked at Phase 0-03 per ADR-018 and DROPPED at Phase 4 cost</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>re-estimation per ADR-050 (16× envelope overrun against the original</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>$14 estimate driven by per-row LLM-judge inference being charged at</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>the full input-prompt token count — long injection examples hit 1k-3k</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>tokens routinely). The <span class="in">`vendor_black_box`</span> contamination tier therefore</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>has 0 rungs in this submission; the contamination-stratification</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>gradient compresses from 4 tiers to 3.</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross-references</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hyperparameter disclosure (locked recipe + axes-not-searched)** → <span class="co">[</span><span class="ot">`../docs/HYPERPARAMETER_DISCLOSURE.md`</span><span class="co">](../docs/HYPERPARAMETER_DISCLOSURE.md)</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Headline results consuming the rung ladder** → <span class="co">[</span><span class="ot">`../WRITEUP.md`</span><span class="co">](../WRITEUP.md)</span> §Results</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reference-scorer contamination audit detail** → <span class="co">[</span><span class="ot">`reference-scorer-audit.md`</span><span class="co">](./reference-scorer-audit.md)</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>**Linked ADRs**: ADR-015 (single-backbone slate), ADR-017 (classical</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>floor + trained-rung slate), ADR-018 (reference slate), ADR-019</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>(transformer training recipe), ADR-044 (Phase 2 implementation),</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>ADR-049 (GPU order priority refresh), ADR-050 (rung-slate narrowing).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
