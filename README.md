@@ -1,12 +1,26 @@
 # prompt-injection-detection-prototype
 
+**Methodology + capability characterisation of a 5-rung prompt-injection classifier ladder, evaluated under an honest OOD slate.** A spec-first case-study submission: every decision is locked via a structured Phase 0 interview producing 50 ADRs; every claim cites evidence + bootstrap CIs; every reference scorer is contamination-audited per a three-state taxonomy. **Library-first**: uses [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) (eval primitives), [runpod-deploy](https://github.com/brandon-behring/runpod-deploy) (cloud orchestration), and [research_toolkit](https://github.com/brandon-behring/research_toolkit) (literature-dossier production); no hand-rolled equivalents.
 
-
-A prompt-injection classifier prototype, built spec-first. Every decision is locked via a structured Phase 0 interview; every claim cites evidence; every reference scorer is contamination-audited per a three-state taxonomy. **Library-first**: zero hand-rolled implementations — uses [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) (eval primitives), [runpod-deploy](https://github.com/brandon-behring/runpod-deploy) (cloud), and [research_toolkit](https://github.com/brandon-behring/research_toolkit) (dossier production).
-
-> **Status**: Phase 5 complete; tagged `v1.0.0` (see [`docs/ROADMAP.md`](./docs/ROADMAP.md) for the full phase trail). The work is characterisation, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.
+> **Status**: Phase 5 complete; tagged `v1.0.0`. The work is **characterisation**, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.
 >
-> **Full methodology**: see [`WRITEUP.md`](./WRITEUP.md).
+> **One-paragraph goal.** Characterise what successive capability layers add to prompt-injection detection (classical → frozen probe → LoRA → full-FT), across an Out-of-Distribution (OOD) test slate of 5 attack types (direct / indirect / agentic-flow / jailbreak-as-question / false-positive-probe). The honest finding: fine-tuning on direct-injection training data *consumes* the OOD generalization budget the pretrained backbone provides. **Full methodology** in [`WRITEUP.md`](./WRITEUP.md) (with 7 spoke files under [`WRITEUP/`](./WRITEUP/)).
+
+## What this submission delivers
+
+- **5-rung trained ladder** (per ADR-015 + ADR-017 + ADR-050): TF-IDF + LogReg classical floor → ModernBERT-base frozen-probe (head-only training) → ModernBERT-base LoRA (~1 % trainable params) → ModernBERT-base full-FT. Plus 2 reference scorers (ProtectAI v1, ProtectAI v2) at native config. LLM-judge reference rungs were dropped at Phase 4 on cost re-estimation per ADR-050; full-FT OOD inference dropped at Phase 5 X11 on a FUSE EIO crash. The `vendor_black_box` contamination tier ships with 0 rungs in this submission.
+- **5-slice OOD test slate** (per ADR-016 + ADR-021): BIPIA (indirect injection via email body, all-positive), InjecAgent (multi-turn agentic-flow injection, all-positive), JBB-Behaviors (jailbreak-style harmful elicitation, both classes), XSTest (jailbreak-as-question, both classes), NotInject (benign-but-injection-shaped false-positive probe, all-negative). The slate probes injection types deliberately *outside* the training-pool style mix.
+- **4-source LODO training pool** (per ADR-016): `deepset/prompt-injections` (170 rows post-dedup), `Lakera/gandalf_ignore_instructions` (525), `Lakera/mosscap_prompt_injection` (2362), `hackaprompt/hackaprompt-dataset` (1650). **Direct-injection-heavy by composition** — see WRITEUP §1.5 for the train/test mismatch table.
+- **Methodology rigor**: BCa bootstrap CIs on every headline metric; paired-bootstrap rung-vs-rung differences (Efron-Tibshirani protocol); MDE alongside every CI containing zero; calibration battery (ECE equal-mass + Kumar-2019-debiased + Brier + reliability curves; temperature / Platt / isotonic / Beta fits on val only); cross-fold CIs via Bayle-2020 `cv_clt_ci` + block-bootstrap-on-folds sensitivity per A-008; dual-policy threshold characterisation (detection FPR ≤ 1 % + verification recall ≥ 99 %); SHA-pinned data sources + leakage scan + per-fold contamination scan. Effect sizes + CIs throughout — no p-values.
+- **Reviewer-reproducible** (per ADR-034): **T0** = `make eval-from-hub RUNG=<rung>` runs a CPU eval against the published HF Hub checkpoint and score-matches against `evals/results.json` within 1e-4 absolute (~15 min per rung, $0). **T1** = `make test-smoke` (laptop, no GPU, no network, ~1 min). Optional **T3** = `make headline-cloud` (RunPod A100 80GB; ~$28; full LODO matrix re-train + re-eval).
+- **Governance trail**: 50 ADRs in [`decisions/`](./decisions/) (Michael Nygard format; immutable; ADR-050 is the rung-slate narrowing). `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard gate). External-evidence audit in [`EVIDENCE.md`](./EVIDENCE.md). Hyperparameter disclosure in [`docs/HYPERPARAMETER_DISCLOSURE.md`](./docs/HYPERPARAMETER_DISCLOSURE.md). 16-file literature dossier in [`docs/research/`](./docs/research/) (produced via the `research_toolkit` pipeline).
+
+## What this submission is NOT
+
+- **Not a deployment recommendation.** No rung is promoted as the deployment choice. Trade-offs are reported; readers with a specific deployment context map our characterisation onto their cost constraints.
+- **Not a SOTA chase.** Models are deliberately simple; the rigor lives in the evaluation framework. The headline finding *includes unflattering results* by design.
+- **Not a benchmark.** Slate is fixed by source-disjoint LODO + a 5-slice OOD test slate, not a sliding leaderboard.
+- **Scope is single-turn English text classification only.** Multi-turn agentic flows, encoded payloads (base64 / leetspeak / hex / Unicode confusables / ROT13), paraphrase attacks, adversarial perturbations, and cross-language attacks are **out of scope** per ADR-014 + WRITEUP §1 Scope. InjecAgent appears in the test slate to *quantify* the agentic-flow gap, not because we expect the single-turn classifier to handle it.
 
 ## Getting started — reviewer path
 
@@ -52,7 +66,7 @@ The brief asks for **models of increasing complexity** to characterise what each
 
 ## Headline characterisation
 
-**The honest finding is methodologically richer than the "look at this great classifier" version.** Fine-tuning a ModernBERT-base backbone (LoRA or full-FT) on the LODO training pool delivers **no improvement** over the frozen-probe rung on the 5-slice pooled OOD slate, and LoRA actively *underperforms* the frozen probe (-0.071 AUPRC on `pooled_ood`; the paired-bootstrap CI clears zero). On IID (JBB-Behaviors), all rungs cluster around 0.55 AUPRC — capability ladder is mostly indistinguishable. Full results + per-fold variance live in [`WRITEUP.md`](./WRITEUP.md) §5; only the punch-line is below.
+**Fine-tuning consumes the OOD generalization budget the pretrained backbone provides.** Read against the WRITEUP §1.5 train/test composition table: the 4 LODO training sources are direct-injection-heavy; the 5-slice OOD slate probes injection types that are *not* in training (BIPIA = the only indirect-injection slate; InjecAgent = the only agentic-flow slate; NotInject = pure false-positive probe). Fine-tuning a ModernBERT-base backbone (LoRA) on this training pool delivers **no improvement** over the frozen-probe rung on `pooled_ood`, and LoRA actively *underperforms* the frozen probe (-0.071 AUPRC on `pooled_ood`; the paired-bootstrap CI clears zero). On IID (JBB-Behaviors), all rungs cluster around 0.55 AUPRC — the capability ladder is mostly indistinguishable. **The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.** Full results + per-fold variance live in [`WRITEUP.md`](./WRITEUP.md) §Results; only the punch-line is below.
 
 | Rung | `pooled_ood` AUPRC (95 % CI) | Contamination tier |
 |---|---:|---|
