@@ -115,42 +115,50 @@ We do **not** pick a deployment leader. The intent is to demonstrate what each r
 
 ## Results
 
-The headline characterisation is honest: across the rung ladder + two reference scorers, **none of the rungs decisively beats the classical TF-IDF+LR floor on the 5-slice OOD slate** (pooled_ood AUROC range 0.37–0.52; all CIs overlap chance with substantial margin). The trained transformer rungs (frozen-probe + LoRA) and the ProtectAI reference scorers cluster within a band that is statistically distinguishable from each other on the in-distribution-like slices (jbb_behaviors, xstest) but compresses to near-chance on pooled_ood. The story is not "the ladder works" — it is *the ladder works on IID-shaped attacks and fails to generalize to genuinely OOD distributions*, and the numbers below back that up.
+The headline characterisation is honest: across the rung ladder + two reference scorers, **none of the rungs clears the `pooled_ood` positive-class prevalence baseline (0.374) under AUPRC** (range 0.291–0.364; even frozen-probe at 0.364 lands just under prevalence). The trained transformer rungs (frozen-probe + LoRA) and the ProtectAI reference scorers cluster within a band that is statistically distinguishable on the in-distribution-like slices (jbb_behaviors, xstest) but compresses to at-or-below the prevalence baseline on pooled_ood. The story is not "the ladder works" — it is *the ladder works on IID-shaped attacks and fails to generalize to genuinely OOD distributions*, and the numbers below back that up.
+
+**Metric note.** Headline metric is **AUPRC** per WRITEUP/eval-design.md §5.1 ("the most relevant ranking metric for class-imbalanced tasks where precision and recall both matter"). Random-predictor AUPRC equals the positive-class prevalence on each slice. AUROC (chance baseline 0.5, prior-independent) is reported as a secondary diagnostic for cross-paper comparison.
 
 Source data: `evals/metrics/per_cell.parquet` (per-cell, post-Item-4 single-class filter), `evals/bootstrap/marginal_cells.parquet` (BCa CI per ADR-022), `evals/bootstrap/paired_cells.parquet` + `paired_cells_seed2.parquet` (paired-Δ CI per ADR-022), `evals/audit/mde_per_cell.parquet`, `evals/operating_points/dual_policy.parquet` (72 op-points).
 
 ### The IID-vs-OOD gap (primary narrative)
 
-Per-rung marginal AUROC + BCa 95 % CI (seed=1 headline; seed=2 stability check 0/40 cells flagged at 5 pct threshold per ADR-022 + A-008):
+Per-rung marginal AUPRC + BCa 95 % CI (seed=1 headline; seed=2 stability check 0/40 cells flagged at 5 pct threshold per ADR-022 + A-008):
 
-| Rung | jbb_behaviors AUROC | xstest AUROC | pooled_ood AUROC |
+| Rung | jbb_behaviors AUPRC | xstest AUPRC | pooled_ood AUPRC |
 |---|---|---|---|
-| TF-IDF + LR (classical floor) | 0.445 [0.422, 0.469] | 0.451 [0.436, 0.466] | 0.371 [0.362, 0.381] |
-| frozen-probe | 0.542 [0.520, 0.565] | 0.537 [0.522, 0.552] | 0.515 [0.505, 0.525] |
-| LoRA | 0.528 [0.505, 0.552] | 0.530 [0.515, 0.546] | 0.383 [0.374, 0.392] |
-| ProtectAI v1 | 0.533 [0.464, 0.602] | 0.544 [0.497, 0.589] | 0.440 [0.409, 0.469] |
-| ProtectAI v2 | 0.594 [0.512, 0.671] | 0.391 [0.341, 0.442] | 0.402 [0.369, 0.437] |
+| TF-IDF + LR (classical floor) | 0.470 [0.443, 0.496] | 0.395 [0.379, 0.410] | 0.291 [0.283, 0.298] |
+| frozen-probe | 0.552 [0.520, 0.580] | 0.468 [0.448, 0.486] | 0.364 [0.354, 0.375] |
+| LoRA | 0.535 [0.504, 0.563] | 0.467 [0.447, 0.486] | 0.293 [0.286, 0.301] |
+| ProtectAI v1 | 0.519 [0.437, 0.597] | 0.469 [0.415, 0.523] | 0.361 [0.330, 0.391] |
+| ProtectAI v2 | 0.556 [0.453, 0.648] | 0.382 [0.333, 0.429] | 0.314 [0.283, 0.345] |
+
+Pooled_ood positive-class prevalence: **0.374** (15 656 positives / 41 838 rows). Random-predictor AUPRC on `pooled_ood` equals 0.374.
 
 The gap pattern:
 
-- **frozen-probe** is the strongest on `pooled_ood` (0.515 [0.505, 0.525]) — the only rung whose `pooled_ood` CI clears 0.50.
-- **LoRA's `pooled_ood` AUROC (0.383)** is *below* the classical floor (0.371 within CI overlap) and far below frozen-probe (-0.13 AUROC; paired-bootstrap CI does not include zero on this comparison). **LoRA fine-tuning hurts OOD generalization** relative to the frozen probe — a known phenomenon when the fine-tuning distribution mismatch is large.
-- **TF-IDF + LR** is competitive on `pooled_ood` (0.371) and only modestly below the trained rungs on jbb_behaviors / xstest. The classical floor is hard to beat without much stronger inductive biases.
-- **ProtectAI v2** beats ProtectAI v1 on jbb_behaviors (0.594 vs 0.533) but loses on xstest (0.391 vs 0.544) — version-to-version updates do not monotonically improve across distributions.
+- **frozen-probe** is the strongest on `pooled_ood` (0.364 [0.354, 0.375]) — but lands ~0.01 below the prevalence baseline (0.374). The CI upper bound (0.375) just barely touches the baseline. Even the best trained rung does not lift above what a positive-class-prior predictor would produce by AUPRC.
+- **LoRA's `pooled_ood` AUPRC (0.293)** is essentially tied with the classical floor (0.291; within CI overlap) and far below frozen-probe (-0.071 AUPRC; paired-bootstrap CI does not include zero on this comparison). **LoRA fine-tuning hurts OOD generalization** relative to the frozen probe — a known phenomenon when the fine-tuning distribution mismatch is large.
+- **TF-IDF + LR** is competitive on `pooled_ood` (0.291) and only modestly below the trained rungs on jbb_behaviors / xstest. The classical floor is hard to beat without much stronger inductive biases.
+- **ProtectAI v2** beats ProtectAI v1 on jbb_behaviors (0.556 vs 0.519) but loses on xstest (0.382 vs 0.469) — version-to-version updates do not monotonically improve across distributions.
+
+**AUROC secondary view** (chance baseline 0.5, prior-independent): `pooled_ood` AUROC range is 0.371–0.515; only frozen-probe at 0.515 [0.505, 0.525] clears chance with margin. The relative ordering reads identically to the AUPRC narrative; AUPRC is reported in the headline because it accounts for the class prior (per WRITEUP/eval-design.md §5.1).
 
 Per-scorer contamination findings (ProtectAI v1 + v2) detail lives in [`WRITEUP/reference-scorer-audit.md`](./WRITEUP/reference-scorer-audit.md) and [`EVIDENCE.md`](./EVIDENCE.md) §1-2.
 
 ### Which capabilities help OOD vs only help IID
 
-Rung-by-rung lift over the classical floor (delta AUROC, `pooled_ood`):
+Rung-by-rung lift over the classical floor (delta AUPRC, `pooled_ood`):
 
-| Rung vs floor | delta AUROC (pooled_ood) | Interpretation |
+| Rung vs floor | delta AUPRC (pooled_ood) | Interpretation |
 |---|---|---|
-| frozen-probe vs tfidf-lr | +0.144 | Pretrained ModernBERT embeddings DO help OOD — substantial lift |
-| LoRA vs tfidf-lr | +0.012 | Adapter fine-tuning collapses the frozen-probe advantage on OOD |
-| LoRA vs frozen-probe | -0.132 | LoRA hurts; the adapter weights specialise to training distribution |
-| ProtectAI v1 vs tfidf-lr | +0.069 | Off-the-shelf injection detector adds modest signal |
-| ProtectAI v2 vs tfidf-lr | +0.031 | v2 update does not propagate to our OOD slate |
+| frozen-probe vs tfidf-lr | +0.073 | Pretrained ModernBERT embeddings DO help OOD — modest lift |
+| LoRA vs tfidf-lr | +0.002 | Adapter fine-tuning collapses the frozen-probe advantage on OOD; essentially indistinguishable from classical floor |
+| LoRA vs frozen-probe | -0.071 | LoRA hurts; the adapter weights specialise to training distribution |
+| ProtectAI v1 vs tfidf-lr | +0.070 | Off-the-shelf injection detector adds modest signal — comparable to frozen-probe lift |
+| ProtectAI v2 vs tfidf-lr | +0.023 | v2 update does not propagate to our OOD slate |
+
+(AUROC equivalents for cross-paper comparison: frozen-probe +0.144; LoRA +0.012; LoRA vs frozen-probe -0.132; ProtectAI v1 +0.069; ProtectAI v2 +0.031. Same direction; AUROC magnitudes differ because AUROC is prior-independent while AUPRC weights by positive-class prevalence.)
 
 **Implication**: the pretrained backbone (ModernBERT) provides the bulk of the OOD generalization budget. Fine-tuning (LoRA) on the in-distribution training pool causes generalization-tax: the rung does better on the training-distribution-shaped jbb_behaviors / xstest slices, but loses on `pooled_ood`. This is the canonical fine-tuning-overfit signature.
 
@@ -205,9 +213,9 @@ Per ADR-022 paired-bootstrap (percentile-method, 10K resamples × 2 seeds; 0/40 
 
 Distilled summary:
 
-- **Claim 1**: No rung in the trained-or-reference slate decisively beats the classical TF-IDF + LR floor on the 5-slice OOD slate (all `pooled_ood` AUROC CIs within ~0.15 of 0.50; frozen-probe at 0.515 [0.505, 0.525] is the only rung whose CI clears 0.50 with margin). The case-study lesson is "honest OOD generalization for prompt-injection classifiers is harder than the in-distribution numbers suggest" — not "look at this great classifier".
-- **Claim 2**: LoRA fine-tuning *hurts* OOD generalization relative to the frozen probe. Paired bootstrap on jbb_behaviors AUROC delta = −0.014 [−0.021, −0.006]; `pooled_ood` delta = −0.132. The adapter weights specialise to the training distribution. Pretrained backbone embeddings carry the OOD generalization budget; fine-tuning consumes it.
-- **Claim 3**: ProtectAI v1 → v2 is *not* a monotone improvement across the OOD slate: v2 beats v1 on jbb_behaviors (+0.06 AUROC) and loses on xstest (-0.15 AUROC). Off-the-shelf detector updates can regress on specific OOD distributions; downstream consumers should not assume v2 dominates v1 universally.
+- **Claim 1**: No rung in the trained-or-reference slate clears the `pooled_ood` positive-class prevalence baseline (0.374) under AUPRC. The best rung (frozen-probe AUPRC 0.364 [0.354, 0.375]) lands ~0.01 below the prevalence baseline; the CI upper bound just barely touches it. By AUROC (chance baseline 0.5), only frozen-probe at 0.515 [0.505, 0.525] clears chance with margin. The case-study lesson: "honest OOD generalization for prompt-injection classifiers is harder than the in-distribution numbers suggest" — not "look at this great classifier".
+- **Claim 2**: LoRA fine-tuning *hurts* OOD generalization relative to the frozen probe. Paired bootstrap on jbb_behaviors AUPRC delta = −0.016 [−0.024, −0.009]; `pooled_ood` AUPRC delta = −0.071 (AUROC equivalent: −0.014 jbb_behaviors; −0.132 `pooled_ood` — same direction). The adapter weights specialise to the training distribution. Pretrained backbone embeddings carry the OOD generalization budget; fine-tuning consumes it.
+- **Claim 3**: ProtectAI v1 → v2 is *not* a monotone improvement across the OOD slate: v2 beats v1 on jbb_behaviors (+0.037 AUPRC; +0.06 AUROC) and loses on xstest (-0.087 AUPRC; -0.15 AUROC). Off-the-shelf detector updates can regress on specific OOD distributions; downstream consumers should not assume v2 dominates v1 universally.
 - **Claim 4**: Dual-policy thresholds fit on val do not transfer to LODO test. Detection-policy FPR creeps 1-12 % on test vs 1 % val target across all 3 trained rungs; verification-policy recall drops well below target on 2 of 3 rungs. The val→LODO gap is the dominant calibration story; per-rung temperature scaling would not fix it without OOD-aware threshold selection.
 
 Each claim is supported by a specific row × CI above, not a hand-wave.
@@ -222,7 +230,7 @@ Three takeaways for the reviewer who reads only §1 + §1.5 + §2 + §Results.
 
 1. **What was characterised.** A 5-rung ladder (TF-IDF+LR classical floor + ModernBERT-base frozen-probe + ModernBERT-base LoRA + ProtectAI v1 + ProtectAI v2) on 5 OOD slices spanning the five injection types in §1.5: `direct_injection`, `indirect_injection`, `agentic_flow_injection`, `jailbreak_as_question`, `false_positive_probe`. **Single-turn English text classification only**, with bootstrap CIs + paired-bootstrap rung-vs-rung + calibration battery + dual-policy thresholds per ADR-022 / ADR-023 / ADR-025.
 
-2. **What the OOD wall reveals — read against the §1.5 train/test table.** The OOD slate is hardest on the injection types *not* in the training pool. BIPIA (the only `indirect_injection` slate) and InjecAgent (the only `agentic_flow_injection` slate) both have zero counterparts in the 4 LODO training sources. The trained transformer rungs hover near chance on `pooled_ood` (frozen-probe AUROC 0.515; LoRA 0.383; classical floor 0.371). **LoRA's `pooled_ood` AUROC is BELOW the classical floor** — fine-tuning the head onto direct-injection training data DECREASES OOD generalization vs leaving the pretrained backbone embeddings intact. **The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.** On the injection types that *are* in training (`direct_injection` via jbb_behaviors partial; `jailbreak_as_question` via XSTest), the trained rungs do modestly better but still cluster in a tight band around ~0.55 AUROC. *In short: the rung ladder is doing approximately as well as could be expected given what it was shown, and the OOD gap quantifies what training data alone cannot fix.*
+2. **What the OOD wall reveals — read against the §1.5 train/test table.** The OOD slate is hardest on the injection types *not* in the training pool. BIPIA (the only `indirect_injection` slate) and InjecAgent (the only `agentic_flow_injection` slate) both have zero counterparts in the 4 LODO training sources. The trained transformer rungs land at or below the `pooled_ood` positive-class prevalence baseline of 0.374 under AUPRC (frozen-probe 0.364; LoRA 0.293; classical floor 0.291). **LoRA's `pooled_ood` AUPRC is essentially tied with the classical floor and -0.071 below frozen-probe** — fine-tuning the head onto direct-injection training data DECREASES OOD generalization vs leaving the pretrained backbone embeddings intact. **The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists**, and even that doesn't lift above the prevalence baseline in absolute terms. On the injection types that *are* in training (`direct_injection` via jbb_behaviors partial; `jailbreak_as_question` via XSTest), the trained rungs do modestly better but still cluster in a tight band around 0.47–0.55 AUPRC. By AUROC (chance baseline 0.5), only frozen-probe at 0.515 [0.505, 0.525] clears chance with margin; LoRA at 0.383 falls below. *In short: the rung ladder is doing approximately as well as could be expected given what it was shown, and the OOD gap quantifies what training data alone cannot fix.*
 
 3. **What's deferred, what to take away.** Multi-turn agentic flows, encoded payloads, paraphrase attacks, and adversarial perturbations are NOT tested (per §Scope above). A deployment context that includes those attack classes cannot rely on these numbers; [`WRITEUP/limitations-and-future-work.md`](./WRITEUP/limitations-and-future-work.md) §9.4 names what would need to land to extend coverage (OOD-aware training data, backbone scaling, OOD-aware threshold selection). **The honest reading**: this is a methodology + capability *characterisation*, not a leaderboard claim. The headline finding — *fine-tuning consumes the OOD generalization budget the pretrained backbone provides* — is methodologically richer than a "great classifier" framing would have allowed.
 

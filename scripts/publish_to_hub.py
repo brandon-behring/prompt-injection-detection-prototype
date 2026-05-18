@@ -22,6 +22,7 @@ HF Hub's content-addressed storage.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -118,7 +119,17 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    api = HfApi()
+    # Prefer the write-scope token (HF_TOKEN_WRITE per the project's .env.local
+    # convention); fall back to HF_TOKEN, then to the on-disk cached token used
+    # by `huggingface-cli login` (which may be read-only and trigger 403 on
+    # create_repo). Per ADR-035 secrets discipline, tokens are never printed.
+    token = os.environ.get("HF_TOKEN_WRITE") or os.environ.get("HF_TOKEN")
+    if token:
+        api = HfApi(token=token)
+        print("[publish-hub] using HF_TOKEN_WRITE / HF_TOKEN from environment")
+    else:
+        api = HfApi()
+        print("[publish-hub] using ~/.cache/huggingface/token (no env token set)")
     whoami = api.whoami()
     print(f"[publish-hub] authenticated as: {whoami.get('name', '<unknown>')}")
 

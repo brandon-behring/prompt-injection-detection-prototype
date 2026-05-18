@@ -18,6 +18,75 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.1] — 2026-05-18
+
+Post-submission polish patch (per ADR-033 v1.0.x patch convention).
+Reviewer URL stays pinned at `tree/v1.0.0`; live Quarto site reflects
+this patch.
+
+### Added
+
+- **HF Hub published**: canonical fold0/seed42 checkpoints for both
+  rungs are now live —
+  [`BBehring/prompt-injection-frozen-probe`](https://huggingface.co/BBehring/prompt-injection-frozen-probe)
+  + [`BBehring/prompt-injection-lora`](https://huggingface.co/BBehring/prompt-injection-lora).
+  Models published via `make publish-hub` using `HF_TOKEN_WRITE`
+  from `.env.local` (write-scope token; v1.0.0 was blocked on this
+  rotation). Both repos return HTTP 200; auto-generated model cards
+  follow the expansive ADR-032 schema (YAML frontmatter + datasets
+  pinned per ADR-016 + `model-index.results` per-slice metrics +
+  intended use + limitations + ADR-005 contamination tier +
+  citation + reproducibility commands).
+- **README "Reading paths" subsection** with 3 navigable paths
+  (Quick-skim / Audit / Reproduce) — all links resolve to the
+  live Quarto site so a reviewer landing on GitHub clicks into a
+  rendered page rather than a raw .md.
+- **README live-site link** in the Status callout block —
+  prominent above-the-fold link to
+  `brandon-behring.github.io/prompt-injection-detection-prototype/`
+  + the two HF Hub model-card URLs.
+
+### Changed
+
+- **AUPRC standardisation across WRITEUP + spokes** (was: AUROC
+  headline; methodologically inconsistent with eval-design.md
+  §5.1's PR-AUC preference). WRITEUP §Results headline rung-grid +
+  §Results lift-vs-floor table + §Results headline claims +
+  §Takeaways now lead with AUPRC; AUROC retained as a secondary
+  cross-paper-comparable diagnostic. WRITEUP/model-rungs.md
+  per-rung "Result:" blurbs rewritten the same way. Pooled_ood
+  positive-class prevalence (0.374) computed + surfaced as the
+  random-predictor AUPRC baseline; the honest finding tightens:
+  even frozen-probe's `pooled_ood` AUPRC (0.364) lands ~0.01
+  *below* the prevalence baseline.
+- **`_quarto.yml` render allowlist expanded** to include
+  `SPEC_SHEET.md`, `SUBMISSION_AUDIT.md`, `NEXT_STEPS.md`,
+  `assumptions.md`, `decisions/upstream_issues.md`. These were
+  previously auto-copied as raw `.md` into `_site/`; reviewer
+  click resulted in raw markdown download. Now rendered as HTML;
+  new "Reference" sidebar section between Evidence + Decisions
+  surfaces them in the nav.
+- **`scripts/publish_to_hub.py`** prefers `HF_TOKEN_WRITE` then
+  `HF_TOKEN` from environment, falling back to the cached token —
+  resolves the v1.0.0 publish-blocked auth path without disturbing
+  the read-only token convention.
+- **`WRITEUP/reproducibility.md`**: T0 "Status" block updated to
+  reflect actual publication state at v1.0.1 + maintainer note on
+  the still-stubbed `eval_from_hub.py` non-dry-run body (T0
+  score-match wiring lands at v1.1.x). T3 vestigial "skeleton"
+  label replaced with "complete" + RunPod-bootstrap pointer. Added
+  the missing "Cross-references" block (now consistent with the
+  other 7 spokes).
+- **Hyphenation typo fix** in README L7 (`frozen probe →` →
+  `frozen-probe →`) — single-occurrence drift from project naming
+  convention.
+
+### Closing
+
+Audit-driven patch (3 parallel Explore agents at v1.0.0 close
+surfaced these polish items). All gates green; live Quarto site
++ HF Hub repos resolve.
+
 ## [1.0.0] — 2026-05-18
 
 Submission tag. Closes the `REPO_AUDIT_2026-05-18` 8-item remediation

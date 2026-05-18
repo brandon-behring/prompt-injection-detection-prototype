@@ -23,9 +23,18 @@ This spoke is referenced by `index.qmd`'s "Deep-dive path — reproduce the numb
 
 ## T0 — eval-from-hub (laptop, ~$0, ~10-30 min)
 
-**Status**: published rungs `frozen-probe` + `lora` per ADR-032 + Q10
-lock; full-FT skipped per ADR-050 (FUSE EIO crash; weights missing
-locally). Canonical fold0/seed42 checkpoint per rung.
+**Status (v1.0.1):** published rungs `frozen-probe` + `lora` per
+ADR-032 + Q10 lock (canonical fold0/seed42 checkpoint per rung); HF
+Hub repos go live at v1.0.1 close. Full-FT skipped per ADR-050
+(FUSE EIO crash; weights missing locally).
+
+**Maintainer note:** the `scripts/eval_from_hub.py` non-dry-run body
+is currently a scaffold that exits with code 2 + a "publication
+pending" message; the snapshot_download + score-match pipeline is
+specified by ADR-034 but lands in a v1.1.x patch. Reviewers can
+verify the published checkpoints by visiting the HF Hub repo URLs
+directly + reading the auto-generated model cards; full T0
+score-match wiring is the v1.1.x work-item.
 
 ```bash
 make eval-from-hub RUNG=frozen-probe
@@ -78,7 +87,10 @@ What this does:
 
 ## T3 — headline-cloud (cloud-GPU, ~$125+, ~hours)
 
-**Status**: skeleton — Phase 5 populates verbatim setup steps including RunPod account + secrets bootstrap.
+**Status (v1.0.1):** complete — verbatim commands below; RunPod
+account + secrets bootstrap documented in
+[`docs/REPRODUCIBILITY.md`](../docs/REPRODUCIBILITY.md). Cost-capped
+per ADR-020.
 
 ```bash
 # Pre-flight (free; no provisioning):
@@ -125,5 +137,13 @@ Reviewers familiar with ACM artifact policies will recognize the structure.
 - **T0 verifies score-match against the published checkpoint, not data-pipeline correctness** — a reviewer who wants to verify the data preparation pipeline produces the same training tensors needs T3.
 - **T3 is the only paid tier**; reviewer self-funds the RunPod cost.
 - **HF Hub checkpoint SHA pinning**: if model card edits invalidate cached SHAs at Phase 5, pin SHAs in `make eval-from-hub` via `huggingface_hub.snapshot_download(revision=<SHA>)`. The HF dataset SHA-pinning discipline from [ADR-016](../decisions/ADR-016-data-design-bundle.md) carries over to model SHA-pinning.
+
+## Cross-references
+
+- **Methodology guarantees** (eval-toolkit + runpod-deploy + SDD discipline that backs T0/T1/T3) → [`methodology-guarantees.md`](./methodology-guarantees.md)
+- **Headline results consumed by T0 score-match** → [`../WRITEUP.md`](../WRITEUP.md) §Results
+- **Evaluation primitives + statistical apparatus** → [`eval-design.md`](./eval-design.md)
+- **Model-rung publication scope** (canonical fold0/seed42 per ADR-032) → [`model-rungs.md`](./model-rungs.md)
+- **Aggregator docs (Makefile targets + manifest schema)** → [`../docs/REPRODUCIBILITY.md`](../docs/REPRODUCIBILITY.md)
 
 **Linked ADRs**: [ADR-027](../decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md) (Makefile execution-context stratification), [ADR-020](../decisions/ADR-020-compute-infrastructure-and-cost-discipline.md) (cost cap), [ADR-032](../decisions/ADR-032-hf-hub-publication-headline-rungs-only.md) (HF Hub publication), [ADR-034](../decisions/ADR-034-reproducibility-tier-full-ladder.md) (this spoke's source-of-truth ADR).

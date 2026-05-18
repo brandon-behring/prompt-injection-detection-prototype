@@ -2,9 +2,13 @@
 
 **Methodology + capability characterisation of a 5-rung prompt-injection classifier ladder, evaluated under an honest OOD slate.** A spec-first case-study submission: every decision is locked via a structured Phase 0 interview producing 50 ADRs; every claim cites evidence + bootstrap CIs; every reference scorer is contamination-audited per a three-state taxonomy. **Library-first**: uses [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) (eval primitives), [runpod-deploy](https://github.com/brandon-behring/runpod-deploy) (cloud orchestration), and [research_toolkit](https://github.com/brandon-behring/research_toolkit) (literature-dossier production); no hand-rolled equivalents.
 
-> **Status**: Phase 5 complete; tagged `v1.0.0`. The work is **characterisation**, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.
+> **Status**: Phase 5 complete; tagged `v1.0.0` (patches via `v1.0.x` per ADR-033). The work is **characterisation**, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.
 >
-> **One-paragraph goal.** Characterise what successive capability layers add to prompt-injection detection (classical → frozen probe → LoRA → full-FT), across an Out-of-Distribution (OOD) test slate of 5 attack types (direct / indirect / agentic-flow / jailbreak-as-question / false-positive-probe). The honest finding: fine-tuning on direct-injection training data *consumes* the OOD generalization budget the pretrained backbone provides. **Full methodology** in [`WRITEUP.md`](./WRITEUP.md) (with 7 spoke files under [`WRITEUP/`](./WRITEUP/)).
+> **Live site**: [brandon-behring.github.io/prompt-injection-detection-prototype/](https://brandon-behring.github.io/prompt-injection-detection-prototype/) — rendered Quarto methodology site with the 7-spoke WRITEUP + 50 ADRs + EVIDENCE + reference docs. Updated on every push to `main`.
+>
+> **HF Hub model cards**: [BBehring/prompt-injection-frozen-probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe) + [BBehring/prompt-injection-lora](https://huggingface.co/BBehring/prompt-injection-lora) — canonical fold0/seed42 checkpoints per ADR-032. Reviewer-reproduce-the-numbers (T0) via `make eval-from-hub RUNG=<rung>`.
+>
+> **One-paragraph goal.** Characterise what successive capability layers add to prompt-injection detection (classical → frozen-probe → LoRA → full-FT), across an Out-of-Distribution (OOD) test slate of 5 attack types (direct / indirect / agentic-flow / jailbreak-as-question / false-positive-probe). The honest finding: fine-tuning on direct-injection training data *consumes* the OOD generalization budget the pretrained backbone provides. **Full methodology** in [`WRITEUP.md`](./WRITEUP.md) (with 7 spoke files under [`WRITEUP/`](./WRITEUP/)) or on the [live Quarto site](https://brandon-behring.github.io/prompt-injection-detection-prototype/).
 
 ## What this submission delivers
 
@@ -21,6 +25,27 @@
 - **Not a SOTA chase.** Models are deliberately simple; the rigor lives in the evaluation framework. The headline finding *includes unflattering results* by design.
 - **Not a benchmark.** Slate is fixed by source-disjoint LODO + a 5-slice OOD test slate, not a sliding leaderboard.
 - **Scope is single-turn English text classification only.** Multi-turn agentic flows, encoded payloads (base64 / leetspeak / hex / Unicode confusables / ROT13), paraphrase attacks, adversarial perturbations, and cross-language attacks are **out of scope** per ADR-014 + WRITEUP §1 Scope. InjecAgent appears in the test slate to *quantify* the agentic-flow gap, not because we expect the single-turn classifier to handle it.
+
+## Reading paths
+
+Pick the path matching your audit depth. All paths link into the [live Quarto site](https://brandon-behring.github.io/prompt-injection-detection-prototype/); each is also navigable via the repo files if you've cloned.
+
+1. **Quick-skim (~15 min)** — for the hiring-manager / executive read.
+   - [Live site index](https://brandon-behring.github.io/prompt-injection-detection-prototype/) → §Motivation + §Reading guide.
+   - [WRITEUP §1.5 Attack-type taxonomy](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#attack-type-taxonomy-traintest-composition) — 5 injection types + the 9-column train/test composition table.
+   - [WRITEUP §Results headline](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#results) + §Takeaways — the OOD wall finding in 3 numbered points.
+
+2. **Audit (~60 min)** — for the ML-researcher / due-diligence read.
+   - Full [WRITEUP.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html) cover-to-cover.
+   - All 8 [WRITEUP/ spokes](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/data-decisions.html) (data, model-rungs, eval-design, threshold-policy, reference-scorer-audit, methodology-guarantees, limitations, reproducibility).
+   - [EVIDENCE.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html) — external-evidence audit trail.
+   - Headline [ADRs](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html): ADR-005 (methodology over metrics), ADR-015 (single-backbone slate), ADR-016 (data design), ADR-017 (rung-slate), ADR-018 (reference scorers; superseded by ADR-050), ADR-022 (statistical apparatus), ADR-050 (rung-slate narrowing).
+
+3. **Reproduce the numbers (~30 min CPU; $0)** — for the engineer who wants the numbers to land on their machine.
+   - `make install && make eval-from-hub RUNG=frozen-probe` (CPU; ~15 min) pulls the published checkpoint from [BBehring/prompt-injection-frozen-probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe) and score-matches against `evals/results.json` within 1e-4 absolute per ADR-034.
+   - `make eval-from-hub RUNG=lora` — same for [BBehring/prompt-injection-lora](https://huggingface.co/BBehring/prompt-injection-lora).
+   - `make test-smoke` (no GPU, no network, ~1 min) verifies code-health on fixtures.
+   - Full T1 GPU re-eval via `make headline-cloud` (~$28; A100 80GB; ~7h).
 
 ## Getting started — reviewer path
 

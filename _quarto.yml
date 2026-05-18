@@ -1,8 +1,10 @@
 project:
   type: website
   output-dir: _site
-  # Render allowlist — locked at Item 2 of the v1.0.0 closure sweep
-  # (Q6 lock: WRITEUP + EVIDENCE + ADRs + README + CHANGELOG only).
+  # Render allowlist — Item 2 of v1.0.0 closure (WRITEUP + EVIDENCE +
+  # ADRs + README + CHANGELOG) + Item 9.B4 of v1.0.1 polish
+  # (SPEC_SHEET + SUBMISSION_AUDIT + NEXT_STEPS + assumptions +
+  # upstream_issues — previously auto-copied as raw .md, now rendered).
   # Excludes transcripts/, data/raw/git/**, evals/, configs/, src/,
   # scripts/, tests/, and the rest of docs/ from rendered output;
   # those remain reachable via in-text repo links from spokes.
@@ -13,8 +15,13 @@ project:
     - WRITEUP.md
     - WRITEUP/*.md
     - EVIDENCE.md
+    - SPEC_SHEET.md
+    - SUBMISSION_AUDIT.md
+    - NEXT_STEPS.md
+    - assumptions.md
     - decisions/README.md
     - decisions/ADR-*.md
+    - decisions/upstream_issues.md
 
 website:
   title: "Prompt-injection classifier — methodology submission"
@@ -37,6 +44,12 @@ website:
           - WRITEUP/reproducibility.md
       - href: EVIDENCE.md
         text: Evidence
+      - text: Reference
+        menu:
+          - SPEC_SHEET.md
+          - SUBMISSION_AUDIT.md
+          - NEXT_STEPS.md
+          - assumptions.md
       - text: Decisions (ADRs)
         href: decisions/README.md
   sidebar:
@@ -60,8 +73,16 @@ website:
       - section: "Evidence + audit"
         contents:
           - EVIDENCE.md
+      - section: "Reference"
+        contents:
+          - SPEC_SHEET.md
+          - SUBMISSION_AUDIT.md
+          - NEXT_STEPS.md
+          - assumptions.md
       - section: "Decisions (ADRs)"
         contents:
+          - decisions/README.md
+          - decisions/upstream_issues.md
           - auto: "decisions/ADR-*.md"
 
 format:

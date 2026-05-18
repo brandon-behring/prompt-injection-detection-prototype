@@ -25,13 +25,16 @@ Contamination tier: `verified_disjoint` per ADR-005.
 classifier for the task; everything above it has to earn its
 complexity.
 
-**Result**: tfidf-lr's `pooled_ood` AUROC is 0.371 [0.362, 0.381] —
-slightly below chance, but with a tight CI that does NOT cross 0.50
-(CI upper bound 0.381). On the IID-shaped slices it lands at 0.445
-[0.422, 0.469] (jbb_behaviors) and 0.451 [0.436, 0.466] (xstest).
-This is the floor everything else has to beat to earn its complexity.
-*Result*: only `frozen_probe` clears this floor on `pooled_ood` with
-margin (delta +0.144 AUROC).
+**Result**: tfidf-lr's `pooled_ood` AUPRC is 0.291 [0.283, 0.298] —
+substantially below the `pooled_ood` positive-class prevalence
+baseline of 0.374 (random-predictor AUPRC equals positive prevalence
+on the slice). On the IID-shaped slices it lands at 0.470 [0.443,
+0.496] (jbb_behaviors) and 0.395 [0.379, 0.410] (xstest). This is
+the floor every other rung is measured against. *Result*: only
+`frozen-probe` lifts above this floor on `pooled_ood` with margin
+(delta +0.073 AUPRC). By AUROC (cross-paper comparable; chance
+baseline 0.5), tfidf-lr lands at 0.371 [0.362, 0.381] — below chance
+under AUROC's prior-independent framing.
 
 ## 4.2 Rung 2 — *what the backbone already encodes*
 
@@ -46,12 +49,15 @@ seeds). Contamination tier: `backbone-partial-disjoint` per ADR-005.
 fine-tuned rung doesn't lift further, fine-tuning isn't adding
 capability — it's overfitting.
 
-**Result**: frozen-probe's `pooled_ood` AUROC is 0.515 [0.505, 0.525]
-— *the only rung whose CI clears 0.50 with margin*. Net OOD lift over
-tfidf-lr is +0.144 AUROC. The pretrained ModernBERT embeddings carry
-significant generalization budget; the classifier head needs ONLY
-linear access to those embeddings to land above chance on the OOD
-slate. This is the headline finding of WRITEUP §Results §7.
+**Result**: frozen-probe's `pooled_ood` AUPRC is 0.364 [0.354, 0.375]
+— the best `pooled_ood` AUPRC in the slate, but still ~0.01 *below*
+the `pooled_ood` positive-class prevalence baseline of 0.374. Net
+OOD lift over tfidf-lr is +0.073 AUPRC. The pretrained ModernBERT
+embeddings carry what little OOD generalization budget exists — but
+the absolute number does not clear the prevalence baseline. By
+AUROC (chance baseline 0.5), frozen-probe lands at 0.515 [0.505,
+0.525] — *the only rung whose AUROC CI clears 0.50 with margin*.
+This is the headline finding of WRITEUP §Results.
 
 ## 4.3 Rung 3 — *the fine-tuning ceiling at the project's compute budget*
 
@@ -69,15 +75,18 @@ to 1 % of parameters trainable. Contamination tier:
 project compute budget. If anything above the frozen probe is worth
 doing, this rung is where it shows.
 
-**Result**: LoRA's `pooled_ood` AUROC is 0.383 [0.374, 0.392] —
-*below* the frozen-probe baseline (-0.132 AUROC; paired-bootstrap CI
-excludes zero). The adapter weights specialise to the training
-distribution; on the OOD slate they degrade generalization vs the bare
-backbone embeddings. LoRA fine-tuning on this task at this compute
-budget is a NEGATIVE result — it works on jbb_behaviors / xstest
-(in-distribution-shaped slices) and overfits relative to the frozen
-probe on genuinely OOD distributions. See WRITEUP §Results §7.7 for
-the paired-bootstrap detail.
+**Result**: LoRA's `pooled_ood` AUPRC is 0.293 [0.286, 0.301] —
+*below* the frozen-probe baseline (-0.071 AUPRC; paired-bootstrap
+CI excludes zero) and essentially tied with the classical floor
+(0.291). The adapter weights specialise to the training
+distribution; on the OOD slate they degrade generalization vs the
+bare backbone embeddings. LoRA fine-tuning on this task at this
+compute budget is a NEGATIVE result — it works on jbb_behaviors /
+xstest (in-distribution-shaped slices) and overfits relative to the
+frozen probe on genuinely OOD distributions. By AUROC, LoRA lands
+at 0.383 [0.374, 0.392], -0.132 below frozen-probe. See WRITEUP
+§Results §Frozen probe vs adapter fine-tuned for the paired-bootstrap
+detail.
 
 **Note on full-FT**: full-FT was the planned Rung 3.5 (full backbone
 trainable) per ADR-019; per ADR-050 it was DROPPED from OOD comparison
@@ -101,11 +110,16 @@ class" bar.
 per [`../EVIDENCE.md`](../EVIDENCE.md) §1. Reported as diagnostic
 reference, not as a clean baseline.
 
-**Result**: ProtectAI v1's `pooled_ood` AUROC is 0.440 [0.409, 0.469].
-Slightly above tfidf-lr (+0.069); well below frozen-probe (-0.075).
-The off-the-shelf narrow-scope detector beats a linear floor but does
-not match a frozen pretrained backbone on this slate. Suspected-
-contamination caveat retained.
+**Result**: ProtectAI v1's `pooled_ood` AUPRC is 0.361 [0.330, 0.391]
+— essentially at parity with frozen-probe (0.364) and well above
+tfidf-lr (+0.070 AUPRC over the classical floor). Like frozen-probe,
+it lands just below the `pooled_ood` prevalence baseline (0.374).
+The off-the-shelf narrow-scope detector beats a linear floor and
+matches the frozen pretrained backbone on this slate within CI
+overlap — but the suspected-contamination caveat retained means
+this read is diagnostic, not a clean baseline. By AUROC, ProtectAI
+v1 lands at 0.440 [0.409, 0.469] (-0.075 below frozen-probe's
+AUROC).
 
 ## 4.5 Rung 5 — *broad-scope reference scorer*
 
@@ -117,12 +131,13 @@ training-data disclosure is at category level only; contamination
 cannot be verified; audit shifts to fold-pattern + scope-mismatch
 analysis per [`../EVIDENCE.md`](../EVIDENCE.md) §2.
 
-**Result**: ProtectAI v2's `pooled_ood` AUROC is 0.402 [0.369, 0.437]
-— slightly worse than v1 (-0.04 on pooled). v2 BEATS v1 on
-jbb_behaviors (+0.06 AUROC) but LOSES on xstest (-0.15 AUROC; CIs do
-not overlap — a clear regression). The lesson: off-the-shelf detector
-updates do not monotonically improve across distributions; consumers
-cannot assume v2 dominates v1.
+**Result**: ProtectAI v2's `pooled_ood` AUPRC is 0.314 [0.283, 0.345]
+— substantially worse than v1 (-0.047 AUPRC on pooled). v2 BEATS
+v1 on jbb_behaviors (+0.037 AUPRC) but LOSES on xstest (-0.087
+AUPRC; CIs overlap but with separation). The lesson: off-the-shelf
+detector updates do not monotonically improve across distributions;
+consumers cannot assume v2 dominates v1. By AUROC, v2 lands at
+0.402 [0.369, 0.437] (-0.04 below v1) — same direction as AUPRC.
 
 ## Note on dropped reference rungs
 
