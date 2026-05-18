@@ -86,13 +86,22 @@ def main() -> int:
         )
         return 0
 
-    # Full T0 implementation requires the publishing pipeline (Phase 5
-    # ADR-032 deliverable). At Phase 3 Commit 5, the script's argparse +
-    # contract surface is the deliverable; the body is gated until
-    # `BBehring/prompt-injection-<rung>` repos exist.
+    # HF Hub repos BBehring/prompt-injection-{frozen-probe,lora} ARE
+    # published (live at v1.0.1 per ADR-032). The non-dry-run body
+    # (huggingface_hub.snapshot_download(repo_id) + load via
+    # AutoModelForSequenceClassification.from_pretrained + CPU inference
+    # against the local val slate + score-match against
+    # evals/results.json within 1e-4 tolerance per ADR-034) is scaffolded
+    # but not implemented in v1.0.x. Per ADR-051 the T0 score-match wiring
+    # is a v1.1.x carryforward; reviewers can verify the published
+    # checkpoints by visiting the HF Hub repo URLs directly + reading the
+    # auto-generated model cards.
     print(
-        f"[t0-eval] HF Hub repo {repo_id} not yet published (Phase 5 ADR-032 deliverable). "
-        f"Re-run after `scripts/generate_model_cards.py` populates the model repo.",
+        f"[t0-eval] HF Hub repo {repo_id} is published "
+        f"(visit https://huggingface.co/{repo_id}); "
+        f"non-dry-run score-match body for the ADR-034 T0 contract is not "
+        f"implemented in v1.0.x. See WRITEUP/reproducibility.md T0 "
+        f"maintainer note + ADR-051 (carryforward to v1.1.x).",
         file=sys.stderr,
     )
     return 2

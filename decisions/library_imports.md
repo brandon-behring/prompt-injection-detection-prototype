@@ -99,9 +99,12 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 
 | Primitive | Invoked in | Purpose |
 |---|---|---|
-| `huggingface_hub.HfApi.upload_folder` | `scripts/generate_model_cards.py` (Phase 5 deliverable) | Push trained checkpoint + model card README to public HF Hub model repo per ADR-032 |
-| `huggingface_hub.HfApi.list_repos` | `tests/test_invariants.py::test_hf_hub_publication_naming_convention` (Phase 5 verification) | Verify naming convention `BBehring/prompt-injection-<rung-name>` for all published rungs |
-| `huggingface_hub.snapshot_download` | `scripts/eval_from_hub.py` (Phase 3 deliverable; T0 reproducibility tier per ADR-034) | Download a published checkpoint for eval-only reproduction; pin via `revision=<SHA>` if drift detected per ADR-034 extension condition |
+| `huggingface_hub.HfApi.create_repo` | `scripts/publish_to_hub.py` (v1.0.1; idempotent `exist_ok=True`) | Bootstrap `BBehring/prompt-injection-<rung>` model repos if absent; safe to re-run |
+| `huggingface_hub.HfApi.upload_folder` | `scripts/publish_to_hub.py` (v1.0.1) + `scripts/generate_model_cards.py` (v1.0.1 — model-card generator that publish_to_hub.py uploads) | Push trained checkpoint + auto-generated model card README to public HF Hub model repo per ADR-032; `allow_patterns` filters out optimizer.pt/rng/scheduler training state |
+| `huggingface_hub.HfApi.whoami` | `scripts/publish_to_hub.py` (v1.0.1) | Sanity-check authentication; prints the logged-in HF username before any upload to avoid silent wrong-namespace writes |
+| `huggingface_hub.ModelCard` | `scripts/generate_model_cards.py` (v1.0.1) | Library-first model-card template instantiation; project glue is the per-rung metric block + ADR-032 schema population |
+| `huggingface_hub.snapshot_download` | `scripts/eval_from_hub.py` (Phase 3 deliverable; T0 reproducibility tier per ADR-034) | Download a published checkpoint for eval-only reproduction; pin via `revision=<SHA>` if drift detected per ADR-034 extension condition. **Status (v1.0.1)**: scaffolded but not invoked — non-dry-run body is a v1.1.x deliverable per ADR-051 (carryforward of ADR-034 T0 score-match wiring) |
+| `huggingface_hub.HfApi.list_repos` | `tests/test_invariants.py::test_hf_hub_publication_naming_convention` (Phase 5 verification stub; v1.0.x carryforward per ADR-051) | Verify naming convention `BBehring/prompt-injection-<rung-name>` for all published rungs |
 
 ## Phase 3 Evaluation deps (introduced incrementally per ADR-045 across Commits 1–6)
 

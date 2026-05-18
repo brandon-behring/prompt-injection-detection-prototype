@@ -1,9 +1,9 @@
 {
   "adr": "ADR-046",
-  "commit_sha": "d69d5462a0d676e1c12a50c5bef7e5cf99491094",
+  "commit_sha": "948c50aa99639e9e6f351fa95a8466a3fd43f75b",
   "figure_dpi": "300",
   "figure_id": "F7",
-  "generated_at": "2026-05-18T10:20:12.673396+00:00",
+  "generated_at": "2026-05-18T17:39:52.411621+00:00",
   "matplotlib_version": "3.10.9",
-  "timestamp_utc": "2026-05-18T10:20:12+00:00"
+  "timestamp_utc": "2026-05-18T17:39:52+00:00"
 }
