@@ -32,7 +32,7 @@ with the desired output path + provenance dict.
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Final
+from typing import Final, cast
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -98,7 +98,7 @@ def render_f1_pareto(
     ax.set_xlabel("Compute (training cost proxy)")
     ax.set_ylabel("AUPRC")
     fig.tight_layout()
-    return fig
+    return cast(Figure, fig)
 
 
 # --------------------------------------------------------------------------- #
@@ -239,16 +239,19 @@ def render_f5_slice_heatmap(
     from eval_toolkit import plot_slice_metric_heatmap
 
     set_plot_style()
-    return plot_slice_metric_heatmap(
-        grid=metric_grid,
-        row_labels=row_labels,
-        col_labels=col_labels,
-        metric_name="metric",
-        cmap=cmap,
-        annotate=True,
-        annot_fmt="{:.3f}",
-        title=title,
-        figsize=figsize,
+    return cast(
+        Figure,
+        plot_slice_metric_heatmap(
+            grid=metric_grid,
+            row_labels=row_labels,
+            col_labels=col_labels,
+            metric_name="metric",
+            cmap=cmap,
+            annotate=True,
+            annot_fmt="{:.3f}",
+            title=title,
+            figsize=figsize,
+        ),
     )
 
 

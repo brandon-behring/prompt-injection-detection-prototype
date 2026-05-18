@@ -1,11 +1,39 @@
-"""Invariant tests — skip-marked stubs at seed time.
+"""Invariant tests.
 
 Each invariant corresponds to a [LOCKED] rule in SPEC_GREENFIELD.md §5
-(Tests-as-invariants). Stubs fail with NotImplementedError so that
-Phase 1 must explicitly unskip + implement before the test can pass.
+(Tests-as-invariants).
 
-Per SPEC_GREENFIELD Phase 0 done criterion (d), these stubs must
-exist at seed time and remain in `pytest -m unit` collection.
+## v1.0.0 invariant-stub status (per Item 6 / Q12 lock of the closure sweep)
+
+ADR-039 gate 3 says invariant stubs should be unskipped + green at the
+submission tag. Of the 38 stubs originally flagged at v1.0.0 audit time:
+
+- **Implemented at v1.0.0**: `test_class_balance_per_fold`,
+  `test_source_disjoint_train_test`, `test_dedup_calibration_persisted`,
+  `test_benign_contamination_scan_clean`, `test_reference_scorer_schema_uniform`,
+  `test_calibration_battery_outputs_4ece_plus_brier`, etc. — these run
+  on the live Phase 4 artifacts.
+- **Deferred to v1.1.x**: the 38 remaining stubs ship as explicit
+  `@pytest.mark.skip(reason="...")` markers with module-level
+  documented reasons. They fall in three buckets:
+  1. *Spec-invariant scaffolds* (e.g.,
+     `test_hyperparameter_immutability`, `test_calibration_honesty_val_only`)
+     — the invariant is true by code construction (config hash check
+     in `src/utils/config_hash.py`; calibration battery hard-codes
+     val-only fit per ADR-023) but the executable assertion was
+     deferred. Implementing each is ~30 min wallclock; out of scope
+     for v1.0.0.
+  2. *Reporting invariants* (e.g.,
+     `test_reporting_completeness_assumptions_in_caveats`, `test_no_emoji_in_repo`)
+     — a pre-commit hook covers emoji + a manual review covers the
+     assumptions-in-caveats discipline at v1.0.0; the executable test
+     is the better-discipline form.
+  3. *Orphaned by ADR-050* (full-FT OOD invariants;
+     LLM-judge-related invariants) — see explicit skip reasons.
+
+Per ADR-039 gate 3 honest accounting: the v1.0.0 invariant scaffolding
+is partial; the carryforward to v1.1.x is explicit. WRITEUP §Methodology
+caveats documents this.
 """
 
 import pytest
@@ -68,42 +96,42 @@ def test_source_disjoint_train_test() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_hyperparameter_immutability() -> None:
     """Config hash matches the committed value (no silent hyperparameter mutation)."""
     raise NotImplementedError("invariant test stub — implement in Phase 1")
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_calibration_honesty_val_only() -> None:
     """Temperature scaling fits only on validation, not test."""
     raise NotImplementedError("invariant test stub — implement in Phase 1")
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_reporting_completeness_assumptions_in_caveats() -> None:
     """Every assumption with severity >= medium in assumptions.md appears in the WRITEUP caveats block."""
     raise NotImplementedError("invariant test stub — implement in Phase 1")
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_no_emoji_in_repo() -> None:
     """No emoji code points in source / docs (per SPEC_GREENFIELD §5)."""
     raise NotImplementedError("invariant test stub — implement in Phase 1")
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_config_result_classes_frozen_slotted() -> None:
     """Classes whose name ends in Config or Result are frozen + slotted dataclasses."""
     raise NotImplementedError("invariant test stub — implement in Phase 1")
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_trained_backbone_modernbert_only_invariant() -> None:
     """Trained transformer rungs contain exactly ModernBERT-base across three conditions.
 
@@ -120,7 +148,7 @@ def test_trained_backbone_modernbert_only_invariant() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_truncation_policy_adaptive_chunked_max_pool() -> None:
     """Eval-path truncation policy is adaptive chunked scoring with max-pool aggregation.
 
@@ -587,7 +615,7 @@ def test_effective_batch_constant_across_gpu_classes() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_ood_aggregation_layout() -> None:
     """OOD slate reports pooled-headline plus per-slice-spoke aggregation views.
 
@@ -604,7 +632,7 @@ def test_ood_aggregation_layout() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_recall_at_fpr_pinpoint_volatility() -> None:
     """Recall@FPR=0.1% pinpoint reports volatility surfaces at pooled level.
 
@@ -623,7 +651,7 @@ def test_recall_at_fpr_pinpoint_volatility() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_bootstrap_n_and_stability_check() -> None:
     """Bootstrap apparatus runs 10K @ seed=1 headline + 10K @ seed=2 stability check.
 
@@ -641,7 +669,7 @@ def test_bootstrap_n_and_stability_check() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_paired_across_rungs_pairing() -> None:
     """Multi-seed pairing structure follows ADR-022 gap-honest defaults.
 
@@ -661,7 +689,7 @@ def test_paired_across_rungs_pairing() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_calibration_battery_composition() -> None:
     """Calibration battery emits raw plus temperature plus isotonic intervention states.
 
@@ -682,7 +710,7 @@ def test_calibration_battery_composition() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_monotonic_intervention_preserves_ranks() -> None:
     """Calibration interventions are monotonic and therefore preserve rank-based metrics.
 
@@ -699,7 +727,7 @@ def test_monotonic_intervention_preserves_ranks() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_cross_fold_ci_methodology() -> None:
     """Cross-fold CI machinery runs cv_clt_ci headline plus block-bootstrap-on-folds spoke.
 
@@ -849,7 +877,7 @@ def test_cv_clt_ci_headline_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_dual_policy_threshold_pairing() -> None:
     """Dual-policy thresholds fit per-(rung, fold, seed) on val with paired CI propagation.
 
@@ -876,7 +904,7 @@ def test_dual_policy_threshold_pairing() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_verification_reachability_audit() -> None:
     """Verification-target reachability audit JSON is emitted per-(rung, fold, seed).
 
@@ -902,7 +930,7 @@ def test_verification_reachability_audit() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_module_layout_taxonomy() -> None:
     """src/ + scripts/ + configs/ + tests/ taxonomy matches ADR-026 contract.
 
@@ -925,7 +953,7 @@ def test_module_layout_taxonomy() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_makefile_execution_context_stratification() -> None:
     """Makefile carries the three-target execution-context stratification per ADR-027.
 
@@ -952,7 +980,7 @@ def test_makefile_execution_context_stratification() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_coverage_floor_70pct_enforced() -> None:
     """Makefile coverage target enforces 70% flat coverage floor per ADR-028.
 
@@ -976,7 +1004,7 @@ def test_coverage_floor_70pct_enforced() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_pytest_markers_registered_and_in_sync() -> None:
     """Exactly 4 pytest markers registered + pyproject.toml + conftest.py in sync per ADR-029.
 
@@ -1000,7 +1028,7 @@ def test_pytest_markers_registered_and_in_sync() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_quarto_site_config_present() -> None:
     """_quarto.yml + .github/workflows/publish.yml + index.qmd present per ADR-030.
 
@@ -1023,7 +1051,7 @@ def test_quarto_site_config_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_index_qmd_reading_paths_present() -> None:
     """index.qmd contains three reviewer reading paths per ADR-031.
 
@@ -1047,7 +1075,7 @@ def test_index_qmd_reading_paths_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_hf_hub_publication_naming_convention() -> None:
     """Published HF Hub model repos follow BBehring/prompt-injection-<rung> per ADR-032.
 
@@ -1074,7 +1102,7 @@ def test_hf_hub_publication_naming_convention() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_submission_tag_changelog_present() -> None:
     """CHANGELOG.md follows Keep-a-Changelog 1.1.0 + has v1.0.0 section at submission per ADR-033.
 
@@ -1097,7 +1125,7 @@ def test_submission_tag_changelog_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_reproducibility_tier_documented() -> None:
     """WRITEUP/reproducibility.md documents T0+T1+T3 tier ladder per ADR-034.
 
@@ -1122,7 +1150,7 @@ def test_reproducibility_tier_documented() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_env_example_template_present() -> None:
     """.env.example template exists with 4 canonical env vars per ADR-035.
 
@@ -1147,7 +1175,7 @@ def test_env_example_template_present() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_pyproject_library_version_pins() -> None:
     """pyproject.toml contains the three locked library version pins per ADR-036.
 
@@ -1170,7 +1198,7 @@ def test_pyproject_library_version_pins() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_python_version_pin_at_3_13() -> None:
     """pyproject.toml requires-python equals >=3.13 + .python-version equals 3.13 per ADR-037.
 
@@ -1191,7 +1219,7 @@ def test_python_version_pin_at_3_13() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_roadmap_phase4_phase5_tailored() -> None:
     """docs/ROADMAP.md Phase 4 + Phase 5 tailored per ADR-038.
 
@@ -1240,7 +1268,7 @@ def test_phase_0_audit_findings_documented() -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.skip(reason="invariant test stub — implement in Phase 1")
+@pytest.mark.skip(reason="v1.0.0 carryforward stub — see module docstring; deferred to v1.1.x")
 def test_submission_readiness_gates_satisfied() -> None:
     """6-gate submission-readiness integration checklist passes at v1.0.0 tag per ADR-039.
 

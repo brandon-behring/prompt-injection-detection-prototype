@@ -317,7 +317,7 @@ def run_classical_floor_ood_tier(
                 t0 = time.time()
                 pipeline.fit(train_df["text"].tolist(), train_df["label"].astype(int).to_numpy())
                 print(
-                    f"[inference-battery] fit tfidf-lr fold{fold}/seed{seed} in {time.time()-t0:.1f}s",
+                    f"[inference-battery] fit tfidf-lr fold{fold}/seed{seed} in {time.time() - t0:.1f}s",
                     flush=True,
                 )
 

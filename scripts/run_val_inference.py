@@ -110,7 +110,7 @@ def run_tfidf_val(output_root: Path, smoke_n: int | None) -> tuple[int, list[str
                 out.to_parquet(out_path, index=False)
                 print(
                     f"[val-inference] wrote {rung_id}/fold{fold}/seed{seed}: "
-                    f"{len(out)} rows in {time.time()-t0:.1f}s",
+                    f"{len(out)} rows in {time.time() - t0:.1f}s",
                     flush=True,
                 )
                 n_success += 1
@@ -208,7 +208,7 @@ def run_trained_val(
                 out.to_parquet(out_path, index=False)
                 print(
                     f"[val-inference] wrote {rung}/fold{fold}/seed{seed}: "
-                    f"{len(out)} rows in {time.time()-t0:.1f}s",
+                    f"{len(out)} rows in {time.time() - t0:.1f}s",
                     flush=True,
                 )
                 n_success += 1

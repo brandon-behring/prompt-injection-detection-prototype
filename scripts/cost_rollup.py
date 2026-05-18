@@ -209,18 +209,13 @@ def main() -> int:
 
     if cumulative > TRIGGER_FLAG_USD:
         print(
-            f"[cost_rollup] WARN: cumulative ${cumulative:.2f} > soft-flag "
-            f"${TRIGGER_FLAG_USD:.2f}"
+            f"[cost_rollup] WARN: cumulative ${cumulative:.2f} > soft-flag ${TRIGGER_FLAG_USD:.2f}"
         )
     if cumulative > SOFT_CAP_USD:
-        print(
-            f"[cost_rollup] WARN: cumulative ${cumulative:.2f} > soft cap " f"${SOFT_CAP_USD:.2f}"
-        )
+        print(f"[cost_rollup] WARN: cumulative ${cumulative:.2f} > soft cap ${SOFT_CAP_USD:.2f}")
         print("[cost_rollup] WARN: ADR-020 line 148 requires evals/cost_decisions.md entry")
     if args.check and cumulative > HARD_CAP_USD:
-        print(
-            f"[cost_rollup] FAIL: cumulative ${cumulative:.2f} > hard cap " f"${HARD_CAP_USD:.2f}"
-        )
+        print(f"[cost_rollup] FAIL: cumulative ${cumulative:.2f} > hard cap ${HARD_CAP_USD:.2f}")
         print(
             "[cost_rollup] FAIL: ADR-020 line 148 requires superseding ADR "
             "before further GPU/API spend"
