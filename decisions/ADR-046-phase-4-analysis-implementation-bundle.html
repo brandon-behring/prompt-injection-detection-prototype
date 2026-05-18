@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-05-16">
+
+<title>Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred – Prompt-injection classifier — methodology submission</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Reading guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../WRITEUP.html"> 
+<span class="menu-text">Methodology (TOC)</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spokes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Spokes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spokes">    
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/data-decisions.html">
+ <span class="dropdown-text">Data decisions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/model-rungs.html">
+ <span class="dropdown-text">Model rungs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/eval-design.html">
+ <span class="dropdown-text">Evaluation design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/threshold-policy.html">
+ <span class="dropdown-text">Threshold policy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/reference-scorer-audit.html">
+ <span class="dropdown-text">Reference-scorer audit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/methodology-guarantees.html">
+ <span class="dropdown-text">Methodology guarantees</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/limitations-and-future-work.html">
+ <span class="dropdown-text">Limitations and future work</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/reproducibility.html">
+ <span class="dropdown-text">Reproducibility — three reproduction tiers</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../EVIDENCE.html"> 
+<span class="menu-text">Evidence</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../decisions/README.html"> 
+<span class="menu-text">Decisions (ADRs)</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Decisions (ADRs)</li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-046-phase-4-analysis-implementation-bundle.html">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reading guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classifier — methodology submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Methodology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classification — methodology + capability characterisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/data-decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data decisions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model rungs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/eval-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evaluation design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/threshold-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threshold policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/reference-scorer-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/limitations-and-future-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Limitations and future work</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility — three reproduction tiers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Evidence + audit</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evidence — audit trail</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions (ADRs)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submission deadline 2026-05-18 morning with infra-leveraged Long-scope attempt and fallback ladder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-003-repo-visibility-public.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repository visibility — public from start (kit default ratified)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer profile A1+A2 with hub-and-spoke writeup structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-005-methodology-principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-level methodology principles — methodology over metrics, honest evaluation preferred, structured limitations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-006-headline-metrics-and-statistical-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Headline metrics, operating-point pinpoints, and statistical apparatus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-007-rung-architecture-and-reference-scorers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology rung architecture — trained backbones, LLM-judge reference rungs, Cohen’s kappa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-008-data-scope-public-only-hybrid-splits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data scope — public-only sources, hybrid splits, NotInject inclusion (brief-level lock)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-009-process-mandates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Process mandates — two-tier reproducibility, marker-based testing, compute disclosure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-010-scope-limits-with-extension-conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scope limits with per-bound extension conditions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-011-methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees — eight banned approaches surfaced as project commitments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-012-soft-signals-and-artifact-engagement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Soft-signals naming discipline and external artifact engagement set</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kit-ratify bulk — Phase 0 strictness, brief-intake protocol, notebook role and RunPod persistence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-014-threat-model-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threat-model bundle — attack-class scope, language, length cap, truncation policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-015-rung-architecture-refinement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-016-data-design-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data design bundle — source slate, splits, HF pinning, dedup, ordering, ceilings, ref-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-017-trained-rung-slate-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference scorer slate and contamination stratification — OpenAI plus Anthropic LLM-judges plus ProtectAI v1 and v2 plus per-axis matched-budget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-019-lora-and-transformer-training-recipe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-020-compute-infrastructure-and-cost-discipline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eval slate aggregation — pooled headline plus per-slice spoke and recall@FPR pinpoint feasibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-022-statistical-inference-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-023-calibration-battery-and-interventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calibration battery composition — raw plus temperature plus isotonic interventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-024-cross-fold-ci-methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-025-dual-policy-threshold-characterization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dual-policy threshold characterization at symmetric 1% cost weights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-026-module-layout-concern-grouped-subpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module layout — concern-grouped sub-packages under src/</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Smoke vs canonical separation — three Makefile targets stratified by execution context</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-030-deliverable-format-quarto-html-site.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-032-hf-hub-publication-headline-rungs-only.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-035-secrets-management-three-store-split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Secrets management — three-store split aligned with execution context (.env + RunPod pod-secrets + GH Actions repo Secrets)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library version pins — tag pin to latest stable plus freeze for submission window (eval-toolkit v0.31.0 + runpod-deploy v0.7.7 + research_toolkit v1.9.1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-037-python-version-pin-3-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-038-phase-tailoring-light-roadmap-edits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase tailoring — light ROADMAP edits to Phase 4 close + Phase 5 description (preserves 5-phase structure)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-039-acceptance-criteria-six-gate-integration-checklist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-specific acceptance criteria — 6-gate integration checklist for v1.0.0 submission tag</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-040-phase-0-audit-findings-and-assumption-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 0 final audit findings + 7-assumption backfill (A-010 through A-016)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-041-phase-1-data-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 (Data) implementation bundle — manifest schema, SHA pinning, validator placement, loader arch, holdout sourcing, contamination corpus, output materialization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-043-post-split-cross-source-leakage-cleanup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-044-phase-2-training-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 2 training implementation bundle — seed slate reconciliation + manifest move + classical-floor location + YAML config schema + trainer split + per-rung orchestration + fixture preflight</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-045-phase-3-evaluation-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 3 evaluation implementation bundle — scoring-first contract + 6-commit cadence + tiered reference scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-046-phase-4-analysis-implementation-bundle.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-047-phase-1-library-first-carryforward-refactor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 library-first carryforward refactor — audit findings + remediation plan (splits + dedup + leakage_report + contamination_scan migration to eval-toolkit primitives; orphaned code removed in-commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-049-gpu-order-priority-refresh-a100-80g.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GPU failover ladder priority refresh — A100-SXM4-80GB to position 1 + US-WA-1/US-CA-2 datacenter additions + EU-RO-1 drop (frozen-probe + LoRA canonical; full-FT deferred to post-rehearsal)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash); narrow supersession of ADR-018 reference slate + ADR-021 OOD comparison scope</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#adr-046-phase-4-analysis-implementation-bundle" id="toc-adr-046-phase-4-analysis-implementation-bundle" class="nav-link active" data-scroll-target="#adr-046-phase-4-analysis-implementation-bundle">ADR-046: Phase 4 analysis implementation bundle</a>
+  <ul class="collapse">
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a>
+  <ul class="collapse">
+  <li><a href="#pre-existing-surface-inherited-by-phase-4" id="toc-pre-existing-surface-inherited-by-phase-4" class="nav-link" data-scroll-target="#pre-existing-surface-inherited-by-phase-4">Pre-existing surface inherited by Phase 4</a></li>
+  <li><a href="#what-remained-open-at-phase-4-entry" id="toc-what-remained-open-at-phase-4-entry" class="nav-link" data-scroll-target="#what-remained-open-at-phase-4-entry">What remained open at Phase 4 entry</a></li>
+  </ul></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
+  <ul class="collapse">
+  <li><a href="#q1-6-commit-cadence-phase-2-phase-3-precedent" id="toc-q1-6-commit-cadence-phase-2-phase-3-precedent" class="nav-link" data-scroll-target="#q1-6-commit-cadence-phase-2-phase-3-precedent">Q1 — 6-commit cadence (Phase 2 + Phase 3 precedent)</a></li>
+  <li><a href="#q2-scaffold-with-classical-floor-smoke-adr-045-q5-precedent" id="toc-q2-scaffold-with-classical-floor-smoke-adr-045-q5-precedent" class="nav-link" data-scroll-target="#q2-scaffold-with-classical-floor-smoke-adr-045-q5-precedent">Q2 — Scaffold-with-classical-floor smoke (ADR-045 Q5 precedent)</a></li>
+  <li><a href="#q3-always-emit-both-with-auto-flag-a-008-adr-024" id="toc-q3-always-emit-both-with-auto-flag-a-008-adr-024" class="nav-link" data-scroll-target="#q3-always-emit-both-with-auto-flag-a-008-adr-024">Q3 — Always-emit-both with auto-flag (A-008 + ADR-024)</a></li>
+  <li><a href="#q4-mde-on-every-emitted-ci-adr-006-mandate" id="toc-q4-mde-on-every-emitted-ci-adr-006-mandate" class="nav-link" data-scroll-target="#q4-mde-on-every-emitted-ci-adr-006-mandate">Q4 — MDE on every emitted CI (ADR-006 mandate)</a></li>
+  <li><a href="#q5-reference-scorer-llm-rater-audit-included-user-override" id="toc-q5-reference-scorer-llm-rater-audit-included-user-override" class="nav-link" data-scroll-target="#q5-reference-scorer-llm-rater-audit-included-user-override">Q5 — Reference-scorer LLM-rater audit INCLUDED (user override)</a></li>
+  <li><a href="#q6-library-first-hybrid-figures-revised-after-walkthrough-audit" id="toc-q6-library-first-hybrid-figures-revised-after-walkthrough-audit" class="nav-link" data-scroll-target="#q6-library-first-hybrid-figures-revised-after-walkthrough-audit">Q6 — Library-first hybrid figures (revised after walkthrough audit)</a></li>
+  <li><a href="#q7-phase-5-prep-deferred" id="toc-q7-phase-5-prep-deferred" class="nav-link" data-scroll-target="#q7-phase-5-prep-deferred">Q7 — Phase 5 prep deferred</a></li>
+  </ul></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Decisions (ADRs)</li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-046-phase-4-analysis-implementation-bundle.html">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 16, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="adr-046-phase-4-analysis-implementation-bundle" class="level1">
+<h1>ADR-046: Phase 4 analysis implementation bundle</h1>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Accepted (2026-05-16). Does not supersede any prior ADR; closes seven implementation-level decisions left open after Phase 0 + Phase 3.</p>
+</section>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>Phase 4 (Analysis) was unblocked at Phase 3 close (commits <code>8b96946..8272747</code> pushed to origin/main 2026-05-16; ADR-045 closed). <code>docs/ROADMAP.md:75</code> confirms Phase 4 entry once Phase 3’s statistical-inference apparatus (paired-bootstrap battery + dual-policy thresholds + calibration battery) shipped.</p>
+<p>The Phase 4 entry walkthrough generated 7 numbered <code>/exploring-options</code> questions following Phase 2 (ADR-044) + Phase 3 (ADR-045) precedent. Two notable user interventions during the walkthrough:</p>
+<ul>
+<li><strong>Q5 user override</strong> — the initial recommendation was to defer the LLM-rater reference-scorer audit per ROADMAP Phase 4 line 95 <code>[TBD-at-Phase-4]</code> cautionary framing. The user explicitly overrode and locked <strong>include-now</strong> — citing the value of front-loading the audit deliverable rather than waiting for an as-yet-unfired regex-tagger trigger.</li>
+<li><strong>Q6 library-first reaffirmation</strong> — the initial recommendation was hand-rolled matplotlib for the 7-figure slate. The user pushed back: <code>eval-toolkit</code> ships <code>plotting.py</code> with 7 plot helpers plus <code>save_figure</code> plus <code>PALETTE</code> plus <code>set_plot_style</code> — and the project-wide library-first invariant requires consuming these before any local glue. This reframing escalated into a project-wide invariant reaffirmation that triggered a retroactive Phase 1 audit + 4-commit carryforward refactor per ADR-047 (closed at <code>3615148</code> immediately before this ADR lands).</li>
+</ul>
+<section id="pre-existing-surface-inherited-by-phase-4" class="level3">
+<h3 class="anchored" data-anchor-id="pre-existing-surface-inherited-by-phase-4">Pre-existing surface inherited by Phase 4</h3>
+<p>Phase 0 + Phase 3 locked the methodology surface for analysis:</p>
+<ul>
+<li><strong>ADR-006</strong> — MDE estimated for every reported CI; 3-seed multi-seed floor.</li>
+<li><strong>ADR-018</strong> — 4 reference rungs + per-axis matched-budget framing.</li>
+<li><strong>ADR-021</strong> — pooled-headline + per-slice-spoke aggregation; recall@FPR pinpoint triad.</li>
+<li><strong>ADR-022</strong> — paired_bootstrap_diff per-row for trained-vs-trained; 10K bootstrap @ seed=1 headline + 10K @ seed=2 stability check; bootstrap apparatus.</li>
+<li><strong>ADR-023</strong> — full calibration battery (4-ECE matrix + Brier + reliability + temperature + isotonic) — landed in Phase 3 Commit 3.</li>
+<li><strong>ADR-024</strong> — cv_clt_ci (Bayle 2020) headline + block-bootstrap-on-folds spoke; A-008 sensitivity-check flag when <code>block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth &gt; 1.5</code>.</li>
+<li><strong>ADR-025</strong> — dual-policy thresholds; verification-reachability audit per A-009 — landed in Phase 3 Commit 4.</li>
+<li><strong>ADR-031</strong> — WRITEUP hub-and-spoke 8-spoke structure.</li>
+<li><strong>ADR-033</strong> — <code>v0.9.0-rc1</code> rehearsal tag (24+ hour dress-rehearsal post-Phase-4-close).</li>
+<li><strong>ADR-038</strong> — phase-tailoring lock; Phase 3+4 collapse rejected.</li>
+<li><strong>ADR-045</strong> — Phase 3 evaluation implementation bundle (Phase 3 close; full-pairwise paired-bootstrap persistence per Q6 user refinement; 30-cell bootstrap battery shipped to <code>evals/bootstrap/</code>).</li>
+<li><strong>ADR-047</strong> — Phase 1 library-first carryforward refactor (closed 3615148 immediately before this ADR; Phase 4 proceeds on clean library-first baseline).</li>
+</ul>
+</section>
+<section id="what-remained-open-at-phase-4-entry" class="level3">
+<h3 class="anchored" data-anchor-id="what-remained-open-at-phase-4-entry">What remained open at Phase 4 entry</h3>
+<p>Seven implementation-level questions the Phase 0 + Phase 3 ADRs did not specify at code-snippet level:</p>
+<ol type="1">
+<li>The commit cadence — mirror Phase 2 + Phase 3’s proven 6-commit pattern, or decompose differently.</li>
+<li>Data-dependence handling — block Phase 4 on operator-gated canonical GPU runs (72 transformer parquets), or scaffold against classical-floor predictions per Phase 3 Q5 precedent.</li>
+<li>Cross-fold CI spoke ablation — always emit both cv_clt_ci + block-bootstrap (rich audit trail) vs conditional emission (compute saver) vs operator-decided per cell.</li>
+<li>MDE scope per ADR-006 — apply to every emitted CI (~100 cells) vs headline-only (~20 cells) vs operator-flagged per cell.</li>
+<li>Reference-scorer LLM-rater audit — defer per ROADMAP <code>[TBD-at-Phase-4]</code> framing (defer recommendation) vs include now (~$5 LLM-rater pass) vs regex-based per-style tagger.</li>
+<li>Figures slate + renderer — initial recommendation was matplotlib throughout; user-reaffirmed library-first invariant escalated to library-first hybrid with 4 upstream gap issues filed.</li>
+<li>Phase 5 prep interleaving — Phase 4 stays analysis-only vs interleave Quarto + index.qmd scaffolding in Commit 6 vs full Phase 4+5 fusion (rejected per ADR-038).</li>
+</ol>
+<p>The walkthrough presented all 7 questions numbered; the user ratified 6 recommendations + explicitly overrode Q5 (include-now instead of defer). This ADR locks all seven; subsequent Phase 4 commits implement them.</p>
+</section>
+</section>
+<section id="decision" class="level2">
+<h2 class="anchored" data-anchor-id="decision">Decision</h2>
+<section id="q1-6-commit-cadence-phase-2-phase-3-precedent" class="level3">
+<h3 class="anchored" data-anchor-id="q1-6-commit-cadence-phase-2-phase-3-precedent">Q1 — 6-commit cadence (Phase 2 + Phase 3 precedent)</h3>
+<p>Per-commit decomposition:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commit</th>
+<th>Deliverable</th>
+<th>Invariant test landed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 (this)</td>
+<td>ADR-046 + SPEC_SHEET §3.8 + audit regen</td>
+<td>n/a</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>src/eval/marginal_bootstrap.py</code> (bootstrap_ci wrappers per ADR-022) + <code>src/eval/cross_fold_ci.py</code> (cv_clt_ci headline per ADR-024) + <code>src/eval/mde.py</code> (mde_from_ci wrappers per ADR-006) + smoke</td>
+<td><code>test_marginal_bootstrap_seed_stability</code> + <code>test_cv_clt_ci_methodology</code> (deferred-unskip at canonical evals run)</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>src/eval/cross_fold_ci.py</code> extension — always-emit block-bootstrap-on-folds spoke per A-008 + auto-flag column + smoke</td>
+<td><code>test_block_bootstrap_folds_spoke_present</code> + <code>test_a_008_flag_fired_when_ratio_exceeds_1_5</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>src/eval/figures.py</code> — library-first hybrid renderer per Q6; 7-figure slate; consumes <code>eval_toolkit.plotting.*</code> for F3 + F4 + F7-subpanels + project glue for F1 + F2 + F5 + F6 + F7-grid + smoke</td>
+<td><code>test_figures_slate_7_svgs_present</code> + <code>test_save_figure_provenance_chunks_present</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Orchestration scripts: <code>scripts/{run_marginal_bootstrap, run_cv_clt_ci, run_mde, render_figures, audit_reference_scorers}.py</code> per Q4 + Q5 + Q6</td>
+<td>smoke tests + cost-cap interactive-approval check for <code>audit_reference_scorers</code></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Makefile Phase 4 targets (<code>marginal-bootstrap</code>, <code>cv-clt-ci</code>, <code>mde-battery</code>, <code>render-figures</code>, <code>audit-reference-scorers</code>) + extended <code>make smoke</code> (Phase 4 fixture-pipeline pass under ADR-027 budget) + <code>docs/ROADMAP.md</code> Phase 4 close note + <code>v0.9.0-rc1</code> rehearsal-tag prep doc</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="q2-scaffold-with-classical-floor-smoke-adr-045-q5-precedent" class="level3">
+<h3 class="anchored" data-anchor-id="q2-scaffold-with-classical-floor-smoke-adr-045-q5-precedent">Q2 — Scaffold-with-classical-floor smoke (ADR-045 Q5 precedent)</h3>
+<p>All <code>src/eval/</code> Phase 4 modules consume any predictions parquet matching the <code>PredictionsRowModel</code> schema contract per ADR-045 Q3. Smoke tests use the 12 classical-floor parquets from <code>make eval-classical-floor</code> + the tiny fixture parquets at <code>tests/fixtures/processed/</code>. Transformer-pred-consuming integration invariants (e.g., <code>test_cross_fold_ci_methodology</code>, <code>test_bootstrap_n_and_stability_check</code>) remain <code>@pytest.mark.skip</code> until the 72 transformer parquets exist from operator-gated canonical <code>make headline-{frozen-probe, lora, full-ft}</code> per ADR-020. Phase 5 (WRITEUP) can begin in parallel against classical-floor numbers.</p>
+</section>
+<section id="q3-always-emit-both-with-auto-flag-a-008-adr-024" class="level3">
+<h3 class="anchored" data-anchor-id="q3-always-emit-both-with-auto-flag-a-008-adr-024">Q3 — Always-emit-both with auto-flag (A-008 + ADR-024)</h3>
+<p><code>src/eval/cross_fold_ci.py</code> (Commit 3) emits for every (rung, metric, slice) cell:</p>
+<ul>
+<li><code>cv_clt_ci_lo</code>, <code>cv_clt_ci_hi</code>, <code>cv_clt_ci_halfwidth</code> per Bayle 2020 Theorem 3.1 on 12 per-(fold, seed) values</li>
+<li><code>block_bootstrap_ci_lo</code>, <code>block_bootstrap_ci_hi</code>, <code>block_bootstrap_ci_halfwidth</code> per A-008 spoke ablation</li>
+<li><code>a_008_flag_fired</code> boolean — True iff <code>block_bootstrap_ci_halfwidth / cv_clt_ci_halfwidth &gt; 1.5</code></li>
+</ul>
+<p>Persisted to <code>evals/audit/cross_fold_ci_audit.parquet</code>. <code>WRITEUP/methodology.md</code> (spoke) text references the LODO non-exchangeability claim only conditionally on the flag firing per A-008. Full audit-trail completeness preserved per ADR-013 persist-everything-report-selectively pattern.</p>
+</section>
+<section id="q4-mde-on-every-emitted-ci-adr-006-mandate" class="level3">
+<h3 class="anchored" data-anchor-id="q4-mde-on-every-emitted-ci-adr-006-mandate">Q4 — MDE on every emitted CI (ADR-006 mandate)</h3>
+<p><code>src/eval/mde.py</code> (Commit 2) provides <code>mde_from_ci_record(ci_lo, ci_hi, n, alpha=0.05, power=0.8)</code> wrapping <code>eval_toolkit.bootstrap.mde_from_ci</code>. Orchestrated by <code>scripts/run_mde.py</code> (Commit 5) sweeping every CI cell across:</p>
+<ul>
+<li>Phase 3 Commit 5 paired-bootstrap cells (~30 cells; <code>evals/bootstrap/paired_*.parquet</code>)</li>
+<li>Phase 4 Commit 2 marginal-bootstrap cells (~40 cells; rungs × slices × metrics)</li>
+<li>Phase 4 Commit 3 cross-fold cells (~rungs × slices × metrics; both cv_clt + block-bootstrap)</li>
+<li>Operating-point diff cells (<code>paired_bootstrap_op_point_diff</code>)</li>
+<li>ECE delta cells (<code>paired_bootstrap_ece_diff</code>)</li>
+</ul>
+<p>Total persistence approximately 100 MDE cells in <code>evals/audit/mde_per_cell.parquet</code>. Phase 5 WRITEUP narrative picks reporting subset from the full matrix per ADR-013.</p>
+</section>
+<section id="q5-reference-scorer-llm-rater-audit-included-user-override" class="level3">
+<h3 class="anchored" data-anchor-id="q5-reference-scorer-llm-rater-audit-included-user-override">Q5 — Reference-scorer LLM-rater audit INCLUDED (user override)</h3>
+<p>User overrode the original defer recommendation. <code>scripts/audit_reference_scorers.py</code> (Commit 5):</p>
+<ul>
+<li>Samples ~50 prediction-pairs per reference rung (R-LLM-OpenAI + R-LLM-Anthropic + R-ProtectAI-v1 + R-ProtectAI-v2 per ADR-018) where the reference scorer disagrees with the trained-rung classifier (lora or full_ft headline).</li>
+<li>Rubric grades each pair as <code>(rater_judgment_correct_about_injection, calibration_assessment)</code>.</li>
+<li>Cost-cap-gated with interactive approval per ADR-020 + ADR-045 Q4 (estimated ~$5 per A-002 envelope across all 4 reference rungs).</li>
+<li>Results persisted to <code>evals/audit/reference_scorer_rater_audit.json</code> + a methodology spoke section in <code>WRITEUP/reference-scorer-audit.md</code>.</li>
+</ul>
+<p>User rationale: front-loading the audit deliverable is more valuable than waiting for a regex-tagger-conservative-enough trigger that may never fire.</p>
+</section>
+<section id="q6-library-first-hybrid-figures-revised-after-walkthrough-audit" class="level3">
+<h3 class="anchored" data-anchor-id="q6-library-first-hybrid-figures-revised-after-walkthrough-audit">Q6 — Library-first hybrid figures (revised after walkthrough audit)</h3>
+<p><code>src/eval/figures.py</code> (Commit 4) ships the 7-figure slate as a library-first hybrid:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Figure</th>
+<th>Render path</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F1 (Pareto AUPRC × compute)</td>
+<td>project glue + <code>set_plot_style</code> + <code>PALETTE</code> + <code>save_figure</code> (gap filed as issue #15)</td>
+</tr>
+<tr class="even">
+<td>F2 (ROC per rung)</td>
+<td>project glue + <code>set_plot_style</code> + <code>PALETTE</code> + <code>save_figure</code> (gap filed as issue #14; PR candidate per task #4)</td>
+</tr>
+<tr class="odd">
+<td>F3 (PR per rung)</td>
+<td><code>eval_toolkit.plotting.plot_pr_curve</code> directly</td>
+</tr>
+<tr class="even">
+<td>F4 (reliability diagrams: raw + temperature + isotonic)</td>
+<td><code>eval_toolkit.plotting.plot_reliability_diagram</code> × 3 panels via subplots</td>
+</tr>
+<tr class="odd">
+<td>F5 (per-slice OOD heatmap)</td>
+<td>project glue + <code>set_plot_style</code> + <code>save_figure</code> (gap filed as issue #16)</td>
+</tr>
+<tr class="even">
+<td>F6 (LODO fold variance breakdown)</td>
+<td>project glue + <code>plot_metric_bars</code> + <code>plot_lift_ci</code> + <code>save_figure</code></td>
+</tr>
+<tr class="odd">
+<td>F7 (dual-policy operating-point grid with reachability flags)</td>
+<td>project glue grid layout + <code>plot_bootstrap_distribution</code> sub-panels + <code>save_figure</code></td>
+</tr>
+</tbody>
+</table>
+<p>All output as SVG to <code>docs/plots/</code> per ADR-030 Quarto site embedding. <code>set_plot_style</code> + <code>PALETTE</code> (negative/positive/baseline/accent) applied throughout for consistent styling.</p>
+<p>Project-wide library-first invariant codified at walkthrough Q6 (memory entry <code>library-first-is-project-wide-invariant</code> 2026-05-16) — audit eval-toolkit + runpod-deploy + research_toolkit at every module-design step.</p>
+</section>
+<section id="q7-phase-5-prep-deferred" class="level3">
+<h3 class="anchored" data-anchor-id="q7-phase-5-prep-deferred">Q7 — Phase 5 prep deferred</h3>
+<p>Phase 4 stays analysis-only (single-concern phase per ADR-038 phase-tailoring lock). Phase 5 begins post-Phase-4-close with WRITEUP authoring + Quarto site infrastructure + model card scaffold. <code>v0.9.0-rc1</code> rehearsal tag fires after Phase 4 close per ADR-033 triggering the full publish pipeline as a 24+ hour dress-rehearsal; fix-forward via new commits + <code>v0.9.0-rc2</code> if rehearsal fails.</p>
+</section>
+</section>
+<section id="consequences" class="level2">
+<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
+<p><strong>Positive:</strong></p>
+<ul>
+<li>Phase 4 ships on clean library-first baseline (ADR-047 carryforward refactor closed immediately before this ADR).</li>
+<li>Q3 always-emit-both produces a richer audit trail than conditional emission; reviewer can verify the A-008 sensitivity-check methodology independently of whether the flag fires.</li>
+<li>Q4 MDE-on-every-CI satisfies ADR-006 mandate explicitly; Phase 5 WRITEUP narrative has full matrix to draw from without re-running.</li>
+<li>Q5 user override produces an additional reference-scorer audit deliverable that strengthens the methodology spoke; ~$5 cost is well within A-002 budget envelope.</li>
+<li>Q6 library-first hybrid honors the project-wide invariant + files 4 upstream gaps that benefit other eval-toolkit consumers.</li>
+<li>Q7 phase-gate discipline preserves clean separation between Phase 4 analysis and Phase 5 writeup.</li>
+</ul>
+<p><strong>Negative / cost:</strong></p>
+<ul>
+<li>Q4 MDE on every CI adds compute (~100 cells × ~0.01s per cell = trivial; not a real cost).</li>
+<li>Q5 LLM-rater audit adds ~$5 cost + interactive operator approval gate.</li>
+<li>Q6 library-first hybrid + 4 upstream gaps creates short-term coupling to upstream issue triage cadence (mitigated by project-glue fallbacks for all 4 gaps).</li>
+<li>6-commit cadence adds operator-driven commit cadence overhead vs collapsed 4-commit option; chosen because Phase 2 + Phase 3 6-commit precedent worked.</li>
+</ul>
+<p><strong>Neutral:</strong></p>
+<ul>
+<li>Q1 cadence + Q2 scaffold + Q7 Phase 5 defer all match prior phase precedent; no novel discipline.</li>
+<li>ADR-045 Q6 full-pairwise bootstrap persistence carries forward (Phase 4 reads <code>evals/bootstrap/</code> rather than re-running).</li>
+<li>ADR-038 phase-tailoring lock honored — no Phase 3+4 collapse, no Phase 4.5 split.</li>
+</ul>
+</section>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ul>
+<li><strong>Q1 — 4-commit collapsed cadence</strong>: combine bootstrap primitives + figures + scripts. <em>Rejected because</em>: harder to revert atomically per Phase 2/3 lessons; user ratified 6-commit.</li>
+<li><strong>Q2 — block on canonical runs</strong>: wait for <code>make headline-*</code> to complete before starting Phase 4. <em>Rejected because</em>: indefinite operator-availability stall; loses parallel-track shipping discipline that worked in Phase 3.</li>
+<li><strong>Q3 — conditional emission</strong>: only emit block-bootstrap when cv_clt_CI half-width exceeds threshold. <em>Rejected because</em>: loses audit-trail completeness; A-008 flag becomes data-dependent in a way that complicates the methodology spoke.</li>
+<li><strong>Q4 — headline-only MDE</strong>: compute MDE only on WRITEUP headline table cells (~20). <em>Rejected because</em>: misses ADR-006 contract on “every reported CI”; would need ADR amendment.</li>
+<li><strong>Q5 — defer LLM-rater audit (original recommendation)</strong>: ship <code>scripts/audit_reference_scorers.py</code> skeleton only; re-evaluate post-Phase-4. <em>User-overridden</em>: user explicitly chose include-now citing value of front-loading the audit.</li>
+<li><strong>Q6 — full matplotlib throughout (initial recommendation)</strong>: hand-roll all 7 figures. <em>Rejected after walkthrough Q6 user-reaffirmation</em>: violates project-wide library-first invariant. Revised to library-first hybrid; 4 upstream gaps filed before any glue ships.</li>
+<li><strong>Q7 — interleave Phase 5 prep in Commit 6</strong>: add Quarto + index.qmd scaffolding to Phase 4 close. <em>Rejected because</em>: muddies phase-gate; ADR-038 phase-tailoring lock applies; rehearsal tag naturally fires after Phase 4 close per ADR-033.</li>
+<li><strong>Q7 — full Phase 4+5 fusion</strong>: collapse Phase 4 + Phase 5 into one extended cycle. <em>Rejected per ADR-038 phase-tailoring lock</em> — “Phase 3+4 collapse is rejected since Phase 4 carries first-class statistical-inference work that deserves its own phase-gate discipline”.</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><code>decisions/ADR-006-headline-metrics-and-statistical-floor.md</code> — MDE-on-every-CI source</li>
+<li><code>decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</code> — 4 reference rungs source</li>
+<li><code>decisions/ADR-020-cost-cap-and-runpod-deploy.md</code> — Q5 cost-cap-gated interactive approval source</li>
+<li><code>decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md</code> — 5-slice OOD slate source</li>
+<li><code>decisions/ADR-022-statistical-inference-apparatus.md</code> — bootstrap apparatus source</li>
+<li><code>decisions/ADR-023-calibration-battery-and-interventions.md</code> — F4 reliability source</li>
+<li><code>decisions/ADR-024-cross-fold-ci-methodology.md</code> — Q3 cv_clt_ci + A-008 source</li>
+<li><code>decisions/ADR-025-dual-policy-threshold-characterization.md</code> — F7 dual-policy source</li>
+<li><code>decisions/ADR-031-writeup-hub-and-spoke-eight-spoke-structure.md</code> — WRITEUP spoke structure</li>
+<li><code>decisions/ADR-033-tag-discipline-and-publish-pipeline.md</code> — v0.9.0-rc1 rehearsal tag source</li>
+<li><code>decisions/ADR-038-phase-tailoring-light-roadmap-edits.md</code> — Q7 phase-tailoring lock</li>
+<li><code>decisions/ADR-045-phase-3-evaluation-implementation-bundle.md</code> — Phase 3 precedent + Q6 full-pairwise persistence</li>
+<li><code>decisions/ADR-047-phase-1-library-first-carryforward-refactor.md</code> — Phase 1 carryforward refactor (closed immediately before this ADR)</li>
+<li><code>decisions/library_imports.md</code> — library-first discipline ledger (expanded post-Phase-4 commits)</li>
+<li><code>decisions/upstream_issues.md</code> — upstream gaps ledger (entries #14-19)</li>
+<li><code>https://github.com/brandon-behring/eval-toolkit/issues/14</code> — <code>plot_roc_curve</code> PR candidate (F2)</li>
+<li><code>https://github.com/brandon-behring/eval-toolkit/issues/15</code> — <code>plot_pareto_frontier</code> (F1)</li>
+<li><code>https://github.com/brandon-behring/eval-toolkit/issues/16</code> — <code>plot_slice_metric_heatmap</code> (F5)</li>
+<li><code>https://github.com/brandon-behring/eval-toolkit/issues/17</code> — <code>paired_bootstrap_diff n_jobs</code> kwarg</li>
+</ul>
+</section>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>See <code>transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md</code> for the conversation that led to this decision (Phase 4 walkthrough Q1-Q7 + Q5 user override + Q6 library-first reaffirmation + ADR-047 carryforward refactor; saved 2026-05-16 mid-session per the save-transcripts-at-major-milestones discipline).</p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brandon-behring\.github\.io\/prompt-injection-detection-prototype\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "046"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> phase-4-analysis-implementation-bundle</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-046</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 4 entry bundles seven implementation choices closing implementation gaps in ADR-006/018/021/022/023/024/025/031/033/038 left open after Phase 0 lock and Phase 3 close. Q1 — Phase 4 ships in a 6-commit cadence mirroring Phase 2 + Phase 3 proven pattern — Commit 1 (this commit) does ADR-046 plus SPEC_SHEET §3.8; Commit 2 lands marginal bootstrap_ci primitives plus cv_clt_ci primitives plus mde_from_ci primitives wired through `src/eval/`; Commit 3 lands `src/eval/cross_fold_ci.py` with always-emit block-bootstrap-on-folds spoke per A-008 plus auto-flag column when `block_bootstrap_CI_halfwidth divided-by cv_clt_CI_halfwidth` exceeds 1.5; Commit 4 lands `src/eval/figures.py` with library-first hybrid renderers consuming `eval_toolkit.plotting.{plot_pr_curve, plot_reliability_diagram, plot_bootstrap_distribution, plot_metric_bars, plot_lift_ci, save_figure, PALETTE, set_plot_style}` for the 4 in-scope primitives plus project glue for the 5 gap-filling figures (F1 Pareto, F2 ROC, F5 slice heatmap, F6 LODO breakdown, F7 dual-policy grid layout) citing upstream issues #14 plus #15 plus #16 as TODOs; Commit 5 lands orchestration scripts `scripts/{run_marginal_bootstrap, run_cv_clt_ci, run_mde, render_figures, audit_reference_scorers}.py` per Q4 plus Q5 plus Q6; Commit 6 closes with Makefile Phase 4 targets plus extended smoke pipeline plus ROADMAP Phase 4 close note plus `v0.9.0-rc1` rehearsal-tag prep documentation per ADR-033. Q2 — data-dependence handling uses scaffold-with-classical-floor smoke discipline matching ADR-045 Q5 precedent — all `src/eval/` Phase 4 modules consume any predictions parquet matching the schema contract; smoke tests use classical-floor fixtures (12 parquets from `make eval-classical-floor`); transformer-dependent integration invariants stay skip-marked until the 72 transformer parquets exist from operator-gated canonical `make headline-{frozen-probe, lora, full-ft}` per ADR-020. Q3 — cross-fold CI spoke ablation always emits both cv_clt_ci plus block-bootstrap-on-folds for every (rung, metric, slice) cell to `evals/audit/cross_fold_ci_audit.parquet` with `a_008_flag_fired` boolean column when the ratio exceeds 1.5; methodology spoke text in `WRITEUP/methodology.md` references the LODO non-exchangeability claim only conditionally on the flag firing per A-008 plus ADR-024; full audit-trail completeness preserved per ADR-013 (persist everything, report selectively). Q4 — MDE on every emitted CI persisted to `evals/audit/mde_per_cell.parquet` — wraps Phase 3 Commit 5's full-pairwise paired-bootstrap cells (approximately 30 cells; persisted to `evals/bootstrap/`) plus Phase 4 marginal bootstrap cells (approximately rungs times slices times metrics equals 40 cells) plus cross-fold cv_clt cells plus paired_bootstrap_op_point cells plus paired_bootstrap_ece cells; total persistence approximately 100 MDE cells; cheap to compute relative to bootstrap itself; satisfies ADR-006 mandate explicitly; Phase 5 WRITEUP narrative picks reporting subset from the full matrix per ADR-013 persist-everything-report-selectively pattern. Q5 — reference-scorer LLM-rater audit included as a real Phase 4 deliverable (user override of defer recommendation) — `scripts/audit_reference_scorers.py` fires a small LLM-rater pass on the 4 reference-scorer outputs (R-LLM-OpenAI + R-LLM-Anthropic + R-ProtectAI-v1 + R-ProtectAI-v2 per ADR-018); sample-with-disagreement-with-classifier protocol surfaces approximately 50 pairs per reference rung; rubric grades each as `(rater_judgment_correct_about_injection, calibration_assessment)`; results persisted to `evals/audit/reference_scorer_rater_audit.json` plus a methodology spoke section in `WRITEUP/reference-scorer-audit.md`; cost-cap-gated with interactive approval per ADR-020 plus ADR-045 Q4 (approximately $5 per A-002 envelope); user explicitly overrode the original defer recommendation citing the value of front-loading the audit rather than waiting for a regex-tagger-conservative-enough trigger that may never fire. Q6 — figures slate ships as library-first hybrid (revised from initial all-matplotlib recommendation after user pushed back on the library-first audit at Q6 of the walkthrough; revealed eval-toolkit's plotting.py ships 7 plot helpers plus save_figure with PNG-PDF-SVG provenance plus PALETTE plus set_plot_style — and the project-wide library-first invariant requires consuming these before any local glue) — F3 PR curves consume `plot_pr_curve`; F4 reliability diagrams consume `plot_reliability_diagram` (3-fold raw plus temperature plus isotonic via subplots); F7 bootstrap distribution sub-panels consume `plot_bootstrap_distribution`; per-cell metric summaries with CI bands consume `plot_metric_bars` plus `plot_lift_ci`; project glue in `src/eval/figures.py` for F1 Pareto AUPRC times compute plus F2 ROC per rung plus F5 per-slice OOD heatmap plus F6 LODO fold variance breakdown plus F7 dual-policy operating-point grid layout — all consuming `set_plot_style` plus `PALETTE` plus `save_figure` for provenance-aware SVG output to `docs/plots/` per ADR-030 Quarto site embedding requirement; upstream gaps filed before any local glue ships as issues #14 (`plot_roc_curve` PR candidate) plus #15 (`plot_pareto_frontier`) plus #16 (`plot_slice_metric_heatmap`) plus #17 (`paired_bootstrap_diff n_jobs` kwarg for bootstrap-loop parallelization) per the project-wide library-first invariant codified at Q6 (memory entry `library-first-is-project-wide-invariant` 2026-05-16). Q7 — Phase 5 prep deferred — Phase 4 stays analysis-only (single-concern phase per ADR-038 phase-tailoring lock); Phase 5 begins post-Phase-4-close with WRITEUP authoring plus Quarto site infrastructure plus model card scaffold; `v0.9.0-rc1` rehearsal tag fires after Phase 4 close per ADR-033 triggering the full publish pipeline (Quarto site build per ADR-030 plus GH Pages deploy plus HF Hub model card pushes per ADR-032) as the 24-plus-hour dress-rehearsal; fix-forward via new commits plus `v0.9.0-rc2` if rehearsal fails. Phase 1 library-first carryforward refactor per ADR-047 closed at commit 3615148 before this commit lands — Phase 4 work proceeds on a clean library-first baseline. Implementation cadence follows Phase 1 plus Phase 2 plus Phase 3 precedent — each commit ships green-CI surface; ADR-046 cited in subsequent commits as `Q-N` for specific decisions.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> Phase 4 walkthrough — /exploring-options 7-question Phase 4 ratify session 2026-05-16 following Phase 1 (ADR-041) plus Phase 2 (ADR-044) plus Phase 3 (ADR-045) precedent; user override on Q5 (defer recommendation rejected; include-LLM-rater-audit-now locked); user reaffirmation at Q6 reframed library-first as project-wide invariant requiring retroactive Phase 1 audit per ADR-047</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> decisions/ADR-046-phase-4-analysis-implementation-bundle.md exists at this path with Accepted status; SPEC_SHEET.md §3.8 Phase 4 implementation status table added mirroring §3.7 Phase 3 pattern with per-commit rows tracking green status; SUBMISSION_AUDIT.md regenerates via scripts/regenerate_audit.py with ADR-046 included; src/eval/cross_fold_ci.py implementing always-emit-both cv_clt_ci plus block-bootstrap-on-folds plus a_008_flag_fired column per ADR-024 plus A-008 lands in Commit 3; src/eval/figures.py implementing the 7-figure slate as library-first hybrid (F3 plus F4 plus F7 sub-panels via eval-toolkit primitives; F1 plus F2 plus F5 plus F6 plus F7 grid via project glue with TODOs citing upstream issues #14 plus #15 plus #16) lands in Commit 4; scripts/run_marginal_bootstrap.py per Q4 lands in Commit 5; scripts/run_cv_clt_ci.py per Q3 lands in Commit 5; scripts/run_mde.py per Q4 lands in Commit 5 emitting evals/audit/mde_per_cell.parquet with one row per cell across Phase 3 paired-bootstrap plus Phase 4 marginal plus cross-fold plus operating-point plus ECE cells (approximately 100 total cells per ADR-006 mandate); scripts/render_figures.py per Q6 lands in Commit 5 emitting docs/plots/{F1, F2, F3, F4, F5, F6, F7}.svg; scripts/audit_reference_scorers.py per Q5 lands in Commit 5 firing the LLM-rater pass against approximately 50 disagreement-sampled pairs per reference rung at approximately $5 cost per A-002 envelope with interactive approval prompt per ADR-020 plus ADR-045 Q4 plus per-rung audit results persisted to evals/audit/reference_scorer_rater_audit.json; Makefile Phase 4 targets (marginal-bootstrap, cv-clt-ci, mde-battery, render-figures, audit-reference-scorers, eval-from-hub-paid LLM-rater rubric audit) plus extended smoke pipeline plus docs/ROADMAP.md Phase 4 close note added in Commit 6; v0.9.0-rc1 rehearsal-tag prep documentation in docs/ROADMAP.md Phase 4 close note per ADR-033 plus ADR-038; transcript checkpoint at transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md captured (covers Phase 4 walkthrough plus Phase 1 carryforward refactor session per ADR-047 plus this Phase 4 work); approximately 7 of 17 remaining-deferred invariants unskipped (test_cross_fold_ci_methodology plus test_bootstrap_n_and_stability_check plus test_paired_across_rungs_pairing all green at canonical evals time); WRITEUP spoke files (writeup/methodology.md plus writeup/reference-scorer-audit.md) populated with Phase 4 results post-Commit 5; Phase 5 (Writeup) unblocked at Commit 6 close; v0.9.0-rc1 rehearsal tag fires after Phase 4 close per ADR-033 triggering full publish pipeline dress-rehearsal.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 70e34fd</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-floor.md</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-cost-cap-and-runpod-deploy.md</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-022-statistical-inference-apparatus.md</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-023-calibration-battery-and-interventions.md</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-024-cross-fold-ci-methodology.md</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-025-dual-policy-threshold-characterization.md</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-026-module-layout-concern-grouped-subpackages.md</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-031-writeup-hub-and-spoke-eight-spoke-structure.md</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-033-tag-discipline-and-publish-pipeline.md</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-038-phase-tailoring-light-roadmap-edits.md</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-045-phase-3-evaluation-implementation-bundle.md</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-047-phase-1-library-first-carryforward-refactor.md</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/library_imports.md</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/upstream_issues.md</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/issues/14</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/issues/15</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/issues/16</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/issues/17</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-046: Phase 4 analysis implementation bundle</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Does not supersede any prior ADR; closes seven implementation-level decisions left open after Phase 0 + Phase 3.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>Phase 4 (Analysis) was unblocked at Phase 3 close (commits <span class="in">`8b96946..8272747`</span> pushed to origin/main 2026-05-16; ADR-045 closed). <span class="in">`docs/ROADMAP.md:75`</span> confirms Phase 4 entry once Phase 3's statistical-inference apparatus (paired-bootstrap battery + dual-policy thresholds + calibration battery) shipped.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>The Phase 4 entry walkthrough generated 7 numbered <span class="in">`/exploring-options`</span> questions following Phase 2 (ADR-044) + Phase 3 (ADR-045) precedent. Two notable user interventions during the walkthrough:</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q5 user override** — the initial recommendation was to defer the LLM-rater reference-scorer audit per ROADMAP Phase 4 line 95 `[TBD-at-Phase-4]` cautionary framing. The user explicitly overrode and locked **include-now** — citing the value of front-loading the audit deliverable rather than waiting for an as-yet-unfired regex-tagger trigger.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q6 library-first reaffirmation** — the initial recommendation was hand-rolled matplotlib for the 7-figure slate. The user pushed back: <span class="in">`eval-toolkit`</span> ships <span class="in">`plotting.py`</span> with 7 plot helpers plus <span class="in">`save_figure`</span> plus <span class="in">`PALETTE`</span> plus <span class="in">`set_plot_style`</span> — and the project-wide library-first invariant requires consuming these before any local glue. This reframing escalated into a project-wide invariant reaffirmation that triggered a retroactive Phase 1 audit + 4-commit carryforward refactor per ADR-047 (closed at <span class="in">`3615148`</span> immediately before this ADR lands).</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pre-existing surface inherited by Phase 4</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>Phase 0 + Phase 3 locked the methodology surface for analysis:</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-006** — MDE estimated for every reported CI; 3-seed multi-seed floor.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-018** — 4 reference rungs + per-axis matched-budget framing.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-021** — pooled-headline + per-slice-spoke aggregation; recall@FPR pinpoint triad.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-022** — paired_bootstrap_diff per-row for trained-vs-trained; 10K bootstrap @ seed=1 headline + 10K @ seed=2 stability check; bootstrap apparatus.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-023** — full calibration battery (4-ECE matrix + Brier + reliability + temperature + isotonic) — landed in Phase 3 Commit 3.</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-024** — cv_clt_ci (Bayle 2020) headline + block-bootstrap-on-folds spoke; A-008 sensitivity-check flag when <span class="in">`block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth &gt; 1.5`</span>.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-025** — dual-policy thresholds; verification-reachability audit per A-009 — landed in Phase 3 Commit 4.</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-031** — WRITEUP hub-and-spoke 8-spoke structure.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-033** — <span class="in">`v0.9.0-rc1`</span> rehearsal tag (24+ hour dress-rehearsal post-Phase-4-close).</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-038** — phase-tailoring lock; Phase 3+4 collapse rejected.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-045** — Phase 3 evaluation implementation bundle (Phase 3 close; full-pairwise paired-bootstrap persistence per Q6 user refinement; 30-cell bootstrap battery shipped to <span class="in">`evals/bootstrap/`</span>).</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-047** — Phase 1 library-first carryforward refactor (closed 3615148 immediately before this ADR; Phase 4 proceeds on clean library-first baseline).</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### What remained open at Phase 4 entry</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>Seven implementation-level questions the Phase 0 + Phase 3 ADRs did not specify at code-snippet level:</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The commit cadence — mirror Phase 2 + Phase 3's proven 6-commit pattern, or decompose differently.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Data-dependence handling — block Phase 4 on operator-gated canonical GPU runs (72 transformer parquets), or scaffold against classical-floor predictions per Phase 3 Q5 precedent.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Cross-fold CI spoke ablation — always emit both cv_clt_ci + block-bootstrap (rich audit trail) vs conditional emission (compute saver) vs operator-decided per cell.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>MDE scope per ADR-006 — apply to every emitted CI (~100 cells) vs headline-only (~20 cells) vs operator-flagged per cell.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Reference-scorer LLM-rater audit — defer per ROADMAP <span class="in">`[TBD-at-Phase-4]`</span> framing (defer recommendation) vs include now (~$5 LLM-rater pass) vs regex-based per-style tagger.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Figures slate + renderer — initial recommendation was matplotlib throughout; user-reaffirmed library-first invariant escalated to library-first hybrid with 4 upstream gap issues filed.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Phase 5 prep interleaving — Phase 4 stays analysis-only vs interleave Quarto + index.qmd scaffolding in Commit 6 vs full Phase 4+5 fusion (rejected per ADR-038).</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>The walkthrough presented all 7 questions numbered; the user ratified 6 recommendations + explicitly overrode Q5 (include-now instead of defer). This ADR locks all seven; subsequent Phase 4 commits implement them.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1 — 6-commit cadence (Phase 2 + Phase 3 precedent)</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>Per-commit decomposition:</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Commit <span class="pp">|</span> Deliverable <span class="pp">|</span> Invariant test landed <span class="pp">|</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 (this) <span class="pp">|</span> ADR-046 + SPEC_SHEET §3.8 + audit regen <span class="pp">|</span> n/a <span class="pp">|</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> <span class="in">`src/eval/marginal_bootstrap.py`</span> (bootstrap_ci wrappers per ADR-022) + <span class="in">`src/eval/cross_fold_ci.py`</span> (cv_clt_ci headline per ADR-024) + <span class="in">`src/eval/mde.py`</span> (mde_from_ci wrappers per ADR-006) + smoke <span class="pp">|</span> <span class="in">`test_marginal_bootstrap_seed_stability`</span> + <span class="in">`test_cv_clt_ci_methodology`</span> (deferred-unskip at canonical evals run) <span class="pp">|</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> <span class="in">`src/eval/cross_fold_ci.py`</span> extension — always-emit block-bootstrap-on-folds spoke per A-008 + auto-flag column + smoke <span class="pp">|</span> <span class="in">`test_block_bootstrap_folds_spoke_present`</span> + <span class="in">`test_a_008_flag_fired_when_ratio_exceeds_1_5`</span> <span class="pp">|</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> <span class="in">`src/eval/figures.py`</span> — library-first hybrid renderer per Q6; 7-figure slate; consumes <span class="in">`eval_toolkit.plotting.*`</span> for F3 + F4 + F7-subpanels + project glue for F1 + F2 + F5 + F6 + F7-grid + smoke <span class="pp">|</span> <span class="in">`test_figures_slate_7_svgs_present`</span> + <span class="in">`test_save_figure_provenance_chunks_present`</span> <span class="pp">|</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> Orchestration scripts: <span class="in">`scripts/{run_marginal_bootstrap, run_cv_clt_ci, run_mde, render_figures, audit_reference_scorers}.py`</span> per Q4 + Q5 + Q6 <span class="pp">|</span> smoke tests + cost-cap interactive-approval check for <span class="in">`audit_reference_scorers`</span> <span class="pp">|</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> Makefile Phase 4 targets (<span class="in">`marginal-bootstrap`</span>, <span class="in">`cv-clt-ci`</span>, <span class="in">`mde-battery`</span>, <span class="in">`render-figures`</span>, <span class="in">`audit-reference-scorers`</span>) + extended <span class="in">`make smoke`</span> (Phase 4 fixture-pipeline pass under ADR-027 budget) + <span class="in">`docs/ROADMAP.md`</span> Phase 4 close note + <span class="in">`v0.9.0-rc1`</span> rehearsal-tag prep doc <span class="pp">|</span> n/a <span class="pp">|</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2 — Scaffold-with-classical-floor smoke (ADR-045 Q5 precedent)</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>All <span class="in">`src/eval/`</span> Phase 4 modules consume any predictions parquet matching the <span class="in">`PredictionsRowModel`</span> schema contract per ADR-045 Q3. Smoke tests use the 12 classical-floor parquets from <span class="in">`make eval-classical-floor`</span> + the tiny fixture parquets at <span class="in">`tests/fixtures/processed/`</span>. Transformer-pred-consuming integration invariants (e.g., <span class="in">`test_cross_fold_ci_methodology`</span>, <span class="in">`test_bootstrap_n_and_stability_check`</span>) remain <span class="in">`@pytest.mark.skip`</span> until the 72 transformer parquets exist from operator-gated canonical <span class="in">`make headline-{frozen-probe, lora, full-ft}`</span> per ADR-020. Phase 5 (WRITEUP) can begin in parallel against classical-floor numbers.</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3 — Always-emit-both with auto-flag (A-008 + ADR-024)</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="in">`src/eval/cross_fold_ci.py`</span> (Commit 3) emits for every (rung, metric, slice) cell:</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cv_clt_ci_lo`</span>, <span class="in">`cv_clt_ci_hi`</span>, <span class="in">`cv_clt_ci_halfwidth`</span> per Bayle 2020 Theorem 3.1 on 12 per-(fold, seed) values</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`block_bootstrap_ci_lo`</span>, <span class="in">`block_bootstrap_ci_hi`</span>, <span class="in">`block_bootstrap_ci_halfwidth`</span> per A-008 spoke ablation</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`a_008_flag_fired`</span> boolean — True iff <span class="in">`block_bootstrap_ci_halfwidth / cv_clt_ci_halfwidth &gt; 1.5`</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>Persisted to <span class="in">`evals/audit/cross_fold_ci_audit.parquet`</span>. <span class="in">`WRITEUP/methodology.md`</span> (spoke) text references the LODO non-exchangeability claim only conditionally on the flag firing per A-008. Full audit-trail completeness preserved per ADR-013 persist-everything-report-selectively pattern.</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4 — MDE on every emitted CI (ADR-006 mandate)</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="in">`src/eval/mde.py`</span> (Commit 2) provides <span class="in">`mde_from_ci_record(ci_lo, ci_hi, n, alpha=0.05, power=0.8)`</span> wrapping <span class="in">`eval_toolkit.bootstrap.mde_from_ci`</span>. Orchestrated by <span class="in">`scripts/run_mde.py`</span> (Commit 5) sweeping every CI cell across:</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Phase 3 Commit 5 paired-bootstrap cells (~30 cells; <span class="in">`evals/bootstrap/paired_*.parquet`</span>)</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Phase 4 Commit 2 marginal-bootstrap cells (~40 cells; rungs × slices × metrics)</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Phase 4 Commit 3 cross-fold cells (~rungs × slices × metrics; both cv_clt + block-bootstrap)</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Operating-point diff cells (<span class="in">`paired_bootstrap_op_point_diff`</span>)</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ECE delta cells (<span class="in">`paired_bootstrap_ece_diff`</span>)</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>Total persistence approximately 100 MDE cells in <span class="in">`evals/audit/mde_per_cell.parquet`</span>. Phase 5 WRITEUP narrative picks reporting subset from the full matrix per ADR-013.</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5 — Reference-scorer LLM-rater audit INCLUDED (user override)</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>User overrode the original defer recommendation. <span class="in">`scripts/audit_reference_scorers.py`</span> (Commit 5):</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Samples ~50 prediction-pairs per reference rung (R-LLM-OpenAI + R-LLM-Anthropic + R-ProtectAI-v1 + R-ProtectAI-v2 per ADR-018) where the reference scorer disagrees with the trained-rung classifier (lora or full_ft headline).</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Rubric grades each pair as <span class="in">`(rater_judgment_correct_about_injection, calibration_assessment)`</span>.</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cost-cap-gated with interactive approval per ADR-020 + ADR-045 Q4 (estimated ~$5 per A-002 envelope across all 4 reference rungs).</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Results persisted to <span class="in">`evals/audit/reference_scorer_rater_audit.json`</span> + a methodology spoke section in <span class="in">`WRITEUP/reference-scorer-audit.md`</span>.</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>User rationale: front-loading the audit deliverable is more valuable than waiting for a regex-tagger-conservative-enough trigger that may never fire.</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6 — Library-first hybrid figures (revised after walkthrough audit)</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="in">`src/eval/figures.py`</span> (Commit 4) ships the 7-figure slate as a library-first hybrid:</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Figure <span class="pp">|</span> Render path <span class="pp">|</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F1 (Pareto AUPRC × compute) <span class="pp">|</span> project glue + <span class="in">`set_plot_style`</span> + <span class="in">`PALETTE`</span> + <span class="in">`save_figure`</span> (gap filed as issue #15) <span class="pp">|</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F2 (ROC per rung) <span class="pp">|</span> project glue + <span class="in">`set_plot_style`</span> + <span class="in">`PALETTE`</span> + <span class="in">`save_figure`</span> (gap filed as issue #14; PR candidate per task #4) <span class="pp">|</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F3 (PR per rung) <span class="pp">|</span> <span class="in">`eval_toolkit.plotting.plot_pr_curve`</span> directly <span class="pp">|</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F4 (reliability diagrams: raw + temperature + isotonic) <span class="pp">|</span> <span class="in">`eval_toolkit.plotting.plot_reliability_diagram`</span> × 3 panels via subplots <span class="pp">|</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F5 (per-slice OOD heatmap) <span class="pp">|</span> project glue + <span class="in">`set_plot_style`</span> + <span class="in">`save_figure`</span> (gap filed as issue #16) <span class="pp">|</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F6 (LODO fold variance breakdown) <span class="pp">|</span> project glue + <span class="in">`plot_metric_bars`</span> + <span class="in">`plot_lift_ci`</span> + <span class="in">`save_figure`</span> <span class="pp">|</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> F7 (dual-policy operating-point grid with reachability flags) <span class="pp">|</span> project glue grid layout + <span class="in">`plot_bootstrap_distribution`</span> sub-panels + <span class="in">`save_figure`</span> <span class="pp">|</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>All output as SVG to <span class="in">`docs/plots/`</span> per ADR-030 Quarto site embedding. <span class="in">`set_plot_style`</span> + <span class="in">`PALETTE`</span> (negative/positive/baseline/accent) applied throughout for consistent styling.</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>Project-wide library-first invariant codified at walkthrough Q6 (memory entry <span class="in">`library-first-is-project-wide-invariant`</span> 2026-05-16) — audit eval-toolkit + runpod-deploy + research_toolkit at every module-design step.</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7 — Phase 5 prep deferred</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>Phase 4 stays analysis-only (single-concern phase per ADR-038 phase-tailoring lock). Phase 5 begins post-Phase-4-close with WRITEUP authoring + Quarto site infrastructure + model card scaffold. <span class="in">`v0.9.0-rc1`</span> rehearsal tag fires after Phase 4 close per ADR-033 triggering the full publish pipeline as a 24+ hour dress-rehearsal; fix-forward via new commits + <span class="in">`v0.9.0-rc2`</span> if rehearsal fails.</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>**Positive:**</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Phase 4 ships on clean library-first baseline (ADR-047 carryforward refactor closed immediately before this ADR).</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q3 always-emit-both produces a richer audit trail than conditional emission; reviewer can verify the A-008 sensitivity-check methodology independently of whether the flag fires.</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q4 MDE-on-every-CI satisfies ADR-006 mandate explicitly; Phase 5 WRITEUP narrative has full matrix to draw from without re-running.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q5 user override produces an additional reference-scorer audit deliverable that strengthens the methodology spoke; ~$5 cost is well within A-002 budget envelope.</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q6 library-first hybrid honors the project-wide invariant + files 4 upstream gaps that benefit other eval-toolkit consumers.</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q7 phase-gate discipline preserves clean separation between Phase 4 analysis and Phase 5 writeup.</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>**Negative / cost:**</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q4 MDE on every CI adds compute (~100 cells × ~0.01s per cell = trivial; not a real cost).</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q5 LLM-rater audit adds ~$5 cost + interactive operator approval gate.</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q6 library-first hybrid + 4 upstream gaps creates short-term coupling to upstream issue triage cadence (mitigated by project-glue fallbacks for all 4 gaps).</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>6-commit cadence adds operator-driven commit cadence overhead vs collapsed 4-commit option; chosen because Phase 2 + Phase 3 6-commit precedent worked.</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>**Neutral:**</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Q1 cadence + Q2 scaffold + Q7 Phase 5 defer all match prior phase precedent; no novel discipline.</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-045 Q6 full-pairwise bootstrap persistence carries forward (Phase 4 reads <span class="in">`evals/bootstrap/`</span> rather than re-running).</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-038 phase-tailoring lock honored — no Phase 3+4 collapse, no Phase 4.5 split.</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q1 — 4-commit collapsed cadence**: combine bootstrap primitives + figures + scripts. *Rejected because*: harder to revert atomically per Phase 2/3 lessons; user ratified 6-commit.</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q2 — block on canonical runs**: wait for <span class="in">`make headline-*`</span> to complete before starting Phase 4. *Rejected because*: indefinite operator-availability stall; loses parallel-track shipping discipline that worked in Phase 3.</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q3 — conditional emission**: only emit block-bootstrap when cv_clt_CI half-width exceeds threshold. *Rejected because*: loses audit-trail completeness; A-008 flag becomes data-dependent in a way that complicates the methodology spoke.</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q4 — headline-only MDE**: compute MDE only on WRITEUP headline table cells (~20). *Rejected because*: misses ADR-006 contract on "every reported CI"; would need ADR amendment.</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q5 — defer LLM-rater audit (original recommendation)**: ship <span class="in">`scripts/audit_reference_scorers.py`</span> skeleton only; re-evaluate post-Phase-4. *User-overridden*: user explicitly chose include-now citing value of front-loading the audit.</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q6 — full matplotlib throughout (initial recommendation)**: hand-roll all 7 figures. *Rejected after walkthrough Q6 user-reaffirmation*: violates project-wide library-first invariant. Revised to library-first hybrid; 4 upstream gaps filed before any glue ships.</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q7 — interleave Phase 5 prep in Commit 6**: add Quarto + index.qmd scaffolding to Phase 4 close. *Rejected because*: muddies phase-gate; ADR-038 phase-tailoring lock applies; rehearsal tag naturally fires after Phase 4 close per ADR-033.</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q7 — full Phase 4+5 fusion**: collapse Phase 4 + Phase 5 into one extended cycle. *Rejected per ADR-038 phase-tailoring lock* — "Phase 3+4 collapse is rejected since Phase 4 carries first-class statistical-inference work that deserves its own phase-gate discipline".</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-006-headline-metrics-and-statistical-floor.md`</span> — MDE-on-every-CI source</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md`</span> — 4 reference rungs source</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-020-cost-cap-and-runpod-deploy.md`</span> — Q5 cost-cap-gated interactive approval source</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md`</span> — 5-slice OOD slate source</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-022-statistical-inference-apparatus.md`</span> — bootstrap apparatus source</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-023-calibration-battery-and-interventions.md`</span> — F4 reliability source</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-024-cross-fold-ci-methodology.md`</span> — Q3 cv_clt_ci + A-008 source</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-025-dual-policy-threshold-characterization.md`</span> — F7 dual-policy source</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-031-writeup-hub-and-spoke-eight-spoke-structure.md`</span> — WRITEUP spoke structure</span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-033-tag-discipline-and-publish-pipeline.md`</span> — v0.9.0-rc1 rehearsal tag source</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-038-phase-tailoring-light-roadmap-edits.md`</span> — Q7 phase-tailoring lock</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-045-phase-3-evaluation-implementation-bundle.md`</span> — Phase 3 precedent + Q6 full-pairwise persistence</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-047-phase-1-library-first-carryforward-refactor.md`</span> — Phase 1 carryforward refactor (closed immediately before this ADR)</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/library_imports.md`</span> — library-first discipline ledger (expanded post-Phase-4 commits)</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/upstream_issues.md`</span> — upstream gaps ledger (entries #14-19)</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`https://github.com/brandon-behring/eval-toolkit/issues/14`</span> — <span class="in">`plot_roc_curve`</span> PR candidate (F2)</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`https://github.com/brandon-behring/eval-toolkit/issues/15`</span> — <span class="in">`plot_pareto_frontier`</span> (F1)</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`https://github.com/brandon-behring/eval-toolkit/issues/16`</span> — <span class="in">`plot_slice_metric_heatmap`</span> (F5)</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`https://github.com/brandon-behring/eval-toolkit/issues/17`</span> — <span class="in">`paired_bootstrap_diff n_jobs`</span> kwarg</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md`</span> for the conversation that led to this decision (Phase 4 walkthrough Q1-Q7 + Q5 user override + Q6 library-first reaffirmation + ADR-047 carryforward refactor; saved 2026-05-16 mid-session per the save-transcripts-at-major-milestones discipline).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

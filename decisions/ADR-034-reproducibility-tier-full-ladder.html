@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-05-16">
+
+<title>Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud) – Prompt-injection classifier — methodology submission</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Reading guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../WRITEUP.html"> 
+<span class="menu-text">Methodology (TOC)</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spokes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Spokes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spokes">    
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/data-decisions.html">
+ <span class="dropdown-text">Data decisions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/model-rungs.html">
+ <span class="dropdown-text">Model rungs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/eval-design.html">
+ <span class="dropdown-text">Evaluation design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/threshold-policy.html">
+ <span class="dropdown-text">Threshold policy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/reference-scorer-audit.html">
+ <span class="dropdown-text">Reference-scorer audit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/methodology-guarantees.html">
+ <span class="dropdown-text">Methodology guarantees</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/limitations-and-future-work.html">
+ <span class="dropdown-text">Limitations and future work</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/reproducibility.html">
+ <span class="dropdown-text">Reproducibility — three reproduction tiers</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../EVIDENCE.html"> 
+<span class="menu-text">Evidence</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../decisions/README.html"> 
+<span class="menu-text">Decisions (ADRs)</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Decisions (ADRs)</li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reading guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classifier — methodology submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Methodology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classification — methodology + capability characterisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/data-decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data decisions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model rungs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/eval-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evaluation design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/threshold-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threshold policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/reference-scorer-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/limitations-and-future-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Limitations and future work</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility — three reproduction tiers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Evidence + audit</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evidence — audit trail</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions (ADRs)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submission deadline 2026-05-18 morning with infra-leveraged Long-scope attempt and fallback ladder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-003-repo-visibility-public.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repository visibility — public from start (kit default ratified)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer profile A1+A2 with hub-and-spoke writeup structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-005-methodology-principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-level methodology principles — methodology over metrics, honest evaluation preferred, structured limitations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-006-headline-metrics-and-statistical-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Headline metrics, operating-point pinpoints, and statistical apparatus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-007-rung-architecture-and-reference-scorers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology rung architecture — trained backbones, LLM-judge reference rungs, Cohen's kappa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-008-data-scope-public-only-hybrid-splits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data scope — public-only sources, hybrid splits, NotInject inclusion (brief-level lock)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-009-process-mandates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Process mandates — two-tier reproducibility, marker-based testing, compute disclosure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-010-scope-limits-with-extension-conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scope limits with per-bound extension conditions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-011-methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees — eight banned approaches surfaced as project commitments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-012-soft-signals-and-artifact-engagement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Soft-signals naming discipline and external artifact engagement set</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kit-ratify bulk — Phase 0 strictness, brief-intake protocol, notebook role and RunPod persistence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-014-threat-model-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threat-model bundle — attack-class scope, language, length cap, truncation policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-015-rung-architecture-refinement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-016-data-design-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data design bundle — source slate, splits, HF pinning, dedup, ordering, ceilings, ref-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-017-trained-rung-slate-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference scorer slate and contamination stratification — OpenAI plus Anthropic LLM-judges plus ProtectAI v1 and v2 plus per-axis matched-budget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-019-lora-and-transformer-training-recipe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-020-compute-infrastructure-and-cost-discipline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eval slate aggregation — pooled headline plus per-slice spoke and recall@FPR pinpoint feasibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-022-statistical-inference-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-023-calibration-battery-and-interventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calibration battery composition — raw plus temperature plus isotonic interventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-024-cross-fold-ci-methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-025-dual-policy-threshold-characterization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dual-policy threshold characterization at symmetric 1% cost weights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-026-module-layout-concern-grouped-subpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module layout — concern-grouped sub-packages under src/</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Smoke vs canonical separation — three Makefile targets stratified by execution context</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-030-deliverable-format-quarto-html-site.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-032-hf-hub-publication-headline-rungs-only.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-035-secrets-management-three-store-split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Secrets management — three-store split aligned with execution context (.env + RunPod pod-secrets + GH Actions repo Secrets)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library version pins — tag pin to latest stable plus freeze for submission window (eval-toolkit v0.31.0 + runpod-deploy v0.7.7 + research_toolkit v1.9.1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-037-python-version-pin-3-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-038-phase-tailoring-light-roadmap-edits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase tailoring — light ROADMAP edits to Phase 4 close + Phase 5 description (preserves 5-phase structure)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-039-acceptance-criteria-six-gate-integration-checklist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-specific acceptance criteria — 6-gate integration checklist for v1.0.0 submission tag</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-040-phase-0-audit-findings-and-assumption-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 0 final audit findings + 7-assumption backfill (A-010 through A-016)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-041-phase-1-data-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 (Data) implementation bundle — manifest schema, SHA pinning, validator placement, loader arch, holdout sourcing, contamination corpus, output materialization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-043-post-split-cross-source-leakage-cleanup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-044-phase-2-training-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 2 training implementation bundle — seed slate reconciliation + manifest move + classical-floor location + YAML config schema + trainer split + per-rung orchestration + fixture preflight</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-045-phase-3-evaluation-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 3 evaluation implementation bundle — scoring-first contract + 6-commit cadence + tiered reference scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-046-phase-4-analysis-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-047-phase-1-library-first-carryforward-refactor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 library-first carryforward refactor — audit findings + remediation plan (splits + dedup + leakage_report + contamination_scan migration to eval-toolkit primitives; orphaned code removed in-commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-049-gpu-order-priority-refresh-a100-80g.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GPU failover ladder priority refresh — A100-SXM4-80GB to position 1 + US-WA-1/US-CA-2 datacenter additions + EU-RO-1 drop (frozen-probe + LoRA canonical; full-FT deferred to post-rehearsal)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash); narrow supersession of ADR-018 reference slate + ADR-021 OOD comparison scope</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#adr-034-reproducibility-tier-full-ladder-t0-t1-t3" id="toc-adr-034-reproducibility-tier-full-ladder-t0-t1-t3" class="nav-link active" data-scroll-target="#adr-034-reproducibility-tier-full-ladder-t0-t1-t3">ADR-034: Reproducibility tier — full ladder T0 + T1 + T3</a>
+  <ul class="collapse">
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
+  <li><a href="#t1-smoke-laptop-0-10-min" id="toc-t1-smoke-laptop-0-10-min" class="nav-link" data-scroll-target="#t1-smoke-laptop-0-10-min">T1 — smoke (laptop, ~$0, ~10 min)</a></li>
+  <li><a href="#t3-headline-cloud-cloud-gpu-125-hours" id="toc-t3-headline-cloud-cloud-gpu-125-hours" class="nav-link" data-scroll-target="#t3-headline-cloud-cloud-gpu-125-hours">T3 — headline-cloud (cloud-GPU, ~$125+, ~hours)</a></li>
+  <li><a href="#tier-coverage-matrix" id="toc-tier-coverage-matrix" class="nav-link" data-scroll-target="#tier-coverage-matrix">Tier coverage matrix</a></li>
+  <li><a href="#t1-smoke-laptop-0-10-min-1" id="toc-t1-smoke-laptop-0-10-min-1" class="nav-link" data-scroll-target="#t1-smoke-laptop-0-10-min-1">T1 — smoke (laptop, ~$0, ~10 min)</a></li>
+  <li><a href="#t3-headline-cloud-cloud-gpu-125-hours-1" id="toc-t3-headline-cloud-cloud-gpu-125-hours-1" class="nav-link" data-scroll-target="#t3-headline-cloud-cloud-gpu-125-hours-1">T3 — headline-cloud (cloud-GPU, ~$125+, ~hours)</a></li>
+  <li><a href="#tier-coverage-matrix-1" id="toc-tier-coverage-matrix-1" class="nav-link" data-scroll-target="#tier-coverage-matrix-1">Tier coverage matrix</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Decisions (ADRs)</li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 16, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="adr-034-reproducibility-tier-full-ladder-t0-t1-t3" class="level1">
+<h1>ADR-034: Reproducibility tier — full ladder T0 + T1 + T3</h1>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Accepted (2026-05-16). Closes the fourth and final [OPEN] row in Phase 0-07 (§Submission — row 350). Companion to ADR-027 (Makefile execution-context stratification — provides T1 + T3 commands), ADR-030 (deliverable format — <code>WRITEUP/reproducibility.md</code> is a Quarto-rendered spoke), ADR-031 (reading paths — slots the spoke in the sidebar nav), and ADR-032 (HF Hub publication — enables T0).</p>
+</section>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>SPEC_GREENFIELD §6 line 249 carries a kit-level pre-lock:</p>
+<blockquote class="blockquote">
+<p><code>[LOCKED]</code> Reproducibility: a stranger can clone, install, and reproduce headline numbers via documented commands.</p>
+</blockquote>
+<p>The kit-lock fixes the <strong>claim</strong> (“headline numbers reproducible”) but not the <strong>tier</strong> at which that claim lives. Ledger row 350 picks the tier — laptop-only smoke / GPU-rental canonical / both.</p>
+<p>ADR-027 already exposed three Makefile execution-context targets: - <code>make smoke</code> (laptop; ~10 min; no GPU; no network; fixture data) — verifies <em>code structure</em>, NOT math correctness - <code>make test-integration</code> (GPU-aware via <code>importorskip + skipif</code>; local OR cloud pre-flight) — verifies real-scorer / real-data paths - <code>make headline-cloud</code> (canonical eval; NOT a test; cost-cap-gated per ADR-020) — produces the headline numbers</p>
+<p>ADR-032 (Q2 publication = option C) adds a fourth reproduction path that didn’t exist when ADR-027 was written: - <strong>Eval-from-HF-Hub</strong> — <code>make eval-from-hub</code> (NEW, this ADR) downloads a published Phase-2-trained checkpoint and runs eval-only against fixture or full eval data. No re-training. Laptop-compatible if eval is CPU-feasible.</p>
+<p>The operational reproducibility ladder has four tiers, not three:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>Command</th>
+<th>Cost</th>
+<th>Time</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T0 — eval-from-hub</td>
+<td><code>make eval-from-hub</code></td>
+<td>$0 + HF Hub bandwidth</td>
+<td>~10-30 min</td>
+<td>Headline scores reproduce on published checkpoint (verifies eval pipeline + checkpoint integrity)</td>
+</tr>
+<tr class="even">
+<td>T1 — smoke</td>
+<td><code>make smoke</code></td>
+<td>$0</td>
+<td>~10 min</td>
+<td>Code structure + fixture-pipeline runs end-to-end (verifies code health, NOT math)</td>
+</tr>
+<tr class="odd">
+<td>T2 — test-integration (local-GPU)</td>
+<td><code>make test-integration</code></td>
+<td>$0 (own GPU)</td>
+<td>varies</td>
+<td>Real-scorer paths exercise; partial real-data run</td>
+</tr>
+<tr class="even">
+<td>T3 — headline-cloud</td>
+<td><code>make headline-cloud</code></td>
+<td>~$125+ per ADR-020</td>
+<td>~hours</td>
+<td>Full headline-number reproduction from scratch via re-training</td>
+</tr>
+</tbody>
+</table>
+<p>Four options were considered (per Q4 walk): - (A) Laptop-only smoke (T1 only) — narrows the kit-level claim; reviewer cannot verify scores. - (B) GPU-rental canonical (T3 only) — gold-standard but $125+ barrier excludes most reviewers. - (C) Both T1 + T3 — leaves T0 unused despite Q2 enabling it. - (D) Full ladder T0 + T1 + T3 — maximizes reviewer-tier coverage given Q2’s HF Hub publication.</p>
+<p>User selection at Q4 walk: <strong>D</strong>.</p>
+</section>
+<section id="decision" class="level2">
+<h2 class="anchored" data-anchor-id="decision">Decision</h2>
+<p><strong>Reproducibility tier ladder</strong>: T0 + T1 + T3 (reviewer-facing). T2 stays a developer-tool tier (not promoted to reviewer-facing).</p>
+<p><strong>Tier definitions</strong> (locked):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>Command</th>
+<th>Verifies</th>
+<th>Does NOT verify</th>
+<th>Cost</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>T0</strong></td>
+<td><code>make eval-from-hub RUNG=&lt;name&gt;</code></td>
+<td>Headline scores reproduce on the published checkpoint for the named rung. Eval pipeline integrity. Checkpoint download integrity (HF Hub SHA match).</td>
+<td>Data-pipeline correctness (no training); ablation rungs not in published set.</td>
+<td>$0 (HF Hub bandwidth only)</td>
+<td>~10-30 min (download + eval)</td>
+</tr>
+<tr class="even">
+<td><strong>T1</strong></td>
+<td><code>make smoke</code></td>
+<td>Code health; fixture-pipeline E2E shape. No imports broken; no schema mismatches.</td>
+<td>Math correctness; real-data scoring; headline numbers.</td>
+<td>$0</td>
+<td>&lt;10 min</td>
+</tr>
+<tr class="odd">
+<td><strong>T3</strong></td>
+<td><code>make headline-cloud</code></td>
+<td>Full retraining from scratch reproduces headline numbers within seed variance. Data pipeline + training + eval + threshold-fitting + bootstrap.</td>
+<td>(verifies everything in scope)</td>
+<td>~$125+ per ADR-020 cost cap</td>
+<td>hours</td>
+</tr>
+</tbody>
+</table>
+<p><strong>T2 (<code>make test-integration</code>)</strong> stays a developer-tool tier. Not promoted to reviewer-facing because: 1. Requires a local GPU the reviewer may not have. 2. Adds friction without enabling a new verification dimension — T0 covers eval; T3 covers full retraining; T2 only adds “subset eval on local GPU” which is strictly weaker than T3.</p>
+<p><strong><code>make eval-from-hub</code> implementation</strong> (Phase 3 work item):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scripts/eval_from_hub.py — ~30-50 LOC glue</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Accepts: RUNG=&lt;rung-name&gt; (e.g., modernbert-lora)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Steps:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   1. snapshot_download(f"BBehring/prompt-injection-{rung}", local_dir=...)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   2. Load model via AutoModelForSequenceClassification.from_pretrained(local_dir)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   3. Run scoring against configs/profiles/eval.yaml's data slate</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   4. Emit per-row predictions to results/predictions/eval-from-hub__&lt;rung&gt;.parquet</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   5. Print score-match table: this run's metrics vs results.json's metrics</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   6. Exit non-zero if any headline metric drifts beyond seed-variance tolerance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tolerance for “score match”: per-row prediction equality is too strict (different floating-point ordering can yield bit-level diffs); headline-metric match within ~1e-4 absolute is the practical bar.</p>
+<p><strong><code>WRITEUP/reproducibility.md</code></strong> spoke (slotted by ADR-031; full content at Phase 5) carries the tier-ladder documentation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reproducibility</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>This submission documents three tiers of reproduction, ordered by cost.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## T0 — eval-from-hub (laptop, ~$0, ~10-30 min)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Verifies: headline scores reproduce on the published checkpoint.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Does NOT verify: training pipeline (no re-training).</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=modernbert-lora</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="t1-smoke-laptop-0-10-min" class="level2">
+<h2 class="anchored" data-anchor-id="t1-smoke-laptop-0-10-min">T1 — smoke (laptop, ~$0, ~10 min)</h2>
+<p>Verifies: code health; fixture pipeline runs. Does NOT verify: headline numbers (uses fixture data).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> smoke</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="t3-headline-cloud-cloud-gpu-125-hours" class="level2">
+<h2 class="anchored" data-anchor-id="t3-headline-cloud-cloud-gpu-125-hours">T3 — headline-cloud (cloud-GPU, ~$125+, ~hours)</h2>
+<p>Verifies: full retraining from scratch reproduces headline numbers.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tier-coverage-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="tier-coverage-matrix">Tier coverage matrix</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>What you can audit</th>
+<th>Recommended reader</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T0</td>
+<td>“Are the published scores legit?”</td>
+<td>Most reviewers</td>
+</tr>
+<tr class="even">
+<td>T1</td>
+<td>“Does the code run?”</td>
+<td>Quick sanity check</td>
+</tr>
+<tr class="odd">
+<td>T3</td>
+<td>“Does the training pipeline reproduce?”</td>
+<td>Deep-audit reviewers</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+**Mapping to ACM artifact badging** (https://www.acm.org/publications/policies/artifact-review-and-badging-current):
+- T0 + T1 supply *Artifacts Available* + *Functional* + *Reusable* badges.
+- T3 supplies the *Reproducible* badge (deepest level).
+
+The badge vocabulary is standard in academic artifact-review; a reviewer familiar with ACM artifact policies will recognize the tier structure.
+
+**Cost-cap discipline preserved**: T3 is the only paid tier; reviewer self-funds the RunPod cost per ADR-020 cap discipline. T0 + T1 cost only the reviewer's time.
+
+## Consequences
+
+### Positive
+
+- **Maximum reviewer-tier coverage** given Q2's HF Hub publication — T0 was implicitly enabled by ADR-032 = C; this ADR makes it load-bearing rather than orphaned.
+- **Honest tier ladder** — each tier explicitly verifies a different thing at different cost; reviewer picks the tier matching their interest + budget.
+- **`make eval-from-hub` is a small Phase 3 work item** — ~30-50 LOC of glue; well-scoped.
+- **Aligns with ACM artifact-badging convention** — reviewer-recognizable structure.
+- **Honors kit-level §6 line 249 claim** — "headline numbers reproducible" satisfied at T0 (cheapest path); stronger guarantee at T3.
+- **`WRITEUP/reproducibility.md` slot is justified** — ADR-031 reserved the spoke slot for exactly this content; tier-ladder documentation has a home rather than polluting WRITEUP.md proper.
+
+### Negative / cost
+
+- **Phase 3 work item added** — `make eval-from-hub` + `scripts/eval_from_hub.py` (~30-50 LOC). Acceptable; well-bounded.
+- **`WRITEUP/reproducibility.md` content** — Phase 5 work item; tier-ladder table + commands + caveats. ~1-2 pages.
+- **Three tiers vs two** — more documentation surface; reviewer must read the spoke to understand which tier suits their audit depth. Mitigation: tier-coverage matrix at top of spoke makes the choice obvious in &lt;30 seconds.
+- **HF Hub checkpoint drift risk** — if published model card is later edited, the cached SHA invalidates; T0 reproducibility fails silently. Mitigation: pin checkpoint SHAs in `make eval-from-hub` via `huggingface_hub.snapshot_download(revision=&lt;SHA&gt;)` once SHAs are known at Phase 5; for Phase 0-07 close, the unpinned default is acceptable since publication happens at v0.9.0-rc1 rehearsal.
+
+### Neutral
+
+- **T2 stays unchanged** — developer-tool tier per ADR-027; not promoted; not removed.
+- **Cost-cap gating** preserved from ADR-020; no new cost surface introduced.
+- **Tier renumbering risk** — T0/T1/T3 numbering skips T2 intentionally (T2 = developer-only). Reviewer who reads the spoke sees the skip and the explanation; not a presentation problem.
+
+### Limitation
+
+T0 reproduces headline scores only on the *published* rungs (per ADR-032 = C, the headline rungs only). Ablation-rung reproduction requires T3. This is an acceptable trade-off given Q2's disclosure-surface budget.
+
+T0 verifies score-match against the published checkpoint, not data-pipeline correctness — if a reviewer wants to verify "the data preparation pipeline produces the same training tensors", they need T3. Documented in the spoke.
+
+### Extension condition for revisit
+
+- **HF Hub checkpoint SHA drift detected**: if Phase 5 (or post-submission) reveals that an HF Hub published checkpoint can drift due to model card edits invalidating cached SHAs, pin checkpoint SHAs in `WRITEUP/reproducibility.md` + `make eval-from-hub` via `huggingface_hub.snapshot_download(revision=&lt;SHA&gt;)`. HF dataset SHA-pinning discipline from ADR-016 carries over.
+- **T4 Docker container**: if scope extends to a deployment-grade claim, add T4 Docker-container-with-frozen-environment via superseding ADR. Currently out-of-scope per ADR-005 + ADR-027 prototype-grade framing.
+- **T0 correctness gap**: if Phase 5 reveals T0 produces scores that drift from results.json beyond seed-variance tolerance (e.g., due to non-deterministic kernels on a CPU eval host vs the GPU host that produced results.json), add a `T0-caveat` section to the reproducibility spoke documenting the gap + the expected drift magnitude.
+- **T2 promotion**: if reviewer feedback signals "T2 (local-GPU integration) would be useful as a reviewer-facing tier" (e.g., a reviewer who has a local GPU and wants a mid-tier check), promote T2 via Phase 1+ superseding ADR.
+
+## Alternatives Considered
+
+- **(A) Laptop-only smoke (T1 only)** — narrows the kit-level reproducibility claim from "headline numbers" to "code health"; explicitly does NOT reproduce headline numbers. Rejected per Q4 walk; defeats the purpose of the kit-lock.
+- **(B) GPU-rental canonical (T3 only)** — gold-standard but ~$125+ + RunPod account + secrets barrier; most reviewers will not pay this cost. Rejected per Q4 walk; loses the laptop-tier value entirely.
+- **(C) Both T1 + T3** — leaves T0 (enabled by Q2) unused; throws away the highest-value reviewer-tier. Rejected per Q4 walk in favor of D.
+- **Promote T2 to reviewer-facing** — adds friction (requires local GPU) without enabling a new verification dimension; strictly weaker than T3. Rejected.
+
+## References
+
+- ACM Artifact Review and Badging (v1.1) — https://www.acm.org/publications/policies/artifact-review-and-badging-current
+- `runpod-deploy` reproduction patterns — https://github.com/brandon-behring/runpod-deploy
+- `eval-toolkit` (scoring primitives) — https://github.com/brandon-behring/eval-toolkit
+- HF Hub `AutoModel.from_pretrained` offline-eval — https://huggingface.co/docs/transformers/installation#offline-mode
+- ADR-027 (Makefile execution-context stratification — provides T1 + T3 commands)
+- ADR-020 (compute infrastructure + cost cap — T3 paid-tier discipline)
+- ADR-016 (HF dataset SHA pinning — checkpoint SHA pinning discipline pattern)
+- ADR-032 (HF Hub publication — enables T0; published rungs are what T0 downloads)
+- ADR-005 (project-level methodology principles — prototype-grade framing rules out T4 currently)
+
+## Transcript
+
+See `transcripts/2026-05-16__phase-0-07__submission-deliverables.md` for the conversation that led to this decision (Q4 walk + option D selection).
+
+
+
+
+:::{#quarto-navigation-envelope .hidden}
+[Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl"}
+[Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU="}
+[Secrets management — three-store split aligned with execution context (.env + RunPod pod-secrets + GH Actions repo Secrets)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uZXh0"}
+[GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1wcmV2"}
+[Reading guide]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tMQ=="}
+[Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9pbmRleC5odG1sUHJvbXB0LWluamVjdGlvbi1jbGFzc2lmaWVyLeKAlC1tZXRob2RvbG9neS1zdWJtaXNzaW9u"}
+[Methodology]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tMg=="}
+[Prompt-injection classification — methodology + capability characterisation]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQLmh0bWxQcm9tcHQtaW5qZWN0aW9uLWNsYXNzaWZpY2F0aW9uLeKAlC1tZXRob2RvbG9neS0rLWNhcGFiaWxpdHktY2hhcmFjdGVyaXNhdGlvbg=="}
+[Data decisions]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL2RhdGEtZGVjaXNpb25zLmh0bWxEYXRhLWRlY2lzaW9ucw=="}
+[Model rungs]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL21vZGVsLXJ1bmdzLmh0bWxNb2RlbC1ydW5ncw=="}
+[Evaluation design]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL2V2YWwtZGVzaWduLmh0bWxFdmFsdWF0aW9uLWRlc2lnbg=="}
+[Threshold policy]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL3RocmVzaG9sZC1wb2xpY3kuaHRtbFRocmVzaG9sZC1wb2xpY3k="}
+[Reference-scorer audit]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL3JlZmVyZW5jZS1zY29yZXItYXVkaXQuaHRtbFJlZmVyZW5jZS1zY29yZXItYXVkaXQ="}
+[Methodology guarantees]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL21ldGhvZG9sb2d5LWd1YXJhbnRlZXMuaHRtbE1ldGhvZG9sb2d5LWd1YXJhbnRlZXM="}
+[Limitations and future work]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL2xpbWl0YXRpb25zLWFuZC1mdXR1cmUtd29yay5odG1sTGltaXRhdGlvbnMtYW5kLWZ1dHVyZS13b3Jr"}
+[Reproducibility — three reproduction tiers]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9XUklURVVQL3JlcHJvZHVjaWJpbGl0eS5odG1sUmVwcm9kdWNpYmlsaXR5LeKAlC10aHJlZS1yZXByb2R1Y3Rpb24tdGllcnM="}
+[Evidence + audit]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tMw=="}
+[Evidence — audit trail]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9FVklERU5DRS5odG1sRXZpZGVuY2Ut4oCULWF1ZGl0LXRyYWls"}
+[Decisions (ADRs)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tNA=="}
+[Decisions]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tNQ=="}
+[Submission deadline 2026-05-18 morning with infra-leveraged Long-scope attempt and fallback ladder]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwMS1zdWJtaXNzaW9uLWRlYWRsaW5lLWFuZC1zY29wZS1hbWJpdGlvbi5odG1sU3VibWlzc2lvbi1kZWFkbGluZS0yMDI2LTA1LTE4LW1vcm5pbmctd2l0aC1pbmZyYS1sZXZlcmFnZWQtTG9uZy1zY29wZS1hdHRlbXB0LWFuZC1mYWxsYmFjay1sYWRkZXI="}
+[Deliverable format — focused PDF plus public GitHub repo as evidence locker]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwMi1kZWxpdmVyYWJsZS1mb3JtYXQtcGRmLWFuZC1yZXBvLmh0bWxEZWxpdmVyYWJsZS1mb3JtYXQt4oCULWZvY3VzZWQtUERGLXBsdXMtcHVibGljLUdpdEh1Yi1yZXBvLWFzLWV2aWRlbmNlLWxvY2tlcg=="}
+[Repository visibility — public from start (kit default ratified)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwMy1yZXBvLXZpc2liaWxpdHktcHVibGljLmh0bWxSZXBvc2l0b3J5LXZpc2liaWxpdHkt4oCULXB1YmxpYy1mcm9tLXN0YXJ0LShraXQtZGVmYXVsdC1yYXRpZmllZCk="}
+[Reviewer profile A1+A2 with hub-and-spoke writeup structure]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwNC1yZXZpZXdlci1wcm9maWxlLWFuZC1odWItYW5kLXNwb2tlLXdyaXRldXAuaHRtbFJldmlld2VyLXByb2ZpbGUtQTErQTItd2l0aC1odWItYW5kLXNwb2tlLXdyaXRldXAtc3RydWN0dXJl"}
+[Project-level methodology principles — methodology over metrics, honest evaluation preferred, structured limitations]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwNS1tZXRob2RvbG9neS1wcmluY2lwbGVzLmh0bWxQcm9qZWN0LWxldmVsLW1ldGhvZG9sb2d5LXByaW5jaXBsZXMt4oCULW1ldGhvZG9sb2d5LW92ZXItbWV0cmljcywtaG9uZXN0LWV2YWx1YXRpb24tcHJlZmVycmVkLC1zdHJ1Y3R1cmVkLWxpbWl0YXRpb25z"}
+[Headline metrics, operating-point pinpoints, and statistical apparatus]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwNi1oZWFkbGluZS1tZXRyaWNzLWFuZC1zdGF0aXN0aWNhbC1hcHBhcmF0dXMuaHRtbEhlYWRsaW5lLW1ldHJpY3MsLW9wZXJhdGluZy1wb2ludC1waW5wb2ludHMsLWFuZC1zdGF0aXN0aWNhbC1hcHBhcmF0dXM="}
+[Methodology rung architecture — trained backbones, LLM-judge reference rungs, Cohen's kappa]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwNy1ydW5nLWFyY2hpdGVjdHVyZS1hbmQtcmVmZXJlbmNlLXNjb3JlcnMuaHRtbE1ldGhvZG9sb2d5LXJ1bmctYXJjaGl0ZWN0dXJlLeKAlC10cmFpbmVkLWJhY2tib25lcywtTExNLWp1ZGdlLXJlZmVyZW5jZS1ydW5ncywtQ29oZW4ncy1rYXBwYQ=="}
+[Data scope — public-only sources, hybrid splits, NotInject inclusion (brief-level lock)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwOC1kYXRhLXNjb3BlLXB1YmxpYy1vbmx5LWh5YnJpZC1zcGxpdHMuaHRtbERhdGEtc2NvcGUt4oCULXB1YmxpYy1vbmx5LXNvdXJjZXMsLWh5YnJpZC1zcGxpdHMsLU5vdEluamVjdC1pbmNsdXNpb24tKGJyaWVmLWxldmVsLWxvY2sp"}
+[Process mandates — two-tier reproducibility, marker-based testing, compute disclosure]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAwOS1wcm9jZXNzLW1hbmRhdGVzLmh0bWxQcm9jZXNzLW1hbmRhdGVzLeKAlC10d28tdGllci1yZXByb2R1Y2liaWxpdHksLW1hcmtlci1iYXNlZC10ZXN0aW5nLC1jb21wdXRlLWRpc2Nsb3N1cmU="}
+[Scope limits with per-bound extension conditions]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxMC1zY29wZS1saW1pdHMtd2l0aC1leHRlbnNpb24tY29uZGl0aW9ucy5odG1sU2NvcGUtbGltaXRzLXdpdGgtcGVyLWJvdW5kLWV4dGVuc2lvbi1jb25kaXRpb25z"}
+[Methodology guarantees — eight banned approaches surfaced as project commitments]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxMS1tZXRob2RvbG9neS1ndWFyYW50ZWVzLmh0bWxNZXRob2RvbG9neS1ndWFyYW50ZWVzLeKAlC1laWdodC1iYW5uZWQtYXBwcm9hY2hlcy1zdXJmYWNlZC1hcy1wcm9qZWN0LWNvbW1pdG1lbnRz"}
+[Soft-signals naming discipline and external artifact engagement set]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxMi1zb2Z0LXNpZ25hbHMtYW5kLWFydGlmYWN0LWVuZ2FnZW1lbnQuaHRtbFNvZnQtc2lnbmFscy1uYW1pbmctZGlzY2lwbGluZS1hbmQtZXh0ZXJuYWwtYXJ0aWZhY3QtZW5nYWdlbWVudC1zZXQ="}
+[Kit-ratify bulk — Phase 0 strictness, brief-intake protocol, notebook role and RunPod persistence]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxMy1raXQtcmF0aWZ5LWJ1bGstc3RyaWN0bmVzcy1pbnRha2Utbm90ZWJvb2stcGVyc2lzdGVuY2UuaHRtbEtpdC1yYXRpZnktYnVsay3igJQtUGhhc2UtMC1zdHJpY3RuZXNzLC1icmllZi1pbnRha2UtcHJvdG9jb2wsLW5vdGVib29rLXJvbGUtYW5kLVJ1blBvZC1wZXJzaXN0ZW5jZQ=="}
+[Threat-model bundle — attack-class scope, language, length cap, truncation policy]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxNC10aHJlYXQtbW9kZWwtYnVuZGxlLmh0bWxUaHJlYXQtbW9kZWwtYnVuZGxlLeKAlC1hdHRhY2stY2xhc3Mtc2NvcGUsLWxhbmd1YWdlLC1sZW5ndGgtY2FwLC10cnVuY2F0aW9uLXBvbGljeQ=="}
+[Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxNS1ydW5nLWFyY2hpdGVjdHVyZS1yZWZpbmVtZW50Lmh0bWxSdW5nLWFyY2hpdGVjdHVyZS1yZWZpbmVtZW50LeKAlC1Nb2Rlcm5CRVJULWJhc2Utb25seS10cmFpbmVkLXNsYXRlLC1zdXBlcnNlZGVzLUFEUi0wMDc="}
+[Data design bundle — source slate, splits, HF pinning, dedup, ordering, ceilings, ref-scorer audit]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxNi1kYXRhLWRlc2lnbi1idW5kbGUuaHRtbERhdGEtZGVzaWduLWJ1bmRsZS3igJQtc291cmNlLXNsYXRlLC1zcGxpdHMsLUhGLXBpbm5pbmcsLWRlZHVwLC1vcmRlcmluZywtY2VpbGluZ3MsLXJlZi1zY29yZXItYXVkaXQ="}
+[Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxNy10cmFpbmVkLXJ1bmctc2xhdGUtZXhwYW5zaW9uLmh0bWxUcmFpbmVkLXJ1bmctc2xhdGUtZXhwYW5zaW9uLeKAlC1URi1JREYtcGx1cy1MUi1jbGFzc2ljYWwtZmxvb3ItYW5kLWZyb3plbi1wcm9iZS1kdWFsLXJvbGU="}
+[Reference scorer slate and contamination stratification — OpenAI plus Anthropic LLM-judges plus ProtectAI v1 and v2 plus per-axis matched-budget]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxOC1yZWZlcmVuY2Utc2NvcmVyLXNsYXRlLWFuZC1jb250YW1pbmF0aW9uLXN0cmF0aWZpY2F0aW9uLmh0bWxSZWZlcmVuY2Utc2NvcmVyLXNsYXRlLWFuZC1jb250YW1pbmF0aW9uLXN0cmF0aWZpY2F0aW9uLeKAlC1PcGVuQUktcGx1cy1BbnRocm9waWMtTExNLWp1ZGdlcy1wbHVzLVByb3RlY3RBSS12MS1hbmQtdjItcGx1cy1wZXItYXhpcy1tYXRjaGVkLWJ1ZGdldA=="}
+[LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAxOS1sb3JhLWFuZC10cmFuc2Zvcm1lci10cmFpbmluZy1yZWNpcGUuaHRtbExvUkEtYW5kLXRyYW5zZm9ybWVyLXJ1bmctdHJhaW5pbmctcmVjaXBlLeKAlC1oeXBlcnBhcmFtZXRlcnMsLWVwb2NocywtcHJlY2lzaW9uLC1jbGFzcy13ZWlnaHRpbmc="}
+[Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyMC1jb21wdXRlLWluZnJhc3RydWN0dXJlLWFuZC1jb3N0LWRpc2NpcGxpbmUuaHRtbENvbXB1dGUtaW5mcmFzdHJ1Y3R1cmUtYW5kLWNvc3QtZGlzY2lwbGluZS3igJQtcnVucG9kLWRlcGxveS0wLjcuNy1wcmltaXRpdmVzLC1HUFUtZmFpbG92ZXIsLWFkYXB0aXZlLWJhdGNoLXNpemluZywtZHVhbC1sYXllci1jb3N0LXRyYWNraW5n"}
+[Eval slate aggregation — pooled headline plus per-slice spoke and recall@FPR pinpoint feasibility]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyMS1ldmFsLXNsYXRlLWFnZ3JlZ2F0aW9uLWFuZC1yZWNhbGwtZnByLXBpbnBvaW50cy5odG1sRXZhbC1zbGF0ZS1hZ2dyZWdhdGlvbi3igJQtcG9vbGVkLWhlYWRsaW5lLXBsdXMtcGVyLXNsaWNlLXNwb2tlLWFuZC1yZWNhbGxARlBSLXBpbnBvaW50LWZlYXNpYmlsaXR5"}
+[Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyMi1zdGF0aXN0aWNhbC1pbmZlcmVuY2UtYXBwYXJhdHVzLmh0bWxTdGF0aXN0aWNhbC1pbmZlcmVuY2UtYXBwYXJhdHVzLeKAlC1ib290c3RyYXAtTi0rLXN0YWJpbGl0eS1jaGVjaywtbXVsdGktY29tcGFyaXNvbi1zdGFuY2UsLW11bHRpLXNlZWQtcHJvdG9jb2wsLXBhaXJlZC10ZXN0LW1ldGhvZA=="}
+[Calibration battery composition — raw plus temperature plus isotonic interventions]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyMy1jYWxpYnJhdGlvbi1iYXR0ZXJ5LWFuZC1pbnRlcnZlbnRpb25zLmh0bWxDYWxpYnJhdGlvbi1iYXR0ZXJ5LWNvbXBvc2l0aW9uLeKAlC1yYXctcGx1cy10ZW1wZXJhdHVyZS1wbHVzLWlzb3RvbmljLWludGVydmVudGlvbnM="}
+[Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyNC1jcm9zcy1mb2xkLWNpLW1ldGhvZG9sb2d5Lmh0bWxDcm9zcy1mb2xkLUNJLW1ldGhvZG9sb2d5LeKAlC1jdl9jbHRfY2ktKEJheWxlLTIwMjApLWhlYWRsaW5lLXBsdXMtYmxvY2stYm9vdHN0cmFwLW9uLWZvbGRzLXNwb2tl"}
+[Dual-policy threshold characterization at symmetric 1% cost weights]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyNS1kdWFsLXBvbGljeS10aHJlc2hvbGQtY2hhcmFjdGVyaXphdGlvbi5odG1sRHVhbC1wb2xpY3ktdGhyZXNob2xkLWNoYXJhY3Rlcml6YXRpb24tYXQtc3ltbWV0cmljLTElLWNvc3Qtd2VpZ2h0cw=="}
+[Module layout — concern-grouped sub-packages under src/]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyNi1tb2R1bGUtbGF5b3V0LWNvbmNlcm4tZ3JvdXBlZC1zdWJwYWNrYWdlcy5odG1sTW9kdWxlLWxheW91dC3igJQtY29uY2Vybi1ncm91cGVkLXN1Yi1wYWNrYWdlcy11bmRlci1zcmMv"}
+[Smoke vs canonical separation — three Makefile targets stratified by execution context]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyNy1zbW9rZS12cy1jYW5vbmljYWwtZXhlY3V0aW9uLWNvbnRleHQtc3RyYXRpZmljYXRpb24uaHRtbFNtb2tlLXZzLWNhbm9uaWNhbC1zZXBhcmF0aW9uLeKAlC10aHJlZS1NYWtlZmlsZS10YXJnZXRzLXN0cmF0aWZpZWQtYnktZXhlY3V0aW9uLWNvbnRleHQ="}
+[Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyOC1jb3ZlcmFnZS1mbG9vci03MHBjdC13aXRoLXVwc3RyZWFtLWlzc3VlLWZpbGluZy5odG1sVGVzdC1jb3ZlcmFnZS1mbG9vci3igJQtNzAlLWZsYXQtd2l0aC1jby1sb2NrZWQtdXBzdHJlYW0taXNzdWUtZmlsaW5nLWRpc2NpcGxpbmU="}
+[Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAyOS10ZXN0LW1hcmtlci1zdHJhdGVneS1mb3VyLW1hcmtlci1yYXRpZmljYXRpb24uaHRtbFRlc3QtbWFya2VyLXN0cmF0ZWd5LeKAlC1yYXRpZnktNC1tYXJrZXItc3RyYXRpZmljYXRpb24tKHVuaXQtLy1zbW9rZS0vLWludGVncmF0aW9uLS8tbmV0d29yayk="}
+[Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzMC1kZWxpdmVyYWJsZS1mb3JtYXQtcXVhcnRvLWh0bWwtc2l0ZS5odG1sRGVsaXZlcmFibGUtZm9ybWF0LeKAlC1yZXBvLW9ubHktd2l0aC1RdWFydG8tcmVuZGVyZWQtSFRNTC1zaXRlLXZpYS1HaXRIdWItQWN0aW9ucy0oc3VwZXJzZWRlcy1BRFItMDAyKQ=="}
+[Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzMS1yZXZpZXdlci1yZWFkaW5nLXBhdGhzLXF1YXJ0by1zaXRlLWVudHJ5Lmh0bWxSZXZpZXdlci1yZWFkaW5nLXBhdGhzLeKAlC1pbmRleC5xbWQtZW50cnktcG9pbnQtd2l0aC1RdWFydG8tc2lkZWJhci1uYXYtKHN1cGVyc2VkZXMtQURSLTAwNCk="}
+[HF Hub checkpoint publication — publish primary headline rungs only with model card discipline]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzMi1oZi1odWItcHVibGljYXRpb24taGVhZGxpbmUtcnVuZ3Mtb25seS5odG1sSEYtSHViLWNoZWNrcG9pbnQtcHVibGljYXRpb24t4oCULXB1Ymxpc2gtcHJpbWFyeS1oZWFkbGluZS1ydW5ncy1vbmx5LXdpdGgtbW9kZWwtY2FyZC1kaXNjaXBsaW5l"}
+[GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzMy1naXRodWItcmVsZWFzZS1zdHJhdGVneS1yZWhlYXJzYWwtcGx1cy1zdWJtaXNzaW9uLmh0bWxHaXRIdWItcmVsZWFzZS1zdHJhdGVneS3igJQtcmVoZWFyc2FsLXRhZy1wbHVzLVNlbVZlci1zdWJtaXNzaW9uLXRhZy1wbHVzLXBvc3Qtc3VibWlzc2lvbi1wYXRjaGVz"}
+[Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzNC1yZXByb2R1Y2liaWxpdHktdGllci1mdWxsLWxhZGRlci5odG1sUmVwcm9kdWNpYmlsaXR5LXRpZXIt4oCULWZ1bGwtbGFkZGVyLVQwLShldmFsLWZyb20taHViKS1wbHVzLVQxLShzbW9rZSktcGx1cy1UMy0oaGVhZGxpbmUtY2xvdWQp"}
+[Secrets management — three-store split aligned with execution context (.env + RunPod pod-secrets + GH Actions repo Secrets)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzNS1zZWNyZXRzLW1hbmFnZW1lbnQtdGhyZWUtc3RvcmUtc3BsaXQuaHRtbFNlY3JldHMtbWFuYWdlbWVudC3igJQtdGhyZWUtc3RvcmUtc3BsaXQtYWxpZ25lZC13aXRoLWV4ZWN1dGlvbi1jb250ZXh0LSguZW52LSstUnVuUG9kLXBvZC1zZWNyZXRzLSstR0gtQWN0aW9ucy1yZXBvLVNlY3JldHMp"}
+[Library version pins — tag pin to latest stable plus freeze for submission window (eval-toolkit v0.31.0 + runpod-deploy v0.7.7 + research_toolkit v1.9.1)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzNi1saWJyYXJ5LXZlcnNpb24tcGlucy10YWctcGluLXBsdXMtZnJlZXplLmh0bWxMaWJyYXJ5LXZlcnNpb24tcGlucy3igJQtdGFnLXBpbi10by1sYXRlc3Qtc3RhYmxlLXBsdXMtZnJlZXplLWZvci1zdWJtaXNzaW9uLXdpbmRvdy0oZXZhbC10b29sa2l0LXYwLjMxLjAtKy1ydW5wb2QtZGVwbG95LXYwLjcuNy0rLXJlc2VhcmNoX3Rvb2xraXQtdjEuOS4xKQ=="}
+[Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzNy1weXRob24tdmVyc2lvbi1waW4tMy0xMy5odG1sUHl0aG9uLXZlcnNpb24tcGluLeKAlC1yYXRpZnktcmVxdWlyZXMtcHl0aG9uLT49My4xMy0obWF0Y2hlcy1leGlzdGluZy0ucHl0aG9uLXZlcnNpb24tKy1iYzhjZTRlLWNvbW1pdCk="}
+[Phase tailoring — light ROADMAP edits to Phase 4 close + Phase 5 description (preserves 5-phase structure)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzOC1waGFzZS10YWlsb3JpbmctbGlnaHQtcm9hZG1hcC1lZGl0cy5odG1sUGhhc2UtdGFpbG9yaW5nLeKAlC1saWdodC1ST0FETUFQLWVkaXRzLXRvLVBoYXNlLTQtY2xvc2UtKy1QaGFzZS01LWRlc2NyaXB0aW9uLShwcmVzZXJ2ZXMtNS1waGFzZS1zdHJ1Y3R1cmUp"}
+[Project-specific acceptance criteria — 6-gate integration checklist for v1.0.0 submission tag]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTAzOS1hY2NlcHRhbmNlLWNyaXRlcmlhLXNpeC1nYXRlLWludGVncmF0aW9uLWNoZWNrbGlzdC5odG1sUHJvamVjdC1zcGVjaWZpYy1hY2NlcHRhbmNlLWNyaXRlcmlhLeKAlC02LWdhdGUtaW50ZWdyYXRpb24tY2hlY2tsaXN0LWZvci12MS4wLjAtc3VibWlzc2lvbi10YWc="}
+[Phase 0 final audit findings + 7-assumption backfill (A-010 through A-016)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0MC1waGFzZS0wLWF1ZGl0LWZpbmRpbmdzLWFuZC1hc3N1bXB0aW9uLWJhY2tmaWxsLmh0bWxQaGFzZS0wLWZpbmFsLWF1ZGl0LWZpbmRpbmdzLSstNy1hc3N1bXB0aW9uLWJhY2tmaWxsLShBLTAxMC10aHJvdWdoLUEtMDE2KQ=="}
+[Phase 1 (Data) implementation bundle — manifest schema, SHA pinning, validator placement, loader arch, holdout sourcing, contamination corpus, output materialization]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0MS1waGFzZS0xLWRhdGEtaW1wbGVtZW50YXRpb24tYnVuZGxlLmh0bWxQaGFzZS0xLShEYXRhKS1pbXBsZW1lbnRhdGlvbi1idW5kbGUt4oCULW1hbmlmZXN0LXNjaGVtYSwtU0hBLXBpbm5pbmcsLXZhbGlkYXRvci1wbGFjZW1lbnQsLWxvYWRlci1hcmNoLC1ob2xkb3V0LXNvdXJjaW5nLC1jb250YW1pbmF0aW9uLWNvcnB1cywtb3V0cHV0LW1hdGVyaWFsaXphdGlvbg=="}
+[LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0Mi1sbG0tcHJlbGFiZWwtZGVkdXAtaG9sZG91dC1ib290c3RyYXAuaHRtbExMTS1qdWRnZS1wcmUtbGFiZWwtYXMtUTUtaG9sZG91dC1sYWJlbGluZy1ib290c3RyYXAtd2l0aC1odW1hbi1vdmVycmlkZQ=="}
+[Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0My1wb3N0LXNwbGl0LWNyb3NzLXNvdXJjZS1sZWFrYWdlLWNsZWFudXAuaHRtbFBvc3Qtc3BsaXQtY3Jvc3Mtc291cmNlLWxlYWthZ2UtY2xlYW51cC3igJQtZHJvcC10cmFpbit2YWwtcm93cy10aGF0LWV4YWN0LW1hdGNoLW9yLWNvc2luZS1uZWFyLW1hdGNoLXRlc3Q="}
+[Phase 2 training implementation bundle — seed slate reconciliation + manifest move + classical-floor location + YAML config schema + trainer split + per-rung orchestration + fixture preflight]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0NC1waGFzZS0yLXRyYWluaW5nLWltcGxlbWVudGF0aW9uLWJ1bmRsZS5odG1sUGhhc2UtMi10cmFpbmluZy1pbXBsZW1lbnRhdGlvbi1idW5kbGUt4oCULXNlZWQtc2xhdGUtcmVjb25jaWxpYXRpb24tKy1tYW5pZmVzdC1tb3ZlLSstY2xhc3NpY2FsLWZsb29yLWxvY2F0aW9uLSstWUFNTC1jb25maWctc2NoZW1hLSstdHJhaW5lci1zcGxpdC0rLXBlci1ydW5nLW9yY2hlc3RyYXRpb24tKy1maXh0dXJlLXByZWZsaWdodA=="}
+[Phase 3 evaluation implementation bundle — scoring-first contract + 6-commit cadence + tiered reference scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0NS1waGFzZS0zLWV2YWx1YXRpb24taW1wbGVtZW50YXRpb24tYnVuZGxlLmh0bWxQaGFzZS0zLWV2YWx1YXRpb24taW1wbGVtZW50YXRpb24tYnVuZGxlLeKAlC1zY29yaW5nLWZpcnN0LWNvbnRyYWN0LSstNi1jb21taXQtY2FkZW5jZS0rLXRpZXJlZC1yZWZlcmVuY2Utc2NvcmVycy0rLWNsYXNzaWNhbC1zY2FmZm9sZC0rLWZ1bGwtcGFpcndpc2UtcGVyc2lzdGVuY2Utd2l0aC1oZWFkbGluZS1vbmx5LVdSSVRFVVAtKy1weWRhbnRpYy1zY2hlbWEtdmFsaWRhdGlvbg=="}
+[Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0Ni1waGFzZS00LWFuYWx5c2lzLWltcGxlbWVudGF0aW9uLWJ1bmRsZS5odG1sUGhhc2UtNC1hbmFseXNpcy1pbXBsZW1lbnRhdGlvbi1idW5kbGUt4oCULTYtY29tbWl0LWNhZGVuY2UtKy1zY2FmZm9sZC13aXRoLWNsYXNzaWNhbC0rLWFsd2F5cy1lbWl0LWJvdGgtQ0lzLWF1dG8tZmxhZy0rLU1ERS1vbi1ldmVyeS1lbWl0dGVkLUNJLSstTExNLXJhdGVyLWF1ZGl0LWluY2x1ZGVkLSh1c2VyLW92ZXJyaWRkZW4tZnJvbS1kZWZlciktKy1saWJyYXJ5LWZpcnN0LWh5YnJpZC1maWd1cmVzLSstUGhhc2UtNS1wcmVwLWRlZmVycmVk"}
+[Phase 1 library-first carryforward refactor — audit findings + remediation plan (splits + dedup + leakage_report + contamination_scan migration to eval-toolkit primitives; orphaned code removed in-commit)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0Ny1waGFzZS0xLWxpYnJhcnktZmlyc3QtY2Fycnlmb3J3YXJkLXJlZmFjdG9yLmh0bWxQaGFzZS0xLWxpYnJhcnktZmlyc3QtY2Fycnlmb3J3YXJkLXJlZmFjdG9yLeKAlC1hdWRpdC1maW5kaW5ncy0rLXJlbWVkaWF0aW9uLXBsYW4tKHNwbGl0cy0rLWRlZHVwLSstbGVha2FnZV9yZXBvcnQtKy1jb250YW1pbmF0aW9uX3NjYW4tbWlncmF0aW9uLXRvLWV2YWwtdG9vbGtpdC1wcmltaXRpdmVzOy1vcnBoYW5lZC1jb2RlLXJlbW92ZWQtaW4tY29tbWl0KQ=="}
+[LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0OC1sbG0tcmF0ZXItcmVmZXJlbmNlLXNjb3Jlci1hdWRpdC1wcm90b2NvbC5odG1sTExNLXJhdGVyLXJlZmVyZW5jZS1zY29yZXItYXVkaXQtcHJvdG9jb2wt4oCULWRpc2FncmVlbWVudC13aXRoLUxvUkEtYmFzZWxpbmUtKy1zdHJhdGlmaWVkLSg1LU9PRC1zbGljZXMtw5ctMy1jb250YW1pbmF0aW9uX3N0YXRlcyktc2FtcGxpbmctKy1maXhlZC0yLWF4aXMtcnVicmljLSstaW50ZXItcmF0ZXItZ3B0LTRvLXBsdXMtY2xhdWRlLXNvbm5ldC0rLWRyeS1ydW4tdGhlbi1zaW5nbGUtYXBwcm92YWwtY29zdC1VWA=="}
+[GPU failover ladder priority refresh — A100-SXM4-80GB to position 1 + US-WA-1/US-CA-2 datacenter additions + EU-RO-1 drop (frozen-probe + LoRA canonical; full-FT deferred to post-rehearsal)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA0OS1ncHUtb3JkZXItcHJpb3JpdHktcmVmcmVzaC1hMTAwLTgwZy5odG1sR1BVLWZhaWxvdmVyLWxhZGRlci1wcmlvcml0eS1yZWZyZXNoLeKAlC1BMTAwLVNYTTQtODBHQi10by1wb3NpdGlvbi0xLSstVVMtV0EtMS9VUy1DQS0yLWRhdGFjZW50ZXItYWRkaXRpb25zLSstRVUtUk8tMS1kcm9wLShmcm96ZW4tcHJvYmUtKy1Mb1JBLWNhbm9uaWNhbDstZnVsbC1GVC1kZWZlcnJlZC10by1wb3N0LXJlaGVhcnNhbCk="}
+[Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash); narrow supersession of ADR-018 reference slate + ADR-021 OOD comparison scope]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA1MC1ydW5nLXNsYXRlLW5hcnJvd2luZy1sbG0tanVkZ2VzLWFuZC1mdWxsLWZ0LW9vZC1kcm9wcGVkLmh0bWxSdW5nLXNsYXRlLW5hcnJvd2luZy3igJQtTExNLWp1ZGdlcy1kcm9wcGVkLShjb3N0KS0rLWZ1bGwtRlQtT09ELWRyb3BwZWQtKEZVU0UtRUlPLWNyYXNoKTstbmFycm93LXN1cGVyc2Vzc2lvbi1vZi1BRFItMDE4LXJlZmVyZW5jZS1zbGF0ZS0rLUFEUi0wMjEtT09ELWNvbXBhcmlzb24tc2NvcGU="}
+[Reading guide]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6UmVhZGluZyBndWlkZQ=="}
+[/index.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L2luZGV4Lmh0bWw="}
+[Methodology (TOC)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6TWV0aG9kb2xvZ3kgKFRPQyk="}
+[/WRITEUP.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAuaHRtbA=="}
+[Spokes]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6U3Bva2Vz"}
+[Data decisions]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6RGF0YSBkZWNpc2lvbnM="}
+[/WRITEUP/data-decisions.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvZGF0YS1kZWNpc2lvbnMuaHRtbA=="}
+[Model rungs]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6TW9kZWwgcnVuZ3M="}
+[/WRITEUP/model-rungs.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvbW9kZWwtcnVuZ3MuaHRtbA=="}
+[Evaluation design]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6RXZhbHVhdGlvbiBkZXNpZ24="}
+[/WRITEUP/eval-design.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvZXZhbC1kZXNpZ24uaHRtbA=="}
+[Threshold policy]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6VGhyZXNob2xkIHBvbGljeQ=="}
+[/WRITEUP/threshold-policy.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvdGhyZXNob2xkLXBvbGljeS5odG1s"}
+[Reference-scorer audit]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6UmVmZXJlbmNlLXNjb3JlciBhdWRpdA=="}
+[/WRITEUP/reference-scorer-audit.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvcmVmZXJlbmNlLXNjb3Jlci1hdWRpdC5odG1s"}
+[Methodology guarantees]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6TWV0aG9kb2xvZ3kgZ3VhcmFudGVlcw=="}
+[/WRITEUP/methodology-guarantees.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvbWV0aG9kb2xvZ3ktZ3VhcmFudGVlcy5odG1s"}
+[Limitations and future work]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6TGltaXRhdGlvbnMgYW5kIGZ1dHVyZSB3b3Jr"}
+[/WRITEUP/limitations-and-future-work.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvbGltaXRhdGlvbnMtYW5kLWZ1dHVyZS13b3JrLmh0bWw="}
+[Reproducibility — three reproduction tiers]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6UmVwcm9kdWNpYmlsaXR5IOKAlCB0aHJlZSByZXByb2R1Y3Rpb24gdGllcnM="}
+[/WRITEUP/reproducibility.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L1dSSVRFVVAvcmVwcm9kdWNpYmlsaXR5Lmh0bWw="}
+[Evidence]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6RXZpZGVuY2U="}
+[/EVIDENCE.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L0VWSURFTkNFLmh0bWw="}
+[Decisions (ADRs)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6RGVjaXNpb25zIChBRFJzKQ=="}
+[/decisions/README.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L2RlY2lzaW9ucy9SRUFETUUuaHRtbA=="}
+[Decisions (ADRs)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWJyZWFkY3J1bWJzLURlY2lzaW9ucy0oQURScyk="}
+[Decisions]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWJyZWFkY3J1bWJzLURlY2lzaW9ucw=="}
+[Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWJyZWFkY3J1bWJzLVJlcHJvZHVjaWJpbGl0eS10aWVyLeKAlC1mdWxsLWxhZGRlci1UMC0oZXZhbC1mcm9tLWh1YiktcGx1cy1UMS0oc21va2UpLXBsdXMtVDMtKGhlYWRsaW5lLWNsb3VkKQ=="}
+:::
+
+
+
+:::{#quarto-meta-markdown .hidden}
+[Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud) – Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLW1ldGF0aXRsZQ=="}
+[Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud) – Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU="}
+[Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud) – Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLW9nY2FyZHRpdGxl"}
+[Prompt-injection classifier — methodology submission]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ=="}
+[Methodology + capability characterisation of a prompt-injection classifier rung ladder, with honest OOD evaluation.]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="}
+[Methodology + capability characterisation of a prompt-injection classifier rung ladder, with honest OOD evaluation.]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLW9nY2FyZGRkZXNj"}
+[Methodology + capability characterisation of a prompt-injection classifier rung ladder, with honest OOD evaluation.]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLW1ldGFzaXRlZGVzYw=="}
+:::
+
+
+
+
+&lt;!-- --&gt;
+
+::: {.quarto-embedded-source-code}
+```````````````````{.markdown shortcodes="false"}
+---
+adr_id: "034"
+slug: reproducibility-tier-full-ladder
+title: Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)
+date: 2026-05-16
+status: Accepted
+claim_id: CLAIM-034
+claim: Phase 0-07 locks SPEC_GREENFIELD ledger row 350 (Reproducibility tier) at a layered three-tier reviewer-facing reproduction ladder (Option D of the Phase 0-07 Q4 walk) — T0 eval-from-hub (laptop; about 10-30 minutes; about zero dollars; downloads a published HF Hub checkpoint per ADR-032 and runs eval-only against fixture or held-out data; verifies headline scores reproduce without re-training) plus T1 smoke (laptop; about 10 minutes; about zero dollars; runs make smoke per ADR-027; verifies pipeline shape on fixture data; does NOT verify headline numbers — code health only) plus T3 headline-cloud (cloud-GPU; about hours; about 125 dollars per ADR-020; runs make headline-cloud; full re-training from scratch; verifies every step including training). T2 (make test-integration) stays a developer-tool tier — not promoted to reviewer-facing because it requires a local GPU the reviewer may not have and adds friction without enabling a new verification dimension (T0 covers eval; T3 covers full retraining; T2 only adds subset eval on local GPU which is strictly weaker than T3). The kit-level SPEC_GREENFIELD §6 line 249 lock — a stranger can clone install and reproduce headline numbers via documented commands — is operationally satisfied at T0 (cheapest highest-coverage for most reviewers) and stronger at T3 (full retraining). The smoke tier T1 is documented but framed as code-health-only not a math-correctness check. T0 is enabled by ADR-032 HF Hub publication; without published checkpoints T0 collapses and the reproducibility ladder reduces to T1 plus T3 only. T0 commands operationalize as make eval-from-hub (Phase 3 work item; about 30-50 lines of glue wrapping huggingface_hub.snapshot_download plus eval-toolkit scoring primitives plus per-row prediction emission) — accepts a rung name argument and downloads the corresponding BBehring/prompt-injection-modernbert-&lt;rung&gt; repo plus runs scoring against the eval data plus emits per-row predictions plus prints a score match table comparing against the committed results.json. The ladder maps approximately onto ACM artifact-review-and-badging conventions — T0 plus T1 supply Functional plus Reusable badge levels; T3 supplies the Reproducible badge level. WRITEUP/reproducibility.md spoke (slotted by ADR-031) documents the ladder with verbatim commands plus cost plus time plus what each tier verifies plus what each tier does NOT verify. Limitation — T0 reproduces headline scores only on the published rungs per ADR-032 Option C — ablation-rung reproduction requires T3; T0 verifies score-match against the published checkpoint not data-pipeline correctness — a reviewer who wants to verify the data preparation pipeline produces the same training tensors needs T3. Extension condition — if Phase 5 reveals T0 has correctness gaps (e.g., HF Hub checkpoint can drift due to model card edits invalidating cached SHAs), pin checkpoint SHAs in WRITEUP/reproducibility.md and make eval-from-hub via huggingface_hub.snapshot_download with the revision argument — the HF dataset SHA-pinning discipline from ADR-016 carries over to HF model SHA-pinning here; if a production-grade reproducibility scope extension lifts requirements (e.g., the writeup expands to include a deployment-grade claim), add T4 Docker-container-with-frozen-environment via superseding ADR (currently out-of-scope per ADR-005 plus ADR-027 prototype-grade framing).
+source: SPEC_GREENFIELD.md §Submission ledger row 350 + SPEC_GREENFIELD §6 line 249 (kit-level reproducibility claim) + Phase 0-07 walk Q4
+acceptance_criterion: SPEC_GREENFIELD ledger row 350 carries locked-to-full-ladder-T0-T1-T3 status (see ADR-034); WRITEUP/reproducibility.md spoke exists with at minimum a title plus a tier-ladder table stub (full content populated at Phase 5 — verbatim commands plus cost plus time plus what-verifies plus what-does-not-verify); Makefile has a make eval-from-hub target placeholder (Phase 3 implementation; can be a stub echo at Phase 0-07 close); tests/test_invariants.py contains skip-marked stub test_reproducibility_tier_documented asserting (1) WRITEUP/reproducibility.md exists; (2) the spoke contains all three tier names (T0 plus T1 plus T3) in section headers; (3) each tier has a verbatim command (make smoke plus make eval-from-hub plus make headline-cloud) in a code block; (4) Makefile contains all three target names (smoke plus eval-from-hub plus headline-cloud) as rules; SUBMISSION_AUDIT.md regenerates from the new ADR.
+closing_commit: 7979dc9
+references:
+  - https://www.acm.org/publications/policies/artifact-review-and-badging-current
+  - https://github.com/brandon-behring/runpod-deploy
+  - https://github.com/brandon-behring/eval-toolkit
+  - https://huggingface.co/docs/transformers/installation#offline-mode
+  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
+  - decisions/ADR-016-data-design-bundle.md
+  - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md
+  - decisions/ADR-005-project-level-methodology-principles.md
+transcript: transcripts/2026-05-16__phase-0-07__submission-deliverables.md
+---
+
+# ADR-034: Reproducibility tier — full ladder T0 + T1 + T3
+
+## Status
+
+Accepted (2026-05-16). Closes the fourth and final [OPEN] row in Phase 0-07 (§Submission — row 350). Companion to ADR-027 (Makefile execution-context stratification — provides T1 + T3 commands), ADR-030 (deliverable format — `WRITEUP/reproducibility.md` is a Quarto-rendered spoke), ADR-031 (reading paths — slots the spoke in the sidebar nav), and ADR-032 (HF Hub publication — enables T0).
+
+## Context
+
+SPEC_GREENFIELD §6 line 249 carries a kit-level pre-lock:
+
+&gt; `[LOCKED]` Reproducibility: a stranger can clone, install, and reproduce headline numbers via documented commands.
+
+The kit-lock fixes the **claim** ("headline numbers reproducible") but not the **tier** at which that claim lives. Ledger row 350 picks the tier — laptop-only smoke / GPU-rental canonical / both.
+
+ADR-027 already exposed three Makefile execution-context targets:
+- `make smoke` (laptop; ~10 min; no GPU; no network; fixture data) — verifies *code structure*, NOT math correctness
+- `make test-integration` (GPU-aware via `importorskip + skipif`; local OR cloud pre-flight) — verifies real-scorer / real-data paths
+- `make headline-cloud` (canonical eval; NOT a test; cost-cap-gated per ADR-020) — produces the headline numbers
+
+ADR-032 (Q2 publication = option C) adds a fourth reproduction path that didn't exist when ADR-027 was written:
+- **Eval-from-HF-Hub** — `make eval-from-hub` (NEW, this ADR) downloads a published Phase-2-trained checkpoint and runs eval-only against fixture or full eval data. No re-training. Laptop-compatible if eval is CPU-feasible.
+
+The operational reproducibility ladder has four tiers, not three:
+
+| Tier | Command | Cost | Time | What it verifies |
+|---|---|---|---|---|
+| T0 — eval-from-hub | `make eval-from-hub` | $0 + HF Hub bandwidth | ~10-30 min | Headline scores reproduce on published checkpoint (verifies eval pipeline + checkpoint integrity) |
+| T1 — smoke | `make smoke` | $0 | ~10 min | Code structure + fixture-pipeline runs end-to-end (verifies code health, NOT math) |
+| T2 — test-integration (local-GPU) | `make test-integration` | $0 (own GPU) | varies | Real-scorer paths exercise; partial real-data run |
+| T3 — headline-cloud | `make headline-cloud` | ~$125+ per ADR-020 | ~hours | Full headline-number reproduction from scratch via re-training |
+
+Four options were considered (per Q4 walk):
+- (A) Laptop-only smoke (T1 only) — narrows the kit-level claim; reviewer cannot verify scores.
+- (B) GPU-rental canonical (T3 only) — gold-standard but $125+ barrier excludes most reviewers.
+- (C) Both T1 + T3 — leaves T0 unused despite Q2 enabling it.
+- (D) Full ladder T0 + T1 + T3 — maximizes reviewer-tier coverage given Q2's HF Hub publication.
+
+User selection at Q4 walk: **D**.
+
+## Decision
+
+**Reproducibility tier ladder**: T0 + T1 + T3 (reviewer-facing). T2 stays a developer-tool tier (not promoted to reviewer-facing).
+
+**Tier definitions** (locked):
+
+| Tier | Command | Verifies | Does NOT verify | Cost | Time |
+|---|---|---|---|---|---|
+| **T0** | `make eval-from-hub RUNG=&lt;name&gt;` | Headline scores reproduce on the published checkpoint for the named rung. Eval pipeline integrity. Checkpoint download integrity (HF Hub SHA match). | Data-pipeline correctness (no training); ablation rungs not in published set. | $0 (HF Hub bandwidth only) | ~10-30 min (download + eval) |
+| **T1** | `make smoke` | Code health; fixture-pipeline E2E shape. No imports broken; no schema mismatches. | Math correctness; real-data scoring; headline numbers. | $0 | &lt;10 min |
+| **T3** | `make headline-cloud` | Full retraining from scratch reproduces headline numbers within seed variance. Data pipeline + training + eval + threshold-fitting + bootstrap. | (verifies everything in scope) | ~$125+ per ADR-020 cost cap | hours |
+
+**T2 (`make test-integration`)** stays a developer-tool tier. Not promoted to reviewer-facing because:
+1. Requires a local GPU the reviewer may not have.
+2. Adds friction without enabling a new verification dimension — T0 covers eval; T3 covers full retraining; T2 only adds "subset eval on local GPU" which is strictly weaker than T3.
+
+**`make eval-from-hub` implementation** (Phase 3 work item):
+
+```python
+# scripts/eval_from_hub.py — ~30-50 LOC glue
+# Accepts: RUNG=&lt;rung-name&gt; (e.g., modernbert-lora)
+# Steps:
+#   1. snapshot_download(f"BBehring/prompt-injection-{rung}", local_dir=...)
+#   2. Load model via AutoModelForSequenceClassification.from_pretrained(local_dir)
+#   3. Run scoring against configs/profiles/eval.yaml's data slate
+#   4. Emit per-row predictions to results/predictions/eval-from-hub__&lt;rung&gt;.parquet
+#   5. Print score-match table: this run's metrics vs results.json's metrics
+#   6. Exit non-zero if any headline metric drifts beyond seed-variance tolerance</code></pre>
+<p>Tolerance for “score match”: per-row prediction equality is too strict (different floating-point ordering can yield bit-level diffs); headline-metric match within ~1e-4 absolute is the practical bar.</p>
+<p><strong><code>WRITEUP/reproducibility.md</code></strong> spoke (slotted by ADR-031; full content at Phase 5) carries the tier-ladder documentation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reproducibility</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>This submission documents three tiers of reproduction, ordered by cost.</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## T0 — eval-from-hub (laptop, ~$0, ~10-30 min)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Verifies: headline scores reproduce on the published checkpoint.</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Does NOT verify: training pipeline (no re-training).</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=modernbert-lora</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="t1-smoke-laptop-0-10-min-1" class="level2">
+<h2 class="anchored" data-anchor-id="t1-smoke-laptop-0-10-min-1">T1 — smoke (laptop, ~$0, ~10 min)</h2>
+<p>Verifies: code health; fixture pipeline runs. Does NOT verify: headline numbers (uses fixture data).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> smoke</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="t3-headline-cloud-cloud-gpu-125-hours-1" class="level2">
+<h2 class="anchored" data-anchor-id="t3-headline-cloud-cloud-gpu-125-hours-1">T3 — headline-cloud (cloud-GPU, ~$125+, ~hours)</h2>
+<p>Verifies: full retraining from scratch reproduces headline numbers.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tier-coverage-matrix-1" class="level2">
+<h2 class="anchored" data-anchor-id="tier-coverage-matrix-1">Tier coverage matrix</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>What you can audit</th>
+<th>Recommended reader</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T0</td>
+<td>“Are the published scores legit?”</td>
+<td>Most reviewers</td>
+</tr>
+<tr class="even">
+<td>T1</td>
+<td>“Does the code run?”</td>
+<td>Quick sanity check</td>
+</tr>
+<tr class="odd">
+<td>T3</td>
+<td>“Does the training pipeline reproduce?”</td>
+<td>Deep-audit reviewers</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+**Mapping to ACM artifact badging** (https://www.acm.org/publications/policies/artifact-review-and-badging-current):
+- T0 + T1 supply *Artifacts Available* + *Functional* + *Reusable* badges.
+- T3 supplies the *Reproducible* badge (deepest level).
+
+The badge vocabulary is standard in academic artifact-review; a reviewer familiar with ACM artifact policies will recognize the tier structure.
+
+**Cost-cap discipline preserved**: T3 is the only paid tier; reviewer self-funds the RunPod cost per ADR-020 cap discipline. T0 + T1 cost only the reviewer's time.
+
+## Consequences
+
+### Positive
+
+- **Maximum reviewer-tier coverage** given Q2's HF Hub publication — T0 was implicitly enabled by ADR-032 = C; this ADR makes it load-bearing rather than orphaned.
+- **Honest tier ladder** — each tier explicitly verifies a different thing at different cost; reviewer picks the tier matching their interest + budget.
+- **`make eval-from-hub` is a small Phase 3 work item** — ~30-50 LOC of glue; well-scoped.
+- **Aligns with ACM artifact-badging convention** — reviewer-recognizable structure.
+- **Honors kit-level §6 line 249 claim** — "headline numbers reproducible" satisfied at T0 (cheapest path); stronger guarantee at T3.
+- **`WRITEUP/reproducibility.md` slot is justified** — ADR-031 reserved the spoke slot for exactly this content; tier-ladder documentation has a home rather than polluting WRITEUP.md proper.
+
+### Negative / cost
+
+- **Phase 3 work item added** — `make eval-from-hub` + `scripts/eval_from_hub.py` (~30-50 LOC). Acceptable; well-bounded.
+- **`WRITEUP/reproducibility.md` content** — Phase 5 work item; tier-ladder table + commands + caveats. ~1-2 pages.
+- **Three tiers vs two** — more documentation surface; reviewer must read the spoke to understand which tier suits their audit depth. Mitigation: tier-coverage matrix at top of spoke makes the choice obvious in &lt;30 seconds.
+- **HF Hub checkpoint drift risk** — if published model card is later edited, the cached SHA invalidates; T0 reproducibility fails silently. Mitigation: pin checkpoint SHAs in `make eval-from-hub` via `huggingface_hub.snapshot_download(revision=&lt;SHA&gt;)` once SHAs are known at Phase 5; for Phase 0-07 close, the unpinned default is acceptable since publication happens at v0.9.0-rc1 rehearsal.
+
+### Neutral
+
+- **T2 stays unchanged** — developer-tool tier per ADR-027; not promoted; not removed.
+- **Cost-cap gating** preserved from ADR-020; no new cost surface introduced.
+- **Tier renumbering risk** — T0/T1/T3 numbering skips T2 intentionally (T2 = developer-only). Reviewer who reads the spoke sees the skip and the explanation; not a presentation problem.
+
+### Limitation
+
+T0 reproduces headline scores only on the *published* rungs (per ADR-032 = C, the headline rungs only). Ablation-rung reproduction requires T3. This is an acceptable trade-off given Q2's disclosure-surface budget.
+
+T0 verifies score-match against the published checkpoint, not data-pipeline correctness — if a reviewer wants to verify "the data preparation pipeline produces the same training tensors", they need T3. Documented in the spoke.
+
+### Extension condition for revisit
+
+- **HF Hub checkpoint SHA drift detected**: if Phase 5 (or post-submission) reveals that an HF Hub published checkpoint can drift due to model card edits invalidating cached SHAs, pin checkpoint SHAs in `WRITEUP/reproducibility.md` + `make eval-from-hub` via `huggingface_hub.snapshot_download(revision=&lt;SHA&gt;)`. HF dataset SHA-pinning discipline from ADR-016 carries over.
+- **T4 Docker container**: if scope extends to a deployment-grade claim, add T4 Docker-container-with-frozen-environment via superseding ADR. Currently out-of-scope per ADR-005 + ADR-027 prototype-grade framing.
+- **T0 correctness gap**: if Phase 5 reveals T0 produces scores that drift from results.json beyond seed-variance tolerance (e.g., due to non-deterministic kernels on a CPU eval host vs the GPU host that produced results.json), add a `T0-caveat` section to the reproducibility spoke documenting the gap + the expected drift magnitude.
+- **T2 promotion**: if reviewer feedback signals "T2 (local-GPU integration) would be useful as a reviewer-facing tier" (e.g., a reviewer who has a local GPU and wants a mid-tier check), promote T2 via Phase 1+ superseding ADR.
+
+## Alternatives Considered
+
+- **(A) Laptop-only smoke (T1 only)** — narrows the kit-level reproducibility claim from "headline numbers" to "code health"; explicitly does NOT reproduce headline numbers. Rejected per Q4 walk; defeats the purpose of the kit-lock.
+- **(B) GPU-rental canonical (T3 only)** — gold-standard but ~$125+ + RunPod account + secrets barrier; most reviewers will not pay this cost. Rejected per Q4 walk; loses the laptop-tier value entirely.
+- **(C) Both T1 + T3** — leaves T0 (enabled by Q2) unused; throws away the highest-value reviewer-tier. Rejected per Q4 walk in favor of D.
+- **Promote T2 to reviewer-facing** — adds friction (requires local GPU) without enabling a new verification dimension; strictly weaker than T3. Rejected.
+
+## References
+
+- ACM Artifact Review and Badging (v1.1) — https://www.acm.org/publications/policies/artifact-review-and-badging-current
+- `runpod-deploy` reproduction patterns — https://github.com/brandon-behring/runpod-deploy
+- `eval-toolkit` (scoring primitives) — https://github.com/brandon-behring/eval-toolkit
+- HF Hub `AutoModel.from_pretrained` offline-eval — https://huggingface.co/docs/transformers/installation#offline-mode
+- ADR-027 (Makefile execution-context stratification — provides T1 + T3 commands)
+- ADR-020 (compute infrastructure + cost cap — T3 paid-tier discipline)
+- ADR-016 (HF dataset SHA pinning — checkpoint SHA pinning discipline pattern)
+- ADR-032 (HF Hub publication — enables T0; published rungs are what T0 downloads)
+- ADR-005 (project-level methodology principles — prototype-grade framing rules out T4 currently)
+
+## Transcript
+
+See `transcripts/2026-05-16__phase-0-07__submission-deliverables.md` for the conversation that led to this decision (Q4 walk + option D selection).</code></pre>
+<p>:::</p>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brandon-behring\.github\.io\/prompt-injection-detection-prototype\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

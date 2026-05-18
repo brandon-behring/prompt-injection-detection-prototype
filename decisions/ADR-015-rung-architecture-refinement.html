@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-05-15">
+
+<title>Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007 – Prompt-injection classifier — methodology submission</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Reading guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../WRITEUP.html"> 
+<span class="menu-text">Methodology (TOC)</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-spokes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Spokes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-spokes">    
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/data-decisions.html">
+ <span class="dropdown-text">Data decisions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/model-rungs.html">
+ <span class="dropdown-text">Model rungs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/eval-design.html">
+ <span class="dropdown-text">Evaluation design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/threshold-policy.html">
+ <span class="dropdown-text">Threshold policy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/reference-scorer-audit.html">
+ <span class="dropdown-text">Reference-scorer audit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/methodology-guarantees.html">
+ <span class="dropdown-text">Methodology guarantees</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/limitations-and-future-work.html">
+ <span class="dropdown-text">Limitations and future work</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP/reproducibility.html">
+ <span class="dropdown-text">Reproducibility — three reproduction tiers</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../EVIDENCE.html"> 
+<span class="menu-text">Evidence</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../decisions/README.html"> 
+<span class="menu-text">Decisions (ADRs)</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Decisions (ADRs)</li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-015-rung-architecture-refinement.html">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reading guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classifier — methodology submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Methodology</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt-injection classification — methodology + capability characterisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/data-decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data decisions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model rungs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/eval-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evaluation design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/threshold-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threshold policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/reference-scorer-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/limitations-and-future-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Limitations and future work</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP/reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility — three reproduction tiers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Evidence + audit</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evidence — audit trail</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions (ADRs)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Decisions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submission deadline 2026-05-18 morning with infra-leveraged Long-scope attempt and fallback ladder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-003-repo-visibility-public.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repository visibility — public from start (kit default ratified)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer profile A1+A2 with hub-and-spoke writeup structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-005-methodology-principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-level methodology principles — methodology over metrics, honest evaluation preferred, structured limitations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-006-headline-metrics-and-statistical-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Headline metrics, operating-point pinpoints, and statistical apparatus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-007-rung-architecture-and-reference-scorers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology rung architecture — trained backbones, LLM-judge reference rungs, Cohen’s kappa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-008-data-scope-public-only-hybrid-splits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data scope — public-only sources, hybrid splits, NotInject inclusion (brief-level lock)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-009-process-mandates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Process mandates — two-tier reproducibility, marker-based testing, compute disclosure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-010-scope-limits-with-extension-conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scope limits with per-bound extension conditions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-011-methodology-guarantees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodology guarantees — eight banned approaches surfaced as project commitments</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-012-soft-signals-and-artifact-engagement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Soft-signals naming discipline and external artifact engagement set</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kit-ratify bulk — Phase 0 strictness, brief-intake protocol, notebook role and RunPod persistence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-014-threat-model-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Threat-model bundle — attack-class scope, language, length cap, truncation policy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-015-rung-architecture-refinement.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-016-data-design-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data design bundle — source slate, splits, HF pinning, dedup, ordering, ceilings, ref-scorer audit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-017-trained-rung-slate-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference scorer slate and contamination stratification — OpenAI plus Anthropic LLM-judges plus ProtectAI v1 and v2 plus per-axis matched-budget</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-019-lora-and-transformer-training-recipe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-020-compute-infrastructure-and-cost-discipline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eval slate aggregation — pooled headline plus per-slice spoke and recall@FPR pinpoint feasibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-022-statistical-inference-apparatus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-023-calibration-battery-and-interventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calibration battery composition — raw plus temperature plus isotonic interventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-024-cross-fold-ci-methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-025-dual-policy-threshold-characterization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dual-policy threshold characterization at symmetric 1% cost weights</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-026-module-layout-concern-grouped-subpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module layout — concern-grouped sub-packages under src/</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Smoke vs canonical separation — three Makefile targets stratified by execution context</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-030-deliverable-format-quarto-html-site.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-032-hf-hub-publication-headline-rungs-only.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-035-secrets-management-three-store-split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Secrets management — three-store split aligned with execution context (.env + RunPod pod-secrets + GH Actions repo Secrets)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library version pins — tag pin to latest stable plus freeze for submission window (eval-toolkit v0.31.0 + runpod-deploy v0.7.7 + research_toolkit v1.9.1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-037-python-version-pin-3-13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-038-phase-tailoring-light-roadmap-edits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase tailoring — light ROADMAP edits to Phase 4 close + Phase 5 description (preserves 5-phase structure)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-039-acceptance-criteria-six-gate-integration-checklist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project-specific acceptance criteria — 6-gate integration checklist for v1.0.0 submission tag</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-040-phase-0-audit-findings-and-assumption-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 0 final audit findings + 7-assumption backfill (A-010 through A-016)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-041-phase-1-data-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 (Data) implementation bundle — manifest schema, SHA pinning, validator placement, loader arch, holdout sourcing, contamination corpus, output materialization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-043-post-split-cross-source-leakage-cleanup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-044-phase-2-training-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 2 training implementation bundle — seed slate reconciliation + manifest move + classical-floor location + YAML config schema + trainer split + per-rung orchestration + fixture preflight</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-045-phase-3-evaluation-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 3 evaluation implementation bundle — scoring-first contract + 6-commit cadence + tiered reference scorers + classical-scaffold + full-pairwise persistence with headline-only WRITEUP + pydantic schema validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-046-phase-4-analysis-implementation-bundle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 4 analysis implementation bundle — 6-commit cadence + scaffold-with-classical + always-emit-both-CIs auto-flag + MDE-on-every-emitted-CI + LLM-rater audit included (user-overridden from defer) + library-first hybrid figures + Phase 5 prep deferred</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-047-phase-1-library-first-carryforward-refactor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Phase 1 library-first carryforward refactor — audit findings + remediation plan (splits + dedup + leakage_report + contamination_scan migration to eval-toolkit primitives; orphaned code removed in-commit)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-049-gpu-order-priority-refresh-a100-80g.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GPU failover ladder priority refresh — A100-SXM4-80GB to position 1 + US-WA-1/US-CA-2 datacenter additions + EU-RO-1 drop (frozen-probe + LoRA canonical; full-FT deferred to post-rehearsal)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rung slate narrowing — LLM judges dropped (cost) + full-FT OOD dropped (FUSE EIO crash); narrow supersession of ADR-018 reference slate + ADR-021 OOD comparison scope</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#adr-015-rung-architecture-refinement-modernbert-base-only-trained-slate-supersedes-adr-007" id="toc-adr-015-rung-architecture-refinement-modernbert-base-only-trained-slate-supersedes-adr-007" class="nav-link active" data-scroll-target="#adr-015-rung-architecture-refinement-modernbert-base-only-trained-slate-supersedes-adr-007">ADR-015: Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</a>
+  <ul class="collapse">
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
+  <ul class="collapse">
+  <li><a href="#trained-rung-slate-3-rungs" id="toc-trained-rung-slate-3-rungs" class="nav-link" data-scroll-target="#trained-rung-slate-3-rungs">Trained-rung slate (3 rungs)</a></li>
+  <li><a href="#reference-rung-slate-4-rungs-preserved-from-adr-007-unchanged" id="toc-reference-rung-slate-4-rungs-preserved-from-adr-007-unchanged" class="nav-link" data-scroll-target="#reference-rung-slate-4-rungs-preserved-from-adr-007-unchanged">Reference-rung slate (4 rungs) — preserved from ADR-007 unchanged</a></li>
+  <li><a href="#multi-seed-protocol" id="toc-multi-seed-protocol" class="nav-link" data-scroll-target="#multi-seed-protocol">Multi-seed protocol</a></li>
+  <li><a href="#cohens-kappa-methodology-preserved-from-adr-007" id="toc-cohens-kappa-methodology-preserved-from-adr-007" class="nav-link" data-scroll-target="#cohens-kappa-methodology-preserved-from-adr-007">Cohen’s kappa methodology — preserved from ADR-007</a></li>
+  <li><a href="#updated-fallback-ladder" id="toc-updated-fallback-ladder" class="nav-link" data-scroll-target="#updated-fallback-ladder">Updated fallback ladder</a></li>
+  <li><a href="#hard-lock-silent-backbone-fallback-prohibited" id="toc-hard-lock-silent-backbone-fallback-prohibited" class="nav-link" data-scroll-target="#hard-lock-silent-backbone-fallback-prohibited">Hard-lock — silent backbone fallback prohibited</a></li>
+  <li><a href="#reference-rung-as-published-policy" id="toc-reference-rung-as-published-policy" class="nav-link" data-scroll-target="#reference-rung-as-published-policy">Reference-rung as-published policy</a></li>
+  </ul></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Decisions (ADRs)</li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-015-rung-architecture-refinement.html">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="adr-015-rung-architecture-refinement-modernbert-base-only-trained-slate-supersedes-adr-007" class="level1">
+<h1>ADR-015: Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</h1>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Accepted (2026-05-15). Supersedes ADR-007.</p>
+</section>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>ADR-007 locked a six-trained-rung architecture (DeBERTa-v3 plus ModernBERT, each at frozen-probe, LoRA, full-FT) plus reference rungs (LLM-judges plus Lakera plus ProtectAI). The Phase 0-01 walk surfaced a load-bearing finding that ADR-007 had not anticipated — the per-backbone native context-window asymmetry produces an irreducible truncation confound on the indirect-injection zero-shot OOD slice.</p>
+<p>Concretely — DeBERTa-v3 has a 512-token hardcoded context cap from its relative-position attention scheme; ModernBERT has an 8192-token native context from rotary positional embeddings. BIPIA (Yi et al.&nbsp;2023, KDD 2025) — the dossier-vetted indirect-injection benchmark — has samples with median 1-3K tokens and 95th percentile around 4K-plus. Under the original 2-backbone framing, evaluating DeBERTa-v3 on BIPIA requires adaptive chunked scoring (3-8 chunks per sample at stride 256, max-pool aggregation per ADR-014 Q4) while evaluating ModernBERT on BIPIA fits 95-percent-plus of samples in a single native pass. The cross-backbone delta-AUROC on BIPIA would therefore be partly architecture-driven and partly truncation-aggregation-driven, with no clean decomposition possible inside the submission’s compute and calendar budget. A reviewer reading the cross-backbone delta would not be able to attribute the difference cleanly to detector capacity versus context-window-handling.</p>
+<p>The mandatory chunked-vs-head ablation in ADR-014 quantifies the confound but does not eliminate it. Per ADR-005 Principle 2 (honest evaluation preferred even when models look worse), the methodology-first move is to eliminate the confound at the rung-architecture level rather than report a confounded headline metric with an explanatory caveat. This means narrowing the trained-rung slate to a single backbone whose native context covers the indirect-injection eval slice — ModernBERT-base.</p>
+<p>The submission’s contribution shifts from “two-backbone-by-three-condition matrix with cross-backbone delta” to “three-condition comparison on a modern long-context backbone plus zero-shot transfer to indirect” — a different headline narrative, but a cleaner methodology story. ProtectAI’s deberta-v3-base-prompt-injection remains in the reference-rung slate as the canonical published deberta-v3 baseline, so the submission still engages with the deberta-v3 landscape — just as a reference rung run at its published native config rather than as a co-trained backbone in the headline grid.</p>
+</section>
+<section id="decision" class="level2">
+<h2 class="anchored" data-anchor-id="decision">Decision</h2>
+<section id="trained-rung-slate-3-rungs" class="level3">
+<h3 class="anchored" data-anchor-id="trained-rung-slate-3-rungs">Trained-rung slate (3 rungs)</h3>
+<ul>
+<li>ModernBERT-base, frozen-probe (transformer body frozen; linear head trained on pooled CLS or mean-pooled embeddings)</li>
+<li>ModernBERT-base, LoRA (PEFT-LoRA adapters; full backbone frozen; specific hyperparams r, alpha, dropout, target modules deferred to Phase 0-03 ledger rows 335-337)</li>
+<li>ModernBERT-base, full-FT (full backbone parameters trainable)</li>
+</ul>
+<p>Library stack unchanged from ADR-007 — HuggingFace Transformers plus PEFT for LoRA plus sentence-transformers for any pooling helpers; PyTorch backbone; dependencies pinned via uv.lock per ADR-007’s library lock. Specific LoRA hyperparameters remain Phase 0-03 deliverables.</p>
+</section>
+<section id="reference-rung-slate-4-rungs-preserved-from-adr-007-unchanged" class="level3">
+<h3 class="anchored" data-anchor-id="reference-rung-slate-4-rungs-preserved-from-adr-007-unchanged">Reference-rung slate (4 rungs) — preserved from ADR-007 unchanged</h3>
+<ul>
+<li>LLM-judge: one OpenAI model, specific ID deferred to Phase 0-03 (likely GPT-4o or successor); temperature equals zero (deterministic); one call per eval row; prompt template versioned in repo</li>
+<li>LLM-judge: one Anthropic model, specific ID deferred to Phase 0-03 (likely Claude Sonnet 4 or successor); temperature equals zero; one call per eval row; prompt template versioned in repo</li>
+<li>Lakera Guard: API-based reference rung; called at whatever the API does (no preprocessing override on our side)</li>
+<li>ProtectAI deberta-v3-base-prompt-injection: open-weights canonical baseline; run at its published native config including its native head-truncation at 512 (no preprocessing override on our side)</li>
+</ul>
+<p>The reference-rung inference policy is “as-published native config” — per ADR-014 Q3 reference-rung-asymmetry clarification, we measure each reference rung as it would actually be deployed, not as it would behave under our truncation policy applied uniformly. ProtectAI’s BIPIA scores will reflect the head-truncation false-negative bias at 512; this is the point of testing the published baseline as-deployed and should be surfaced explicitly in the writeup.</p>
+</section>
+<section id="multi-seed-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="multi-seed-protocol">Multi-seed protocol</h3>
+<p>Three seeds is the ADR-006 floor; preserved. Three trained rungs times three seeds times five LODO folds equals 45 training runs per evaluation cycle. Adaptive escalation to five seeds remains a Phase 4 sensitivity option per ADR-006’s “if budget permits” clause, but is not pre-committed.</p>
+</section>
+<section id="cohens-kappa-methodology-preserved-from-adr-007" class="level3">
+<h3 class="anchored" data-anchor-id="cohens-kappa-methodology-preserved-from-adr-007">Cohen’s kappa methodology — preserved from ADR-007</h3>
+<p>Pairwise Cohen’s kappa across all seven rungs (3 trained plus 4 reference) — 21 pair-comparisons. Bootstrap CIs on each kappa (10K iters per ADR-006 protocol). Rendered as a heatmap in <code>WRITEUP/reference-scorer-audit.md</code>. Landis-Koch interpretive bands mentioned once for orientation; not used as headline framing.</p>
+</section>
+<section id="updated-fallback-ladder" class="level3">
+<h3 class="anchored" data-anchor-id="updated-fallback-ladder">Updated fallback ladder</h3>
+<p>The ADR-001 fallback ladder is updated from <code>2x3 → 2x2 → 1x2 → 1x1</code> to <code>1x3 (current) → 1x2 → 1x1</code>. The original <code>2x3 → 2x2</code> step is no longer applicable because the 2-backbone framing is voided. Successive fallback steps drop one training condition each — first full-FT (most expensive), then LoRA, leaving frozen-probe as the 1x1 floor.</p>
+</section>
+<section id="hard-lock-silent-backbone-fallback-prohibited" class="level3">
+<h3 class="anchored" data-anchor-id="hard-lock-silent-backbone-fallback-prohibited">Hard-lock — silent backbone fallback prohibited</h3>
+<p>If catastrophic operational issues arise with ModernBERT-base (checkpoint unavailable on HF Hub, library compatibility break under uv pin resolution, RunPod incompatibility), the response is a superseding ADR-016 (or later number) that explicitly re-walks the backbone choice. A silent swap to DeBERTa-v3-base is prohibited — the swap would reintroduce the per-backbone-truncation confound that this ADR exists to eliminate, voiding the methodology contribution.</p>
+</section>
+<section id="reference-rung-as-published-policy" class="level3">
+<h3 class="anchored" data-anchor-id="reference-rung-as-published-policy">Reference-rung as-published policy</h3>
+<p>Reference rungs are not subject to our adaptive chunked scoring policy. ProtectAI runs at native 512 head-truncation; Lakera runs at whatever its API does; LLM-judges receive the full sample (their 128K-plus native contexts cover everything). The asymmetry is the point — apples-to-apples comparison against deployed baselines requires testing them as they exist, not as preprocessed by us.</p>
+</section>
+</section>
+<section id="consequences" class="level2">
+<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
+<p><strong>Positive:</strong></p>
+<ul>
+<li>Eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice — cross-rung deltas are now interpretable as condition effects (frozen vs LoRA vs full-FT) rather than entangled with truncation policy.</li>
+<li>Halves training compute relative to ADR-007 (3 trained rungs versus 6) — fits the revised A-002 budget envelope ($25-125 total) comfortably.</li>
+<li>ModernBERT-base aligns with deployment realism — 8K context covers the indirect-injection scenario (RAG chunks, emails, retrieved documents) natively; the submission tests a backbone whose context window matches the operational threat surface.</li>
+<li>Reference-rung slate unchanged preserves the engagement set from ADR-012 — Lakera and ProtectAI as compare-against baselines; ProtectAI’s deberta-v3 stays in the analysis as the canonical published baseline, just not as a co-trained rung.</li>
+<li>ProtectAI as-published-config reference rung produces an honest “deployed baseline performance under realistic input handling” comparison — reveals how much the head-truncation-at-512 limitation costs on indirect-injection-detection in production.</li>
+<li>Cohen’s kappa methodology from ADR-007 scales cleanly — 7 rungs produce 21 pair-comparisons (smaller than the original 8 rungs producing 28 pairs); kappa heatmap remains readable.</li>
+<li>Soft-signal alignment from ADR-012 is strengthened — methodology-over-metrics (ADR-005 Principle 1) gains: clean rung-comparison versus confounded cross-backbone; honesty-about-limitations (Principle 3) gains: confound eliminated rather than ablation-quantified-but-still-present; time-budgeted-craftsmanship gains: halved compute frees budget headroom.</li>
+<li>Multi-seed budget headroom — at 45 runs versus the original 90 runs from ADR-007, the freed compute supports either Phase 4 sensitivity rerun at 5 seeds on one rung or tighter LODO-fold-count exploration as a secondary methodology axis.</li>
+</ul>
+<p><strong>Negative / cost:</strong></p>
+<ul>
+<li>ADR-007’s “two-backbone matrix” framing is voided — the submission narrative shifts from “backbone effect plus condition effect” to “condition effect on a modern backbone”. Less methodology-axis-coverage, but cleaner per-axis decomposition.</li>
+<li>Reviewer may ask “why only ModernBERT?” — answer is the chained ADR-014 Q3/Q4 walk plus this ADR-015 supersession; the methodology trail is auditable but requires the reviewer to read the supersession.</li>
+<li>DeBERTa-v3-base is dropped from the trained slate; researchers expecting the field-default deberta-v3 baseline as a trained rung will find it only as a reference rung — must be surfaced explicitly in the writeup’s reference-rung-audit narrative.</li>
+<li>Hard-lock prohibits silent fallback; if ModernBERT-base catastrophic issue arises, the project must write ADR-016 rather than silently swapping backbones — adds ADR-write overhead in the worst case but preserves methodology integrity.</li>
+<li>Assumption A-002 (API budget) revised downward to $25-125 total — verification at end of Phase 3 against cumulative cost still required.</li>
+</ul>
+<p><strong>Neutral:</strong></p>
+<ul>
+<li>ADR-006 statistical apparatus unchanged — paired bootstrap, BCa marginal CIs, MDE on every CI, 3-pinpoint Recall@FPR, 4-metric headline table all apply identically.</li>
+<li>ADR-008 data scope unchanged — same training-positives slate, same OOD eval slate, same dedup and split methodology.</li>
+<li>ADR-009 process mandates unchanged — two-tier reproducibility (laptop smoke plus GPU canonical), marker-based testing, pre-commit only, jupytext-paired notebooks, compute disclosure.</li>
+<li>ADR-010 Bounds 1-6 preserved — Bound 4 (sub-1B parameters) is more tightly satisfied (ModernBERT-base is approximately 149M); Bound 3 (per-backbone caps) effectively resolves to “ModernBERT 8K natively, reference rungs at their published caps”.</li>
+<li>ADR-011 methodology guarantees unchanged — all eight guarantees apply identically; Guarantee 4 (Cohen’s kappa for any hand-labeling audit) carries forward.</li>
+<li>ADR-012 external-artifact engagement set unchanged — Lakera and ProtectAI still in the reference-rung slate; BIPIA still in OOD slate; soft-signal alignment table from ADR-012 holds.</li>
+<li>ADR-013 pre-teardown persistence checklist applies with fewer artifacts to checkpoint (3 trained rungs versus 6); simpler operational profile.</li>
+</ul>
+</section>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ul>
+<li><strong>Keep both backbones (ADR-007 as written)</strong>: 6 trained rungs; cross-backbone delta reported with explicit truncation-confound framing; mandatory ablation quantifies. Rejected because the confound on the indirect-injection slice is irreducible — the ablation can quantify but cannot decompose; the methodology-first move is to eliminate the confound at the rung-architecture level rather than report a confounded headline metric with an explanatory caveat.</li>
+<li><strong>Keep both backbones; relegate indirect to spoke-only OOD probe (Path C from the Q4 walk)</strong>: 6 trained rungs; headline on direct slices only where no truncation confound exists; indirect reported in spoke as zero-shot probe without cross-backbone delta. Rejected because it walks back ADR-014 Q1’s B1 framing where indirect zero-shot transfer is a load-bearing measurement; still pays 2x compute without the cross-backbone indirect comparison being headline-worthy.</li>
+<li><strong>DeBERTa-v3-base only (drop ModernBERT)</strong>: Smaller backbone; field-default for deberta-v3-prompt-injection reproductions; cheaper compute. Rejected because DeBERTa-v3’s 512-token cap mismatches the indirect-injection-detection deployment scenario — every BIPIA sample requires chunking; the methodology story would be “deploying an undersized-context backbone on long-input indirect-injection” which is not the methodology contribution we want to make.</li>
+<li><strong>ModernBERT-large instead of ModernBERT-base</strong>: Larger model; stronger absolute metrics; same 8K context. Rejected for this iteration because the Phase 0-03 preview leaning is all-base for compute discipline (matches A-002 budget cleanly; supports denser multi-seed); ModernBERT-large remains a future-work extension axis surfaced in <code>WRITEUP/limitations-and-future-work.md</code>.</li>
+<li><strong>Add a third condition to the trained slate (e.g., LoRA with two hyperparameter configurations)</strong>: Broader condition coverage. Rejected because Phase 0-03 has not walked the LoRA hyperparameter specifics yet; expanding condition coverage premature.</li>
+<li><strong>Five seeds (escalate above ADR-006 floor)</strong>: Tighter bootstrap CIs; better MDE. Rejected as the primary protocol because three seeds is the ADR-006 floor and the Path B compute headroom is better spent on Phase 4 sensitivity rerun at 5 seeds on one rung (a methodology-validation check) than on uniform 5-seed protocol (a precision-only gain).</li>
+<li><strong>Soft fallback to DeBERTa-v3-base if ModernBERT-base unavailable</strong>: Operationally simpler. Rejected because a backbone swap is a substantive methodology change — silent fallback would reintroduce the per-backbone-truncation confound that this ADR exists to eliminate. The supersession requirement is the discipline floor.</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>ModernBERT (Warner et al.&nbsp;2024) — https://arxiv.org/abs/2412.13663</li>
+<li>DeBERTa-v3 (He et al.&nbsp;2023) — https://arxiv.org/abs/2111.09543</li>
+<li>LoRA (Hu et al.&nbsp;2021) — https://arxiv.org/abs/2106.09685</li>
+<li>HF PEFT documentation — https://huggingface.co/docs/peft</li>
+<li>LLM-as-judge (Zheng et al.&nbsp;2023) — https://arxiv.org/abs/2306.05685</li>
+<li>Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://journals.sagepub.com/doi/10.1177/001316446002000104</li>
+<li>ADR-007 (superseded by this ADR)</li>
+<li>ADR-001 (fallback ladder updated to <code>1x3 → 1x2 → 1x1</code>)</li>
+<li>ADR-005 (Principle 1 methodology over metrics; Principle 2 honest evaluation preferred — direct rationale for the supersession)</li>
+<li>ADR-006 (3-seed floor preserved; paired bootstrap protocol unchanged)</li>
+<li>ADR-010 (Bound 3 per-backbone caps now resolves to single-backbone-native; Bound 4 sub-1B more tightly satisfied)</li>
+<li>ADR-012 (Lakera plus ProtectAI engagement preserved; soft-signal alignment strengthened)</li>
+<li>ADR-013 (pre-teardown persistence simpler with fewer rungs)</li>
+<li>ADR-014 (threat-model bundle that surfaced the confound forcing this supersession)</li>
+</ul>
+</section>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>See <code>transcripts/2026-05-15__phase-0-01__threat-model.md</code> for the conversation that led to this decision.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brandon-behring\.github\.io\/prompt-injection-detection-prototype\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 015</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> rung-architecture-refinement</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-015</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> The trained-rung slate is narrowed from the original two-backbones-by-three-conditions matrix (six trained rungs, DeBERTa-v3 plus ModernBERT each at frozen-probe, LoRA, full-FT) to a single-backbone-by-three-conditions slate (three trained rungs, ModernBERT-base at frozen-probe, LoRA, full-FT) because the per-backbone native context-window asymmetry from ADR-014 Q3 (DeBERTa-v3 capped at 512 tokens vs ModernBERT capped at 8192) produces an irreducible truncation confound on the indirect-injection zero-shot OOD slice — the cross-backbone delta-AUROC on BIPIA would be partly architecture and partly chunked-vs-native truncation aggregation, with no decomposition possible inside the project's compute and calendar budget. Reference rungs from ADR-007 are preserved unchanged — OpenAI LLM-judge plus Anthropic LLM-judge plus Lakera Guard plus ProtectAI deberta-v3-base-prompt-injection — each called at its published native configuration including its native truncation policy. Multi-seed protocol at the ADR-006 floor of three seeds yields three trained rungs times three seeds times five LODO folds equals 45 training runs per evaluation. The fallback ladder is updated to 1x3 then 1x2 then 1x1; the original 2x3 then 2x2 step is no longer applicable. Backbone choice is hard-locked to ModernBERT-base; a silent fallback to DeBERTa-v3-base is explicitly prohibited — any catastrophic operational issue (checkpoint inaccessible, library compatibility break under uv pin resolution) requires a superseding ADR rather than a silent swap.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §2 Model row 330 (Backbone choice) + ADR-014 Q3/Q4 walk</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> ADR-007 carries status Superseded with superseded_by 015; SPEC_GREENFIELD ledger row 330 reads locked-to-ModernBERT-base (see ADR-015); SPEC_SHEET context paragraph and §4 model recipe reflect the 1x3 trained slate with three trained rungs plus four reference rungs; assumptions.md A-002 budget revised; tests/test_invariants.py has skip-marked stub test_trained_backbone_modernbert_only_invariant asserting the trained-rung slate contains exactly ModernBERT-base across three conditions; the Phase 2 training pipeline produces three trained rungs times three seeds times five LODO folds equals 45 per-row prediction parquet files at evals/predictions/.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 727767c</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> 007</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2412.13663</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2111.09543</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2106.09685</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/peft</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2306.05685</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://journals.sagepub.com/doi/10.1177/001316446002000104</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-01__threat-model.md</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-015: Rung architecture refinement — ModernBERT-base only trained slate, supersedes ADR-007</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). Supersedes ADR-007.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>ADR-007 locked a six-trained-rung architecture (DeBERTa-v3 plus ModernBERT, each at frozen-probe, LoRA, full-FT) plus reference rungs (LLM-judges plus Lakera plus ProtectAI). The Phase 0-01 walk surfaced a load-bearing finding that ADR-007 had not anticipated — the per-backbone native context-window asymmetry produces an irreducible truncation confound on the indirect-injection zero-shot OOD slice.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Concretely — DeBERTa-v3 has a 512-token hardcoded context cap from its relative-position attention scheme; ModernBERT has an 8192-token native context from rotary positional embeddings. BIPIA (Yi et al. 2023, KDD 2025) — the dossier-vetted indirect-injection benchmark — has samples with median 1-3K tokens and 95th percentile around 4K-plus. Under the original 2-backbone framing, evaluating DeBERTa-v3 on BIPIA requires adaptive chunked scoring (3-8 chunks per sample at stride 256, max-pool aggregation per ADR-014 Q4) while evaluating ModernBERT on BIPIA fits 95-percent-plus of samples in a single native pass. The cross-backbone delta-AUROC on BIPIA would therefore be partly architecture-driven and partly truncation-aggregation-driven, with no clean decomposition possible inside the submission's compute and calendar budget. A reviewer reading the cross-backbone delta would not be able to attribute the difference cleanly to detector capacity versus context-window-handling.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>The mandatory chunked-vs-head ablation in ADR-014 quantifies the confound but does not eliminate it. Per ADR-005 Principle 2 (honest evaluation preferred even when models look worse), the methodology-first move is to eliminate the confound at the rung-architecture level rather than report a confounded headline metric with an explanatory caveat. This means narrowing the trained-rung slate to a single backbone whose native context covers the indirect-injection eval slice — ModernBERT-base.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>The submission's contribution shifts from "two-backbone-by-three-condition matrix with cross-backbone delta" to "three-condition comparison on a modern long-context backbone plus zero-shot transfer to indirect" — a different headline narrative, but a cleaner methodology story. ProtectAI's deberta-v3-base-prompt-injection remains in the reference-rung slate as the canonical published deberta-v3 baseline, so the submission still engages with the deberta-v3 landscape — just as a reference rung run at its published native config rather than as a co-trained backbone in the headline grid.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Trained-rung slate (3 rungs)</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ModernBERT-base, frozen-probe (transformer body frozen; linear head trained on pooled CLS or mean-pooled embeddings)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ModernBERT-base, LoRA (PEFT-LoRA adapters; full backbone frozen; specific hyperparams r, alpha, dropout, target modules deferred to Phase 0-03 ledger rows 335-337)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ModernBERT-base, full-FT (full backbone parameters trainable)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Library stack unchanged from ADR-007 — HuggingFace Transformers plus PEFT for LoRA plus sentence-transformers for any pooling helpers; PyTorch backbone; dependencies pinned via uv.lock per ADR-007's library lock. Specific LoRA hyperparameters remain Phase 0-03 deliverables.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reference-rung slate (4 rungs) — preserved from ADR-007 unchanged</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LLM-judge: one OpenAI model, specific ID deferred to Phase 0-03 (likely GPT-4o or successor); temperature equals zero (deterministic); one call per eval row; prompt template versioned in repo</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LLM-judge: one Anthropic model, specific ID deferred to Phase 0-03 (likely Claude Sonnet 4 or successor); temperature equals zero; one call per eval row; prompt template versioned in repo</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lakera Guard: API-based reference rung; called at whatever the API does (no preprocessing override on our side)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ProtectAI deberta-v3-base-prompt-injection: open-weights canonical baseline; run at its published native config including its native head-truncation at 512 (no preprocessing override on our side)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>The reference-rung inference policy is "as-published native config" — per ADR-014 Q3 reference-rung-asymmetry clarification, we measure each reference rung as it would actually be deployed, not as it would behave under our truncation policy applied uniformly. ProtectAI's BIPIA scores will reflect the head-truncation false-negative bias at 512; this is the point of testing the published baseline as-deployed and should be surfaced explicitly in the writeup.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multi-seed protocol</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>Three seeds is the ADR-006 floor; preserved. Three trained rungs times three seeds times five LODO folds equals 45 training runs per evaluation cycle. Adaptive escalation to five seeds remains a Phase 4 sensitivity option per ADR-006's "if budget permits" clause, but is not pre-committed.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cohen's kappa methodology — preserved from ADR-007</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>Pairwise Cohen's kappa across all seven rungs (3 trained plus 4 reference) — 21 pair-comparisons. Bootstrap CIs on each kappa (10K iters per ADR-006 protocol). Rendered as a heatmap in <span class="in">`WRITEUP/reference-scorer-audit.md`</span>. Landis-Koch interpretive bands mentioned once for orientation; not used as headline framing.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### Updated fallback ladder</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>The ADR-001 fallback ladder is updated from <span class="in">`2x3 → 2x2 → 1x2 → 1x1`</span> to <span class="in">`1x3 (current) → 1x2 → 1x1`</span>. The original <span class="in">`2x3 → 2x2`</span> step is no longer applicable because the 2-backbone framing is voided. Successive fallback steps drop one training condition each — first full-FT (most expensive), then LoRA, leaving frozen-probe as the 1x1 floor.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hard-lock — silent backbone fallback prohibited</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>If catastrophic operational issues arise with ModernBERT-base (checkpoint unavailable on HF Hub, library compatibility break under uv pin resolution, RunPod incompatibility), the response is a superseding ADR-016 (or later number) that explicitly re-walks the backbone choice. A silent swap to DeBERTa-v3-base is prohibited — the swap would reintroduce the per-backbone-truncation confound that this ADR exists to eliminate, voiding the methodology contribution.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reference-rung as-published policy</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>Reference rungs are not subject to our adaptive chunked scoring policy. ProtectAI runs at native 512 head-truncation; Lakera runs at whatever its API does; LLM-judges receive the full sample (their 128K-plus native contexts cover everything). The asymmetry is the point — apples-to-apples comparison against deployed baselines requires testing them as they exist, not as preprocessed by us.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>**Positive:**</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice — cross-rung deltas are now interpretable as condition effects (frozen vs LoRA vs full-FT) rather than entangled with truncation policy.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Halves training compute relative to ADR-007 (3 trained rungs versus 6) — fits the revised A-002 budget envelope ($25-125 total) comfortably.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ModernBERT-base aligns with deployment realism — 8K context covers the indirect-injection scenario (RAG chunks, emails, retrieved documents) natively; the submission tests a backbone whose context window matches the operational threat surface.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reference-rung slate unchanged preserves the engagement set from ADR-012 — Lakera and ProtectAI as compare-against baselines; ProtectAI's deberta-v3 stays in the analysis as the canonical published baseline, just not as a co-trained rung.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ProtectAI as-published-config reference rung produces an honest "deployed baseline performance under realistic input handling" comparison — reveals how much the head-truncation-at-512 limitation costs on indirect-injection-detection in production.</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cohen's kappa methodology from ADR-007 scales cleanly — 7 rungs produce 21 pair-comparisons (smaller than the original 8 rungs producing 28 pairs); kappa heatmap remains readable.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Soft-signal alignment from ADR-012 is strengthened — methodology-over-metrics (ADR-005 Principle 1) gains: clean rung-comparison versus confounded cross-backbone; honesty-about-limitations (Principle 3) gains: confound eliminated rather than ablation-quantified-but-still-present; time-budgeted-craftsmanship gains: halved compute frees budget headroom.</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Multi-seed budget headroom — at 45 runs versus the original 90 runs from ADR-007, the freed compute supports either Phase 4 sensitivity rerun at 5 seeds on one rung or tighter LODO-fold-count exploration as a secondary methodology axis.</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>**Negative / cost:**</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-007's "two-backbone matrix" framing is voided — the submission narrative shifts from "backbone effect plus condition effect" to "condition effect on a modern backbone". Less methodology-axis-coverage, but cleaner per-axis decomposition.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reviewer may ask "why only ModernBERT?" — answer is the chained ADR-014 Q3/Q4 walk plus this ADR-015 supersession; the methodology trail is auditable but requires the reviewer to read the supersession.</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DeBERTa-v3-base is dropped from the trained slate; researchers expecting the field-default deberta-v3 baseline as a trained rung will find it only as a reference rung — must be surfaced explicitly in the writeup's reference-rung-audit narrative.</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hard-lock prohibits silent fallback; if ModernBERT-base catastrophic issue arises, the project must write ADR-016 rather than silently swapping backbones — adds ADR-write overhead in the worst case but preserves methodology integrity.</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Assumption A-002 (API budget) revised downward to $25-125 total — verification at end of Phase 3 against cumulative cost still required.</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>**Neutral:**</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-006 statistical apparatus unchanged — paired bootstrap, BCa marginal CIs, MDE on every CI, 3-pinpoint Recall@FPR, 4-metric headline table all apply identically.</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-008 data scope unchanged — same training-positives slate, same OOD eval slate, same dedup and split methodology.</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-009 process mandates unchanged — two-tier reproducibility (laptop smoke plus GPU canonical), marker-based testing, pre-commit only, jupytext-paired notebooks, compute disclosure.</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-010 Bounds 1-6 preserved — Bound 4 (sub-1B parameters) is more tightly satisfied (ModernBERT-base is approximately 149M); Bound 3 (per-backbone caps) effectively resolves to "ModernBERT 8K natively, reference rungs at their published caps".</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-011 methodology guarantees unchanged — all eight guarantees apply identically; Guarantee 4 (Cohen's kappa for any hand-labeling audit) carries forward.</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-012 external-artifact engagement set unchanged — Lakera and ProtectAI still in the reference-rung slate; BIPIA still in OOD slate; soft-signal alignment table from ADR-012 holds.</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-013 pre-teardown persistence checklist applies with fewer artifacts to checkpoint (3 trained rungs versus 6); simpler operational profile.</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Keep both backbones (ADR-007 as written)**: 6 trained rungs; cross-backbone delta reported with explicit truncation-confound framing; mandatory ablation quantifies. Rejected because the confound on the indirect-injection slice is irreducible — the ablation can quantify but cannot decompose; the methodology-first move is to eliminate the confound at the rung-architecture level rather than report a confounded headline metric with an explanatory caveat.</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Keep both backbones; relegate indirect to spoke-only OOD probe (Path C from the Q4 walk)**: 6 trained rungs; headline on direct slices only where no truncation confound exists; indirect reported in spoke as zero-shot probe without cross-backbone delta. Rejected because it walks back ADR-014 Q1's B1 framing where indirect zero-shot transfer is a load-bearing measurement; still pays 2x compute without the cross-backbone indirect comparison being headline-worthy.</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**DeBERTa-v3-base only (drop ModernBERT)**: Smaller backbone; field-default for deberta-v3-prompt-injection reproductions; cheaper compute. Rejected because DeBERTa-v3's 512-token cap mismatches the indirect-injection-detection deployment scenario — every BIPIA sample requires chunking; the methodology story would be "deploying an undersized-context backbone on long-input indirect-injection" which is not the methodology contribution we want to make.</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ModernBERT-large instead of ModernBERT-base**: Larger model; stronger absolute metrics; same 8K context. Rejected for this iteration because the Phase 0-03 preview leaning is all-base for compute discipline (matches A-002 budget cleanly; supports denser multi-seed); ModernBERT-large remains a future-work extension axis surfaced in <span class="in">`WRITEUP/limitations-and-future-work.md`</span>.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Add a third condition to the trained slate (e.g., LoRA with two hyperparameter configurations)**: Broader condition coverage. Rejected because Phase 0-03 has not walked the LoRA hyperparameter specifics yet; expanding condition coverage premature.</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Five seeds (escalate above ADR-006 floor)**: Tighter bootstrap CIs; better MDE. Rejected as the primary protocol because three seeds is the ADR-006 floor and the Path B compute headroom is better spent on Phase 4 sensitivity rerun at 5 seeds on one rung (a methodology-validation check) than on uniform 5-seed protocol (a precision-only gain).</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Soft fallback to DeBERTa-v3-base if ModernBERT-base unavailable**: Operationally simpler. Rejected because a backbone swap is a substantive methodology change — silent fallback would reintroduce the per-backbone-truncation confound that this ADR exists to eliminate. The supersession requirement is the discipline floor.</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ModernBERT (Warner et al. 2024) — https://arxiv.org/abs/2412.13663</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DeBERTa-v3 (He et al. 2023) — https://arxiv.org/abs/2111.09543</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LoRA (Hu et al. 2021) — https://arxiv.org/abs/2106.09685</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>HF PEFT documentation — https://huggingface.co/docs/peft</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LLM-as-judge (Zheng et al. 2023) — https://arxiv.org/abs/2306.05685</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://journals.sagepub.com/doi/10.1177/001316446002000104</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-007 (superseded by this ADR)</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-001 (fallback ladder updated to <span class="in">`1x3 → 1x2 → 1x1`</span>)</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (Principle 1 methodology over metrics; Principle 2 honest evaluation preferred — direct rationale for the supersession)</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-006 (3-seed floor preserved; paired bootstrap protocol unchanged)</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-010 (Bound 3 per-backbone caps now resolves to single-backbone-native; Bound 4 sub-1B more tightly satisfied)</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-012 (Lakera plus ProtectAI engagement preserved; soft-signal alignment strengthened)</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-013 (pre-teardown persistence simpler with fewer rungs)</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-014 (threat-model bundle that surfaced the confound forcing this supersession)</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-15__phase-0-01__threat-model.md`</span> for the conversation that led to this decision.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
