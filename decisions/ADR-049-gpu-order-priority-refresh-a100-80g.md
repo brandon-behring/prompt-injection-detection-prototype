@@ -20,7 +20,7 @@ references:
   - decisions/library_imports.md
   - https://github.com/brandon-behring/runpod-deploy
   - https://www.runpod.io/pricing
-transcript:
+transcript: transcripts/2026-05-17__phase-4-close-gpu-order-refresh-adr-049.md
 ---
 
 # ADR-049: GPU failover ladder priority refresh — A100-80G to position 1
