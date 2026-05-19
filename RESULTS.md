@@ -47,6 +47,32 @@ Source: [`evals/bootstrap/marginal_cells.parquet`](https://github.com/brandon-be
 
 ---
 
+## §1B — Ablation appendix: DeBERTa-v3-base long-context comparator (v1.1.0 methodology lock; v1.1.1 execution)
+
+**Methodology locked at v1.1.0; per-strategy AUPRC + AUROC grid pending v1.1.1 GPU fire.** Per [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md), the DeBERTa-v3-base medium ablation is **not** integrated as a 6th rung in the §1 headline ladder — it lands as an appendix here to isolate whether the ModernBERT OOD positioning is backbone-dominant or context-window-dominant.
+
+Locked scope (per ADR-060 + [`NEXT_STEPS.md` §1.10](NEXT_STEPS.md)):
+
+- **Backbone**: `microsoft/deberta-v3-base` (revision SHA pinned at v1.1.1 execution time).
+- **Training scope**: 1 fold (fold 0), 1 seed (seed 42), 2 epochs (single LODO grid cell; ablation appendix, not co-equal rung).
+- **Truncation strategies** (2 reported side-by-side; neither claimed canonical):
+  - **chunk-and-average**: 512-token windows with stride 256 (50 % overlap); per-window forward pass; mean of per-window probabilities.
+  - **head-truncation**: first 512 tokens only; standard single-window forward pass.
+- **Eval slate**: full 5-slice OOD (BIPIA + InjecAgent + JBB-Behaviors + XSTest + NotInject); same slate as the §1 grid.
+- **Compute envelope**: 1×L4 or 1×A100; ~30 min wall per fire; ~$5-7 GPU total for the sequential single-pod 2-fire shape (per [/exploring-options 2026-05-19 Q2 lock](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md); `lifecycle.on_success: recycle` per [#90](https://github.com/brandon-behring/runpod-deploy/issues/90) consumption + ADR-059); well within [ADR-020](decisions/ADR-020-runpod-orchestration-and-cost-discipline.md) $200 hard cap.
+
+Infrastructure scaffolds landed at v1.1.0:
+
+- [`configs/rungs/deberta_v3_base.yaml`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/main/configs/rungs/deberta_v3_base.yaml) — hyperparameter recipe.
+- [`configs/runpod/headline-deberta.yaml`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/main/configs/runpod/headline-deberta.yaml) — RunPod orchestration config (lifecycle: recycle for the 2-fire shape).
+- `Makefile` targets: `train-deberta-v3`, `eval-deberta-v3`, `deberta-ablation` (currently stubbed; exit 2 with v1.1.1-carryforward pointer per ADR-060).
+
+v1.1.1 landing condition (per ADR-060): `make deberta-ablation` exits 0 with per-truncation-strategy AUPRC + AUROC entries in `evals/metrics/per_cell_deberta.parquet`; this §1B placeholder replaced with the real per-strategy × 5-slice grid; ~$5-7 GPU spend recorded in `evals/cost_ledger.csv`.
+
+The /exploring-options 2026-05-19 scope-mismatch resolution (Path B): the existing training pipeline is ModernBERT-specific by construction (loader hardcodes `MODERNBERT_BASE_HF_ID`), so adding DeBERTa requires loader-refactor + windowed-inference module + eval-pipeline integration BEFORE any GPU fire. v1.1.0 lands the **methodology + infrastructure scaffold** (this section + the configs + Makefile stubs + ADR-060); v1.1.1 lands the **execution** (loader refactor + 2 GPU fires + populated results).
+
+---
+
 ## §2 — AUROC grid (5 rungs × 5 slices; cross-paper diagnostic; secondary metric)
 
 Source: same parquet. AUROC's random-predictor floor is 0.5 regardless of prevalence; it over-states performance under class imbalance compared to AUPRC. Reported here as a secondary diagnostic per [ADR-006](decisions/ADR-006-statistical-protocol-floor.md) + [`WRITEUP/eval-design.md` §5.1](WRITEUP/eval-design.md). Use AUPRC for primary interpretation.

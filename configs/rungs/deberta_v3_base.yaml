@@ -1,0 +1,72 @@
+# configs/rungs/deberta_v3_base.yaml
+#
+# v1.1.0 SCAFFOLDED (methodology lock per ADR-060); v1.1.1 execution.
+# DO NOT FIRE until v1.1.1 lands the loader refactor + windowed-inference module.
+#
+# Methodology lock per ADR-060 (DeBERTa-v3-base medium ablation):
+# - Single fold, single seed (NOT a full LODO grid; ablation appendix only).
+# - 2 truncation strategies reported side-by-side as confound controls
+#   (neither claimed canonical):
+#     a) chunk_and_average — 512-token windows, stride 256, per-window
+#        forward pass, average per-window probabilities.
+#     b) head_truncation — first 512 tokens only; standard forward pass.
+# - Full 5-slice OOD eval (BIPIA + InjecAgent + JBB-Behaviors + XSTest + NotInject).
+# - Ablation-appendix framing in RESULTS §1B; NOT integrated as 6th rung.
+# - Compute envelope: 1×L4 or 1×A100; ~30 min wall per fire; ~$5-7 GPU total
+#   for 2-fire sequential single-pod (per /exploring-options 2026-05-19 Q2 lock).
+
+rung_id: deberta_v3_base
+rung_label: DeBERTa-v3-base medium ablation (chunk-and-average + head-truncation)
+classifier_type: full_ft  # full fine-tune dispatch in trainer (mirrors ADR-015 single-backbone full-FT recipe)
+adr_lock: ADR-015 + ADR-019 + ADR-050 + ADR-060
+contamination_state: backbone-partial-disjoint
+status: v1.1.0-scaffold-only  # execution v1.1.1; see ADR-060
+
+# DeBERTa-v3-base backbone (per ADR-060 methodology lock).
+# revision SHA to be pinned at v1.1.1 execution time via huggingface_hub for
+# reproducibility (per ADR-016 spirit applied to model weights).
+backbone:
+  hf_id: microsoft/deberta-v3-base
+  revision: TBD-PIN-AT-V1.1.1-EXECUTION  # SHA captured at execution time via HfApi.model_info
+
+# Training recipe (per ADR-019 — same hyperparameter envelope as ModernBERT
+# full-FT, adjusted for DeBERTa's smaller window). YAML is canonical per ADR-044 Q4.
+training:
+  learning_rate: 2.0e-5      # DeBERTa-v3 typical (vs ModernBERT 1e-4)
+  warmup_ratio: 0.10
+  lr_scheduler_type: cosine
+  num_train_epochs: 2
+  bf16: true
+  fp16: false
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  effective_batch: 32        # per_device * grad_accum = 32 (matches BATCH_TABLE)
+  save_strategy: epoch
+  eval_strategy: 'no'
+
+# Tokenization — DeBERTa-v3 native 512-token window (vs ModernBERT 8192).
+# truncation_strategy switch is read by the windowed-inference module at v1.1.1.
+tokenizer:
+  max_length: 512
+  pad_to_multiple_of: 8
+  truncation: true
+
+# Truncation strategy switch (v1.1.0 scaffold field; consumed by
+# src/inference/windowed.py at v1.1.1 execution time).
+# One of:
+#   - chunk_and_average — 512-token windows with stride 256 (50% overlap);
+#     per-window forward pass; mean of per-window predicted_proba_class1.
+#   - head_truncation — take the first 512 tokens; standard single-window
+#     forward pass.
+# The deberta-ablation Makefile target fires BOTH strategies in sequence
+# (same pod via lifecycle.on_success: recycle per ADR-059 + #90 consumption).
+truncation_strategy: chunk_and_average  # default; overridden per-fire by the Makefile target
+
+class_weight: balanced
+seeds: [42]            # single seed per ADR-060 medium ablation scope
+folds: [0]             # single fold per ADR-060 medium ablation scope
+
+# Output paths.
+predictions_dir: evals/predictions
+predictions_file_template: deberta_v3_base_{truncation_strategy}__fold{fold}__seed{seed}__epoch{epoch}.parquet
+checkpoint_dir_template: evals/checkpoints/deberta_v3_base/{truncation_strategy}/fold{fold}/seed{seed}

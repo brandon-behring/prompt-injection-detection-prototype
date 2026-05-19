@@ -18,6 +18,141 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.1.0] — 2026-05-19
+
+**Minor release**: closes the runpod-deploy modernization track (config
+schema migration + v0.7.7→v0.8.4 PyPI switch + shim drop + 7 upstream
+issues consumed) **and** lands the DeBERTa-v3-base medium ablation
+**methodology lock** (ADR-060) with infrastructure scaffolds.
+Execution of the DeBERTa GPU fire is deferred to v1.1.1 per the
+/exploring-options 2026-05-19 **Path B** scope-mismatch resolution
+(existing training pipeline is ModernBERT-specific; loader refactor +
+windowed-inference module + eval-pipeline integration must precede
+any GPU fire).
+
+v1.1.0 ships as 3 sequenced commits per /exploring-options 2026-05-19
+Q5 lock (each independently CI-green-able + revertible):
+
+1. `refactor: v1.1.0 prep — migrate 3 headline-* configs from legacy
+   stop: to lifecycle: schema` (6741fe4).
+2. `feat: v1.1.0 — runpod-deploy v0.7.7→v0.8.4 PyPI switch + shim drop
+   + #88/#90/#97 + ADR-059` (7c66222).
+3. `feat: v1.1.0 — DeBERTa-v3-base methodology lock (ADR-060) + Path B
+   infrastructure scaffolds + RESULTS §1B placeholder + governance
+   close (execution deferred to v1.1.1)` (this commit).
+
+### Added
+
+- **`decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md`**
+  — runpod-deploy installs from PyPI at v0.8.4+; narrow supersession
+  of ADR-036 "git URL is the only viable spec format" sub-claim for
+  runpod-deploy. Mirrors the [ADR-055](decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.md)
+  pattern for eval-toolkit. research_toolkit retains git+https
+  (not yet on PyPI). Tag-pin discipline + freeze policy + bump-triggers
+  + uv.lock backstop all preserved.
+
+- **`decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md`**
+  — DeBERTa-v3-base medium ablation methodology lock. Single fold/seed
+  × 2 truncation strategies (chunk-and-average + head-truncation) ×
+  full 5-slice OOD slate; ablation-appendix framing (NOT integrated as
+  6th rung). Sequential single-pod 2-fire shape via
+  `lifecycle.on_success: recycle` per [#90](https://github.com/brandon-behring/runpod-deploy/issues/90)
+  consumption. Status: methodology accepted at v1.1.0; execution
+  deferred to v1.1.1.
+
+- **`configs/rungs/deberta_v3_base.yaml`** — DeBERTa-v3-base
+  hyperparameter recipe (v1.1.0 SCAFFOLD; do not fire until v1.1.1).
+
+- **`configs/runpod/headline-deberta.yaml`** — RunPod orchestration
+  config for the DeBERTa ablation (lifecycle: recycle on_success;
+  budget.ssh_ready_timeout_sec: 600 per #88; cost_cap_usd: 25.0
+  generous under ADR-020 $125 soft cap).
+
+- **`Makefile` targets**: `train-deberta-v3`, `eval-deberta-v3`,
+  `deberta-ablation` — v1.1.0 stubs that exit 2 with a
+  v1.1.1-carryforward message + pointer to ADR-060.
+
+- **`RESULTS.md` §1B**: ablation-appendix placeholder section
+  documenting the locked methodology + v1.1.1 execution carryforward.
+  Per-strategy AUPRC + AUROC grid will populate when v1.1.1 ships.
+
+### Changed
+
+- **`configs/runpod/headline-frozen_probe.yaml`** +
+  **`headline-lora.yaml`** + **`headline-full_ft.yaml`** — migrated
+  from legacy `stop: {on_success, on_failure}` schema to v0.8.x
+  `lifecycle:` schema (runpod-deploy v0.8.3 REMOVED `stop:` — migration
+  was BLOCKING). Semantic equivalence preserved: `on_success: delete`
+  (was `stop.on_success=true`) + `on_failure: stop` (was
+  `stop.on_failure=false`). All 3 configs gain
+  `budget.ssh_ready_timeout_sec: 600` per [#88](https://github.com/brandon-behring/runpod-deploy/issues/88)
+  consumption (replaces the deleted monkey-patch shim).
+
+- **`pyproject.toml`** — runpod-deploy pin
+  `git+https://github.com/brandon-behring/runpod-deploy@v0.7.7` →
+  `runpod-deploy==0.8.4` (PyPI install spec per PEP 508; ADR-059).
+
+- **`uv.lock`** — regenerated (runpod-deploy entry moves to PyPI
+  registry source).
+
+- **`Makefile`** — `headline-frozen-probe` / `headline-lora` /
+  `headline-full-ft` targets revert to direct
+  `uv run runpod-deploy run --config ...` (deleted shim was the prior
+  wrapper).
+
+- **`decisions/ADR-036-...md`** frontmatter — `superseded_by: ["055", "059"]`
+  (narrow supersessions of "git URL only" sub-claim — once per
+  PyPI-published own-authored library; research_toolkit retains
+  git+https tag-pin per this ADR until it publishes to PyPI).
+
+- **`decisions/upstream_issues.md`** — 7 runpod-deploy rows
+  (`#88` / `#90` / `#92` / `#93` / `#94` / `#97` / `#98`) updated to
+  **RESOLVED in v0.8.x** with v1.1.0 consumption notes.
+
+- **`decisions/library_imports.md`** — runpod-deploy version pin row
+  `v0.7.7 git+https` → `v0.8.4 PyPI` with consumption summary.
+
+- **`WRITEUP/limitations-and-future-work.md` §9.2** — update on the
+  DeBERTa-v3-base drop reasoning: dropped at Phase 0 (ADR-015), now
+  returns as deliberate ablation-appendix comparator at v1.1.0
+  methodology lock per ADR-060.
+
+- **`NEXT_STEPS.md` §1.10** — status updated to "methodology landed
+  at v1.1.0 (ADR-060); execution v1.1.1" with Path B rationale
+  documented inline.
+
+- **`SUBMISSION_AUDIT.md`** — regenerated via `scripts/regenerate_audit.py`;
+  60 CLAIM rows total (ADR-059 + ADR-060 added).
+
+### Removed
+
+- **`scripts/runpod_deploy_long_ssh.py`** — DELETED. The monkey-patch
+  shim that bumped runpod-deploy's SSH-ready timeout from 240s to 600s
+  is no longer needed since [#88](https://github.com/brandon-behring/runpod-deploy/issues/88)
+  closed with configurable `budget.ssh_ready_timeout_sec`. Per
+  no-orphaned-code invariant: deleted in same commit as the pin bump.
+
+### References
+
+- Supersedes (narrow): [ADR-036](decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.md)
+  "git URL is the only viable spec format" sub-claim for runpod-deploy.
+- Closes [runpod-deploy#88](https://github.com/brandon-behring/runpod-deploy/issues/88)
+  (SSH timeout configurable),
+  [#90](https://github.com/brandon-behring/runpod-deploy/issues/90)
+  (lifecycle.on_success: recycle),
+  [#92](https://github.com/brandon-behring/runpod-deploy/issues/92) +
+  [#93](https://github.com/brandon-behring/runpod-deploy/pull/93) +
+  [#94](https://github.com/brandon-behring/runpod-deploy/issues/94)
+  (FUSE workarounds),
+  [#97](https://github.com/brandon-behring/runpod-deploy/issues/97)
+  (validate --check-image-registry),
+  [#98](https://github.com/brandon-behring/runpod-deploy/issues/98)
+  (Makefile-recipe docs).
+- Reviewer URL pin: `tree/v1.0.0` unchanged per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
+  Live Quarto site reflects v1.1.0 changes.
+
+---
+
 ## [1.0.9] — 2026-05-19
 
 `scripts/eval_from_hub.py` non-dry-run body **wired end-to-end** —

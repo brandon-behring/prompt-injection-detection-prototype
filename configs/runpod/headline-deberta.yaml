@@ -1,0 +1,113 @@
+# configs/runpod/headline-deberta.yaml
+#
+# v1.1.0 SCAFFOLDED (methodology lock per ADR-060); v1.1.1 execution.
+# DO NOT FIRE until v1.1.1 lands the loader refactor + windowed-inference module.
+#
+# Schema follows runpod-deploy v0.8.4 (PyPI install per ADR-059).
+# DeBERTa-v3-base medium ablation per ADR-060 — sequential single-pod 2-fire
+# (chunk-and-average → recycle → head-truncation → delete) via
+# lifecycle.on_success: recycle (#90 consumption). Saves ~$1-2 + ~3-5 min
+# vs full teardown between truncation strategies.
+
+schema_version: 2
+name: pid-v1-1-1-deberta-ablation
+run_id_prefix: pid-deberta
+state_file: ~/.runpod-pid-deberta-ablation-current
+
+local:
+  project_root: ../../
+  required_paths:
+    - configs/rungs/deberta_v3_base.yaml
+    - scripts/train_rung.py             # v1.1.1: extended to dispatch DeBERTa backbone
+    - src/training/                     # v1.1.1: load_backbone generic loader
+    - src/inference/                    # v1.1.1: windowed.py for chunk-and-average
+    - pyproject.toml
+    - uv.lock
+
+variables:
+  remote_repo: /workspace/prompt-injection-detection-submission
+  remote_venv: /root/.venv               # venv on overlay disk (not FUSE) per fuse-workspace memory
+
+pod:
+  image: runpod/pytorch:1.0.3-cu1281-torch290-ubuntu2204
+  # DeBERTa-v3-base is much smaller than ModernBERT (140M vs 149M params + only
+  # 512-token attention window) → L4 or A100 PCIe both viable. Smaller-GPU-first
+  # ladder is appropriate for the medium-ablation scope (single fold/seed).
+  datacenters: [US-MD-1, US-WA-1, US-CA-2]
+  gpu_order:
+    - NVIDIA L4
+    - NVIDIA L40S
+    - NVIDIA A100 80GB PCIe
+    - NVIDIA A100-SXM4-80GB
+    - NVIDIA A100-SXM4-40GB
+
+storage:
+  mode: ephemeral
+  volume_mount: /workspace
+  # DeBERTa-v3-base checkpoints are small (~600MB); 50GB ample for 2-fire shape.
+  volume_gb: 50
+
+ssh:
+  key_path: ~/.ssh/id_ed25519
+
+budget:
+  # Generous; ADR-020 $125 per-job soft cap; expecting ~$5-7 actual for 2 fires.
+  cost_cap_usd: 25.0
+  assumed_hourly_rate_usd: 2.00      # L4 ~$0.60/h; A100 ~$1.50/h budgeted conservatively
+  poll_interval_sec: 60
+  # #88 consumption (replaces deleted runpod_deploy_long_ssh.py shim).
+  ssh_ready_timeout_sec: 600
+
+secrets:
+  - name: hf
+    destination: /workspace/secrets/env
+    mode: "0600"
+    env: [HF_TOKEN]
+
+remote_env:
+  source_files:
+    - /workspace/secrets/env
+  exports:
+    HF_HOME: /workspace/.hf_cache
+    HUGGINGFACE_HUB_CACHE: /workspace/.hf_cache
+    HF_HUB_DOWNLOAD_TIMEOUT: "120"
+    # FUSE workarounds — see memory/fuse-workspace-needs-uv-link-mode-copy.md.
+    UV_LINK_MODE: copy
+    UV_CACHE_DIR: /root/.cache/uv
+    UV_PROJECT_ENVIRONMENT: /root/.venv
+
+setup:
+  commands:
+    - cd ${REMOTE_REPO} && uv sync --extra dev
+    - cd ${REMOTE_REPO} && uv run python -c "import torch; print('torch:', torch.__version__, 'cuda:', torch.cuda.is_available())"
+
+run:
+  # v1.1.1 dispatch: --truncation-strategy switch consumed by the windowed
+  # inference module. The deberta-ablation Makefile target fires this config
+  # twice in sequence — first with chunk_and_average, then with head_truncation
+  # — sharing the same pod via lifecycle.on_success: recycle.
+  commands:
+    - cd ${REMOTE_REPO} && uv run python scripts/train_rung.py --rung deberta_v3_base --fold 0 --seed 42 --truncation-strategy ${TRUNCATION_STRATEGY:-chunk_and_average}
+
+artifacts:
+  - label: pid-predictions-deberta
+    remote_path: "{remote_repo}/evals/predictions/"
+    local_path: "{project_root}/evals/predictions/"
+    delete: false
+  - label: pid-checkpoints-deberta
+    remote_path: "{remote_repo}/evals/checkpoints/deberta_v3_base/"
+    local_path: "{project_root}/evals/checkpoints/deberta_v3_base/"
+    delete: false
+  - label: log
+    remote_path: /workspace/pid_v1_1_1_deberta.log
+    local_path: "{run_dir}"
+    required: false
+    delete: false
+
+# v1.1.0 SCAFFOLD: on_success: recycle for the first fire (chunk-and-average)
+# so the head-truncation re-fire shares the warm pod; on_failure: stop to
+# preserve forensic SSH access. The Makefile deberta-ablation target overrides
+# the second fire's on_success to delete (final teardown).
+lifecycle:
+  on_success: recycle  # was: not applicable in v1.0.x (DeBERTa didn't exist)
+  on_failure: stop

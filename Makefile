@@ -3,6 +3,7 @@
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
         headline-frozen-probe headline-lora headline-full-ft \
+        train-deberta-v3 eval-deberta-v3 deberta-ablation \
         eval-classical-floor eval-reference-scorers-free eval-reference-scorers-paid \
         metrics-battery dual-policy-thresholds bootstrap-battery \
         marginal-bootstrap cv-clt-ci mde-battery render-figures audit-reference-scorers \
@@ -264,6 +265,35 @@ headline-full-ft:
 	uv run runpod-deploy run --dry-run --config configs/runpod/headline-full_ft.yaml
 	@read -p "Approve full-FT canonical run (cap \$$100)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
 	uv run runpod-deploy run --config configs/runpod/headline-full_ft.yaml
+
+# ---------------------------------------------------------------------------
+# DeBERTa-v3-base medium ablation — v1.1.0 INFRASTRUCTURE SCAFFOLD per ADR-060.
+# Execution deferred to v1.1.1 pending the loader-refactor + windowed-inference
+# module per /exploring-options 2026-05-19 Path B lock. Stubs exit 2 with a
+# pointer to ADR-060 + the carryforward landing condition.
+# ---------------------------------------------------------------------------
+train-deberta-v3:
+	@echo "[ERROR] make train-deberta-v3 is a v1.1.0 SCAFFOLD; execution deferred to v1.1.1."
+	@echo "        See decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md"
+	@echo "        v1.1.1 must land: (a) generic backbone loader (src/training/load_backbone.py"
+	@echo "        or refactored load_modernbert.py); (b) chunk-and-average windowed-inference"
+	@echo "        module at src/inference/windowed.py; (c) train_rung.py DeBERTa dispatch."
+	@echo "        Cost envelope: ~30 min wall + ~$$3 GPU per fire; sequential single-pod 2-fire."
+	@exit 2
+
+eval-deberta-v3:
+	@echo "[ERROR] make eval-deberta-v3 is a v1.1.0 SCAFFOLD; execution deferred to v1.1.1."
+	@echo "        See decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md"
+	@echo "        Depends on train-deberta-v3 outputs at evals/predictions/deberta_v3_base_*.parquet."
+	@exit 2
+
+deberta-ablation:
+	@echo "[ERROR] make deberta-ablation is a v1.1.0 SCAFFOLD; execution deferred to v1.1.1."
+	@echo "        See decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md"
+	@echo "        Will orchestrate 2 sequential single-pod training fires"
+	@echo "        (chunk_and_average + head_truncation) via lifecycle.on_success: recycle"
+	@echo "        (per #90 consumption; ~$$5-7 total GPU spend within ADR-020 envelope)."
+	@exit 2
 
 # ---------------------------------------------------------------------------
 # Phase 3 (Evaluation) targets — per ADR-018 + ADR-021 + ADR-022 + ADR-023 +

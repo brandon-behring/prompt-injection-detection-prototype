@@ -87,6 +87,8 @@ Prior v4/v5 iterations of this project did partial DeBERTa-v3 tests but had to m
 *Effort*: ~3-4 hours wallclock if the truncation-handling design lands quickly; longer if the chunk-and-average baseline needs validation against the source-disjoint LODO protocol.
 *Status (v1.0.6)*: carryforward to v1.1.0 — same-session per Path 3 batch 8 Q3 lock. Medium-ablation scope locked (2 truncation strategies × full 5-slice OOD slate; ablation-appendix framing in RESULTS §1B; NOT integrated as 6th rung; ~$8-10 GPU; new ADR-057 for truncation methodology).
 
+*Status (v1.1.0)*: **methodology landed (ADR-060); execution deferred to v1.1.1**. /exploring-options 2026-05-19 surfaced a scope-mismatch — the existing training pipeline (`src/training/train_modernbert.py` + `src/training/load_modernbert.py`) is ModernBERT-specific by construction; adding DeBERTa requires loader refactor + windowed-inference module + eval-pipeline integration (~4-6h infrastructure work BEFORE any GPU fire). User picked **Path B**: land the methodology lock + scaffolds (ADR-060 + `configs/rungs/deberta_v3_base.yaml` + `configs/runpod/headline-deberta.yaml` + Makefile target stubs + RESULTS §1B placeholder) at v1.1.0; defer execution to v1.1.1. v1.1.0 = $0 GPU. v1.1.1 = ~$5-7 GPU + ~4-6h infrastructure. The methodology lock (single fold/seed, 2 truncation strategies, 5-slice OOD eval, ablation-appendix framing) is binding regardless of when execution lands.
+
 ---
 
 ## 2. Aspirational future directions

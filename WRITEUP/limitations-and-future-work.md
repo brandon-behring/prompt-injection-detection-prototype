@@ -148,6 +148,16 @@ canonical fires that ARE worth documenting:
   injection. Single-backbone slate (ModernBERT-base × 3
   conditions) preserves the rung-ladder narrative without
   architecture confounding.
+  **Update (v1.1.0)**: DeBERTa-v3-base returns as a deliberate
+  ablation-appendix comparator per [ADR-060](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md).
+  Methodology locked at v1.1.0 (2 truncation strategies side-by-side
+  — chunk-and-average + head-truncation — to make the truncation
+  handling methodologically addressable rather than load-bearing for
+  the rung-vs-rung comparison); execution deferred to v1.1.1 pending
+  the loader-refactor + windowed-inference module per Path B of the
+  /exploring-options 2026-05-19 scope-mismatch resolution. The
+  ablation lands in [`RESULTS.md` §1B](../RESULTS.md#1b-ablation-appendix-deberta-v3-base-long-context-comparator-v110-methodology-lock-v111-execution),
+  NOT integrated as a 6th rung in the §1 headline ladder.
 - **Lakera Guard reference scorer** dropped at Phase 0-03 per
   ADR-018 (terms-of-service verification overhead unacceptable
   for prototype scope). The reference slate gained ProtectAI v1
