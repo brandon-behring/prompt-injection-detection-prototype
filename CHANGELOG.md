@@ -18,6 +18,28 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.4] — 2026-05-19
+
+**Patch release**: fix-forward for v1.2.3 — residual lychee v0.23.0 incompat (`--base .` rejected). No ADR (bug fix, not methodology). Layered additively on v1.2.3.
+
+After v1.2.3 dropped `--exclude-mail`, the v1.2.3 push surfaced a second lychee v0.23.0 incompat: `error: invalid value '.' for '--base <BASE>': Base must either be a URL (with scheme) or an absolute local path`. v0.23.0 tightened `--base` validation to require URL or absolute path; the relative `.` that worked in v0.22.x is now rejected.
+
+### Fixed
+
+- **`.github/workflows/link-check.yml:47` (Markdown link check workflow; lychee v0.23.0 `--base` validation)** — deleted the `--base .` line. Verified by `grep -rE '\]\(/[a-zA-Z][^)]+\)' --include='*.md' --include='*.qmd'` (excluding `.venv/`, `_site/`, `transcripts/`) → 0 root-relative links in the markdown corpus; `--base` was not load-bearing. Default behavior (resolve relative URLs against each input file's directory) is what we want.
+
+### Lesson noted
+
+The v1.2.3 patch only checked the SPECIFIC error (`--exclude-mail`) from the CI log without reading the full lychee v0.23.0 CHANGELOG / CLI options source for OTHER potential incompats. A full release-notes read of a major version bump (here: v0.22.x → v0.23.0) is now the discipline for future CI tool upgrades. Cost: one extra patch cycle (~10 min).
+
+### References
+
+- No new ADR (bug fix, not methodology change). Same precedent as v1.2.3.
+- Predecessor: [v1.2.3](#123---2026-05-19) (3-fix CI hygiene patch)
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
+- Cost discipline (unchanged): cumulative project compute spend stays $17.08 (within ADR-020 $200 hard cap; $0 GPU at v1.2.4)
+- Live Quarto site: reflects v1.2.4 within ~2 min of push
+
 ## [1.2.3] — 2026-05-19
 
 **Patch release**: CI hygiene — fix 3 inherited CI failures across mypy hard gate, smoke-test soft gate, and lychee link-check workflow. No ADR (bug fixes, not methodology). Layered additively on v1.2.2 — no supersession of any prior ADR. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.3.
