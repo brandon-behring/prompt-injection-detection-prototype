@@ -55,12 +55,12 @@ ADR-056 calibrator refactor).
 
 ## Context
 
-[ADR-013](ADR-013-persistence-discipline-before-teardown.md) locked
+[ADR-013](ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md) locked
 the persistence discipline (predictions parquets pulled to local
 storage before pod teardown) but did not specify a per-prediction
-provenance manifest format. [ADR-016](ADR-016-data-design.md) ties
+provenance manifest format. [ADR-016](ADR-016-data-design-bundle.md) ties
 data sources to SHAs via `configs/data/source_manifest.yaml` (data-
-layer provenance). [ADR-032](ADR-032-hf-hub-model-card-schema.md) ties
+layer provenance). [ADR-032](ADR-032-hf-hub-publication-headline-rungs-only.md) ties
 HF Hub model cards to `evals/results.json` (rung-aggregate provenance).
 Neither covers the *per-prediction* layer: for each of 282 prediction
 parquets, what was the exact git SHA + config hash + contamination
@@ -219,10 +219,10 @@ git_sha + config_hash + contamination_flag).
 
 ## Links
 
-- [ADR-013 — Persistence discipline before pod teardown](ADR-013-persistence-discipline-before-teardown.md) — manifest extends the per-prediction-parquet persistence.
-- [ADR-016 — Data design (per-source SHA pinning + LODO splits)](ADR-016-data-design.md) — manifest's `config_hash` complements `source_manifest.yaml` data-layer SHAs.
-- [ADR-032 — HF Hub model card schema](ADR-032-hf-hub-model-card-schema.md) — manifest's `contamination_flag` matches the model card's ADR-005 tier field.
-- [ADR-005 — Methodology over metrics + 3-state contamination taxonomy](ADR-005-methodology-over-metrics.md) — sources the `contamination_flag` enum.
+- [ADR-013 — Persistence discipline before pod teardown](ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md) — manifest extends the per-prediction-parquet persistence.
+- [ADR-016 — Data design (per-source SHA pinning + LODO splits)](ADR-016-data-design-bundle.md) — manifest's `config_hash` complements `source_manifest.yaml` data-layer SHAs.
+- [ADR-032 — HF Hub model card schema](ADR-032-hf-hub-publication-headline-rungs-only.md) — manifest's `contamination_flag` matches the model card's ADR-005 tier field.
+- [ADR-005 — Methodology over metrics + 3-state contamination taxonomy](ADR-005-methodology-principles.md) — sources the `contamination_flag` enum.
 - [ADR-050 — Rung-slate narrowing + LLM-judge drop](ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md) — vendor_black_box tier carries 0 entries.
 - [`docs/MANIFEST_SCHEMA.md`](../docs/MANIFEST_SCHEMA.md) — upstream manifest.v3 schema documentation.
 - [`scripts/backfill_provenance.py`](../scripts/backfill_provenance.py) — the v1.0.8 implementation.

@@ -13,7 +13,7 @@ supersedes:
 superseded_by:
 references:
   - decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md
-  - decisions/ADR-006-headline-metrics-and-statistical-floor.md
+  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
   - decisions/ADR-019-trained-rung-ladder-and-lora-config.md
   - decisions/ADR-020-cost-cap-and-runpod-deploy.md
@@ -191,7 +191,7 @@ Audit fires after `make headline-lora` lands (operator-gated GPU run per ADR-020
 ## References
 
 - `decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md` — 3 contamination_states stratification axis
-- `decisions/ADR-006-headline-metrics-and-statistical-floor.md` — statistical floor context
+- `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` — statistical floor context
 - `decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md` — 4 reference rungs source
 - `decisions/ADR-019-trained-rung-ladder-and-lora-config.md` — LoRA rung config (the disagreement baseline)
 - `decisions/ADR-020-cost-cap-and-runpod-deploy.md` — cost-cap discipline + dry-run preview pattern

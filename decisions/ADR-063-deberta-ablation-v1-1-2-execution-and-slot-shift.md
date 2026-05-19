@@ -57,9 +57,9 @@ superseded_by: []
 references:
   - decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md
   - decisions/ADR-061-quarto-site-navigation-restructure.md
-  - decisions/ADR-006-single-seed-protocol-for-comparative-claims.md
-  - decisions/ADR-019-modernbert-training-recipe.md
-  - decisions/ADR-020-runpod-orchestration-and-cost-discipline.md
+  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
+  - decisions/ADR-019-lora-and-transformer-training-recipe.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md
   - NEXT_STEPS.md  # §1.10 Status (v1.1.2)
   - CHANGELOG.md  # [1.1.2]
@@ -265,13 +265,13 @@ hard cap.
   - [ADR-061](./ADR-061-quarto-site-navigation-restructure.md) —
     consumed the v1.1.1 slot that ADR-060 had body-text-named for
     DeBERTa execution.
-  - [ADR-006](./ADR-006-single-seed-protocol-for-comparative-claims.md)
+  - [ADR-006](./ADR-006-headline-metrics-and-statistical-apparatus.md)
     — single-class slice handling (AUROC nan-guard).
-  - [ADR-019](./ADR-019-modernbert-training-recipe.md) — bf16 +
+  - [ADR-019](./ADR-019-lora-and-transformer-training-recipe.md) — bf16 +
     lr=1e-4 default; this ADR's `build_training_args` plumbing
     change preserves ADR-019 ModernBERT defaults while allowing
     DeBERTa fp32 overrides via YAML.
-  - [ADR-020](./ADR-020-runpod-orchestration-and-cost-discipline.md)
+  - [ADR-020](./ADR-020-compute-infrastructure-and-cost-discipline.md)
     — cost envelope ($25 per-job soft cap honored; $1.34 actual).
   - [ADR-059](./ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md)
     — runpod-deploy v0.8.4 lifecycle.on_success: recycle (the

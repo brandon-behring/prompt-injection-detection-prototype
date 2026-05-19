@@ -44,7 +44,7 @@ superseded_by: []
 references:
   - decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.md
   - decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.md
-  - decisions/ADR-020-runpod-orchestration-and-cost-discipline.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - https://pypi.org/project/runpod-deploy/0.8.4/
   - https://github.com/brandon-behring/runpod-deploy/issues/88
   - https://github.com/brandon-behring/runpod-deploy/issues/90

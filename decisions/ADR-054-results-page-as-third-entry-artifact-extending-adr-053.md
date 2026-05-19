@@ -71,7 +71,7 @@ references:
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/RESULTS.md
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md
-  - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/decisions/ADR-046-phase-4-walkthrough.md
+  - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/decisions/ADR-046-phase-4-analysis-implementation-bundle.md
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/evals/metrics/per_cell.parquet
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/evals/bootstrap/marginal_cells.parquet
 transcript: transcripts/2026-05-18__phase-12-05-results-page-and-badges.md
@@ -387,9 +387,9 @@ ADR-054's `supersedes: [ADR-053]` is sufficient.
 
 - [ADR-053 — Reading-guide governance + newcomer onboarding paths](ADR-053-reading-guide-governance-and-newcomer-paths.md) — narrowly superseded on dimension 1 by this ADR; dimensions 2-5 unchanged.
 - [ADR-050 — Rung-slate narrowing + single-class-slice convention](ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md) — sources the N/A markers in RESULTS §1-§3.
-- [ADR-046 — Phase 4 walkthrough](ADR-046-phase-4-walkthrough.md) — sources the F1-F7 figure rendering pipeline.
-- [ADR-029 — Immutable ADRs (supersede, don't edit)](ADR-029-immutable-adrs-supersede-dont-edit.md) — governs the in-place frontmatter `superseded_by` edit pattern (ADR-053 + ADR-050 both edited under this convention).
-- [ADR-032 — HF Hub model card schema](ADR-032-hf-hub-model-card-schema.md) — `evals/results.json` source for HF Hub T0 reproducibility tier; surfaced in RESULTS §5.
+- [ADR-046 — Phase 4 walkthrough](ADR-046-phase-4-analysis-implementation-bundle.md) — sources the F1-F7 figure rendering pipeline.
+- CLAUDE.md §"Phase 0 workflow" — ADR immutability rule (governs the in-place frontmatter `superseded_by` edit pattern; ADR-053 + ADR-050 both edited under this convention). Narrow factual-typo exception per [ADR-067](ADR-067-immutability-clarification-and-canonical-slug-reference.md).
+- [ADR-032 — HF Hub model card schema](ADR-032-hf-hub-publication-headline-rungs-only.md) — `evals/results.json` source for HF Hub T0 reproducibility tier; surfaced in RESULTS §5.
 - [`RESULTS.md`](../RESULTS.md) — the v1.0.5 artifact this ADR governs.
 - [`index.qmd`](../index.qmd) — entry artifact 2 (orientation; ADR-053 + ADR-054).
 - [`EXECUTIVE_SUMMARY.md`](../EXECUTIVE_SUMMARY.md) — entry artifact 1 (thesis distillation; ADR-053 + ADR-054).

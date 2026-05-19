@@ -12,7 +12,7 @@ closing_commit: 70e34fd
 supersedes:
 superseded_by:
 references:
-  - decisions/ADR-006-headline-metrics-and-statistical-floor.md
+  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
   - decisions/ADR-020-cost-cap-and-runpod-deploy.md
   - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md
@@ -192,7 +192,7 @@ Phase 4 stays analysis-only (single-concern phase per ADR-038 phase-tailoring lo
 
 ## References
 
-- `decisions/ADR-006-headline-metrics-and-statistical-floor.md` — MDE-on-every-CI source
+- `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` — MDE-on-every-CI source
 - `decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md` — 4 reference rungs source
 - `decisions/ADR-020-cost-cap-and-runpod-deploy.md` — Q5 cost-cap-gated interactive approval source
 - `decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md` — 5-slice OOD slate source

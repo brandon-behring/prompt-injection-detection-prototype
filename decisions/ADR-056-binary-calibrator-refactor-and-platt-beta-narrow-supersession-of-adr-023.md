@@ -61,7 +61,7 @@ Accepted (2026-05-19; landed in v1.0.8 alongside ADR-055 PyPI switch
 
 ## Context
 
-[ADR-023](ADR-023-calibration-battery.md) (Phase 0-04) locked the
+[ADR-023](ADR-023-calibration-battery-and-interventions.md) (Phase 0-04) locked the
 calibration battery to **temperature + isotonic** + ECE 4-variant
 matrix + Brier + reliability curves. Platt scaling + Beta calibration
 were considered but deferred — at our v0.31.0 pin time, eval-toolkit's
@@ -220,7 +220,7 @@ The refactor is ~30 min extra for full consistency.
 
 ## Links
 
-- [ADR-023 — Calibration battery design](ADR-023-calibration-battery.md) — narrowly superseded on the "Platt + Beta deferred" sub-decision only; ECE + Brier + reliability curve + temperature + isotonic + validation-only-fitting all preserved.
+- [ADR-023 — Calibration battery design](ADR-023-calibration-battery-and-interventions.md) — narrowly superseded on the "Platt + Beta deferred" sub-decision only; ECE + Brier + reliability curve + temperature + isotonic + validation-only-fitting all preserved.
 - [ADR-055 — eval-toolkit PyPI install](ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.md) — enabled the v0.40.0 bump that made Platt + Beta available.
 - [eval-toolkit#43](https://github.com/brandon-behring/eval-toolkit/issues/43) — Platt + Beta request (filed v1.0.6; closed v1.0.8 in 17 min).
 - [eval-toolkit#44](https://github.com/brandon-behring/eval-toolkit/issues/44) — `fit_isotonic_binary` request (filed v1.0.8; consume when shipped).

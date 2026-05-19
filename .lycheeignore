@@ -22,24 +22,10 @@
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/blob/.*#.*$
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/.*#.*$
 
-# Stale ADR slug references in immutable historical ADRs (added at v1.2.0
-# per ADR-064 §D). The canonical-correct ADR filenames are documented in
-# ADR-064 §D + CHANGELOG [1.1.2] postscript. These refs cannot be fixed
-# without violating the project ADR-discipline (CLAUDE.md: "ADRs are
-# immutable; supersede via new ADR"). Lychee skips them so CI passes;
-# readers who hit a 404 are pointed to ADR-064 §D for the correct paths.
-# Listed alphabetically by ADR number.
-decisions/ADR-005-methodology-over-metrics\.md
-decisions/ADR-006-single-seed-protocol-for-comparative-claims\.md
-decisions/ADR-006-headline-metrics-and-statistical-floor\.md
-decisions/ADR-013-persistence-discipline-before-teardown\.md
-decisions/ADR-016-data-design\.md
-decisions/ADR-019-modernbert-training-recipe\.md
-decisions/ADR-020-runpod-orchestration-and-cost-discipline\.md
-decisions/ADR-023-calibration-battery\.md
-decisions/ADR-029-immutable-adrs-supersede-dont-edit\.md
-decisions/ADR-029-adr-immutability-and-supersession-discipline\.md
-decisions/ADR-032-hf-hub-model-card-schema\.md
-decisions/ADR-037-requires-python-floor-3-13\.md
-decisions/ADR-046-phase-4-walkthrough\.md
-decisions/ADR-030-quarto-html-site-via-github-actions\.md
+# Note (v1.2.2): the 14 broken slug-ref patterns previously listed here were
+# DELETED after v1.2.2 Commit 2 applied ADR-067's narrow immutability
+# relaxation to fix the broken refs in-place across the affected ADRs.
+# Future broken-slug-refs should be FIXED IN-PLACE per ADR-067 + commit
+# message convention; do NOT add new ignore patterns for internal ADR
+# cross-refs. External-URL ignore patterns (HF Hub bot-403s; GH anchor
+# false-positives) remain above as they have a different rationale.

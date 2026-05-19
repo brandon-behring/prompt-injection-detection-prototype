@@ -178,6 +178,6 @@ rest of the governance trail without re-litigation.
 
 - [ADR-036 — Library version pins (tag-pin + freeze)](ADR-036-library-version-pins-tag-pin-plus-freeze.md) — narrowly superseded on the "git URL is the only viable spec format" sub-claim only; freeze + bump-triggers + uv.lock backstop preserved.
 - [ADR-033 — Github release strategy (rehearsal + submission)](ADR-033-github-release-strategy-rehearsal-plus-submission.md) — v1.0.x patch discipline that authorizes this bump under trigger #3.
-- [ADR-037 — requires-python ≥ 3.13](ADR-037-requires-python-floor-3-13.md) — eval-toolkit v0.40.0's requires-python matches.
+- [ADR-037 — requires-python ≥ 3.13](ADR-037-python-version-pin-3-13.md) — eval-toolkit v0.40.0's requires-python matches.
 - [eval-toolkit v0.40.0 PyPI](https://pypi.org/project/eval-toolkit/0.40.0/) — the artifact.
 - [eval-toolkit#43](https://github.com/brandon-behring/eval-toolkit/issues/43) — Platt + Beta request that motivated the v0.40.0 bump.

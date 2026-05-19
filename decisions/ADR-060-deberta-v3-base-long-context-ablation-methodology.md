@@ -61,7 +61,7 @@ supersedes: []
 superseded_by: []
 references:
   - decisions/ADR-015-backbone-selection-modernbert-base.md
-  - decisions/ADR-020-runpod-orchestration-and-cost-discipline.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md
   - decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md
   - decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md
