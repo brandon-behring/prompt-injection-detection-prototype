@@ -580,7 +580,12 @@ def train_one_cell(
     )
 
     batch_cfg = _get_batch_config()
-    rel_dir = cfg["checkpoint_dir_template"].format(fold=fold, seed=seed)
+    # Pass truncation_strategy as a format kwarg so templates that reference
+    # {truncation_strategy} (deberta_v3_base.yaml) bind it; templates that
+    # don't reference it silently ignore the extra kwarg (Python str.format).
+    rel_dir = cfg["checkpoint_dir_template"].format(
+        fold=fold, seed=seed, truncation_strategy=effective_truncation_strategy
+    )
     final_output_dir = checkpoint_root / rel_dir
     # Staging dir: where HF Trainer writes during training. Defaults to final_output_dir
     # (preserves prior behavior). When staging_root differs, atomic-save hangs on FUSE
