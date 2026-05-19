@@ -1,0 +1,47 @@
+name: Writeup numerical-claim audit
+
+# Per ADR-065 §B4 — CI hard-gate prevents drift between reviewer-facing
+# markdown numerical claims (numbers / ADR slugs / version strings / URLs)
+# and canonical sources (`evals/cost_ledger.csv`, `decisions/`,
+# `evals/metrics/per_cell.parquet`). Mirrors the lychee CI pattern from
+# ADR-064 §C2 + `.github/workflows/link-check.yml`. Runs default-strict;
+# matches the local `uv run python scripts/audit_writeup_numbers.py`
+# default invocation (per ADR-065 §B2's `--strict` default).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Run weekly to catch any drift introduced by upstream-library-driven
+  # parquet schema changes (extremely unlikely; defensive only).
+  schedule:
+    - cron: '0 10 * * MON'
+
+permissions:
+  contents: read
+
+jobs:
+  audit-writeup-numbers:
+    runs-on: ubuntu-latest
+    # Don't fail the build for scheduled runs (no merge-blocking signal);
+    # DO fail for push/pull_request (catches drift introduced by the diff
+    # being merged).
+    continue-on-error: ${{ github.event_name == 'schedule' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: 'latest'
+
+      - name: Set up Python 3.13
+        run: uv python install 3.13
+
+      - name: Install project deps
+        run: uv sync --frozen
+
+      - name: Run writeup numerical-claim audit (--strict)
+        run: uv run python scripts/audit_writeup_numbers.py

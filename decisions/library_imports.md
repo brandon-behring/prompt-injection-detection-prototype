@@ -177,6 +177,19 @@ Workflow: `build_dedup_holdout` → hand-label → `calibrate_dedup` → unskip 
 - `src/data/splits.py::apply_leakage_cleanup(splits, threshold=0.85)` — applies the above to all 12 (fold, seed) splits; re-partitions cleaned train+val at the 80/20 ratio.
 - Wired between `make_splits` and `materialize_splits` in `scripts/run_data_pipeline.py`. Pipeline log records `n_dropped` per split (exact + cosine breakdown) for audit.
 
+## Audit tooling (project-internal; not a methodology primitive)
+
+Per ADR-065 §B3: audit tooling is a meta-level concern (submission-prep / drift defense), NOT a methodology primitive subject to the strengthened library-first invariant ([`memory/library_first_is_project_wide_invariant.md`](../../../.claude/projects/-home-brandon-behring-Claude-prompt-injection-detection-submission/memory/library_first_is_project_wide_invariant.md)). The 4 scan-pattern categories are project-shaped (per-cell.parquet column names; specific ADR slug formats; HF Hub `BBehring/prompt-injection-*` URL pattern; project-specific dollar-figure context). Logged here for inventory completeness; explicitly tagged `audit-tooling-not-primitive`.
+
+| Script | Imported in | Purpose | Tag |
+|---|---|---|---|
+| `scripts/audit_writeup_numbers.py` (~290 LOC; introduced at v1.2.1 per ADR-065 §B) | `.github/workflows/audit-writeup.yml` (CI hard-gate); on-demand local invocation (`uv run python scripts/audit_writeup_numbers.py [--report-only]`) | Programmatic numeric-claim audit on 12 reviewer-facing markdown surfaces; 4 scan categories (numbers + ADR slugs + version strings + URLs); cross-checks against canonical parquets (`evals/cost_ledger.csv` sum for cumulative cost; future extensions: per_cell.parquet for AUPRC). Configurable `--strict` default (CI; exit 1 on drift) + `--report-only` opt-out (local-dev iteration; always exit 0). Pattern after `scripts/audit_leakage.py` + `scripts/audit_reference_scorers.py`. | audit-tooling-not-primitive |
+| `scripts/audit_leakage.py` (introduced at v1.0.6) | Local invocation + CI `leakage` job in `.github/workflows/ci.yml` | Verifies `evals/leakage_report.json` shows `leakage_clean=True` per ADR-016 + ADR-039 + ADR-043. Wraps upstream `eval_toolkit.leakage.CrossSplitLeakageCheck` primitive; this script is the project-internal verifier of the persisted artifact. | audit-tooling-wrapping-library-primitive |
+| `scripts/audit_reference_scorers.py` | Local invocation + CI | Reference-scorer contamination-tier audit per ADR-005 + ADR-018; verifies the 3-state taxonomy in eval-toolkit manifests is consistent with the project's reference-scorer slate. | audit-tooling-not-primitive |
+| `scripts/regenerate_audit.py` (lifts from Phase 0; checked in CI via `make audit-sync-check`) | Local invocation + CI; `--check` mode gates pre-commit hook | Regenerates `SUBMISSION_AUDIT.md` from ADR frontmatter (1 CLAIM row per ADR); strict drift-detection in `--check` mode. The SUBMISSION_AUDIT is derived; ADRs are source of truth (per `decisions/README.md` lifecycle). | audit-tooling-derived-artifact |
+
+**Scope rationale**: project-internal status preserves library-first compliance for methodology primitives (which DO belong in `eval-toolkit` / `runpod-deploy` / `research_toolkit` per the strengthened invariant) while accepting that submission-prep audit tooling is a one-off concern with project-shaped scan patterns. Future portfolio repo work (per `memory/portfolio_plan_approved.md`) may upstream a generic markdown-drift-scanner primitive if reuse warrants — out of scope for this submission.
+
 ## research_toolkit usage (https://github.com/brandon-behring/research_toolkit)
 
 The literature dossier at `docs/research/` was produced by this toolkit's skill pipeline. New dossier work invokes the same skills:

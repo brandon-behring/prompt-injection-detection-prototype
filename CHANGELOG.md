@@ -483,6 +483,24 @@ These errors are recorded in [ADR-064](decisions/ADR-064-writeup-hiring-manager-
 v1.1.4 (lychee pre-commit hook) prevents recurrence of the slug-link
 class of errors going forward.
 
+### Postscript (added in v1.2.1; canonical cumulative-cost figure)
+
+ADR-064 §D flagged the stale `$9.92` cumulative-cost figure but did not
+compute the canonical value. [ADR-065](decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md)
+§E (lands at v1.2.1) records the canonical figure:
+
+> Canonical cumulative project compute spend as of v1.2.0 close: **`$17.08` USD**
+> (full precision `$17.0807`; sum of `actual_cost_usd` across 17 GPU-pod rows in
+> `evals/cost_ledger.csv` as of commit `3212cc5`, 2026-05-19). Within ADR-020's
+> `$200` hard cap.
+
+Readers consulting ADR-063's `$9.92` figure are directed to ADR-065 §E
+for the canonical value. ADR-063 itself remains immutable per CLAUDE.md
+ADR-discipline; the supersession is expressed via this postscript chain.
+v1.2.1 also introduces `scripts/audit_writeup_numbers.py` + a CI hard-gate
+at `.github/workflows/audit-writeup.yml` that prevents recurrence of the
+stale-figure class of drift going forward.
+
 ---
 
 ## [1.1.1] — 2026-05-19
