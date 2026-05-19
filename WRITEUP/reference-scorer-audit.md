@@ -29,7 +29,7 @@ re-estimation). The reference slate is three rungs:
 | Rung | Tier | Reason |
 |---|---|---|
 | `tfidf-lr` | `verified_disjoint` | Trained in-project on LODO training pool (ADR-017); no external training-data provenance. |
-| `ProtectAI v1` | `suspected_contamination` | HF model card lists `deepset/prompt-injections` + Lakera sources in training mix — overlap with our LODO training pool. |
+| `ProtectAI v1` | `suspected_contamination` | HF model card lists `deepset/prompt-injections` + Lakera sources in training mix — overlap with this project's LODO training pool. |
 | `ProtectAI v2` | `suspected_contamination` | Same overlap as v1 + uncharacterised v2-specific expansion data. |
 
 ## Per-scorer findings (summary)
@@ -48,8 +48,8 @@ The CI on jbb_behaviors crosses 0.50 (chance); the pooled CI does
 NOT. v1 distinguishes positives from negatives at marginally-above-
 chance rates on the OOD slate. Training-data disclosure is at
 category level only via the HF model card; cross-source overlap
-check via `data/contamination_templates.parquet` is partial; we
-cannot fully verify disjointness. **Verdict**:
+check via `data/contamination_templates.parquet` is partial; full
+disjointness cannot be verified. **Verdict**:
 `suspected_contamination` retained; results reported with caveat.
 
 ### ProtectAI v2 — `suspected_contamination`

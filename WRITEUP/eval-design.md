@@ -14,8 +14,8 @@ co-locates with the threat-model narrative.
 
 This section is the heart of the writeup. Every test below is reported
 with effect sizes and CIs — never p-values. The choice is
-methodological: in finite-sample settings, *what's the effect and how
-confident are we in it* is the answerable question; *is this nonzero
+methodological: in finite-sample settings, *what is the effect and how
+confident is the estimate* is the answerable question; *is this nonzero
 at α=0.05* is a question whose answer depends on the sample size more
 than the phenomenon.
 
@@ -27,13 +27,13 @@ The headline metric battery reports with BCa bootstrap CIs:
   tasks where precision and recall both matter. F1 alone is misleading
   at any chosen threshold; PR-AUC integrates over thresholds.
 - **ROC-AUC** — reported alongside for class-prior-independent
-  ranking. Less useful than PR-AUC under our priors but standard for
-  cross-paper comparison.
+  ranking. Less useful than PR-AUC under this task's class priors but
+  standard for cross-paper comparison.
 - **recall@FPR ∈ {0.1 %, 1 %, 5 %}** — operational pinpoints. The
   1 % point is the canonical reporting threshold (PromptShield 2025).
   The 0.1 % point is included in `evals/metrics/per_cell.parquet`
   per ADR-021 + ADR-023 volatility-surface protocol but is noisy at
-  our sample sizes and not surfaced in headlines.
+  this project's sample sizes and not surfaced in headlines.
 - **ECE (equal-mass + Kumar-2019 debiased) + Brier** — calibration;
   see §5.2 calibration battery below.
 
@@ -75,7 +75,7 @@ overlap does NOT imply non-significance — always compute the
 difference CI.
 
 Method: per-row pairing; matched resamples; CI on the paired Δ.
-Reported wherever we make a comparative claim. Specialised variants
+Reported wherever a comparative claim is made. Specialised variants
 `paired_bootstrap_ece_diff` (ECE comparisons) and
 `paired_bootstrap_op_point_diff` (two-level bootstrap for threshold
 refitting) handle non-AUC paired metrics. `delong_roc_variance` is
@@ -86,9 +86,9 @@ available for sanity-check parametric ROC-AUC CIs (DeLong et al.
 
 *Why*: a wide CI that excludes "no difference" is still informative;
 a wide CI that *includes* "no difference" can mean either "the rungs
-are equivalent" or "we don't have power to tell". MDE distinguishes
+are equivalent" or "the test lacks power to tell". MDE distinguishes
 these. A claim of equivalence requires MDE small enough to rule out
-the smallest difference we'd care about.
+the smallest meaningful difference.
 
 Method: derive MDE from CI width at α=0.05, power=0.80. Report
 alongside every CI that includes zero.
@@ -125,8 +125,8 @@ See
 
 ### CV-CLT CI for cross-fold variance — `cv_clt_ci`
 
-*Why*: when we run source-disjoint k-fold as a supplement, per-fold
-metrics aren't independent — train sets overlap across folds. A naive
+*Why*: when source-disjoint k-fold is run as a supplement, per-fold
+metrics are not independent — train sets overlap across folds. A naive
 standard-error treatment overstates confidence. CLT-based CI with
 Bayle 2020 (Annals of Statistics) Theorem 3.1 correction handles the
 dependence properly. See
@@ -156,6 +156,10 @@ gates: `metric_threshold_gate`, `low_fpr_feasibility_gate`,
 `paired_diff_present_gate`, `no_leakage_errors_gate`, etc. The
 `ClaimSpec` → `GateResult` → `ClaimReport` pipeline (v0.9+) gives a
 release-gate manifest a reviewer can audit.
+
+*§5.3 (Threshold policy — dual detection + verification) lives in its
+own spoke at [`threshold-policy.md`](./threshold-policy.md) per the
+locked sub-spoke structure in ADR-025.*
 
 ## 5.4 Per-source / per-style breakdown
 
@@ -193,7 +197,7 @@ from `docs/research/benchmarks/` candidate set:
 
 See
 [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md)
-for the source-disjoint discipline we apply.
+for the source-disjoint discipline this project applies.
 
 **Single-class slice convention**: BIPIA + InjecAgent are all-
 positive; NotInject is all-negative. AUROC and AUPRC are mathemati-

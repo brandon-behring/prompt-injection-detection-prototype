@@ -18,8 +18,8 @@ five canonical figures, and pointers to the raw artifacts that produced them.
   floor is **412 / 1101 = 0.374**.
 - **AUROC** is secondary. Its random floor is always 0.5, but it can make
   imbalanced tasks look better than they are.
-- **Recall at FPR <= 1%** asks: if we allow at most 1 false alarm per 100 benign
-  examples, how many attacks are caught?
+- **Recall at FPR <= 1%** asks: with at most 1 false alarm allowed per 100
+  benign examples, how many attacks are caught?
 - **95% CI** shows uncertainty. A narrow interval supports a sharper claim; an
   interval crossing an important baseline means the claim is weak.
 - **ECE and Brier** are calibration errors. Lower is better.

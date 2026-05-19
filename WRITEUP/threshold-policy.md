@@ -55,15 +55,15 @@ use).
 **Scope bound:** dual-policy threshold characterisation applies only
 to **in-house rungs**. Reference scorers (off-the-shelf reference
 detectors) carry training-overlap caveats that make operating-point
-characterisation misleading; for those, we report recall@FPR
-pinpoints only.
+characterisation misleading; for those, only recall@FPR pinpoints
+are reported.
 
 ## Dual-cost-weight characterisation (in-house rungs)
 
 For the representative rung **LoRA** (the fine-tuned-ceiling-in-
 budget on this submission per ADR-019 + ADR-050; full-FT was the
 planned representative but is excluded from val-set inference due to
-the FUSE EIO crash per §8.1), we report both policies side by side.
+the FUSE EIO crash per §8.1), both policies are reported side by side.
 Numbers are *mean across 12 cells* (4 LODO folds × 3 seeds) on LODO
 held-out test, with val-fitted thresholds per ADR-025:
 

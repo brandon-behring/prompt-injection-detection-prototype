@@ -8,9 +8,10 @@ description: "Plain-language landing page for the prompt-injection classifier ev
 # Prompt-injection classifier: what the evaluation found
 
 Prompt injection is untrusted text that tries to override the instructions an
-LLM system is supposed to follow. This project asks a narrow question: if we
-train several simple prompt-injection detectors on direct instruction-override
-examples, do they still work when the attack family changes?
+LLM system is supposed to follow. This project asks a narrow question: when
+several simple prompt-injection detectors are trained on direct
+instruction-override examples, do they still work when the attack family
+changes?
 
 The short answer is **mostly no**. The evaluation is useful because it makes
 that failure visible instead of hiding it behind an in-domain score.

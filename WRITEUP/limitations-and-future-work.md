@@ -6,14 +6,14 @@
 
 This spoke consolidates §8 scope deferrals, §8.2 methodology
 caveats, §9 negative results (tried + abandoned), and §11 lessons.
-The distinction matters: §8 = scope decisions we can defend; §9 =
+The distinction matters: §8 = scope decisions defensible at submission; §9 =
 experimental work that did not pan out; §11 = process-level
 lessons. For headline characterisation that exposes these
 limitations see [`../WRITEUP.md`](../WRITEUP.md) §Results.
 
 ## 8.1 Scope deferrals
 
-These are not failures — they are scope decisions we can defend.
+These are not failures — they are scope decisions defensible at submission.
 
 - **Deployment** — out of roadmap. The work is characterisation;
   no deployment recommendation; no deployment-readiness testing.
@@ -106,6 +106,11 @@ These are not failures — they are scope decisions we can defend.
   dual-policy threshold-fitting purpose; the long-tail truncation
   is a tracked-but-tolerated divergence from the training-time
   configuration.
+
+*The remainder of this spoke (§9.1–§9.4) shifts from defensible scope
+decisions (§8) to **experimental dead-ends** — work that was attempted
+and dropped, with the reasoning recorded. Reading these in sequence
+gives the negative-results audit trail the headline result rests on.*
 
 ## 9.1 Hyperparameter / training dead-ends
 
@@ -227,6 +232,11 @@ suggestions for a successor iteration:
    OOD calibration set (currently impossible by LODO design)
    would close the val→LODO gap.
 
+*The final section steps back from specific dead-ends to surface the
+**process-level lessons** that fell out of the work — what the SDD +
+LODO + bootstrap-CI discipline cost vs delivered, and what going-in
+expectations proved wrong.*
+
 ## §11 Lessons & reflections
 
 - **OOD generalization is genuinely hard, and the honest finding
@@ -279,9 +289,9 @@ suggestions for a successor iteration:
   boundaries hit. The discipline overhead was small; the
   resilience benefit was large.
 
-**What surprised**: the OOD wall. Going in I expected the rung
-ladder to be a positive story (each rung adds something over the
-floor); the LoRA-fine-tuning regression on `pooled_ood` was the
+**What surprised**: the OOD wall. The rung ladder had been expected
+to be a positive story (each rung adds something over the floor); the
+LoRA-fine-tuning regression on `pooled_ood` turned out to be the
 methodologically richest finding. Going forward (v6): the §9.4
 prescriptions — OOD-aware training data, backbone scaling, OOD-
 aware threshold selection — would test whether the wall is
