@@ -34,7 +34,13 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-from src.training.train_modernbert import VALID_CLASSIFIER_TYPES, load_config, train_one_cell  # noqa: E402
+from src.training.train_modernbert import (  # noqa: E402
+    NATIVE_TRUNCATION_STRATEGY,
+    VALID_RUNG_NAMES,
+    VALID_TRUNCATION_STRATEGIES,
+    load_config,
+    train_one_cell,
+)
 
 
 def main() -> int:
@@ -43,8 +49,23 @@ def main() -> int:
     parser.add_argument(
         "--rung",
         required=True,
-        choices=sorted(VALID_CLASSIFIER_TYPES),
-        help="Which transformer rung to train (per ADR-044 Q6)",
+        choices=sorted(VALID_RUNG_NAMES),
+        help=(
+            "Which rung to train (per ADR-044 Q6 + ADR-060 DeBERTa carryforward). "
+            "Resolves to configs/rungs/<rung>.yaml."
+        ),
+    )
+    parser.add_argument(
+        "--truncation-strategy",
+        default=None,
+        choices=sorted(VALID_TRUNCATION_STRATEGIES),
+        help=(
+            "Truncation strategy override (per ADR-060 — DeBERTa-v3-base ablation). "
+            "If unset, defaults to cfg.get('truncation_strategy', 'native'). "
+            "ModernBERT rungs implicitly use 'native' (single-pass with max_length=8192). "
+            "The DeBERTa ablation Makefile target sets this per fire to "
+            f"{NATIVE_TRUNCATION_STRATEGY!r} -> chunk_and_average -> head_truncation."
+        ),
     )
     parser.add_argument(
         "--config",
@@ -111,10 +132,19 @@ def main() -> int:
     folds: list[int] = [args.fold_only] if args.fold_only is not None else list(range(4))
     seeds: list[int] = [args.seed_only] if args.seed_only is not None else list(cfg["seeds"])
 
+    # Resolve truncation strategy for the log line; train_one_cell repeats this
+    # resolution internally (CLI override > YAML > "native") for binding lock.
+    effective_truncation_strategy: str = (
+        args.truncation_strategy
+        if args.truncation_strategy is not None
+        else cfg.get("truncation_strategy", NATIVE_TRUNCATION_STRATEGY)
+    )
+
     n_cells = len(folds) * len(seeds)
     print(
         f"[train_rung] START rung={args.rung} {len(folds)} folds x {len(seeds)} seeds "
-        f"= {n_cells} cells (backbone={cfg['backbone']['hf_id']}@{cfg['backbone']['revision'][:8]})"
+        f"= {n_cells} cells (backbone={cfg['backbone']['hf_id']}@{cfg['backbone']['revision'][:8]}"
+        f" truncation={effective_truncation_strategy})"
     )
 
     t_start = time.monotonic()
@@ -135,6 +165,7 @@ def main() -> int:
                 predictions_root=args.predictions_root,
                 checkpoint_root=args.checkpoint_root,
                 checkpoint_staging_root=args.checkpoint_staging_root,
+                truncation_strategy=args.truncation_strategy,
             )
             n_cells_done += 1
             n_files_written += len(written)

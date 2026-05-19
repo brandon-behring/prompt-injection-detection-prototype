@@ -80,9 +80,34 @@ def main() -> int:
         type=Path,
         default=_REPO_ROOT / "evals" / "metrics" / "per_cell.parquet",
     )
+    parser.add_argument(
+        "--epoch-filter",
+        type=int,
+        default=None,
+        help=(
+            "If set, restrict aggregation to rows with this `epoch` value. "
+            "Used by the DeBERTa-v3-base ablation per ADR-060 to report only "
+            "the final-epoch headline (epoch=2) per the methodology lock. "
+            "Default None preserves the pre-v1.1.2 ModernBERT behaviour "
+            "(all available epochs aggregated together)."
+        ),
+    )
     args = parser.parse_args()
 
     df = _load_predictions(args.predictions_root, args.rung_pattern)
+    if args.epoch_filter is not None:
+        n_before = len(df)
+        df = df[df["epoch"] == args.epoch_filter].reset_index(drop=True)
+        print(
+            f"[metrics] --epoch-filter={args.epoch_filter}: "
+            f"{n_before} -> {len(df)} rows after filter"
+        )
+        if df.empty:
+            print(
+                f"[metrics] ERROR: no rows match epoch={args.epoch_filter}; check training output",
+                file=sys.stderr,
+            )
+            return 1
     df["slice_name"] = df["source"].map(_classify_slice)
 
     records: list[MetricsRecordModel] = []

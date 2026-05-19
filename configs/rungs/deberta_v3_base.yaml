@@ -27,7 +27,10 @@ status: v1.1.0-scaffold-only  # execution v1.1.1; see ADR-060
 # reproducibility (per ADR-016 spirit applied to model weights).
 backbone:
   hf_id: microsoft/deberta-v3-base
-  revision: TBD-PIN-AT-V1.1.1-EXECUTION  # SHA captured at execution time via HfApi.model_info
+  # Pinned at v1.1.2 execution time via huggingface_hub.HfApi.model_info; SHA
+  # corresponds to last upstream modification 2022-09-22 (long stable). Per ADR-016
+  # spirit applied to model weights for byte-level reproducibility.
+  revision: 8ccc9b6f36199bec6961081d44eb72fb3f7353f3
 
 # Training recipe (per ADR-019 — same hyperparameter envelope as ModernBERT
 # full-FT, adjusted for DeBERTa's smaller window). YAML is canonical per ADR-044 Q4.

@@ -50,6 +50,21 @@ from src.training.weighted_trainer import WeightedTrainer, compute_class_weights
 
 VALID_CLASSIFIER_TYPES: frozenset[str] = frozenset({"frozen_probe", "lora", "full_ft"})
 
+# Per ADR-044 Q6 (ModernBERT rungs) + ADR-060 (DeBERTa-v3-base ablation
+# carryforward at v1.1.2). This is the set of `configs/rungs/<rung>.yaml`
+# basenames the CLI dispatcher recognises — distinct from
+# VALID_CLASSIFIER_TYPES because deberta_v3_base reuses classifier_type=full_ft
+# but is a different rung_name with its own backbone.
+VALID_RUNG_NAMES: frozenset[str] = frozenset({"frozen_probe", "lora", "full_ft", "deberta_v3_base"})
+
+# Truncation-strategy enumeration per ADR-060 (chunk-and-average + head-
+# truncation are the two ablation strategies; "native" preserves the
+# pre-v1.1.2 ModernBERT single-pass inference path).
+NATIVE_TRUNCATION_STRATEGY: str = "native"
+VALID_TRUNCATION_STRATEGIES: frozenset[str] = frozenset(
+    {NATIVE_TRUNCATION_STRATEGY, "chunk_and_average", "head_truncation"}
+)
+
 PREDICTIONS_SCHEMA: tuple[str, ...] = (
     "rung",
     "fold",
@@ -189,7 +204,9 @@ def _predict_proba(
     """Run inference on ``test_df``; return ``[N, 2]`` fp32 probabilities.
 
     Per ADR-019 numerical-stability discipline, applies ``softmax_fp32`` (casts
-    bf16 logits to fp32 before softmax).
+    bf16 logits to fp32 before softmax). This is the ``native`` truncation
+    strategy — single-pass forward with head truncation at ``max_length``;
+    ModernBERT rungs use this with ``max_length=8192`` per ADR-019.
     """
     model.eval()
     device = next(model.parameters()).device
@@ -211,6 +228,60 @@ def _predict_proba(
     return np.vstack(chunks)
 
 
+def _predict_proba_windowed(
+    model: Any,
+    tokenizer: PreTrainedTokenizerBase,
+    test_df: pd.DataFrame,
+    truncation_strategy: str,
+    window_size: int,
+    stride: int,
+    per_device_batch_size: int,
+) -> NDArray[np.float32]:
+    """Inference dispatch to chunk-and-average or head-truncation per ADR-060.
+
+    Returns the same ``[N, 2]`` fp32 shape as ``_predict_proba`` so the
+    downstream parquet-writer is strategy-agnostic. Column 0 is
+    ``1 - class1``; column 1 is ``class1`` (the value persisted as
+    ``predicted_proba_class1`` per ADR-019 + ADR-045 schema).
+
+    Parameters
+    ----------
+    truncation_strategy : str
+        One of ``"chunk_and_average"`` / ``"head_truncation"`` per ADR-060
+        methodology lock (NOT ``"native"`` — that path uses ``_predict_proba``).
+    window_size, stride, per_device_batch_size : int
+        Forwarded to ``src.inference.windowed.predict_with_strategy``.
+
+    Raises
+    ------
+    ValueError
+        If ``truncation_strategy`` is not in ``VALID_TRUNCATION_STRATEGIES`` or
+        equals the native sentinel (``"native"``).
+    """
+    if truncation_strategy == NATIVE_TRUNCATION_STRATEGY:
+        raise ValueError(
+            f"_predict_proba_windowed is for non-native strategies only; "
+            f"use _predict_proba for {NATIVE_TRUNCATION_STRATEGY!r} per ADR-060"
+        )
+    if truncation_strategy not in VALID_TRUNCATION_STRATEGIES:
+        raise ValueError(
+            f"Unknown truncation_strategy={truncation_strategy!r}; "
+            f"must be one of {sorted(VALID_TRUNCATION_STRATEGIES)} per ADR-060"
+        )
+    from src.inference.windowed import predict_with_strategy
+
+    class1 = predict_with_strategy(
+        model=model,
+        tokenizer=tokenizer,
+        texts=test_df["text"].tolist(),
+        strategy=truncation_strategy,  # type: ignore[arg-type]
+        window_size=window_size,
+        stride=stride,
+        per_device_batch_size=per_device_batch_size,
+    ).astype(np.float32)
+    return np.column_stack([1.0 - class1, class1]).astype(np.float32)
+
+
 def _write_predictions_parquet(
     *,
     model: Any,
@@ -224,15 +295,39 @@ def _write_predictions_parquet(
     per_device_batch_size: int,
     predictions_root: Path,
     predictions_file_template: str,
+    truncation_strategy: str = NATIVE_TRUNCATION_STRATEGY,
+    window_size: int = 512,
+    stride: int = 256,
 ) -> Path:
     """Run inference on test_df + write the per-epoch predictions parquet.
+
+    Parameters
+    ----------
+    truncation_strategy : str, optional
+        One of ``VALID_TRUNCATION_STRATEGIES``; default ``"native"`` preserves
+        the pre-v1.1.2 ModernBERT single-pass behavior. Non-native values
+        dispatch to ``_predict_proba_windowed`` per ADR-060.
+    window_size, stride : int, optional
+        Forwarded to the windowed inference path when ``truncation_strategy !=
+        "native"``. Defaults match ADR-060 (512-token window, stride 256).
 
     Returns
     -------
     Path
         Absolute path to the written parquet file.
     """
-    probs = _predict_proba(model, tokenizer, test_df, max_length, per_device_batch_size)
+    if truncation_strategy == NATIVE_TRUNCATION_STRATEGY:
+        probs = _predict_proba(model, tokenizer, test_df, max_length, per_device_batch_size)
+    else:
+        probs = _predict_proba_windowed(
+            model=model,
+            tokenizer=tokenizer,
+            test_df=test_df,
+            truncation_strategy=truncation_strategy,
+            window_size=window_size,
+            stride=stride,
+            per_device_batch_size=per_device_batch_size,
+        )
     predictions = pd.DataFrame(
         {
             "rung": rung_id,
@@ -247,8 +342,12 @@ def _write_predictions_parquet(
         }
     )
     predictions_root.mkdir(parents=True, exist_ok=True)
+    # Pass truncation_strategy as a format kwarg so templates that reference
+    # {truncation_strategy} (e.g. deberta_v3_base.yaml) bind it; templates that
+    # don't reference it silently ignore the extra kwarg (Python str.format
+    # semantics).
     out_path = predictions_root / predictions_file_template.format(
-        fold=fold, seed=seed, epoch=epoch
+        fold=fold, seed=seed, epoch=epoch, truncation_strategy=truncation_strategy
     )
     predictions.to_parquet(out_path, index=False)
     return out_path
@@ -268,14 +367,24 @@ class PerEpochPredictionsCallback(TrainerCallback):
     test_df : pandas.DataFrame
         Held-out test set (per LODO fold).
     tokenizer : PreTrainedTokenizerBase
-        ModernBERT tokenizer (loaded once at trainer entry).
+        Backbone tokenizer (loaded once at trainer entry).
     max_length, per_device_batch_size : int/int
         Inference-time tokenization + batching (smaller batch sizes are fine
         at inference because backward graphs are not constructed).
     predictions_root : Path
         ``evals/predictions/`` (parquet files written here).
     predictions_file_template : str
-        Format string with ``{fold}``, ``{seed}``, ``{epoch}`` placeholders.
+        Format string with ``{fold}``, ``{seed}``, ``{epoch}`` placeholders;
+        may also reference ``{truncation_strategy}`` for the DeBERTa ablation
+        per ADR-060.
+    truncation_strategy : str, optional
+        Per ADR-060 (v1.1.2 carryforward); default ``"native"`` preserves
+        pre-v1.1.2 ModernBERT single-pass inference. Non-native values
+        ("chunk_and_average" / "head_truncation") dispatch to
+        ``_predict_proba_windowed``.
+    window_size, stride : int, optional
+        Forwarded to the windowed inference path. Defaults match ADR-060
+        (512-token window, stride 256).
     """
 
     def __init__(
@@ -290,6 +399,9 @@ class PerEpochPredictionsCallback(TrainerCallback):
         per_device_batch_size: int,
         predictions_root: Path,
         predictions_file_template: str,
+        truncation_strategy: str = NATIVE_TRUNCATION_STRATEGY,
+        window_size: int = 512,
+        stride: int = 256,
     ) -> None:
         self.rung_id = rung_id
         self.fold = fold
@@ -300,6 +412,9 @@ class PerEpochPredictionsCallback(TrainerCallback):
         self.per_device_batch_size = per_device_batch_size
         self.predictions_root = predictions_root
         self.predictions_file_template = predictions_file_template
+        self.truncation_strategy = truncation_strategy
+        self.window_size = window_size
+        self.stride = stride
         self.written_paths: list[Path] = []
 
     def on_epoch_end(
@@ -326,6 +441,9 @@ class PerEpochPredictionsCallback(TrainerCallback):
             per_device_batch_size=self.per_device_batch_size,
             predictions_root=self.predictions_root,
             predictions_file_template=self.predictions_file_template,
+            truncation_strategy=self.truncation_strategy,
+            window_size=self.window_size,
+            stride=self.stride,
         )
         self.written_paths.append(out_path)
         return control
@@ -350,6 +468,7 @@ def train_one_cell(
     checkpoint_root: Path,
     checkpoint_staging_root: Path | None = None,
     event_logger: Callable[..., None] | None = None,
+    truncation_strategy: str | None = None,
 ) -> list[Path]:
     """Train one ``(rung, fold, seed)`` cell; write per-epoch predictions parquets.
 
@@ -379,6 +498,13 @@ def train_one_cell(
         ``checkpoint_root``).
     event_logger : Callable, optional
         Forwarded to flash-attn fallback recipe in ``load_backbone``.
+    truncation_strategy : str, optional
+        Per ADR-060 (v1.1.2 carryforward). If ``None``, defaults to
+        ``cfg.get("truncation_strategy", "native")`` so ModernBERT rungs
+        without the field keep their pre-v1.1.2 behavior. CLI callers
+        (``scripts/train_rung.py --truncation-strategy ...``) pass an explicit
+        value to override the YAML default per the sequential single-pod
+        2-fire shape locked in ADR-060.
 
     Returns
     -------
@@ -389,10 +515,36 @@ def train_one_cell(
     ------
     FileNotFoundError
         If the per-(fold, seed) split parquets are missing.
+    ValueError
+        If ``truncation_strategy`` (after default resolution) is not in
+        ``VALID_TRUNCATION_STRATEGIES``.
     """
     cfg = load_config(config_path)
     classifier_type: str = cfg["classifier_type"]
-    rung_id: str = cfg["rung_id"]
+    rung_id_base: str = cfg["rung_id"]
+
+    # Resolve truncation strategy: CLI override > YAML default > "native".
+    effective_truncation_strategy: str = (
+        truncation_strategy
+        if truncation_strategy is not None
+        else cfg.get("truncation_strategy", NATIVE_TRUNCATION_STRATEGY)
+    )
+    if effective_truncation_strategy not in VALID_TRUNCATION_STRATEGIES:
+        raise ValueError(
+            f"Unknown truncation_strategy={effective_truncation_strategy!r} for "
+            f"rung_id={rung_id_base!r}; must be one of "
+            f"{sorted(VALID_TRUNCATION_STRATEGIES)} per ADR-060"
+        )
+    # For non-native strategies (DeBERTa ablation per ADR-060), distinguish
+    # the rung_id so downstream metrics aggregation treats each strategy as a
+    # separate cell ("deberta_v3_base_chunk_and_average" vs
+    # "deberta_v3_base_head_truncation"). ModernBERT rungs keep their bare
+    # rung_id ("frozen_probe" / "lora" / "full_ft") for backward compat.
+    rung_id: str = (
+        rung_id_base
+        if effective_truncation_strategy == NATIVE_TRUNCATION_STRATEGY
+        else f"{rung_id_base}_{effective_truncation_strategy}"
+    )
 
     seed_dir = processed_root / f"fold-{fold}" / f"seed-{seed}"
     train_path = seed_dir / "train.parquet"
@@ -448,6 +600,12 @@ def train_one_cell(
 
     class_weights = compute_class_weights_tensor(train_df["label"].astype(int).to_numpy())
 
+    # Window-and-stride defaults per ADR-060; only used when
+    # effective_truncation_strategy != "native". Sourced from YAML when present
+    # so the deberta_v3_base.yaml chunk_and_average defaults flow through.
+    inference_window_size: int = int(cfg.get("tokenizer", {}).get("max_length", 512))
+    inference_stride: int = int(cfg.get("chunk_and_average_stride", 256))
+
     callback = PerEpochPredictionsCallback(
         rung_id=rung_id,
         fold=fold,
@@ -458,6 +616,9 @@ def train_one_cell(
         per_device_batch_size=batch_cfg.per_device,
         predictions_root=predictions_root,
         predictions_file_template=cfg["predictions_file_template"],
+        truncation_strategy=effective_truncation_strategy,
+        window_size=inference_window_size,
+        stride=inference_stride,
     )
     trainer = WeightedTrainer(
         model=model,

@@ -82,12 +82,13 @@ setup:
     - cd ${REMOTE_REPO} && uv run python -c "import torch; print('torch:', torch.__version__, 'cuda:', torch.cuda.is_available())"
 
 run:
-  # v1.1.1 dispatch: --truncation-strategy switch consumed by the windowed
+  # v1.1.2 dispatch: --truncation-strategy switch consumed by the windowed
   # inference module. The deberta-ablation Makefile target fires this config
   # twice in sequence — first with chunk_and_average, then with head_truncation
   # — sharing the same pod via lifecycle.on_success: recycle.
+  # CLI flags match scripts/train_rung.py (--fold-only / --seed-only / --truncation-strategy).
   commands:
-    - cd ${REMOTE_REPO} && uv run python scripts/train_rung.py --rung deberta_v3_base --fold 0 --seed 42 --truncation-strategy ${TRUNCATION_STRATEGY:-chunk_and_average}
+    - cd ${REMOTE_REPO} && uv run python scripts/train_rung.py --rung deberta_v3_base --fold-only 0 --seed-only 42 --truncation-strategy ${TRUNCATION_STRATEGY:-chunk_and_average}
 
 artifacts:
   - label: pid-predictions-deberta

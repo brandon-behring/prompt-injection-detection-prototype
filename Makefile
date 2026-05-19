@@ -267,33 +267,58 @@ headline-full-ft:
 	uv run runpod-deploy run --config configs/runpod/headline-full_ft.yaml
 
 # ---------------------------------------------------------------------------
-# DeBERTa-v3-base medium ablation — v1.1.0 INFRASTRUCTURE SCAFFOLD per ADR-060.
-# Execution deferred to v1.1.1 pending the loader-refactor + windowed-inference
-# module per /exploring-options 2026-05-19 Path B lock. Stubs exit 2 with a
-# pointer to ADR-060 + the carryforward landing condition.
+# DeBERTa-v3-base medium ablation — v1.1.2 EXECUTION per ADR-060.
+# Sequential single-pod 2-fire (chunk_and_average + head_truncation) sharing
+# the warm pod via runpod-deploy lifecycle.on_success: recycle (#90 consumed
+# in headline-deberta.yaml). Both fires train fold=0/seed=42 only (medium
+# ablation; NOT a full LODO grid). Wall-clock ~30 min per fire; ~$5-7 total
+# GPU spend per ADR-060 + within ADR-020 envelope.
 # ---------------------------------------------------------------------------
+
+# `make train-deberta-v3 TRUNCATION_STRATEGY=<chunk_and_average|head_truncation>`
+# — train one DeBERTa fire on the LOCAL GPU (debugging path). Cloud runs go
+# via `make deberta-ablation` for the canonical 2-fire orchestration.
 train-deberta-v3:
-	@echo "[ERROR] make train-deberta-v3 is a v1.1.0 SCAFFOLD; execution deferred to v1.1.1."
-	@echo "        See decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md"
-	@echo "        v1.1.1 must land: (a) generic backbone loader (src/training/load_backbone.py"
-	@echo "        or refactored load_modernbert.py); (b) chunk-and-average windowed-inference"
-	@echo "        module at src/inference/windowed.py; (c) train_rung.py DeBERTa dispatch."
-	@echo "        Cost envelope: ~30 min wall + ~$$3 GPU per fire; sequential single-pod 2-fire."
-	@exit 2
+	@if [ -z "$(TRUNCATION_STRATEGY)" ]; then \
+		echo "ERROR: TRUNCATION_STRATEGY=<chunk_and_average|head_truncation> required"; \
+		exit 2; \
+	fi
+	uv run python scripts/train_rung.py --rung deberta_v3_base \
+		--fold-only 0 --seed-only 42 \
+		--truncation-strategy $(TRUNCATION_STRATEGY)
 
+# `make eval-deberta-v3` — aggregate per-strategy AUPRC + AUROC over the 5-slice
+# OOD slate from the predictions parquets written by train-deberta-v3. Per
+# ADR-060, only epoch=2 (headline) metrics are reported; epoch=1 is dropped.
+# Writes evals/metrics/per_cell_deberta.parquet.
 eval-deberta-v3:
-	@echo "[ERROR] make eval-deberta-v3 is a v1.1.0 SCAFFOLD; execution deferred to v1.1.1."
-	@echo "        See decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md"
-	@echo "        Depends on train-deberta-v3 outputs at evals/predictions/deberta_v3_base_*.parquet."
-	@exit 2
+	uv run python scripts/run_metrics_battery.py \
+		--predictions-root evals/predictions \
+		--rung-pattern deberta_v3_base \
+		--metrics-out evals/metrics/per_cell_deberta.parquet \
+		--epoch-filter 2
 
+# `make deberta-ablation` — canonical 2-fire RunPod orchestration per ADR-060.
+# Fire 1: chunk_and_average; lifecycle.on_success: recycle keeps the pod warm.
+# Fire 2: head_truncation; reuses the warm pod (saves ~$1-2 + ~3-5 min vs full
+# teardown per /exploring-options 2026-05-19 Q2 lock). Explicit `runpod-deploy
+# stop` after fire 2 closes out the pod (runpod-deploy v0.8.4 has no per-fire
+# `on_success` override CLI flag; explicit stop is the workaround). Final
+# aggregation runs `eval-deberta-v3` to produce per_cell_deberta.parquet.
+# Pre-flight: validate config + dry-run cost preview; interactive approval gate
+# per ADR-020 dual-layer cost-cap discipline.
 deberta-ablation:
-	@echo "[ERROR] make deberta-ablation is a v1.1.0 SCAFFOLD; execution deferred to v1.1.1."
-	@echo "        See decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md"
-	@echo "        Will orchestrate 2 sequential single-pod training fires"
-	@echo "        (chunk_and_average + head_truncation) via lifecycle.on_success: recycle"
-	@echo "        (per #90 consumption; ~$$5-7 total GPU spend within ADR-020 envelope)."
-	@exit 2
+	uv run runpod-deploy validate --config configs/runpod/headline-deberta.yaml --all
+	uv run runpod-deploy run --dry-run --config configs/runpod/headline-deberta.yaml
+	@read -p "Approve DeBERTa-v3-base 2-fire ablation (cap \$$25; expected ~\$$5-7)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
+	# Fire 1: chunk_and_average (lifecycle.on_success: recycle keeps pod warm)
+	TRUNCATION_STRATEGY=chunk_and_average uv run runpod-deploy run --config configs/runpod/headline-deberta.yaml
+	# Fire 2: head_truncation (reuses warm pod via state-file)
+	TRUNCATION_STRATEGY=head_truncation uv run runpod-deploy run --config configs/runpod/headline-deberta.yaml
+	# Explicit pod teardown after fire 2 (no per-fire on_success override flag).
+	uv run runpod-deploy stop --state-file ~/.runpod-pid-deberta-ablation-current
+	# Aggregate per-strategy metrics into per_cell_deberta.parquet.
+	$(MAKE) eval-deberta-v3
 
 # ---------------------------------------------------------------------------
 # Phase 3 (Evaluation) targets — per ADR-018 + ADR-021 + ADR-022 + ADR-023 +
