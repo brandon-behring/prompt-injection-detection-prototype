@@ -127,8 +127,31 @@ staging:
       - "**/*.pyc"
       - .hf_cache/
       - data/raw/
+      # Excludes broadened for the DeBERTa ablation (v1.1.2 Phase D): the pod
+      # only needs src/ + scripts/ + configs/ + pyproject.toml + uv.lock for
+      # training. Excluding the eval/audit/doc trees defends against (a)
+      # transient rsync I/O errors on FUSE-backed /workspace touching the 282
+      # ADR-057 provenance manifests, (b) concurrent-writer collisions when
+      # the doc agent edits docs/* mid-push, (c) wasted upload time on
+      # ~hundreds of MB of historical artifacts not needed for DeBERTa.
       - evals/predictions/
       - evals/checkpoints/
+      - evals/manifests/      # ADR-057 backfilled provenance; pod doesn't use these
+      - evals/audit/          # LLM-judge cache + cross-fold-CI audit; pod-irrelevant
+      - evals/metrics/        # historical per_cell.parquet; pod-irrelevant
+      - evals/bootstrap/      # Phase 4 CI cells; pod-irrelevant
+      - evals/calibration/    # Phase 3 calibration spoke; pod-irrelevant
+      - evals/dedup_calibration.json
+      - evals/results.json    # T0 score-match reference; pod-irrelevant
+      - evals/cost_*.csv
+      - WRITEUP/              # reviewer-facing narrative; pod-irrelevant
+      - docs/                 # Quarto site + dossier + plots; pod-irrelevant
+      - decisions/            # ADR markdowns; pod-irrelevant
+      - analysis/             # v1.0.7 CSV exports; pod-irrelevant
+      - _site/                # rendered Quarto output; pod-irrelevant
+      - artifacts/            # historical runpod-deploy artifacts; pod-irrelevant
+      - notebooks/            # jupytext-paired notebooks; pod-irrelevant
+      - tests/                # pytest test files; pod doesn't run pytest
       - transcripts/
   - label: pid-processed-data
     source: "{project_root}/data/processed/"
