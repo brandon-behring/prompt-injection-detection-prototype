@@ -18,6 +18,38 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.3] — 2026-05-19
+
+**Patch release**: CI hygiene — fix 3 inherited CI failures across mypy hard gate, smoke-test soft gate, and lychee link-check workflow. No ADR (bug fixes, not methodology). Layered additively on v1.2.2 — no supersession of any prior ADR. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.3.
+
+CI red across these jobs since v1.1.3 (`ca43512`) / v1.1.4 (`d3f63d8`) / v1.1.2 (`a34128b`) — 5 patches; failures were masked because the Publish Quarto + Writeup numerical-claim audit gates stayed green on every push. Closes the inherited debt before any further patch work. CI now green end-to-end on `main`.
+
+### Fixed
+
+- **`scripts/render_figures.py:127` (mypy --strict hard gate)** — `plt.Axes` is not exposed as a typed attribute on `matplotlib.pyplot`; `mypy --strict` rejected it with `Name "plt.Axes" is not defined [name-defined]`. Imported `Axes` from `matplotlib.axes` (the canonical home) alongside the existing `Figure` import. Annotation changed from `_style_axes(ax: plt.Axes)` to `_style_axes(ax: Axes)`. Verified locally: `uv run mypy --strict --exclude '_site/' .` -> 92 source files clean. Closes the `lint (hard gate)` failure introduced at v1.1.3 (`ca43512`).
+
+- **`tests/smoke/test_training_primitives_smoke.py::test_training_args_seed_propagation` (test-smoke soft gate; CPU-runner portability)** — `assert args.bf16 is True` failed on CI's CPU-only ubuntu runners because `build_training_args` correctly gates `use_bf16 = torch.cuda.is_available()` (HF Trainer raises `ValueError` on `bf16=True` without CUDA). The ADR-019 ModernBERT recipe locks bf16 on CUDA hosts; on CPU smoke runners the expected value is `False`. Test now asserts `args.bf16 is torch.cuda.is_available()`, matching the implementation's hardware-gated contract + the `build_training_args` docstring's "default: bf16 when CUDA available" comment. Test docstring documents the rationale. `import torch` placed inside the function (matches the pattern from `test_softmax_fp32_cast` / `test_sigmoid_fp32_cast` in the same file). Verified locally: full `test_training_primitives_smoke.py` -> 18/18 PASSED on CPU. Closes the `test-smoke (soft gate)` failure introduced at v1.1.2 (`a34128b`).
+
+- **`.github/workflows/link-check.yml:48` (Markdown link check workflow; lychee v0.23.0 compat)** — lychee v0.23.0 removed the `--exclude-mail` CLI flag entirely; mailto: links are now excluded by default (opt-in via `--include-mail`). Verified by reading `lychee-bin/src/options.rs` at tag `lychee-v0.23.0`: only `include_mail: bool` exists, no `exclude_mail`. Deleted the `--exclude-mail` line; default behavior (mailto excluded) is preserved. Closes the `Markdown link check` workflow failure introduced at v1.1.4 (`d3f63d8`).
+
+### Why CI was red for 5 patches (post-mortem note)
+
+The 3 failures were each independently subtle:
+
+- The mypy `plt.Axes` annotation was added at v1.1.3 as part of the Quarto writeup clarity rewrite (ADR-062); the local pre-commit hook used `mypy` without `--strict` while CI uses `--strict`, so the failure only surfaced on push.
+- The bf16 test assertion worked on the development host (CUDA-enabled), and there was no CPU-runner regression test for `build_training_args` before the test was added at v1.1.2.
+- The lychee `--exclude-mail` flag was valid in lychee v0.22.x; the lychee-action `lycheeVersion: v0.23.0` default rolled forward silently when v0.23.0 released.
+
+Two compounding factors masked the red state: (a) the two visible reviewer-facing gates (Publish Quarto + Writeup numerical-claim audit) stayed green on every push, so the green PR notification fired even with red CI / Markdown jobs; (b) no patch in v1.1.x / v1.2.x had touched the failing files, so no commit in this session naturally triggered investigation. Future discipline: any patch close protocol should include a `gh run list --branch main --limit 5` check before tagging.
+
+### References
+
+- No new ADR (bug fixes, not methodology change). Precedent: v1.2.1 hygiene patch `74e7762` (gitignore patches) shipped without ADR; same pattern applied here.
+- Predecessor: [v1.2.2](#122---2026-05-19) (ADR-066 + ADR-067 close)
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
+- Cost discipline (unchanged): cumulative project compute spend stays $17.08 per ADR-065 §E (within ADR-020 $200 hard cap; $0 GPU at v1.2.3)
+- Live Quarto site: reflects v1.2.3 within ~2 min of push
+
 ## [1.2.2] — 2026-05-19
 
 **Patch release**: library-first carryforward refactor + narrow immutability relaxation. Per [ADR-066](decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.md) (library-first refactor) + [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) (narrow immutability relaxation for factual-typo fixes). Layered additively on v1.2.1 — no supersession of any prior ADR. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.2.
