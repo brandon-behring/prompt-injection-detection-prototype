@@ -137,11 +137,12 @@ def test_committed_transformer_configs_parse() -> None:
 def test_prepare_model_frozen_probe_freezes_backbone() -> None:
     """frozen_probe mode freezes all backbone params; classifier head trainable."""
     fake_model = _FakeModernBERT()
-    with patch("src.training.train_modernbert.load_modernbert", return_value=fake_model):
+    with patch("src.training.train_modernbert.load_backbone", return_value=fake_model):
         from src.training.train_modernbert import prepare_model
 
         result = prepare_model(
             classifier_type="frozen_probe",
+            backbone_hf_id="answerdotai/ModernBERT-base",
             backbone_revision="dummy_sha",
         )
     # backbone.weight + backbone.bias frozen; classifier.weight + classifier.bias trainable.
@@ -166,12 +167,16 @@ def test_prepare_model_lora_wraps_with_peft() -> None:
     fake_wrapped = _FakeModernBERT()  # sentinel; PEFT actual wraps would differ
 
     with (
-        patch("src.training.train_modernbert.load_modernbert", return_value=fake_model),
+        patch("src.training.train_modernbert.load_backbone", return_value=fake_model),
         patch("src.training.train_modernbert.get_peft_model", return_value=fake_wrapped) as gpm,
     ):
         from src.training.train_modernbert import prepare_model
 
-        result = prepare_model(classifier_type="lora", backbone_revision="dummy")
+        result = prepare_model(
+            classifier_type="lora",
+            backbone_hf_id="answerdotai/ModernBERT-base",
+            backbone_revision="dummy",
+        )
 
     assert gpm.called, "get_peft_model must be called in lora mode"
     assert result is fake_wrapped
@@ -185,10 +190,14 @@ def test_prepare_model_lora_wraps_with_peft() -> None:
 def test_prepare_model_full_ft_leaves_unchanged() -> None:
     """full_ft mode leaves all params trainable (HF default)."""
     fake_model = _FakeModernBERT()
-    with patch("src.training.train_modernbert.load_modernbert", return_value=fake_model):
+    with patch("src.training.train_modernbert.load_backbone", return_value=fake_model):
         from src.training.train_modernbert import prepare_model
 
-        result = prepare_model(classifier_type="full_ft", backbone_revision="dummy")
+        result = prepare_model(
+            classifier_type="full_ft",
+            backbone_hf_id="answerdotai/ModernBERT-base",
+            backbone_revision="dummy",
+        )
     assert result is fake_model
     assert all(p.requires_grad for p in result.parameters())
 
@@ -199,7 +208,11 @@ def test_prepare_model_rejects_unknown_type() -> None:
     from src.training.train_modernbert import prepare_model
 
     with pytest.raises(ValueError, match="Unknown classifier_type"):
-        prepare_model(classifier_type="classical", backbone_revision="dummy")
+        prepare_model(
+            classifier_type="classical",
+            backbone_hf_id="answerdotai/ModernBERT-base",
+            backbone_revision="dummy",
+        )
 
 
 @pytest.mark.smoke

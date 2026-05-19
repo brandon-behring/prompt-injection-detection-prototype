@@ -42,7 +42,7 @@ from transformers import (
 )
 
 from src.training.batch_table import BatchConfig, lookup_batch_config
-from src.training.load_modernbert import load_modernbert
+from src.training.load_backbone import load_backbone
 from src.training.lora_config import build_lora_config
 from src.training.softmax_cast import softmax_fp32
 from src.training.training_args import build_training_args
@@ -106,19 +106,27 @@ def load_config(config_path: Path) -> dict[str, Any]:
 def prepare_model(
     *,
     classifier_type: str,
+    backbone_hf_id: str,
     backbone_revision: str,
     event_logger: Callable[..., None] | None = None,
 ) -> Any:
-    """Build the ModernBERT model in the right rung mode.
+    """Build the backbone model in the right rung mode.
 
     Parameters
     ----------
     classifier_type : str
         One of ``"frozen_probe"`` / ``"lora"`` / ``"full_ft"``.
+    backbone_hf_id : str
+        HF Hub model identifier (e.g. ``"answerdotai/ModernBERT-base"`` for
+        ADR-019 rungs, ``"microsoft/deberta-v3-base"`` for the ADR-060
+        ablation). Required; sourced from
+        ``configs/rungs/<rung>.yaml::backbone.hf_id`` per ADR-044 Q4
+        single-source-of-truth invariant.
     backbone_revision : str
-        HF revision SHA for ``answerdotai/ModernBERT-base``.
+        HF revision SHA for ``backbone_hf_id`` (also sourced from
+        ``configs/rungs/<rung>.yaml::backbone.revision``).
     event_logger : Callable, optional
-        Forwarded to ``load_modernbert`` for flash-attn fallback audit logging.
+        Forwarded to ``load_backbone`` for flash-attn fallback audit logging.
 
     Returns
     -------
@@ -139,7 +147,8 @@ def prepare_model(
             f"Unknown classifier_type: {classifier_type!r}; "
             f"must be one of {sorted(VALID_CLASSIFIER_TYPES)}"
         )
-    model: Any = load_modernbert(
+    model: Any = load_backbone(
+        hf_id=backbone_hf_id,
         revision=backbone_revision,
         num_labels=2,
         event_logger=event_logger,
@@ -369,7 +378,7 @@ def train_one_cell(
         Default ``None`` keeps prior behavior (Trainer writes directly to
         ``checkpoint_root``).
     event_logger : Callable, optional
-        Forwarded to flash-attn fallback recipe in ``load_modernbert``.
+        Forwarded to flash-attn fallback recipe in ``load_backbone``.
 
     Returns
     -------
@@ -399,6 +408,7 @@ def train_one_cell(
     )
     model = prepare_model(
         classifier_type=classifier_type,
+        backbone_hf_id=cfg["backbone"]["hf_id"],
         backbone_revision=cfg["backbone"]["revision"],
         event_logger=event_logger,
     )

@@ -206,13 +206,18 @@ def _load_model_and_tokenizer(rung: str, snapshot_path: Path) -> tuple[Any, Any]
     if rung == "lora":
         from peft import PeftModel
 
-        from src.training.load_modernbert import load_modernbert
+        from src.training.load_backbone import load_backbone
 
+        backbone_hf_id = "answerdotai/ModernBERT-base"
         backbone_revision = "8949b909ec900327062f0ebf497f51aef5e6f0c8"
-        base = load_modernbert(revision=backbone_revision, num_labels=2)
+        base = load_backbone(
+            hf_id=backbone_hf_id,
+            revision=backbone_revision,
+            num_labels=2,
+        )
         model: Any = PeftModel.from_pretrained(cast(Module, base), str(snapshot_path))
         tokenizer = AutoTokenizer.from_pretrained(
-            "answerdotai/ModernBERT-base",
+            backbone_hf_id,
             revision=backbone_revision,
         )
     elif rung in ("frozen-probe", "full-ft"):

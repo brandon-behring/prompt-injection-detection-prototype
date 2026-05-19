@@ -412,29 +412,32 @@ def test_per_epoch_predictions_present() -> None:
 
 @pytest.mark.unit
 def test_flash_attn_fallback_present() -> None:
-    """ModernBERT loader has try/except fallback from flash_attention_2 to SDPA.
+    """Backbone loader has try/except fallback from flash_attention_2 to SDPA.
 
     Per ADR-020 (compute infrastructure and cost discipline) + ADR-044 Commit 2,
-    src/training/load_modernbert.py wraps AutoModelForSequenceClassification
+    src/training/load_backbone.py wraps AutoModelForSequenceClassification
     .from_pretrained with attn_implementation=flash_attention_2 in a try/except
     catching (ValueError, ImportError) plus falls through to a second load without
     attn_implementation set (stock SDPA). The fallback path emits a
     flash_attn_fallback event so the audit trail captures which physical config
     produced each per-row prediction. This invariant inspects the module source
     for the required structure.
+
+    History: at v1.1.2 Phase A (per ADR-060 carryforward) the loader was
+    refactored from ``load_modernbert`` to a generic ``load_backbone`` accepting
+    an ``hf_id`` kwarg, so the same recipe serves both ModernBERT (ADR-019) and
+    DeBERTa-v3-base (ADR-060). The flash-attn-fallback invariant is unchanged.
     """
     import inspect
 
-    from src.training import load_modernbert
+    from src.training import load_backbone
 
-    src = inspect.getsource(load_modernbert)
+    src = inspect.getsource(load_backbone)
     assert "except (ValueError, ImportError)" in src, (
-        "load_modernbert must catch (ValueError, ImportError) per ADR-020 "
-        "flash-attn-fallback recipe"
+        "load_backbone must catch (ValueError, ImportError) per ADR-020 flash-attn-fallback recipe"
     )
     assert "flash_attn_fallback" in src, (
-        "load_modernbert must emit flash_attn_fallback event in fallback branch "
-        "per ADR-020 line 124"
+        "load_backbone must emit flash_attn_fallback event in fallback branch per ADR-020 line 124"
     )
 
 

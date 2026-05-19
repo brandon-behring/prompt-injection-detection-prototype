@@ -77,9 +77,9 @@ All consumer libraries (`huggingface_hub`, `openai`, `anthropic`, `runpod-deploy
 | `pod.gpu_order` + `pod.datacenters` schema | `configs/runpod/headline.yaml` | 8-class GPU failover × 2-DC failover (per ADR-020) |
 | `budget.cost_cap_usd` + `assumed_hourly_rate_usd` | `configs/runpod/headline.yaml` | Per-job soft cap $125 (= A-002 upper bound; per ADR-020) |
 | `preflight.check_gpu_availability` (internal; invoked by `validate --all`) | preflight pipeline | Pre-spend GPU-stock check across gpu_order × datacenters cross-product |
-| Recipe: **flash-attention-fallback** | `src/training/load_modernbert.py` | Cross-GPU-class portability via `try/except (ValueError, ImportError)` (per ADR-020) |
+| Recipe: **flash-attention-fallback** | `src/training/load_backbone.py` | Cross-GPU-class portability via `try/except (ValueError, ImportError)` (per ADR-020). v1.1.2 Phase A renamed from `load_modernbert.py` per ADR-060 carryforward — same recipe; the generic `hf_id` kwarg now supports both ModernBERT (ADR-019) and DeBERTa-v3-base (ADR-060). |
 | Recipe: **cost-reconciliation** | `scripts/cost_rollup.py` | Post-run actual-vs-assumed reconciliation via `runpod_deploy_pull_manifest.json` (per ADR-020 dual-layer cost tracking) |
-| `events.emit_event` (in flash-attn-fallback recipe) | `src/training/load_modernbert.py` fallback branch | Audit-trail emission when fallback fires |
+| `events.emit_event` (in flash-attn-fallback recipe) | `src/training/load_backbone.py` fallback branch | Audit-trail emission when fallback fires |
 
 ## Quarto + GitHub Actions (introduced by ADR-030 + ADR-033)
 

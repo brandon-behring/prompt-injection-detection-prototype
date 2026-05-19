@@ -138,7 +138,7 @@ def run_trained_val(
     from torch.nn import Module
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-    from src.training.load_modernbert import load_modernbert  # noqa: E402
+    from src.training.load_backbone import load_backbone  # noqa: E402
     from src.training.train_modernbert import _predict_proba  # noqa: E402
 
     checkpoint_root = _REPO_ROOT / "evals" / "checkpoints" / rung
@@ -175,7 +175,11 @@ def run_trained_val(
                 ckpt = ckpts[-1]
 
                 if rung == "lora":
-                    base = load_modernbert(revision=backbone_revision, num_labels=2)
+                    base = load_backbone(
+                        hf_id=backbone_id,
+                        revision=backbone_revision,
+                        num_labels=2,
+                    )
                     model: Any = PeftModel.from_pretrained(cast(Module, base), str(ckpt))
                 else:
                     model = AutoModelForSequenceClassification.from_pretrained(str(ckpt))

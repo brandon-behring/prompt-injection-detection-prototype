@@ -151,7 +151,7 @@ def run_trained_rung_tier(
     from peft import PeftModel
 
     from src.training.train_modernbert import _predict_proba  # noqa: E402
-    from src.training.load_modernbert import load_modernbert  # noqa: E402
+    from src.training.load_backbone import load_backbone  # noqa: E402
 
     checkpoint_root = _REPO_ROOT / "evals" / "checkpoints" / rung
     if not checkpoint_root.exists():
@@ -194,7 +194,11 @@ def run_trained_rung_tier(
                 )
                 if rung == "lora":
                     # PEFT: load base + apply adapter
-                    base = load_modernbert(revision=backbone_revision, num_labels=2)
+                    base = load_backbone(
+                        hf_id=backbone_id,
+                        revision=backbone_revision,
+                        num_labels=2,
+                    )
                     # cast to nn.Module so PeftModel.from_pretrained typing is happy
                     from torch.nn import Module
 

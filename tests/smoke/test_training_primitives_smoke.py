@@ -5,8 +5,10 @@ Validates the locked recipes from ADR-019 + ADR-020:
 - ``lora_config`` returns the locked LoraConfig.
 - ``training_args`` propagates seed + recipe constants.
 - ``softmax_cast`` casts bf16 -> fp32 before softmax/sigmoid.
-- ``load_modernbert`` has the flash-attn-fallback try/except structure (source
+- ``load_backbone`` has the flash-attn-fallback try/except structure (source
   inspection; does not load weights — laptop-CPU-safe per ADR-027 smoke).
+  v1.1.2 Phase A renamed from ``load_modernbert`` to generic ``load_backbone``
+  per ADR-060 carryforward (DeBERTa-v3-base ablation needs a second backbone).
 """
 
 from __future__ import annotations
@@ -154,17 +156,15 @@ def test_sigmoid_fp32_cast() -> None:
 
 @pytest.mark.smoke
 def test_flash_attn_fallback_structure_present() -> None:
-    """load_modernbert wraps from_pretrained in (ValueError, ImportError) try/except."""
-    from src.training import load_modernbert
+    """load_backbone wraps from_pretrained in (ValueError, ImportError) try/except."""
+    from src.training import load_backbone
 
-    src = inspect.getsource(load_modernbert)
+    src = inspect.getsource(load_backbone)
     assert "except (ValueError, ImportError)" in src, (
-        "load_modernbert must catch (ValueError, ImportError) per ADR-020 "
-        "flash-attn-fallback recipe"
+        "load_backbone must catch (ValueError, ImportError) per ADR-020 flash-attn-fallback recipe"
     )
     assert "flash_attn_fallback" in src, (
-        "load_modernbert must emit flash_attn_fallback event in fallback branch "
-        "per ADR-020 line 124"
+        "load_backbone must emit flash_attn_fallback event in fallback branch per ADR-020 line 124"
     )
 
 
