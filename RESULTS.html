@@ -856,6 +856,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Writeup hiring-manager clarity polish + documentation-wide consistency conventions — additive layer on top of ADR-062</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeup accuracy-audit methodology + Quarto callout-note convention + narrative invariants — additive layer on top of ADR-064</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -924,7 +930,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>AUPRC</strong> is the primary metric. It measures whether positives are ranked ahead of negatives. On imbalanced data, a random ranking scores the positive rate. For the pooled out-of-distribution (OOD) slice, <code>pooled_ood</code>, that floor is <strong>412 / 1101 = 0.374</strong>.</li>
 <li><strong>AUROC</strong> is secondary. Its random floor is always 0.5, but it can make imbalanced tasks look better than they are.</li>
-<li><strong>Recall at FPR &lt;= 1%</strong> asks: if we allow at most 1 false alarm per 100 benign examples, how many attacks are caught?</li>
+<li><strong>Recall at FPR &lt;= 1%</strong> asks: with at most 1 false alarm allowed per 100 benign examples, how many attacks are caught?</li>
 <li><strong>95% CI</strong> shows uncertainty. A narrow interval supports a sharper claim; an interval crossing an important baseline means the claim is weak.</li>
 <li><strong>ECE and Brier</strong> are calibration errors. Lower is better.</li>
 </ul>
@@ -1864,8 +1870,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  floor is **412 / 1101 = 0.374**.</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AUROC** is secondary. Its random floor is always 0.5, but it can make</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  imbalanced tasks look better than they are.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Recall at FPR &lt;= 1%** asks: if we allow at most 1 false alarm per 100 benign</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  examples, how many attacks are caught?</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Recall at FPR &lt;= 1%** asks: with at most 1 false alarm allowed per 100</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  benign examples, how many attacks are caught?</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**95% CI** shows uncertainty. A narrow interval supports a sharper claim; an</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  interval crossing an important baseline means the claim is weak.</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ECE and Brier** are calibration errors. Lower is better.</span>

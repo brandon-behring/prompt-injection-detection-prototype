@@ -21,6 +21,20 @@ Some terms have a prose-form vs identifier-form split (e.g., `chunk-and-average`
 | Source / slice display | **BIPIA**, **InjecAgent**, **JBB-Behaviors**, **XSTest**, **NotInject**, **HackAPrompt**, **LMSYS** | `bipia`, `injecagent`, `jbb_behaviors`, `xstest`, `notinject`, `hackaprompt`, `lmsys-chat-1m` |
 | Metric names | **AUPRC**, **AUROC**, **ECE**, **Brier** (all-caps acronyms) | Same (used directly in column names + filenames) |
 
+## Canonical Quarto callout-note convention (added at v1.2.1 per ADR-065 §C)
+
+Three Quarto callout types are reserved for three specific reader-facing purposes on reviewer-facing markdown surfaces. The convention is documented here so future contributors can resolve any ambiguity by consulting one canonical source:
+
+| Callout type | Purpose | Where used | GitHub blob fallback |
+|---|---|---|---|
+| `:::{.callout-note}` Summary | **3-5 bullet headline takeaways**, placed at the top of any reviewer-facing markdown spoke directly below the existing back-link + "How to read this spoke" signpost. Bullets distilled from existing `**Result**`-bolded subsection sentences (per ADR-064 §B5 + ADR-065 §C1); each bullet anchored to an existing `**Result**` claim. | Top of all 8 `WRITEUP/*.md` spokes (added at v1.2.1 Commit 4b) | Renders raw `:::` fences visible; styled box appears only on Quarto site (canonical surface per ADR-030) |
+| `:::{.callout-tip collapse="true"}` Hyperparameters | **Dense audit-detail content** that the casual reader does not need but the auditor must reach. Specifically: hyperparameter blocks (`r` / `alpha` / `dropout` / `target_modules` for LoRA; `max_features` / `solver` / `class_weight` for TF-IDF; revision SHA + inference settings for reference scorers). Reader sees a summary line + can expand for detail. | `WRITEUP/model-rungs.md` per-detector hyperparameter blocks (added at v1.2.1 Commit 4c) | Renders raw `:::` fences with content expanded (no collapse behavior); acceptable since audit-detail content is preserved either way |
+| `:::{.callout-warning}` | **Caveats / limitations / known-narrow-scope reservations** that the reader must NOT miss. Used sparingly. | `WRITEUP/limitations-and-future-work.md` for residual-confound caveats; reference-scorer contamination-tier reservations elsewhere as needed | Renders raw `:::` fences visible |
+
+The Summary callout-note is NOT labeled "TL;DR" — the label "Summary" is used (per ADR-065 §C4 + Q3 round-3 user directive: "TL;DR" carries casual / informal connotation; "Summary" matches the audit-prep tone of the rest of the writeup).
+
+`docs/for-hiring-managers.md` is the only reviewer-facing surface that intentionally adopts first-person voice in the "What does this tell me about how the candidate thinks?" section per ADR-064 §B6's hiring-manager 4-question format; all other callout content uses third-person voice per ADR-065 §D1.
+
 ## Ablation
 
 A controlled experiment that removes or varies one factor while holding everything else constant, to isolate that factor's contribution. The DeBERTa-v3-base medium ablation per ADR-060 + ADR-063 tests whether ModernBERT's headline AUPRC advantage comes from its 8192-token native attention window (long context) or from its backbone architecture itself, by training DeBERTa-v3-base (512-token window) with two truncation strategies (chunk-and-average + head-truncation) and comparing per-strategy AUPRC on the same 5-slice OOD eval slate. The v1.1.2 result was a null (both strategies ~0.29 pooled OOD AUPRC) → ModernBERT advantage is **backbone-dominant**, not context-window-dominant. See `RESULTS.md` §1B for the per-strategy headline + interpretation.
