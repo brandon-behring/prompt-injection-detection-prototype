@@ -778,6 +778,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">RESULTS.md as third entry artifact — narrow supersession of ADR-053 dimension 1 (two-entry-artifacts); dimensions 2-5 unchanged</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-056-binary-calibrator-refactor-and-platt-beta-narrow-supersession-of-adr-023.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calibration battery refactor to eval-toolkit <code>_binary</code> API + Platt + Beta calibrators landed — narrow supersession of ADR-023 “temperature + isotonic only” scope deferral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-057-manifest-schema-v3-backfill-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Per-prediction provenance manifests via scripts/backfill_provenance.py — schema, location, naming, idempotency</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1523,156 +1541,157 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Tech-Stack ledger rows 307 + 308 + 309 + Phase 0-08 walk Q2</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger rows 307 plus 308 plus 309 each carry locked-to-tag-pin-plus-freeze-with-specific-version status (see ADR-036); pyproject.toml lines 8-14 contain the three uncommented dependency specifiers in the form library-name at git plus https URL plus tag (eval-toolkit at v0.31.0; runpod-deploy at v0.7.7; research_toolkit at v1.9.1); uv sync runs cleanly under requires-python &gt;=3.13 at Phase 0-08 close (verified manually at sub-session close); uv.lock is updated with the three library versions plus their transitive dependencies; decisions/library_imports.md gains a "Version pinning lock" subsection documenting the freeze policy plus the bump-trigger protocol; tests/test_invariants.py contains skip-marked stub test_pyproject_library_version_pins asserting (1) pyproject.toml dependencies stanza contains the three libraries at the locked versions (regex-grep for the specific tags); (2) uv.lock includes the three libraries (verified via uv.lock parse plus version field check); (3) no library is pinned to main branch or a branch other than a tagged version (regex check excluding the at-tag pattern); SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 5427b95</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://peps.python.org/pep-0508/</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.astral.sh/uv/concepts/projects/dependencies/#git</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://semver.org/</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/runpod-deploy</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/research_toolkit</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-037-python-version-pin-3-13.md</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/library_imports.md</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-036: Library version pins — tag pin to latest stable + freeze for submission window</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the three §Tech-Stack ledger rows for library version pins (307 eval-toolkit + 308 runpod-deploy + 309 research_toolkit) in a single bundled ADR. Companion to ADR-020 (which pre-locked <span class="in">`runpod-deploy 0.7.7`</span>), ADR-033 (release strategy — freeze cadence aligns with <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission tags), ADR-037 (Python version pin — <span class="in">`requires-python &gt;=3.13`</span>), and the library-first discipline encoded in <span class="in">`decisions/library_imports.md`</span>.</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>The three load-bearing libraries per <span class="in">`SPEC_GREENFIELD.md`</span> §Tech-Stack:</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Library <span class="pp">|</span> Latest tag (fetched 2026-05-16) <span class="pp">|</span> Pre-mentioned <span class="pp">|</span> Use surface <span class="pp">|</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eval-toolkit`</span> <span class="pp">|</span> <span class="in">`v0.31.0`</span> <span class="pp">|</span> Implicit via ADR-006 + ADR-021..025 <span class="pp">|</span> Bootstrap CIs + calibration + thresholds + paired tests (per <span class="in">`library_imports.md`</span>) <span class="pp">|</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`runpod-deploy`</span> <span class="pp">|</span> <span class="in">`v0.7.7`</span> <span class="pp">|</span> **Explicit in ADR-020** <span class="pp">|</span> GPU failover + cost cap + cost reconciliation + dry-run preflight <span class="pp">|</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`research_toolkit`</span> <span class="pp">|</span> <span class="in">`v1.9.1`</span> <span class="pp">|</span> Implicit via existing <span class="in">`docs/research/`</span> dossier <span class="pp">|</span> Dossier pipeline skills (per <span class="in">`library_imports.md`</span>) <span class="pp">|</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>All three are own-authored on GitHub (not on PyPI) — git URL is the only viable spec format. The pinning choice is **tag pin vs SHA pin vs branch pin**, plus the **update policy** (freeze for submission window vs on-demand bump vs auto-track-latest at Phase 1 entry).</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>Four strategies were considered (per Phase 0-08 Q2 walk):</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>(A) Tag pin to latest stable + freeze for submission window.</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>(B) SHA pin (40-char SHAs in pyproject) — strictest but ugly.</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>(C) Branch pin to <span class="in">`main`</span> + auto-track — drift-risk; loses audit clarity.</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>(D) Tag pin with on-demand bump (no freeze) — defeats audit trail.</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>User selection at Q2 walk: **A**.</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked versions</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Library <span class="pp">|</span> Tag <span class="pp">|</span> Rationale <span class="pp">|</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eval-toolkit`</span> <span class="pp">|</span> <span class="in">`v0.31.0`</span> <span class="pp">|</span> Latest stable as of 2026-05-16 — primitives in <span class="in">`library_imports.md`</span> (<span class="in">`bootstrap_ci`</span>, <span class="in">`paired_bootstrap_diff`</span>, <span class="in">`cv_clt_ci`</span>, <span class="in">`paired_bootstrap_op_point_diff`</span>, calibration battery, <span class="in">`TargetFPRSelector`</span>, <span class="in">`TargetRecallSelector`</span>) are present in this version <span class="pp">|</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`runpod-deploy`</span> <span class="pp">|</span> <span class="in">`v0.7.7`</span> <span class="pp">|</span> Pre-locked by ADR-020 (compute infrastructure); matches latest as of 2026-05-16; primitives (<span class="in">`pod.gpu_order`</span>, <span class="in">`budget.cost_cap_usd`</span>, <span class="in">`flash-attention-fallback`</span> recipe, <span class="in">`manifest-summary`</span>) are present <span class="pp">|</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`research_toolkit`</span> <span class="pp">|</span> <span class="in">`v1.9.1`</span> <span class="pp">|</span> Latest as of 2026-05-16; same toolkit that produced the existing <span class="in">`docs/research/`</span> dossier (per <span class="in">`library_imports.md`</span> and <span class="in">`docs/research/README.md`</span>) <span class="pp">|</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### `pyproject.toml` dependencies stanza</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="in">```toml</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="in">[project]</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="in">requires-python = "&gt;=3.13"   # per ADR-037</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="in">dependencies = [</span></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="in">    "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.31.0",</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">    "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7",</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="in">    "research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1",</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="in">]</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="in">`uv.lock`</span> (already committed per kit-level discipline) provides byte-level reproducibility on top of the tag pin — pinning a specific commit SHA + transitive-dependency tree.</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pinning strategy rationale</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>**Tag pin chosen over SHA pin** because tag pin is self-documenting — a reviewer reading pyproject.toml immediately sees the version in scope; SHA pin requires <span class="in">`git show &lt;sha&gt;`</span> to decode. Both have equivalent reproducibility when combined with <span class="in">`uv.lock`</span>.</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>**Tag pin chosen over branch pin (`@main`)** because branch pin can't answer "what version was in scope?" without lockfile consultation; branch advances between rehearsal tag and submission tag would silently change the codebase; contradicts methodology-submission audit-trail framing.</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Freeze policy</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>**Library versions are frozen for the submission window** (Phase 0-08 close → <span class="in">`v1.0.0`</span> submission tag per ADR-033). No routine bumps during Phase 1+ work.</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>**Bump-triggers** — exactly three valid triggers:</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Blocking bug discovered upstream** that breaks our use-pattern (per <span class="in">`decisions/library_imports.md`</span>). The bump comes with a corresponding upstream issue + commit reference + an entry in <span class="in">`decisions/upstream_issues.md`</span>.</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Critical security fix** in the upstream (a CVE-grade event affecting one of the three libraries).</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Reviewer-feedback-driven post-submission patch** per ADR-033 <span class="in">`v1.0.x`</span> discipline (post-submission only; submission tag freezes the pin).</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>**Routine "the upstream has a new release" is NOT a bump trigger** — the pin stays at the locked version unless a real need surfaces.</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bump procedure</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>When a valid bump trigger fires:</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Identify the new target version (lowest version that satisfies the trigger; minimal bump).</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Update <span class="in">`pyproject.toml`</span> dependency specifier.</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run <span class="in">`uv sync`</span> to update <span class="in">`uv.lock`</span>.</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Add a row to <span class="in">`decisions/upstream_issues.md`</span> referencing the trigger (issue URL / CVE / reviewer-feedback link).</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The bump produces a new commit; the commit message references ADR-036 + the trigger (does NOT supersede ADR-036 — the discipline is locked; the specific version moves).</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### Freeze expiration</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>Freeze policy expires at <span class="in">`v2.0.0`</span> (per ADR-033 major-bump discipline) without superseding ADR. At <span class="in">`v2.0.0`</span>, library version pins get re-walked in a new ADR — the year-long-freeze maintenance liability is recognized.</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Self-documenting `pyproject.toml`** — tag pin answers "what version?" without lockfile consultation.</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Byte-level reproducibility** — <span class="in">`uv.lock`</span> + tag pin + <span class="in">`requires-python &gt;=3.13`</span> is canonical reproducible install.</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Freeze aligns with ADR-033 cadence** — libraries lock at Phase 0-08; both <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission use the same library versions; no mid-flight bumps.</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Audit trail clarity** — every bump goes through <span class="in">`upstream_issues.md`</span> with a trigger reference; reviewer can audit "why did this version change?" trivially.</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-020 prior lock** — <span class="in">`runpod-deploy v0.7.7`</span> consistent across ADRs.</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Blocking bug requires explicit bump procedure** — small friction tax on real upstream fixes. Acceptable — methodology submissions favor reproducibility over fluidity.</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tag pin trusts upstream tag immutability** — force-pushed tags would invalidate. Defense-in-depth: <span class="in">`uv.lock`</span> + CLAUDE.md no-amend / no-force-push discipline for own-authored repos.</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Freeze expires at `v2.0.0`** — long-term maintenance liability is acknowledged but defers to that decision moment.</span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`runpod-deploy v0.7.7` was already pre-locked by ADR-020** — this ADR records the canonical location for that pin.</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>Per-library <span class="in">`requires-python`</span> constraints might block <span class="in">`&gt;=3.13`</span> (per ADR-037). Phase 0-08 close runs <span class="in">`uv sync`</span> to catch this. If any library is stuck below 3.13, fix-forward by either (a) bumping the upstream's <span class="in">`requires-python`</span> to <span class="in">`&gt;=3.13`</span> in a same-day patch, or (b) loosening ADR-037's pin to <span class="in">`&gt;=3.12`</span> via superseding ADR.</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Blocking bug**: per bump-trigger #1 above; no ADR supersession.</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Critical security fix**: per bump-trigger #2; no ADR supersession.</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Post-submission `v1.0.x` patch**: per bump-trigger #3; no ADR supersession.</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`v2.0.0` major bump**: freeze policy expires; new ADR re-walks the pins for that scope.</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library deprecation**: if one of the three libraries is deprecated or archived upstream, a superseding ADR replaces it with the successor library + updates <span class="in">`library_imports.md`</span> accordingly.</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) SHA pin** — strictest reproducibility but ugly + uv.lock + tag pin already provides byte-level reproducibility. Rejected per Q2 walk.</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(C) Branch pin (`@main`)** — auto-tracks upstream; reproducibility comes solely from uv.lock; loses audit-trail clarity. Rejected per Q2 walk.</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) Tag pin with on-demand bump (no freeze)** — flexibility for fixes but defeats audit trail. Rejected per Q2 walk.</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PEP 508 dependency specification — https://peps.python.org/pep-0508/</span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`uv`</span> git-URL dependency docs — https://docs.astral.sh/uv/concepts/projects/dependencies/#git</span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>SemVer 2.0.0 — https://semver.org/</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`eval-toolkit`</span> releases — https://github.com/brandon-behring/eval-toolkit</span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`runpod-deploy`</span> releases — https://github.com/brandon-behring/runpod-deploy</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`research_toolkit`</span> releases — https://github.com/brandon-behring/research_toolkit</span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-020 (compute infrastructure — <span class="in">`runpod-deploy 0.7.7`</span> pre-lock)</span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-033 (release strategy — freeze cadence aligns with submission tag lifecycle)</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-037 (Python version pin — <span class="in">`requires-python &gt;=3.13`</span>)</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md`</span> for the conversation that led to this decision (Q2 walk + tag pin + freeze + specific versions).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> ["055"]  # narrow supersession: "git URL is the only viable spec format" sub-claim only; eval-toolkit moves to PyPI install at v1.0.8 (ADR-055). Freeze policy + bump-triggers + tag-pin convention + uv.lock backstop + runpod-deploy &amp; research_toolkit git+https pins all preserved.</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://peps.python.org/pep-0508/</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.astral.sh/uv/concepts/projects/dependencies/#git</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://semver.org/</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/runpod-deploy</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/research_toolkit</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-037-python-version-pin-3-13.md</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/library_imports.md</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-036: Library version pins — tag pin to latest stable + freeze for submission window</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the three §Tech-Stack ledger rows for library version pins (307 eval-toolkit + 308 runpod-deploy + 309 research_toolkit) in a single bundled ADR. Companion to ADR-020 (which pre-locked <span class="in">`runpod-deploy 0.7.7`</span>), ADR-033 (release strategy — freeze cadence aligns with <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission tags), ADR-037 (Python version pin — <span class="in">`requires-python &gt;=3.13`</span>), and the library-first discipline encoded in <span class="in">`decisions/library_imports.md`</span>.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>The three load-bearing libraries per <span class="in">`SPEC_GREENFIELD.md`</span> §Tech-Stack:</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Library <span class="pp">|</span> Latest tag (fetched 2026-05-16) <span class="pp">|</span> Pre-mentioned <span class="pp">|</span> Use surface <span class="pp">|</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eval-toolkit`</span> <span class="pp">|</span> <span class="in">`v0.31.0`</span> <span class="pp">|</span> Implicit via ADR-006 + ADR-021..025 <span class="pp">|</span> Bootstrap CIs + calibration + thresholds + paired tests (per <span class="in">`library_imports.md`</span>) <span class="pp">|</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`runpod-deploy`</span> <span class="pp">|</span> <span class="in">`v0.7.7`</span> <span class="pp">|</span> **Explicit in ADR-020** <span class="pp">|</span> GPU failover + cost cap + cost reconciliation + dry-run preflight <span class="pp">|</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`research_toolkit`</span> <span class="pp">|</span> <span class="in">`v1.9.1`</span> <span class="pp">|</span> Implicit via existing <span class="in">`docs/research/`</span> dossier <span class="pp">|</span> Dossier pipeline skills (per <span class="in">`library_imports.md`</span>) <span class="pp">|</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>All three are own-authored on GitHub (not on PyPI) — git URL is the only viable spec format. The pinning choice is **tag pin vs SHA pin vs branch pin**, plus the **update policy** (freeze for submission window vs on-demand bump vs auto-track-latest at Phase 1 entry).</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>Four strategies were considered (per Phase 0-08 Q2 walk):</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>(A) Tag pin to latest stable + freeze for submission window.</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>(B) SHA pin (40-char SHAs in pyproject) — strictest but ugly.</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>(C) Branch pin to <span class="in">`main`</span> + auto-track — drift-risk; loses audit clarity.</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>(D) Tag pin with on-demand bump (no freeze) — defeats audit trail.</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>User selection at Q2 walk: **A**.</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked versions</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Library <span class="pp">|</span> Tag <span class="pp">|</span> Rationale <span class="pp">|</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eval-toolkit`</span> <span class="pp">|</span> <span class="in">`v0.31.0`</span> <span class="pp">|</span> Latest stable as of 2026-05-16 — primitives in <span class="in">`library_imports.md`</span> (<span class="in">`bootstrap_ci`</span>, <span class="in">`paired_bootstrap_diff`</span>, <span class="in">`cv_clt_ci`</span>, <span class="in">`paired_bootstrap_op_point_diff`</span>, calibration battery, <span class="in">`TargetFPRSelector`</span>, <span class="in">`TargetRecallSelector`</span>) are present in this version <span class="pp">|</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`runpod-deploy`</span> <span class="pp">|</span> <span class="in">`v0.7.7`</span> <span class="pp">|</span> Pre-locked by ADR-020 (compute infrastructure); matches latest as of 2026-05-16; primitives (<span class="in">`pod.gpu_order`</span>, <span class="in">`budget.cost_cap_usd`</span>, <span class="in">`flash-attention-fallback`</span> recipe, <span class="in">`manifest-summary`</span>) are present <span class="pp">|</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`research_toolkit`</span> <span class="pp">|</span> <span class="in">`v1.9.1`</span> <span class="pp">|</span> Latest as of 2026-05-16; same toolkit that produced the existing <span class="in">`docs/research/`</span> dossier (per <span class="in">`library_imports.md`</span> and <span class="in">`docs/research/README.md`</span>) <span class="pp">|</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### `pyproject.toml` dependencies stanza</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="in">```toml</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="in">[project]</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="in">requires-python = "&gt;=3.13"   # per ADR-037</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="in">dependencies = [</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">    "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.31.0",</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="in">    "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7",</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="in">    "research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1",</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="in">]</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="in">`uv.lock`</span> (already committed per kit-level discipline) provides byte-level reproducibility on top of the tag pin — pinning a specific commit SHA + transitive-dependency tree.</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pinning strategy rationale</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>**Tag pin chosen over SHA pin** because tag pin is self-documenting — a reviewer reading pyproject.toml immediately sees the version in scope; SHA pin requires <span class="in">`git show &lt;sha&gt;`</span> to decode. Both have equivalent reproducibility when combined with <span class="in">`uv.lock`</span>.</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>**Tag pin chosen over branch pin (`@main`)** because branch pin can't answer "what version was in scope?" without lockfile consultation; branch advances between rehearsal tag and submission tag would silently change the codebase; contradicts methodology-submission audit-trail framing.</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Freeze policy</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>**Library versions are frozen for the submission window** (Phase 0-08 close → <span class="in">`v1.0.0`</span> submission tag per ADR-033). No routine bumps during Phase 1+ work.</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>**Bump-triggers** — exactly three valid triggers:</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Blocking bug discovered upstream** that breaks our use-pattern (per <span class="in">`decisions/library_imports.md`</span>). The bump comes with a corresponding upstream issue + commit reference + an entry in <span class="in">`decisions/upstream_issues.md`</span>.</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Critical security fix** in the upstream (a CVE-grade event affecting one of the three libraries).</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Reviewer-feedback-driven post-submission patch** per ADR-033 <span class="in">`v1.0.x`</span> discipline (post-submission only; submission tag freezes the pin).</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>**Routine "the upstream has a new release" is NOT a bump trigger** — the pin stays at the locked version unless a real need surfaces.</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bump procedure</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>When a valid bump trigger fires:</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Identify the new target version (lowest version that satisfies the trigger; minimal bump).</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Update <span class="in">`pyproject.toml`</span> dependency specifier.</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run <span class="in">`uv sync`</span> to update <span class="in">`uv.lock`</span>.</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Add a row to <span class="in">`decisions/upstream_issues.md`</span> referencing the trigger (issue URL / CVE / reviewer-feedback link).</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The bump produces a new commit; the commit message references ADR-036 + the trigger (does NOT supersede ADR-036 — the discipline is locked; the specific version moves).</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Freeze expiration</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>Freeze policy expires at <span class="in">`v2.0.0`</span> (per ADR-033 major-bump discipline) without superseding ADR. At <span class="in">`v2.0.0`</span>, library version pins get re-walked in a new ADR — the year-long-freeze maintenance liability is recognized.</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Self-documenting `pyproject.toml`** — tag pin answers "what version?" without lockfile consultation.</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Byte-level reproducibility** — <span class="in">`uv.lock`</span> + tag pin + <span class="in">`requires-python &gt;=3.13`</span> is canonical reproducible install.</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Freeze aligns with ADR-033 cadence** — libraries lock at Phase 0-08; both <span class="in">`v0.9.0-rc1`</span> rehearsal + <span class="in">`v1.0.0`</span> submission use the same library versions; no mid-flight bumps.</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Audit trail clarity** — every bump goes through <span class="in">`upstream_issues.md`</span> with a trigger reference; reviewer can audit "why did this version change?" trivially.</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-020 prior lock** — <span class="in">`runpod-deploy v0.7.7`</span> consistent across ADRs.</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Blocking bug requires explicit bump procedure** — small friction tax on real upstream fixes. Acceptable — methodology submissions favor reproducibility over fluidity.</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tag pin trusts upstream tag immutability** — force-pushed tags would invalidate. Defense-in-depth: <span class="in">`uv.lock`</span> + CLAUDE.md no-amend / no-force-push discipline for own-authored repos.</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Freeze expires at `v2.0.0`** — long-term maintenance liability is acknowledged but defers to that decision moment.</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`runpod-deploy v0.7.7` was already pre-locked by ADR-020** — this ADR records the canonical location for that pin.</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>Per-library <span class="in">`requires-python`</span> constraints might block <span class="in">`&gt;=3.13`</span> (per ADR-037). Phase 0-08 close runs <span class="in">`uv sync`</span> to catch this. If any library is stuck below 3.13, fix-forward by either (a) bumping the upstream's <span class="in">`requires-python`</span> to <span class="in">`&gt;=3.13`</span> in a same-day patch, or (b) loosening ADR-037's pin to <span class="in">`&gt;=3.12`</span> via superseding ADR.</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Blocking bug**: per bump-trigger #1 above; no ADR supersession.</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Critical security fix**: per bump-trigger #2; no ADR supersession.</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Post-submission `v1.0.x` patch**: per bump-trigger #3; no ADR supersession.</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`v2.0.0` major bump**: freeze policy expires; new ADR re-walks the pins for that scope.</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library deprecation**: if one of the three libraries is deprecated or archived upstream, a superseding ADR replaces it with the successor library + updates <span class="in">`library_imports.md`</span> accordingly.</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) SHA pin** — strictest reproducibility but ugly + uv.lock + tag pin already provides byte-level reproducibility. Rejected per Q2 walk.</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(C) Branch pin (`@main`)** — auto-tracks upstream; reproducibility comes solely from uv.lock; loses audit-trail clarity. Rejected per Q2 walk.</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) Tag pin with on-demand bump (no freeze)** — flexibility for fixes but defeats audit trail. Rejected per Q2 walk.</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PEP 508 dependency specification — https://peps.python.org/pep-0508/</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`uv`</span> git-URL dependency docs — https://docs.astral.sh/uv/concepts/projects/dependencies/#git</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>SemVer 2.0.0 — https://semver.org/</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`eval-toolkit`</span> releases — https://github.com/brandon-behring/eval-toolkit</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`runpod-deploy`</span> releases — https://github.com/brandon-behring/runpod-deploy</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`research_toolkit`</span> releases — https://github.com/brandon-behring/research_toolkit</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-020 (compute infrastructure — <span class="in">`runpod-deploy 0.7.7`</span> pre-lock)</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-033 (release strategy — freeze cadence aligns with submission tag lifecycle)</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-037 (Python version pin — <span class="in">`requires-python &gt;=3.13`</span>)</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md`</span> for the conversation that led to this decision (Q2 walk + tag pin + freeze + specific versions).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
