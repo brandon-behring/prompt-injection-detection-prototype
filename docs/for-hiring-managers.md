@@ -23,7 +23,7 @@ Four questions, ~60 seconds. If you have 5 more minutes after this, jump to the 
 
 ## 4. What does this say about how the candidate thinks?
 
-- **Spec-Driven Development**: 64+ immutable Architecture Decision Records (ADRs) lock every methodology choice *before* the code is written. Each ADR carries context, decision, alternatives considered, consequences. Browse [decisions/](../decisions/) — every choice has a justification you can argue with.
+- **Spec-Driven Development**: 60+ immutable Architecture Decision Records (ADRs) lock methodology choices *before* code is written. Each ADR carries context, decision, alternatives considered, consequences. Browse [decisions/](../decisions/) — every choice has a justification you can argue with.
 - **Confound-control discipline**: when the headline result raised the natural follow-up question (*does a bigger context window fix the OOD gap?*), the candidate designed a controlled ablation (chunk-and-average vs head-truncation), not a hand-wave. Result was a publishable null. See [ADR-060](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md) + [ADR-063](../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md).
 - **Library-first invariant**: shared evaluation primitives (bootstrap CIs, calibration, leakage detection) live in dedicated upstream libraries (`eval-toolkit`, `runpod-deploy`, `research_toolkit`); local code is project-specific glue only. See [`decisions/library_imports.md`](../decisions/library_imports.md).
 

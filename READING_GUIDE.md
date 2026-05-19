@@ -13,8 +13,11 @@ drill into evidence and methodology only as needed.
 Goal: understand the problem, the result, and what the project demonstrates.
 
 1. [Landing page](index.qmd): problem, setup, headline result, limits.
-2. [Executive summary](EXECUTIVE_SUMMARY.md): one-page version.
+2. [For hiring managers in a hurry](docs/for-hiring-managers.md): 60-second
+   version of the problem, finding, trust basis, and candidate signal.
 3. [Results](RESULTS.md): skim F1 and the primary AUPRC table.
+4. [Executive summary](EXECUTIVE_SUMMARY.md): one-page version if you want a
+   slightly fuller decision-maker view.
 
 What to take away: this is an honest negative result. The detectors trained on
 direct prompt injection do not clearly generalize to different attack families.
@@ -76,6 +79,7 @@ policy.
 | `index.qmd` | first-reader landing page |
 | `EXECUTIVE_SUMMARY.md` | one-page summary |
 | `RESULTS.md` | exact tables, figures, artifacts |
+| `NEXT_STEPS.md` | completed carryforward log plus live future-work questions |
 | `WRITEUP.md` | methodology hub |
 | `WRITEUP/` | detailed methodology spokes |
 | `docs/plots/` | canonical F1-F5 figures with metadata sidecars |

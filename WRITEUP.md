@@ -1,12 +1,16 @@
 # Prompt-Injection Classification: Methodology and Capability Characterization
 
-**Author**: Brandon Behring | **Date**: 2026-05-19 | **Status**: live-site
-clarity patch per ADR-062; canonical submission source pin remains
+**Author**: Brandon Behring | **Date**: 2026-05-19 | **Status**:
+live-site clarity patches; canonical submission source pin remains
 `tree/v1.0.0`.
 
 This is the methodology hub. It explains the problem, the evaluation setup, the
 headline result, and the limits in one place. The detailed spokes remain linked
 below for readers who want the full audit trail.
+
+First-time readers should start with the [landing page](./index.qmd), then the
+[60-second hiring-manager tour](./docs/for-hiring-managers.md), then
+[Results](./RESULTS.md). This page is the deeper methodology layer.
 
 | Spoke | What It Covers |
 |---|---|
@@ -172,7 +176,7 @@ generic evaluation primitives come from
 [eval-toolkit](https://github.com/brandon-behring/eval-toolkit); this repo
 contains project-specific data, training, scoring, and writeup glue.
 
-## 10. Limits And Next Steps
+## 10. Limits And Future Work
 
 These results should not be read as a complete safety claim. A deployment
 context involving multilingual attacks, encoded payloads, paraphrases,
@@ -181,4 +185,5 @@ evaluation. The most useful next steps are OOD-aware training data, stronger
 backbone comparisons, and OOD-aware threshold selection.
 
 See [limitations and future work](./WRITEUP/limitations-and-future-work.md) for
-the full version.
+the full version. The historical carryforward ledger lives in
+[Carryforward log and future work](./NEXT_STEPS.md).

@@ -18,6 +18,36 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.5] — 2026-05-19
+
+**Patch release**: docs-only presentation + status-drift remediation for the
+live/main site. No ADR (readability/status cleanup, not methodology). Layered
+additively on v1.2.4.
+
+### Changed
+
+- **`NEXT_STEPS.md` reframed as "Carryforward log and future work"** — the
+  page is now current-state-first history rather than an apparent active task
+  list. The tactical section is relabeled "Completed tactical carryforward";
+  each entry leads with final status before chronology.
+- **Stale NEXT_STEPS status fixed** — §1.4 now records the v1.0.9 closure of
+  eval-toolkit #44 (`fit_isotonic_binary` consumed; local
+  `fit_isotonic_binary_local` adapter removed). The F1/F2/F5 figure-refactor
+  item no longer appears as active future work; it is recorded as completed
+  carryforward via ADR-066 / v1.2.2.
+- **Hiring-manager-first reader path tightened** — landing page, reading guide,
+  executive summary, README, and WRITEUP now make the primary path explicit:
+  landing page -> 60-second hiring-manager tour -> Results -> deeper audit.
+- **Quarto navigation label clarified** — `NEXT_STEPS.md` remains at the same
+  URL, but the navbar/sidebar label now reads "Carryforward + future work."
+
+### References
+
+- No new ADR (no methodology change).
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
+- Cost discipline (unchanged): cumulative project compute spend stays $17.08 (within ADR-020 $200 hard cap; $0 GPU at v1.2.5)
+- Live Quarto site: reflects latest patch after GitHub Pages publish
+
 ## [1.2.4] — 2026-05-19
 
 **Patch release**: fix-forward for v1.2.3 — residual lychee v0.23.0 incompat (`--base .` rejected). No ADR (bug fix, not methodology). Layered additively on v1.2.3.

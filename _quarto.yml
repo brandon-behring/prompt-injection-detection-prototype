@@ -67,7 +67,8 @@ website:
           - EVIDENCE.md
           - SPEC_SHEET.md
           - SUBMISSION_AUDIT.md
-          - NEXT_STEPS.md
+          - text: "Carryforward + future work"
+            href: NEXT_STEPS.md
           - assumptions.md
           - notebooks/01_canonical_results.ipynb
           - notebooks/02_frozen_vs_lora.ipynb
@@ -118,7 +119,8 @@ website:
         contents:
           - SPEC_SHEET.md
           - SUBMISSION_AUDIT.md
-          - NEXT_STEPS.md
+          - text: "Carryforward + future work"
+            href: NEXT_STEPS.md
           - assumptions.md
       - section: "Decisions (ADRs)"
         contents:

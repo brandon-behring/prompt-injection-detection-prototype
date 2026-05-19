@@ -64,12 +64,11 @@ to show useful ranking signal.
 
 ## Read Next
 
-- **For hiring managers in a hurry → [60-second tour](docs/for-hiring-managers.md)**:
+- **Start here for a fast review → [60-second hiring-manager tour](docs/for-hiring-managers.md)**:
   4 questions (what problem / what found / why trust / how the candidate
-  thinks). Best entry point if you have a minute and want the headline +
-  the methodology signal.
-- [Results](RESULTS.md): exact tables, five canonical figures, and raw artifact
-  pointers.
+  thinks). This is the primary path after the landing page.
+- **Then verify the numbers → [Results](RESULTS.md)**: exact tables, five
+  canonical figures, and raw artifact pointers.
 - [Executive summary](EXECUTIVE_SUMMARY.md): one-page decision-maker version.
 - [Writeup](WRITEUP.md): methodology narrative and links to detailed spokes.
 - [Reading guide](READING_GUIDE.md): paths for quick review, audit, and

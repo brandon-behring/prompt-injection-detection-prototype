@@ -6,16 +6,16 @@ This is a methodology-focused prompt-injection classifier evaluation. It asks a
 simple question: if detectors are trained on direct prompt-injection examples,
 do they still work when the attack family changes?
 
-The headline answer is **mostly no**. On the pooled cross-family
-out-of-distribution (OOD) slice, none of the evaluated detectors clearly beats
-the AUPRC random floor of 0.374.
+The headline answer is **mostly no**. On the pooled held-out attack-family
+slice (the out-of-distribution, or OOD, test), none of the evaluated detectors
+clearly beats the random floor for AUPRC, the primary ranking metric.
 
 ## What This Project Is
 
 - **A capability characterization**, not a deployment recommendation.
 - **A detector-ladder evaluation**: TF-IDF + LR, ModernBERT frozen probe,
   ModernBERT LoRA, and ProtectAI v1/v2 references.
-- **An OOD evaluation**: indirect injection, agentic-flow injection,
+- **A held-out family evaluation**: indirect injection, agentic-flow injection,
   jailbreak-style questions, and benign-but-injection-shaped text.
 - **A reproducible artifact**: source-disjoint splits, leakage checks,
   persisted predictions, confidence intervals, calibration metrics, and
@@ -38,13 +38,14 @@ For `pooled_ood`, random AUPRC is **412 / 1101 = 0.374**. That is why the
 
 - **5-minute read**: start at the
   [live landing page](https://brandon-behring.github.io/prompt-injection-detection-prototype/).
-  It explains the problem, setup, result, and limits in plain language.
+  It explains the problem, setup, result, and limits in plain language, then
+  points to the 60-second hiring-manager tour.
 - **Results audit**: read [RESULTS.md](./RESULTS.md). It contains the exact
   tables, five canonical figures, and raw artifact pointers.
 - **Methodology audit**: read [WRITEUP.md](./WRITEUP.md), then the eight spoke
   pages under [`WRITEUP/`](./WRITEUP/).
-- **Decision audit**: read [`decisions/`](./decisions/). ADR-062 records the
-  clarity rewrite and canonical-figure correction.
+- **Decision audit**: read [`decisions/`](./decisions/) for the methodology and
+  governance trail.
 
 ## Key Terms
 
@@ -85,6 +86,7 @@ make headline-cloud   # optional full cloud reproduction path
 | `EXECUTIVE_SUMMARY.md` | one-page decision-maker summary |
 | `RESULTS.md` | exact result grids, figures, raw artifacts |
 | `WRITEUP.md` + `WRITEUP/` | methodology hub and detailed spokes |
+| `NEXT_STEPS.md` | completed carryforward log plus live future-work questions |
 | `evals/` | canonical metrics, bootstrap artifacts, predictions |
 | `docs/plots/` | canonical reviewer figures F1-F5 plus provenance sidecars |
 | `decisions/` | Architecture Decision Records |

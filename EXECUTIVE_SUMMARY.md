@@ -68,8 +68,9 @@ deployment recommendation.
 
 ## Where To Go Next
 
+- [For hiring managers in a hurry](docs/for-hiring-managers.md): 60-second
+  reader path from problem to finding to trust basis.
 - [Results](RESULTS.md): exact grids, canonical figures, and artifact links.
 - [Writeup](WRITEUP.md): methodology narrative.
 - [Evidence](EVIDENCE.md): external-evidence and reference-scorer audit trail.
-- [Decisions](decisions/README.md): ADR trail, now including ADR-062 for this
-  clarity and canonical-figures patch.
+- [Decisions](decisions/README.md): ADR trail for methodology and governance.
