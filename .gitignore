@@ -38,6 +38,8 @@ transcripts/*.md
 !transcripts/README.md
 # Auto-saved transcripts (SessionEnd hook output) — private like the rest
 transcripts/auto/
+# Raw-session-archive zip (companion to transcripts/*.md; same private-by-default discipline)
+transcripts/*.zip
 
 # Smoke-time fixture outputs (per ADR-027 + ADR-044 Q7 + ADR-045 Commit 6) —
 # committed inputs live at tests/fixtures/processed/; predictions + checkpoints +
@@ -55,6 +57,14 @@ evals/audit/llm_judge_cache/
 # noise; some are >100 MB (marginal_bootstrap_*.log). Manifest .md files in this
 # dir stay tracked as the durable artifact summaries.
 artifacts/local/*.log
+
+# RunPod pod manifests for non-canonical fires (operational noise from v1.1.2
+# DeBERTa execution + smoke/validation passes). Canonical-fire pod manifests
+# get committed explicitly via `seed:` commits using `git add -f` (precedent:
+# `seed: lora + full-FT canonical runs chained on shared pod (X9-validated)`).
+# The headline methodology result is captured in `evals/metrics/per_cell*.parquet`
+# + `evals/cost_ledger.csv`; pod manifests are redundant operational state by default.
+artifacts/runpod/2026*/
 
 .claude/scheduled_tasks.lock
 
