@@ -18,6 +18,22 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.7] — 2026-05-19
+
+**Patch release**: fix-forward for the single CI-only lychee residue after
+`v1.2.6`. Docs-only; no compute spend; reviewer URL pin remains `v1.0.0`.
+
+### Fixed
+
+- Added one exact `.lycheeignore` pattern for an immutable ADR-023 AAAI
+  citation URL that returns 403 to the GitHub runner but did not fail in the
+  local lychee reproduction.
+
+### References
+
+- No new ADR (CI/link-check transport exception only).
+- Predecessor: [v1.2.6](#126---2026-05-19) (Markdown link-check content debt close)
+
 ## [1.2.6] — 2026-05-19
 
 **Patch release**: fix-forward for inherited Markdown link-check content debt

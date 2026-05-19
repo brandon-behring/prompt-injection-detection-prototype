@@ -34,6 +34,7 @@
 # reader-facing docs should use stable replacements instead of adding here.
 ^https://www\.acm\.org/publications/policies/artifact-review-and-badging-current$
 ^https://www\.researchgate\.net/publication/.*$
+^https://ojs\.aaai\.org/index\.php/AAAI/article/view/9602$
 ^https://platform\.openai\.com/docs/deprecations$
 ^https://platform\.openai\.com/docs/models/gpt-4o$
 ^https://openai\.com/api/pricing/?$
