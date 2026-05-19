@@ -802,6 +802,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1547,7 +1553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Tech-Stack ledger rows 307 + 308 + 309 + Phase 0-08 walk Q2</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger rows 307 plus 308 plus 309 each carry locked-to-tag-pin-plus-freeze-with-specific-version status (see ADR-036); pyproject.toml lines 8-14 contain the three uncommented dependency specifiers in the form library-name at git plus https URL plus tag (eval-toolkit at v0.31.0; runpod-deploy at v0.7.7; research_toolkit at v1.9.1); uv sync runs cleanly under requires-python &gt;=3.13 at Phase 0-08 close (verified manually at sub-session close); uv.lock is updated with the three library versions plus their transitive dependencies; decisions/library_imports.md gains a "Version pinning lock" subsection documenting the freeze policy plus the bump-trigger protocol; tests/test_invariants.py contains skip-marked stub test_pyproject_library_version_pins asserting (1) pyproject.toml dependencies stanza contains the three libraries at the locked versions (regex-grep for the specific tags); (2) uv.lock includes the three libraries (verified via uv.lock parse plus version field check); (3) no library is pinned to main branch or a branch other than a tagged version (regex check excluding the at-tag pattern); SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 5427b95</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> ["055"]  # narrow supersession: "git URL is the only viable spec format" sub-claim only; eval-toolkit moves to PyPI install at v1.0.8 (ADR-055). Freeze policy + bump-triggers + tag-pin convention + uv.lock backstop + runpod-deploy &amp; research_toolkit git+https pins all preserved.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> ["055", "059"]  # narrow supersessions of the "git URL is the only viable spec format" sub-claim — once for eval-toolkit at v1.0.8 (ADR-055), once for runpod-deploy at v1.1.0 (ADR-059). research_toolkit retains git+https tag-pin per this ADR until it publishes to PyPI. Freeze policy + bump-triggers + tag-pin convention + uv.lock backstop all preserved.</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://peps.python.org/pep-0508/</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.astral.sh/uv/concepts/projects/dependencies/#git</span></span>
