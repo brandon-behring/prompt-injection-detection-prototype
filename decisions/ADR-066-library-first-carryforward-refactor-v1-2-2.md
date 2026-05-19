@@ -56,9 +56,9 @@ closing_commit: v1.2.2
 supersedes: []
 superseded_by: []
 references:
-  - decisions/ADR-047-library-first-carryforward-refactor.md  # precedent (Phase 1 src/data/ refactor)
-  - decisions/ADR-056-binary-calibrator-family-canonical-upstream-api.md  # precedent (v1.0.8 calibrator consumption)
-  - decisions/ADR-058-eval-from-hub-wiring-and-narrow-supersession-of-adr-051-block-a.md  # precedent (v1.0.9 eval_from_hub wiring)
+  - decisions/ADR-047-phase-1-library-first-carryforward-refactor.md  # precedent (Phase 1 src/data/ refactor)
+  - decisions/ADR-056-binary-calibrator-refactor-and-platt-beta-narrow-supersession-of-adr-023.md  # precedent (v1.0.8 calibrator consumption)
+  - decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md  # precedent (v1.0.9 eval_from_hub wiring)
   - decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md  # immediate predecessor (v1.2.1)
   - decisions/upstream_issues.md  # ledger updated as part of v1.2.2 Commit 9
   - decisions/library_imports.md  # eval-toolkit imports section updated at v1.2.2 Commit 9
@@ -93,7 +93,7 @@ Verification (via `uv run python -c "import eval_toolkit as et; [hasattr(et, n) 
 
 Per the strengthened library-first invariant (memory `library_first_is_project_wide_invariant`, 2026-05-18: *"NO local workarounds whatsoever. Primitives belong in eval-toolkit / runpod-deploy / research_toolkit as PyPI deps; missing → upstream MR BLOCKS dependent work"*), the 6 local workaround sites that cite these now-closed issues are accumulated maintenance debt. ADR-066 specifies the carryforward refactor pattern + the per-site consumption mapping.
 
-Pattern after [ADR-047](./ADR-047-library-first-carryforward-refactor.md) (Phase 1 `src/data/` carryforward); [ADR-056](./ADR-056-binary-calibrator-family-canonical-upstream-api.md) (v1.0.8 binary-calibrator family consumption); [ADR-058](./ADR-058-eval-from-hub-wiring-and-narrow-supersession-of-adr-051-block-a.md) (v1.0.9 `eval_from_hub.py` wiring).
+Pattern after [ADR-047](./ADR-047-phase-1-library-first-carryforward-refactor.md) (Phase 1 `src/data/` carryforward); [ADR-056](./ADR-056-binary-calibrator-refactor-and-platt-beta-narrow-supersession-of-adr-023.md) (v1.0.8 binary-calibrator family consumption); [ADR-058](./ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md) (v1.0.9 `eval_from_hub.py` wiring).
 
 ## §B Decision — per-site refactor mapping
 
@@ -202,9 +202,9 @@ Per memory `library-first-pattern-paid-off-twice-v1-0-x`: filing concrete upstre
 ## Linked ADRs
 
 - **References**:
-  - [ADR-047](./ADR-047-library-first-carryforward-refactor.md) — Phase 1 `src/data/` carryforward refactor (precedent: 4 hand-rolls retrofitted in single commit)
-  - [ADR-056](./ADR-056-binary-calibrator-family-canonical-upstream-api.md) — v1.0.8 binary-calibrator family consumption (precedent: API shape unification after upstream closure)
-  - [ADR-058](./ADR-058-eval-from-hub-wiring-and-narrow-supersession-of-adr-051-block-a.md) — v1.0.9 `eval_from_hub.py` wiring (precedent: in-place wiring after upstream resolution)
+  - [ADR-047](./ADR-047-phase-1-library-first-carryforward-refactor.md) — Phase 1 `src/data/` carryforward refactor (precedent: 4 hand-rolls retrofitted in single commit)
+  - [ADR-056](./ADR-056-binary-calibrator-refactor-and-platt-beta-narrow-supersession-of-adr-023.md) — v1.0.8 binary-calibrator family consumption (precedent: API shape unification after upstream closure)
+  - [ADR-058](./ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md) — v1.0.9 `eval_from_hub.py` wiring (precedent: in-place wiring after upstream resolution)
   - [ADR-065](./ADR-065-writeup-accuracy-narrative-and-callout-conventions.md) — v1.2.1 closing-polish (immediate predecessor)
   - [ADR-062](./ADR-062-quarto-writeup-clarity-and-canonical-figures.md) — figure caption discipline that visual-parity must preserve
   - [ADR-064](./ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md) §B4 — figure caption refinements preserved

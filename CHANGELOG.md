@@ -18,6 +18,60 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.2] — 2026-05-19
+
+**Patch release**: library-first carryforward refactor + narrow immutability relaxation. Per [ADR-066](decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.md) (library-first refactor) + [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) (narrow immutability relaxation for factual-typo fixes). Layered additively on v1.2.1 — no supersession of any prior ADR. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.2.
+
+Discovery during execution: 5 of 6 refactor sites listed in ADR-066 §B were ALREADY consuming upstream primitives in prior v1.0.x carryforward sessions (per ADR-047 / ADR-056 / ADR-058). The remaining work was stale-annotation cleanup + ONE actual refactor (F6 left panel). Planned 4 source-refactor commits (3/9-6/9) consolidated into a single commit reflecting the actual scope.
+
+### Added
+
+- **`decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.md`** — codifies the carryforward refactor methodology consuming 7 closed eval-toolkit upstream issues (#14 + #15 + #16 + #17 + #20 + #21 + #22). Pattern after ADR-047 / ADR-056 / ADR-058. §B1-B6 documents per-site mapping; §C visual-parity discipline; §D no-orphaned-code refactor commit hygiene; §E ledger updates; §F consequences.
+
+- **`decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md`** — codifies a narrow exception to the CLAUDE.md ADR-immutability rule: factual typos in cross-reference slug filenames MAY be corrected in-place with a commit message citing ADR-067. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable. §B in-scope vs out-of-scope enumeration; §C 12 canonical-correct substitutions + 2 ADR-029 misattributions consolidated; §D CLAUDE.md / decisions/README.md updates.
+
+- **`CLAUDE.md` immutability-rule clarification block** — Phase 0 workflow section gains the narrow-exception cite to ADR-067.
+
+- **`decisions/README.md` Lifecycle section addendum** — same narrow-exception language as CLAUDE.md.
+
+- **`docs/GLOSSARY.md` Immutability relaxation — factual-typo class entry** — cross-references ADR-067 §B's in-scope vs out-of-scope enumeration. Anchor link from the existing ADR entry.
+
+### Changed
+
+- **17+ broken ADR cross-reference slug filenames** corrected in-place per ADR-067 narrow relaxation across 9 immutable ADR files (ADR-046, ADR-048, ADR-054, ADR-055, ADR-056, ADR-057, ADR-059, ADR-060, ADR-063). 12 canonical-correct slug substitutions applied via batch sed. 1 ADR-029 misattribution at ADR-054:391 fixed via direct cite-to-CLAUDE.md replacement (no canonical-correct slug exists since "ADR-029 immutability" was a historical mis-citation; actual ADR-029 is about test markers).
+
+- **`.lycheeignore` cleanup**: 14 patterns that were ignoring the broken slug refs deleted (no longer needed; refs now resolve cleanly). HF Hub bot-403 patterns + GitHub anchor false-positive patterns retained as those have a different rationale. Future broken-slug-refs should be FIXED IN-PLACE per ADR-067 — NOT added to `.lycheeignore`.
+
+- **`src/eval/figures.py`** library-first stale-annotation cleanup + F6 actual refactor:
+  - F1 / F2 / F5 header comments updated from "Project glue per ADR-046 Q6; pending upstream eval-toolkit issue #N" to "library-first via <primitive> (eval-toolkit #N closed; consumed at v1.0.x; ADR-066 §B<N> records the carryforward)"
+  - File-level docstring table updated from "project glue (issue #N)" to "<primitive> (library-first; #N consumed v1.0.x/v1.2.2)" entries
+  - F6 left panel: bare-matplotlib bars (`ax_left.bar(...)` + manual xtick rotation) replaced with `et.plot_metric_bars(per_fold_means, ax=ax_left, ...)` per #22 closure. The ONLY actual refactor in the v1.2.2 series; deleted hand-rolled code in same commit per no-orphaned-code invariant.
+
+- **`src/eval/schemas.py::MDECellModel` docstring (line 336)** — stale "inline closed-form fallback pending upstream eval-toolkit issue #20" replaced with "eval-toolkit #20 closed; consumed at v1.0.x; ADR-066 §B5 records the carryforward".
+
+- **`src/eval/cross_fold_ci.py:202` inline comment** — stale "inline impl pending upstream #21" replaced with "library-first via `eval_toolkit.block_bootstrap_on_folds` (eval-toolkit #21 closed; consumed at v1.0.x; ADR-066 §B6 records the carryforward)".
+
+- **F1-F5 canonical figures re-rendered** via `make render-figures` post-refactor. SVG byte-sizes identical before/after (all 5 figures); diff is purely SVG-id auto-generation noise + `.meta.json` provenance update (new commit_sha pointing to the v1.2.2 refactor commit). ADR-locked caption discipline (random-floor annotation; CI-crossing-zero cue; N/A single-class label; subpanel mapping; ECE/Brier gloss) preserved verbatim. Per Q1 round-8 spirit-of-original threshold: comfortably cleared.
+
+- **`decisions/upstream_issues.md`** ledger updates:
+  - 7 existing rows (#14, #15, #16, #17, #20, #21, #22) Status column updated from "filed; awaiting upstream" → "**RESOLVED in eval-toolkit v0.42.0; consumed at v1.0.x or v1.2.2 per ADR-066 §B<N>**"
+  - 1 new row appended for the v1.2.2 STRETCH contribution to eval-toolkit #36 (issue-comment + design-sketch posted at https://github.com/brandon-behring/eval-toolkit/issues/36#issuecomment-4490089572)
+
+- **`SUBMISSION_AUDIT.md`** regenerates clean with 67 CLAIM rows (65 from v1.2.1 + ADR-066 + ADR-067).
+
+### STRETCH — eval-toolkit #36 upstream contribution filed
+
+Per Q2 round-8 Option B (issue-comment + design-sketch) + ADR-066 §B7: filed an [issue-comment](https://github.com/brandon-behring/eval-toolkit/issues/36#issuecomment-4490089572) on eval-toolkit #36 with this project's use case + concrete file:line citations (`src/eval/marginal_bootstrap.py:31-32,42-43,110` + `src/eval/calibration_battery.py:47-52`) + a proposed `with_ci=True` kwarg API sketch + an alternative scorecard-style design. P3 upstream priority ("ship if a consumer asks"); this comment is the project asking. v1.3.x consumption candidate if upstream lands the feature; no timeline pressure.
+
+### References
+
+- Closing ADRs: [ADR-066](decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.md) + [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md)
+- Predecessor: [ADR-065](decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md) (v1.2.1 closing-polish)
+- Library-first precedents: [ADR-047](decisions/ADR-047-phase-1-library-first-carryforward-refactor.md) + [ADR-056](decisions/ADR-056-binary-calibrator-refactor-and-platt-beta-narrow-supersession-of-adr-023.md) + [ADR-058](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md)
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
+- Cost discipline (unchanged): cumulative project compute spend stays $17.08 per ADR-065 §E (within ADR-020 $200 hard cap; $0 GPU at v1.2.2)
+- Live Quarto site: reflects v1.2.2 within ~2 min of push
+
 ## [1.2.1] — 2026-05-19
 
 **Patch release**: narrative consistency + clarity + accuracy closing-polish
