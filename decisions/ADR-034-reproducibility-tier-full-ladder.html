@@ -808,6 +808,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 "git URL is the only viable spec format" sub-claim for runpod-deploy</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DeBERTa-v3-base medium ablation methodology — chunk-and-average vs head-truncation × 5-slice OOD; infrastructure-only at v1.1.0; execution deferred to v1.1.1</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1207,6 +1213,7 @@ See `transcripts/2026-05-16__phase-0-07__submission-deliverables.md` for the con
 [Per-prediction provenance manifests via scripts/backfill_provenance.py — schema, location, naming, idempotency]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA1Ny1tYW5pZmVzdC1zY2hlbWEtdjMtYmFja2ZpbGwtY29udmVudGlvbnMuaHRtbFBlci1wcmVkaWN0aW9uLXByb3ZlbmFuY2UtbWFuaWZlc3RzLXZpYS1zY3JpcHRzL2JhY2tmaWxsX3Byb3ZlbmFuY2UucHkt4oCULXNjaGVtYSwtbG9jYXRpb24sLW5hbWluZywtaWRlbXBvdGVuY3k="}
 [scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA1OC1ldmFsLWZyb20taHViLW5vbi1kcnktcnVuLWJvZHktbmFycm93LXN1cGVyc2Vzc2lvbi1vZi1hZHItMDUxLWJsb2NrLWEuaHRtbHNjcmlwdHMvZXZhbF9mcm9tX2h1Yi5weS1ub24tZHJ5LXJ1bi1ib2R5LXdpcmVkLeKAlC1uYXJyb3ctc3VwZXJzZXNzaW9uLW9mLUFEUi0wNTEtQmxvY2stQS0oVDAtc2NvcmUtbWF0Y2gtY2Fycnlmb3J3YXJkKTstQmxvY2stQi0oMzgtaW52YXJpYW50LXNjYWZmb2xkcyktcmVtYWlucy1jYXJyeWZvcndhcmQ="}
 [runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 "git URL is the only viable spec format" sub-claim for runpod-deploy]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA1OS1ydW5wb2QtZGVwbG95LXB5cGktaW5zdGFsbC1uYXJyb3ctc3VwZXJzZXNzaW9uLW9mLWFkci0wMzYuaHRtbHJ1bnBvZC1kZXBsb3ktaW5zdGFsbHMtZnJvbS1QeVBJLShub3QtZ2l0K2h0dHBzKS1hdC12MC44LjQrLeKAlC1uYXJyb3ctc3VwZXJzZXNzaW9uLW9mLUFEUi0wMzYtJ2dpdC1VUkwtaXMtdGhlLW9ubHktdmlhYmxlLXNwZWMtZm9ybWF0Jy1zdWItY2xhaW0tZm9yLXJ1bnBvZC1kZXBsb3k="}
+[DeBERTa-v3-base medium ablation methodology — chunk-and-average vs head-truncation × 5-slice OOD; infrastructure-only at v1.1.0; execution deferred to v1.1.1]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1zaWRlYmFyOi9kZWNpc2lvbnMvQURSLTA2MC1kZWJlcnRhLXYzLWJhc2UtbG9uZy1jb250ZXh0LWFibGF0aW9uLW1ldGhvZG9sb2d5Lmh0bWxEZUJFUlRhLXYzLWJhc2UtbWVkaXVtLWFibGF0aW9uLW1ldGhvZG9sb2d5LeKAlC1jaHVuay1hbmQtYXZlcmFnZS12cy1oZWFkLXRydW5jYXRpb24tw5ctNS1zbGljZS1PT0Q7LWluZnJhc3RydWN0dXJlLW9ubHktYXQtdjEuMS4wOy1leGVjdXRpb24tZGVmZXJyZWQtdG8tdjEuMS4x"}
 [Executive summary]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6RXhlY3V0aXZlIHN1bW1hcnk="}
 [/EXECUTIVE_SUMMARY.html]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6L0VYRUNVVElWRV9TVU1NQVJZLmh0bWw="}
 [Reading guide]{.hidden .quarto-markdown-envelope-contents render-id="cXVhcnRvLWludC1uYXZiYXI6UmVhZGluZyBndWlkZQ=="}

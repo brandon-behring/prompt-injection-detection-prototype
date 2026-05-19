@@ -807,6 +807,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DeBERTa-v3-base medium ablation methodology — chunk-and-average vs head-truncation × 5-slice OOD; infrastructure-only at v1.1.0; execution deferred to v1.1.1</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -882,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="architectures-evaluated-and-dropped" class="level2">
 <h2 class="anchored" data-anchor-id="architectures-evaluated-and-dropped">9.2 Architectures evaluated and dropped</h2>
 <ul>
-<li><strong>DeBERTa-v3-base</strong> dropped during Phase 0 lock per ADR-015 (formerly ADR-007) for cross-backbone context-window asymmetry — DeBERTa-v3 caps at 512 tokens vs ModernBERT-base 8192. Including both backbones would have produced an irreducible truncation × architecture confound on BIPIA-style indirect injection. Single-backbone slate (ModernBERT-base × 3 conditions) preserves the rung-ladder narrative without architecture confounding.</li>
+<li><strong>DeBERTa-v3-base</strong> dropped during Phase 0 lock per ADR-015 (formerly ADR-007) for cross-backbone context-window asymmetry — DeBERTa-v3 caps at 512 tokens vs ModernBERT-base 8192. Including both backbones would have produced an irreducible truncation × architecture confound on BIPIA-style indirect injection. Single-backbone slate (ModernBERT-base × 3 conditions) preserves the rung-ladder narrative without architecture confounding. <strong>Update (v1.1.0)</strong>: DeBERTa-v3-base returns as a deliberate ablation-appendix comparator per <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a>. Methodology locked at v1.1.0 (2 truncation strategies side-by-side — chunk-and-average + head-truncation — to make the truncation handling methodologically addressable rather than load-bearing for the rung-vs-rung comparison); execution deferred to v1.1.1 pending the loader-refactor + windowed-inference module per Path B of the /exploring-options 2026-05-19 scope-mismatch resolution. The ablation lands in <a href="../RESULTS.html#1b-ablation-appendix-deberta-v3-base-long-context-comparator-v110-methodology-lock-v111-execution"><code>RESULTS.md</code> §1B</a>, NOT integrated as a 6th rung in the §1 headline ladder.</li>
 <li><strong>Lakera Guard reference scorer</strong> dropped at Phase 0-03 per ADR-018 (terms-of-service verification overhead unacceptable for prototype scope). The reference slate gained ProtectAI v1 in its place — internal v1→v2 lift becomes a parallel to the trained-rung-lift story.</li>
 <li><strong>LLM-judge reference rungs (gpt-4o + claude-sonnet-4-6)</strong> dropped at Phase 4 cost re-estimation per ADR-050 (16× envelope overrun). See §8.1.</li>
 <li><strong>full-FT OOD inference</strong> dropped at Phase 5 X11 re-fire per ADR-052 (narrow supersession of ADR-050 R2). Load-bearing reason: methodological — LoRA’s paired-bootstrap evidence already showed fine-tuning on the LODO pool was hurting OOD; full-FT’s expected marginal benefit was low. FUSE EIO crash was the operational trigger. full-FT remains in LODO comparison; OOD ships 2 trained rungs. See §8.1.</li>
@@ -1539,133 +1545,143 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>  injection. Single-backbone slate (ModernBERT-base × 3</span>
 <span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>  conditions) preserves the rung-ladder narrative without</span>
 <span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>  architecture confounding.</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lakera Guard reference scorer** dropped at Phase 0-03 per</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>  ADR-018 (terms-of-service verification overhead unacceptable</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>  for prototype scope). The reference slate gained ProtectAI v1</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>  in its place — internal v1→v2 lift becomes a parallel to the</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>  trained-rung-lift story.</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**LLM-judge reference rungs (gpt-4o + claude-sonnet-4-6)**</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>  dropped at Phase 4 cost re-estimation per ADR-050 (16× envelope</span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>  overrun). See §8.1.</span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**full-FT OOD inference** dropped at Phase 5 X11 re-fire per</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>  ADR-052 (narrow supersession of ADR-050 R2). Load-bearing</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>  reason: methodological — LoRA's paired-bootstrap evidence</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>  already showed fine-tuning on the LODO pool was hurting OOD;</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>  full-FT's expected marginal benefit was low. FUSE EIO crash was</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>  the operational trigger. full-FT remains in LODO comparison;</span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>  OOD ships 2 trained rungs. See §8.1.</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## 9.3 Data-pipeline experiments that didn't matter</span></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Dedup threshold sweep** — ADR-042 locked the LLM-pre-label</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>  bootstrap calibration at a fixed cosine threshold per</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>  <span class="in">`evals/dedup_calibration.json`</span>. A sensitivity sweep on threshold</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>  ± 0.05 was considered but deferred — the calibration's</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>  <span class="in">`human_verified_pct`</span> operator follow-up (raise from 0 to 100</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>  before v1.0.0 tag per ADR-042) is the higher-leverage gate.</span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Augmentation strategies** — no synthetic augmentation was tried</span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>  (no paraphrase generation, no back-translation, no character-</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>  noise injection). The case-study scope is *characterisation of</span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>  an honest classifier slate against a fixed data slate*, not</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>  data-augmentation research. Tracked as out-of-scope per Phase 0</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>  lock.</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## 9.4 What the negatives imply for v6</span></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>The OOD generalization wall is the dominant signal. Three concrete</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>suggestions for a successor iteration:</span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**OOD-aware training data** — the current pool is dominated by</span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>   4 LODO sources (prompt-injection-style attacks) that share a</span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>   stylistic core. Adding cross-style attacks (BIPIA-style indirect</span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>   injection in training; jailbreaks-as-questions in training)</span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>   would test whether the OOD wall is *training-distribution</span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>   scope* or *fundamental classifier inadequacy*.</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Pretrained backbone scaling** — frozen ModernBERT-base</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>   embeddings provide more OOD generalization than LoRA fine-tuning</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>   does. A v6 ablation along backbone scale (ModernBERT-base 150M</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>   → ModernBERT-large 400M; or a different backbone family) would</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>   test whether the OOD ceiling is backbone-capacity-limited.</span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**OOD-aware threshold selection** — dual-policy thresholds fit</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>   on val do not transfer to LODO test (see</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>   <span class="co">[</span><span class="ot">`threshold-policy.md`</span><span class="co">](./threshold-policy.md)</span>). Per-source</span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>   temperature scaling or conformal calibration with a held-out</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>   OOD calibration set (currently impossible by LODO design)</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>   would close the val→LODO gap.</span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="fu">## §11 Lessons &amp; reflections</span></span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD generalization is genuinely hard, and the honest finding</span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  is methodologically richer than the "look at this great</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>  classifier" version**. The trained transformer rungs hover near</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>  chance on the OOD slate; LoRA fine-tuning is a *negative* result</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>  vs the frozen probe on <span class="in">`pooled_ood`</span> (-0.132 AUROC; CI clears</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>  zero). A submission framed as "we built a great classifier"</span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>  would have HIDDEN this finding; a submission framed as "we</span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>  characterised the honest performance ladder" SURFACES it. The</span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>  Phase 0-locked methodology (LODO + bootstrap CIs + paired-</span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>  bootstrap rung-vs-rung + dual-policy threshold characterisation)</span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>  forced the honest story to land.</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The SDD process bought reproducibility + audit trail at the</span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>  cost of a 9-decision-per-sub-session interview flow at Phase 0**.</span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>  ~50 decisions across ~9 topic-focused sub-sessions per</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>  <span class="in">`SPEC_GREENFIELD.md`</span>. Each open-decision lock produced an ADR;</span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>  <span class="in">`SUBMISSION_AUDIT.md`</span> regenerates from ADRs as a single source</span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>  of truth. The cost was the time investment up front; the benefit</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>  was zero methodology drift later — every Phase 1-7 commit traced</span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>  cleanly back to an ADR claim. ADR-050 (rung-slate narrowing) is</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>  itself the supersession-on-supersession proof point: when</span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>  reality forced a methodology drift, the SDD discipline ate it</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>  cleanly via a narrow ADR-018 / ADR-021 partial supersession</span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>  rather than a silent code change.</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library-first invariant retrofit happened mid-project**.</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>  Phase 1-3 had accumulated 4 sites where eval-toolkit primitives</span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>  were duplicated locally; ADR-047 retrofitted them in a single</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>  landing rather than fix-forward per-site. The lesson: at every</span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>  module-design step audit `eval-toolkit + runpod-deploy +</span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>  research_toolkit` for an existing primitive BEFORE writing</span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>  project glue.</span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The /exploring-options multi-round pattern unblocked complex</span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>  decisions** that ExitPlanMode-on-first-attempt would have</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>  committed prematurely. Four rounds for the Phase 4 canonical-</span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>  recovery plan (each round surfaced a risk the prior rounds</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>  didn't see). Two rounds for the GitHub-push-blocked recovery.</span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FUSE-on-RunPod is a non-deterministic bug class**. The X1-X11</span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>  fix-forward chain documents four distinct FUSE failure modes;</span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>  each cost a real fraction of the $15.74 cumulative spend</span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>  (~50 % of cost is FUSE-recovery overhead). Filed upstream</span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>  issues + PRs at brandon-behring/runpod-deploy so future</span>
-<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>  consumers don't re-discover them. The library-first invariant</span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>  cuts both ways: when an upstream gap surfaces, file an upstream</span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>  issue BEFORE local workaround.</span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-step commits + a 2-checkpoint push cadence survived</span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>  context auto-compaction**. The session spanned multiple Claude</span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>  context windows + ran for many hours; commit per work-unit +</span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>  intermediate pushes meant no work was lost when context</span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>  boundaries hit. The discipline overhead was small; the</span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>  resilience benefit was large.</span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>**What surprised**: the OOD wall. Going in I expected the rung</span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>ladder to be a positive story (each rung adds something over the</span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>floor); the LoRA-fine-tuning regression on <span class="in">`pooled_ood`</span> was the</span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>methodologically richest finding. Going forward (v6): the §9.4</span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>prescriptions — OOD-aware training data, backbone scaling, OOD-</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>aware threshold selection — would test whether the wall is</span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>data-distribution or capacity-bounded.</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross-references</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>  **Update (v1.1.0)**: DeBERTa-v3-base returns as a deliberate</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>  ablation-appendix comparator per <span class="co">[</span><span class="ot">ADR-060</span><span class="co">](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)</span>.</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>  Methodology locked at v1.1.0 (2 truncation strategies side-by-side</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>  — chunk-and-average + head-truncation — to make the truncation</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>  handling methodologically addressable rather than load-bearing for</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>  the rung-vs-rung comparison); execution deferred to v1.1.1 pending</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>  the loader-refactor + windowed-inference module per Path B of the</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>  /exploring-options 2026-05-19 scope-mismatch resolution. The</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>  ablation lands in <span class="co">[</span><span class="ot">`RESULTS.md` §1B</span><span class="co">](../RESULTS.md#1b-ablation-appendix-deberta-v3-base-long-context-comparator-v110-methodology-lock-v111-execution)</span>,</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>  NOT integrated as a 6th rung in the §1 headline ladder.</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lakera Guard reference scorer** dropped at Phase 0-03 per</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>  ADR-018 (terms-of-service verification overhead unacceptable</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>  for prototype scope). The reference slate gained ProtectAI v1</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>  in its place — internal v1→v2 lift becomes a parallel to the</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>  trained-rung-lift story.</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**LLM-judge reference rungs (gpt-4o + claude-sonnet-4-6)**</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>  dropped at Phase 4 cost re-estimation per ADR-050 (16× envelope</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>  overrun). See §8.1.</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**full-FT OOD inference** dropped at Phase 5 X11 re-fire per</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>  ADR-052 (narrow supersession of ADR-050 R2). Load-bearing</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>  reason: methodological — LoRA's paired-bootstrap evidence</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>  already showed fine-tuning on the LODO pool was hurting OOD;</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>  full-FT's expected marginal benefit was low. FUSE EIO crash was</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>  the operational trigger. full-FT remains in LODO comparison;</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>  OOD ships 2 trained rungs. See §8.1.</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## 9.3 Data-pipeline experiments that didn't matter</span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Dedup threshold sweep** — ADR-042 locked the LLM-pre-label</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>  bootstrap calibration at a fixed cosine threshold per</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>  <span class="in">`evals/dedup_calibration.json`</span>. A sensitivity sweep on threshold</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>  ± 0.05 was considered but deferred — the calibration's</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>  <span class="in">`human_verified_pct`</span> operator follow-up (raise from 0 to 100</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>  before v1.0.0 tag per ADR-042) is the higher-leverage gate.</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Augmentation strategies** — no synthetic augmentation was tried</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>  (no paraphrase generation, no back-translation, no character-</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>  noise injection). The case-study scope is *characterisation of</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>  an honest classifier slate against a fixed data slate*, not</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>  data-augmentation research. Tracked as out-of-scope per Phase 0</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>  lock.</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a><span class="fu">## 9.4 What the negatives imply for v6</span></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>The OOD generalization wall is the dominant signal. Three concrete</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>suggestions for a successor iteration:</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**OOD-aware training data** — the current pool is dominated by</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>   4 LODO sources (prompt-injection-style attacks) that share a</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>   stylistic core. Adding cross-style attacks (BIPIA-style indirect</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>   injection in training; jailbreaks-as-questions in training)</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>   would test whether the OOD wall is *training-distribution</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>   scope* or *fundamental classifier inadequacy*.</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Pretrained backbone scaling** — frozen ModernBERT-base</span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>   embeddings provide more OOD generalization than LoRA fine-tuning</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>   does. A v6 ablation along backbone scale (ModernBERT-base 150M</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>   → ModernBERT-large 400M; or a different backbone family) would</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>   test whether the OOD ceiling is backbone-capacity-limited.</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**OOD-aware threshold selection** — dual-policy thresholds fit</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>   on val do not transfer to LODO test (see</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>   <span class="co">[</span><span class="ot">`threshold-policy.md`</span><span class="co">](./threshold-policy.md)</span>). Per-source</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>   temperature scaling or conformal calibration with a held-out</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>   OOD calibration set (currently impossible by LODO design)</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>   would close the val→LODO gap.</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## §11 Lessons &amp; reflections</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD generalization is genuinely hard, and the honest finding</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>  is methodologically richer than the "look at this great</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>  classifier" version**. The trained transformer rungs hover near</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>  chance on the OOD slate; LoRA fine-tuning is a *negative* result</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>  vs the frozen probe on <span class="in">`pooled_ood`</span> (-0.132 AUROC; CI clears</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>  zero). A submission framed as "we built a great classifier"</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>  would have HIDDEN this finding; a submission framed as "we</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>  characterised the honest performance ladder" SURFACES it. The</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>  Phase 0-locked methodology (LODO + bootstrap CIs + paired-</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>  bootstrap rung-vs-rung + dual-policy threshold characterisation)</span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>  forced the honest story to land.</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The SDD process bought reproducibility + audit trail at the</span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>  cost of a 9-decision-per-sub-session interview flow at Phase 0**.</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>  ~50 decisions across ~9 topic-focused sub-sessions per</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>  <span class="in">`SPEC_GREENFIELD.md`</span>. Each open-decision lock produced an ADR;</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>  <span class="in">`SUBMISSION_AUDIT.md`</span> regenerates from ADRs as a single source</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>  of truth. The cost was the time investment up front; the benefit</span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>  was zero methodology drift later — every Phase 1-7 commit traced</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>  cleanly back to an ADR claim. ADR-050 (rung-slate narrowing) is</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>  itself the supersession-on-supersession proof point: when</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>  reality forced a methodology drift, the SDD discipline ate it</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>  cleanly via a narrow ADR-018 / ADR-021 partial supersession</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>  rather than a silent code change.</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library-first invariant retrofit happened mid-project**.</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>  Phase 1-3 had accumulated 4 sites where eval-toolkit primitives</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>  were duplicated locally; ADR-047 retrofitted them in a single</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>  landing rather than fix-forward per-site. The lesson: at every</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>  module-design step audit `eval-toolkit + runpod-deploy +</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>  research_toolkit` for an existing primitive BEFORE writing</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>  project glue.</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The /exploring-options multi-round pattern unblocked complex</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>  decisions** that ExitPlanMode-on-first-attempt would have</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>  committed prematurely. Four rounds for the Phase 4 canonical-</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>  recovery plan (each round surfaced a risk the prior rounds</span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>  didn't see). Two rounds for the GitHub-push-blocked recovery.</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FUSE-on-RunPod is a non-deterministic bug class**. The X1-X11</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>  fix-forward chain documents four distinct FUSE failure modes;</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>  each cost a real fraction of the $15.74 cumulative spend</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>  (~50 % of cost is FUSE-recovery overhead). Filed upstream</span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>  issues + PRs at brandon-behring/runpod-deploy so future</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>  consumers don't re-discover them. The library-first invariant</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>  cuts both ways: when an upstream gap surfaces, file an upstream</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>  issue BEFORE local workaround.</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-step commits + a 2-checkpoint push cadence survived</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>  context auto-compaction**. The session spanned multiple Claude</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>  context windows + ran for many hours; commit per work-unit +</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>  intermediate pushes meant no work was lost when context</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>  boundaries hit. The discipline overhead was small; the</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>  resilience benefit was large.</span>
 <span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Headline characterisation that exposes these limitations** → <span class="co">[</span><span class="ot">`../WRITEUP.md`</span><span class="co">](../WRITEUP.md)</span> §Results</span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Adversarial robustness scope (§5.6)** → <span class="co">[</span><span class="ot">`reference-scorer-audit.md`</span><span class="co">](./reference-scorer-audit.md)</span></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**NEXT_STEPS forward-looking work** → <span class="co">[</span><span class="ot">`../NEXT_STEPS.md`</span><span class="co">](../NEXT_STEPS.md)</span></span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Upstream issues ledger** → <span class="co">[</span><span class="ot">`../decisions/upstream_issues.md`</span><span class="co">](../decisions/upstream_issues.md)</span></span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>**Linked ADRs**: ADR-001 (brief alignment), ADR-013 (deliverable</span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>scope), ADR-015 (single-backbone lock — supersedes ADR-007),</span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>ADR-016 (data design), ADR-018 (reference slate), ADR-019 (training</span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>recipe), ADR-022 (statistical apparatus), ADR-042 (dedup</span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>calibration), ADR-047 (library-first carryforward refactor),</span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>ADR-050 (rung-slate narrowing).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>**What surprised**: the OOD wall. Going in I expected the rung</span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>ladder to be a positive story (each rung adds something over the</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>floor); the LoRA-fine-tuning regression on <span class="in">`pooled_ood`</span> was the</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>methodologically richest finding. Going forward (v6): the §9.4</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>prescriptions — OOD-aware training data, backbone scaling, OOD-</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>aware threshold selection — would test whether the wall is</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>data-distribution or capacity-bounded.</span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross-references</span></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Headline characterisation that exposes these limitations** → <span class="co">[</span><span class="ot">`../WRITEUP.md`</span><span class="co">](../WRITEUP.md)</span> §Results</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Adversarial robustness scope (§5.6)** → <span class="co">[</span><span class="ot">`reference-scorer-audit.md`</span><span class="co">](./reference-scorer-audit.md)</span></span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**NEXT_STEPS forward-looking work** → <span class="co">[</span><span class="ot">`../NEXT_STEPS.md`</span><span class="co">](../NEXT_STEPS.md)</span></span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Upstream issues ledger** → <span class="co">[</span><span class="ot">`../decisions/upstream_issues.md`</span><span class="co">](../decisions/upstream_issues.md)</span></span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>**Linked ADRs**: ADR-001 (brief alignment), ADR-013 (deliverable</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>scope), ADR-015 (single-backbone lock — supersedes ADR-007),</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>ADR-016 (data design), ADR-018 (reference slate), ADR-019 (training</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>recipe), ADR-022 (statistical apparatus), ADR-042 (dedup</span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>calibration), ADR-047 (library-first carryforward refactor),</span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>ADR-050 (rung-slate narrowing).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
