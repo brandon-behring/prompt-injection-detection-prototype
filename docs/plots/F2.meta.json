@@ -1,9 +1,11 @@
 {
-  "adr": "ADR-046",
-  "commit_sha": "948c50aa99639e9e6f351fa95a8466a3fd43f75b",
+  "adr": "ADR-062",
+  "commit_sha": "a34128b02cd0d34a45f508f63cd18e05e155c207",
+  "data_mode": "canonical",
   "figure_dpi": "300",
   "figure_id": "F2",
-  "generated_at": "2026-05-18T17:39:50.810381+00:00",
+  "generated_at": "2026-05-19T03:25:52.581063+00:00",
   "matplotlib_version": "3.10.9",
-  "timestamp_utc": "2026-05-18T17:39:50+00:00"
+  "source_artifacts": "evals/bootstrap/paired_cells.parquet",
+  "timestamp_utc": "2026-05-19T03:25:52+00:00"
 }

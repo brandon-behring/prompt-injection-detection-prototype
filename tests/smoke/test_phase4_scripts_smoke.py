@@ -211,8 +211,8 @@ def test_run_mde_end_to_end(tmp_path: Path) -> None:
 
 
 @pytest.mark.smoke
-def test_render_figures_scaffold_writes_7_svgs(tmp_path: Path) -> None:
-    """Scaffold path writes docs/plots/F{1..7}.svg + per-figure .meta.json sidecars."""
+def test_render_figures_scaffold_writes_5_svgs(tmp_path: Path) -> None:
+    """Scaffold path writes F{1..5}.svg + sidecars, but only outside docs/plots."""
     out_dir = tmp_path / "docs_plots"
     result = _run_script(
         "render_figures.py",
@@ -223,9 +223,9 @@ def test_render_figures_scaffold_writes_7_svgs(tmp_path: Path) -> None:
     assert result.returncode == 0, f"stderr:\n{result.stderr}\nstdout:\n{result.stdout}"
 
     svgs = sorted(out_dir.glob("F*.svg"))
-    assert len(svgs) == 7
+    assert len(svgs) == 5
     names = sorted(p.name for p in svgs)
-    assert names == ["F1.svg", "F2.svg", "F3.svg", "F4.svg", "F5.svg", "F6.svg", "F7.svg"]
+    assert names == ["F1.svg", "F2.svg", "F3.svg", "F4.svg", "F5.svg"]
 
     # Every SVG has a .meta.json sidecar carrying provenance per ADR-030.
     for svg in svgs:
@@ -233,9 +233,18 @@ def test_render_figures_scaffold_writes_7_svgs(tmp_path: Path) -> None:
         assert sidecar.exists(), f"missing sidecar: {sidecar}"
         meta = json.loads(sidecar.read_text(encoding="utf-8"))
         assert meta["figure_id"] == svg.stem
-        assert meta["adr"] == "ADR-046"
+        assert meta["adr"] == "ADR-062"
+        assert meta["data_mode"] == "synthetic_fixture"
         assert "commit_sha" in meta
         assert "generated_at" in meta
+
+
+@pytest.mark.smoke
+def test_render_figures_scaffold_refuses_docs_plots() -> None:
+    """Synthetic fixture plots cannot be written to the reviewer-facing path."""
+    result = _run_script("render_figures.py", "--scaffold")
+    assert result.returncode == 2
+    assert "refusing to write synthetic figures to docs/plots" in result.stderr
 
 
 # --------------------------------------------------------------------------- #

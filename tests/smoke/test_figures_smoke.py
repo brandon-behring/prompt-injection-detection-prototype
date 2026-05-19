@@ -63,8 +63,8 @@ def _synth_marginal_ci(seed: int) -> BootstrapCI:
 
 
 @pytest.mark.smoke
-def test_figure_slate_names_are_f1_through_f7() -> None:
-    assert FIGURE_SLATE_NAMES == ("F1", "F2", "F3", "F4", "F5", "F6", "F7")
+def test_figure_slate_names_are_f1_through_f5() -> None:
+    assert FIGURE_SLATE_NAMES == ("F1", "F2", "F3", "F4", "F5")
 
 
 @pytest.mark.smoke

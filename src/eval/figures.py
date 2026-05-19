@@ -1,11 +1,10 @@
-"""Phase 4 figures library-first hybrid 7-figure slate per ADR-046 Q6 + ADR-030.
+"""Figure helpers retained from the Phase 4 analysis slate.
 
-The Phase 4 figures slate ships 7 SVG plots embedded by the Quarto site at
-`docs/plots/F{1..7}.svg`. Per the project-wide library-first invariant
-(memory entry `library-first-is-project-wide-invariant` 2026-05-16),
-`eval_toolkit.plotting` is the first port of call for each figure. The
-upstream gaps surfaced by F1 + F2 + F5 are filed at eval-toolkit issues
-#14 + #15 + #16 with project-glue fallbacks below pending upstream landing.
+ADR-062 narrows the reviewer-facing Quarto slate to canonical F1-F5 rendered
+by ``scripts/render_figures.py`` from committed ``evals/`` artifacts. The
+helpers below remain available for smoke tests and historical/diagnostic plots.
+Per the project-wide library-first invariant, `eval_toolkit.plotting` is the
+first port of call for each reusable primitive.
 
 | Figure | Subject | Render path |
 |---|---|---|
@@ -22,11 +21,9 @@ output carries the upstream provenance metadata chunks per ADR-030. Output
 format defaults to SVG (per ADR-030 Quarto embedding); `save_figure` accepts
 `.svg | .png | .pdf` via its `permitted_suffixes` argument.
 
-The renderers below all return a `matplotlib.figure.Figure` so the caller
-(typically `scripts/render_figures.py` in Commit 5) can decide where to
-write each figure. The `save_figure` step is decoupled to keep this module
-plot-only — callers pass the result to `eval_toolkit.plotting.save_figure`
-with the desired output path + provenance dict.
+The renderers below all return a `matplotlib.figure.Figure` so callers can
+decide where to write each figure. The `save_figure` step is decoupled to keep
+this module plot-only.
 """
 
 from __future__ import annotations
@@ -50,7 +47,7 @@ from numpy.typing import NDArray
 
 # Output destination convention per ADR-030 Quarto site embedding.
 FIGURE_OUTPUT_DIR_DEFAULT: Final[str] = "docs/plots"
-FIGURE_SLATE_NAMES: Final[tuple[str, ...]] = ("F1", "F2", "F3", "F4", "F5", "F6", "F7")
+FIGURE_SLATE_NAMES: Final[tuple[str, ...]] = ("F1", "F2", "F3", "F4", "F5")
 
 
 # --------------------------------------------------------------------------- #

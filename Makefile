@@ -35,8 +35,8 @@ test-all:
 # tests across data + training + eval + scoring + scripts + figures + Phase 4
 # orchestration) plus a classical-floor fixture-pipeline pass plus an
 # end-to-end metrics-battery pass over the fixture predictions plus the
-# render-figures scaffold pass (verifies all 7 SVG + .meta.json sidecars
-# write cleanly). Transformer trainers are exercised structurally via mocks;
+# render-figures scaffold pass (verifies test-only F1-F5 SVG + .meta.json
+# sidecars write cleanly outside docs/plots). Transformer trainers are exercised structurally via mocks;
 # full GPU-backed runs are canonical via headline-{frozen-probe,lora,full-ft}.
 smoke: test-smoke
 	uv run python scripts/train_classical_floor.py \
@@ -402,10 +402,10 @@ cv-clt-ci:
 mde-battery:
 	uv run python scripts/run_mde.py
 
-# `make render-figures` — render the canonical 7-figure slate per ADR-046 Q6 +
-# ADR-030 (Quarto site embedding). Writes docs/plots/F{1..7}.svg + per-figure
-# .meta.json provenance sidecars (figure_id + ADR-046 + commit_sha + timestamp).
-# Falls back to scaffold renderer when evals/predictions/ is empty.
+# `make render-figures` — render the canonical reviewer F1-F5 slate per
+# ADR-062 + ADR-030 (Quarto site embedding). Writes docs/plots/F{1..5}.svg +
+# per-figure .meta.json provenance sidecars with canonical source artifacts.
+# Synthetic scaffold rendering is test-only and cannot write to docs/plots.
 render-figures:
 	uv run python scripts/render_figures.py
 

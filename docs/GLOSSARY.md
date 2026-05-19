@@ -8,6 +8,19 @@ Project-specific terminology, alphabetized. **This is a living document — it e
 
 A single locked decision in Michael Nygard format: Status / Context / Decision / Consequences / Alternatives Considered. **Immutable**. See `decisions/README.md` for the lifecycle + `decisions/ADR_TEMPLATE.md` for the schema.
 
+## AUPRC
+
+Area under the precision-recall curve. The primary ranking metric in this
+project. On imbalanced data, a random ranking scores the positive-class
+prevalence, not 0.5. For the pooled out-of-distribution slice (`pooled_ood`),
+that random floor is 412 / 1101 = 0.374.
+
+## AUROC
+
+Area under the receiver-operating-characteristic curve. Secondary ranking
+metric used for comparison with other work. Its random floor is 0.5, but it can
+look optimistic on imbalanced tasks, so AUPRC is the headline metric here.
+
 ## AGENTS.md
 
 Vendor-neutral agent-rules file. Mirrors `CLAUDE.md` for non-Claude agents (Codex / Cursor / OpenCode). See `AGENTS.md`.
@@ -36,6 +49,12 @@ Project Constitution split across `docs/MISSION.md` + `docs/TECH_STACK.md` + `do
 
 Calibration metric. Equal-mass variant + debiased (Kumar 2019). Reported alongside Brier score and reliability curves. See `eval-toolkit` methodology curriculum.
 
+## False Positive Rate (FPR)
+
+The share of benign examples incorrectly flagged as attacks. A 1% FPR target
+means at most one false alarm per 100 benign examples. This project evaluates
+how validation-tuned FPR targets transfer to held-out sources.
+
 ## Educational-references rule
 
 Phase 0 interview discipline: for each `[OPEN]` decision walked, surface (a) concrete explanation, (b) options with pros/cons, (c) **2-3 definitive reference URLs** (paper / library docs / methodology guide), (d) recommendation with rationale. See CLAUDE.md Phase 0 workflow.
@@ -54,7 +73,16 @@ The smallest true effect we have the statistical power to detect at α / β targ
 
 ## OOD (Out-Of-Distribution)
 
-Test slices that differ from the training distribution in some axis: source, channel, style, language. The IID-vs-OOD gap is the headline characterization in `WRITEUP.md` §7.
+Test slices that differ from the training distribution. In this submission, the
+important OOD shift is **cross-family**: training is direct-injection-heavy,
+while the OOD slate includes indirect injection, agentic-flow injection,
+jailbreak-style questions, and benign text that looks injection-shaped.
+
+## Pooled OOD
+
+The aggregate OOD slice used for the headline AUPRC result. It combines the
+OOD examples that have both positive and negative labels available for AUPRC /
+AUROC computation. It has 1101 rows: 412 positive and 689 negative.
 
 ## Open / Locked / TBD (marker grammar)
 
@@ -77,6 +105,12 @@ Phase 1 cannot start until: (a) every `[OPEN]` ledger row is `locked-to-X` and r
 ## PR-AUC, ROC-AUC, recall@FPR
 
 Headline ranking + operating-point metrics for class-imbalanced binary classification. PR-AUC = area under precision-recall curve. ROC-AUC = area under receiver-operating-characteristic curve. recall@FPR = recall at a specific false-positive-rate pinpoint (e.g., r@1% = recall at FPR ≤ 1%).
+
+## Recall
+
+The share of attack examples correctly caught. High recall means fewer missed
+attacks. Recall must be interpreted together with false-positive rate; catching
+more attacks by flagging almost everything is usually not useful.
 
 ## Replanning checkpoint
 

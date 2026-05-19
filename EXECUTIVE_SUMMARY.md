@@ -1,104 +1,75 @@
 ---
-title: "Executive summary — 1-page decision-maker layer over WRITEUP"
-description: "1-page summary of the prompt-injection classifier methodology submission. Read this first; deep-readers continue to WRITEUP."
+title: "Executive summary: prompt-injection classifier evaluation"
+description: "Plain-language one-page summary of the prompt-injection classifier methodology submission."
 ---
 
-# Executive summary
+# Executive Summary
 
-**Project**: methodology + capability characterisation of a 5-rung
-prompt-injection classifier ladder, evaluated under an honest OOD
-slate. Spec-first SDD submission with 52 immutable ADRs (Michael
-Nygard format). Reviewer URL pin:
-[`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0).
-Live Quarto site:
-[brandon-behring.github.io/prompt-injection-detection-prototype/](https://brandon-behring.github.io/prompt-injection-detection-prototype/).
+This project evaluates prompt-injection detectors under out-of-distribution
+(OOD) shift. Prompt injection means untrusted text trying to override an LLM
+system's instructions. The project is not trying to ship a production detector;
+it is trying to show what a fairer evaluation says about several detector
+designs.
 
-## Thesis
+## Bottom Line
 
-Most prompt-injection detectors are evaluated on data that leaks
-into training, so their reported OOD numbers don't tell you much.
-A classifier that cross-validates on a single direct-prompt-
-injection dataset is trivial to build, but it gives a poor read on
-OOD performance and raises real leakage concerns. **The submission
-is an attempt to build a fairer evaluation harness around that —
-not to find the best model, but to lay the groundwork for fairer
-evaluation** and to identify the weaknesses of both the trained
-rungs and the published reference scorers.
+Training on direct prompt-injection examples did **not** produce a detector that
+generalized to different attack families. On the pooled OOD slice, no evaluated
+detector clearly beat the AUPRC random floor of **0.374**.
 
-## Headline claims
+| Detector | Pooled OOD AUPRC | Interpretation |
+|---|---:|---|
+| ModernBERT frozen probe | 0.364 [0.354, 0.375] | Best in-house score, but still at the random floor |
+| ProtectAI v1 | 0.361 [0.330, 0.391] | Similar result; diagnostic only because of contamination caveats |
+| ProtectAI v2 | 0.314 [0.283, 0.345] | Does not dominate v1 on this evaluation |
+| ModernBERT LoRA | 0.293 [0.286, 0.301] | Fine-tuning hurt OOD performance |
+| TF-IDF + LR | 0.291 [0.283, 0.298] | Classical baseline, roughly tied with LoRA |
 
-1. **The OOD wall is cross-family, not cross-source.** Training
-   pool is 4 direct-injection sources (deepset/prompt-injections,
-   Lakera/gandalf_ignore_instructions, Lakera/mosscap_prompt_injection,
-   hackaprompt). The 5-slice OOD slate probes attack families
-   *absent* from training: indirect injection via email-body context
-   (BIPIA), multi-turn agentic-flow (InjecAgent), jailbreaks
-   (JBB-Behaviors), and benign-but-injection-shaped texts
-   (NotInject, XSTest). Direct-injection training performance does
-   not translate.
-2. **None of the rungs clears the `pooled_ood` positive-class
-   prevalence baseline (0.374) under AUPRC** (range 0.291–0.364;
-   frozen-probe best at 0.364). Random-predictor AUPRC equals the
-   positive prevalence; the best trained rung still lands ~0.01
-   *below* that baseline.
-3. **Fine-tuning HURTS OOD generalization relative to the frozen
-   probe.** LoRA's `pooled_ood` AUPRC delta vs frozen-probe is
-   **-0.071** (paired-bootstrap CI clears zero); fine-tuning the
-   head onto the LODO direct-injection pool actively degrades the
-   pretrained ModernBERT-base embeddings on OOD. The pretrained
-   backbone — not the LODO training pool — carries what little OOD
-   generalization budget exists.
-4. **ProtectAI v1 → v2 is not a monotone improvement** across the
-   OOD slate: v2 beats v1 on jbb_behaviors (+0.037 AUPRC) and loses
-   on xstest (-0.087 AUPRC). Off-the-shelf detector updates can
-   regress on specific OOD distributions; downstream consumers
-   should not assume v2 dominates v1 universally.
+## What Was Tested
 
-## What was characterised
+- **In scope**: single-turn English text classification.
+- **Training pool**: four direct-injection sources.
+- **OOD slate**: five held-out slices covering indirect injection, agentic-flow
+  injection, jailbreak-style questions, and benign-but-injection-shaped text.
+- **Detectors**: TF-IDF + logistic regression, ModernBERT frozen probe,
+  ModernBERT LoRA, and ProtectAI v1/v2 reference scorers.
 
-5-rung ladder: TF-IDF + LR classical floor (`verified_disjoint`)
-→ ModernBERT-base frozen-probe → ModernBERT-base LoRA (~1 %
-trainable params) → ModernBERT-base full-FT (LODO only; OOD dropped
-per ADR-052) → 2 reference scorers (ProtectAI v1 + v2;
-`suspected_contamination`). Evaluated under: source-disjoint LODO
-(4 folds × 3 seeds = 12 cells per rung), calibrated semantic dedup
-(threshold 0.80; 50-pair golden holdout), post-split leakage scrub
-(exact-hash + cosine ≥ 0.85), contamination-taxonomy audit per
-Kapoor & Narayanan 2023 against the published reference scorers,
-paired-bootstrap MDE on every reported CI (10K resamples × 2
-seeds; 0/40 stability flags), dual-policy threshold characterisation
-(detection FPR ≤ 1 %, verification recall ≥ 99 %; both with
-reachability audit).
+## How To Read The Metrics
 
-## What is deferred (out of scope per ADR-014)
+- **AUPRC**: the primary ranking metric. On imbalanced data, its random floor is
+  the positive rate, not 0.5. Here that floor is 412 / 1101 = 0.374.
+- **AUROC**: secondary diagnostic with a 0.5 random floor; useful for
+  comparison, but less informative under imbalance.
+- **95% CI**: uncertainty around a number. If a model's interval only touches
+  the random floor, the result should be read cautiously.
+- **FPR**: false-positive rate. In this project, a 1% FPR threshold tuned on
+  validation often did not hold on held-out sources.
+- **ECE/Brier**: calibration errors. Lower is better; they ask whether model
+  scores behave like probabilities.
 
-Multi-turn agentic flows (named in test slate via InjecAgent to
-quantify the gap; not detected by single-turn classifier scope),
-encoded payloads (base64 / leetspeak / hex / Unicode confusables),
-paraphrase attacks (semantic equivalents), adversarial perturbations
-(gradient-guided / search-based evasion), cross-language coverage.
-Full-FT OOD inference dropped per ADR-052 (methodological: LoRA
-evidence + FUSE-EIO operational trigger); details in
-[WRITEUP/limitations-and-future-work.md §8.1](./WRITEUP/limitations-and-future-work.md).
+## Main Findings
 
-## Reading-path pointer (the 30-minute reviewer)
+1. **The OOD wall is cross-family.** The training pool is direct-injection
+   heavy, while the OOD slate includes attack families absent from training.
+2. **Fine-tuning hurt.** LoRA scored 0.293 on pooled OOD, below the frozen
+   probe's 0.364 and roughly tied with TF-IDF + LR.
+3. **Reference detectors are not monotone by version.** ProtectAI v2 improves
+   one slice but regresses on another, so "newer" does not mean universally
+   better.
+4. **Thresholds are fragile.** Validation thresholds understate how many false
+   positives appear on held-out sources.
 
-1. This summary.
-2. [WRITEUP §1 Motivation + §1.5 Attack-type taxonomy + train/test composition](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html).
-3. [WRITEUP §Results headline characterisation](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#results) (cross-family framing + 4 claims).
-4. [RESULTS.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/RESULTS.html) — full 5-rung × 5-slice AUPRC + AUROC + recall@FPR1% grid + 7 Phase 4 figures + raw-data pointers (the third entry artifact per ADR-054).
-5. [EVIDENCE.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html) — external-evidence audit trail (ProtectAI v1/v2 contamination findings).
-5. [decisions/](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html) — 52-ADR governance trail (the deep cut; ADR-005, ADR-015–022, ADR-050, ADR-052 are the headline locks).
+## What This Does Not Claim
 
-## Honest reading
+The numbers do not cover multilingual attacks, encoded payloads, paraphrase
+robustness, adversarial perturbations, or full multi-turn system behavior. The
+result is a capability characterization and methodology artifact, not a
+deployment recommendation.
 
-This is a methodology + capability *characterisation*, not a
-leaderboard claim. The headline finding — that the OOD wall is
-cross-family and that fine-tuning consumes the OOD generalization
-budget the pretrained backbone provides — is methodologically
-richer than a "great classifier" framing would have allowed. A
-deployment context that includes attack classes outside the
-training pool (multi-turn agentic flows, encoded payloads,
-paraphrase attacks, adversarial perturbations) cannot rely on
-these numbers; the methodology spoke names what would need to
-land to extend coverage.
+## Where To Go Next
+
+- [Results](RESULTS.md): exact grids, canonical figures, and artifact links.
+- [Writeup](WRITEUP.md): methodology narrative.
+- [Evidence](EVIDENCE.md): external-evidence and reference-scorer audit trail.
+- [Decisions](decisions/README.md): ADR trail, now including ADR-062 for this
+  clarity and canonical-figures patch.

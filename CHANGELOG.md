@@ -18,6 +18,98 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.1.3] — 2026-05-19
+
+**Patch release**: ADR-062 Quarto writeup clarity rewrite — the first
+of a three-stage clarity-and-consistency series (v1.1.3 baseline →
+v1.1.4 consistency-only fix-pack → v1.2.0 heavy clarity pass +
+hiring-manager landing). Triggered by 2026-05-19 user feedback that
+the v1.1.1 navigation pass left the writeup *"jargon heavy and dense
+and pretty unreadable to a hiring manager. Doesn't demonstrate clear
+thought."*
+
+This release is a bundled commit of the parallel doc-rewrite work
+authored per [ADR-062](decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.md).
+The doc-agent had ~85% of the rewrite landed in working tree at
+v1.1.2 close; v1.1.3 packages that progress as a single coherent
+release so the subsequent v1.1.4 (consistency fixes) and v1.2.0
+(heavy pass) layers can build on a clean baseline.
+
+### Added
+
+- **`decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.md`**
+  — codifies the problem-first narrative, plain-language metric
+  glossing, "what each figure says AND does not say" caption
+  discipline, the five-canonical-figures slate (F1–F5; F6/F7
+  removed), and methodology-below-the-fold restructuring.
+
+### Changed
+
+- **`index.qmd`** — leads with problem → result → limits (above the
+  fold = 1-paragraph thesis + headline AUPRC table + 5-bullet
+  plain-language meaning + 3 obvious drill-down links).
+- **`EXECUTIVE_SUMMARY.md`** — one-page executive summary with a
+  "How To Read The Metrics" section defining AUPRC / AUROC / FPR /
+  ECE / 95% CI for a non-ML reader.
+- **`RESULTS.md`** — Metric Primer in §1 explaining AUPRC's random
+  floor before the table; "What F# shows / What F# does not show"
+  caption discipline added for F1–F5.
+- **`WRITEUP.md`** — 2-paragraph hub-spoke primer reframing the
+  cover narrative; explicit signposting that the GitHub blob view
+  is executive-summary depth and full methodology requires all 8
+  spokes.
+- **`README.md`** — "How to read this submission" rewritten with
+  3 named reading paths (5 min / 60 min / 30 min CPU reproduce).
+- **`READING_GUIDE.md`** — three reader-type paths (hiring manager /
+  technical reviewer / reproduce) with explicit time budgets.
+- **`docs/GLOSSARY.md`** — expanded to cover ADR / AUPRC / AUROC /
+  ECE / FPR / LODO / OOD / Pooled OOD / PR-AUC / ROC-AUC / recall.
+- **`_quarto.yml`** — navbar Methodology dropdown houses hub +
+  reading guide + 8 spokes; sidebar nests them visibly.
+- **`docs/plots/F1-F5.{svg,meta.json}`** — regenerated from
+  canonical eval artifacts (not synthetic scaffolds). Provenance
+  sidecars record `data_mode: canonical`, ADR-062, commit SHA,
+  generation timestamp, and source artifact paths.
+- **`scripts/render_figures.py`** + **`src/eval/figures.py`** —
+  reviewer-facing slate is F1–F5 only; synthetic scaffold rendering
+  is test-only and cannot write to `docs/plots/`.
+- **`tests/smoke/test_figures_smoke.py`** +
+  **`tests/smoke/test_phase4_scripts_smoke.py`** — updated for the
+  F1–F5 slate change.
+- **`Makefile`** smoke target — comment update aligning with the
+  F1–F5 test-only scaffold path.
+- **`decisions/library_imports.md`** — adds
+  `eval_toolkit.plotting.plot_slice_metric_heatmap` entry (used in
+  F3) + ADR-062 cross-references for plot_lift_ci + save_figure +
+  set_plot_style consumers.
+
+### Removed
+
+- **`docs/plots/F6.{svg,meta.json}`** + **`docs/plots/F7.{svg,meta.json}`**
+  — removed from the reviewer-facing slate per ADR-062 (figures F6
+  and F7 from the original Phase 4 plan covered diagnostic content
+  that didn't earn a place in the hiring-manager-first narrative).
+
+### Coordination
+
+This release is a **bundled commit** of the in-progress doc-agent
+work. v1.1.4 (next) lands the documentation-wide consistency fix-pack
+(broken ADR slug links, stale version refs, cumulative-cost
+correction, CI link-checker prophylaxis). v1.2.0 lands the heavy
+clarity pass (jargon glossing invariant, figure caption refinements
+with SVG axis-label fixes, 8-spoke skim signposts, DeBERTa §1B
+ablation callout, dedicated hiring-manager landing page).
+
+### References
+
+- ADR-062 (NEW; this release): writeup clarity rewrite + canonical
+  figure slate.
+- Reviewer URL pin: `tree/v1.0.0` unchanged per
+  [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
+  Live Quarto site reflects v1.1.3.
+
+---
+
 ## [1.1.2] — 2026-05-19
 
 **Patch release**: closes the

@@ -1,99 +1,69 @@
 ---
-title: "Prompt-injection classifier — methodology submission"
+title: "Prompt-injection classifier: what the evaluation found"
 author: "Brandon Behring"
 date: "2026-05-19"
-description: "Headline finding + plain-language interpretation + 3 drill-down links. Restructured v1.1.1 per ADR-061."
+description: "Plain-language landing page for the prompt-injection classifier evaluation."
 ---
 
-# Prompt-injection classifier — methodology submission
+# Prompt-injection classifier: what the evaluation found
 
-This is the landing page. **Headline result is up-top; plain-language
-meaning is right below; three obvious drill-down links lead to the
-full content.** The full reading guide (3 paths + 14 headline ADRs +
-repo map) lives at [`READING_GUIDE.md`](READING_GUIDE.md) — one click
-away if you want it.
+Prompt injection is untrusted text that tries to override the instructions an
+LLM system is supposed to follow. This project asks a narrow question: if we
+train several simple prompt-injection detectors on direct instruction-override
+examples, do they still work when the attack family changes?
 
-The submission is a methodology + capability characterisation of a
-prompt-injection classifier rung ladder, evaluated under an honest
-OOD slate. **No rung is promoted as a deployment recommendation** —
-each rung's trade-offs are characterised; readers with a specific
-deployment context map our characterisation onto their cost constraints.
+The short answer is **mostly no**. The evaluation is useful because it makes
+that failure visible instead of hiding it behind an in-domain score.
 
----
+Here, **out-of-distribution (OOD)** means examples drawn from attack families
+that were absent or underrepresented in training.
 
-## Headline finding
+## What Was Evaluated
 
-**The OOD wall is cross-family, not cross-source.** Training pool is 4
-direct-injection sources; the 5-slice OOD test slate probes attack
-families *absent* from training (indirect injection, multi-turn
-agentic-flow, jailbreaks, benign-but-injection-shaped). Direct-injection
-training performance does not translate.
+- **Task**: single-turn English text classification: injection vs benign.
+- **Training style**: four direct-injection sources, such as "ignore the
+  previous instructions" attacks.
+- **OOD test style**: five held-out slices covering indirect injection,
+  multi-turn agentic flow, jailbreak-style questions, and benign text that
+  only looks injection-shaped.
+- **Models**: a TF-IDF + logistic-regression floor, a frozen ModernBERT probe,
+  a ModernBERT LoRA fine-tune, and two ProtectAI reference detectors.
+- **Non-goal**: this is not a deployment recommendation and not a leaderboard.
 
-`pooled_ood` AUPRC trio (BCa bootstrap, 10000 resamples):
+## Headline Result
 
-| Rung | `pooled_ood` AUPRC | 95% CI | vs prevalence baseline (0.374) |
-|---|---|---|---|
-| ModernBERT frozen-probe | **0.364** | [0.354, 0.375] | below baseline (CI upper bound just touches it) |
-| TF-IDF + LR (classical floor) | 0.291 | [0.283, 0.298] | far below |
-| ModernBERT LoRA | 0.293 | [0.286, 0.301] | far below; -0.071 vs frozen-probe (CI clears zero) |
-| ProtectAI v1 (reference) | 0.361 | [0.330, 0.391] | below baseline (CI upper bound clears it) |
-| ProtectAI v2 (reference) | 0.314 | [0.283, 0.345] | far below; v2 does NOT monotonically improve over v1 |
+The main metric is **AUPRC**, which is useful for imbalanced binary
+classification. On this pooled OOD slice, a random ranking scores **0.374**
+because 412 of 1101 examples are positive. A detector needs to beat that floor
+to show useful ranking signal.
 
----
+| Detector | Pooled OOD AUPRC | 95% CI | Read |
+|---|---:|---:|---|
+| ModernBERT frozen probe | **0.364** | [0.354, 0.375] | Best in-house score, still at the random floor |
+| ProtectAI v1 | 0.361 | [0.330, 0.391] | Similar, but reference scorer has training-overlap caveats |
+| ProtectAI v2 | 0.314 | [0.283, 0.345] | Worse than v1 on this slate |
+| ModernBERT LoRA | 0.293 | [0.286, 0.301] | Fine-tuning hurt OOD ranking |
+| TF-IDF + LR | 0.291 | [0.283, 0.298] | Classical floor, roughly tied with LoRA |
 
-## What this means in plain language
+## What This Means
 
-1. **No rung clears the random-guessing floor on OOD attacks.** The
-   prevalence baseline (0.374) is what a coin flip would score on this
-   slice. The best trained rung (frozen-probe at 0.364) lands just
-   below it. **This is the load-bearing negative result.**
+1. **The failure is cross-family.** The models saw direct prompt injections in
+   training, but the OOD slate includes attack families they did not see.
+2. **Fine-tuning did not help.** LoRA fits the direct-injection training pool
+   and loses much of the OOD signal present in the frozen backbone.
+3. **A newer detector is not automatically better.** ProtectAI v2 improves one
+   slice but regresses on another.
+4. **Thresholds do not transfer cleanly.** A threshold tuned for 1% false
+   positives on validation can produce much higher false-positive rates on
+   held-out sources.
+5. **The honest result is negative.** The project demonstrates the evaluation
+   harness and the limits of the trained detectors, not a ready-to-ship model.
 
-2. **Fine-tuning made things worse, not better.** LoRA scored -0.071
-   AUPRC vs the frozen-probe on the OOD slate (statistically clear).
-   Training on direct-injection examples burns the OOD generalisation
-   budget that lives in the pretrained backbone.
+## Read Next
 
-3. **OOD here means "different attack family," not "different source."**
-   The slate tests indirect injection (BIPIA), multi-turn agents
-   (InjecAgent), jailbreaks (JBB-Behaviors), and benign-but-injection-
-   shaped texts (NotInject, XSTest). The wall is at the attack-family
-   boundary; in-source held-out direct-injection performance is fine.
-
-4. **Off-the-shelf detector updates can regress.** ProtectAI v2 beats
-   v1 on jailbreaks (+0.037 AUPRC) but loses on benign-injection-shaped
-   text (-0.087 AUPRC). Version monotonicity is not guaranteed across
-   OOD slices.
-
-5. **The "tune on val, ship to prod" recipe under-quantifies real
-   FPR.** Thresholds tuned on the validation slice produce 1-12 %
-   detection FPRs on LODO test data. Project response: dual-policy
-   threshold characterisation (detection FPR ≤ 1 % + verification
-   recall ≥ 99 %), both reported with reachability flags.
-
-For the technical version of each pattern with statistical detail,
-see [`READING_GUIDE.md` §How to read the headline numbers](READING_GUIDE.md#how-to-read-the-headline-numbers--5-interpretation-patterns).
-
----
-
-## Drill deeper
-
-- **Full results + figures**: [`RESULTS.md`](RESULTS.md) — 5-rung ×
-  5-slice AUPRC + AUROC + recall@FPR1% grid + 7 figures + raw-data
-  pointers. Includes the v1.0.9 §1B DeBERTa-v3-base ablation appendix
-  placeholder (methodology locked at v1.1.0; execution v1.1.1).
-- **Full methodology**: [`WRITEUP.md`](WRITEUP.md) — cover narrative
-  (hub) linking out to 8 detailed-spoke pages on data, rungs,
-  evaluation, thresholds, reference scorers, methodology guarantees,
-  limitations, reproducibility.
-- **How to read this site**: [`READING_GUIDE.md`](READING_GUIDE.md) —
-  3 named reading paths (A1 quick-skim / A2 audit / A3 reproduce),
-  14 headline ADRs, repo TOC, submission anchors.
-
----
-
-## Submission anchors
-
-- **Source pin**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0) (never drifts; reviewer URL pin).
-- **Live site**: this page (reflects latest patch — currently v1.1.1).
-- **Releases**: [`releases/`](https://github.com/brandon-behring/prompt-injection-detection-prototype/releases) (CHANGELOG + tag artifacts).
-- **HF Hub model cards**: [`frozen-probe`](https://huggingface.co/BBehring/prompt-injection-frozen-probe) + [`lora`](https://huggingface.co/BBehring/prompt-injection-lora).
+- [Results](RESULTS.md): exact tables, five canonical figures, and raw artifact
+  pointers.
+- [Executive summary](EXECUTIVE_SUMMARY.md): one-page decision-maker version.
+- [Writeup](WRITEUP.md): methodology narrative and links to detailed spokes.
+- [Reading guide](READING_GUIDE.md): paths for quick review, audit, and
+  reproduction.

@@ -1,182 +1,101 @@
 # prompt-injection-detection-prototype
 
-[![Documentation](https://img.shields.io/badge/docs-live-blue)](https://brandon-behring.github.io/prompt-injection-detection-prototype/) [![CI](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg)](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml) [![Publish](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg)](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml) [![Release](https://img.shields.io/github/v/release/brandon-behring/prompt-injection-detection-prototype?label=release)](https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/latest) [![HF Hub: frozen-probe](https://img.shields.io/badge/HF%20Hub-frozen--probe-blue)](https://huggingface.co/BBehring/prompt-injection-frozen-probe) [![HF Hub: lora](https://img.shields.io/badge/HF%20Hub-lora-blue)](https://huggingface.co/BBehring/prompt-injection-lora) [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE) [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/) [![ADRs: 54](https://img.shields.io/badge/ADRs-54-green.svg)](./decisions/)
+[![Documentation](https://img.shields.io/badge/docs-live-blue)](https://brandon-behring.github.io/prompt-injection-detection-prototype/) [![CI](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg)](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml) [![Publish](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg)](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE) [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/)
 
-**Methodology + capability characterisation of a 5-rung prompt-injection classifier ladder, evaluated under an honest OOD slate.**
+This is a methodology-focused prompt-injection classifier evaluation. It asks a
+simple question: if detectors are trained on direct prompt-injection examples,
+do they still work when the attack family changes?
 
-> **Thesis.** My main concern after reading the literature: most prompt-injection detectors are evaluated on data that leaks into training, so their reported OOD numbers don't tell you much. A classifier that cross-validates on a single direct-prompt-injection dataset is trivial to build, but it gives a poor read on OOD performance and raises real leakage concerns. **This project is my attempt to build a fairer evaluation harness around that** — not to find the best model, but to lay the groundwork for fairer evaluation and to identify the weaknesses of our model and of some existing reference scorers.
+The headline answer is **mostly no**. On the pooled cross-family
+out-of-distribution (OOD) slice, none of the evaluated detectors clearly beats
+the AUPRC random floor of 0.374.
 
-A spec-first case-study submission: every decision is locked via a structured Phase 0 interview producing 52 ADRs (spec-driven development with immutable Michael-Nygard ADRs; supersede-don't-edit); every claim cites evidence + bootstrap CIs; every reference scorer is contamination-audited per a three-state taxonomy. **Library-first** — three companion OSS repos I refined for this project:
+## What This Project Is
 
-- **[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — a methodology-aware harness on PyPI for binary-classifier eval: source-disjoint splits, bootstrap CIs (marginal + paired + cv-CLT), calibration battery, leakage detection, and a 17-chapter methodology curriculum.
-- **[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — a CLI I use to orchestrate RunPod GPU jobs: preflight validation, multi-GPU-class × multi-DC failover, per-job cost caps, dry-run cost previews, post-run cost reconciliation. Saved me from a lot of accidental spend.
-- **[research_toolkit](https://github.com/brandon-behring/research_toolkit)** — a pipeline of Claude Code skills I abstracted for literature reviews: plan → gather primary sources → build a dossier → explicit audit pass that DROPs / CORRECTs / FLAGs each entry. I read most of the primary documents myself; the audit pass makes summary fidelity checkable rather than vibes-based.
+- **A capability characterization**, not a deployment recommendation.
+- **A detector-ladder evaluation**: TF-IDF + LR, ModernBERT frozen probe,
+  ModernBERT LoRA, and ProtectAI v1/v2 references.
+- **An OOD evaluation**: indirect injection, agentic-flow injection,
+  jailbreak-style questions, and benign-but-injection-shaped text.
+- **A reproducible artifact**: source-disjoint splits, leakage checks,
+  persisted predictions, confidence intervals, calibration metrics, and
+  Quarto-rendered documentation.
 
-> **Status**: Phase 5 complete; tagged `v1.0.0` (patches via `v1.0.x` per ADR-033). The work is **characterisation**, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.
->
-> **Live site**: [brandon-behring.github.io/prompt-injection-detection-prototype/](https://brandon-behring.github.io/prompt-injection-detection-prototype/) — rendered Quarto methodology site with the 7-spoke WRITEUP + 52 ADRs + EVIDENCE + reference docs. Updated on every push to `main`.
->
-> **HF Hub model cards**: [BBehring/prompt-injection-frozen-probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe) + [BBehring/prompt-injection-lora](https://huggingface.co/BBehring/prompt-injection-lora) — canonical fold0/seed42 checkpoints per ADR-032. Reviewer-reproduce-the-numbers (T0) via `make eval-from-hub RUNG=<rung>`.
+## Headline Result
 
-## What this submission delivers
+| Detector | Pooled OOD AUPRC | Read |
+|---|---:|---|
+| ModernBERT frozen probe | 0.364 [0.354, 0.375] | best in-house score, still at random floor |
+| ProtectAI v1 | 0.361 [0.330, 0.391] | diagnostic reference; contamination caveats |
+| ProtectAI v2 | 0.314 [0.283, 0.345] | does not dominate v1 |
+| ModernBERT LoRA | 0.293 [0.286, 0.301] | fine-tuning hurt OOD performance |
+| TF-IDF + LR | 0.291 [0.283, 0.298] | classical floor, roughly tied with LoRA |
 
-- **5-rung trained ladder** (per ADR-015 + ADR-017 + ADR-050 + ADR-052): TF-IDF + LogReg classical floor → ModernBERT-base frozen-probe (head-only training) → ModernBERT-base LoRA (~1 % trainable params) → ModernBERT-base full-FT. Plus 2 reference scorers (ProtectAI v1, ProtectAI v2) at native config. LLM-judge reference rungs were dropped at Phase 4 on cost re-estimation per ADR-050; full-FT OOD inference dropped at Phase 5 per ADR-052 (methodological: LoRA already showed fine-tuning on this training pool hurts OOD; FUSE EIO crash was the operational trigger). The `vendor_black_box` contamination tier ships with 0 rungs in this submission.
-- **5-slice OOD test slate** (per ADR-016 + ADR-021): BIPIA (indirect injection via email body, all-positive), InjecAgent (multi-turn agentic-flow injection, all-positive), JBB-Behaviors (jailbreak-style harmful elicitation, both classes), XSTest (jailbreak-as-question, both classes), NotInject (benign-but-injection-shaped false-positive probe, all-negative). The slate probes injection types deliberately *outside* the training-pool style mix.
-- **4-source LODO training pool** (per ADR-016): `deepset/prompt-injections` (170 rows post-dedup), `Lakera/gandalf_ignore_instructions` (525), `Lakera/mosscap_prompt_injection` (2362), `hackaprompt/hackaprompt-dataset` (1650). **Direct-injection-heavy by composition** — see WRITEUP §1.5 for the train/test mismatch table.
-- **Methodology rigor**: BCa bootstrap CIs on every headline metric; paired-bootstrap rung-vs-rung differences (Efron-Tibshirani protocol); MDE alongside every CI containing zero; calibration battery (ECE equal-mass + Kumar-2019-debiased + Brier + reliability curves; temperature / Platt / isotonic / Beta fits on val only); cross-fold CIs via Bayle-2020 `cv_clt_ci` + block-bootstrap-on-folds sensitivity per A-008; dual-policy threshold characterisation (detection FPR ≤ 1 % + verification recall ≥ 99 %); SHA-pinned data sources + leakage scan + per-fold contamination scan. Effect sizes + CIs throughout — no p-values.
-- **Reviewer-reproducible** (per ADR-034): **T0** = `make eval-from-hub RUNG=<rung>` runs a CPU eval against the published HF Hub checkpoint and score-matches against `evals/results.json` within 1e-4 absolute (~15 min per rung, $0). **T1** = `make test-smoke` (laptop, no GPU, no network, ~1 min). Optional **T3** = `make headline-cloud` (RunPod A100 80GB; ~$28; full LODO matrix re-train + re-eval).
-- **Governance trail**: 54 ADRs in [`decisions/`](./decisions/) (Michael Nygard format; immutable; ADR-050 is the rung-slate narrowing; ADR-053 is the reading-guide governance anchor at v1.0.4; ADR-054 narrowly supersedes ADR-053 dimension 1 to add `RESULTS.md` as a third entry artifact at v1.0.5). `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard gate). External-evidence audit in [`EVIDENCE.md`](./EVIDENCE.md). Hyperparameter disclosure in [`docs/HYPERPARAMETER_DISCLOSURE.md`](./docs/HYPERPARAMETER_DISCLOSURE.md). 16-file literature dossier in [`docs/research/`](./docs/research/) (produced via the `research_toolkit` pipeline).
+For `pooled_ood`, random AUPRC is **412 / 1101 = 0.374**. That is why the
+0.364 frozen-probe score is not a success claim.
 
-## What this submission is NOT
+## How To Read The Site
 
-- **Not a deployment recommendation.** No rung is promoted as the deployment choice. Trade-offs are reported; readers with a specific deployment context map our characterisation onto their cost constraints.
-- **Not a SOTA chase.** Models are deliberately simple; the rigor lives in the evaluation framework. The headline finding *includes unflattering results* by design.
-- **Not a benchmark.** Slate is fixed by source-disjoint LODO + a 5-slice OOD test slate, not a sliding leaderboard.
-- **Scope is single-turn English text classification only.** Multi-turn agentic flows, encoded payloads (base64 / leetspeak / hex / Unicode confusables / ROT13), paraphrase attacks, adversarial perturbations, and cross-language attacks are **out of scope** per ADR-014 + WRITEUP §1 Scope. InjecAgent appears in the test slate to *quantify* the agentic-flow gap, not because we expect the single-turn classifier to handle it.
+- **5-minute read**: start at the
+  [live landing page](https://brandon-behring.github.io/prompt-injection-detection-prototype/).
+  It explains the problem, setup, result, and limits in plain language.
+- **Results audit**: read [RESULTS.md](./RESULTS.md). It contains the exact
+  tables, five canonical figures, and raw artifact pointers.
+- **Methodology audit**: read [WRITEUP.md](./WRITEUP.md), then the eight spoke
+  pages under [`WRITEUP/`](./WRITEUP/).
+- **Decision audit**: read [`decisions/`](./decisions/). ADR-062 records the
+  clarity rewrite and canonical-figure correction.
 
-## How to read this submission
+## Key Terms
 
-**Important**: the GitHub blob view of `WRITEUP.md` (this single file) is **only the cover narrative** — the methodology is split into a hub (`WRITEUP.md`) **plus 8 detailed spokes** under [`WRITEUP/`](./WRITEUP/). Reading `WRITEUP.md` alone is executive-summary depth; the full methodology requires all 8 spokes. **The [live Quarto site](https://brandon-behring.github.io/prompt-injection-detection-prototype/) is the canonical reading surface** — it renders the hub + all 8 spokes together with nested navigation under the **Methodology** dropdown. GitHub readers can click each spoke link in the table at the top of `WRITEUP.md` to drill in.
+- **AUPRC**: primary ranking metric; random floor equals the positive rate.
+- **OOD**: out-of-distribution. Here the important shift is cross-family, not
+  just a different source name.
+- **FPR**: false-positive rate. A 1% FPR target means no more than one false
+  alarm per 100 benign examples.
+- **ECE/Brier**: calibration errors; lower is better.
 
-### Three reading paths (pick by audit depth)
+More definitions are in [`docs/GLOSSARY.md`](./docs/GLOSSARY.md).
 
-1. **Quick read (~5 min)** — landing page only.
-   - [Live site landing page](https://brandon-behring.github.io/prompt-injection-detection-prototype/) — headline AUPRC table + 5-bullet plain-language meaning + 3 obvious drill-down links. Restructured v1.1.1 per [ADR-061](decisions/ADR-061-quarto-site-navigation-restructure.md) for exactly this use case.
-
-2. **Full methodology (~60 min)** — for the ML-researcher / due-diligence read.
-   - Live site → Methodology dropdown → **Cover narrative (hub)** = [`WRITEUP.md`](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html) → drill into each of the 8 spokes from the same dropdown.
-   - [Reading guide](https://brandon-behring.github.io/prompt-injection-detection-prototype/READING_GUIDE.html) — 3 named paths + 14 headline ADRs + repo TOC + technical version of the 5 interpretation patterns.
-   - [EVIDENCE.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html) — external-evidence audit trail.
-   - [All 61 ADRs](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html) (immutable decision records; Michael Nygard format).
-
-3. **Reproduce the numbers (~30 min CPU; $0)** — for the engineer who wants the numbers to land on their machine.
-   - `make install && make eval-from-hub RUNG=frozen-probe` (CPU; ~15 min) pulls the published checkpoint from [BBehring/prompt-injection-frozen-probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe) and score-matches against `evals/results.json` within 1e-4 absolute per ADR-034 (wired at v1.0.9 per [ADR-058](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md)).
-   - `make eval-from-hub RUNG=lora` — same for [BBehring/prompt-injection-lora](https://huggingface.co/BBehring/prompt-injection-lora).
-   - `make test-smoke` (no GPU, no network, ~1 min) verifies code-health on fixtures.
-   - Full T1 GPU re-eval via `make headline-cloud` (~$28; A100 80GB; ~7h).
-
-## Getting started — reviewer path
+## Reproduce
 
 ```bash
 git clone https://github.com/brandon-behring/prompt-injection-detection-prototype
 cd prompt-injection-detection-prototype
-make install              # uv sync --extra dev
-make test                 # ~220 tests; invariants + smoke
-make eval-from-hub RUNG=frozen-probe     # T0 score-match (CPU; ~15 min)
-make eval-from-hub RUNG=lora             # T0 score-match (CPU; ~15 min)
+make install
+make test-smoke
+make eval-from-hub RUNG=frozen-probe
+make eval-from-hub RUNG=lora
 ```
 
-T0 verifies the published HF Hub checkpoints (`BBehring/prompt-injection-frozen-probe`,
-`BBehring/prompt-injection-lora`) score-match against the canonical results
-within 1e-4 absolute. See `docs/REPRODUCIBILITY.md` for T1 (full GPU re-eval
-via `make headline-cloud`).
-
-For the methodology-and-decision trail (Phase 0 → Phase 5; ~50 locked ADRs):
-- `WRITEUP.md` — full methodology narrative.
-- `decisions/` — 50 Michael-Nygard-format ADRs (immutable).
-- `SUBMISSION_AUDIT.md` — script-regenerated claim register sourced from ADR
-  frontmatter; the audit ledger is in CI as a hard gate.
-- `docs/ROADMAP.md` — Phase 0-5 sequence + closing dates.
-
-## Problem
-
-This is a case-study submission characterising what successive capability
-layers (classical TF-IDF + LR floor → frozen ModernBERT backbone with linear
-probe → LoRA adapters → full fine-tune) contribute to prompt-injection
-detection across an IID test slate (4-source LODO held-out positives) and
-a 5-slice OOD slate (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject).
-
-The brief asks for **models of increasing complexity** to characterise what each capability layer brings, plus **the right amount of OOD coverage**. The models are deliberately simple; the rigor lives in the evaluation framework — claims about each rung, including unflattering ones, are honest. Detection and verification operating modes are reported as two cost-weight characterisations of the same scores, not as deployment recommendations.
-
-## Approach
-
-- **Rung ladder** locked at Phase 0-03 (ADR-015 + ADR-017 + ADR-019 + ADR-050):
-  TF-IDF+LR classical floor (`verified_disjoint`) → ModernBERT-base frozen-probe
-  → ModernBERT-base LoRA → ModernBERT-base full-FT. Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID. ProtectAI v1 + v2 (`suspected_contamination`) are reference scorers per ADR-018, not in the trained ladder. LLM-judge reference scorers dropped at Phase 4 cost re-estimation per ADR-050; full-FT OOD inference dropped at X11 FUSE crash per ADR-050.
-- **OOD slate** locked at Phase 0-04 (ADR-016 + ADR-021): 5 slices (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) selected from `docs/research/benchmarks/` candidate dossier. See WRITEUP §5.5 for *why each slice was chosen*.
-- **Methodology rigor** via [eval-toolkit](https://github.com/brandon-behring/eval-toolkit): bootstrap CIs on every headline metric, paired-bootstrap differences for rung-vs-rung comparisons, minimum detectable effect (MDE), calibration battery (ECE + Brier + reliability), validation-set threshold selection. Effect sizes and CIs throughout — no p-values.
-- **Reviewer-reproducible**: `make test-smoke` runs a no-external-services smoke pass on a laptop in ~1 min; canonical numbers reproducible via `make eval-from-hub` (T0; CPU; ~15 min per rung) from `BBehring/prompt-injection-<rung>` HF Hub checkpoints. T1 GPU re-eval via `make headline-cloud`.
-
-## Headline characterisation
-
-**The negative result IS the result.** The OOD wall is **cross-family**, not cross-source: training pool is 4 direct-injection sources; the OOD slate probes **indirect injection via email-body context (BIPIA)**, **multi-turn agentic-flow attacks (InjecAgent)**, **jailbreaks (JBB-Behaviors)**, and **benign-but-injection-shaped texts that test false-positive robustness (NotInject, XSTest)** — attack types absent from training. **Direct prompt-injection training and evaluation performance alone do not translate** into these other attack families. That finding is the argument for a fairer evaluation framework, which is what this project is.
-
-Specifically: fine-tuning a ModernBERT-base backbone (LoRA) on the LODO training pool delivers **no improvement** over the frozen-probe rung on `pooled_ood`, and LoRA actively *underperforms* the frozen probe (-0.071 AUPRC on `pooled_ood`; paired-bootstrap CI clears zero). On IID (JBB-Behaviors), all rungs cluster around 0.55 AUPRC — the capability ladder is mostly indistinguishable. **The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.** Full results + per-fold variance live in [`WRITEUP.md`](./WRITEUP.md) §Results; only the punch-line is below.
-
-| Rung | `pooled_ood` AUPRC (95 % CI) | Contamination tier |
-|---|---:|---|
-| Frozen-probe (in-house) | 0.364 [0.353, 0.375] | `backbone-partial-disjoint` |
-| LoRA (in-house) | 0.293 [0.286, 0.301] | `backbone-partial-disjoint` |
-| ProtectAI v2 (reference) | 0.314 [0.283, 0.345] `†` | `suspected_contamination` |
-| TF-IDF + LR (classical floor) | 0.291 [0.283, 0.298] | `verified_disjoint` |
-
-Source: `evals/bootstrap/marginal_cells.parquet` (BCa bootstrap, mean across folds × seeds × bootstrap-resamples per ADR-022). Full rung × slice × metric grid in WRITEUP §5; per-fold variance + cross-fold-CI in `evals/audit/cross_fold_ci_audit.parquet`.
-
-`†` Reference scorers (ProtectAI v1 / v2) carry training-overlap caveats with our LODO training pool per the three-state taxonomy in [`EVIDENCE.md`](./EVIDENCE.md) §1-2. Reported as diagnostic reference, not as a clean baseline.
-
-**Headline findings** (deep-read in WRITEUP §5 + §7):
-
-- The IID-vs-OOD gap is large for every trained rung (≈ 0.55 → 0.29-0.36 AUPRC).
-  Per ADR-021 + ADR-050 LODO-by-construction, this is *cross-source* OOD,
-  not within-source noise.
-- **Fine-tuning is a negative result on OOD**: LoRA -0.071 AUPRC vs frozen-probe on `pooled_ood`; full-FT OOD inference dropped per ADR-050 X11 FUSE crash.
-- Calibration (ECE equal-mass) is *worse* for LoRA (0.45) than frozen-probe (0.14) — fine-tuning collapses the calibration signal even on the slices where AUPRC is similar.
-- At the detection operating point (val FPR ≤ 1 %), val→test transfer is partial: frozen-probe holds FPR ≈ 1.0 % on test but recall collapses to 0.063; LoRA blows past FPR cap to 11.5 % to recover recall to 0.42. See WRITEUP §5.3.
-
-Full reading + the headline characterisation claims in [`WRITEUP.md`](./WRITEUP.md). Forward-looking work in [`NEXT_STEPS.md`](./NEXT_STEPS.md). Negative results (things tried that didn't work) in WRITEUP §9. Deferred items in WRITEUP §8. Audit trail for external-evidence claims in [`EVIDENCE.md`](./EVIDENCE.md).
-
-## Repo roadmap
-
-| Path | Role | Read when |
-|---|---|---|
-| `README.md` | Project entry; skim doc | First |
-| `SUBMISSION_TEMPLATE.md` | Cover-letter template (filled `SUBMISSION.md` is gitignored, emailed separately) | First (reviewer) |
-| `docs/MISSION.md` | Mission + scope + non-goals | Understanding "what is this" |
-| `docs/TECH_STACK.md` | Libraries + GPU + secrets discipline | Understanding "what's it built with" |
-| `docs/ROADMAP.md` | Phase 0-5 sequence + replanning checkpoints | Understanding "how it gets built" |
-| `SPEC_GREENFIELD.md` | Binding pre-Phase-0 spec: Feature Specs §0-§7 + 50-row decision ledger | Deep methodology dive; Phase 0 driver |
-| `SPEC_SHEET.md` | Post-Phase-0 fill-in form (locks resolved during Phase 0) | After Phase 0 |
-| `SPEC_STRATEGY.md` | Classification: why lightweight pack vs heavier alternatives | Reviewer wanting meta-justification of the spec structure |
-| `WRITEUP.md` | Full methodology + characterization narrative | Deep dive after spec |
-| `EVIDENCE.md` | External-evidence audit trail | When verifying a specific claim |
-| `NEXT_STEPS.md` | Deferred work + future directions | After WRITEUP §8 |
-| `SUBMISSION_AUDIT.md` | Claim-status register (script-generated from ADRs) | Verifying submission readiness |
-| `docs/THREAT_MODEL.md` | Convenience aggregator — threat surface summary | Security-focused review |
-| `docs/REPRODUCIBILITY.md` | Convenience aggregator — make targets + manifest schema ref | Re-running the work |
-| `docs/HYPERPARAMETER_DISCLOSURE.md` | Anti-cherry-pick discipline | Verifying tuning honesty |
-| `docs/MANIFEST_SCHEMA.md` | eval-output manifest schema (eval-toolkit upstream contract) | Inspecting evals/ |
-| `docs/GLOSSARY.md` | Project terminology (living document) | Encountering unfamiliar jargon |
-| `STYLE.md` | Coding-style discipline | Contributors / Phase 1 |
-| `code_quality.md` | Lint / type / test / import / commit discipline | Contributors / Phase 1 |
-| `assumptions.md` | Severity-tagged registry of unverified inputs | Verifying methodology rigor |
-| `CHANGELOG.md` | Tag history (Keep-a-Changelog 1.1.0); v0.0.0 = seed | Version history |
-| `CLAUDE.md`, `AGENTS.md` | Agent governance (Claude-specific + vendor-neutral) | Any agent session |
-| `decisions/` | ADRs (Michael Nygard format; immutable) + library_imports + upstream_issues + ADR_TEMPLATE | Decision provenance |
-| `transcripts/` | Phase 0 sub-session captures (gitignored; emailed separately) | Decision rationale trail |
-| `tests/`, `scripts/` | Code (invariant stubs + audit-regenerate scripts) | Phase 1+ |
-| `docs/research/` | Literature dossier (16 verified files + MANIFEST.json; produced via research_toolkit) | Phase 0 reference; Phase 5 citations |
-| `.github/`, `.pre-commit-config.yaml`, `Makefile`, `pyproject.toml` | Repo plumbing | CI / setup |
-| `LICENSE` | MIT | Legal |
-
-## Run
+Useful targets:
 
 ```bash
-make install         # uv sync --extra dev
-make lint            # ruff + mypy strict
-make test            # ~220 tests; invariants + smoke
-make test-smoke      # no-external-services smoke pass (~1 min)
-make audit           # SUBMISSION_AUDIT.md in sync with ADRs (CI hard gate)
-make coverage        # pytest --cov (currently 89.82 %)
-make cost-rollup     # cost ledger vs ADR-020 caps
-make eval-from-hub RUNG=frozen-probe   # T0 reproducibility
-make eval-from-hub RUNG=lora           # T0 reproducibility
-make headline-cloud  # T1 GPU re-eval (frozen-probe + LoRA + full-FT)
-make site            # Quarto static site → _site/
+make site             # render Quarto site
+make audit            # regenerate/check ADR-derived submission audit
+make render-figures   # render canonical F1-F5 figures from evals/
+make headline-cloud   # optional full cloud reproduction path
 ```
 
-See `docs/REPRODUCIBILITY.md` for the T0 + T1 reproducibility tiers + full
-Makefile target list.
+## Repository Map
+
+| Path | Role |
+|---|---|
+| `index.qmd` | plain-language live-site landing page |
+| `EXECUTIVE_SUMMARY.md` | one-page decision-maker summary |
+| `RESULTS.md` | exact result grids, figures, raw artifacts |
+| `WRITEUP.md` + `WRITEUP/` | methodology hub and detailed spokes |
+| `evals/` | canonical metrics, bootstrap artifacts, predictions |
+| `docs/plots/` | canonical reviewer figures F1-F5 plus provenance sidecars |
+| `decisions/` | Architecture Decision Records |
+| `src/`, `scripts/`, `tests/` | implementation and verification code |
+
+## What It Does Not Claim
+
+This does not cover multilingual attacks, encoded payloads, paraphrase
+robustness, adversarial perturbations, or full multi-turn system behavior. It
+is an evaluation artifact and a negative result, not a ready-to-ship detector.
 
 ## License
 
-[MIT](./LICENSE).
+[MIT](./LICENSE)
