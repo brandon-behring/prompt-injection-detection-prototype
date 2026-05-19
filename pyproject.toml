@@ -44,6 +44,12 @@ dependencies = [
     # GPU cost burned) — adding the dep here makes the pod's `uv sync --extra dev`
     # install it on next fire. ModernBERT uses a BPE tokenizer that doesn't need it.
     "sentencepiece>=0.2",
+    # transformers' SentencePieceExtractor (slow->fast tokenizer conversion path)
+    # invokes `requires_backends(self, "protobuf")` independent of sentencepiece;
+    # protobuf is needed to PARSE the spm.model file. Surfaced as a second
+    # ImportError on fire 1 retry-3 (after sentencepiece was already added).
+    # Both deps required by DeBERTa-v3-base tokenizer load via AutoTokenizer.
+    "protobuf>=4.0",
     # Phase 3 (Evaluation) deps per ADR-018 + ADR-045 — reference scorers + pydantic contracts.
     # pydantic v2 used for src/eval/schemas.py per ADR-045 Q7.
     "pydantic>=2.5",
