@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-preview clean \
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-audit site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
@@ -74,18 +74,22 @@ audit:
 audit-leakage:
 	uv run python scripts/audit_leakage.py --check
 
-# v1.0.7 — render 4 jupytext-paired notebooks to .ipynb with frozen output cells.
+# v1.2.8 — render 4 folder-paired Jupytext notebooks to .ipynb with frozen output cells.
 # Per /exploring-options batch 9 Q2 lock: pre-rendered + frozen output cells;
 # CI does NOT re-execute. Operators re-run this locally when data changes.
 notebooks:
-	uv run jupytext --to ipynb notebooks/01_canonical_results.py
-	uv run jupytext --to ipynb notebooks/02_frozen_vs_lora.py
-	uv run jupytext --to ipynb notebooks/03_calibration.py
-	uv run jupytext --to ipynb notebooks/04_ood_slate.py
+	uv run jupytext --sync notebooks/01_canonical_results.ipynb
+	uv run jupytext --sync notebooks/02_frozen_vs_lora.ipynb
+	uv run jupytext --sync notebooks/03_calibration.ipynb
+	uv run jupytext --sync notebooks/04_ood_slate.ipynb
 	uv run jupyter nbconvert --to notebook --execute notebooks/01_canonical_results.ipynb --inplace
 	uv run jupyter nbconvert --to notebook --execute notebooks/02_frozen_vs_lora.ipynb --inplace
 	uv run jupyter nbconvert --to notebook --execute notebooks/03_calibration.ipynb --inplace
 	uv run jupyter nbconvert --to notebook --execute notebooks/04_ood_slate.ipynb --inplace
+	uv run jupytext --sync notebooks/01_canonical_results.ipynb
+	uv run jupytext --sync notebooks/02_frozen_vs_lora.ipynb
+	uv run jupytext --sync notebooks/03_calibration.ipynb
+	uv run jupytext --sync notebooks/04_ood_slate.ipynb
 
 # v1.0.7 — export analysis CSVs to analysis/v<version>_canonical/.
 # Per NEXT_STEPS §1.2 + /exploring-options batch 9 Q3 lock (1:1 mirror).
@@ -129,6 +133,12 @@ eval-from-hub:
 # stub values to satisfy the validator per Item 2 Q7 lock (v1.0.0 closure sweep).
 site:
 	HF_TOKEN=stub RUNPOD_API_KEY=stub OPENAI_API_KEY=stub quarto render
+
+# `make site-audit` — hard rendered-site gate for GH Pages publish quality.
+# Fails on raw Markdown/notebook copies, missing notebook HTML pages, or rendered
+# internal links that still point at .md/.ipynb sources.
+site-audit:
+	uv run python scripts/audit_rendered_site.py
 
 # `make site-preview` — live-reload dev server for local Quarto preview.
 site-preview:

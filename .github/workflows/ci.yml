@@ -67,6 +67,25 @@ jobs:
       - name: regenerate_audit.py --check
         run: uv run python scripts/regenerate_audit.py --check
 
+  site-render:
+    name: rendered site audit (hard gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+      - name: install uv
+        run: pip install uv
+      - name: install deps
+        run: uv sync --extra dev --extra notebook
+      - name: render site
+        run: make site
+      - name: audit rendered site
+        run: make site-audit
+
   leakage:
     name: leakage_report.leakage_clean=True (hard gate; v1.0.6 + per §1.5 + ADR-039 gate 3 intent)
     runs-on: ubuntu-latest

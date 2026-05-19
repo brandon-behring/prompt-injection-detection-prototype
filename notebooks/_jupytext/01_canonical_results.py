@@ -1,12 +1,12 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: ipynb,py:percent
+#     formats: notebooks//ipynb,notebooks/_jupytext//py:percent
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.17.3
+#       jupytext_version: 1.19.3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -16,7 +16,7 @@
 # %% [markdown]
 # # 01 — Canonical results
 #
-# Headline characterization table per the canonical submission:
+# Headline characterization table per the v1.0.x submission:
 # 5-rung × 3-multi-class-slice AUPRC + AUROC grid sourced from
 # `evals/bootstrap/marginal_cells.parquet` (BCa CI, 10000
 # resamples; seed=1 headline + seed=2 stability check 0/40
@@ -186,7 +186,7 @@ print(prevalence_table.to_string())
 # %% [markdown]
 # ## Reference: see also
 #
-# - **`RESULTS.md`** — full 5-rung × 5-slice grid with N/A markers on single-class cells; embedded figures F1-F7; raw-data blob URLs at `tree/v1.0.5/evals/`.
+# - **`RESULTS.md`** — full 5-rung × 5-slice grid with N/A markers on single-class cells; reviewer-facing figures F1-F5; raw-data blob URLs at `tree/v1.0.5/evals/`.
 # - **`02_frozen_vs_lora.ipynb`** — paired-bootstrap rung-comparison (the source for the LoRA -0.071 delta + CI).
 # - **`03_calibration.ipynb`** — reliability + ECE per rung.
 # - **`04_ood_slate.ipynb`** — per-slice IID-vs-OOD gap visualization.

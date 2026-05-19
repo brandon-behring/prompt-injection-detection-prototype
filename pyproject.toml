@@ -88,8 +88,9 @@ notebook = [
     "ipykernel>=6.30",
 ]
 
-[tool.jupytext]
-formats = "ipynb,py:percent"
+[tool.jupytext.formats]
+"notebooks/" = "ipynb"
+"notebooks/_jupytext/" = "py:percent"
 
 # Pin torch to a CUDA-12.8 wheel via the pytorch-cu128 index.
 # RunPod pods (as of 2026-05) support CUDA up to 12.8; newer torch wheels
@@ -109,9 +110,9 @@ torch = { index = "pytorch-cu128" }
 
 [tool.ruff]
 line-length = 100
-# v1.0.7: notebooks/*.py are jupytext-paired percent-format scripts;
-# cells can have local imports (E402) and other notebook-friendly
-# patterns that don't fit module-style code. ruff scans skip these.
+# v1.2.8: notebooks/_jupytext/*.py are jupytext-paired percent-format
+# scripts; cells can have local imports (E402) and other notebook-friendly
+# patterns that don't fit module-style code. ruff scans skip notebooks/.
 extend-exclude = ["notebooks"]
 
 [tool.mypy]
@@ -126,6 +127,7 @@ exclude = [
     "data/raw/.*",
     "data/processed/.*",
     ".hf_cache/.*",
+    "_site/.*",
     # v1.0.7: notebooks are jupytext-paired exploratory artifacts;
     # cells use untyped pandas/numpy operations + are pre-rendered
     # with frozen output cells per /exploring-options batch 9 Q2 lock.

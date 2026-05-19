@@ -5,9 +5,11 @@ project:
   # ADRs + README + CHANGELOG) + Item 9.B4 of v1.0.1 polish
   # (SPEC_SHEET + SUBMISSION_AUDIT + NEXT_STEPS + assumptions +
   # upstream_issues — previously auto-copied as raw .md, now rendered).
-  # Excludes transcripts/, data/raw/git/**, evals/, configs/, src/,
-  # scripts/, tests/, and the rest of docs/ from rendered output;
-  # those remain reachable via in-text repo links from spokes.
+  # v1.2.8 hardening adds top-level docs/*.md plus root agent/reference docs
+  # that previously leaked as raw Markdown on the live site. Excludes
+  # transcripts/, data/raw/git/**, evals/, configs/, src/, scripts/, tests/,
+  # and private scratch notes from rendered output; source artifacts remain
+  # reachable through intentional repo links.
   render:
     - index.qmd
     - README.md
@@ -22,14 +24,25 @@ project:
     - SUBMISSION_AUDIT.md
     - NEXT_STEPS.md
     - assumptions.md
+    - CLAUDE.md
+    - code_quality.md
+    - docs/*.md
     - decisions/README.md
+    - decisions/library_imports.md
     - decisions/ADR-*.md
     - decisions/upstream_issues.md
     # v1.0.7 — pre-rendered + frozen-output-cell notebooks per
     # /exploring-options batch 9 Q2 lock. Quarto renders the
-    # .ipynb files as static HTML; output cells remain frozen
-    # (CI does not re-execute). Operator regen via `make notebooks`.
-    - notebooks/*.ipynb
+    # .ipynb files as static HTML; output cells remain frozen and
+    # non-executing during site render. Operator regen via `make notebooks`.
+    - notebooks/01_canonical_results.ipynb
+    - notebooks/02_frozen_vs_lora.ipynb
+    - notebooks/03_calibration.ipynb
+    - notebooks/04_ood_slate.ipynb
+
+execute:
+  enabled: false
+  freeze: true
 
 website:
   title: "Prompt-injection classifier evaluation"
@@ -137,3 +150,4 @@ format:
     code-fold: false
     code-tools: true
     link-external-newwindow: true
+    citeproc: false

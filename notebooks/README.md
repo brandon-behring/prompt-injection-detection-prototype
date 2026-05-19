@@ -2,21 +2,24 @@
 
 Phase 2+ demo / exploratory / paper-figure notebooks. Empty at seed; populated as analysis lands.
 
-## Convention: jupytext paired files
+## Convention: folder-paired Jupytext files
 
 Notebooks are paired bidirectionally with `.py` percent-script files via `jupytext`. Each notebook has two committed forms:
 
-- **`<name>.ipynb`** — the executable notebook; outputs stripped before commit via `nbstripout` pre-commit hook
-- **`<name>.py`** — Python percent-script (`# %%` cell markers) auto-generated from the .ipynb; gives reviewable diffs for notebook logic
+- **`<name>.ipynb`** — the executable notebook under `notebooks/`; outputs are intentionally committed frozen for the four reviewer-facing analysis appendices
+- **`_jupytext/<name>.py`** — Python percent-script (`# %%` cell markers) auto-generated from the .ipynb; gives reviewable diffs for notebook logic
 
 The format pairing is declared in `pyproject.toml`:
 
 ```toml
-[tool.jupytext]
-formats = "ipynb,py:percent"
+[tool.jupytext.formats]
+"notebooks/" = "ipynb"
+"notebooks/_jupytext/" = "py:percent"
 ```
 
-Editing either file updates the other automatically (when jupytext is installed; `pip install -e ".[notebook]"` or `uv sync --extra notebook`).
+Editing either file updates the other automatically when Jupytext is installed
+(`uv sync --extra notebook`). Run `make notebooks` to regenerate the frozen
+outputs from committed evaluation artifacts.
 
 ## CI gating
 
@@ -41,11 +44,11 @@ uv sync --extra notebook
 # 2. Create the notebook
 jupyter notebook notebooks/NN_my_notebook.ipynb
 
-# 3. First save: jupytext auto-generates the paired .py
+# 3. First save/sync: jupytext auto-generates the paired _jupytext/*.py
 #    Subsequent edits to either file sync to the other
 
 # 4. Pre-commit strips outputs and runs the standard hooks
-git add notebooks/NN_my_notebook.{ipynb,py}
+git add notebooks/NN_my_notebook.ipynb notebooks/_jupytext/NN_my_notebook.py
 git commit -m "feat: NN_my_notebook — <one-line description>"
 ```
 

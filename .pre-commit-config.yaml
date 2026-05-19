@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
-        # v1.0.7: notebooks/*.py are jupytext-paired exploratory scripts;
+        # v1.2.8: notebooks/_jupytext/*.py are jupytext-paired exploratory scripts;
         # cells legitimately have non-top-level imports (E402) etc.
         # See pyproject.toml [tool.ruff] extend-exclude for the direct-
         # invocation equivalent.
@@ -31,7 +31,7 @@ repos:
             "anthropic>=0.40",
           ]
         args: [--strict]
-        # v1.0.7: notebooks/ are jupytext-paired exploratory code with
+        # v1.2.8: notebooks/ are folder-paired Jupytext exploratory code with
         # untyped pandas/numpy operations; pyproject.toml [tool.mypy]
         # exclude already lists them but pre-commit invokes mypy with
         # explicit file paths so a hook-level exclude is also needed.

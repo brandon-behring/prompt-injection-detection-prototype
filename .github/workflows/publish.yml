@@ -30,15 +30,26 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render and publish to GH Pages
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: install uv
+        run: pip install uv
+
+      - name: install deps
+        run: uv sync --extra dev --extra notebook
+
+      - name: Render site
+        run: make site
+
+      - name: Audit rendered site
+        run: make site-audit
+
+      - name: Publish rendered site to GH Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          render: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Quarto's dotenv loader treats .env.example as a hard-required env-var
-          # manifest at render time. Render itself is a pure static-doc step;
-          # provide stubs so CI doesn't need real secrets (Item 2 Q7 lock).
-          HF_TOKEN: stub
-          RUNPOD_API_KEY: stub
-          OPENAI_API_KEY: stub
