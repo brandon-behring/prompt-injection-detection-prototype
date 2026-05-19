@@ -16,7 +16,7 @@
 # %% [markdown]
 # # 01 — Canonical results
 #
-# Headline characterization table per the v1.0.x submission:
+# Headline characterization table per the canonical submission:
 # 5-rung × 3-multi-class-slice AUPRC + AUROC grid sourced from
 # `evals/bootstrap/marginal_cells.parquet` (BCa CI, 10000
 # resamples; seed=1 headline + seed=2 stability check 0/40

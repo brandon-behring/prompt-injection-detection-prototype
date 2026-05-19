@@ -266,11 +266,39 @@ infrastructure errors:
 ### References
 
 - Methodology lock: [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md).
-- Cost discipline: [ADR-020](decisions/ADR-020-runpod-orchestration-and-cost-discipline.md).
-- Single-class slice handling: [ADR-006](decisions/ADR-006-single-seed-protocol-for-comparative-claims.md).
+- Cost discipline: [ADR-020](decisions/ADR-020-compute-infrastructure-and-cost-discipline.md).
+- Single-class slice handling: [ADR-006](decisions/ADR-006-headline-metrics-and-statistical-apparatus.md).
 - Reviewer URL pin: `tree/v1.0.0` unchanged per
   [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
   Live Quarto site reflects v1.1.2.
+
+### Postscript (added in v1.1.4)
+
+Documentation-consistency audit at v1.1.4 surfaced **7 broken ADR slug
+references** in immutable ADR files (cannot be edited per ADR-029
+immutability discipline). Canonical-correct slugs documented here for
+readers who hit a 404 when clicking the in-ADR cross-refs:
+
+- ADR-006 actual filename: `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`
+  - Broken refs in: ADR-046:15,195; ADR-048:16,194 (cite as
+    `ADR-006-headline-metrics-and-statistical-floor.md`); ADR-063:60,268
+    (cite as `ADR-006-single-seed-protocol-for-comparative-claims.md`).
+- ADR-020 actual filename: `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md`
+  - Broken refs in: ADR-059:47; ADR-060:64; ADR-063:62,274 (all cite as
+    `ADR-020-runpod-orchestration-and-cost-discipline.md`).
+
+ADR-063 also contains a stale cumulative-cost figure: `$9.92 /
+ADR-020 $200 hard cap`. The v1.1.2 GPU spend is correctly cited
+elsewhere as `$1.34`. Cumulative cost across the full
+`evals/cost_ledger.csv` is higher than $9.92 (the figure in ADR-063 was
+calculated from a subset of pod rows); future v1.x patches should
+consult `evals/cost_ledger.csv` for the canonical sum rather than
+re-quote ADR-063's figure.
+
+These errors are recorded in [ADR-064](decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md)
+§D (lands at v1.2.0). The CI markdown-link-checker introduced at
+v1.1.4 (lychee pre-commit hook) prevents recurrence of the slug-link
+class of errors going forward.
 
 ---
 

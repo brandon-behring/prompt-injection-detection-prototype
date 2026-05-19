@@ -112,11 +112,11 @@ Things that would require rethinking the project's design rather than extending 
 *Why*: source-disjoint k=3 LODO with calibrated MiniLM-style semantic dedup + TF-IDF same-label hard gate + cross-label warn gate is the gold-standard data discipline. The seed locks the discipline; full pipeline + per-fold leakage audit could land at Phase 1+.
 *What the project was missing*: time to set up the full dedup-calibration loop + leakage-audit pipeline within scope.
 
-### 2.4 Refactor F1/F2/F5 figures to use upstream eval-toolkit plot_* primitives (v1.1.1+)
+### 2.4 Refactor F1/F2/F5 figures to use upstream eval-toolkit plot_* primitives (v1.2.0+)
 
 *Why*: library-first invariant. eval-toolkit v0.36+ shipped `plot_roc_curve` (#14; F2 source), `plot_pareto_frontier` (#15; F1 source), `plot_slice_metric_heatmap` (#16; F5 source) — exactly the figure types our hand-rolled implementations cover at `src/eval/figures.py::render_f1_pareto` / `render_f2_roc_overlay` / `render_f5_per_slice_heatmap`. Deferred from v1.0.7 to avoid scope creep on the notebook patch.
 *Scope*: replace 3 hand-rolled rendering functions with upstream primitive calls; delete the local implementations (no-orphaned-code invariant); re-render F1/F2/F5 to verify visual parity. ~2 hours.
-*Trigger*: next figure regen need (e.g., post-DeBERTa-ablation re-render that pulls F5 per-slice heatmap with the 6th rung in scope) OR v1.1.1 polish patch (whichever lands first).
+*Trigger*: next figure regen need (e.g., post-DeBERTa-ablation re-render that pulls F5 per-slice heatmap with the 6th rung in scope) OR v1.2.0+ polish patch (whichever lands first). Note: v1.1.1 was consumed by ADR-061 (Quarto navigation restructure) so the original "v1.1.1 polish patch" plan shifted; the canonical-figures rewrite at v1.1.3 (ADR-062) already adopted several library primitives, narrowing this future-work item.
 *Status (v1.0.6)*: deferred per /exploring-options batch 8 Q4 lock.
 
 ---
