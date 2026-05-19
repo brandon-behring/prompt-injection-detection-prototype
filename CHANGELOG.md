@@ -77,9 +77,10 @@ Postscript for reader-visibility; the others are patched here.
 Added inline below the v1.1.2 References block. Documents the 7 broken
 ADR slug refs in immutable ADRs (ADR-046:15,195; ADR-048:16,194;
 ADR-059:47; ADR-060:64; ADR-063:60,62,268,274) that cannot be edited
-per ADR-029 immutability discipline. Canonical-correct slugs listed
-inline so readers who hit a 404 from in-ADR cross-refs can find the
-right target. Also flags ADR-063's stale cumulative-cost figure
+per the project ADR-discipline (CLAUDE.md: "ADRs are immutable;
+supersede via new ADR"). Canonical-correct slugs listed inline so
+readers who hit a 404 from in-ADR cross-refs can find the right
+target. Also flags ADR-063's stale cumulative-cost figure
 (`$9.92`) and directs readers to `evals/cost_ledger.csv` for the
 canonical sum.
 
@@ -97,8 +98,10 @@ landing page).
 - Audit findings: full-repo markdown audit (Stage 2 Commit 1 of the
   v1.1.3→v1.2.0 plan; audit work product captured in-session, not
   committed).
-- ADR-029 (ADR immutability discipline — explains why the 7 broken
-  refs in immutable ADRs must be flagged-not-fixed).
+- CLAUDE.md project ADR-discipline (explains why the 7 broken refs in
+  immutable ADRs must be flagged-not-fixed; older CHANGELOG entries
+  cite "ADR-029" but the actual ADR-029 is about test markers — the
+  immutability rule lives in CLAUDE.md).
 - ADR-033 (reviewer URL pin `tree/v1.0.0` unchanged; live Quarto site
   reflects v1.1.4).
 - Pre-existing CI: `ci.yml` (pre-commit + tests + audit) + `publish.yml`
@@ -364,8 +367,9 @@ infrastructure errors:
 ### Postscript (added in v1.1.4)
 
 Documentation-consistency audit at v1.1.4 surfaced **7 broken ADR slug
-references** in immutable ADR files (cannot be edited per ADR-029
-immutability discipline). Canonical-correct slugs documented here for
+references** in immutable ADR files (cannot be edited per the
+project ADR-discipline; CLAUDE.md states: "ADRs are immutable;
+supersede via new ADR"). Canonical-correct slugs documented here for
 readers who hit a 404 when clicking the in-ADR cross-refs:
 
 - ADR-006 actual filename: `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`

@@ -22,8 +22,9 @@ claim: >-
   fixes; sub-commits = logical (6 commits); full-repo audit + 3-stage
   release shape (v1.1.3 baseline + v1.1.4 consistency-only + v1.2.0
   heavy pass); ADR-063 fact-correction via CHANGELOG postscript + this
-  ADR §D narrative flag (lightest ceremony respecting ADR-029
-  immutability); markdown-link-checker pre-commit prophylaxis (CI
+  ADR §D narrative flag (lightest ceremony respecting the project
+  ADR-discipline per CLAUDE.md "ADRs are immutable; supersede via new
+  ADR"); markdown-link-checker pre-commit prophylaxis (CI
   only; no local pre-commit hook to avoid contributor friction); no
   companion technical-reviewer landing page (READING_GUIDE.md already
   serves that role). The 3-audit findings + locked decisions produce a
@@ -32,7 +33,7 @@ claim: >-
   glossing invariant + spoke skim signposts + table/plot context +
   DeBERTa §1B + figure caption + SVG axis-label refinements +
   hiring-manager landing) AND documentation-wide consistency invariants
-  (canonical terminology table + ADR-029-immutable broken-slug-ref +
+  (canonical terminology table + project-ADR-discipline-immutable broken-slug-ref +
   cumulative-cost-figure flag for 5 prior ADRs).
 source: transcripts/2026-05-19__v1-2-0-writeup-clarity-and-consistency.md (private; emailed at submission)
 acceptance_criterion: >-
@@ -66,8 +67,8 @@ closing_commit: v1.2.0
 supersedes: []
 superseded_by: []
 references:
-  - decisions/ADR-029-adr-immutability-and-supersession-discipline.md
-  - decisions/ADR-030-quarto-html-site-via-github-actions.md
+  - CLAUDE.md  # project ADR-discipline (immutability + supersession)
+  - decisions/ADR-030-deliverable-format-quarto-html-site.md
   - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md
   - decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md
   - decisions/ADR-061-quarto-site-navigation-restructure.md
@@ -309,10 +310,17 @@ patches that introduce broken markdown links will fail CI.
 ignoring; only add an ignore when a URL is verified-good for humans
 but 403s bots.
 
-## §D Known errors in prior ADRs (flagged-not-fixed per ADR-029 immutability)
+## §D Known errors in prior ADRs (flagged-not-fixed per project ADR-discipline)
 
 The full-repo audit at v1.1.4 surfaced 9 broken ADR slug references
-across 5 immutable ADR files. These cannot be edited per ADR-029.
+across 5 immutable ADR files. These cannot be edited per the project
+ADR-discipline (CLAUDE.md: "ADRs are immutable; supersede via new
+ADR"). Note: the project's older CHANGELOG entries cite "ADR-029" as
+the immutability ADR, but the actual ADR-029 file is about test-marker
+strategy; the immutability rule lives in CLAUDE.md / `decisions/README.md`.
+That historical drift is itself a documentation-consistency issue not
+in v1.2.0 scope; future patches may add a narrow "immutability ADR"
+clarification.
 Canonical-correct slugs documented here for readers who hit a 404
 when clicking the in-ADR cross-refs:
 
@@ -383,9 +391,12 @@ markdown surface.
 ## Linked ADRs
 
 - **References**:
-  - [ADR-029](./ADR-029-adr-immutability-and-supersession-discipline.md)
-    — immutability discipline (motivates §D flagged-not-fixed pattern).
-  - [ADR-030](./ADR-030-quarto-html-site-via-github-actions.md) —
+  - `CLAUDE.md` — project ADR-discipline (immutability + supersession;
+    motivates §D flagged-not-fixed pattern). (Historical note: older
+    CHANGELOG entries cite "ADR-029" for immutability; the actual
+    ADR-029 file is about test markers — the immutability rule lives
+    in CLAUDE.md.)
+  - [ADR-030](./ADR-030-deliverable-format-quarto-html-site.md) —
     Quarto site infrastructure.
   - [ADR-033](./ADR-033-github-release-strategy-rehearsal-plus-submission.md)
     — reviewer URL pin `tree/v1.0.0` (unchanged at v1.2.0).

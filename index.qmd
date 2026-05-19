@@ -45,6 +45,8 @@ to show useful ranking signal.
 | ModernBERT LoRA | 0.293 | [0.286, 0.301] | Fine-tuning hurt OOD ranking |
 | TF-IDF + LR | 0.291 | [0.283, 0.298] | Classical floor, roughly tied with LoRA |
 
+> *Reading the table*: **Pooled OOD AUPRC** is the area under the precision-recall curve on the combined out-of-distribution (OOD) test slices — five held-out attack and benign sources (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) that no detector saw during training. A random ranking on this slate scores ≈ **0.374** (the positive-class prevalence, 412/1101). Any detector at or below the random floor is not clearly better than guessing. The 95% confidence interval (CI) width is the noise floor for a comparison; if two detectors' CIs overlap heavily, the difference between them is not statistically meaningful.
+
 ## What This Means
 
 1. **The failure is cross-family.** The models saw direct prompt injections in

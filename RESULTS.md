@@ -8,6 +8,8 @@ description: "Canonical results page for the prompt-injection classifier evaluat
 This page is the evidence layer behind the landing page. It gives exact values,
 five canonical figures, and pointers to the raw artifacts that produced them.
 
+> *How to read this page*: scan the **Metric Primer** (§Metric Primer below) if AUPRC or confidence intervals are new. Then **§1 Primary Table** is the headline number; **§1B** answers the natural follow-up question (does a bigger backbone fix the OOD gap?); **§2–§5** drill into the specific findings (frozen-probe vs LoRA delta; per-slice view; threshold transfer; calibration). **§6 AUROC** is reported for comparison with prior work. **§7 Raw Artifacts** is for readers who want to verify or extend the analysis.
+
 ## Metric Primer
 
 - **AUPRC** is the primary metric. It measures whether positives are ranked
@@ -27,6 +29,8 @@ five canonical figures, and pointers to the raw artifacts that produced them.
 Source: `evals/bootstrap/marginal_cells.parquet`, seed=1, BCa bootstrap with
 10000 resamples. Single-class slices are marked `N/A` because AUPRC requires
 both positives and negatives.
+
+> *Reading this table*: the headline column is **Pooled OOD AUPRC** (the rightmost binary-class column with both positives and negatives). A random ranking on Pooled OOD scores ≈ **0.374** — any detector at or below that floor is not clearly better than guessing. Per-slice columns (JBB, XSTest) refine the picture: a detector might be strong on one OOD family and weak on another. **What to look at**: (1) the magnitude of pooled OOD AUPRC vs the random floor; (2) the width of the 95% CI (a wide CI means low statistical confidence in the point estimate); (3) the cross-detector ordering on pooled OOD.
 
 | Detector \ Slice | JBB (100p/100n) | XSTest (200p/250n) | Pooled OOD (412p/689n) | BIPIA | InjecAgent | NotInject |
 |---|---:|---:|---:|---:|---:|---:|
@@ -146,7 +150,7 @@ metric because this task is imbalanced.
 
 ## 7. Raw Artifacts
 
-The tables and figures above are derived from committed artifacts:
+If you want to verify the numbers above or do your own slice / threshold / calibration analysis, the raw evaluation artifacts are committed under `evals/`. You do not need these to understand the results — the tables and figures above are sufficient — but they are here if you want to audit the math, re-render the figures, or extend the analysis. All five figures (F1–F5) record their source-artifact paths in the per-figure `.meta.json` sidecars next to the SVGs in `docs/plots/`.
 
 | Artifact | Role |
 |---|---|

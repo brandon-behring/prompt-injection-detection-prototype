@@ -10,8 +10,8 @@ below for readers who want the full audit trail.
 
 | Spoke | What It Covers |
 |---|---|
-| [Data decisions](./WRITEUP/data-decisions.md) | source slate, deduplication, leakage handling, LODO splits |
-| [Model details](./WRITEUP/model-rungs.md) | TF-IDF + LR, frozen probe, LoRA, full fine-tune status, ProtectAI references |
+| [Data decisions](./WRITEUP/data-decisions.md) | source slate, deduplication, leakage handling, leave-one-dataset-out (LODO) splits |
+| [Model details](./WRITEUP/model-rungs.md) | TF-IDF + LR, frozen-probe, LoRA, full-FT status, ProtectAI references (older decision records call these "rungs"; reader-facing prose uses "detector"; see the [glossary](./docs/GLOSSARY.md#rung--detector-clarifier)) |
 | [Evaluation design](./WRITEUP/eval-design.md) | AUPRC/AUROC, confidence intervals, calibration, out-of-distribution (OOD) slate |
 | [Threshold policy](./WRITEUP/threshold-policy.md) | detection and verification thresholds |
 | [Reference-scorer audit](./WRITEUP/reference-scorer-audit.md) | contamination caveats for published detectors |
