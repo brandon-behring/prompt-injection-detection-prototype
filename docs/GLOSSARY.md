@@ -41,17 +41,18 @@ A controlled experiment that removes or varies one factor while holding everythi
 
 ## ADR (Architecture Decision Record)
 
-A single locked decision in Michael Nygard format: Status / Context / Decision / Consequences / Alternatives Considered. **Immutable**, with three narrow exceptions (see [Immutability relaxation — three factual-defect classes](#immutability-relaxation--three-factual-defect-classes) below). See `decisions/README.md` for the lifecycle + `decisions/ADR_TEMPLATE.md` for the schema.
+A single locked decision in Michael Nygard format: Status / Context / Decision / Consequences / Alternatives Considered. **Immutable**, with four narrow exceptions (see [Immutability relaxation — four narrow exception classes](#immutability-relaxation--four-narrow-exception-classes) below). See `decisions/README.md` for the lifecycle + `decisions/ADR_TEMPLATE.md` for the schema.
 
-## Immutability relaxation — three factual-defect classes
+## Immutability relaxation — four narrow exception classes
 
-Per [ADR-067](../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) (added at v1.2.2) + [ADR-068](../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) (added at v1.2.6) + [ADR-069](../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) (added at v1.2.6): the ADR-immutability rule (CLAUDE.md: *"ADRs are immutable; supersede via new ADR"*) has THREE narrow exceptions covering distinct factual-defect classes:
+Per [ADR-067](../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) (added at v1.2.2) + [ADR-068](../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) (added at v1.2.6) + [ADR-069](../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) (added at v1.2.6) + [ADR-070](../decisions/ADR-070-quarto-render-only-markdown-corrections.md) (added at v1.2.8): the ADR-immutability rule (CLAUDE.md: *"ADRs are immutable; supersede via new ADR"*) has FOUR narrow exceptions covering distinct factual-defect / render-defect classes:
 
 1. **Cross-reference slug filename typos** (per ADR-067) — a slug pointing at a wrong-but-existing canonical file in `decisions/`. Wrong slug example (cite as broken refs): `decisions/ADR-006-headline-metrics-and-statistical-floor.md` → `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`.
 2. **Broken external references** (per ADR-068) — markdown links pointing at local-filesystem paths (`/home/<author>/...`, `../../../.claude/...`) or aspirational upstream resources (URLs returning 404 from the upstream repo). Cannot resolve on any non-author machine; surfaced by the lychee CI introduced at v1.1.4 but non-functional until v1.2.4.
 3. **Publisher-URL → DOI canonicalization** (per ADR-069) — academic publisher landing-page URLs (sage/tandf/jstor/dl.acm) that 403 unauthenticated CI bots may be replaced with `doi.org/<DOI>` equivalents. Same paper; same author-year citation; academic-canonical + bot-friendly identifier.
+4. **Render-only Markdown syntax corrections** (per ADR-070) — delimiter-only or equivalent markup fixes required for faithful Quarto rendering, with visible decision content unchanged.
 
-All three classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections. ALL other content (numeric values, methodology decisions, prose, alternatives considered, non-slug frontmatter fields, table content) remains immutable per the existing rule — change requires a superseding ADR. The narrow exceptions do NOT establish a slippery slope; ADR-067 §B + ADR-068 §B + ADR-069 §B explicitly enumerate in-scope vs out-of-scope changes for each class.
+All four classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections. ALL other content (numeric values, methodology decisions, prose, alternatives considered, non-slug frontmatter fields, table content) remains immutable per the existing rule — change requires a superseding ADR. The narrow exceptions do NOT establish a slippery slope; ADR-067 §B + ADR-068 §B + ADR-069 §B + ADR-070 explicitly enumerate in-scope vs out-of-scope changes for each class.
 
 ## AUPRC
 

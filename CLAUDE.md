@@ -57,9 +57,9 @@ Each locked decision produces:
 The **ADR is the source of truth**. ADRs are immutable; supersede via new
 ADR marking prior `status: superseded-by-NNN`.
 
-**Narrow exceptions** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) + [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) + [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md)):
-THREE factual-defect classes MAY be corrected in-place with a commit
-message citing the relevant ADR + listing per-file corrections:
+**Narrow exceptions** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) + [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) + [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) + [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md)):
+FOUR factual-defect / render-defect classes MAY be corrected in-place
+with a commit message citing the relevant ADR + listing per-file corrections:
 
 1. **Cross-reference slug filename typos** (per ADR-067) — a slug
    pointing at a wrong-but-existing canonical file in `decisions/`.
@@ -74,6 +74,9 @@ message citing the relevant ADR + listing per-file corrections:
    `dl.acm.org/doi/<DOI>`) that 403 unauthenticated CI bots MAY be
    canonicalized to `doi.org/<DOI>` (the academic-canonical
    bot-friendly identifier; same paper, more durable).
+4. **Render-only Markdown syntax corrections** (per ADR-070) — delimiter
+   or equivalent markup fixes required for faithful Quarto rendering,
+   with visible decision content unchanged.
 
 ALL other content (numeric values, methodology, prose, alternatives,
 non-slug frontmatter, table data) remains immutable per the rule above.

@@ -97,7 +97,7 @@ Tolerance for "score match": per-row prediction equality is too strict (differen
 
 **`WRITEUP/reproducibility.md`** spoke (slotted by ADR-031; full content at Phase 5) carries the tier-ladder documentation:
 
-```markdown
+````markdown
 # Reproducibility
 
 This submission documents three tiers of reproduction, ordered by cost.
@@ -135,7 +135,7 @@ make headline-cloud
 | T0 | "Are the published scores legit?" | Most reviewers |
 | T1 | "Does the code run?" | Quick sanity check |
 | T3 | "Does the training pipeline reproduce?" | Deep-audit reviewers |
-```
+````
 
 **Mapping to ACM artifact badging** (https://www.acm.org/publications/policies/artifact-review-and-badging-current):
 - T0 + T1 supply *Artifacts Available* + *Functional* + *Reusable* badges.
