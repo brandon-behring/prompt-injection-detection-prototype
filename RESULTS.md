@@ -53,6 +53,54 @@ floor.
 **What F1 does not show:** deployment readiness, per-slice behavior, or whether
 single-class slices were caught at a fixed threshold.
 
+## §1B Ablation: does a longer-context backbone fix the OOD gap?
+
+The headline table at §1 shows ModernBERT's frozen-probe (8192-token native
+attention window) leading the in-house detectors at pooled OOD AUPRC 0.364
+— but still essentially at the random floor (0.374). A natural follow-up
+question: *would a different short-context backbone do better with the right
+truncation handling, or is the OOD gap really about the architecture itself?*
+
+The v1.1.2 medium ablation per [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)
+trains DeBERTa-v3-base (184M params; 512-token native attention) twice with
+2 truncation strategies, fold 0 / seed 42 only:
+
+- **chunk-and-average**: tokenize the full text; emit 512-token windows with
+  stride 256 (50% overlap); per-window forward pass; average per-window
+  class-1 softmax probabilities → final score.
+- **head-truncation**: tokenize the full text; take the first 512 tokens; standard
+  single-window forward pass.
+
+If the ModernBERT advantage at §1 came from its long context window,
+chunk-and-average (which gives DeBERTa access to the full text) should beat
+head-truncation by a wide margin. If the advantage is architectural, the two
+strategies should look similar.
+
+| DeBERTa-v3-base strategy | JBB (100p/100n) AUPRC | XSTest (200p/250n) AUPRC | Pooled OOD (412p/689n) AUPRC |
+|---|---:|---:|---:|
+| chunk-and-average  | 0.486 | 0.397 | **0.291** |
+| head-truncation    | 0.489 | 0.391 | **0.290** |
+
+**What §1B shows:** the two truncation strategies produce essentially
+identical per-slice metrics across the 5-slice OOD slate. Long context (the
+chunk-and-average path) provides no measurable benefit over head-truncation
+on this slate.
+
+**What §1B does not show:** DeBERTa-v3-base does not beat ModernBERT's
+frozen-probe (0.364 pooled OOD AUPRC) — both DeBERTa strategies score ~20%
+lower. The headline ladder ordering at §1 is preserved.
+
+**Interpretation:** by the ADR-060 confound-control reading, the ModernBERT
+advantage on the headline ladder is **backbone-dominant**, not
+context-window-dominant. A bigger context window alone does not close the
+OOD generalization gap on this slate — it is the architecture (and/or
+pre-training pretext) that matters. The DeBERTa-vs-ModernBERT residual gap
+that *remains* (~0.29 vs 0.36) has its own confounds (backbone size,
+pre-training data, tokenizer family) that this ablation does not separate;
+see [WRITEUP/limitations-and-future-work.md §9.2](WRITEUP/limitations-and-future-work.md#92-architectures-evaluated-and-dropped)
+for the residual-confound discussion. See [ADR-063](decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md)
+for the execution record + actual GPU spend ($1.34 of the $5-7 envelope).
+
 ## 2. Frozen Probe vs LoRA
 
 The frozen probe uses the pretrained ModernBERT backbone without task-specific

@@ -1,11 +1,11 @@
 {
   "adr": "ADR-062",
-  "commit_sha": "a34128b02cd0d34a45f508f63cd18e05e155c207",
+  "commit_sha": "5cc84db8f5edae781741bfe762db95b563cefb23",
   "data_mode": "canonical",
   "figure_dpi": "300",
   "figure_id": "F5",
-  "generated_at": "2026-05-19T03:25:53.171746+00:00",
+  "generated_at": "2026-05-19T13:35:17.268483+00:00",
   "matplotlib_version": "3.10.9",
   "source_artifacts": "evals/metrics/per_cell.parquet",
-  "timestamp_utc": "2026-05-19T03:25:53+00:00"
+  "timestamp_utc": "2026-05-19T13:35:17+00:00"
 }

@@ -159,7 +159,7 @@ def render_f1_pooled_ood_auprc(marginal: pd.DataFrame) -> Figure:
         color=PALETTE["baseline"],
         linestyle="--",
         linewidth=1.5,
-        label=f"Random floor ({POOLED_OOD_PREVALENCE:.3f})",
+        label=f"Random floor ({POOLED_OOD_PREVALENCE:.3f} = 412 / 1101 prevalence)",
     )
     for i, value in enumerate(values):
         ax.text(i, value + 0.006, f"{value:.3f}", ha="center", va="bottom", fontsize=9)
@@ -198,7 +198,7 @@ def render_f2_frozen_vs_lora_paired_delta(paired: pd.DataFrame) -> Figure:
     fig = plot_lift_ci(
         estimates,
         zero_line=True,
-        xlabel="LoRA minus frozen-probe AUPRC",
+        xlabel="LoRA AUPRC minus frozen-probe AUPRC (95% CI; whiskers crossing 0 = indistinguishable)",
         title="Paired comparison: LoRA does not improve the comparable slices",
         figsize=(7.2, 3.8),
     )
@@ -291,7 +291,9 @@ def render_f5_calibration(metrics: pd.DataFrame) -> Figure:
     )
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=20, ha="right")
-    ax.set_ylabel("Error (lower is better)")
+    ax.set_ylabel(
+        "Error (lower is better; ECE = expected calibration error, Brier = mean squared error)"
+    )
     ax.set_title("Calibration: frozen probe is much better calibrated than LoRA")
     ax.legend()
     _style_axes(ax)
