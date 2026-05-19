@@ -18,6 +18,118 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.7] — 2026-05-18
+
+4 demo notebooks (jupytext-paired; pre-rendered + frozen output
+cells) + DeLong + BH-FDR primitives wired + CSV analysis exports.
+Closes NEXT_STEPS §1.1 + §1.2 + §1.3 per Path 3 / /exploring-options
+batches 7-9 locks.
+
+### Added
+
+- **`notebooks/01_canonical_results.{ipynb,py}`** — headline
+  5×3 AUPRC + AUROC grid sourced from
+  `evals/bootstrap/marginal_cells.parquet` (BCa CI, 10000
+  resamples) + prevalence baselines. 5 code cells with frozen
+  output cells.
+
+- **`notebooks/02_frozen_vs_lora.{ipynb,py}`** — paired-bootstrap
+  rung-comparison + DeLong AUC-difference sanity-check + BH-FDR
+  multi-comparison correction across the 40-cell paired battery.
+  Surfaces the load-bearing **LoRA -0.071 vs frozen-probe AUPRC
+  delta on pooled_ood** with 3 cross-method consistency checks
+  (paired-bootstrap + DeLong + BH-FDR all agree). 9 code cells
+  with frozen output cells. **§1.3 closure**: DeLong via
+  `eval_toolkit.bootstrap.delong_roc_variance`; BH-FDR via
+  `eval_toolkit.bootstrap.fdr_bh_correct` (both available since
+  v0.32.0; wired here library-first).
+
+- **`notebooks/03_calibration.{ipynb,py}`** — per-rung × per-slice
+  mean ECE equal-mass + Brier score (across 12 cells per rung;
+  4 folds × 3 seeds). Cross-references F4 reliability triptych
+  in `docs/plots/F4.svg`. Platt/Beta deferral noted (eval-toolkit#43
+  pending; v1.0.8 conditional consume).
+
+- **`notebooks/04_ood_slate.{ipynb,py}`** — per-slice
+  IID-vs-OOD gap visualization. Each rung's AUPRC compared to
+  the slice's positive-prevalence baseline; per-slice
+  rung-comparison; cross-family OOD finding summary. References
+  F5 per-slice heatmap.
+
+- **`scripts/export_analysis_csvs.py`** — CLI generating
+  `analysis/v1.0.7_canonical/` directory with 3 CSVs per
+  NEXT_STEPS §1.2:
+  - `paired_tests.csv` (1:1 mirror of `paired_cells.parquet`;
+    40 rows × 12 cols).
+  - `ece_per_cell.csv` (1:1 mirror of `per_cell.parquet`;
+    114 rows × 14 cols).
+  - `per_source_rates.csv` (NEW label-audit aggregation from
+    282 prediction parquets; 282 rows × 9 cols with
+    positive_prevalence + mean_predicted_proba per (rung,
+    fold, seed, source)).
+
+- **`Makefile`** — 2 new targets:
+  - `make notebooks` — jupytext + nbconvert re-execute all 4
+    notebooks (operator workflow; pre-rendered + frozen output
+    cells per /exploring-options batch 9 Q2 lock).
+  - `make export-analysis-csvs` — refresh
+    `analysis/v1.0.7_canonical/` CSVs.
+
+- **`.gitattributes`** — `notebooks/*.ipynb -nbstripout` override
+  so the nbstripout pre-commit hook does NOT strip output cells
+  from committed notebooks. Per the batch 9 Q2 lock requirement
+  that committed `.ipynb` files retain frozen output cells.
+
+- **`pyproject.toml [project.optional-dependencies] notebook`** —
+  added `jupytext>=1.17`, `nbconvert>=7.16`, `ipykernel>=6.30`.
+  Pre-v1.0.7 `notebook` extra only had `jupyter` + `nbstripout`
+  + `nbval`; v1.0.7 fills in jupytext + nbconvert + ipykernel for
+  the `make notebooks` workflow.
+
+### Changed
+
+- **`_quarto.yml`** — added `notebooks/*.ipynb` to
+  `project.render` allowlist + new "Notebooks" sidebar section
+  between "Methodology" and "Evidence + audit" + Notebooks
+  navbar dropdown menu. Reviewer can navigate from the live
+  Quarto site to any of the 4 notebooks in 1 click.
+
+- **`NEXT_STEPS.md` §1.1 + §1.2 + §1.3** — Status (v1.0.7)
+  lines mark the 3 items closed (notebooks + CSV exports + DeLong/BH-FDR
+  wiring all landed).
+
+### Notes
+
+- No methodology change. No metric values change. Notebooks are
+  pure consumers of existing `evals/` artifacts.
+- Pre-rendered + frozen output cells per /exploring-options
+  batch 9 Q2 lock. Operator re-renders via `make notebooks` when
+  underlying data changes; CI does not re-execute.
+- nbstripout override at `.gitattributes` is the cleanest way
+  to handle "commit with outputs" while keeping the existing
+  pre-commit hook configured for any future hand-authored
+  notebooks (outside the v1.0.7 4-notebook set).
+
+### Files modified (15 file touches)
+
+- `pyproject.toml` (notebook extra deps).
+- `uv.lock` (regenerated via `uv sync --extra notebook`).
+- `.gitattributes` (new; nbstripout override for notebooks/).
+- `notebooks/01_canonical_results.{ipynb,py}` (new pair).
+- `notebooks/02_frozen_vs_lora.{ipynb,py}` (new pair).
+- `notebooks/03_calibration.{ipynb,py}` (new pair).
+- `notebooks/04_ood_slate.{ipynb,py}` (new pair).
+- `scripts/export_analysis_csvs.py` (new).
+- `analysis/v1.0.7_canonical/paired_tests.csv` (new).
+- `analysis/v1.0.7_canonical/ece_per_cell.csv` (new).
+- `analysis/v1.0.7_canonical/per_source_rates.csv` (new).
+- `Makefile` (notebooks + export-analysis-csvs targets + .PHONY).
+- `_quarto.yml` (render allowlist + sidebar + navbar).
+- `NEXT_STEPS.md` (§1.1/§1.2/§1.3 Status lines).
+- `CHANGELOG.md` (this entry).
+
+---
+
 ## [1.0.6] — 2026-05-18
 
 eval-toolkit pin v0.34.0 → v0.39.0 bump consuming 3 upstream

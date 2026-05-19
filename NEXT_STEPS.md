@@ -14,6 +14,7 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Scope*: `notebooks/01_canonical_results.ipynb` (headline table population); `02_frozen_vs_lora.ipynb` (paired-bootstrap rung-comparison); `03_calibration.ipynb` (reliability curves + ECE per rung); `04_ood_slate.ipynb` (per-slice IID-vs-OOD gap viz).
 *Effort*: ~1 hour per notebook once Phase 4 analysis outputs exist. Library-first: use `eval_toolkit.bootstrap_ci` / `plot_pr_curve` / `plot_reliability_diagram`.
 *Status (v1.0.6)*: carryforward to v1.0.7. Jupytext config + `notebooks/README.md` scaffolded at Phase 2; 4 notebooks themselves deferred to v1.0.7 (Path 3 close per /exploring-options batches 7-9).
+*Status (v1.0.7)*: **closed**. 4 jupytext-paired notebooks (`01_canonical_results` + `02_frozen_vs_lora` + `03_calibration` + `04_ood_slate`) landed with frozen output cells per batch 9 Q2 lock. Rendered via Quarto + linked from new "Notebooks" sidebar section + navbar menu. `make notebooks` target available for operator re-render.
 
 ### 1.2 Analysis output templating
 
@@ -21,6 +22,7 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Scope*: establish `analysis/v<version>_<name>/` directory structure with metadata header (analyzer version, date, config hash). Outputs: `paired_tests.csv` (fold × seed × delta_prauc + CI bounds + DeLong + BH-FDR), `ece_per_cell.csv` (calibration per scorer/fold/method), `per_source_rates.csv` (label audit).
 *Effort*: ~30 min scaffolding + per-analysis ~15 min.
 *Status (v1.0.6)*: outputs partially landed at `evals/` flat structure (parquet not CSV; `paired_cells.parquet` + `per_cell.parquet` exist); CSV mirror + `per_source_rates.csv` + `analysis/v1.0.7_canonical/` versioned dir deferred to v1.0.7 (Path 3; 1:1 parquet mirror per /exploring-options batch 9 Q3).
+*Status (v1.0.7)*: **closed**. `scripts/export_analysis_csvs.py` generates `analysis/v1.0.7_canonical/` with `paired_tests.csv` (40 rows; 1:1 mirror) + `ece_per_cell.csv` (114 rows; 1:1 mirror) + `per_source_rates.csv` (282 rows; NEW label-audit aggregation from prediction parquets). `make export-analysis-csvs` target available for regen.
 
 ### 1.3 Paired bootstrap + DeLong infrastructure (Phase 4+)
 
@@ -28,6 +30,7 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Scope*: use `eval_toolkit.paired_bootstrap_diff` + DeLong primitive. Wire into `notebooks/02_frozen_vs_lora.ipynb`.
 *Effort*: ~2 hours including the BH-FDR wrapper.
 *Status (v1.0.6)*: `paired_bootstrap_diff` landed at v0.9.0-rc series via `scripts/run_bootstrap_battery.py:46` (40 cells × 2 seeds persisted). BH-FDR is now trivially library-first via `eval_toolkit.bootstrap.fdr_bh_correct` (eval-toolkit v0.32.0+; just unused locally). DeLong (`eval_toolkit.bootstrap.delong_roc_variance`) also available upstream + unused. Both wired in v1.0.7 `notebooks/02_frozen_vs_lora` (Path 3 close).
+*Status (v1.0.7)*: **closed**. `notebooks/02_frozen_vs_lora.ipynb` wires DeLong `delong_roc_variance` + BH-FDR `fdr_bh_correct` + paired-bootstrap deltas in a 3-method cross-check on the LoRA -0.071 vs frozen-probe headline finding. All 3 methods agree.
 
 ### 1.4 Calibration audit suite (Phase 3-4)
 

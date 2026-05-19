@@ -24,6 +24,11 @@ project:
     - decisions/README.md
     - decisions/ADR-*.md
     - decisions/upstream_issues.md
+    # v1.0.7 — pre-rendered + frozen-output-cell notebooks per
+    # /exploring-options batch 9 Q2 lock. Quarto renders the
+    # .ipynb files as static HTML; output cells remain frozen
+    # (CI does not re-execute). Operator regen via `make notebooks`.
+    - notebooks/*.ipynb
 
 website:
   title: "Prompt-injection classifier — methodology submission"
@@ -48,6 +53,12 @@ website:
           - WRITEUP/methodology-guarantees.md
           - WRITEUP/limitations-and-future-work.md
           - WRITEUP/reproducibility.md
+      - text: Notebooks
+        menu:
+          - notebooks/01_canonical_results.ipynb
+          - notebooks/02_frozen_vs_lora.ipynb
+          - notebooks/03_calibration.ipynb
+          - notebooks/04_ood_slate.ipynb
       - href: EVIDENCE.md
         text: Evidence
       - text: Reference
@@ -78,6 +89,12 @@ website:
           - WRITEUP/methodology-guarantees.md
           - WRITEUP/limitations-and-future-work.md
           - WRITEUP/reproducibility.md
+      - section: "Notebooks"
+        contents:
+          - notebooks/01_canonical_results.ipynb
+          - notebooks/02_frozen_vs_lora.ipynb
+          - notebooks/03_calibration.ipynb
+          - notebooks/04_ood_slate.ipynb
       - section: "Evidence + audit"
         contents:
           - EVIDENCE.md

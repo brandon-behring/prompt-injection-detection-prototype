@@ -60,8 +60,11 @@ dev = [
 ]
 notebook = [
     "jupyter>=1",
+    "jupytext>=1.17",
+    "nbconvert>=7.16",
     "nbstripout>=0.7",
     "nbval>=0.11",
+    "ipykernel>=6.30",
 ]
 
 [tool.jupytext]
@@ -85,6 +88,10 @@ torch = { index = "pytorch-cu128" }
 
 [tool.ruff]
 line-length = 100
+# v1.0.7: notebooks/*.py are jupytext-paired percent-format scripts;
+# cells can have local imports (E402) and other notebook-friendly
+# patterns that don't fit module-style code. ruff scans skip these.
+extend-exclude = ["notebooks"]
 
 [tool.mypy]
 strict = true
@@ -98,6 +105,12 @@ exclude = [
     "data/raw/.*",
     "data/processed/.*",
     ".hf_cache/.*",
+    # v1.0.7: notebooks are jupytext-paired exploratory artifacts;
+    # cells use untyped pandas/numpy operations + are pre-rendered
+    # with frozen output cells per /exploring-options batch 9 Q2 lock.
+    # mypy strict on these would require explicit type annotations
+    # on every dataframe operation (mission creep for exploratory code).
+    "notebooks/.*",
 ]
 
 [[tool.mypy.overrides]]

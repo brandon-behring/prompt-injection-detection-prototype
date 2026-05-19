@@ -1,0 +1,12 @@
+# nbstripout discipline (per `.pre-commit-config.yaml` nbstripout hook):
+#
+# Default: nbstripout strips output cells from .ipynb at commit time.
+#
+# v1.0.7 exception: `notebooks/*.ipynb` are committed WITH outputs frozen
+# per /exploring-options batch 9 Q2 lock ("pre-rendered + frozen output
+# cells"). These notebooks are reviewer-display artifacts rendered by
+# Quarto + visible on the live site; they are executed once locally
+# during v1.0.7 commit prep + committed with outputs intact. CI does
+# NOT re-execute them. This is the disclosed Option-2 strategy in the
+# v1.0.7 CHANGELOG; see ADR-053 + ADR-054 reading-guide governance.
+notebooks/*.ipynb -nbstripout

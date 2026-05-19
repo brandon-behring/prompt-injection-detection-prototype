@@ -4,7 +4,13 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
+        # v1.0.7: notebooks/*.py are jupytext-paired exploratory scripts;
+        # cells legitimately have non-top-level imports (E402) etc.
+        # See pyproject.toml [tool.ruff] extend-exclude for the direct-
+        # invocation equivalent.
+        exclude: ^notebooks/
       - id: ruff-format
+        exclude: ^notebooks/
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
@@ -25,10 +31,21 @@ repos:
             "anthropic>=0.40",
           ]
         args: [--strict]
+        # v1.0.7: notebooks/ are jupytext-paired exploratory code with
+        # untyped pandas/numpy operations; pyproject.toml [tool.mypy]
+        # exclude already lists them but pre-commit invokes mypy with
+        # explicit file paths so a hook-level exclude is also needed.
+        exclude: ^notebooks/
   - repo: https://github.com/kynan/nbstripout
     rev: 0.7.1
     hooks:
       - id: nbstripout
+        # v1.0.7: notebooks/*.ipynb are pre-rendered + frozen-output-cell
+        # artifacts per /exploring-options batch 9 Q2 lock. Output cells
+        # MUST be preserved on commit (Quarto renders them as static HTML;
+        # CI does not re-execute). nbstripout still strips outputs from
+        # any other .ipynb (hand-authored notebooks outside v1.0.7).
+        exclude: ^notebooks/.*\.ipynb$
   - repo: local
     hooks:
       - id: no-emoji-check

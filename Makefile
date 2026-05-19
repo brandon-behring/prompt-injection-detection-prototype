@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage headline-dry-run headline-cloud eval-from-hub site site-preview clean \
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage notebooks export-analysis-csvs headline-dry-run headline-cloud eval-from-hub site site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
@@ -72,6 +72,24 @@ audit:
 
 audit-leakage:
 	uv run python scripts/audit_leakage.py --check
+
+# v1.0.7 — render 4 jupytext-paired notebooks to .ipynb with frozen output cells.
+# Per /exploring-options batch 9 Q2 lock: pre-rendered + frozen output cells;
+# CI does NOT re-execute. Operators re-run this locally when data changes.
+notebooks:
+	uv run jupytext --to ipynb notebooks/01_canonical_results.py
+	uv run jupytext --to ipynb notebooks/02_frozen_vs_lora.py
+	uv run jupytext --to ipynb notebooks/03_calibration.py
+	uv run jupytext --to ipynb notebooks/04_ood_slate.py
+	uv run jupyter nbconvert --to notebook --execute notebooks/01_canonical_results.ipynb --inplace
+	uv run jupyter nbconvert --to notebook --execute notebooks/02_frozen_vs_lora.ipynb --inplace
+	uv run jupyter nbconvert --to notebook --execute notebooks/03_calibration.ipynb --inplace
+	uv run jupyter nbconvert --to notebook --execute notebooks/04_ood_slate.ipynb --inplace
+
+# v1.0.7 — export analysis CSVs to analysis/v<version>_canonical/.
+# Per NEXT_STEPS §1.2 + /exploring-options batch 9 Q3 lock (1:1 mirror).
+export-analysis-csvs:
+	uv run python scripts/export_analysis_csvs.py
 
 # `make headline-dry-run` — cost preview without provisioning (per ADR-027 + ADR-020).
 # Phase 2 wiring per ADR-044 Q6: dry-runs all 3 per-rung configs.
