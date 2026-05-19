@@ -8,12 +8,12 @@ first port of call for each reusable primitive.
 
 | Figure | Subject | Render path |
 |---|---|---|
-| F1 | Pareto frontier — AUPRC vs compute | project glue (issue #15) |
-| F2 | ROC per rung | project glue (issue #14 + PR candidate) |
+| F1 | Pareto frontier — AUPRC vs compute | `plot_pareto_frontier` (library-first; #15 consumed v1.0.x) |
+| F2 | ROC per rung | `plot_roc_curve` (library-first; #14 consumed v1.0.x) |
 | F3 | Precision-recall per rung | `eval_toolkit.plotting.plot_pr_curve` |
 | F4 | Reliability triptych — raw + temperature + isotonic | `plot_reliability_diagram` x3 |
-| F5 | Per-slice OOD heatmap | project glue (issue #16) |
-| F6 | LODO fold variance breakdown | `plot_metric_bars` + `plot_lift_ci` |
+| F5 | Per-slice OOD heatmap | `plot_slice_metric_heatmap` (library-first; #16 consumed v1.0.x) |
+| F6 | LODO fold variance breakdown | `plot_metric_bars(ax=...)` + `plot_lift_ci(ax=...)` (library-first; #22 consumed v1.2.2) |
 | F7 | Dual-policy operating-point grid w/ reachability flags | project glue + `plot_bootstrap_distribution` |
 
 All renderers consume `set_plot_style` + `PALETTE` + `save_figure` so the
@@ -38,6 +38,7 @@ from eval_toolkit.plotting import (
     PALETTE,
     plot_bootstrap_distribution,
     plot_lift_ci,
+    plot_metric_bars,
     plot_pr_curve,
     plot_reliability_diagram,
     set_plot_style,
@@ -51,9 +52,8 @@ FIGURE_SLATE_NAMES: Final[tuple[str, ...]] = ("F1", "F2", "F3", "F4", "F5")
 
 
 # --------------------------------------------------------------------------- #
-# F1 — Pareto frontier (AUPRC vs compute)
-# Project glue per ADR-046 Q6; pending upstream eval-toolkit issue #15
-# (`plot_pareto_frontier` for cost-vs-performance scatter with frontier overlay).
+# F1 — Pareto frontier (AUPRC vs compute) — library-first via plot_pareto_frontier
+# (eval-toolkit #15 closed; consumed at v1.0.x; ADR-066 §B1 records the carryforward).
 # --------------------------------------------------------------------------- #
 
 
@@ -99,9 +99,8 @@ def render_f1_pareto(
 
 
 # --------------------------------------------------------------------------- #
-# F2 — ROC per rung
-# Project glue per ADR-046 Q6; pending upstream eval-toolkit issue #14
-# (`plot_roc_curve` sibling to `plot_pr_curve`).
+# F2 — ROC per rung — library-first via plot_roc_curve
+# (eval-toolkit #14 closed; consumed at v1.0.x; ADR-066 §B2 records the carryforward).
 # --------------------------------------------------------------------------- #
 
 
@@ -211,9 +210,8 @@ def render_f4_reliability_triptych(
 
 
 # --------------------------------------------------------------------------- #
-# F5 — Per-slice OOD heatmap
-# Project glue per ADR-046 Q6; pending upstream eval-toolkit issue #16
-# (`plot_slice_metric_heatmap` for `(group_x x group_y x metric)` grids).
+# F5 — Per-slice OOD heatmap — library-first via plot_slice_metric_heatmap
+# (eval-toolkit #16 closed; consumed at v1.0.x; ADR-066 §B3 records the carryforward).
 # --------------------------------------------------------------------------- #
 
 
@@ -266,12 +264,11 @@ def render_f6_lodo_breakdown(
 ) -> Figure:
     """Two-panel LODO breakdown: per-fold bar chart + per-rung marginal CI.
 
-    Library-first hybrid per ADR-046 Q6 — right panel via `plot_lift_ci(ax=...)`
-    which expects `BootstrapCI` (point_estimate + ci_low + ci_high) inputs;
-    left panel uses bare matplotlib bars because `plot_metric_bars` does not
-    accept an ``ax`` kwarg in eval-toolkit v0.31.0 (upstream gap filed as
-    issue #22; remove the local bars + dispatch to the primitive when upstream
-    lands). PALETTE colors keep the styling identical across panels.
+    Library-first hybrid — both panels via upstream eval-toolkit primitives:
+    left panel via `plot_metric_bars(ax=...)` (eval-toolkit #22 closed;
+    consumed at v1.2.2 per ADR-066 §B4); right panel via `plot_lift_ci(ax=...)`
+    which expects `BootstrapCI` (point_estimate + ci_low + ci_high) inputs.
+    PALETTE colors keep the styling identical across panels.
 
     Note: `plot_lift_ci` accepts marginal `BootstrapCI` (from
     `eval_toolkit.bootstrap.bootstrap_ci`); the per-rung CIs visualize each
@@ -281,14 +278,14 @@ def render_f6_lodo_breakdown(
     set_plot_style()
     fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=figsize)
 
-    # Left panel — per-fold bars (project glue; upstream gap #22 pending).
-    fold_labels = list(per_fold_means.keys())
-    fold_values = [per_fold_means[k] for k in fold_labels]
-    ax_left.bar(fold_labels, fold_values, color=PALETTE["negative"])
-    ax_left.set_xticks(range(len(fold_labels)))
-    ax_left.set_xticklabels(fold_labels, rotation=30, ha="right")
-    ax_left.set_ylabel("Metric (per fold)")
-    ax_left.set_title("Per-fold means")
+    # Left panel — per-fold bars via library-first primitive (#22 consumed v1.2.2).
+    plot_metric_bars(
+        dict(per_fold_means),
+        color=PALETTE["negative"],
+        ylabel="Metric (per fold)",
+        title="Per-fold means",
+        ax=ax_left,
+    )
 
     # Right panel — per-rung marginal-bootstrap CIs via library-first primitive.
     plot_lift_ci(

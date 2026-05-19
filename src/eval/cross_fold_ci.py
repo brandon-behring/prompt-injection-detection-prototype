@@ -199,7 +199,8 @@ def compute_cross_fold_ci_cell(
     cv_clt = cv_clt_ci(per_fold, confidence=0.95)
     cv_clt_halfwidth = (float(cv_clt.ci_high) - float(cv_clt.ci_low)) / 2.0
 
-    # Block-bootstrap-on-folds spoke per A-008 — inline impl pending upstream #21.
+    # Block-bootstrap-on-folds spoke per A-008 — library-first via `eval_toolkit.block_bootstrap_on_folds`
+    # (eval-toolkit #21 closed; consumed at v1.0.x; ADR-066 §B6 records the carryforward).
     block_ci_lo, block_ci_hi = compute_block_bootstrap_on_folds(
         per_fold,
         n_resamples=block_bootstrap_n_resamples,

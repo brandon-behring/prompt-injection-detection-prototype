@@ -332,8 +332,8 @@ class MDECellModel(BaseModel):
     """One per-(rung-or-pair, slice, metric, source_ci) MDE cell per ADR-006 + ADR-046 Q4.
 
     Derived from an upstream CI (`PairedBootstrapCI` or marginal `BootstrapCI`) via
-    `eval_toolkit.bootstrap.mde_from_ci` for the paired case; an inline closed-form
-    fallback covers the marginal case pending upstream eval-toolkit issue #20.
+    `eval_toolkit.bootstrap.mde_from_ci` for BOTH the paired and marginal cases
+    (eval-toolkit #20 closed; consumed at v1.0.x; ADR-066 §B5 records the carryforward).
 
     `source_ci_kind` discriminates the upstream CI provenance:
         - "paired_bootstrap"  -> ADR-022 trained-vs-trained / trained-vs-reference
