@@ -6,6 +6,7 @@ ADRs document significant decisions in [Michael Nygard format](https://www.cogni
 
 - New ADR → `decisions/ADR-NNN-<slug>.md`, status `Accepted` (or `Proposed` if pending review)
 - Change a previously-locked decision → write a **new** ADR that marks the prior as `status: superseded-by-NNN`. Do not edit the prior ADR file.
+- **Narrow exception** (per [ADR-067](./ADR-067-immutability-clarification-and-canonical-slug-reference.md), v1.2.2): factual typos in cross-reference slug filenames within an ADR MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable per the rule above.
 - Spec propagation: ADR is the source of truth. After locking ADR-NNN:
   - SPEC_GREENFIELD appendix row updated: `locked-to-X (see ADR-NNN)`
   - SPEC_SHEET corresponding slot updated: `[LOCKED: X (per ADR-NNN)]`
