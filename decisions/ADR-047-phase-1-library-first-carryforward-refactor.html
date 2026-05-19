@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
-    <a class="dropdown-item" href="../docs/for-hiring-managers.md">
+    <a class="dropdown-item" href="../docs/for-hiring-managers.html">
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
@@ -216,20 +216,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Assumptions registry</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/01_canonical_results.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
+ <span class="dropdown-text">01 — Canonical results</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
+ <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/03_calibration.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/03_calibration.html">
+ <span class="dropdown-text">03 — Calibration battery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/04_ood_slate.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
+ <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
   </li>  
     </ul>
   </li>
@@ -388,6 +388,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/01_canonical_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 — Canonical results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/02_frozen_vs_lora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/03_calibration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 — Calibration battery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/04_ood_slate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04 — OOD slate gap visualization</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -884,6 +908,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-070-quarto-render-only-markdown-corrections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for render-only Markdown corrections in immutable ADRs</span></a>
   </div>
 </li>
       </ul>
@@ -1394,7 +1424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/brandon-behring\.github\.io\/prompt-injection-detection-prototype\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

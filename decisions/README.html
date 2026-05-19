@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
-    <a class="dropdown-item" href="../docs/for-hiring-managers.md">
+    <a class="dropdown-item" href="../docs/for-hiring-managers.html">
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
@@ -215,20 +215,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Assumptions registry</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/01_canonical_results.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
+ <span class="dropdown-text">01 — Canonical results</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
+ <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/03_calibration.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/03_calibration.html">
+ <span class="dropdown-text">03 — Calibration battery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../notebooks/04_ood_slate.ipynb">
- <span class="dropdown-text"></span></a>
+    <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
+ <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
   </li>  
     </ul>
   </li>
@@ -387,6 +387,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/01_canonical_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 — Canonical results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/02_frozen_vs_lora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/03_calibration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 — Calibration battery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/04_ood_slate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04 — OOD slate gap visualization</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -885,6 +909,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-070-quarto-render-only-markdown-corrections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for render-only Markdown corrections in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -924,7 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>New ADR → <code>decisions/ADR-NNN-&lt;slug&gt;.md</code>, status <code>Accepted</code> (or <code>Proposed</code> if pending review)</li>
 <li>Change a previously-locked decision → write a <strong>new</strong> ADR that marks the prior as <code>status: superseded-by-NNN</code>. Do not edit the prior ADR file.</li>
-<li><strong>Narrow exceptions</strong> (per <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a>, v1.2.2 + <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">ADR-068</a>, v1.2.6 + <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html">ADR-069</a>, v1.2.6): THREE factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections: (1) cross-reference slug filename typos (per ADR-067) — slug points at a wrong-but-existing file in <code>decisions/</code>; (2) broken external references (per ADR-068) — markdown links to local-filesystem paths or aspirational upstream resources that cannot resolve on any non-author machine; (3) academic publisher-URL → DOI canonicalization (per ADR-069) — bot-403 publisher landing-page URLs (sage/tandf/jstor/dl.acm) replaced with the academic-canonical <code>doi.org/&lt;DOI&gt;</code> target (same paper, bot-friendly + durable). ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.</li>
+<li><strong>Narrow exceptions</strong> (per <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a>, v1.2.2 + <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">ADR-068</a>, v1.2.6 + <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html">ADR-069</a>, v1.2.6 + <a href="../decisions/ADR-070-quarto-render-only-markdown-corrections.html">ADR-070</a>, v1.2.8): FOUR factual-defect / render-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections: (1) cross-reference slug filename typos (per ADR-067) — slug points at a wrong-but-existing file in <code>decisions/</code>; (2) broken external references (per ADR-068) — markdown links to local-filesystem paths or aspirational upstream resources that cannot resolve on any non-author machine; (3) academic publisher-URL → DOI canonicalization (per ADR-069) — bot-403 publisher landing-page URLs (sage/tandf/jstor/dl.acm) replaced with the academic-canonical <code>doi.org/&lt;DOI&gt;</code> target (same paper, bot-friendly + durable); (4) render-only Markdown syntax corrections (per ADR-070) — delimiter-only or equivalent markup changes required for faithful Quarto rendering, with visible decision content unchanged. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.</li>
 <li>Spec propagation: ADR is the source of truth. After locking ADR-NNN:
 <ul>
 <li>SPEC_GREENFIELD appendix row updated: <code>locked-to-X (see ADR-NNN)</code></li>
@@ -1122,7 +1152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/brandon-behring\.github\.io\/prompt-injection-detection-prototype\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1462,7 +1492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>New ADR → <span class="in">`decisions/ADR-NNN-&lt;slug&gt;.md`</span>, status <span class="in">`Accepted`</span> (or <span class="in">`Proposed`</span> if pending review)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Change a previously-locked decision → write a **new** ADR that marks the prior as <span class="in">`status: superseded-by-NNN`</span>. Do not edit the prior ADR file.</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Narrow exceptions** (per <span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span>, v1.2.2 + <span class="co">[</span><span class="ot">ADR-068</span><span class="co">](./ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)</span>, v1.2.6 + <span class="co">[</span><span class="ot">ADR-069</span><span class="co">](./ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md)</span>, v1.2.6): THREE factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections: (1) cross-reference slug filename typos (per ADR-067) — slug points at a wrong-but-existing file in <span class="in">`decisions/`</span>; (2) broken external references (per ADR-068) — markdown links to local-filesystem paths or aspirational upstream resources that cannot resolve on any non-author machine; (3) academic publisher-URL → DOI canonicalization (per ADR-069) — bot-403 publisher landing-page URLs (sage/tandf/jstor/dl.acm) replaced with the academic-canonical <span class="in">`doi.org/&lt;DOI&gt;`</span> target (same paper, bot-friendly + durable). ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Narrow exceptions** (per <span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span>, v1.2.2 + <span class="co">[</span><span class="ot">ADR-068</span><span class="co">](./ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)</span>, v1.2.6 + <span class="co">[</span><span class="ot">ADR-069</span><span class="co">](./ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md)</span>, v1.2.6 + <span class="co">[</span><span class="ot">ADR-070</span><span class="co">](./ADR-070-quarto-render-only-markdown-corrections.md)</span>, v1.2.8): FOUR factual-defect / render-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections: (1) cross-reference slug filename typos (per ADR-067) — slug points at a wrong-but-existing file in <span class="in">`decisions/`</span>; (2) broken external references (per ADR-068) — markdown links to local-filesystem paths or aspirational upstream resources that cannot resolve on any non-author machine; (3) academic publisher-URL → DOI canonicalization (per ADR-069) — bot-403 publisher landing-page URLs (sage/tandf/jstor/dl.acm) replaced with the academic-canonical <span class="in">`doi.org/&lt;DOI&gt;`</span> target (same paper, bot-friendly + durable); (4) render-only Markdown syntax corrections (per ADR-070) — delimiter-only or equivalent markup changes required for faithful Quarto rendering, with visible decision content unchanged. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spec propagation: ADR is the source of truth. After locking ADR-NNN:</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>SPEC_GREENFIELD appendix row updated: <span class="in">`locked-to-X (see ADR-NNN)`</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>SPEC_SHEET corresponding slot updated: <span class="in">`[LOCKED: X (per ADR-NNN)]`</span></span>
