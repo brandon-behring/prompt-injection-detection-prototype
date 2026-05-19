@@ -45,7 +45,6 @@ jobs:
             --cache
             --max-cache-age 1d
             --base .
-            --exclude-mail
             --exclude-path transcripts
             --exclude-path .venv
             --exclude-path docs/_freeze
