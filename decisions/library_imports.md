@@ -179,7 +179,7 @@ Workflow: `build_dedup_holdout` → hand-label → `calibrate_dedup` → unskip 
 
 ## Audit tooling (project-internal; not a methodology primitive)
 
-Per ADR-065 §B3: audit tooling is a meta-level concern (submission-prep / drift defense), NOT a methodology primitive subject to the strengthened library-first invariant ([`memory/library_first_is_project_wide_invariant.md`](../../../.claude/projects/-home-brandon-behring-Claude-prompt-injection-detection-submission/memory/library_first_is_project_wide_invariant.md)). The 4 scan-pattern categories are project-shaped (per-cell.parquet column names; specific ADR slug formats; HF Hub `BBehring/prompt-injection-*` URL pattern; project-specific dollar-figure context). Logged here for inventory completeness; explicitly tagged `audit-tooling-not-primitive`.
+Per ADR-065 §B3: audit tooling is a meta-level concern (submission-prep / drift defense), NOT a methodology primitive subject to the strengthened library-first invariant (project-local Claude memory `memory/library_first_is_project_wide_invariant.md`; not committed to the repo). The 4 scan-pattern categories are project-shaped (per-cell.parquet column names; specific ADR slug formats; HF Hub `BBehring/prompt-injection-*` URL pattern; project-specific dollar-figure context). Logged here for inventory completeness; explicitly tagged `audit-tooling-not-primitive`.
 
 | Script | Imported in | Purpose | Tag |
 |---|---|---|---|
