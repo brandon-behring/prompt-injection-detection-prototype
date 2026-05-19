@@ -11,7 +11,9 @@ dependencies = [
     # Bump triggers limited to blocking upstream bug + critical security fix + post-submission patch per ADR-033.
     # v1.0.8: PyPI install per ADR-055 (narrow supersession of ADR-036 "git URL only" claim);
     # eval-toolkit published to PyPI starting v0.40.0 (2026-05-18) via Trusted Publishing OIDC.
-    "eval-toolkit==0.40.0",
+    # v1.0.9 bump → v0.42.0 (2026-05-19) ships fit_isotonic_binary (eval-toolkit#44);
+    # removes the v1.0.8 fit_isotonic_binary_local adapter per library-first invariant.
+    "eval-toolkit==0.42.0",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding

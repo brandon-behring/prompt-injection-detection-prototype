@@ -28,13 +28,14 @@ ADR-032 + Q10 lock (canonical fold0/seed42 checkpoint per rung); HF
 Hub repos go live at v1.0.1 close. Full-FT skipped per ADR-050
 (FUSE EIO crash; weights missing locally).
 
-**Maintainer note:** the `scripts/eval_from_hub.py` non-dry-run body
-is currently a scaffold that exits with code 2 + a "publication
-pending" message; the snapshot_download + score-match pipeline is
-specified by ADR-034 but lands in a v1.1.x patch. Reviewers can
-verify the published checkpoints by visiting the HF Hub repo URLs
-directly + reading the auto-generated model cards; full T0
-score-match wiring is the v1.1.x work-item.
+**Maintainer note (v1.0.9):** the `scripts/eval_from_hub.py` non-dry-run
+body is now fully wired per ADR-058 (narrow supersession of ADR-051
+Block A). `make eval-from-hub RUNG=frozen-probe` + `RUNG=lora` exit 0
+with score-match summary within 1e-4 absolute tolerance per ADR-034
+§Tier T0. Per-row strict mode: exit 1 on any row exceeding tolerance
+(no silent failures); per-row delta diagnostics printed to stderr on
+fail. ADR-051 Block B (38 invariant scaffolds) remains carryforward
+to v1.1.x.
 
 ```bash
 make eval-from-hub RUNG=frozen-probe

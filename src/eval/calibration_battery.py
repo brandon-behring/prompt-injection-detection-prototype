@@ -31,14 +31,13 @@ is afterword scope per ADR-005 + SPEC §scope.
 
 from __future__ import annotations
 
-from collections.abc import Callable
 from typing import Any, Final, Literal, NamedTuple
 
 import numpy as np
 import pandas as pd
 from eval_toolkit.calibration import (
     fit_beta_binary,
-    fit_isotonic_calibrator,
+    fit_isotonic_binary,
     fit_platt_binary,
     fit_temperature_binary,
     reliability_curve,
@@ -58,26 +57,6 @@ from src.eval.schemas import CalibrationRecordModel, CalibratorName
 
 # Locked headline binning per ADR-023.
 HEADLINE_N_BINS: Final[int] = 15
-
-
-def fit_isotonic_binary_local(
-    y_true: NDArray[np.int_], y_score: NDArray[np.float64]
-) -> tuple[None, Callable[[NDArray[np.float64]], NDArray[np.float64]]]:
-    """Local shape-adapter wrapping `fit_isotonic_calibrator` into `(None, apply)`.
-
-    Isotonic regression is non-parametric — it has no introspectable scalar
-    parameters. This adapter returns ``(None, apply)`` so iterating over the
-    4-calibrator binary battery (temperature + isotonic + Platt + Beta) uses
-    a uniform `(params_tuple, apply_callable)` shape — matching the upstream
-    `fit_temperature_binary` (v0.35.0) + `fit_platt_binary` (v0.40.0) +
-    `fit_beta_binary` (v0.40.0) sibling API contract.
-
-    Removed when eval-toolkit#44 lands (upstream `fit_isotonic_binary`
-    with native `(None, apply)` return). Filed at v1.0.8 per library-first
-    invariant; removal trigger documented in `decisions/upstream_issues.md`.
-    """
-    apply = fit_isotonic_calibrator(y_true, y_score)
-    return (None, apply)
 
 
 def compute_calibration_record(
@@ -230,8 +209,8 @@ def fit_and_apply_calibrators(
     temperature_T, apply_temp = fit_temperature_binary(y_val_arr, s_val_arr)
     test_scores_temperature = np.asarray(apply_temp(s_test_arr), dtype=np.float64)
 
-    # Isotonic via local adapter pending eval-toolkit#44 upstream `fit_isotonic_binary`.
-    _, apply_iso = fit_isotonic_binary_local(y_val_arr, s_val_arr)
+    # Isotonic via upstream `fit_isotonic_binary` (v0.42.0 closes eval-toolkit#44).
+    _, apply_iso = fit_isotonic_binary(y_val_arr, s_val_arr)
     test_scores_isotonic = np.asarray(apply_iso(s_test_arr), dtype=np.float64)
 
     # Platt (v0.40.0 NEW per eval-toolkit#43).

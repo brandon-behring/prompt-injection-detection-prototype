@@ -18,6 +18,116 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.9] — 2026-05-19
+
+`scripts/eval_from_hub.py` non-dry-run body **wired end-to-end** —
+closes ADR-051 Block A (T0 score-match carryforward) per ADR-058
+narrow supersession + opportunistic eval-toolkit v0.40.0 → v0.42.0
+bump consuming upstream **`fit_isotonic_binary`** (eval-toolkit#44
+closed; ~5 min between issue close + PyPI publish). The
+v1.0.8 `fit_isotonic_binary_local` adapter is removed in the same
+commit per library-first + no-orphaned-code invariants. 4-of-4
+binary calibrator family (temperature + isotonic + Platt + Beta)
+now lands on the canonical upstream `_binary` API.
+
+Closes ADR-051 Block A landing condition: `make eval-from-hub
+RUNG=frozen-probe` + `RUNG=lora` exit 0 with score-match summary
+within 1e-4 absolute tolerance per ADR-034 §Tier T0. Strict-mode
+exit code per /exploring-options 2026-05-19 Q1 lock: exit 1 on any
+row exceeding tolerance (no silent failures). ADR-051 Block B
+(38 invariant scaffolds) remains v1.1.x carryforward.
+
+### Added
+
+- **`decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md`**
+  — narrow supersession of ADR-051 Block A. Documents the full
+  body wiring (snapshot_download → architecture-dispatched load →
+  CPU inference via library-first reuse of
+  `src.training.train_modernbert._predict_proba` → per-row
+  score-match within 1e-4 tolerance), the 6 execution-level locks
+  from /exploring-options 2026-05-19 (Q1 strict mode, Q6 mocked-only
+  smoke), and the explicit non-closure of Block B. ADR-051
+  frontmatter gains `superseded_by: ["058"]` in-place per ADR-029
+  convention.
+
+- **`tests/smoke/test_eval_from_hub_smoke.py`** (NEW; 9 tests) —
+  `--dry-run` subprocess coverage for both published rungs +
+  score-match tolerance unit tests with synthetic numpy arrays
+  (within-tol, exceeds-tol, length-mismatch) + published-rungs
+  validator against `evals/results.json` + reference parquet loader
+  + kebab↔underscore rung-name translation. Per Q6 lock: mocked-only
+  / CI-hermetic; no real HF Hub fetch.
+
+### Changed
+
+- **`scripts/eval_from_hub.py`** — non-dry-run body wired
+  (~250 LOC; replaces the ~7-line v1.0.x stub that exited 2).
+  Architecture-dispatched model loader: `frozen-probe` / `full-ft`
+  via `AutoModelForSequenceClassification.from_pretrained`; `lora`
+  via base ModernBERT (pinned revision per ADR-015) +
+  `PeftModel.from_pretrained`. Validates `args.rung` against
+  `evals/results.json::published_rungs` before download; emits
+  PredictionsRowModel-compatible parquet at
+  `evals/predictions/t0_eval_from_hub.parquet`. Library-first reuse
+  of `src.training.train_modernbert._predict_proba` for inference
+  (softmax_fp32 cast per ADR-019).
+
+- **`pyproject.toml`** — eval-toolkit pin bumped v0.40.0 → v0.42.0
+  (PyPI install per ADR-055). v0.41.0 skipped because it predated
+  the eval-toolkit#44 close at 2026-05-19T01:20Z; v0.42.0 published
+  2026-05-19T01:25Z ships `fit_isotonic_binary` with the canonical
+  `(None, apply)` `_binary` shape.
+
+- **`src/eval/calibration_battery.py`** — `fit_isotonic_binary_local`
+  adapter (filed v1.0.8 as upstream workaround) DELETED in same
+  commit as the upstream consumption switch; orphaned
+  `from collections.abc import Callable` import also removed per
+  no-orphaned-code invariant. Direct upstream import:
+  `from eval_toolkit.calibration import fit_isotonic_binary`.
+
+- **`WRITEUP/reproducibility.md`** §T0 maintainer note — rewritten
+  for v1.0.9 reality: "non-dry-run body is now fully wired per
+  ADR-058... exit 0 with score-match summary within 1e-4 tolerance".
+  Removes the v1.0.x "scaffold that exits with code 2" language.
+
+- **`decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md`**
+  frontmatter — `superseded_by: ["058"]` in-place edit per ADR-029
+  convention (Block A only; Block B remains carryforward).
+
+- **`decisions/upstream_issues.md`** — row for eval-toolkit#44 →
+  **RESOLVED in v0.42.0**; consumption notes + adapter-deletion
+  trigger documented.
+
+- **`decisions/library_imports.md`** — eval-toolkit version pin
+  row updated to v0.42.0; new `fit_isotonic_binary` inventory entry
+  replaces the v1.0.x `fit_isotonic_calibrator` row (4-of-4 binary
+  calibrator family now on upstream `_binary` API).
+
+- **`SUBMISSION_AUDIT.md`** — regenerated via
+  `scripts/regenerate_audit.py`; 58 CLAIM rows total (ADR-058
+  added).
+
+### Tests
+
+- 9/9 passing at `tests/smoke/test_eval_from_hub_smoke.py`.
+- 186 passed / 38 skipped (ADR-051 Block B invariants; carryforward
+  expected) / 1 xfailed across `tests/smoke/` + `tests/test_invariants.py`.
+- `uv run mypy --strict scripts/eval_from_hub.py` returns 0.
+- `uv run ruff check scripts/eval_from_hub.py
+  tests/smoke/test_eval_from_hub_smoke.py src/eval/calibration_battery.py`
+  reports All checks passed!.
+
+### References
+
+- Closes [ADR-051](decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md)
+  **Block A** (T0 score-match wiring); supersedes via
+  [ADR-058](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md).
+  Block B (38 invariant scaffolds) remains v1.1.x carryforward.
+- Closes [eval-toolkit#44](https://github.com/brandon-behring/eval-toolkit/issues/44)
+  (`fit_isotonic_binary`).
+
+---
+
 ## [1.0.8] — 2026-05-19
 
 eval-toolkit v0.39.0 → v0.40.0 + **PyPI install switch** (out of
