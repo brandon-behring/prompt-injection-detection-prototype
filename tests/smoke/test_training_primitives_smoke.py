@@ -106,7 +106,16 @@ def test_lora_config_locked_values() -> None:
 
 @pytest.mark.smoke
 def test_training_args_seed_propagation(tmp_path: Path) -> None:
-    """build_training_args propagates seed + locks recipe constants."""
+    """build_training_args propagates seed + locks recipe constants.
+
+    The bf16 flag is hardware-gated per `build_training_args` line ``use_bf16 =
+    has_cuda`` (HF Trainer raises on bf16=True without CUDA). The ADR-019
+    ModernBERT recipe still locks bf16 on CUDA hosts; on CPU smoke runners the
+    expected value is False. Assert against ``torch.cuda.is_available()`` so
+    the test is portable across CI CPU runners and CUDA dev hosts.
+    """
+    import torch
+
     from src.training.training_args import build_training_args
 
     args = build_training_args(
@@ -120,7 +129,7 @@ def test_training_args_seed_propagation(tmp_path: Path) -> None:
     assert args.warmup_ratio == 0.10
     assert args.lr_scheduler_type == "cosine"
     assert args.num_train_epochs == 2
-    assert args.bf16 is True
+    assert args.bf16 is torch.cuda.is_available()
     assert args.fp16 is False
     assert args.max_grad_norm == 1.0
     assert args.weight_decay == 0.01
