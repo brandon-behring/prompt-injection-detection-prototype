@@ -9,6 +9,16 @@ description: "Detector ladder and reference scorer details for the prompt-inject
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers. Note: the filename retains "rungs" as an architectural artifact (older ADRs use that term); reader-facing prose elsewhere calls these "detectors" — same thing.
 
+:::{.callout-note}
+## Summary
+
+- **TF-IDF + LR floor**: `pooled_ood` AUPRC 0.291 [0.283, 0.298] — below the random-predictor baseline of 0.374; this is the floor every other detector is measured against.
+- **Frozen probe (ModernBERT)**: `pooled_ood` AUPRC 0.364 [0.354, 0.375] — best in the slate (+0.073 lift over the floor) but still ~0.01 below the prevalence baseline. The pretrained ModernBERT embeddings carry what little OOD generalization budget exists.
+- **LoRA fine-tune**: `pooled_ood` AUPRC 0.293 [0.286, 0.301] — drops -0.071 below frozen-probe; ties the classical floor. Fine-tuning on the LODO direct-injection pool *hurts* OOD generalization (negative result).
+- **ProtectAI v1 reference**: `pooled_ood` AUPRC 0.361 [0.330, 0.391] — essentially at parity with frozen-probe; `suspected_contamination` tier per ADR-005.
+- **ProtectAI v2 reference**: `pooled_ood` AUPRC 0.314 [0.283, 0.345] — worse than v1 on `xstest` (-0.15 AUROC clear regression); broader-scope training did NOT monotonically improve across the OOD slate.
+:::
+
 This spoke covers section 4 of the methodology narrative: the detector ladder.
 The evaluated detectors are the classical floor, three trained transformer
 variants, and two published reference scorers per ADR-015, ADR-017, ADR-018,

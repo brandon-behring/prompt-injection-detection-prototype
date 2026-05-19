@@ -4,6 +4,16 @@
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
+:::{.callout-note}
+## Summary
+
+- **§8.1 Scope deferrals**: deployment + adversarial red-teaming + agentic-flow coverage are deliberate out-of-scope decisions, not failures. Each carries an explicit *why deferred* paragraph.
+- **§8.2 Methodology caveats**: deliberate fidelity trade-offs (e.g., val-inference `max_length=2048` vs training `8192`) with quantified impact.
+- **§9.2 Architectures dropped + the DeBERTa-v3-base ablation result**: the v1.1.2 DeBERTa ablation produced a **publishable null**. Two truncation strategies (chunk-and-average / head-truncation) produced essentially identical OOD AUPRC (~0.29 pooled OOD). By the ADR-060 confound-control reading, **the ModernBERT advantage on the headline ladder is backbone-dominant**, not context-window-dominant.
+- **§9.4 Future-work directions**: OOD-aware training data + backbone scaling + OOD-aware threshold selection are the three prescriptions; each tied to a specific finding the current ladder couldn't address.
+- **§11 Process lessons**: SDD + ADR discipline bought reproducibility + audit trail at the cost of ~9-decision-per-sub-session Phase 0 interview flow. The OOD wall was the central surprise; LoRA fine-tuning as a *negative* result vs frozen-probe drove the honest-story framing.
+:::
+
 This spoke consolidates §8 scope deferrals, §8.2 methodology
 caveats, §9 negative results (tried + abandoned), and §11 lessons.
 The distinction matters: §8 = scope decisions defensible at submission; §9 =

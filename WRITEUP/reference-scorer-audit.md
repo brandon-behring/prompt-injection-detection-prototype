@@ -4,6 +4,16 @@
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
+:::{.callout-note}
+## Summary
+
+- **Three-state contamination taxonomy** (per ADR-005): `verified_disjoint` / `suspected_contamination` / `vendor_black_box`. The reference slate carries 3 rungs total after Phase 4 narrowing (LLM-judges dropped per ADR-050 cost re-estimation).
+- **TF-IDF + LR floor**: `verified_disjoint` — trained in-project on the LODO pool; no external training-data provenance.
+- **ProtectAI v1 verdict**: `suspected_contamination` retained. HF model card lists `deepset/prompt-injections` + Lakera sources in training mix — overlap with this project's LODO training pool. Full disjointness cannot be verified; results reported with caveat.
+- **ProtectAI v2 verdict**: BETTER than v1 on `jbb_behaviors` (+0.06 AUROC) and WORSE on `xstest` (-0.15 AUROC; CIs do not overlap — a clear regression). v2's broader-scope training did NOT monotonically improve across the OOD slate.
+- **Dropped rungs**: LLM-judge reference scorers (gpt-4o + claude-sonnet-4-6) dropped at Phase 4 per ADR-050 (16× envelope overrun); Lakera Guard dropped at Phase 0 per ADR-018 (ToS verification overhead).
+:::
+
 This spoke covers the three-state contamination taxonomy (ADR-005)
 as applied to the reference-scorer slate (ProtectAI v1 + v2 +
 TF-IDF+LR classical floor) per ADR-018 + ADR-050 narrowing, plus

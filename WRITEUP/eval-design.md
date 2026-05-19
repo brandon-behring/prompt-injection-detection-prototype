@@ -4,6 +4,16 @@
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
+:::{.callout-note}
+## Summary
+
+- **Headline metric battery**: PR-AUC (primary; canonical for class-imbalanced ranking) + ROC-AUC (secondary; cross-paper) + recall@FPR at 0.1 %, 1 %, 5 % (1 % is canonical per PromptShield 2025) + ECE + Brier. BCa bootstrap CIs throughout.
+- **Statistical stance**: report effect sizes and CIs. Do not rely on p-values. Modern preference in applied ML evaluation; aligned with [eval-toolkit](https://github.com/brandon-behring/eval-toolkit)'s primitive design.
+- **Paired-bootstrap**: rung-vs-rung Δ-CIs preserve per-row pairing correlation without parametric assumptions (DeLong's, McNemar's). MDE reported alongside any CI that includes zero.
+- **Per-source breakdowns**: mandatory for any OOD claim. The 5-slice OOD slate (`notinject` / `xstest` / `jbb_behaviors` / `bipia` / `injecagent`) probes false-positive robustness + cross-distribution + adversarial-elicitation + indirect injection + agentic-flow generalization.
+- **Single-class slice convention**: BIPIA + InjecAgent are all-positive; NotInject is all-negative. AUROC + AUPRC are mathematically undefined on single-class slices; the metrics pipeline filters these out at source per ADR-006.
+:::
+
 This spoke covers §5.1, §5.2, §5.4, §5.5 — the evaluation framework,
 statistical apparatus, per-source breakdown discipline, and OOD slate
 composition. Threshold policy (§5.3) is its own spoke

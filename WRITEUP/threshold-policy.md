@@ -4,6 +4,16 @@
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
+:::{.callout-note}
+## Summary
+
+- **Dual-policy framing**: the same classifier scores are configured at two cost-weight thresholds — **detection** (FPR ≤ 1 %) for low-flag-rate triage, **verification** (recall ≥ 99 %) for must-catch-all-attacks queueing. Both reported side by side per ADR-025.
+- **Scope bound**: dual-policy operating-point characterisation applies only to **in-house rungs**. Reference scorers carry training-overlap caveats that make operating-point characterisation misleading; only recall@FPR pinpoints are reported for those.
+- **Key val→test transfer finding**: all 72 op-points are reachable on val; transfer to LODO held-out test is partial-to-poor. The val→LODO gap is the dominant calibration story per WRITEUP §Results §7.5.
+- **LoRA detection on test**: mean FPR creeps to 0.115 (11.5×) vs 1 % target. Recall trades favorably (0.42) for the higher FPR.
+- **Frozen-probe verification on test**: mean recall lands at 0.957 (close to 0.99 target) BUT at mean FPR 0.891 — almost everything is flagged positive. Verification regime over-floods at the cost of selectivity on LODO.
+:::
+
 This spoke covers §5.3 — the dual-policy detection / verification
 operating-point characterisation per ADR-025. The same classifier
 scores are configured to two different cost-weight thresholds; what

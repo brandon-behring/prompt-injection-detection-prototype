@@ -4,6 +4,15 @@
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
+:::{.callout-note}
+## Summary
+
+- **Source slate**: 4 positive-attack sources (4707 rows post-dedup) + 2 benign sources (17246 rows) + 5 held-out OOD slices. All sources pinned at HF revision SHAs per ADR-016 + ADR-041.
+- **Dedup discipline**: calibrated semantic dedup at cosine 0.80 (encoder `sentence-transformers/all-MiniLM-L6-v2`); label-aware (within-source drop; cross-label preserve); cross-source minimal pairs preserved per ADR-042.
+- **Leakage check**: 0 exact-hash overlaps + 0 cosine overlaps at threshold 0.85 across all (train, val, test) per-fold-seed pairs — `evals/leakage_report.json` carries `leakage_clean: True`.
+- **Splits structure**: source-disjoint LODO (4-fold; 3 seeds = 12 cells per rung) per ADR-016. Field-standard choice when ≥3 positive sources are available (Fomin 2025, "When Benchmarks Lie").
+:::
+
 This spoke covers §3 of the methodology narrative — source slate
 selection, dedup discipline, leakage handling, and split structure.
 For the headline characterisation that consumes these decisions, see

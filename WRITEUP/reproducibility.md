@@ -9,6 +9,16 @@ description: "Documents the T0 + T1 + T3 reproducibility tier ladder per ADR-034
 
 > **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
+:::{.callout-note}
+## Summary
+
+- **T0 — eval-from-hub** (laptop, $0, ~10-30 min): `make eval-from-hub RUNG=frozen-probe` (or `lora`) downloads the published HF Hub checkpoint and score-matches against `evals/results.json` within 1e-4 absolute tolerance per ADR-034. Fully wired at v1.0.9 per ADR-058.
+- **T1 — smoke** (laptop, $0, <10 min): `make smoke` verifies code health via fixture-data E2E pass; does NOT verify math correctness or headline numbers.
+- **T3 — headline-cloud** (cloud GPU, ~$125+, hours): `make headline-cloud` retrains every rung from scratch on RunPod; full retraining from scratch reproduces headline numbers within seed variance. Hard cost-cap at $125 per job per ADR-020.
+- **T2 (test-integration)** is a developer-tool tier (requires local GPU); not promoted to reviewer-facing because T0+T3 cover the verification dimensions.
+- **ACM artifact-badging**: T0 + T1 supply Available + Functional + Reusable; T3 supplies Reproducible (deepest).
+:::
+
 This submission documents three tiers of reproduction, ordered by cost. **Pick the tier matching your audit depth + budget.**
 
 This spoke is referenced by `index.qmd`'s "Deep-dive path — reproduce the numbers" section.
