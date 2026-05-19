@@ -39,7 +39,13 @@ training:
   warmup_ratio: 0.10
   lr_scheduler_type: cosine
   num_train_epochs: 2
-  bf16: true
+  # v1.1.2 Phase D fix: bf16 was true in the v1.1.0 scaffold but DeBERTa-v3
+  # has KNOWN bf16 numerical instability — disentangled attention math
+  # overflows bf16 mantissa; loss collapses to 0 + grad_norm becomes NaN from
+  # step 1. Surfaced at fire 1 retry-5 GPU burn. fp32 is reliable for the
+  # 184M-param backbone on A100/L4 with the medium-ablation envelope
+  # (single fold/seed; ~30 min wall fits ADR-060 cost target unchanged).
+  bf16: false
   fp16: false
   max_grad_norm: 1.0
   weight_decay: 0.01

@@ -44,6 +44,7 @@ def load_backbone(
     num_labels: int = 2,
     attn_impl_preferred: str = "flash_attention_2",
     event_logger: Callable[..., None] | None = None,
+    torch_dtype: torch.dtype = torch.bfloat16,
 ) -> AutoModelForSequenceClassification:
     """Load any HF sequence-classification backbone with flash-attn-2 + SDPA fallback.
 
@@ -73,6 +74,14 @@ def load_backbone(
         Callable accepting ``(event_name: str, **payload)``. On fallback, called
         with ``("flash_attn_fallback", gpu=torch.cuda.get_device_name(0), hf_id=hf_id)``.
         If ``None``, fallback is silent (smoke-test path).
+    torch_dtype : torch.dtype, optional
+        Weight precision. Default ``torch.bfloat16`` preserves ADR-019 ModernBERT
+        recipe. DeBERTa-v3-base (per ADR-060 v1.1.2 ablation) requires
+        ``torch.float32`` because the disentangled-attention math has known
+        bf16 numerical-instability (loss collapses to 0 + grad_norm becomes NaN
+        from step 1; discovered at v1.1.2 Phase D fire 1 retry-5 GPU burn).
+        Callers in train_one_cell read this from the YAML config's
+        ``training.bf16``/``training.fp16`` flags.
 
     Returns
     -------
@@ -91,7 +100,7 @@ def load_backbone(
             hf_id,
             revision=revision,
             attn_implementation=attn_impl_preferred,
-            torch_dtype=torch.bfloat16,
+            torch_dtype=torch_dtype,
             num_labels=num_labels,
         )
         return cast(AutoModelForSequenceClassification, model)
@@ -105,7 +114,7 @@ def load_backbone(
         model = AutoModelForSequenceClassification.from_pretrained(
             hf_id,
             revision=revision,
-            torch_dtype=torch.bfloat16,
+            torch_dtype=torch_dtype,
             num_labels=num_labels,
         )
         return cast(AutoModelForSequenceClassification, model)

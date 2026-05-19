@@ -81,6 +81,10 @@ def build_training_args(
     seed: int,
     per_device_train_batch_size: int,
     gradient_accumulation_steps: int,
+    learning_rate: float | None = None,
+    num_train_epochs: int | None = None,
+    bf16: bool | None = None,
+    fp16: bool | None = None,
 ) -> TrainingArguments:
     """Build ``TrainingArguments`` for any transformer rung at any seed.
 
@@ -94,31 +98,65 @@ def build_training_args(
         From ``batch_table.lookup_batch_config`` (ADR-020 BATCH_TABLE).
     gradient_accumulation_steps : int
         From ``batch_table.lookup_batch_config`` (ADR-020 BATCH_TABLE).
+    learning_rate : float, optional
+        Override the locked default ``LEARNING_RATE=1e-4`` (ADR-019 ModernBERT
+        recipe). DeBERTa-v3-base ablation uses ``2e-5`` per ADR-060. Pass
+        ``None`` to keep the ADR-019 default.
+    num_train_epochs : int, optional
+        Override the locked default ``NUM_TRAIN_EPOCHS=2``. Pass ``None`` to
+        keep the ADR-019 default.
+    bf16 : bool, optional
+        Override the bf16 precision mode. ``None`` keeps the original behavior
+        (use bf16 iff CUDA available; ADR-019 ModernBERT default).
+        ``False`` forces fp32 (DeBERTa-v3-base per ADR-060 — bf16 known
+        unstable, loss=0 + grad_norm=NaN). ``True`` forces bf16 on CUDA.
+    fp16 : bool, optional
+        Override fp16 precision mode. Mutually exclusive with bf16.
+        ``None`` keeps original (``False``); ``True`` forces fp16 on CUDA.
 
     Returns
     -------
     TrainingArguments
-        Per ADR-019 recipe lock — ``lr=1e-4``, ``warmup_ratio=0.10``, cosine
-        schedule, ``2 epochs``, ``bf16=True``, ``max_grad_norm=1.0``,
-        ``weight_decay=0.01``, ``save_strategy="epoch"``, ``eval_strategy="no"``.
-        Plus GPU-efficiency throughput knobs (see module docstring).
+        Per ADR-019 recipe lock (when overrides are ``None``) — ``lr=1e-4``,
+        ``warmup_ratio=0.10``, cosine schedule, ``2 epochs``, ``bf16=True``,
+        ``max_grad_norm=1.0``, ``weight_decay=0.01``, ``save_strategy="epoch"``,
+        ``eval_strategy="no"``. Plus GPU-efficiency throughput knobs (see
+        module docstring). Override kwargs replace the matching defaults
+        (ADR-060 v1.1.2 DeBERTa carryforward).
     """
-    # Hardware-gated knobs — tf32 is Ampere+ only; bf16 + fused-AdamW require
-    # CUDA. Smoke tests run on CPU-only hosts so these must degrade gracefully.
     has_cuda = torch.cuda.is_available()
     use_tf32 = _ampere_or_newer()
-    use_bf16 = has_cuda  # bf16 requires CUDA; fallback to fp32 on CPU smoke
     use_fused_adamw = has_cuda  # fused AdamW kernel requires CUDA
+
+    # bf16 / fp16 resolution: explicit overrides > YAML-driven defaults.
+    if bf16 is not None and bf16:
+        use_bf16 = has_cuda
+        use_fp16 = False
+    elif fp16 is not None and fp16:
+        use_bf16 = False
+        use_fp16 = has_cuda
+    elif bf16 is False:
+        # explicit fp32 (DeBERTa-v3 per ADR-060 — bf16 unstable)
+        use_bf16 = False
+        use_fp16 = False
+    else:
+        # default: bf16 when CUDA available (ADR-019 ModernBERT behavior preserved)
+        use_bf16 = has_cuda
+        use_fp16 = False
+
+    use_lr = learning_rate if learning_rate is not None else LEARNING_RATE
+    use_epochs = num_train_epochs if num_train_epochs is not None else NUM_TRAIN_EPOCHS
+
     return TrainingArguments(
         output_dir=str(output_dir),
-        learning_rate=LEARNING_RATE,
+        learning_rate=use_lr,
         warmup_ratio=WARMUP_RATIO,
         lr_scheduler_type="cosine",
         per_device_train_batch_size=per_device_train_batch_size,
         gradient_accumulation_steps=gradient_accumulation_steps,
-        num_train_epochs=NUM_TRAIN_EPOCHS,
+        num_train_epochs=use_epochs,
         bf16=use_bf16,
-        fp16=False,
+        fp16=use_fp16,
         tf32=use_tf32,
         max_grad_norm=MAX_GRAD_NORM,
         weight_decay=WEIGHT_DECAY,

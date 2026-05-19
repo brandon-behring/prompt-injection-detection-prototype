@@ -124,6 +124,7 @@ def prepare_model(
     backbone_hf_id: str,
     backbone_revision: str,
     event_logger: Callable[..., None] | None = None,
+    torch_dtype: torch.dtype = torch.bfloat16,
 ) -> Any:
     """Build the backbone model in the right rung mode.
 
@@ -167,6 +168,7 @@ def prepare_model(
         revision=backbone_revision,
         num_labels=2,
         event_logger=event_logger,
+        torch_dtype=torch_dtype,
     )
     if classifier_type == "frozen_probe":
         for name, param in model.named_parameters():
@@ -558,11 +560,27 @@ def train_one_cell(
         cfg["backbone"]["hf_id"],
         revision=cfg["backbone"]["revision"],
     )
+    # Resolve weight dtype from YAML training block per ADR-060 (v1.1.2
+    # carryforward — DeBERTa-v3 needs fp32 since bf16 + disentangled attention
+    # is known to produce loss=0 + grad_norm=NaN from step 1; surfaced at
+    # v1.1.2 Phase D retry-5 GPU burn). Default keeps the ADR-019 ModernBERT
+    # bf16 behaviour when YAML omits the flags.
+    training_cfg: dict[str, Any] = cfg.get("training", {})
+    if training_cfg.get("bf16") is True:
+        backbone_dtype: torch.dtype = torch.bfloat16
+    elif training_cfg.get("fp16") is True:
+        backbone_dtype = torch.float16
+    elif training_cfg.get("bf16") is False and training_cfg.get("fp16") is False:
+        backbone_dtype = torch.float32
+    else:
+        backbone_dtype = torch.bfloat16  # ADR-019 default
+
     model = prepare_model(
         classifier_type=classifier_type,
         backbone_hf_id=cfg["backbone"]["hf_id"],
         backbone_revision=cfg["backbone"]["revision"],
         event_logger=event_logger,
+        torch_dtype=backbone_dtype,
     )
 
     max_length: int = cfg["tokenizer"]["max_length"]
@@ -601,6 +619,10 @@ def train_one_cell(
         seed=seed,
         per_device_train_batch_size=batch_cfg.per_device,
         gradient_accumulation_steps=batch_cfg.grad_accum,
+        learning_rate=training_cfg.get("learning_rate"),
+        num_train_epochs=training_cfg.get("num_train_epochs"),
+        bf16=training_cfg.get("bf16"),
+        fp16=training_cfg.get("fp16"),
     )
 
     class_weights = compute_class_weights_tensor(train_df["label"].astype(int).to_numpy())
