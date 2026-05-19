@@ -18,6 +18,95 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.1.4] — 2026-05-19
+
+**Patch release**: documentation-wide consistency fix-pack +
+markdown-link-checker CI prophylaxis. Second of a three-stage
+clarity-and-consistency series (v1.1.3 baseline → v1.1.4 consistency
+→ v1.2.0 heavy clarity pass + hiring-manager landing).
+
+Triggered by 2026-05-19 full-repo markdown audit (Stage 2 Commit 1 of
+the v1.1.3→v1.2.0 plan at `/home/brandon_behring/.claude/plans/i-find-that-the-toasty-puppy.md`).
+The audit scanned every reviewer-facing markdown surface plus
+previously-unscanned areas (SPEC_SHEET, SPEC_GREENFIELD, docs/research/,
+notebooks/*.py, .github/workflows/, HF Hub model card output).
+Findings: 7 broken ADR slug references in immutable ADR files +
+2 broken ADR slug refs in CHANGELOG (fixable) + 1 stale ADR-count
+claim in SPEC_SHEET + 2 stale version references in NEXT_STEPS +
+1 stale `v1.0.x submission` comment in `notebooks/01_canonical_results.py`.
+The 7 immutable broken refs are recorded in the CHANGELOG `[1.1.2]`
+Postscript for reader-visibility; the others are patched here.
+
+### Fixed
+
+- **`CHANGELOG.md` [1.1.2] References** — corrected 2 broken ADR slug
+  refs: `ADR-006-single-seed-protocol-for-comparative-claims.md` →
+  `ADR-006-headline-metrics-and-statistical-apparatus.md`;
+  `ADR-020-runpod-orchestration-and-cost-discipline.md` →
+  `ADR-020-compute-infrastructure-and-cost-discipline.md`.
+- **`SPEC_SHEET.md`** frontmatter — `53 ADRs accepted across Phase 0-00
+  through v1.0.4 close` → `63 ADRs accepted through v1.1.3` with
+  v1.1.x landmark closes called out (ADR-059 / ADR-060 / ADR-061 /
+  ADR-062 / ADR-063).
+- **`NEXT_STEPS.md`** §2.4 title + trigger — `(v1.1.1+)` →
+  `(v1.2.0+)`; stale `v1.1.1 polish patch` reference updated with
+  a clarifying note that the v1.1.1 slot was consumed by ADR-061
+  (Quarto navigation restructure) and that the v1.1.3 canonical-figures
+  rewrite (ADR-062) already adopted several library primitives.
+- **`notebooks/01_canonical_results.py`** line 19 — `v1.0.x submission`
+  prose comment → version-neutral `canonical submission`.
+
+### Added
+
+- **`.github/workflows/link-check.yml`** (NEW) — `lycheeverse/lychee-action@v2`
+  workflow scanning reviewer-facing + governance markdown surfaces on
+  push to main, pull-request to main, and weekly schedule (MON 09:00
+  UTC). Fails the build on push/PR drift; auto-files a `documentation`+`link-rot`
+  GitHub issue on scheduled-run drift (URL rot is not a merge-blocker
+  but should be tracked). Caches link-check results for 1 day to keep
+  CI fast.
+- **`.lycheeignore`** (NEW) — pattern allowlist for verified-good URLs
+  that 403 unauthenticated bots (e.g., HF Hub model pages) and GitHub
+  blob/tree URLs with fragment anchors (lychee's HTML fragment check
+  produces false positives because GitHub generates slug-cased anchors
+  at render time; Quarto's own link-checker covers anchor refs at site
+  render via `make site`).
+
+### Postscript (in CHANGELOG `[1.1.2]`)
+
+Added inline below the v1.1.2 References block. Documents the 7 broken
+ADR slug refs in immutable ADRs (ADR-046:15,195; ADR-048:16,194;
+ADR-059:47; ADR-060:64; ADR-063:60,62,268,274) that cannot be edited
+per ADR-029 immutability discipline. Canonical-correct slugs listed
+inline so readers who hit a 404 from in-ADR cross-refs can find the
+right target. Also flags ADR-063's stale cumulative-cost figure
+(`$9.92`) and directs readers to `evals/cost_ledger.csv` for the
+canonical sum.
+
+### Coordination
+
+This release intentionally ships NO clarity-prose changes (those are
+v1.2.0 work). v1.1.4 is purely documentation hygiene + prophylaxis.
+v1.2.0 (next) lands the heavy clarity pass (jargon glossing invariant,
+figure caption refinements with SVG axis-label fixes, 8-spoke skim
+signposts, DeBERTa §1B ablation callout, dedicated hiring-manager
+landing page).
+
+### References
+
+- Audit findings: full-repo markdown audit (Stage 2 Commit 1 of the
+  v1.1.3→v1.2.0 plan; audit work product captured in-session, not
+  committed).
+- ADR-029 (ADR immutability discipline — explains why the 7 broken
+  refs in immutable ADRs must be flagged-not-fixed).
+- ADR-033 (reviewer URL pin `tree/v1.0.0` unchanged; live Quarto site
+  reflects v1.1.4).
+- Pre-existing CI: `ci.yml` (pre-commit + tests + audit) + `publish.yml`
+  (Quarto render + GH Pages deploy). New `link-check.yml` is
+  orthogonal.
+
+---
+
 ## [1.1.3] — 2026-05-19
 
 **Patch release**: ADR-062 Quarto writeup clarity rewrite — the first
