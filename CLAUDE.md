@@ -57,11 +57,20 @@ Each locked decision produces:
 The **ADR is the source of truth**. ADRs are immutable; supersede via new
 ADR marking prior `status: superseded-by-NNN`.
 
-**Narrow exception** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md)):
-factual typos in cross-reference slug filenames MAY be corrected in-place
-with a commit message citing ADR-067 + listing per-file corrections. ALL
-other content (numeric values, methodology, prose, alternatives, non-slug
-frontmatter) remains immutable per the rule above.
+**Narrow exceptions** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) + [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)):
+TWO factual-defect classes MAY be corrected in-place with a commit message
+citing the relevant ADR + listing per-file corrections:
+
+1. **Cross-reference slug filename typos** (per ADR-067) — a slug
+   pointing at a wrong-but-existing canonical file in `decisions/`.
+2. **Broken external references** (per ADR-068) — markdown links
+   pointing at local-filesystem paths (`/home/<author>/...`,
+   `../../../.claude/...`) or aspirational upstream resources
+   (URLs returning 404 from the upstream repo) that cannot resolve
+   on any non-author machine.
+
+ALL other content (numeric values, methodology, prose, alternatives,
+non-slug frontmatter, table data) remains immutable per the rule above.
 
 ### Phase 0 shorthand
 
