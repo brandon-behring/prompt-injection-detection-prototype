@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./NEXT_STEPS.html">
- <span class="dropdown-text">Next steps</span></a>
+ <span class="dropdown-text">Carryforward + future work</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./assumptions.html">
@@ -430,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./NEXT_STEPS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Next steps</span></a>
+ <span class="menu-text">Carryforward + future work</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -911,13 +911,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>prompt-injection-detection-prototype</h1>
 <p><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><img src="https://img.shields.io/badge/docs-live-blue.png" class="img-fluid" alt="Documentation"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg" class="img-fluid" alt="CI"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg" class="img-fluid" alt="Publish"></a> <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.13-blue.svg" class="img-fluid" alt="Python 3.13"></a></p>
 <p>This is a methodology-focused prompt-injection classifier evaluation. It asks a simple question: if detectors are trained on direct prompt-injection examples, do they still work when the attack family changes?</p>
-<p>The headline answer is <strong>mostly no</strong>. On the pooled cross-family out-of-distribution (OOD) slice, none of the evaluated detectors clearly beats the AUPRC random floor of 0.374.</p>
+<p>The headline answer is <strong>mostly no</strong>. On the pooled held-out attack-family slice (the out-of-distribution, or OOD, test), none of the evaluated detectors clearly beats the random floor for AUPRC, the primary ranking metric.</p>
 <section id="what-this-project-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-project-is">What This Project Is</h2>
 <ul>
 <li><strong>A capability characterization</strong>, not a deployment recommendation.</li>
 <li><strong>A detector-ladder evaluation</strong>: TF-IDF + LR, ModernBERT frozen probe, ModernBERT LoRA, and ProtectAI v1/v2 references.</li>
-<li><strong>An OOD evaluation</strong>: indirect injection, agentic-flow injection, jailbreak-style questions, and benign-but-injection-shaped text.</li>
+<li><strong>A held-out family evaluation</strong>: indirect injection, agentic-flow injection, jailbreak-style questions, and benign-but-injection-shaped text.</li>
 <li><strong>A reproducible artifact</strong>: source-disjoint splits, leakage checks, persisted predictions, confidence intervals, calibration metrics, and Quarto-rendered documentation.</li>
 </ul>
 </section>
@@ -969,10 +969,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-to-read-the-site" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-the-site">How To Read The Site</h2>
 <ul>
-<li><strong>5-minute read</strong>: start at the <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">live landing page</a>. It explains the problem, setup, result, and limits in plain language.</li>
+<li><strong>5-minute read</strong>: start at the <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">live landing page</a>. It explains the problem, setup, result, and limits in plain language, then points to the 60-second hiring-manager tour.</li>
 <li><strong>Results audit</strong>: read <a href="./RESULTS.html">RESULTS.md</a>. It contains the exact tables, five canonical figures, and raw artifact pointers.</li>
 <li><strong>Methodology audit</strong>: read <a href="./WRITEUP.html">WRITEUP.md</a>, then the eight spoke pages under <a href="./WRITEUP/"><code>WRITEUP/</code></a>.</li>
-<li><strong>Decision audit</strong>: read <a href="./decisions/"><code>decisions/</code></a>. ADR-062 records the clarity rewrite and canonical-figure correction.</li>
+<li><strong>Decision audit</strong>: read <a href="./decisions/"><code>decisions/</code></a> for the methodology and governance trail.</li>
 </ul>
 </section>
 <section id="key-terms" class="level2">
@@ -1030,18 +1030,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>methodology hub and detailed spokes</td>
 </tr>
 <tr class="odd">
+<td><code>NEXT_STEPS.md</code></td>
+<td>completed carryforward log plus live future-work questions</td>
+</tr>
+<tr class="even">
 <td><code>evals/</code></td>
 <td>canonical metrics, bootstrap artifacts, predictions</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>docs/plots/</code></td>
 <td>canonical reviewer figures F1-F5 plus provenance sidecars</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>decisions/</code></td>
 <td>Architecture Decision Records</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>src/</code>, <code>scripts/</code>, <code>tests/</code></td>
 <td>implementation and verification code</td>
 </tr>
@@ -1527,16 +1531,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>simple question: if detectors are trained on direct prompt-injection examples,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>do they still work when the attack family changes?</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>The headline answer is **mostly no**. On the pooled cross-family</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>out-of-distribution (OOD) slice, none of the evaluated detectors clearly beats</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>the AUPRC random floor of 0.374.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>The headline answer is **mostly no**. On the pooled held-out attack-family</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>slice (the out-of-distribution, or OOD, test), none of the evaluated detectors</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>clearly beats the random floor for AUPRC, the primary ranking metric.</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Project Is</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A capability characterization**, not a deployment recommendation.</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A detector-ladder evaluation**: TF-IDF + LR, ModernBERT frozen probe,</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  ModernBERT LoRA, and ProtectAI v1/v2 references.</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**An OOD evaluation**: indirect injection, agentic-flow injection,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A held-out family evaluation**: indirect injection, agentic-flow injection,</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  jailbreak-style questions, and benign-but-injection-shaped text.</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A reproducible artifact**: source-disjoint splits, leakage checks,</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  persisted predictions, confidence intervals, calibration metrics, and</span>
@@ -1559,67 +1563,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**5-minute read**: start at the</span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">live landing page</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span>.</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  It explains the problem, setup, result, and limits in plain language.</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Results audit**: read <span class="co">[</span><span class="ot">RESULTS.md</span><span class="co">](./RESULTS.md)</span>. It contains the exact</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  tables, five canonical figures, and raw artifact pointers.</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology audit**: read <span class="co">[</span><span class="ot">WRITEUP.md</span><span class="co">](./WRITEUP.md)</span>, then the eight spoke</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  pages under <span class="co">[</span><span class="ot">`WRITEUP/`</span><span class="co">](./WRITEUP/)</span>.</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Decision audit**: read <span class="co">[</span><span class="ot">`decisions/`</span><span class="co">](./decisions/)</span>. ADR-062 records the</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  clarity rewrite and canonical-figure correction.</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Terms</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AUPRC**: primary ranking metric; random floor equals the positive rate.</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD**: out-of-distribution. Here the important shift is cross-family, not</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  just a different source name.</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FPR**: false-positive rate. A 1% FPR target means no more than one false</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  alarm per 100 benign examples.</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ECE/Brier**: calibration errors; lower is better.</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>More definitions are in <span class="co">[</span><span class="ot">`docs/GLOSSARY.md`</span><span class="co">](./docs/GLOSSARY.md)</span>.</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproduce</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>Useful targets:</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site             <span class="co"># render Quarto site</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> audit            <span class="co"># regenerate/check ADR-derived submission audit</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render-figures   <span class="co"># render canonical F1-F5 figures from evals/</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud   <span class="co"># optional full cloud reproduction path</span></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repository Map</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Path <span class="pp">|</span> Role <span class="pp">|</span></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`index.qmd`</span> <span class="pp">|</span> plain-language live-site landing page <span class="pp">|</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`EXECUTIVE_SUMMARY.md`</span> <span class="pp">|</span> one-page decision-maker summary <span class="pp">|</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`RESULTS.md`</span> <span class="pp">|</span> exact result grids, figures, raw artifacts <span class="pp">|</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP.md`</span> + <span class="in">`WRITEUP/`</span> <span class="pp">|</span> methodology hub and detailed spokes <span class="pp">|</span></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`evals/`</span> <span class="pp">|</span> canonical metrics, bootstrap artifacts, predictions <span class="pp">|</span></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/plots/`</span> <span class="pp">|</span> canonical reviewer figures F1-F5 plus provenance sidecars <span class="pp">|</span></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/`</span> <span class="pp">|</span> Architecture Decision Records <span class="pp">|</span></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`src/`</span>, <span class="in">`scripts/`</span>, <span class="in">`tests/`</span> <span class="pp">|</span> implementation and verification code <span class="pp">|</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## What It Does Not Claim</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  It explains the problem, setup, result, and limits in plain language, then</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  points to the 60-second hiring-manager tour.</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Results audit**: read <span class="co">[</span><span class="ot">RESULTS.md</span><span class="co">](./RESULTS.md)</span>. It contains the exact</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  tables, five canonical figures, and raw artifact pointers.</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology audit**: read <span class="co">[</span><span class="ot">WRITEUP.md</span><span class="co">](./WRITEUP.md)</span>, then the eight spoke</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  pages under <span class="co">[</span><span class="ot">`WRITEUP/`</span><span class="co">](./WRITEUP/)</span>.</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Decision audit**: read <span class="co">[</span><span class="ot">`decisions/`</span><span class="co">](./decisions/)</span> for the methodology and</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  governance trail.</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Terms</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AUPRC**: primary ranking metric; random floor equals the positive rate.</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD**: out-of-distribution. Here the important shift is cross-family, not</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  just a different source name.</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FPR**: false-positive rate. A 1% FPR target means no more than one false</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  alarm per 100 benign examples.</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ECE/Brier**: calibration errors; lower is better.</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>More definitions are in <span class="co">[</span><span class="ot">`docs/GLOSSARY.md`</span><span class="co">](./docs/GLOSSARY.md)</span>.</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproduce</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>Useful targets:</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site             <span class="co"># render Quarto site</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> audit            <span class="co"># regenerate/check ADR-derived submission audit</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render-figures   <span class="co"># render canonical F1-F5 figures from evals/</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud   <span class="co"># optional full cloud reproduction path</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repository Map</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Path <span class="pp">|</span> Role <span class="pp">|</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`index.qmd`</span> <span class="pp">|</span> plain-language live-site landing page <span class="pp">|</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`EXECUTIVE_SUMMARY.md`</span> <span class="pp">|</span> one-page decision-maker summary <span class="pp">|</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`RESULTS.md`</span> <span class="pp">|</span> exact result grids, figures, raw artifacts <span class="pp">|</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP.md`</span> + <span class="in">`WRITEUP/`</span> <span class="pp">|</span> methodology hub and detailed spokes <span class="pp">|</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`NEXT_STEPS.md`</span> <span class="pp">|</span> completed carryforward log plus live future-work questions <span class="pp">|</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`evals/`</span> <span class="pp">|</span> canonical metrics, bootstrap artifacts, predictions <span class="pp">|</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/plots/`</span> <span class="pp">|</span> canonical reviewer figures F1-F5 plus provenance sidecars <span class="pp">|</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/`</span> <span class="pp">|</span> Architecture Decision Records <span class="pp">|</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`src/`</span>, <span class="in">`scripts/`</span>, <span class="in">`tests/`</span> <span class="pp">|</span> implementation and verification code <span class="pp">|</span></span>
 <span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>This does not cover multilingual attacks, encoded payloads, paraphrase</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>robustness, adversarial perturbations, or full multi-turn system behavior. It</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>is an evaluation artifact and a negative result, not a ready-to-ship detector.</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## License</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## What It Does Not Claim</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>This does not cover multilingual attacks, encoded payloads, paraphrase</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>robustness, adversarial perturbations, or full multi-turn system behavior. It</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>is an evaluation artifact and a negative result, not a ready-to-ship detector.</span>
 <span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MIT</span><span class="co">](./LICENSE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## License</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MIT</span><span class="co">](./LICENSE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
