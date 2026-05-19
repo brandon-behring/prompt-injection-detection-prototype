@@ -1,0 +1,75 @@
+name: Markdown link check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Run weekly to catch URL rot in external references (HF Hub, GitHub, etc.).
+  schedule:
+    - cron: '0 9 * * MON'
+
+permissions:
+  contents: read
+  issues: write   # to file issues on link rot when run on schedule
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    # Don't fail the build for scheduled runs (URL rot is not a regression to
+    # block PRs on); DO fail for push/pull_request (catches drift introduced
+    # by the diff being merged).
+    continue-on-error: ${{ github.event_name == 'schedule' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
+      - name: Run lychee link checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Scan reviewer-facing + governance markdown surfaces. Explicitly
+          # enumerated rather than globbing all *.md to skip transcripts/
+          # (gitignored anyway), .venv/, docs/_freeze/ (Quarto cache),
+          # artifacts/runpod/ (pod manifests; URLs may include pod IPs that
+          # 404 after teardown).
+          args: |
+            --no-progress
+            --cache
+            --max-cache-age 1d
+            --base .
+            --exclude-mail
+            --exclude-path transcripts
+            --exclude-path .venv
+            --exclude-path docs/_freeze
+            --exclude-path artifacts
+            --exclude-path tests/fixtures
+            './*.md'
+            './*.qmd'
+            './WRITEUP/**/*.md'
+            './decisions/**/*.md'
+            './docs/**/*.md'
+            './.github/**/*.md'
+            './configs/**/*.md'
+            './evals/**/*.md'
+          fail: ${{ github.event_name != 'schedule' }}
+          # Honor .lycheeignore in the repo root for pattern-based skips
+          # (e.g., HF Hub URLs that 403 unauthenticated bots; reviewer URL pin
+          # variants that may rate-limit GH).
+
+      - name: Open issue on scheduled failure
+        if: ${{ env.lychee_exit_code != 0 && github.event_name == 'schedule' }}
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'Link check failed on scheduled run'
+          content-filepath: ./lychee/out.md
+          labels: |
+            documentation
+            link-rot

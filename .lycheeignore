@@ -1,0 +1,23 @@
+# Lychee link-checker ignore patterns (one regex per line).
+# Configured in .github/workflows/link-check.yml (lycheeverse/lychee-action@v2).
+#
+# Discipline: prefer fixing broken links over adding ignore patterns. Only
+# add to this file when an external URL is GENUINELY unreachable from
+# CI but verified-good for human readers (e.g., resource that 403s
+# unauthenticated bots but resolves in a browser).
+#
+# Added at v1.1.4 (CI link-checker introduction).
+
+# Hugging Face Hub model + dataset pages sometimes 403 unauthenticated bots
+# even though the resources resolve cleanly in a browser. Our HF Hub URLs
+# include BBehring/prompt-injection-{lora,frozen-probe,full-ft,tfidf-lr} +
+# the upstream dataset pages (deepset, lakera, lmsys, hackaprompt, etc.).
+^https://huggingface\.co/.*$
+
+# GitHub anchor links (file.md#section-anchor) sometimes resolve at the file
+# level but lychee's fragment-checking against rendered HTML can flag false
+# positives because GitHub generates slug-cased anchors from markdown headers
+# at render time. Allow file-level GH URLs through; anchors get verified
+# at site-render via Quarto's own link-checker (run via `make site`).
+^https://github\.com/brandon-behring/prompt-injection-detection-prototype/blob/.*#.*$
+^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/.*#.*$
