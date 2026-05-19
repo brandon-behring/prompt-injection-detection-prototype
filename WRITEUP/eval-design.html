@@ -873,6 +873,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -949,7 +961,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>recall@FPR ∈ {0.1 %, 1 %, 5 %}</strong> — operational pinpoints. The 1 % point is the canonical reporting threshold (PromptShield 2025). The 0.1 % point is included in <code>evals/metrics/per_cell.parquet</code> per ADR-021 + ADR-023 volatility-surface protocol but is noisy at this project’s sample sizes and not surfaced in headlines.</li>
 <li><strong>ECE (equal-mass + Kumar-2019 debiased) + Brier</strong> — calibration; see §5.2 calibration battery below.</li>
 </ul>
-<p>See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md">methodology/comparison.md</a> for why each metric is preferred over plain F1.</p>
+<p>See eval-toolkit <code>comparison</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>) for why each metric is preferred over plain F1.</p>
 </section>
 <section id="statistical-tests" class="level2">
 <h2 class="anchored" data-anchor-id="statistical-tests">5.2 Statistical tests</h2>
@@ -957,7 +969,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="per-metric-bootstrap-cis-bootstrap_ci" class="level3">
 <h3 class="anchored" data-anchor-id="per-metric-bootstrap-cis-bootstrap_ci">Per-metric bootstrap CIs — <code>bootstrap_ci</code></h3>
 <p><em>Why</em>: a point estimate of PR-AUC hides finite-sample variance. Without a CI, claiming rung A beats rung B is irresponsible — the gap may be smaller than the sampling noise. Per-row resampling preserves label distribution and avoids parametric assumptions.</p>
-<p>Method: BCa bootstrap (Efron 1987 / Efron &amp; Tibshirani 1993 §14); resample budget per eval-toolkit guidance: n=200 sanity / n=1000 default / n=5000 publication-grade / n=10K+ only for expensive metrics. Pinned seed; stability check at a second seed flags instability if per-fold CI shifts &gt; 0.01. <strong>Report the point estimate, not the resample mean</strong> — <code>BootstrapCI.point_estimate</code> is the metric on the <em>original</em> data. See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md">methodology/bootstrap.md</a>.</p>
+<p>Method: BCa bootstrap (Efron 1987 / Efron &amp; Tibshirani 1993 §14); resample budget per eval-toolkit guidance: n=200 sanity / n=1000 default / n=5000 publication-grade / n=10K+ only for expensive metrics. Pinned seed; stability check at a second seed flags instability if per-fold CI shifts &gt; 0.01. <strong>Report the point estimate, not the resample mean</strong> — <code>BootstrapCI.point_estimate</code> is the metric on the <em>original</em> data. See eval-toolkit <code>bootstrap</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>).</p>
 </section>
 <section id="paired-bootstrap-differences-for-rung-vs-rung-paired_bootstrap_diff" class="level3">
 <h3 class="anchored" data-anchor-id="paired-bootstrap-differences-for-rung-vs-rung-paired_bootstrap_diff">Paired-bootstrap differences for rung-vs-rung — <code>paired_bootstrap_diff</code></h3>
@@ -974,11 +986,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>reliability_curve</code> + <code>fit_temperature</code> + <code>fit_isotonic_calibrator</code> + <code>fit_platt_calibrator</code> + <code>fit_beta_calibrator</code> + ECE variants + Brier.</p>
 <p><em>Why</em>: even without a deployment goal, calibration tells you whether the scores mean what they claim. A score of 0.9 should fire injections ~90 % of the time. ECE quantifies the gap; Brier is a proper scoring rule that decomposes as <code>BS = REL − RES + UNC</code> (Murphy 1973), so two models with same Brier may have very different operational profiles. Reliability curves diagnose <em>where</em> miscalibration concentrates (over-confident on the cleanest? under-confident on the most ambiguous?). Temperature (Guo et al.&nbsp;2017 ICML; single-parameter logit scaling; argmax-invariant), isotonic, Platt (1999), and Beta scaling are the standard post-hoc repairs, fit on validation only.</p>
 <p><strong>ECE choice matters</strong>: prefer L2-debiased ECE (Kumar et al.&nbsp;2019, arXiv:1909.10155) for headline reporting — preserves rank ordering and removes small-sample inflation (<code>expected_calibration_error_l2_debiased</code>). Equal-mass ECE (<code>expected_calibration_error_equal_mass</code>) is more robust under class imbalance via quantile binning (Naeini et al.&nbsp;2015, arXiv:1411.0760). <strong>Pin <code>n_bins</code> across comparisons</strong> — ECE is a binned estimator; small bin counts understate, large bin counts overstate.</p>
-<p>See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md">methodology/calibration.md</a>.</p>
+<p>See eval-toolkit <code>calibration</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>).</p>
 </section>
 <section id="cv-clt-ci-for-cross-fold-variance-cv_clt_ci" class="level3">
 <h3 class="anchored" data-anchor-id="cv-clt-ci-for-cross-fold-variance-cv_clt_ci">CV-CLT CI for cross-fold variance — <code>cv_clt_ci</code></h3>
-<p><em>Why</em>: when source-disjoint k-fold is run as a supplement, per-fold metrics are not independent — train sets overlap across folds. A naive standard-error treatment overstates confidence. CLT-based CI with Bayle 2020 (Annals of Statistics) Theorem 3.1 correction handles the dependence properly. See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md">methodology/splits.md</a>.</p>
+<p><em>Why</em>: when source-disjoint k-fold is run as a supplement, per-fold metrics are not independent — train sets overlap across folds. A naive standard-error treatment overstates confidence. CLT-based CI with Bayle 2020 (Annals of Statistics) Theorem 3.1 correction handles the dependence properly. See eval-toolkit <code>splits</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>).</p>
 <p>LODO non-exchangeability is a real assumption violation per assumption A-008 — the <code>cv_clt_ci</code> primitive was derived for exchangeable k-fold. Reporting consequence: <code>evals/audit/cross_fold_ci_audit.parquet</code> reports both <code>cv_clt_ci</code> CI and block-bootstrap-on-folds CI per rung; if the ratio <code>block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth &gt; 1.5</code>, the spoke flags “LODO non-exchangeability dominates within-fold variance” — turning the assumption violation into a named methodology finding.</p>
 </section>
 <section id="multi-comparison-correction-bh_fdr_correct" class="level3">
@@ -1055,7 +1067,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md">methodology/splits.md</a> for the source-disjoint discipline this project applies.</p>
+<p>See eval-toolkit <code>splits</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>) for the source-disjoint discipline this project applies.</p>
 <p><strong>Result (Single-class slice convention)</strong>: BIPIA + InjecAgent are all-positive; NotInject is all-negative. AUROC and AUPRC are mathematically undefined on single-class slices. The metrics pipeline filters these slices out of AUROC / AUPRC artifacts at source (per Item 4 of the v1.0.0 closure sweep — see WRITEUP §Methodology caveats); per-slice recall-at-threshold is reported on single-class slices instead.</p>
 </section>
 <section id="cross-references" class="level2">
@@ -1581,7 +1593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ECE (equal-mass + Kumar-2019 debiased) + Brier** — calibration;</span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  see §5.2 calibration battery below.</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">methodology/comparison.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md)</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>See eval-toolkit <span class="in">`comparison`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>)</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>for why each metric is preferred over plain F1.</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.2 Statistical tests</span></span>
@@ -1606,7 +1618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>instability if per-fold CI shifts &gt; 0.01. **Report the point estimate,</span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>not the resample mean** — <span class="in">`BootstrapCI.point_estimate`</span> is the metric</span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>on the *original* data. See</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">methodology/bootstrap.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md)</span>.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>eval-toolkit <span class="in">`bootstrap`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>).</span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paired-bootstrap differences for rung-vs-rung — `paired_bootstrap_diff`</span></span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
@@ -1666,7 +1678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>overstate.</span>
 <span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>See</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">methodology/calibration.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md)</span>.</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>eval-toolkit <span class="in">`calibration`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>).</span>
 <span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### CV-CLT CI for cross-fold variance — `cv_clt_ci`</span></span>
 <span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
@@ -1675,7 +1687,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>standard-error treatment overstates confidence. CLT-based CI with</span>
 <span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>Bayle 2020 (Annals of Statistics) Theorem 3.1 correction handles the</span>
 <span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>dependence properly. See</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">methodology/splits.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md)</span>.</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>eval-toolkit <span class="in">`splits`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>).</span>
 <span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>LODO non-exchangeability is a real assumption violation per</span>
 <span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>assumption A-008 — the <span class="in">`cv_clt_ci`</span> primitive was derived for</span>
@@ -1741,7 +1753,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`injecagent`</span> <span class="pp">|</span> Local git repo (release-pinned SHA in source_manifest.yaml) <span class="pp">|</span> All-positive (multi-turn agentic injection) <span class="pp">|</span> Agentic-flow generalization <span class="pp">|</span> Tests agentic-flow injection <span class="pp">|</span></span>
 <span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>See</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">methodology/splits.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md)</span></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>eval-toolkit <span class="in">`splits`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>)</span>
 <span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>for the source-disjoint discipline this project applies.</span>
 <span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>**Result (Single-class slice convention)**: BIPIA + InjecAgent are</span>

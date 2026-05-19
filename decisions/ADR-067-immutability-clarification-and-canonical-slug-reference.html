@@ -874,6 +874,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1101,7 +1113,7 @@ No decision content changed. ADR audit trail preserved.</code></pre>
 <p><strong>CLAUDE.md §“Phase 0 workflow”</strong> (after the existing immutability line):</p>
 <blockquote class="blockquote">
 <p>The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior <code>status: superseded-by-NNN</code>.</p>
-<p><strong>Narrow exception</strong> (per <a href="decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md">ADR-067</a>): factual typos in cross-reference slug filenames MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable.</p>
+<p><strong>Narrow exception</strong> (per <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a>): factual typos in cross-reference slug filenames MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable.</p>
 </blockquote>
 <p><strong><code>decisions/README.md</code> §Lifecycle</strong> (similar addition).</p>
 </section>
@@ -1797,7 +1809,7 @@ No decision content changed. ADR audit trail preserved.</code></pre>
 <span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior </span><span class="in">`status: superseded-by-NNN`</span><span class="at">.</span></span>
 <span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Narrow exception** (per </span><span class="co">[</span><span class="ot">ADR-067</span><span class="co">](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span><span class="at">): factual typos in cross-reference slug filenames MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable.</span></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Narrow exception** (per </span><span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span><span class="at">): factual typos in cross-reference slug filenames MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable.</span></span>
 <span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>**`decisions/README.md` §Lifecycle** (similar addition).</span>
 <span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a></span>

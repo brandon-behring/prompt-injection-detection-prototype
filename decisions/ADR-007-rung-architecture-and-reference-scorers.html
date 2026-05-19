@@ -874,6 +874,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1004,8 +1016,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>LoRA (Hu et al.&nbsp;2021) — https://arxiv.org/abs/2106.09685</li>
 <li>HF PEFT documentation — https://huggingface.co/docs/peft</li>
 <li>LLM-as-judge (Zheng et al.&nbsp;2023) — https://arxiv.org/abs/2306.05685</li>
-<li>Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://journals.sagepub.com/doi/10.1177/001316446002000104</li>
-<li>Landis &amp; Koch 1977 — Observer Agreement for Categorical Data — https://www.jstor.org/stable/2529310 (interpretive bands cited with caveat)</li>
+<li>Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://doi.org/10.1177/001316446002000104</li>
+<li>Landis &amp; Koch 1977 — Observer Agreement for Categorical Data — https://doi.org/10.2307/2529310 (interpretive bands cited with caveat)</li>
 <li>scikit-learn cohen_kappa_score — https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html</li>
 <li><code>docs/research/attacks_defenses/</code> — Lakera Guard / ProtectAI references</li>
 <li>ADR-005 (methodology principles, especially Principle 1)</li>
@@ -1495,7 +1507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2106.09685</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/peft</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2306.05685</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://journals.sagepub.com/doi/10.1177/001316446002000104</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://doi.org/10.1177/001316446002000104</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-00__brief-alignment.md</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
@@ -1575,8 +1587,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LoRA (Hu et al. 2021) — https://arxiv.org/abs/2106.09685</span>
 <span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>HF PEFT documentation — https://huggingface.co/docs/peft</span>
 <span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LLM-as-judge (Zheng et al. 2023) — https://arxiv.org/abs/2306.05685</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://journals.sagepub.com/doi/10.1177/001316446002000104</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Landis &amp; Koch 1977 — Observer Agreement for Categorical Data — https://www.jstor.org/stable/2529310 (interpretive bands cited with caveat)</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://doi.org/10.1177/001316446002000104</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Landis &amp; Koch 1977 — Observer Agreement for Categorical Data — https://doi.org/10.2307/2529310 (interpretive bands cited with caveat)</span>
 <span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>scikit-learn cohen_kappa_score — https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html</span>
 <span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`docs/research/attacks_defenses/`</span> — Lakera Guard / ProtectAI references</span>
 <span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (methodology principles, especially Principle 1)</span>

@@ -873,6 +873,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -942,7 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Detection policy</strong>: target FPR ≤ 1 % on validation; among thresholds satisfying that constraint, maximise TPR. Implemented via <code>eval_toolkit.TargetFPRSelector(0.01)</code>.</li>
 <li><strong>Verification policy</strong>: target FNR ≤ 1 % on validation (equivalently recall ≥ 99 %); among thresholds satisfying that constraint, maximise TNR. Implemented via <code>eval_toolkit.TargetRecallSelector(0.99)</code>.</li>
 </ul>
-<p>Symmetric cost-weight configurations of the same primitive. Operationally-interpretable targets (FPR / FNR) — not score-space targets — so the same selection rule applies across heterogeneous rungs whose score scales aren’t comparable. See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md">methodology/thresholds.md</a>.</p>
+<p>Symmetric cost-weight configurations of the same primitive. Operationally-interpretable targets (FPR / FNR) — not score-space targets — so the same selection rule applies across heterogeneous rungs whose score scales aren’t comparable. See eval-toolkit <code>thresholds</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>).</p>
 <p>Per-(rung, fold, seed) fitting on validation only: 24 thresholds per trained rung × 3 trained rungs (post-ADR-050 narrowing) = 72 threshold-pair instances. <code>paired_bootstrap_op_point_diff</code> two-level bootstrap (refit per resample) for CI propagation. Cost-weighted thresholding remains rejected per ADR-006 (no <code>CostSensitiveSelector</code> use).</p>
 <p><strong>Scope bound:</strong> dual-policy threshold characterisation applies only to <strong>in-house rungs</strong>. Reference scorers (off-the-shelf reference detectors) carry training-overlap caveats that make operating-point characterisation misleading; for those, only recall@FPR pinpoints are reported.</p>
 </section>
@@ -1566,7 +1578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>Operationally-interpretable targets (FPR / FNR) — not score-space</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>targets — so the same selection rule applies across heterogeneous</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>rungs whose score scales aren't comparable. See</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">methodology/thresholds.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md)</span>.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>eval-toolkit <span class="in">`thresholds`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>).</span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Per-(rung, fold, seed) fitting on validation only: 24 thresholds per</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>trained rung × 3 trained rungs (post-ADR-050 narrowing) = 72</span>

@@ -873,6 +873,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -912,7 +924,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>New ADR → <code>decisions/ADR-NNN-&lt;slug&gt;.md</code>, status <code>Accepted</code> (or <code>Proposed</code> if pending review)</li>
 <li>Change a previously-locked decision → write a <strong>new</strong> ADR that marks the prior as <code>status: superseded-by-NNN</code>. Do not edit the prior ADR file.</li>
-<li><strong>Narrow exception</strong> (per <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a>, v1.2.2): factual typos in cross-reference slug filenames within an ADR MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable per the rule above.</li>
+<li><strong>Narrow exceptions</strong> (per <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a>, v1.2.2 + <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">ADR-068</a>, v1.2.6 + <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html">ADR-069</a>, v1.2.6): THREE factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections: (1) cross-reference slug filename typos (per ADR-067) — slug points at a wrong-but-existing file in <code>decisions/</code>; (2) broken external references (per ADR-068) — markdown links to local-filesystem paths or aspirational upstream resources that cannot resolve on any non-author machine; (3) academic publisher-URL → DOI canonicalization (per ADR-069) — bot-403 publisher landing-page URLs (sage/tandf/jstor/dl.acm) replaced with the academic-canonical <code>doi.org/&lt;DOI&gt;</code> target (same paper, bot-friendly + durable). ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.</li>
 <li>Spec propagation: ADR is the source of truth. After locking ADR-NNN:
 <ul>
 <li>SPEC_GREENFIELD appendix row updated: <code>locked-to-X (see ADR-NNN)</code></li>
@@ -1450,7 +1462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>New ADR → <span class="in">`decisions/ADR-NNN-&lt;slug&gt;.md`</span>, status <span class="in">`Accepted`</span> (or <span class="in">`Proposed`</span> if pending review)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Change a previously-locked decision → write a **new** ADR that marks the prior as <span class="in">`status: superseded-by-NNN`</span>. Do not edit the prior ADR file.</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Narrow exception** (per <span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span>, v1.2.2): factual typos in cross-reference slug filenames within an ADR MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable per the rule above.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Narrow exceptions** (per <span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span>, v1.2.2 + <span class="co">[</span><span class="ot">ADR-068</span><span class="co">](./ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)</span>, v1.2.6 + <span class="co">[</span><span class="ot">ADR-069</span><span class="co">](./ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md)</span>, v1.2.6): THREE factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections: (1) cross-reference slug filename typos (per ADR-067) — slug points at a wrong-but-existing file in <span class="in">`decisions/`</span>; (2) broken external references (per ADR-068) — markdown links to local-filesystem paths or aspirational upstream resources that cannot resolve on any non-author machine; (3) academic publisher-URL → DOI canonicalization (per ADR-069) — bot-403 publisher landing-page URLs (sage/tandf/jstor/dl.acm) replaced with the academic-canonical <span class="in">`doi.org/&lt;DOI&gt;`</span> target (same paper, bot-friendly + durable). ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spec propagation: ADR is the source of truth. After locking ADR-NNN:</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>SPEC_GREENFIELD appendix row updated: <span class="in">`locked-to-X (see ADR-NNN)`</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>SPEC_SHEET corresponding slot updated: <span class="in">`[LOCKED: X (per ADR-NNN)]`</span></span>

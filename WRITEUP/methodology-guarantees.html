@@ -873,6 +873,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -935,9 +947,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Tier 1: functional core</strong> — <code>bootstrap_ci</code>, <code>paired_bootstrap_diff</code>, <code>mde_from_ci</code>, PR-AUC / ROC-AUC / Brier / ECE variants, <code>reliability_curve</code>, <code>fit_temperature</code>, <code>fit_isotonic_calibrator</code>, <code>cv_clt_ci</code>. Pure numpy / scipy / sklearn.</li>
 <li><strong>Tier 2: Protocol-based orchestration</strong> — <code>Scorer</code>, <code>SliceAwareScorer</code>, <code>LeakageCheck</code>, <code>Splitter</code>, <code>ThresholdSelector</code>, <code>DatasetLoader</code>, <code>SimilarityStrategy</code>. Opt-in versioning per protocol object.</li>
-<li><strong>Tier 3: reproducibility scaffolding</strong> — versioned JSON schemas (<code>results.v1.json</code>, <code>results_full.v1.json</code>, <code>manifest.v1.json</code> through <code>manifest.v3.json</code>; v3 adds required <code>contamination_flags</code> field for the three-state reference-scorer audit taxonomy). NeurIPS-aligned manifest capturing seeds, git SHA, data hashes, data revisions, GPU info, leakage report, guardrails, source roles. See <a href="https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/reproducibility.md">methodology/reproducibility.md</a> for the NeurIPS-checklist field mapping.</li>
+<li><strong>Tier 3: reproducibility scaffolding</strong> — versioned JSON schemas (<code>results.v1.json</code>, <code>results_full.v1.json</code>, <code>manifest.v1.json</code> through <code>manifest.v3.json</code>; v3 adds required <code>contamination_flags</code> field for the three-state reference-scorer audit taxonomy). NeurIPS-aligned manifest capturing seeds, git SHA, data hashes, data revisions, GPU info, leakage report, guardrails, source roles. See eval-toolkit <code>reproducibility</code> methodology (see <a href="https://github.com/brandon-behring/eval-toolkit#readme">README</a>) for the NeurIPS-checklist field mapping.</li>
 </ul>
-<p>Plus a <a href="https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology">17-chapter methodology curriculum</a> covering leakage, splits, thresholds, calibration, comparison, bootstrap, length stratification, text dedup, versioning, fairness, reproducibility, and testing.</p>
+<p>Plus methodology notes referenced from the <a href="https://github.com/brandon-behring/eval-toolkit#readme">eval-toolkit README</a> covering leakage, splits, thresholds, calibration, comparison, bootstrap, length stratification, text dedup, versioning, fairness, reproducibility, and testing.</p>
 <p><em>Why eval lives as a separate library</em>: it survives across iterations, it accumulates methodology curriculum as a durable knowledge artifact, and versioned JSON schemas let downstream parsers gate on format changes. Reuse is across projects, not just within this project.</p>
 </section>
 <section id="runpod-deploy-cloud-orchestration" class="level2">
@@ -1475,11 +1487,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  NeurIPS-aligned manifest capturing seeds, git SHA, data hashes,</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  data revisions, GPU info, leakage report, guardrails, source</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  roles. See</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">methodology/reproducibility.md</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/reproducibility.md)</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  eval-toolkit <span class="in">`reproducibility`</span> methodology (see <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span>)</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  for the NeurIPS-checklist field mapping.</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Plus a</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">17-chapter methodology curriculum</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology)</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Plus methodology notes referenced from the</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">eval-toolkit README</span><span class="co">](https://github.com/brandon-behring/eval-toolkit#readme)</span></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>covering leakage, splits, thresholds, calibration, comparison,</span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>bootstrap, length stratification, text dedup, versioning, fairness,</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>reproducibility, and testing.</span>

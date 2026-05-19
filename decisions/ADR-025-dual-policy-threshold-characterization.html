@@ -874,6 +874,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1604,7 +1616,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 347 carries locked-to-symmetric-1pct-with-honest-feasibility-reporting status (see ADR-025); SPEC_SHEET §5.3 Operating points subsection replaces the locked-pending-numeric-targets phrasing with explicit detection-FPR ≤ 1% plus verification-FNR ≤ 1% (equivalently recall ≥ 99 percent) plus selector-primitive-name plus aggregation-surface-name; SPEC_SHEET §5.1 primary descriptive metrics adds "FPR @ recall ≥ 99 percent" as the verification-policy column on trained rungs only with footnote on the existing recall@FPR=1% column tagging it as the detection-policy operating point; WRITEUP/threshold-policy.md spoke gains "Dual-policy operating-point grid" subsection (per-(rung, fold, seed) cells with paired_bootstrap_op_point_diff CIs at all aggregation levels) plus "Verification-target reachability across trained rungs" subsection plus optional "Recall-floor sensitivity sweep" afterword; decisions/library_imports.md eval-toolkit section gains TargetFPRSelector plus TargetRecallSelector plus paired_bootstrap_op_point_diff plus metrics_at_threshold entries; assumptions.md A-009 added (severity medium) documenting the verification-target reachability assumption with reachability JSON as load-bearing audit surface; tests/test_invariants.py contains skip-marked stub test_dual_policy_threshold_pairing asserting (a) per-(rung, fold, seed) selector fitting on val + test-application + paired_bootstrap_op_point_diff CI propagation; (b) only trained rungs participate (reference rungs excluded); (c) detection threshold equals TargetFPRSelector(0.01) and verification threshold equals TargetRecallSelector(0.99); tests/test_invariants.py contains skip-marked stub test_verification_reachability_audit asserting evals/audit/verification_reachability.json schema (per-(rung, fold, seed) entries with target_reachable plus achieved_val_recall plus fallback_threshold plus fallback_test_fpr fields) and that unreachable cells carry the asterisk flag in headline emit.</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> e335739</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit#readme  # eval-toolkit README (per ADR-068: original `blob/main/docs/methodology/thresholds.md` ref pointed at aspirational upstream docs that do not exist)</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/1402.1892</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2405.14478</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2410.22770</span></span>

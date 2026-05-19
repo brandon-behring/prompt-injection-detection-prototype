@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-15">
+<meta name="dcterms.date" content="2026-05-19">
 
-<title>Deliverable format — focused PDF plus public GitHub repo as evidence locker – Prompt-injection classifier evaluation</title>
+<title>Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -248,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html">Deliverable format — focused PDF plus public GitHub repo as evidence locker</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -480,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></a>
   </div>
 </li>
@@ -882,7 +882,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></a>
   </div>
 </li>
@@ -900,14 +900,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker" id="toc-adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker" class="nav-link active" data-scroll-target="#adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker">ADR-002: Deliverable format — focused PDF plus public GitHub repo as evidence locker</a>
+  <li><a href="#adr-069-narrow-immutability-relaxation-for-academic-publisher-url-doi-canonicalization-in-immutable-adrs" id="toc-adr-069-narrow-immutability-relaxation-for-academic-publisher-url-doi-canonicalization-in-immutable-adrs" class="nav-link active" data-scroll-target="#adr-069-narrow-immutability-relaxation-for-academic-publisher-url-doi-canonicalization-in-immutable-adrs">ADR-069 — Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
-  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
-  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
-  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
-  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#a-context-academic-publisher-urls-vs-doi-canonicalization" id="toc-a-context-academic-publisher-urls-vs-doi-canonicalization" class="nav-link" data-scroll-target="#a-context-academic-publisher-urls-vs-doi-canonicalization">§A Context — academic publisher URLs vs DOI canonicalization</a></li>
+  <li><a href="#b-decision-third-narrow-exception-covering-publisher-url-canonicalization" id="toc-b-decision-third-narrow-exception-covering-publisher-url-canonicalization" class="nav-link" data-scroll-target="#b-decision-third-narrow-exception-covering-publisher-url-canonicalization">§B Decision — third narrow exception covering publisher-URL canonicalization</a>
+  <ul class="collapse">
+  <li><a href="#b1-in-scope-corrections-allowed-in-place-per-this-adr-069" id="toc-b1-in-scope-corrections-allowed-in-place-per-this-adr-069" class="nav-link" data-scroll-target="#b1-in-scope-corrections-allowed-in-place-per-this-adr-069">B1 — In-scope corrections (allowed in-place per this ADR-069)</a></li>
+  <li><a href="#b2-out-of-scope-changes-require-superseding-adr-per-existing-rule" id="toc-b2-out-of-scope-changes-require-superseding-adr-per-existing-rule" class="nav-link" data-scroll-target="#b2-out-of-scope-changes-require-superseding-adr-per-existing-rule">B2 — Out-of-scope changes (REQUIRE superseding ADR per existing rule)</a></li>
+  <li><a href="#b3-commit-message-convention" id="toc-b3-commit-message-convention" class="nav-link" data-scroll-target="#b3-commit-message-convention">B3 — Commit message convention</a></li>
+  <li><a href="#b4-future-pr-review-discipline-unchanged-from-adr-067-adr-068" id="toc-b4-future-pr-review-discipline-unchanged-from-adr-067-adr-068" class="nav-link" data-scroll-target="#b4-future-pr-review-discipline-unchanged-from-adr-067-adr-068">B4 — Future PR review discipline (unchanged from ADR-067 + ADR-068)</a></li>
+  </ul></li>
+  <li><a href="#c-decision-apply-in-the-v1.2.6-fix-forward" id="toc-c-decision-apply-in-the-v1.2.6-fix-forward" class="nav-link" data-scroll-target="#c-decision-apply-in-the-v1.2.6-fix-forward">§C Decision — apply in the v1.2.6 fix-forward</a></li>
+  <li><a href="#d-decision-claude.md-decisionsreadme.md-updates" id="toc-d-decision-claude.md-decisionsreadme.md-updates" class="nav-link" data-scroll-target="#d-decision-claude.md-decisionsreadme.md-updates">§D Decision — CLAUDE.md + decisions/README.md updates</a></li>
+  <li><a href="#e-consequences" id="toc-e-consequences" class="nav-link" data-scroll-target="#e-consequences">§E Consequences</a>
+  <ul class="collapse">
+  <li><a href="#e1-reader-experience-improved-academic-citations-now-durable" id="toc-e1-reader-experience-improved-academic-citations-now-durable" class="nav-link" data-scroll-target="#e1-reader-experience-improved-academic-citations-now-durable">E1 — Reader experience improved (academic citations now durable)</a></li>
+  <li><a href="#e2-audit-trail-discipline-preserved" id="toc-e2-audit-trail-discipline-preserved" class="nav-link" data-scroll-target="#e2-audit-trail-discipline-preserved">E2 — Audit-trail discipline preserved</a></li>
+  <li><a href="#e3-documentation-debt-paid-down" id="toc-e3-documentation-debt-paid-down" class="nav-link" data-scroll-target="#e3-documentation-debt-paid-down">E3 — Documentation debt paid down</a></li>
+  <li><a href="#e4-three-adr-symmetry" id="toc-e4-three-adr-symmetry" class="nav-link" data-scroll-target="#e4-three-adr-symmetry">E4 — Three-ADR symmetry</a></li>
+  <li><a href="#e5-future-prs-flagged-on-out-of-scope-edits-unchanged" id="toc-e5-future-prs-flagged-on-out-of-scope-edits-unchanged" class="nav-link" data-scroll-target="#e5-future-prs-flagged-on-out-of-scope-edits-unchanged">E5 — Future PRs flagged on out-of-scope edits (unchanged)</a></li>
+  <li><a href="#e6-cost-trivial" id="toc-e6-cost-trivial" class="nav-link" data-scroll-target="#e6-cost-trivial">E6 — Cost-trivial</a></li>
+  </ul></li>
+  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -915,9 +931,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html">Deliverable format — focused PDF plus public GitHub repo as evidence locker</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.html">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Deliverable format — focused PDF plus public GitHub repo as evidence locker</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -928,7 +944,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 15, 2026</p>
+      <p class="date">May 19, 2026</p>
     </div>
   </div>
   
@@ -940,60 +956,162 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker" class="level1">
-<h1>ADR-002: Deliverable format — focused PDF plus public GitHub repo as evidence locker</h1>
+<section id="adr-069-narrow-immutability-relaxation-for-academic-publisher-url-doi-canonicalization-in-immutable-adrs" class="level1">
+<h1>ADR-069 — Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Superseded by ADR-030 (2026-05-16). Originally Accepted (2026-05-15).</p>
-<p><strong>Supersession context</strong>: Phase 0-07 Q1 walk surfaced a user pivot away from PDF — “I think a pdf is not needed. The repo, can provide the write as a html documentation to hyperlink between the products. But it should have a clear guide/TOC to help someone examine the repo.” ADR-030 replaces the PDF + repo dual-artifact decision with a repo-only deliverable rendered as a Quarto HTML site via GitHub Actions. See <code>decisions/ADR-030-deliverable-format-quarto-html-site.md</code> for the superseding decision.</p>
+<p>Accepted (2026-05-19; third narrow clarification of the existing CLAUDE.md immutability rule — co-equal with ADR-067 + ADR-068; covers a third class of factual defects: bot-blocked publisher URLs that would be permanently broken in CI without canonicalization to the academic-standard DOI identifier).</p>
 </section>
-<section id="context" class="level2">
-<h2 class="anchored" data-anchor-id="context">Context</h2>
-<p>The brief is silent on deliverable format; the project must choose. The five candidate formats are PDF-only, repo-only, both, tarball, and hosted-demo. The Tight calendar (ADR-001) rules out hosted-demo on cost. Repo-only inflates reader time and lowers presentation polish. PDF-only severs reproducibility from the narrative.</p>
-<p>The hybrid “PDF + repo link” pattern is the lowest-friction option for a dual-audience reviewer (A1 hiring manager + A2 ML researcher; see ADR-004). The PDF carries the 15-minute skim path; the repo carries the deep-audit path. The two artifacts stay in sync because the PDF is mechanically rendered from the repo’s WRITEUP.md via pandoc.</p>
-</section>
-<section id="decision" class="level2">
-<h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<p><strong>Deliverable composition</strong>: PDF + public GitHub repository.</p>
-<p><strong>PDF role</strong>: focused hub document (≈ 10-15 pages). Rendered from <code>WRITEUP.md</code> + selected appendices via pandoc. Cross-links to repo markdown spokes via stable GitHub URLs pinned to the submission git tag.</p>
-<p><strong>Repo role</strong>: evidence locker. Contains code, ADRs, training manifests, per-row predictions, notebooks (jupytext-paired per ADR-004 hub-and-spoke + future Q9 lock), and topic-focused markdown spokes (<code>WRITEUP/&lt;topic&gt;.md</code>) that the PDF references for depth.</p>
-<p><strong>Submission delivery</strong>: PDF emailed to reviewer + repo URL with stable tag. Tag-at-submission strategy is finalized in Phase 0-07 §Submission.</p>
-</section>
-<section id="consequences" class="level2">
-<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
-<p><strong>Positive:</strong></p>
+<section id="a-context-academic-publisher-urls-vs-doi-canonicalization" class="level2">
+<h2 class="anchored" data-anchor-id="a-context-academic-publisher-urls-vs-doi-canonicalization">§A Context — academic publisher URLs vs DOI canonicalization</h2>
+<p>The first end-to-end lychee scan at v1.2.4 surfaced 26 publisher-URL bot-403 entries across 10 immutable ADRs. The URLs cite peer-reviewed methodology papers via:</p>
 <ul>
-<li>A1 (hiring manager) reads only the PDF; bounded reading time honored. A2 (ML researcher) skims the PDF, follows spoke links for the 2-3 decisions they want to scrutinize.</li>
-<li>Mechanical PDF-from-repo build keeps the two artifacts in sync — no separate maintenance burden.</li>
-<li>Public repo gives portfolio benefit and “show your work” optics. Aligns with kit’s <code>[LOCKED]</code> default for visibility (ADR-003).</li>
+<li><code>journals.sagepub.com/doi/&lt;DOI&gt;</code> (Sage Publications)</li>
+<li><code>www.tandfonline.com/doi/abs/&lt;DOI&gt;</code> (Taylor &amp; Francis)</li>
+<li><code>www.tandfonline.com/doi/full/&lt;DOI&gt;</code> (Taylor &amp; Francis)</li>
+<li><code>www.jstor.org/stable/&lt;ID&gt;</code> (JSTOR)</li>
+<li><code>dl.acm.org/doi/&lt;DOI&gt;</code> (ACM Digital Library)</li>
+<li><code>ojs.aaai.org/index.php/AAAI/article/view/&lt;ID&gt;</code> (AAAI)</li>
+<li><code>www.researchgate.net/publication/&lt;ID&gt;</code> (ResearchGate)</li>
 </ul>
-<p><strong>Negative / cost:</strong></p>
+<p>These academic publishers actively bot-block unauthenticated traffic for paywalled content (anti-scraping protection). The URLs resolve cleanly in browsers (with subscription / institutional / paywall access), but lychee CI scans receive 403 Forbidden responses. This is STRUCTURAL — not a bug to be fixed upstream; not workaroundable with auth tokens; not transient link rot.</p>
+<p>The canonical academic identifier for each paper is the <strong>DOI</strong> (Digital Object Identifier), resolved via <code>doi.org/&lt;DOI&gt;</code>. DOI URLs are run by CrossRef as a stable redirect service and are academically authoritative — DOI is the citation identifier per CrossRef + IETF RFC 7320 conventions. Lychee follows redirects, so a DOI can still land on a publisher page that bot-403s unauthenticated CI. For that residual class, <code>.lycheeignore</code> carries exact DOI exceptions instead of broad publisher-domain ignores.</p>
+<p>Crucially: <strong>every publisher URL listed above embeds the DOI in its path</strong>. Sed-based canonicalization is mechanical and lossless:</p>
 <ul>
-<li>Two artifacts to polish under Tight calendar; PDF build pipeline must be tested before submission day.</li>
-<li>Stable-tag discipline required — broken links from PDF to repo undermine the whole structure.</li>
-</ul>
-<p><strong>Neutral:</strong></p>
-<ul>
-<li>Phase 0-07 decides exact PDF bundle composition (which appendices concat into the PDF) and exact spoke file list. This ADR fixes the <em>structure</em>, not the <em>contents</em>.</li>
+<li><code>journals.sagepub.com/doi/10.1177/X</code> → <code>doi.org/10.1177/X</code></li>
+<li><code>tandfonline.com/doi/abs/10.1198/Y</code> → <code>doi.org/10.1198/Y</code></li>
+<li><code>dl.acm.org/doi/10.1145/Z</code> → <code>doi.org/10.1145/Z</code></li>
+<li>JSTOR + AAAI + ResearchGate use their own internal IDs. When a valid DOI is available, the URL is replaced with the DOI-equivalent; otherwise the original stable URL is retained with an exact <code>.lycheeignore</code> entry.</li>
 </ul>
 </section>
-<section id="alternatives-considered" class="level2">
-<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<section id="b-decision-third-narrow-exception-covering-publisher-url-canonicalization" class="level2">
+<h2 class="anchored" data-anchor-id="b-decision-third-narrow-exception-covering-publisher-url-canonicalization">§B Decision — third narrow exception covering publisher-URL canonicalization</h2>
+<p>ADRs remain immutable for <strong>decision content</strong> (per CLAUDE.md + ADR-067 §B + ADR-068 §B). ADR-069 covers an additional narrow class:</p>
+<section id="b1-in-scope-corrections-allowed-in-place-per-this-adr-069" class="level3">
+<h3 class="anchored" data-anchor-id="b1-in-scope-corrections-allowed-in-place-per-this-adr-069">B1 — In-scope corrections (allowed in-place per this ADR-069)</h3>
+<p><strong>Class Z — Academic publisher-URL → DOI canonicalization.</strong> Markdown links pointing at academic publisher landing pages that 403 bots may be replaced with <code>doi.org/&lt;DOI&gt;</code> equivalents where the DOI is extractable from the publisher URL path. Supported publisher patterns + canonicalization:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Publisher URL pattern</th>
+<th>Canonical DOI URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>journals.sagepub.com/doi/&lt;DOI&gt;</code></td>
+<td><code>doi.org/&lt;DOI&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code>www.tandfonline.com/doi/(abs\|full)/&lt;DOI&gt;</code></td>
+<td><code>doi.org/&lt;DOI&gt;</code></td>
+</tr>
+<tr class="odd">
+<td><code>dl.acm.org/doi/&lt;DOI&gt;</code></td>
+<td><code>doi.org/&lt;DOI&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code>www.jstor.org/stable/&lt;ID&gt;</code></td>
+<td><code>doi.org/10.2307/&lt;ID&gt;</code> when valid; otherwise retain the JSTOR stable URL with an exact ignore</td>
+</tr>
+<tr class="odd">
+<td><code>ojs.aaai.org/index.php/AAAI/article/view/&lt;ID&gt;</code></td>
+<td>Citation-by-author-year retained; URL replaced with closest DOI if available, else AAAI-published-DOI equivalent</td>
+</tr>
+<tr class="even">
+<td><code>www.researchgate.net/publication/&lt;ID&gt;</code></td>
+<td>Citation-by-author-year retained; URL replaced with DOI if extractable from paper metadata</td>
+</tr>
+</tbody>
+</table>
+<p>Fix discipline: preserve the link text exactly; replace the link target with the DOI URL. Example transformation:</p>
 <ul>
-<li><strong>PDF only</strong>: Reviewer reads top-to-bottom; reproducibility lives in a footnote. <em>Rejected because</em> it severs methodology from evidence; A2 reviewer cannot audit without leaving the artifact.</li>
-<li><strong>Repo only (no PDF)</strong>: Maximum transparency. <em>Rejected because</em> reading time inflates; A1 reviewer is starved of a narrative entry point.</li>
-<li><strong>Tarball</strong>: Self-contained bundle. <em>Rejected because</em> ADRs and transcripts are harder to navigate without unpacking; no inline rendering on GitHub.</li>
-<li><strong>Hosted demo + above</strong>: Interactive Gradio/HF Space demo. <em>Rejected because</em> Tight calendar (ADR-001) cannot absorb 4+ hours of demo build.</li>
+<li>Before target: <code>journals.sagepub.com/doi/10.1177/0956797613504966</code></li>
+<li>After target: <code>https://doi.org/10.1177/0956797613504966</code></li>
+</ul>
+<p>The citation text (author-year) is unchanged. The link target is the AUTHORITATIVE academic identifier when a valid DOI exists (same paper, more durable).</p>
+</section>
+<section id="b2-out-of-scope-changes-require-superseding-adr-per-existing-rule" class="level3">
+<h3 class="anchored" data-anchor-id="b2-out-of-scope-changes-require-superseding-adr-per-existing-rule">B2 — Out-of-scope changes (REQUIRE superseding ADR per existing rule)</h3>
+<p>Same as ADR-067 §B2 + ADR-068 §B2; numeric values, methodology decisions, prose rationale, alternatives considered, non-slug frontmatter fields, and table content all remain immutable. ADR-069 covers ONLY the link-target text in publisher-URL citations; the surrounding sentence + paragraph + decision content stays as written.</p>
+<p>ADR-069 applies ONLY to IMMUTABLE ADRs. Mutable files (SPEC_SHEET.md, SPEC_GREENFIELD.md, WRITEUP/*.md, etc.) can be edited freely per their existing mutability convention and do NOT need ADR-069 cover.</p>
+</section>
+<section id="b3-commit-message-convention" class="level3">
+<h3 class="anchored" data-anchor-id="b3-commit-message-convention">B3 — Commit message convention</h3>
+<p>In-place publisher-URL → DOI canonicalization fixes in immutable ADRs carry a commit message of the form:</p>
+<pre><code>docs: ADR-NNN publisher-URL → DOI canonicalization per ADR-069 (Class Z)
+
+Per ADR-069 narrow-relaxation rule (Class Z): academic publisher-URL
+citations that 403 bots MAY be canonicalized to DOI-equivalent
+(`doi.org/&lt;DOI&gt;`) URLs in-place in immutable ADRs. This commit
+fixes (sed-based; mechanical lossless transformation):
+
+- decisions/ADR-XXX.md:LINE — `&lt;publisher-url&gt;` -&gt; `doi.org/&lt;DOI&gt;`
+  ...
+
+No decision content changed. ADR audit trail preserved. Citation
+preserved (same paper; more durable identifier).</code></pre>
+</section>
+<section id="b4-future-pr-review-discipline-unchanged-from-adr-067-adr-068" class="level3">
+<h3 class="anchored" data-anchor-id="b4-future-pr-review-discipline-unchanged-from-adr-067-adr-068">B4 — Future PR review discipline (unchanged from ADR-067 + ADR-068)</h3>
+<p>In-place ADR edits that go beyond the three narrow scopes (slug typos + broken external refs + publisher → DOI canon) should be flagged by PR review + require a new superseding ADR per the existing rule. ADR-069 does NOT establish a slippery slope.</p>
+</section>
+</section>
+<section id="c-decision-apply-in-the-v1.2.6-fix-forward" class="level2">
+<h2 class="anchored" data-anchor-id="c-decision-apply-in-the-v1.2.6-fix-forward">§C Decision — apply in the v1.2.6 fix-forward</h2>
+<p>Publisher-URL citations across 10 immutable ADRs are canonicalized to DOI URLs where valid in the v1.2.6 fix-forward via batch sed transformation. The commit message enumerates each per-file substitution and the retained exact stable-link exception.</p>
+</section>
+<section id="d-decision-claude.md-decisionsreadme.md-updates" class="level2">
+<h2 class="anchored" data-anchor-id="d-decision-claude.md-decisionsreadme.md-updates">§D Decision — CLAUDE.md + decisions/README.md updates</h2>
+<p>Both documents get the TRIPLE-narrow-exception update (cites ADR-067 + ADR-068 + ADR-069). docs/GLOSSARY.md gets a parallel update.</p>
+</section>
+<section id="e-consequences" class="level2">
+<h2 class="anchored" data-anchor-id="e-consequences">§E Consequences</h2>
+<section id="e1-reader-experience-improved-academic-citations-now-durable" class="level3">
+<h3 class="anchored" data-anchor-id="e1-reader-experience-improved-academic-citations-now-durable">E1 — Reader experience improved (academic citations now durable)</h3>
+<p>After the v1.2.6 fix-forward, publisher-URL citations use DOI URLs where valid (academic-canonical identifier; durable across publisher URL changes). One JSTOR stable link without a valid DOI remains on the original stable URL with an exact lychee exception. Readers get the same cited paper identity without broad publisher-domain ignores.</p>
+</section>
+<section id="e2-audit-trail-discipline-preserved" class="level3">
+<h3 class="anchored" data-anchor-id="e2-audit-trail-discipline-preserved">E2 — Audit-trail discipline preserved</h3>
+<p>Same paper, same author-year citation text, same scholarly content. Only the link target changes from publisher-page-URL to DOI-URL. No decision content affected.</p>
+</section>
+<section id="e3-documentation-debt-paid-down" class="level3">
+<h3 class="anchored" data-anchor-id="e3-documentation-debt-paid-down">E3 — Documentation debt paid down</h3>
+<p>Publisher-URL bot-403 entries in immutable ADRs are eliminated from the lychee CI noise or reduced to exact DOI/stable-link exceptions. The lychee link-check workflow stops failing on inherited historical citation transport while still checking current project-owned links.</p>
+</section>
+<section id="e4-three-adr-symmetry" class="level3">
+<h3 class="anchored" data-anchor-id="e4-three-adr-symmetry">E4 — Three-ADR symmetry</h3>
+<p>ADR-067 (slug typos) + ADR-068 (broken external refs) + ADR-069 (publisher → DOI canon) are co-equal narrow exceptions to the same CLAUDE.md immutability rule. Each covers a distinct factual-defect class with the same audit-rationale (no decision content affected; CI cannot resolve original; in-place fix strictly improves reader experience; audit trail preserved). The three-ADR set bounds the scope: ANY OTHER in-place ADR edit requires a superseding ADR per the existing rule.</p>
+</section>
+<section id="e5-future-prs-flagged-on-out-of-scope-edits-unchanged" class="level3">
+<h3 class="anchored" data-anchor-id="e5-future-prs-flagged-on-out-of-scope-edits-unchanged">E5 — Future PRs flagged on out-of-scope edits (unchanged)</h3>
+<p>Same as ADR-067 §B4 + ADR-068 §B4. The three narrow-relaxation ADRs are NOT slippery slopes; they codify specific, well-defined factual-defect classes.</p>
+</section>
+<section id="e6-cost-trivial" class="level3">
+<h3 class="anchored" data-anchor-id="e6-cost-trivial">E6 — Cost-trivial</h3>
+<p>$0. Sed-based mechanical transformation across 10 immutable ADRs.</p>
+</section>
+</section>
+<section id="linked-adrs" class="level2">
+<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
+<ul>
+<li><strong>References</strong>:
+<ul>
+<li>CLAUDE.md — the source-of-truth for immutability (clarified by ADR-067 + ADR-068 + ADR-069 triple-narrow-exception)</li>
+<li>decisions/README.md — the ADR lifecycle + frontmatter schema (gets triple-citation update)</li>
+<li><a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a> — precedent narrow relaxation (Class A: slug typos)</li>
+<li><a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">ADR-068</a> — precedent narrow relaxation (Class B: broken external refs); v1.2.5 Commit 1</li>
+</ul></li>
+<li><strong>Source</strong>: v1.2.6 link-check fix-forward; root-cause analysis began during the v1.2.5 /exploring-options walk and post-execution discovery revealed 26 publisher-URL citations all in immutable ADRs. User-recommended option “Sed-based DOI canonicalization across all .md files” requires an ADR-069 cover.</li>
 </ul>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Pandoc PDF docs — https://pandoc.org/MANUAL.html#creating-a-pdf</li>
-<li><code>SUBMISSION_TEMPLATE.md</code> — kit-provided scaffold</li>
-<li>ADR-003 (repo visibility)</li>
-<li>ADR-004 (reviewer profile + hub-and-spoke structure)</li>
-</ul>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p><code>transcripts/2026-05-19__v1-2-5-link-check-content-debt-and-immutability-extension.md</code> — captures the multi-class link-check content-debt close + the ADR-067/068/069 triple narrow-relaxation lineage.</p>
 
 
 <!-- -->
@@ -1458,78 +1576,196 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 002</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> deliverable-format-pdf-and-repo</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Superseded</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> "030"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-002</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> The submission deliverable is a focused PDF (rendered from WRITEUP.md + appendices) paired with a public GitHub repo containing ADRs, code, notebooks, training manifests, per-row predictions, and topic-focused markdown spokes for any reader who wants depth beyond the PDF.</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Brief row 305 (Deliverable format)</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> At submission time, both artifacts exist and are mutually consistent — PDF cross-links to the repo at a stable git tag; repo contents reproduce the headline numbers in the PDF.</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 2a7b123</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://pandoc.org/MANUAL.html#creating-a-pdf</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - SUBMISSION_TEMPLATE.md</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-00__brief-alignment.md</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-002: Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Superseded by ADR-030 (2026-05-16). Originally Accepted (2026-05-15).</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>**Supersession context**: Phase 0-07 Q1 walk surfaced a user pivot away from PDF — "I think a pdf is not needed. The repo, can provide the write as a html documentation to hyperlink between the products. But it should have a clear guide/TOC to help someone examine the repo." ADR-030 replaces the PDF + repo dual-artifact decision with a repo-only deliverable rendered as a Quarto HTML site via GitHub Actions. See <span class="in">`decisions/ADR-030-deliverable-format-quarto-html-site.md`</span> for the superseding decision.</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>The brief is silent on deliverable format; the project must choose. The five candidate formats are PDF-only, repo-only, both, tarball, and hosted-demo. The Tight calendar (ADR-001) rules out hosted-demo on cost. Repo-only inflates reader time and lowers presentation polish. PDF-only severs reproducibility from the narrative.</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>The hybrid "PDF + repo link" pattern is the lowest-friction option for a dual-audience reviewer (A1 hiring manager + A2 ML researcher; see ADR-004). The PDF carries the 15-minute skim path; the repo carries the deep-audit path. The two artifacts stay in sync because the PDF is mechanically rendered from the repo's WRITEUP.md via pandoc.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>**Deliverable composition**: PDF + public GitHub repository.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>**PDF role**: focused hub document (≈ 10-15 pages). Rendered from <span class="in">`WRITEUP.md`</span> + selected appendices via pandoc. Cross-links to repo markdown spokes via stable GitHub URLs pinned to the submission git tag.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>**Repo role**: evidence locker. Contains code, ADRs, training manifests, per-row predictions, notebooks (jupytext-paired per ADR-004 hub-and-spoke + future Q9 lock), and topic-focused markdown spokes (<span class="in">`WRITEUP/&lt;topic&gt;.md`</span>) that the PDF references for depth.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>**Submission delivery**: PDF emailed to reviewer + repo URL with stable tag. Tag-at-submission strategy is finalized in Phase 0-07 §Submission.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>**Positive:**</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A1 (hiring manager) reads only the PDF; bounded reading time honored. A2 (ML researcher) skims the PDF, follows spoke links for the 2-3 decisions they want to scrutinize.</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mechanical PDF-from-repo build keeps the two artifacts in sync — no separate maintenance burden.</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Public repo gives portfolio benefit and "show your work" optics. Aligns with kit's <span class="in">`[LOCKED]`</span> default for visibility (ADR-003).</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>**Negative / cost:**</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Two artifacts to polish under Tight calendar; PDF build pipeline must be tested before submission day.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stable-tag discipline required — broken links from PDF to repo undermine the whole structure.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>**Neutral:**</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Phase 0-07 decides exact PDF bundle composition (which appendices concat into the PDF) and exact spoke file list. This ADR fixes the *structure*, not the *contents*.</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PDF only**: Reviewer reads top-to-bottom; reproducibility lives in a footnote. *Rejected because* it severs methodology from evidence; A2 reviewer cannot audit without leaving the artifact.</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Repo only (no PDF)**: Maximum transparency. *Rejected because* reading time inflates; A1 reviewer is starved of a narrative entry point.</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tarball**: Self-contained bundle. *Rejected because* ADRs and transcripts are harder to navigate without unpacking; no inline rendering on GitHub.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hosted demo + above**: Interactive Gradio/HF Space demo. *Rejected because* Tight calendar (ADR-001) cannot absorb 4+ hours of demo build.</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pandoc PDF docs — https://pandoc.org/MANUAL.html#creating-a-pdf</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`SUBMISSION_TEMPLATE.md`</span> — kit-provided scaffold</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-003 (repo visibility)</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-004 (reviewer profile + hub-and-spoke structure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "069"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-19</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-069</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> &gt;-</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-067 (v1.2.2) + ADR-068 (v1.2.5) established TWO narrow exceptions to</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  the CLAUDE.md ADR-immutability rule covering (i) slug typos in cross-</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  references + (ii) broken external references to local-filesystem paths</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  or aspirational upstream resources. The first end-to-end lychee scan at</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  v1.2.4 surfaced a THIRD distinct class inside immutable ADRs: **publisher-</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  URL bot-403 academic citations**. 26 markdown links across 10 immutable</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  ADRs (ADR-005, ADR-006, ADR-007, ADR-011, ADR-015, ADR-021, ADR-022,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-023, ADR-024, ADR-056) cite peer-reviewed methodology papers via</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  publisher landing-page URLs (`journals.sagepub.com/doi/&lt;DOI&gt;`,</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  `tandfonline.com/doi/&lt;DOI&gt;`, `jstor.org/stable/&lt;ID&gt;`, `dl.acm.org/doi/&lt;DOI&gt;`,</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  `ojs.aaai.org/index.php/AAAI/article/view/&lt;ID&gt;`, `researchgate.net/publication/&lt;ID&gt;`).</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  These URLs work for human readers (subscription / institutional / paywall</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">  access) but academic publishers actively bot-403 unauthenticated CI scans.</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">  The bot-blocking is STRUCTURAL: it will never be fixed upstream and</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">  cannot be worked around with auth in CI. The canonical academic</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">  identifier is the **DOI** (Digital Object Identifier), resolved via</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">  `doi.org/&lt;DOI&gt;`. The DOI resolver is the durable citation target;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">  where lychee follows DOI redirects into publisher pages that still</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  bot-403, `.lycheeignore` carries exact DOI exceptions rather than</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">  broad publisher-domain ignores. Each publisher URL embeds the DOI in its</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">  path; canonicalization is a mechanical sed transformation that:</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">  preserves citation intent EXACTLY; replaces unstable publisher-page</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">  URLs with the AUTHORITATIVE academic identifier; narrows bot-403</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">  noise in CI to exact documented DOI exceptions; aligns with CrossRef</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">  + academic-citation best practice.</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-069 codifies this as the THIRD narrow exception to the ADR-</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">  immutability rule, parallel to ADR-067 + ADR-068 with the same §B-style</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">  out-of-scope-list discipline. v1.2.6 applies the rule to fix</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">  26 publisher-URL citations across the 10 affected immutable ADRs.</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> v1.2.6 link-check fix-forward (root-cause analysis began during the v1.2.5 /exploring-options round) — post-execution discovery revealed 26 publisher-URL citations all in immutable ADRs; user-recommended option "Sed-based DOI canonicalization across all .md files" requires an ADR-069 cover for the immutable ADR edits.</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> &gt;-</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">  At v1.2.6 close: `decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md`</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">  exists (this file). Publisher-URL citations across the 10 affected</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">  immutable ADRs are replaced with `doi.org/&lt;DOI&gt;` equivalents where valid</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">  (DOI embedded in each publisher URL's path, extracted via deterministic</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">  sed pattern, except the one JSTOR stable reference without a valid</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">  `10.2307/&lt;ID&gt;` DOI remains as its original stable URL with an exact</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">  `.lycheeignore` entry). Lychee CI on the v1.2.6 push reports the</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">  publisher-URL bot-403 entries resolved or covered by exact documented</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">  DOI/stable-link exceptions. Future PR reviews flag any in-place ADR edit</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">  that goes beyond the three enumerated narrow scopes (ADR-067 slug</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">  typos + ADR-068 broken external refs + ADR-069 publisher → DOI canon).</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> v1.2.6</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> []</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> []</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">  - CLAUDE.md  # immutability rule lives here; gets triple-narrow-exception update</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/README.md  # ADR lifecycle; gets triple-narrow-exception update</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md  # precedent narrow relaxation (Class A: slug typos)</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md  # precedent narrow relaxation (Class B: broken external refs)</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co">  - docs/GLOSSARY.md</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-19__v1-2-5-link-check-content-debt-and-immutability-extension.md</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-069 — Narrow immutability relaxation for academic publisher-URL → DOI canonicalization in immutable ADRs</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-19; third narrow clarification of the existing CLAUDE.md immutability rule — co-equal with ADR-067 + ADR-068; covers a third class of factual defects: bot-blocked publisher URLs that would be permanently broken in CI without canonicalization to the academic-standard DOI identifier).</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## §A Context — academic publisher URLs vs DOI canonicalization</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>The first end-to-end lychee scan at v1.2.4 surfaced 26 publisher-URL bot-403 entries across 10 immutable ADRs. The URLs cite peer-reviewed methodology papers via:</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`journals.sagepub.com/doi/&lt;DOI&gt;`</span> (Sage Publications)</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`www.tandfonline.com/doi/abs/&lt;DOI&gt;`</span> (Taylor &amp; Francis)</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`www.tandfonline.com/doi/full/&lt;DOI&gt;`</span> (Taylor &amp; Francis)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`www.jstor.org/stable/&lt;ID&gt;`</span> (JSTOR)</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`dl.acm.org/doi/&lt;DOI&gt;`</span> (ACM Digital Library)</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`ojs.aaai.org/index.php/AAAI/article/view/&lt;ID&gt;`</span> (AAAI)</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`www.researchgate.net/publication/&lt;ID&gt;`</span> (ResearchGate)</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>These academic publishers actively bot-block unauthenticated traffic for paywalled content (anti-scraping protection). The URLs resolve cleanly in browsers (with subscription / institutional / paywall access), but lychee CI scans receive 403 Forbidden responses. This is STRUCTURAL — not a bug to be fixed upstream; not workaroundable with auth tokens; not transient link rot.</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>The canonical academic identifier for each paper is the **DOI** (Digital Object Identifier), resolved via <span class="in">`doi.org/&lt;DOI&gt;`</span>. DOI URLs are run by CrossRef as a stable redirect service and are academically authoritative — DOI is the citation identifier per CrossRef + IETF RFC 7320 conventions. Lychee follows redirects, so a DOI can still land on a publisher page that bot-403s unauthenticated CI. For that residual class, <span class="in">`.lycheeignore`</span> carries exact DOI exceptions instead of broad publisher-domain ignores.</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>Crucially: **every publisher URL listed above embeds the DOI in its path**. Sed-based canonicalization is mechanical and lossless:</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`journals.sagepub.com/doi/10.1177/X`</span> → <span class="in">`doi.org/10.1177/X`</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`tandfonline.com/doi/abs/10.1198/Y`</span> → <span class="in">`doi.org/10.1198/Y`</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`dl.acm.org/doi/10.1145/Z`</span> → <span class="in">`doi.org/10.1145/Z`</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>JSTOR + AAAI + ResearchGate use their own internal IDs. When a valid DOI is available, the URL is replaced with the DOI-equivalent; otherwise the original stable URL is retained with an exact <span class="in">`.lycheeignore`</span> entry.</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## §B Decision — third narrow exception covering publisher-URL canonicalization</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>ADRs remain immutable for **decision content** (per CLAUDE.md + ADR-067 §B + ADR-068 §B). ADR-069 covers an additional narrow class:</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### B1 — In-scope corrections (allowed in-place per this ADR-069)</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>**Class Z — Academic publisher-URL → DOI canonicalization.** Markdown links pointing at academic publisher landing pages that 403 bots may be replaced with <span class="in">`doi.org/&lt;DOI&gt;`</span> equivalents where the DOI is extractable from the publisher URL path. Supported publisher patterns + canonicalization:</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Publisher URL pattern <span class="pp">|</span> Canonical DOI URL <span class="pp">|</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`journals.sagepub.com/doi/&lt;DOI&gt;`</span> <span class="pp">|</span> <span class="in">`doi.org/&lt;DOI&gt;`</span> <span class="pp">|</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`www.tandfonline.com/doi/(abs\|full)/&lt;DOI&gt;`</span> <span class="pp">|</span> <span class="in">`doi.org/&lt;DOI&gt;`</span> <span class="pp">|</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dl.acm.org/doi/&lt;DOI&gt;`</span> <span class="pp">|</span> <span class="in">`doi.org/&lt;DOI&gt;`</span> <span class="pp">|</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`www.jstor.org/stable/&lt;ID&gt;`</span> <span class="pp">|</span> <span class="in">`doi.org/10.2307/&lt;ID&gt;`</span> when valid; otherwise retain the JSTOR stable URL with an exact ignore <span class="pp">|</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`ojs.aaai.org/index.php/AAAI/article/view/&lt;ID&gt;`</span> <span class="pp">|</span> Citation-by-author-year retained; URL replaced with closest DOI if available, else AAAI-published-DOI equivalent <span class="pp">|</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`www.researchgate.net/publication/&lt;ID&gt;`</span> <span class="pp">|</span> Citation-by-author-year retained; URL replaced with DOI if extractable from paper metadata <span class="pp">|</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>Fix discipline: preserve the link text exactly; replace the link target with the DOI URL. Example transformation:</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Before target: <span class="in">`journals.sagepub.com/doi/10.1177/0956797613504966`</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>After target: <span class="in">`https://doi.org/10.1177/0956797613504966`</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>The citation text (author-year) is unchanged. The link target is the AUTHORITATIVE academic identifier when a valid DOI exists (same paper, more durable).</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### B2 — Out-of-scope changes (REQUIRE superseding ADR per existing rule)</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>Same as ADR-067 §B2 + ADR-068 §B2; numeric values, methodology decisions, prose rationale, alternatives considered, non-slug frontmatter fields, and table content all remain immutable. ADR-069 covers ONLY the link-target text in publisher-URL citations; the surrounding sentence + paragraph + decision content stays as written.</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>ADR-069 applies ONLY to IMMUTABLE ADRs. Mutable files (SPEC_SHEET.md, SPEC_GREENFIELD.md, WRITEUP/*.md, etc.) can be edited freely per their existing mutability convention and do NOT need ADR-069 cover.</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="fu">### B3 — Commit message convention</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>In-place publisher-URL → DOI canonicalization fixes in immutable ADRs carry a commit message of the form:</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="in">docs: ADR-NNN publisher-URL → DOI canonicalization per ADR-069 (Class Z)</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="in">Per ADR-069 narrow-relaxation rule (Class Z): academic publisher-URL</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="in">citations that 403 bots MAY be canonicalized to DOI-equivalent</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="in">(`doi.org/&lt;DOI&gt;`) URLs in-place in immutable ADRs. This commit</span></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="in">fixes (sed-based; mechanical lossless transformation):</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="in">- decisions/ADR-XXX.md:LINE — `&lt;publisher-url&gt;` -&gt; `doi.org/&lt;DOI&gt;`</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="in">  ...</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="in">No decision content changed. ADR audit trail preserved. Citation</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="in">preserved (same paper; more durable identifier).</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### B4 — Future PR review discipline (unchanged from ADR-067 + ADR-068)</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>In-place ADR edits that go beyond the three narrow scopes (slug typos + broken external refs + publisher → DOI canon) should be flagged by PR review + require a new superseding ADR per the existing rule. ADR-069 does NOT establish a slippery slope.</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## §C Decision — apply in the v1.2.6 fix-forward</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>Publisher-URL citations across 10 immutable ADRs are canonicalized to DOI URLs where valid in the v1.2.6 fix-forward via batch sed transformation. The commit message enumerates each per-file substitution and the retained exact stable-link exception.</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## §D Decision — CLAUDE.md + decisions/README.md updates</span></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>Both documents get the TRIPLE-narrow-exception update (cites ADR-067 + ADR-068 + ADR-069). docs/GLOSSARY.md gets a parallel update.</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## §E Consequences</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### E1 — Reader experience improved (academic citations now durable)</span></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>After the v1.2.6 fix-forward, publisher-URL citations use DOI URLs where valid (academic-canonical identifier; durable across publisher URL changes). One JSTOR stable link without a valid DOI remains on the original stable URL with an exact lychee exception. Readers get the same cited paper identity without broad publisher-domain ignores.</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### E2 — Audit-trail discipline preserved</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>Same paper, same author-year citation text, same scholarly content. Only the link target changes from publisher-page-URL to DOI-URL. No decision content affected.</span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="fu">### E3 — Documentation debt paid down</span></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>Publisher-URL bot-403 entries in immutable ADRs are eliminated from the lychee CI noise or reduced to exact DOI/stable-link exceptions. The lychee link-check workflow stops failing on inherited historical citation transport while still checking current project-owned links.</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### E4 — Three-ADR symmetry</span></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>ADR-067 (slug typos) + ADR-068 (broken external refs) + ADR-069 (publisher → DOI canon) are co-equal narrow exceptions to the same CLAUDE.md immutability rule. Each covers a distinct factual-defect class with the same audit-rationale (no decision content affected; CI cannot resolve original; in-place fix strictly improves reader experience; audit trail preserved). The three-ADR set bounds the scope: ANY OTHER in-place ADR edit requires a superseding ADR per the existing rule.</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="fu">### E5 — Future PRs flagged on out-of-scope edits (unchanged)</span></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>Same as ADR-067 §B4 + ADR-068 §B4. The three narrow-relaxation ADRs are NOT slippery slopes; they codify specific, well-defined factual-defect classes.</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="fu">### E6 — Cost-trivial</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>$0. Sed-based mechanical transformation across 10 immutable ADRs.</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linked ADRs</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**References**:</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>CLAUDE.md — the source-of-truth for immutability (clarified by ADR-067 + ADR-068 + ADR-069 triple-narrow-exception)</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>decisions/README.md — the ADR lifecycle + frontmatter schema (gets triple-citation update)</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span> — precedent narrow relaxation (Class A: slug typos)</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-068</span><span class="co">](./ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)</span> — precedent narrow relaxation (Class B: broken external refs); v1.2.5 Commit 1</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source**: v1.2.6 link-check fix-forward; root-cause analysis began during the v1.2.5 /exploring-options walk and post-execution discovery revealed 26 publisher-URL citations all in immutable ADRs. User-recommended option "Sed-based DOI canonicalization across all .md files" requires an ADR-069 cover.</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="in">`transcripts/2026-05-19__v1-2-5-link-check-content-debt-and-immutability-extension.md`</span> — captures the multi-class link-check content-debt close + the ADR-067/068/069 triple narrow-relaxation lineage.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
