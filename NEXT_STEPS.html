@@ -187,6 +187,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
+    <a class="dropdown-item" href="./docs/for-hiring-managers.md">
+ <span class="dropdown-text">For hiring managers in a hurry</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
  <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </li>  
@@ -845,6 +849,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeup hiring-manager clarity polish + documentation-wide consistency conventions — additive layer on top of ADR-062</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -944,6 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Scope</em>: v1.1.x iteration adds DeBERTa-v3-base as a separately-evaluated rung with a controlled truncation strategy (e.g., chunk-and-average over 512-token windows vs head-truncation) so the truncation handling is methodologically addressable rather than load-bearing for the architecture comparison. Lands as an ablation appendix, not a co-equal rung in the headline ladder.</p>
 <p><em>Effort</em>: ~3-4 hours wallclock if the truncation-handling design lands quickly; longer if the chunk-and-average baseline needs validation against the source-disjoint LODO protocol. <em>Status (v1.0.6)</em>: carryforward to v1.1.0 — same-session per Path 3 batch 8 Q3 lock. Medium-ablation scope locked (2 truncation strategies × full 5-slice OOD slate; ablation-appendix framing in RESULTS §1B; NOT integrated as 6th rung; ~$8-10 GPU; new ADR-057 for truncation methodology).</p>
 <p><em>Status (v1.1.0)</em>: <strong>methodology landed (ADR-060); execution deferred to v1.1.1</strong>. /exploring-options 2026-05-19 surfaced a scope-mismatch — the existing training pipeline (<code>src/training/train_modernbert.py</code> + <code>src/training/load_modernbert.py</code>) is ModernBERT-specific by construction; adding DeBERTa requires loader refactor + windowed-inference module + eval-pipeline integration (~4-6h infrastructure work BEFORE any GPU fire). User picked <strong>Path B</strong>: land the methodology lock + scaffolds (ADR-060 + <code>configs/rungs/deberta_v3_base.yaml</code> + <code>configs/runpod/headline-deberta.yaml</code> + Makefile target stubs + RESULTS §1B placeholder) at v1.1.0; defer execution to v1.1.1. v1.1.0 = $0 GPU. v1.1.1 = ~$5-7 GPU + ~4-6h infrastructure. The methodology lock (single fold/seed, 2 truncation strategies, 5-slice OOD eval, ablation-appendix framing) is binding regardless of when execution lands.</p>
+<p><em>Status (v1.2.0)</em>: <strong>clarity pass landed</strong> — the v1.1.2 execution result (chunk_and_average vs head_truncation pooled OOD AUPRC ~0.29) is now narrated in RESULTS §1B with the backbone-dominant interpretation, cross-referenced from WRITEUP/limitations-and-future-work.md §9.2, and surfaced on the dedicated hiring-manager landing page at <code>docs/for-hiring-managers.md</code>. ADR-064 (writeup hiring-manager clarity + documentation-wide consistency pass) records the polish layer + 9-broken-slug-ref flag in immutable ADRs + canonical terminology table. CI markdown-link-checker (lychee) introduced at v1.1.4 prevents recurrence.</p>
 <p><em>Status (v1.1.2)</em>: <strong>execution landed</strong>. Slot-shift from the ADR-060 body’s “v1.1.1” wording: that slot was consumed by ADR-061 (Quarto navigation restructure) so DeBERTa execution carried forward to v1.1.2 (ADR-060 stays immutable; commit messages document the slot shift). Phase A refactored <code>load_modernbert</code> → <code>load_backbone(*, hf_id, revision, ...)</code>; Phase B added <code>src/inference/windowed.py</code> (chunk-and-average + head-truncation strategies); Phase C wired training dispatch + Makefile targets; Phase D fired both strategies on A100-SXM4-80GB (US-MD-1) sharing a warm pod via <code>lifecycle.on_success: recycle</code>. <strong>Headline result</strong> (<code>evals/metrics/per_cell_deberta.parquet</code>, pooled OOD AUPRC, epoch-2): <code>chunk_and_average</code> = 0.2912; <code>head_truncation</code> = 0.2895. The 2 truncation strategies produce <strong>essentially identical</strong> per-slice metrics across the 5-slice OOD slate — publishable null result. By the ADR-060 confound-control interpretation, this indicates the ModernBERT advantage on the headline ladder is <strong>backbone-dominant</strong>, not context-window-dominant. Actual GPU spend: <strong>$1.34</strong> (well under the $5-7 envelope; 9 pod manifests across 7 short failures + 2 successful fires; see <code>evals/cost_ledger.csv</code>). Fix-cycle of 7 commits (sentencepiece + protobuf deps + FUSE workaround moving project to /root + fp32 numerical stability + YAML-driven training overrides + checkpoint path doubling + drop staging bounce) before the 8th commit (the load-bearing fp32 fix) cleared all training-time errors.</p>
 <hr>
 </section>
@@ -1542,76 +1553,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>*Status (v1.1.0)*: **methodology landed (ADR-060); execution deferred to v1.1.1**. /exploring-options 2026-05-19 surfaced a scope-mismatch — the existing training pipeline (`src/training/train_modernbert.py` + `src/training/load_modernbert.py`) is ModernBERT-specific by construction; adding DeBERTa requires loader refactor + windowed-inference module + eval-pipeline integration (~4-6h infrastructure work BEFORE any GPU fire). User picked **Path B**: land the methodology lock + scaffolds (ADR-060 + <span class="in">`configs/rungs/deberta_v3_base.yaml`</span> + <span class="in">`configs/runpod/headline-deberta.yaml`</span> + Makefile target stubs + RESULTS §1B placeholder) at v1.1.0; defer execution to v1.1.1. v1.1.0 = $0 GPU. v1.1.1 = ~$5-7 GPU + ~4-6h infrastructure. The methodology lock (single fold/seed, 2 truncation strategies, 5-slice OOD eval, ablation-appendix framing) is binding regardless of when execution lands.</span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>*Status (v1.1.2)*: **execution landed**. Slot-shift from the ADR-060 body's "v1.1.1" wording: that slot was consumed by ADR-061 (Quarto navigation restructure) so DeBERTa execution carried forward to v1.1.2 (ADR-060 stays immutable; commit messages document the slot shift). Phase A refactored `load_modernbert` → `load_backbone(*, hf_id, revision, ...)`; Phase B added `src/inference/windowed.py` (chunk-and-average + head-truncation strategies); Phase C wired training dispatch + Makefile targets; Phase D fired both strategies on A100-SXM4-80GB (US-MD-1) sharing a warm pod via `lifecycle.on_success: recycle`. **Headline result** (`evals/metrics/per_cell_deberta.parquet`, pooled OOD AUPRC, epoch-2): `chunk_and_average` = 0.2912; `head_truncation` = 0.2895. The 2 truncation strategies produce **essentially identical** per-slice metrics across the 5-slice OOD slate — publishable null result. By the ADR-060 confound-control interpretation, this indicates the ModernBERT advantage on the headline ladder is **backbone-dominant**, not context-window-dominant. Actual GPU spend: **$1.34** (well under the $5-7 envelope; 9 pod manifests across 7 short failures + 2 successful fires; see <span class="in">`evals/cost_ledger.csv`</span>). Fix-cycle of 7 commits (sentencepiece + protobuf deps + FUSE workaround moving project to /root + fp32 numerical stability + YAML-driven training overrides + checkpoint path doubling + drop staging bounce) before the 8th commit (the load-bearing fp32 fix) cleared all training-time errors.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>*Status (v1.2.0)*: **clarity pass landed** — the v1.1.2 execution result (chunk_and_average vs head_truncation pooled OOD AUPRC ~0.29) is now narrated in RESULTS §1B with the backbone-dominant interpretation, cross-referenced from WRITEUP/limitations-and-future-work.md §9.2, and surfaced on the dedicated hiring-manager landing page at <span class="in">`docs/for-hiring-managers.md`</span>. ADR-064 (writeup hiring-manager clarity + documentation-wide consistency pass) records the polish layer + 9-broken-slug-ref flag in immutable ADRs + canonical terminology table. CI markdown-link-checker (lychee) introduced at v1.1.4 prevents recurrence.</span>
 <span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>*Status (v1.1.2)*: **execution landed**. Slot-shift from the ADR-060 body's "v1.1.1" wording: that slot was consumed by ADR-061 (Quarto navigation restructure) so DeBERTa execution carried forward to v1.1.2 (ADR-060 stays immutable; commit messages document the slot shift). Phase A refactored `load_modernbert` → `load_backbone(*, hf_id, revision, ...)`; Phase B added `src/inference/windowed.py` (chunk-and-average + head-truncation strategies); Phase C wired training dispatch + Makefile targets; Phase D fired both strategies on A100-SXM4-80GB (US-MD-1) sharing a warm pod via `lifecycle.on_success: recycle`. **Headline result** (`evals/metrics/per_cell_deberta.parquet`, pooled OOD AUPRC, epoch-2): `chunk_and_average` = 0.2912; `head_truncation` = 0.2895. The 2 truncation strategies produce **essentially identical** per-slice metrics across the 5-slice OOD slate — publishable null result. By the ADR-060 confound-control interpretation, this indicates the ModernBERT advantage on the headline ladder is **backbone-dominant**, not context-window-dominant. Actual GPU spend: **$1.34** (well under the $5-7 envelope; 9 pod manifests across 7 short failures + 2 successful fires; see <span class="in">`evals/cost_ledger.csv`</span>). Fix-cycle of 7 commits (sentencepiece + protobuf deps + FUSE workaround moving project to /root + fp32 numerical stability + YAML-driven training overrides + checkpoint path doubling + drop staging bounce) before the 8th commit (the load-bearing fp32 fix) cleared all training-time errors.</span>
 <span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Aspirational future directions</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>Things that would require rethinking the project's design rather than extending it. These are not commitments; they are the contour of where the next iteration might go.</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Aspirational future directions</span></span>
 <span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.1 Multi-seed × multi-fold canonical evidence (GPU-intensive)</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>Things that would require rethinking the project's design rather than extending it. These are not commitments; they are the contour of where the next iteration might go.</span>
 <span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>*Why*: at submission scope, single-seed evaluation suffices for honest characterization. A future iteration with broader compute budget could run 3 seeds × 3 folds × N scorers for tighter CIs + cross-seed variance reporting.</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>*What the project was missing*: GPU budget for multi-seed sweeps; deferred to a future iteration with explicit <span class="in">`[OPEN: multi-seed protocol]`</span> lock.</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2 Full reference-detector appendix</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.1 Multi-seed × multi-fold canonical evidence (GPU-intensive)</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>*Why*: at submission scope, single-seed evaluation suffices for honest characterization. A future iteration with broader compute budget could run 3 seeds × 3 folds × N scorers for tighter CIs + cross-seed variance reporting.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>*What the project was missing*: GPU budget for multi-seed sweeps; deferred to a future iteration with explicit <span class="in">`[OPEN: multi-seed protocol]`</span> lock.</span>
 <span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>*Why*: the seed scopes reference scorers minimally; a future iteration could run multiple off-the-shelf detectors with full training-overlap audit per the three-state taxonomy.</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>*What the project was missing*: reviewer-explicit demand for off-the-shelf comparisons; deferred to a separate appendix track.</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.3 Multi-source LODO with full semantic-dedup pipeline</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2 Full reference-detector appendix</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>*Why*: the seed scopes reference scorers minimally; a future iteration could run multiple off-the-shelf detectors with full training-overlap audit per the three-state taxonomy.</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>*What the project was missing*: reviewer-explicit demand for off-the-shelf comparisons; deferred to a separate appendix track.</span>
 <span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>*Why*: source-disjoint k=3 LODO with calibrated MiniLM-style semantic dedup + TF-IDF same-label hard gate + cross-label warn gate is the gold-standard data discipline. The seed locks the discipline; full pipeline + per-fold leakage audit could land at Phase 1+.</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>*What the project was missing*: time to set up the full dedup-calibration loop + leakage-audit pipeline within scope.</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.4 Refactor F1/F2/F5 figures to use upstream eval-toolkit plot_* primitives (v1.2.0+)</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.3 Multi-source LODO with full semantic-dedup pipeline</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>*Why*: source-disjoint k=3 LODO with calibrated MiniLM-style semantic dedup + TF-IDF same-label hard gate + cross-label warn gate is the gold-standard data discipline. The seed locks the discipline; full pipeline + per-fold leakage audit could land at Phase 1+.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>*What the project was missing*: time to set up the full dedup-calibration loop + leakage-audit pipeline within scope.</span>
 <span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>*Why*: library-first invariant. eval-toolkit v0.36+ shipped <span class="in">`plot_roc_curve`</span> (#14; F2 source), <span class="in">`plot_pareto_frontier`</span> (#15; F1 source), <span class="in">`plot_slice_metric_heatmap`</span> (#16; F5 source) — exactly the figure types our hand-rolled implementations cover at <span class="in">`src/eval/figures.py::render_f1_pareto`</span> / <span class="in">`render_f2_roc_overlay`</span> / <span class="in">`render_f5_per_slice_heatmap`</span>. Deferred from v1.0.7 to avoid scope creep on the notebook patch.</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>*Scope*: replace 3 hand-rolled rendering functions with upstream primitive calls; delete the local implementations (no-orphaned-code invariant); re-render F1/F2/F5 to verify visual parity. ~2 hours.</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>*Trigger*: next figure regen need (e.g., post-DeBERTa-ablation re-render that pulls F5 per-slice heatmap with the 6th rung in scope) OR v1.2.0+ polish patch (whichever lands first). Note: v1.1.1 was consumed by ADR-061 (Quarto navigation restructure) so the original "v1.1.1 polish patch" plan shifted; the canonical-figures rewrite at v1.1.3 (ADR-062) already adopted several library primitives, narrowing this future-work item.</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>*Status (v1.0.6)*: deferred per /exploring-options batch 8 Q4 lock.</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.4 Refactor F1/F2/F5 figures to use upstream eval-toolkit plot_* primitives (v1.2.0+)</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>*Why*: library-first invariant. eval-toolkit v0.36+ shipped <span class="in">`plot_roc_curve`</span> (#14; F2 source), <span class="in">`plot_pareto_frontier`</span> (#15; F1 source), <span class="in">`plot_slice_metric_heatmap`</span> (#16; F5 source) — exactly the figure types our hand-rolled implementations cover at <span class="in">`src/eval/figures.py::render_f1_pareto`</span> / <span class="in">`render_f2_roc_overlay`</span> / <span class="in">`render_f5_per_slice_heatmap`</span>. Deferred from v1.0.7 to avoid scope creep on the notebook patch.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>*Scope*: replace 3 hand-rolled rendering functions with upstream primitive calls; delete the local implementations (no-orphaned-code invariant); re-render F1/F2/F5 to verify visual parity. ~2 hours.</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>*Trigger*: next figure regen need (e.g., post-DeBERTa-ablation re-render that pulls F5 per-slice heatmap with the 6th rung in scope) OR v1.2.0+ polish patch (whichever lands first). Note: v1.1.1 was consumed by ADR-061 (Quarto navigation restructure) so the original "v1.1.1 polish patch" plan shifted; the canonical-figures rewrite at v1.1.3 (ADR-062) already adopted several library primitives, narrowing this future-work item.</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>*Status (v1.0.6)*: deferred per /exploring-options batch 8 Q4 lock.</span>
 <span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Open questions raised during the project</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>Open questions surfaced during Phase 0-5; not yet answered. Each is a</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>genuine candidate for a future iteration's research-plan slot.</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Does the contamination-tier ordering hold under harder OOD slates?**</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>  ADR-005's three-state taxonomy (<span class="in">`verified_disjoint`</span> &lt;</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>  <span class="in">`backbone-partial-disjoint`</span> &lt; <span class="in">`suspected_contamination`</span>) was inferred</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>  from a single OOD slate composition (BIPIA + InjecAgent + JBB + XSTest +</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>  NotInject). A harder slate — adversarial-style attacks not in the</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>  training corpus — might re-order the rungs or compress the gap. The</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>  invariant test ordering (frozen-probe &lt; LoRA &lt; full-FT on LODO) may not</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>  generalize.</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Does the LoRA → full-FT gap survive higher seed counts?** Phase 4</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>  ran 3 seeds × 4 folds; the LoRA-vs-full-FT gap on LODO sits within</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>  the paired-bootstrap CI. A 5-seed or 10-seed run would either widen</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>  the gap into significance or confirm that the marginal capacity from</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>  full-FT doesn't pay for itself on this data scale.</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Does the single-class-slice convention generalize beyond AUPRC /</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>  AUROC?** The skip-filter rule (locked at Phase 5 — see WRITEUP §5 and</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>  the SUBMISSION_AUDIT regen at ADR-050) drops single-class rows from</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>  AUPRC/AUROC artifacts but leaves them in calibration metrics (ECE,</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>  Brier, reliability curves). ECE on an all-positive slice is still</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>  defined but may carry similar pathologies; a future iteration could</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>  surface a unified "metric-defined-for-this-slice-composition" type</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>  primitive in <span class="in">`eval-toolkit`</span>.</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Open questions raised during the project</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>Open questions surfaced during Phase 0-5; not yet answered. Each is a</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>genuine candidate for a future iteration's research-plan slot.</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Does the contamination-tier ordering hold under harder OOD slates?**</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>  ADR-005's three-state taxonomy (<span class="in">`verified_disjoint`</span> &lt;</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>  <span class="in">`backbone-partial-disjoint`</span> &lt; <span class="in">`suspected_contamination`</span>) was inferred</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>  from a single OOD slate composition (BIPIA + InjecAgent + JBB + XSTest +</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>  NotInject). A harder slate — adversarial-style attacks not in the</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>  training corpus — might re-order the rungs or compress the gap. The</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>  invariant test ordering (frozen-probe &lt; LoRA &lt; full-FT on LODO) may not</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>  generalize.</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Does the LoRA → full-FT gap survive higher seed counts?** Phase 4</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>  ran 3 seeds × 4 folds; the LoRA-vs-full-FT gap on LODO sits within</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>  the paired-bootstrap CI. A 5-seed or 10-seed run would either widen</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>  the gap into significance or confirm that the marginal capacity from</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>  full-FT doesn't pay for itself on this data scale.</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Does the single-class-slice convention generalize beyond AUPRC /</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>  AUROC?** The skip-filter rule (locked at Phase 5 — see WRITEUP §5 and</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>  the SUBMISSION_AUDIT regen at ADR-050) drops single-class rows from</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>  AUPRC/AUROC artifacts but leaves them in calibration metrics (ECE,</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>  Brier, reliability curves). ECE on an all-positive slice is still</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>  defined but may carry similar pathologies; a future iteration could</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>  surface a unified "metric-defined-for-this-slice-composition" type</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>  primitive in <span class="in">`eval-toolkit`</span>.</span>
 <span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. What the project deliberately doesn't do</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>Pointer rather than restatement. See <span class="co">[</span><span class="ot">`WRITEUP.md` §8</span><span class="co">](./WRITEUP.md)</span> for the consolidated deferred list and <span class="co">[</span><span class="ot">`WRITEUP.md` §9</span><span class="co">](./WRITEUP.md)</span> for architectures and approaches that were tried and abandoned. The distinction matters: §8 = scope; §9 = experimental dead-ends.</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. What the project deliberately doesn't do</span></span>
 <span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>Pointer rather than restatement. See <span class="co">[</span><span class="ot">`WRITEUP.md` §8</span><span class="co">](./WRITEUP.md)</span> for the consolidated deferred list and <span class="co">[</span><span class="ot">`WRITEUP.md` §9</span><span class="co">](./WRITEUP.md)</span> for architectures and approaches that were tried and abandoned. The distinction matters: §8 = scope; §9 = experimental dead-ends.</span>
 <span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Upstream contributions</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>When Phase 1+ work discovers gaps in <span class="in">`eval-toolkit`</span> / <span class="in">`runpod-deploy`</span> / <span class="in">`research_toolkit`</span>, the gaps become upstream issues per the anti-hand-rolling discipline. See <span class="in">`decisions/upstream_issues.md`</span> for the live ledger.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Upstream contributions</span></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>When Phase 1+ work discovers gaps in <span class="in">`eval-toolkit`</span> / <span class="in">`runpod-deploy`</span> / <span class="in">`research_toolkit`</span>, the gaps become upstream issues per the anti-hand-rolling discipline. See <span class="in">`decisions/upstream_issues.md`</span> for the live ledger.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

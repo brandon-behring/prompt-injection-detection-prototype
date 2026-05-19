@@ -187,6 +187,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
+    <a class="dropdown-item" href="./docs/for-hiring-managers.md">
+ <span class="dropdown-text">For hiring managers in a hurry</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
  <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </li>  
@@ -845,6 +849,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeup hiring-manager clarity polish + documentation-wide consistency conventions — additive layer on top of ADR-062</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -901,11 +911,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="./WRITEUP/data-decisions.html">Data decisions</a></td>
-<td>source slate, deduplication, leakage handling, LODO splits</td>
+<td>source slate, deduplication, leakage handling, leave-one-dataset-out (LODO) splits</td>
 </tr>
 <tr class="even">
 <td><a href="./WRITEUP/model-rungs.html">Model details</a></td>
-<td>TF-IDF + LR, frozen probe, LoRA, full fine-tune status, ProtectAI references</td>
+<td>TF-IDF + LR, frozen-probe, LoRA, full-FT status, ProtectAI references (older decision records call these “rungs”; reader-facing prose uses “detector”; see the <a href="./docs/GLOSSARY.md#rung--detector-clarifier">glossary</a>)</td>
 </tr>
 <tr class="odd">
 <td><a href="./WRITEUP/eval-design.html">Evaluation design</a></td>
@@ -1620,8 +1630,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Spoke <span class="pp">|</span> What It Covers <span class="pp">|</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Data decisions</span><span class="co">](./WRITEUP/data-decisions.md)</span> <span class="pp">|</span> source slate, deduplication, leakage handling, LODO splits <span class="pp">|</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Model details</span><span class="co">](./WRITEUP/model-rungs.md)</span> <span class="pp">|</span> TF-IDF + LR, frozen probe, LoRA, full fine-tune status, ProtectAI references <span class="pp">|</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Data decisions</span><span class="co">](./WRITEUP/data-decisions.md)</span> <span class="pp">|</span> source slate, deduplication, leakage handling, leave-one-dataset-out (LODO) splits <span class="pp">|</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Model details</span><span class="co">](./WRITEUP/model-rungs.md)</span> <span class="pp">|</span> TF-IDF + LR, frozen-probe, LoRA, full-FT status, ProtectAI references (older decision records call these "rungs"; reader-facing prose uses "detector"; see the <span class="co">[</span><span class="ot">glossary</span><span class="co">](./docs/GLOSSARY.md#rung--detector-clarifier)</span>) <span class="pp">|</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Evaluation design</span><span class="co">](./WRITEUP/eval-design.md)</span> <span class="pp">|</span> AUPRC/AUROC, confidence intervals, calibration, out-of-distribution (OOD) slate <span class="pp">|</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Threshold policy</span><span class="co">](./WRITEUP/threshold-policy.md)</span> <span class="pp">|</span> detection and verification thresholds <span class="pp">|</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">Reference-scorer audit</span><span class="co">](./WRITEUP/reference-scorer-audit.md)</span> <span class="pp">|</span> contamination caveats for published detectors <span class="pp">|</span></span>

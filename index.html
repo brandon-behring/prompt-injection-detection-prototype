@@ -190,6 +190,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
+    <a class="dropdown-item" href="./docs/for-hiring-managers.md">
+ <span class="dropdown-text">For hiring managers in a hurry</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
  <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </li>  
@@ -848,6 +852,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writeup hiring-manager clarity polish + documentation-wide consistency conventions — additive layer on top of ADR-062</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -977,6 +987,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+<blockquote class="blockquote">
+<p><em>Reading the table</em>: <strong>Pooled OOD AUPRC</strong> is the area under the precision-recall curve on the combined out-of-distribution (OOD) test slices — five held-out attack and benign sources (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) that no detector saw during training. A random ranking on this slate scores ≈ <strong>0.374</strong> (the positive-class prevalence, 412/1101). Any detector at or below the random floor is not clearly better than guessing. The 95% confidence interval (CI) width is the noise floor for a comparison; if two detectors’ CIs overlap heavily, the difference between them is not statistically meaningful.</p>
+</blockquote>
 </section>
 <section id="what-this-means" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-means">What This Means</h2>
@@ -991,6 +1004,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="read-next" class="level2">
 <h2 class="anchored" data-anchor-id="read-next">Read Next</h2>
 <ul>
+<li><strong>For hiring managers in a hurry → <a href="docs/for-hiring-managers.md">60-second tour</a></strong>: 4 questions (what problem / what found / why trust / how the candidate thinks). Best entry point if you have a minute and want the headline + the methodology signal.</li>
 <li><a href="./RESULTS.html">Results</a>: exact tables, five canonical figures, and raw artifact pointers.</li>
 <li><a href="./EXECUTIVE_SUMMARY.html">Executive summary</a>: one-page decision-maker version.</li>
 <li><a href="./WRITEUP.html">Writeup</a>: methodology narrative and links to detailed spokes.</li>
@@ -1507,28 +1521,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT LoRA <span class="pp">|</span> 0.293 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.286, 0.301</span><span class="co">]</span> <span class="pp">|</span> Fine-tuning hurt OOD ranking <span class="pp">|</span></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TF-IDF + LR <span class="pp">|</span> 0.291 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.283, 0.298</span><span class="co">]</span> <span class="pp">|</span> Classical floor, roughly tied with LoRA <span class="pp">|</span></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Means</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Reading the table*: **Pooled OOD AUPRC** is the area under the precision-recall curve on the combined out-of-distribution (OOD) test slices — five held-out attack and benign sources (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) that no detector saw during training. A random ranking on this slate scores ≈ **0.374** (the positive-class prevalence, 412/1101). Any detector at or below the random floor is not clearly better than guessing. The 95% confidence interval (CI) width is the noise floor for a comparison; if two detectors' CIs overlap heavily, the difference between them is not statistically meaningful.</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The failure is cross-family.** The models saw direct prompt injections in</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>   training, but the OOD slate includes attack families they did not see.</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Fine-tuning did not help.** LoRA fits the direct-injection training pool</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   and loses much of the OOD signal present in the frozen backbone.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**A newer detector is not automatically better.** ProtectAI v2 improves one</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>   slice but regresses on another.</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Thresholds do not transfer cleanly.** A threshold tuned for 1% false</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>   positives on validation can produce much higher false-positive rates on</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   held-out sources.</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**The honest result is negative.** The project demonstrates the evaluation</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>   harness and the limits of the trained detectors, not a ready-to-ship model.</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Read Next</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Means</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The failure is cross-family.** The models saw direct prompt injections in</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   training, but the OOD slate includes attack families they did not see.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Fine-tuning did not help.** LoRA fits the direct-injection training pool</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>   and loses much of the OOD signal present in the frozen backbone.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**A newer detector is not automatically better.** ProtectAI v2 improves one</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>   slice but regresses on another.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Thresholds do not transfer cleanly.** A threshold tuned for 1% false</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>   positives on validation can produce much higher false-positive rates on</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>   held-out sources.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**The honest result is negative.** The project demonstrates the evaluation</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>   harness and the limits of the trained detectors, not a ready-to-ship model.</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Results</span><span class="co">](RESULTS.md)</span>: exact tables, five canonical figures, and raw artifact</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  pointers.</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Executive summary</span><span class="co">](EXECUTIVE_SUMMARY.md)</span>: one-page decision-maker version.</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Writeup</span><span class="co">](WRITEUP.md)</span>: methodology narrative and links to detailed spokes.</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Reading guide</span><span class="co">](READING_GUIDE.md)</span>: paths for quick review, audit, and</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  reproduction.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Read Next</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**For hiring managers in a hurry → [60-second tour](docs/for-hiring-managers.md)**:</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  4 questions (what problem / what found / why trust / how the candidate</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  thinks). Best entry point if you have a minute and want the headline +</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  the methodology signal.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Results</span><span class="co">](RESULTS.md)</span>: exact tables, five canonical figures, and raw artifact</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  pointers.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Executive summary</span><span class="co">](EXECUTIVE_SUMMARY.md)</span>: one-page decision-maker version.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Writeup</span><span class="co">](WRITEUP.md)</span>: methodology narrative and links to detailed spokes.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Reading guide</span><span class="co">](READING_GUIDE.md)</span>: paths for quick review, audit, and</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  reproduction.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

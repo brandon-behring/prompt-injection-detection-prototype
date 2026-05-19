@@ -4,6 +4,27 @@ Project-specific terminology, alphabetized. **This is a living document — it e
 
 > **Convention**: when a new project-specific term is introduced in any spec / writeup / ADR / transcript / dossier file, add an entry here within the same commit (or as a follow-up `docs: glossary +<term>` commit). The anti-pattern *"Introducing a project-specific term without adding it to docs/GLOSSARY.md"* is in CLAUDE.md.
 
+## Canonical terminology conventions (added at v1.2.0 per ADR-064 §C1)
+
+Some terms have a prose-form vs identifier-form split (e.g., `chunk-and-average` in prose vs `chunk_and_average` as the YAML config / code identifier). The split is deliberate; this table is the canonical reference so contributors and readers can resolve any ambiguity:
+
+| Term cluster | Prose form (reviewer-facing) | Identifier form (code / YAML / file path) |
+|---|---|---|
+| Detector ladder | **detector** (reviewer-facing prose; the noun for what we evaluate) | `frozen_probe` / `lora` / `full_ft` / `tfidf_lr` (rung-config-file basenames in `configs/rungs/`). Older ADRs (ADR-007 onwards) use "rung" — see the [Rung / detector clarifier](#rung--detector-clarifier) below. |
+| Truncation strategy | **chunk-and-average** / **head-truncation** (hyphenated prose) | `chunk_and_average` / `head_truncation` (snake_case Python identifier) |
+| Full fine-tune | **full-FT** (capitalized acronym; matches "LoRA"-style capitalization) | `full_ft` (snake_case) |
+| Frozen probe | **frozen-probe** (hyphenated prose; matches the prose triad "frozen-probe / LoRA / full-FT") | `frozen_probe` (snake_case) |
+| ProtectAI reference scorers | **ProtectAI v1**, **ProtectAI v2** (space + version) | `protectai-v1`, `protectai-v2` (kebab-case lowercase) |
+| Out-of-distribution | **out-of-distribution (OOD)** on first use; **OOD** thereafter | N/A |
+| Leave-one-dataset-out | **leave-one-dataset-out (LODO)** on first use; **LODO** thereafter | N/A |
+| Pooled OOD | **pooled OOD** in body prose; **Pooled OOD** in column/row headers (APA convention) | `pooled_ood` (per-cell parquet `slice_name`) |
+| Source / slice display | **BIPIA**, **InjecAgent**, **JBB-Behaviors**, **XSTest**, **NotInject**, **HackAPrompt**, **LMSYS** | `bipia`, `injecagent`, `jbb_behaviors`, `xstest`, `notinject`, `hackaprompt`, `lmsys-chat-1m` |
+| Metric names | **AUPRC**, **AUROC**, **ECE**, **Brier** (all-caps acronyms) | Same (used directly in column names + filenames) |
+
+## Ablation
+
+A controlled experiment that removes or varies one factor while holding everything else constant, to isolate that factor's contribution. The DeBERTa-v3-base medium ablation per ADR-060 + ADR-063 tests whether ModernBERT's headline AUPRC advantage comes from its 8192-token native attention window (long context) or from its backbone architecture itself, by training DeBERTa-v3-base (512-token window) with two truncation strategies (chunk-and-average + head-truncation) and comparing per-strategy AUPRC on the same 5-slice OOD eval slate. The v1.1.2 result was a null (both strategies ~0.29 pooled OOD AUPRC) → ModernBERT advantage is **backbone-dominant**, not context-window-dominant. See `RESULTS.md` §1B for the per-strategy headline + interpretation.
+
 ## ADR (Architecture Decision Record)
 
 A single locked decision in Michael Nygard format: Status / Context / Decision / Consequences / Alternatives Considered. **Immutable**. See `decisions/README.md` for the lifecycle + `decisions/ADR_TEMPLATE.md` for the schema.
@@ -40,6 +61,10 @@ Keep-a-Changelog 1.1.0 format at `CHANGELOG.md`. v0.0.0 = seed; v0.1.0 = Phase 0
 ## CLAUDE.md
 
 Auto-loaded by Claude Code at every session start in this repo. Project-level instructions: Phase 0 workflow, library-first discipline, transcript convention, commit discipline, anti-patterns. See also: AGENTS.md (vendor-neutral mirror).
+
+## Confound
+
+A variable that varies along with the variable you're trying to isolate, making it hard to attribute an observed effect to the right cause. In this project: ModernBERT-base (149M params; 8192-token native attention) outperforms DeBERTa-v3-base (184M params; 512-token native attention) on OOD AUPRC. The headline ladder comparison alone is confounded — the gap could be backbone-architectural, context-window-driven, or both. The ADR-060 DeBERTa medium ablation is a **confound-control experiment**: it varies the truncation strategy (chunk-and-average vs head-truncation) within DeBERTa-v3-base to isolate the context-window contribution. The v1.1.2 null result indicates context-window contributes ~nothing, so the headline ladder gap is attributable to backbone architecture. See `WRITEUP/limitations-and-future-work.md` §9.2 for the residual confounds (backbone size; training pretext; tokenizer family) that the ablation does NOT control.
 
 ## Constitution (3-file)
 
@@ -111,6 +136,12 @@ Headline ranking + operating-point metrics for class-imbalanced binary classific
 The share of attack examples correctly caught. High recall means fewer missed
 attacks. Recall must be interpreted together with false-positive rate; catching
 more attacks by flagging almost everything is usually not useful.
+
+## Rung / detector clarifier
+
+Older ADRs (ADR-007 onwards) refer to the evaluated classifier approaches as **rungs** (decision-tree language from the spec-lock-in conversations). Reader-facing prose in WRITEUP / RESULTS / EXECUTIVE_SUMMARY / README calls them **detectors** (a more familiar noun for someone not steeped in the SDD vocabulary). Both terms refer to the same thing: the 5 evaluated approaches in the headline ladder (TF-IDF+LR; frozen-probe; LoRA; full-FT; reference scorers including ProtectAI v1/v2 + the LLM judges).
+
+The prose-vs-decision-record split is deliberate; see the [Canonical terminology conventions](#canonical-terminology-conventions-added-at-v120-per-adr-064-c1) table at the top of this file for the full mapping. The `WRITEUP/model-rungs.md` filename retains "rungs" as an architectural artifact (renaming would risk ADR-050 anchor breakage); the file's opening paragraph carries the rung↔detector mapping for readers landing on the spoke directly.
 
 ## Replanning checkpoint
 
