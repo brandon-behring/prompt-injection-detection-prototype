@@ -83,6 +83,9 @@ budget:
   cost_cap_usd: 40.0
   assumed_hourly_rate_usd: 3.50
   poll_interval_sec: 60
+  # v1.1.0 added per #88: 600s SSH-ready timeout for cudnn-devel cold pulls
+  # (replaces the deleted scripts/runpod_deploy_long_ssh.py monkey-patch shim).
+  ssh_ready_timeout_sec: 600
 
 # HF_TOKEN injection per ADR-035 three-store split (RunPod pod-secrets layer).
 secrets:

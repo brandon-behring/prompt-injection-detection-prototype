@@ -60,7 +60,12 @@ dev = [
     # Local-only orchestrator — invoked from the operator's machine via
     # `make headline-*` / `make headline-dry-run`. Pinned per ADR-036 (tag-pin
     # + freeze for submission window). Pod never imports it.
-    "runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7",
+    # v1.1.0 bump → v0.8.4 PyPI per ADR-059 (narrow supersession of ADR-036
+    # for runpod-deploy spec format; mirrors ADR-055 for eval-toolkit). v0.8.3+
+    # REMOVED legacy stop: schema → lifecycle: required (configs migrated in
+    # Commit 1 of 3). Consumes #88 (budget.ssh_ready_timeout_sec) + #90
+    # (lifecycle.on_success: recycle for DeBERTa) + #97 (validate --check-image-registry).
+    "runpod-deploy==0.8.4",
 ]
 notebook = [
     "jupyter>=1",

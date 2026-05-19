@@ -2550,7 +2550,7 @@ requires-dist = [
     { name = "pyyaml", marker = "extra == 'dev'", specifier = ">=6" },
     { name = "research-toolkit", git = "https://github.com/brandon-behring/research_toolkit?rev=v1.9.1" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
-    { name = "runpod-deploy", marker = "extra == 'dev'", git = "https://github.com/brandon-behring/runpod-deploy?rev=v0.7.7" },
+    { name = "runpod-deploy", marker = "extra == 'dev'", specifier = "==0.8.4" },
     { name = "scikit-learn", specifier = ">=1.5" },
     { name = "sentence-transformers", specifier = ">=3.0" },
     { name = "torch", specifier = ">=2.5", index = "https://download.pytorch.org/whl/cu128" },
@@ -3221,10 +3221,14 @@ wheels = [
 
 [[package]]
 name = "runpod-deploy"
-version = "0.7.7"
-source = { git = "https://github.com/brandon-behring/runpod-deploy?rev=v0.7.7#d757d5e4791babe4ec703084ccc210293dfa334a" }
+version = "0.8.4"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/78/4b/6dfaaa1dd8913a8cd41ea13080d46a59b0d4c108563189b0c1656ddc993b/runpod_deploy-0.8.4.tar.gz", hash = "sha256:00fd3dfd559ebccd331e6af3569a77f0b13ed10cdbd13a622ee83ec46d0d2c47", size = 266102, upload-time = "2026-05-18T23:05:46.102Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/92/48b2c9739a9389537f741683e5fb50d4fd9277f4dbd4592daa766446c8e3/runpod_deploy-0.8.4-py3-none-any.whl", hash = "sha256:1fafcd6bf458611b6f525486636aaf4d78ea8c7c5f1dc0d3346f9b3b8e2c8094", size = 71889, upload-time = "2026-05-18T23:05:44.371Z" },
 ]
 
 [[package]]
