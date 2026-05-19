@@ -61,6 +61,8 @@ website:
         href: decisions/README.md
       - text: Reference
         menu:
+          - text: "For hiring managers in a hurry"
+            href: docs/for-hiring-managers.md
           - EXECUTIVE_SUMMARY.md
           - EVIDENCE.md
           - SPEC_SHEET.md
