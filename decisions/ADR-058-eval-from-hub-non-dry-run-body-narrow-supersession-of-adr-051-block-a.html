@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-16">
+<meta name="dcterms.date" content="2026-05-19">
 
-<title>Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline – Prompt-injection classifier — methodology submission</title>
+<title>scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward – Prompt-injection classifier — methodology submission</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -247,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html">scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -618,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></a>
   </div>
 </li>
@@ -798,7 +798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward</span></a>
   </div>
 </li>
@@ -816,25 +816,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-028-test-coverage-floor-70-flat-with-co-locked-upstream-issue-filing-discipline" id="toc-adr-028-test-coverage-floor-70-flat-with-co-locked-upstream-issue-filing-discipline" class="nav-link active" data-scroll-target="#adr-028-test-coverage-floor-70-flat-with-co-locked-upstream-issue-filing-discipline">ADR-028: Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</a>
+  <li><a href="#adr-058-eval_from_hub-non-dry-run-body-wired-narrow-supersession-of-adr-051-block-a" id="toc-adr-058-eval_from_hub-non-dry-run-body-wired-narrow-supersession-of-adr-051-block-a" class="nav-link active" data-scroll-target="#adr-058-eval_from_hub-non-dry-run-body-wired-narrow-supersession-of-adr-051-block-a">ADR-058 — eval_from_hub non-dry-run body wired (narrow supersession of ADR-051 Block A)</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
   <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
   <ul class="collapse">
-  <li><a href="#locked-threshold-and-ci-command" id="toc-locked-threshold-and-ci-command" class="nav-link" data-scroll-target="#locked-threshold-and-ci-command">Locked threshold and CI command</a></li>
-  <li><a href="#co-locked-process-commitment-upstream-issue-filing-for-test-coverage-gaps" id="toc-co-locked-process-commitment-upstream-issue-filing-for-test-coverage-gaps" class="nav-link" data-scroll-target="#co-locked-process-commitment-upstream-issue-filing-for-test-coverage-gaps">Co-locked process commitment — upstream-issue-filing for test-coverage gaps</a></li>
-  <li><a href="#updated-decisionsupstream_issues.md-ledger-conventions" id="toc-updated-decisionsupstream_issues.md-ledger-conventions" class="nav-link" data-scroll-target="#updated-decisionsupstream_issues.md-ledger-conventions">Updated <code>decisions/upstream_issues.md</code> ledger conventions</a></li>
-  <li><a href="#whats-explicitly-out-of-scope" id="toc-whats-explicitly-out-of-scope" class="nav-link" data-scroll-target="#whats-explicitly-out-of-scope">What’s explicitly out of scope</a></li>
+  <li><a href="#block-a-implementation-shape" id="toc-block-a-implementation-shape" class="nav-link" data-scroll-target="#block-a-implementation-shape">Block A — implementation shape</a></li>
+  <li><a href="#architecture-dispatched-model-loading" id="toc-architecture-dispatched-model-loading" class="nav-link" data-scroll-target="#architecture-dispatched-model-loading">Architecture-dispatched model loading</a></li>
+  <li><a href="#score-match-reference-parquet" id="toc-score-match-reference-parquet" class="nav-link" data-scroll-target="#score-match-reference-parquet">Score-match reference parquet</a></li>
+  <li><a href="#eval-slice-sample-size" id="toc-eval-slice-sample-size" class="nav-link" data-scroll-target="#eval-slice-sample-size">Eval slice + sample size</a></li>
+  <li><a href="#library-first-reuse" id="toc-library-first-reuse" class="nav-link" data-scroll-target="#library-first-reuse">Library-first reuse</a></li>
   </ul></li>
-  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a>
-  <ul class="collapse">
-  <li><a href="#positive" id="toc-positive" class="nav-link" data-scroll-target="#positive">Positive</a></li>
-  <li><a href="#negative" id="toc-negative" class="nav-link" data-scroll-target="#negative">Negative</a></li>
-  <li><a href="#limitation" id="toc-limitation" class="nav-link" data-scroll-target="#limitation">Limitation</a></li>
-  <li><a href="#extension-condition-for-revisit" id="toc-extension-condition-for-revisit" class="nav-link" data-scroll-target="#extension-condition-for-revisit">Extension condition for revisit</a></li>
-  </ul></li>
-  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives considered</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -842,9 +838,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html">scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -855,7 +851,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 16, 2026</p>
+      <p class="date">May 19, 2026</p>
     </div>
   </div>
   
@@ -867,151 +863,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="adr-028-test-coverage-floor-70-flat-with-co-locked-upstream-issue-filing-discipline" class="level1">
-<h1>ADR-028: Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</h1>
+<section id="adr-058-eval_from_hub-non-dry-run-body-wired-narrow-supersession-of-adr-051-block-a" class="level1">
+<h1>ADR-058 — eval_from_hub non-dry-run body wired (narrow supersession of ADR-051 Block A)</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Accepted (2026-05-16). Closes the third of 4 [OPEN] rows in Phase 0-06 (§5 Code architecture + §STYLE — rows 348-351 of SPEC_GREENFIELD ledger). Companion to ADR-026 (module layout), ADR-027 (smoke vs canonical), and ADR-029 (test marker strategy).</p>
+<p>Accepted (2026-05-19; landed in v1.0.9 patch alongside eval-toolkit v0.40.0 → v0.42.0 bump + <code>fit_isotonic_binary_local</code> adapter removal per library-first invariant + eval-toolkit#44 closure).</p>
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p><code>pytest --cov</code> measures source-line coverage from the test suite; a <strong>coverage floor</strong> is a CI gate that fails the build if coverage drops below threshold. STYLE.md’s “project deltas” section explicitly defers this decision to Phase 0:</p>
-<blockquote class="blockquote">
-<p><strong>Test coverage floor</strong>: <code>[OPEN: coverage floor; resolved at Phase 0]</code>. eval-toolkit uses 90%; case-study composition layer typically doesn’t need foundational-library rigor.</p>
-</blockquote>
-<p>Five options were considered:</p>
-<ol type="A">
-<li><p><strong>90%</strong> — eval-toolkit parity. Contradicts the prototype-grade framing locked by ADR-027; forces low-value tests against glue.</p></li>
-<li><p><strong>80%</strong> — middle ground. Same low-value-test pressure as 90%, just delayed.</p></li>
-<li><p><strong>70%</strong> — relaxed; matches STYLE.md hint. Low enough to accommodate orchestration glue, high enough to signal that critical paths get tested.</p></li>
-<li><p><strong>No formal floor; measure-only</strong> — zero false positives, but no gate means coverage decay is invisible until writeup time.</p></li>
-<li><p><strong>Stratified floor</strong> (70% on src/, no floor on scripts/) — most pragmatic version of C; aligns with the src/-vs-scripts/ boundary locked by ADR-026.</p></li>
-</ol>
-<p>User feedback at decision time selected option C with an additional process commitment:</p>
-<blockquote class="blockquote">
-<p>“C, but whenever we find things that should be sent to runpod-deploy or eval-toolkit we should send issues to those repos for those tests.”</p>
-</blockquote>
-<p>This addendum extends the existing library-first discipline (don’t hand-roll library primitives — file upstream issues for gaps; tracked in <code>decisions/upstream_issues.md</code>) from <strong>library-primitive-gaps</strong> to <strong>test-coverage-gaps</strong>. Rather than carving out scripts/ via stratification (option E), the simpler 70% flat threshold is paired with a process commitment: when a coverage gap is identified that would be better addressed upstream, file the gap upstream rather than write a low-value local test.</p>
-<p>This is structurally cleaner than option E because:</p>
-<ol type="1">
-<li>The floor calculation is a single CLI flag (<code>--cov-fail-under=70</code>) — no per-package strata to maintain in <code>.coveragerc</code>.</li>
-<li>The escape hatch (upstream filing) is a real process improvement — generates contribution-trail value for the writeup, not just a technical workaround.</li>
-<li>It’s load-bearing in the right direction: the floor is a forcing function for <em>honest engagement</em> with each gap (either test locally, file upstream, or document non-applicability), not a license to add anti-tests.</li>
-</ol>
+<p><a href="../decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.html">ADR-051</a> was written at v1.0.2 (2026-05-18) to formally document the two governance gaps that the v1.0.0 / v1.0.1 submission tags did not close:</p>
+<ul>
+<li><strong>Block A</strong> — <code>scripts/eval_from_hub.py</code> non-dry-run body was a ~7-line stub that printed a carryforward message and exited 2. ADR-034 §Tier T0 §Score-match contract was unmet from the consumer side (publish half closed cleanly at v1.0.1).</li>
+<li><strong>Block B</strong> — 38 stubs in <code>tests/test_invariants.py</code> carried <code>@pytest.mark.skip(reason="v1.0.0 carryforward stub")</code>. ADR-039 §gate 3 (“all stubs unskipped + green”) was unmet.</li>
+</ul>
+<p>ADR-051 narrowly superseded ADR-034 (T0 axis only; T1 + T3 unchanged) + ADR-039 (gate 3 axis only; gates 1+2+4+5+6 unchanged) and codified both as v1.1.x carryforwards with explicit landing conditions.</p>
+<p>v1.0.9 closes <strong>Block A</strong>. Block B remains a v1.1.x carryforward.</p>
 </section>
 <section id="decision" class="level2">
 <h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<section id="locked-threshold-and-ci-command" class="level3">
-<h3 class="anchored" data-anchor-id="locked-threshold-and-ci-command">Locked threshold and CI command</h3>
-<p><strong>Coverage floor</strong>: 70% flat across the repo.</p>
-<p><strong>CI command</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run pytest <span class="at">--cov</span> <span class="at">--cov-fail-under</span><span class="op">=</span>70 <span class="at">--cov-report</span><span class="op">=</span>term-missing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Updated <code>Makefile</code> coverage target</strong> (replaces existing ungated form <code>pytest --cov=. --cov-report=term-missing</code>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">coverage:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="co-locked-process-commitment-upstream-issue-filing-for-test-coverage-gaps" class="level3">
-<h3 class="anchored" data-anchor-id="co-locked-process-commitment-upstream-issue-filing-for-test-coverage-gaps">Co-locked process commitment — upstream-issue-filing for test-coverage gaps</h3>
-<p>When a local coverage gap is identified during Phase 1+ work, the developer applies this triage:</p>
-<ol type="1">
-<li><strong>Local test is the right home</strong> — write the test locally in <code>tests/unit/</code>, <code>tests/smoke/</code>, or <code>tests/integration/</code> per the Q4 marker taxonomy (ADR-029).</li>
-<li><strong>Upstream library is the right home</strong> — file an issue at the upstream repo (<code>brandon-behring/eval-toolkit</code> or <code>brandon-behring/runpod-deploy</code>) with:
+<p>Implement the full ADR-034 §Tier T0 score-match contract in <code>scripts/eval_from_hub.py</code> and narrowly supersede ADR-051 — Block A only. ADR-051 Block B (38 invariant scaffolds) remains carryforward to v1.1.x; this ADR does not affect it.</p>
+<section id="block-a-implementation-shape" class="level3">
+<h3 class="anchored" data-anchor-id="block-a-implementation-shape">Block A — implementation shape</h3>
+<p>Per the /exploring-options 2026-05-19 6-question execution-lock:</p>
 <ul>
-<li>The proposed test pattern (sketch, not implementation).</li>
-<li>The rationale (why the test logic belongs upstream, not locally).</li>
-<li>Local file:line that depends on the absent test (if any).</li>
-<li><code>tracked</code> label. Then add a row to <code>decisions/upstream_issues.md</code> with the issue URL + <code>[test-coverage-gap]</code> tag + local file:line.</li>
-</ul></li>
-<li><strong>Genuinely not testable, not upstream-applicable</strong> — leave a <code># noqa: COV</code> style code comment with rationale + add a <code>decisions/upstream_issues.md</code> row tagged <code>[not-applicable]</code> documenting the deferral.</li>
-</ol>
-<p>A workaround that ignores the gap (lets coverage drop below 70% silently, or worse, adds a no-op test to inflate coverage) is an anti-pattern.</p>
-</section>
-<section id="updated-decisionsupstream_issues.md-ledger-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="updated-decisionsupstream_issues.md-ledger-conventions">Updated <code>decisions/upstream_issues.md</code> ledger conventions</h3>
-<p>The ledger’s “How to use this ledger” section gains:</p>
-<blockquote class="blockquote">
-<p><strong>Test-coverage-gap entries</strong>: when a coverage gap is filed upstream rather than tested locally, add a row with the <code>[test-coverage-gap]</code> tag in the Title column. When a gap is documented as not-applicable rather than filed, use the <code>[not-applicable]</code> tag. Both forms preserve the discipline trail without forcing local anti-tests.</p>
-</blockquote>
-<p>A worked example row (placeholder — populated as actual gaps surface during Phase 1+):</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Repo</th>
-<th>Issue #</th>
-<th>Title</th>
-<th>Local site (file:line)</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>[TBD-at-Phase-1-entry]</code></td>
-<td><code>brandon-behring/eval-toolkit</code></td>
-<td><code>[TBD]</code></td>
-<td><code>[test-coverage-gap]</code> example placeholder for upstream-filing convention</td>
-<td><code>[TBD]</code></td>
-<td>placeholder</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="whats-explicitly-out-of-scope" class="level3">
-<h3 class="anchored" data-anchor-id="whats-explicitly-out-of-scope">What’s explicitly out of scope</h3>
-<ul>
-<li><strong>Per-package coverage strata</strong> (option E) — kept simple at 70% flat; the upstream-filing escape hatch handles the orchestration-glue case structurally rather than via configuration.</li>
-<li><strong>Production-grade coverage</strong> (≥85%) — currently out-of-scope per ADR-027 prototype-grade framing; reopen via superseding ADR if scope extends.</li>
-<li><strong>Coverage on <code>tests/</code> itself</strong> — pytest-cov’s default behavior excludes test files when <code>--cov</code> has no path argument; this is preserved.</li>
+<li><strong>Q1 lock — score-match strictness</strong>: exit 1 on any row exceeding 1e-4 absolute tolerance (no silent failures discipline per project Python standards). Per-row delta diagnostics printed to stderr on fail (top-5 exceedances by |delta|).</li>
+<li><strong>Q6 lock — smoke test fetch strategy</strong>: mocked-only for CI hermeticity. Real <code>huggingface_hub.snapshot_download</code> + CPU inference are NOT exercised in CI (would require network + ~500MB checkpoint download per slice; ~30s CPU inference per slice). The reviewer- facing path (<code>make eval-from-hub RUNG=frozen-probe</code>) exercises the full body live.</li>
 </ul>
+</section>
+<section id="architecture-dispatched-model-loading" class="level3">
+<h3 class="anchored" data-anchor-id="architecture-dispatched-model-loading">Architecture-dispatched model loading</h3>
+<p><code>scripts/eval_from_hub.py::_load_model_and_tokenizer</code> dispatches by rung:</p>
+<ul>
+<li><code>frozen-probe</code> / <code>full-ft</code> → <code>AutoModelForSequenceClassification.from_pretrained(snapshot_path)</code> with co-located tokenizer.</li>
+<li><code>lora</code> → base <code>ModernBERT-base</code> (pinned revision <code>8949b909ec900327062f0ebf497f51aef5e6f0c8</code> per ADR-015) + <code>PeftModel.from_pretrained(snapshot_path)</code>; tokenizer loaded from the pinned backbone (LoRA adapter folders do not ship a tokenizer).</li>
+</ul>
+<p>CPU only; <code>torch.float32</code>; library-first reuse of <code>src.training.train_modernbert._predict_proba</code> for the inference loop (softmax_fp32 cast per ADR-019 numerical-stability discipline).</p>
+</section>
+<section id="score-match-reference-parquet" class="level3">
+<h3 class="anchored" data-anchor-id="score-match-reference-parquet">Score-match reference parquet</h3>
+<p>Per-row comparison against <code>evals/predictions/&lt;rung_underscore&gt;__fold0__seed42__&lt;slice&gt;.parquet</code> (committed reference; rung name uses underscore form per file-system convention: <code>frozen_probe</code>, <code>lora</code>, <code>full_ft</code>). The HF Hub repo_id uses kebab-case per ADR-032: <code>BBehring/prompt-injection-&lt;rung&gt;</code>. ADR-058’s <code>_rung_to_underscore</code> helper bridges the two naming conventions.</p>
+<p>The per-row delta is computed as <code>abs(new_proba - reference_proba)</code> where:</p>
+<ul>
+<li><code>new_proba</code> = re-derived <code>predicted_proba_class1</code> from the freshly- downloaded HF Hub checkpoint.</li>
+<li><code>reference_proba</code> = committed <code>predicted_proba_class1</code> from the canonical fold0/seed42 training run.</li>
+</ul>
+<p>A passing run requires every row’s <code>|delta| ≤ 1e-4</code>. ADR-034 §Tier T0 tolerance is per-row, not aggregated; the per-row formulation is strictly conservative (per-row pass implies aggregated AUPRC/AUROC pass; the converse is not true).</p>
+</section>
+<section id="eval-slice-sample-size" class="level3">
+<h3 class="anchored" data-anchor-id="eval-slice-sample-size">Eval slice + sample size</h3>
+<p>The <code>--eval-slice</code> CLI argument (default <code>bipia</code>) selects which OOD slice to score-match. The <code>--n-rows</code> argument (default 100) samples the first N rows of the reference parquet (deterministic; matches the committed run’s row ordering). If the reference parquet has fewer than N rows, all rows are used.</p>
+<p>For reviewer-facing T0 verification, <code>make eval-from-hub RUNG=&lt;rung&gt;</code> runs with defaults; n=100 is sufficient to detect any non-trivial checkpoint divergence (CPU vs GPU floating-point differences at fp32 are typically &lt; 1e-5; the 1e-4 tolerance has a 10× safety margin).</p>
+</section>
+<section id="library-first-reuse" class="level3">
+<h3 class="anchored" data-anchor-id="library-first-reuse">Library-first reuse</h3>
+<p>This implementation reuses existing project + library primitives rather than hand-rolling:</p>
+<ul>
+<li><code>huggingface_hub.snapshot_download</code> — upstream library, not hand-rolled fetching.</li>
+<li><code>transformers.AutoModelForSequenceClassification</code> + <code>AutoTokenizer</code> — upstream library.</li>
+<li><code>peft.PeftModel.from_pretrained</code> — upstream library; lora architecture-aware loading.</li>
+<li><code>src.training.load_modernbert.load_modernbert</code> — internal helper for base ModernBERT loading at pinned revision.</li>
+<li><code>src.training.train_modernbert._predict_proba</code> — internal inference loop with softmax_fp32 cast per ADR-019.</li>
+</ul>
+<p>No new methodology primitives are introduced; all components are upstream library calls or existing internal helpers.</p>
 </section>
 </section>
 <section id="consequences" class="level2">
 <h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
-<section id="positive" class="level3">
-<h3 class="anchored" data-anchor-id="positive">Positive</h3>
 <ul>
-<li><strong>Single CLI flag</strong> for the floor — no <code>.coveragerc</code> per-package configuration to drift.</li>
-<li><strong>Floor as forcing function for honest engagement</strong>: every gap gets one of three responses (local test / upstream issue / documented deferral). No silent coverage decay.</li>
-<li><strong>Contribution trail</strong>: upstream-filed test-coverage gaps generate <code>decisions/upstream_issues.md</code> entries that double as evidence of library-first discipline for the writeup.</li>
-<li><strong>Aligns with ADR-027 prototype-grade framing</strong>: 70% is the right number for debugging-grade testing; 90% would force the layer to do work that belongs upstream.</li>
+<li><strong>Reviewer experience</strong>: <code>make eval-from-hub RUNG=frozen-probe</code> + <code>RUNG=lora</code> now exit 0 with score-match summary; the auto-generated HF Hub model cards (live since v1.0.1) become executable from the consumer side. The T0 reproducibility contract is sealed.</li>
+<li><strong>ADR-051 supersession scope</strong>: this ADR narrowly supersedes ADR-051 <strong>Block A only</strong>. ADR-051 Block B (38 invariant scaffolds) remains carryforward to v1.1.x. ADR-051’s frontmatter gains <code>superseded_by: ["058"]</code> per ADR-029 in-place convention; ADR-051’s status remains Accepted (the body documents both blocks; only one is now closed).</li>
+<li><strong>No methodology changes</strong>: the implementation reuses existing primitives; no new ADR for inference loop / tokenization / etc. is needed. The only governance addition is this ADR.</li>
+<li><strong>Smoke coverage</strong>: 9 tests added at <code>tests/smoke/test_eval_from_hub_smoke.py</code> covering (a) <code>--dry-run</code> subprocess invocation for both published rungs, (b) score-match tolerance logic with synthetic numpy arrays (within-tol, exceeds-tol, length-mismatch), (c) published-rungs validator against <code>evals/results.json</code>, (d) reference parquet loader, (e) kebab↔︎underscore rung-name translation. Per Q6 lock: no real HF Hub fetch; CI hermetic.</li>
+<li><strong>CHANGELOG entry</strong>: <code>[1.0.9]</code> documents the closure narrative + the eval-toolkit v0.40.0 → v0.42.0 bump that lands in the same commit (consumes eval-toolkit#44 / <code>fit_isotonic_binary</code> upstream per library-first invariant; removes <code>fit_isotonic_binary_local</code> adapter from v1.0.8).</li>
 </ul>
 </section>
-<section id="negative" class="level3">
-<h3 class="anchored" data-anchor-id="negative">Negative</h3>
+<section id="linked-adrs" class="level2">
+<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><strong>70% is empirically chosen</strong>, not derived. If Phase 1 reveals it’s either trivially exceeded everywhere (suggesting we should raise it) or chronically failed on legitimate glue (suggesting we should rethink), reopen via ADR with the actual data.</li>
-<li><strong>Upstream filing has friction</strong>: writing the issue + the proposed test pattern takes more developer time than writing a local anti-test. This is the <em>intended</em> friction — it forces a real “is this our problem or theirs” judgment rather than a reflex anti-test.</li>
-<li><strong>CI gate fires on coverage drops</strong> even when the absolute level is still above 70%. Acceptable cost — drops are signal worth investigating; the upstream-filing escape hatch handles the legitimate-deferral case.</li>
+<li><strong>Superseded (narrow, Block A only)</strong>: ADR-051.</li>
+<li><strong>Referenced</strong>: ADR-034 (the T0 contract this ADR closes); ADR-032 (HF Hub publication; v1.0.1 deliverable that closed the publish half); ADR-019 (softmax_fp32 numerical stability discipline reused in inference); ADR-039 (gate 3 — Block B of ADR-051 unchanged by this ADR).</li>
+<li><strong>Source</strong>: REPO_AUDIT_2026-05-18 §P0 “HF Hub / T0 reproducibility is unfinished” (audit finding that motivated ADR-051; this ADR closes the Block A half).</li>
 </ul>
 </section>
-<section id="limitation" class="level3">
-<h3 class="anchored" data-anchor-id="limitation">Limitation</h3>
-<p>The 70% threshold is a heuristic, not a methodological commitment. It is calibrated for the prototype-grade context locked by ADR-027 (where the math lives upstream). If a Phase 1+ surprise reveals the threshold is mis-calibrated, the data justifies the superseding ADR — not a quiet adjustment.</p>
-</section>
-<section id="extension-condition-for-revisit" class="level3">
-<h3 class="anchored" data-anchor-id="extension-condition-for-revisit">Extension condition for revisit</h3>
-<ul>
-<li><strong>Production-deployment scope extension</strong> lifts floor to 85% with <code>src/eval/</code> at 90% (since <code>src/eval/</code> is the most math-adjacent package and would carry production-grade calibration / threshold-fitting orchestration logic in that context).</li>
-<li><strong>First sustained Phase 1 violation</strong> of the floor with no viable upstream home triggers a re-evaluation — possibly drop to 60% (with explanation), or move to the stratified option E variant.</li>
-</ul>
-</section>
-</section>
-<section id="alternatives-considered" class="level2">
-<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives considered</h2>
-<ul>
-<li><strong>(A) 90%</strong> — rejected; contradicts prototype-grade framing; forces low-value tests.</li>
-<li><strong>(B) 80%</strong> — rejected; arbitrary middle ground with same low-value-test pressure delayed.</li>
-<li><strong>(D) No floor; measure-only</strong> — rejected; loses the forcing-function benefit; coverage decay invisible until writeup.</li>
-<li><strong>(E) Stratified 70% on src/, no floor on scripts/</strong> — rejected in favor of flat 70% + upstream-filing escape hatch; the escape hatch is structurally cleaner than per-package strata and provides real process value.</li>
-</ul>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>Decisions surfaced during the 2026-05-19 v1.0.9 planning session (<code>/exploring-options</code> 6-question execution-lock; transcript at <code>transcripts/2026-05-19__v1-0-9-adr-051-block-a-close.md</code>).</p>
 
 
 <!-- -->
@@ -1476,147 +1412,225 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "028"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> coverage-floor-70pct-with-upstream-issue-filing</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-028</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-06 locks the §STYLE ledger row 350 (Test coverage floor) at 70% flat across the repo with a co-locked upstream-issue-filing discipline. The CI command is uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing — single threshold across the codebase (no src/-vs-scripts/ stratification). The Makefile coverage target is updated from the current ungated form (pytest --cov=. --cov-report=term-missing) to the gated form. The 70% threshold reflects the case-study composition layer's prototype-grade framing (per ADR-027 debugging-grade-here-rigorous-upstream split) — high enough to catch a whole-module-untested regression, low enough to avoid forcing low-value tests against orchestration glue. Co-locked process commitment extending ADR-006 + decisions/upstream_issues.md from library-primitive-gaps to test-coverage-gaps — when a local coverage gap is identified that would be better addressed by an upstream library test (e.g., a test pattern that should live in eval-toolkit's harness coverage, or a runpod-deploy preflight scenario), file an issue at the upstream repo with the proposed test pattern + rationale. Log the upstream issue in decisions/upstream_issues.md with a "test-coverage-gap" tag in the row. This prevents the 70% floor from forcing low-value local tests when the right home for the test logic is upstream. If a gap genuinely cannot be filed upstream (project-specific glue), the gap is either tested locally OR explicitly documented as deferred via comment + upstream_issues.md "not-applicable" entry pointing at the deferral rationale. STYLE.md project-deltas section is updated from the prior "[OPEN — coverage floor; resolved at Phase 0]" placeholder to the locked 70%-flat-with-upstream-filing-discipline. Limitation — 70% is empirically chosen, not derived; if Phase 1 reveals chronic failure on legitimate orchestration glue with no viable upstream home, reopen via superseding ADR with the actual data. Extension condition — production-deployment scope extension lifts floor to 85% with src/eval at 90%; currently out-of-scope.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §STYLE ledger row 350 + STYLE.md "project deltas" + Phase 0-06 walk Q3</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 350 carries locked-to-70pct-flat-with-upstream-issue-filing-discipline status (see ADR-028); STYLE.md project-deltas section first bullet is rewritten from the prior "[OPEN — coverage floor; resolved at Phase 0]" placeholder to the locked 70% with the upstream-filing-discipline pointer; Makefile coverage target is updated from the current ungated form to "uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing"; decisions/upstream_issues.md ledger gains a "test-coverage-gap" tag convention documented in the "How to use this ledger" section + a worked example row in the table (or a placeholder row marked TBD-at-Phase-1-entry); tests/test_invariants.py contains skip-marked stub test_coverage_floor_enforced asserting that the Makefile coverage target invokes pytest with --cov-fail-under=70 (or the equivalent CI invocation does so) — verification is via subprocess + assert that exit code is non-zero when synthetic coverage drops below 70%; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> fa1ad33</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://pytest-cov.readthedocs.io/en/latest/config.html</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/STYLE.md</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/Makefile</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-026-module-layout-concern-grouped-subpackages.md</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/upstream_issues.md</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/library_imports.md</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-06__code-test-discipline.md</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-028: Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the third of 4 <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> rows in Phase 0-06 (§5 Code architecture + §STYLE — rows 348-351 of SPEC_GREENFIELD ledger). Companion to ADR-026 (module layout), ADR-027 (smoke vs canonical), and ADR-029 (test marker strategy).</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="in">`pytest --cov`</span> measures source-line coverage from the test suite; a **coverage floor** is a CI gate that fails the build if coverage drops below threshold. STYLE.md's "project deltas" section explicitly defers this decision to Phase 0:</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Test coverage floor**: </span><span class="in">`[OPEN: coverage floor; resolved at Phase 0]`</span><span class="at">. eval-toolkit uses 90%; case-study composition layer typically doesn't need foundational-library rigor.</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>Five options were considered:</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>(A) **90%** — eval-toolkit parity. Contradicts the prototype-grade framing locked by ADR-027; forces low-value tests against glue.</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>(B) **80%** — middle ground. Same low-value-test pressure as 90%, just delayed.</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>(C) **70%** — relaxed; matches STYLE.md hint. Low enough to accommodate orchestration glue, high enough to signal that critical paths get tested.</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>(D) **No formal floor; measure-only** — zero false positives, but no gate means coverage decay is invisible until writeup time.</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>(E) **Stratified floor** (70% on src/, no floor on scripts/) — most pragmatic version of C; aligns with the src/-vs-scripts/ boundary locked by ADR-026.</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>User feedback at decision time selected option C with an additional process commitment:</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "C, but whenever we find things that should be sent to runpod-deploy or eval-toolkit we should send issues to those repos for those tests."</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>This addendum extends the existing library-first discipline (don't hand-roll library primitives — file upstream issues for gaps; tracked in <span class="in">`decisions/upstream_issues.md`</span>) from **library-primitive-gaps** to **test-coverage-gaps**. Rather than carving out scripts/ via stratification (option E), the simpler 70% flat threshold is paired with a process commitment: when a coverage gap is identified that would be better addressed upstream, file the gap upstream rather than write a low-value local test.</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>This is structurally cleaner than option E because:</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The floor calculation is a single CLI flag (<span class="in">`--cov-fail-under=70`</span>) — no per-package strata to maintain in <span class="in">`.coveragerc`</span>.</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The escape hatch (upstream filing) is a real process improvement — generates contribution-trail value for the writeup, not just a technical workaround.</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>It's load-bearing in the right direction: the floor is a forcing function for *honest engagement* with each gap (either test locally, file upstream, or document non-applicability), not a license to add anti-tests.</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked threshold and CI command</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>**Coverage floor**: 70% flat across the repo.</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>**CI command**:</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run pytest <span class="at">--cov</span> <span class="at">--cov-fail-under</span><span class="op">=</span>70 <span class="at">--cov-report</span><span class="op">=</span>term-missing</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>**Updated `Makefile` coverage target** (replaces existing ungated form <span class="in">`pytest --cov=. --cov-report=term-missing`</span>):</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="in">```makefile</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="in">coverage:</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="in">    uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Co-locked process commitment — upstream-issue-filing for test-coverage gaps</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>When a local coverage gap is identified during Phase 1+ work, the developer applies this triage:</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Local test is the right home** — write the test locally in <span class="in">`tests/unit/`</span>, <span class="in">`tests/smoke/`</span>, or <span class="in">`tests/integration/`</span> per the Q4 marker taxonomy (ADR-029).</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Upstream library is the right home** — file an issue at the upstream repo (<span class="in">`brandon-behring/eval-toolkit`</span> or <span class="in">`brandon-behring/runpod-deploy`</span>) with:</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>The proposed test pattern (sketch, not implementation).</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>The rationale (why the test logic belongs upstream, not locally).</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Local file:line that depends on the absent test (if any).</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`tracked`</span> label.</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>   Then add a row to <span class="in">`decisions/upstream_issues.md`</span> with the issue URL + <span class="in">`[test-coverage-gap]`</span> tag + local file:line.</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Genuinely not testable, not upstream-applicable** — leave a <span class="in">`# noqa: COV`</span> style code comment with rationale + add a <span class="in">`decisions/upstream_issues.md`</span> row tagged <span class="in">`[not-applicable]`</span> documenting the deferral.</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>A workaround that ignores the gap (lets coverage drop below 70% silently, or worse, adds a no-op test to inflate coverage) is an anti-pattern.</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="fu">### Updated `decisions/upstream_issues.md` ledger conventions</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>The ledger's "How to use this ledger" section gains:</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Test-coverage-gap entries**: when a coverage gap is filed upstream rather than tested locally, add a row with the </span><span class="in">`[test-coverage-gap]`</span><span class="at"> tag in the Title column. When a gap is documented as not-applicable rather than filed, use the </span><span class="in">`[not-applicable]`</span><span class="at"> tag. Both forms preserve the discipline trail without forcing local anti-tests.</span></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>A worked example row (placeholder — populated as actual gaps surface during Phase 1+):</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Date <span class="pp">|</span> Repo <span class="pp">|</span> Issue # <span class="pp">|</span> Title <span class="pp">|</span> Local site (file:line) <span class="pp">|</span> Status <span class="pp">|</span></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[TBD-at-Phase-1-entry]`</span> <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="in">`[TBD]`</span> <span class="pp">|</span> <span class="in">`[test-coverage-gap]`</span> example placeholder for upstream-filing convention <span class="pp">|</span> <span class="in">`[TBD]`</span> <span class="pp">|</span> placeholder <span class="pp">|</span></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### What's explicitly out of scope</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-package coverage strata** (option E) — kept simple at 70% flat; the upstream-filing escape hatch handles the orchestration-glue case structurally rather than via configuration.</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade coverage** (≥85%) — currently out-of-scope per ADR-027 prototype-grade framing; reopen via superseding ADR if scope extends.</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Coverage on `tests/` itself** — pytest-cov's default behavior excludes test files when <span class="in">`--cov`</span> has no path argument; this is preserved.</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single CLI flag** for the floor — no <span class="in">`.coveragerc`</span> per-package configuration to drift.</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Floor as forcing function for honest engagement**: every gap gets one of three responses (local test / upstream issue / documented deferral). No silent coverage decay.</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Contribution trail**: upstream-filed test-coverage gaps generate <span class="in">`decisions/upstream_issues.md`</span> entries that double as evidence of library-first discipline for the writeup.</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-027 prototype-grade framing**: 70% is the right number for debugging-grade testing; 90% would force the layer to do work that belongs upstream.</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**70% is empirically chosen**, not derived. If Phase 1 reveals it's either trivially exceeded everywhere (suggesting we should raise it) or chronically failed on legitimate glue (suggesting we should rethink), reopen via ADR with the actual data.</span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Upstream filing has friction**: writing the issue + the proposed test pattern takes more developer time than writing a local anti-test. This is the *intended* friction — it forces a real "is this our problem or theirs" judgment rather than a reflex anti-test.</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CI gate fires on coverage drops** even when the absolute level is still above 70%. Acceptable cost — drops are signal worth investigating; the upstream-filing escape hatch handles the legitimate-deferral case.</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>The 70% threshold is a heuristic, not a methodological commitment. It is calibrated for the prototype-grade context locked by ADR-027 (where the math lives upstream). If a Phase 1+ surprise reveals the threshold is mis-calibrated, the data justifies the superseding ADR — not a quiet adjustment.</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-deployment scope extension** lifts floor to 85% with <span class="in">`src/eval/`</span> at 90% (since <span class="in">`src/eval/`</span> is the most math-adjacent package and would carry production-grade calibration / threshold-fitting orchestration logic in that context).</span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**First sustained Phase 1 violation** of the floor with no viable upstream home triggers a re-evaluation — possibly drop to 60% (with explanation), or move to the stratified option E variant.</span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) 90%** — rejected; contradicts prototype-grade framing; forces low-value tests.</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) 80%** — rejected; arbitrary middle ground with same low-value-test pressure delayed.</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) No floor; measure-only** — rejected; loses the forcing-function benefit; coverage decay invisible until writeup.</span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(E) Stratified 70% on src/, no floor on scripts/** — rejected in favor of flat 70% + upstream-filing escape hatch; the escape hatch is structurally cleaner than per-package strata and provides real process value.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "058"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> scripts/eval_from_hub.py non-dry-run body wired — narrow supersession of ADR-051 Block A (T0 score-match carryforward); Block B (38 invariant scaffolds) remains carryforward</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-19</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-058</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> &gt;-</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-051 narrowly superseded ADR-034 §Tier T0 + ADR-039 §gate 3 via two</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  carryforward blocks with explicit v1.1.x landing conditions. v1.0.9</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  closes Block A — the T0 score-match wiring at `scripts/eval_from_hub.py`</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  — by replacing the stub that exited 2 with the full body:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  `huggingface_hub.snapshot_download(repo_id)` → architecture-dispatched</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  load (`AutoModelForSequenceClassification.from_pretrained` for</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  frozen-probe + full-ft; base ModernBERT + `PeftModel.from_pretrained`</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  for lora) → CPU inference via library-first reuse of</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  `src.training.train_modernbert._predict_proba` → per-row score-match</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  against the committed reference predictions parquet at</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  `evals/predictions/&lt;rung&gt;__fold0__seed42__&lt;slice&gt;.parquet` within</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  1e-4 absolute tolerance per ADR-034 §Tier T0. Strict-mode exit code</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  per /exploring-options 2026-05-19 Q1 lock: exit 1 on any row exceeding</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  tolerance (no silent failures); exit 0 on all-pass; exit 2 on invalid</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  args (rung not in `evals/results.json::published_rungs`, reference</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  parquet missing). Smoke coverage at `tests/smoke/test_eval_from_hub_smoke.py`</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">  (9 tests; mocked-only per Q6 lock — no real HF Hub fetch in CI).</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  Block B (38 invariant scaffolds in `tests/test_invariants.py`) remains</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  carryforward to v1.1.x per ADR-051 — Block B is orthogonal to T0</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  wiring and out of scope for v1.0.9. The narrow supersession scope of</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">  this ADR is **Block A only**.</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> transcripts/2026-05-19__v1-0-9-adr-051-block-a-close.md (private; emailed at submission)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> &gt;-</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">  At v1.0.9 close, `scripts/eval_from_hub.py` non-dry-run path executes</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">  the full wiring (snapshot_download → load → CPU inference → per-row</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">  score-match → emit predictions parquet) instead of returning 2 with a</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">  carryforward message. `make eval-from-hub RUNG=frozen-probe` and</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">  `RUNG=lora` exit 0 with score-match summary within 1e-4 tolerance per</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-034 §Tier T0 §Score-match contract. `uv run pytest</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">  tests/smoke/test_eval_from_hub_smoke.py -v` reports 9/9 passing.</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">  `uv run mypy --strict scripts/eval_from_hub.py` returns 0. ADR-051</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">  frontmatter `superseded_by` updated to `["058"]` in-place per ADR-029</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">  convention (narrow Block A only; Block B remains carryforward).</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> v1.0.9</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> [ADR-051]</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> []</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-034-reproducibility-tier-full-ladder.md</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-numerical-precision-bf16-vs-fp32.md</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">  - scripts/eval_from_hub.py</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">  - tests/smoke/test_eval_from_hub_smoke.py</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/results.json</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-19__v1-0-9-adr-051-block-a-close.md</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-058 — eval_from_hub non-dry-run body wired (narrow supersession of ADR-051 Block A)</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-19; landed in v1.0.9 patch alongside eval-toolkit</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>v0.40.0 → v0.42.0 bump + <span class="in">`fit_isotonic_binary_local`</span> adapter removal</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>per library-first invariant + eval-toolkit#44 closure).</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-051</span><span class="co">](ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md)</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>was written at v1.0.2 (2026-05-18) to formally document the two</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>governance gaps that the v1.0.0 / v1.0.1 submission tags did not close:</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Block A** — <span class="in">`scripts/eval_from_hub.py`</span> non-dry-run body was a</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  ~7-line stub that printed a carryforward message and exited 2.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>  ADR-034 §Tier T0 §Score-match contract was unmet from the consumer</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>  side (publish half closed cleanly at v1.0.1).</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Block B** — 38 stubs in <span class="in">`tests/test_invariants.py`</span> carried</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  <span class="in">`@pytest.mark.skip(reason="v1.0.0 carryforward stub")`</span>. ADR-039</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>  §gate 3 ("all stubs unskipped + green") was unmet.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>ADR-051 narrowly superseded ADR-034 (T0 axis only; T1 + T3 unchanged)</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>ADR-039 (gate 3 axis only; gates 1+2+4+5+6 unchanged) and codified</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>both as v1.1.x carryforwards with explicit landing conditions.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>v1.0.9 closes **Block A**. Block B remains a v1.1.x carryforward.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>Implement the full ADR-034 §Tier T0 score-match contract in</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/eval_from_hub.py`</span> and narrowly supersede ADR-051 — Block A</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>only. ADR-051 Block B (38 invariant scaffolds) remains carryforward</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>to v1.1.x; this ADR does not affect it.</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### Block A — implementation shape</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>Per the /exploring-options 2026-05-19 6-question execution-lock:</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q1 lock — score-match strictness**: exit 1 on any row exceeding</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>  1e-4 absolute tolerance (no silent failures discipline per project</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  Python standards). Per-row delta diagnostics printed to stderr on</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  fail (top-5 exceedances by |delta|).</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Q6 lock — smoke test fetch strategy**: mocked-only for CI</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  hermeticity. Real <span class="in">`huggingface_hub.snapshot_download`</span> + CPU inference</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  are NOT exercised in CI (would require network + ~500MB checkpoint</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  download per slice; ~30s CPU inference per slice). The reviewer-</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  facing path (<span class="in">`make eval-from-hub RUNG=frozen-probe`</span>) exercises the</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>  full body live.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Architecture-dispatched model loading</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/eval_from_hub.py::_load_model_and_tokenizer`</span> dispatches by rung:</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`frozen-probe`</span> / <span class="in">`full-ft`</span> → <span class="in">`AutoModelForSequenceClassification.from_pretrained(snapshot_path)`</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>  with co-located tokenizer.</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`lora`</span> → base <span class="in">`ModernBERT-base`</span> (pinned revision</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>  <span class="in">`8949b909ec900327062f0ebf497f51aef5e6f0c8`</span> per ADR-015) + <span class="in">`PeftModel.from_pretrained(snapshot_path)`</span>;</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>  tokenizer loaded from the pinned backbone (LoRA adapter folders do</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>  not ship a tokenizer).</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>CPU only; <span class="in">`torch.float32`</span>; library-first reuse of</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="in">`src.training.train_modernbert._predict_proba`</span> for the inference loop</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>(softmax_fp32 cast per ADR-019 numerical-stability discipline).</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Score-match reference parquet</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>Per-row comparison against <span class="in">`evals/predictions/&lt;rung_underscore&gt;__fold0__seed42__&lt;slice&gt;.parquet`</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>(committed reference; rung name uses underscore form per file-system</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>convention: <span class="in">`frozen_probe`</span>, <span class="in">`lora`</span>, <span class="in">`full_ft`</span>). The HF Hub repo_id</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>uses kebab-case per ADR-032: <span class="in">`BBehring/prompt-injection-&lt;rung&gt;`</span>.</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>ADR-058's <span class="in">`_rung_to_underscore`</span> helper bridges the two naming</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>conventions.</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>The per-row delta is computed as <span class="in">`abs(new_proba - reference_proba)`</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>where:</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`new_proba`</span> = re-derived <span class="in">`predicted_proba_class1`</span> from the freshly-</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>  downloaded HF Hub checkpoint.</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`reference_proba`</span> = committed <span class="in">`predicted_proba_class1`</span> from the</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>  canonical fold0/seed42 training run.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>A passing run requires every row's <span class="in">`|delta| ≤ 1e-4`</span>. ADR-034 §Tier T0</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>tolerance is per-row, not aggregated; the per-row formulation is</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>strictly conservative (per-row pass implies aggregated AUPRC/AUROC</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>pass; the converse is not true).</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### Eval slice + sample size</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>The <span class="in">`--eval-slice`</span> CLI argument (default <span class="in">`bipia`</span>) selects which OOD</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>slice to score-match. The <span class="in">`--n-rows`</span> argument (default 100) samples</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>the first N rows of the reference parquet (deterministic; matches</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>the committed run's row ordering). If the reference parquet has</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>fewer than N rows, all rows are used.</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>For reviewer-facing T0 verification, <span class="in">`make eval-from-hub RUNG=&lt;rung&gt;`</span></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>runs with defaults; n=100 is sufficient to detect any non-trivial</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>checkpoint divergence (CPU vs GPU floating-point differences at fp32</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>are typically &lt; 1e-5; the 1e-4 tolerance has a 10× safety margin).</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="fu">### Library-first reuse</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>This implementation reuses existing project + library primitives</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>rather than hand-rolling:</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`huggingface_hub.snapshot_download`</span> — upstream library, not</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>  hand-rolled fetching.</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`transformers.AutoModelForSequenceClassification`</span> + <span class="in">`AutoTokenizer`</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>  — upstream library.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`peft.PeftModel.from_pretrained`</span> — upstream library; lora</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>  architecture-aware loading.</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`src.training.load_modernbert.load_modernbert`</span> — internal helper for</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>  base ModernBERT loading at pinned revision.</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`src.training.train_modernbert._predict_proba`</span> — internal inference</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>  loop with softmax_fp32 cast per ADR-019.</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>No new methodology primitives are introduced; all components are</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>upstream library calls or existing internal helpers.</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer experience**: <span class="in">`make eval-from-hub RUNG=frozen-probe`</span> +</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>  <span class="in">`RUNG=lora`</span> now exit 0 with score-match summary; the auto-generated</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>  HF Hub model cards (live since v1.0.1) become executable from the</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>  consumer side. The T0 reproducibility contract is sealed.</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-051 supersession scope**: this ADR narrowly supersedes ADR-051</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>  **Block A only**. ADR-051 Block B (38 invariant scaffolds) remains</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>  carryforward to v1.1.x. ADR-051's frontmatter gains</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>  <span class="in">`superseded_by: ["058"]`</span> per ADR-029 in-place convention; ADR-051's</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>  status remains Accepted (the body documents both blocks; only one</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>  is now closed).</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No methodology changes**: the implementation reuses existing</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>  primitives; no new ADR for inference loop / tokenization / etc.</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>  is needed. The only governance addition is this ADR.</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Smoke coverage**: 9 tests added at <span class="in">`tests/smoke/test_eval_from_hub_smoke.py`</span></span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>  covering (a) <span class="in">`--dry-run`</span> subprocess invocation for both published</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>  rungs, (b) score-match tolerance logic with synthetic numpy arrays</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>  (within-tol, exceeds-tol, length-mismatch), (c) published-rungs</span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>  validator against <span class="in">`evals/results.json`</span>, (d) reference parquet</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>  loader, (e) kebab↔underscore rung-name translation. Per Q6 lock:</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>  no real HF Hub fetch; CI hermetic.</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CHANGELOG entry**: <span class="in">`[1.0.9]`</span> documents the closure narrative +</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>  the eval-toolkit v0.40.0 → v0.42.0 bump that lands in the same</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>  commit (consumes eval-toolkit#44 / <span class="in">`fit_isotonic_binary`</span> upstream</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>  per library-first invariant; removes <span class="in">`fit_isotonic_binary_local`</span></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>  adapter from v1.0.8).</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linked ADRs</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Superseded (narrow, Block A only)**: ADR-051.</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Referenced**: ADR-034 (the T0 contract this ADR closes); ADR-032</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>  (HF Hub publication; v1.0.1 deliverable that closed the publish</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  half); ADR-019 (softmax_fp32 numerical stability discipline reused</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>  in inference); ADR-039 (gate 3 — Block B of ADR-051 unchanged by</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>  this ADR).</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source**: REPO_AUDIT_2026-05-18 §P0 "HF Hub / T0 reproducibility</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>  is unfinished" (audit finding that motivated ADR-051; this ADR</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>  closes the Block A half).</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>Decisions surfaced during the 2026-05-19 v1.0.9 planning session</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>(<span class="in">`/exploring-options`</span> 6-question execution-lock; transcript at</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="in">`transcripts/2026-05-19__v1-0-9-adr-051-block-a-close.md`</span>).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
