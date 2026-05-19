@@ -40,9 +40,9 @@ Postscript for reader-visibility; the others are patched here.
 ### Fixed
 
 - **`CHANGELOG.md` [1.1.2] References** — corrected 2 broken ADR slug
-  refs: `ADR-006-single-seed-protocol-for-comparative-claims.md` →
+  refs: `ADR-006-headline-metrics-and-statistical-apparatus.md` →
   `ADR-006-headline-metrics-and-statistical-apparatus.md`;
-  `ADR-020-runpod-orchestration-and-cost-discipline.md` →
+  `ADR-020-compute-infrastructure-and-cost-discipline.md` →
   `ADR-020-compute-infrastructure-and-cost-discipline.md`.
 - **`SPEC_SHEET.md`** frontmatter — `53 ADRs accepted across Phase 0-00
   through v1.0.4 close` → `63 ADRs accepted through v1.1.3` with
@@ -375,10 +375,10 @@ readers who hit a 404 when clicking the in-ADR cross-refs:
 - ADR-006 actual filename: `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`
   - Broken refs in: ADR-046:15,195; ADR-048:16,194 (cite as
     `ADR-006-headline-metrics-and-statistical-floor.md`); ADR-063:60,268
-    (cite as `ADR-006-single-seed-protocol-for-comparative-claims.md`).
+    (cite as `ADR-006-headline-metrics-and-statistical-apparatus.md`).
 - ADR-020 actual filename: `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md`
   - Broken refs in: ADR-059:47; ADR-060:64; ADR-063:62,274 (all cite as
-    `ADR-020-runpod-orchestration-and-cost-discipline.md`).
+    `ADR-020-compute-infrastructure-and-cost-discipline.md`).
 
 ADR-063 also contains a stale cumulative-cost figure: `$9.92 /
 ADR-020 $200 hard cap`. The v1.1.2 GPU spend is correctly cited
@@ -1327,7 +1327,7 @@ Quarto site reflects this patch.
     lines 62 + 68 (source-pin + release-page URLs). **In-place
     edit** — treated as typo-class factual correction (slug
     rename); the canonical-source-pin + 3-URL reviewer set
-    decision is unchanged. Per [ADR-029](decisions/ADR-029-immutable-adrs-supersede-dont-edit.md)
+    decision is unchanged. Per [ADR-029](decisions/../CLAUDE.md)
     immutability convention, a typo-class slug rename in a URL
     component is not a decision change.
   - `decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md`
