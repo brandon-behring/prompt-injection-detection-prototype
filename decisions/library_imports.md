@@ -124,6 +124,16 @@ Beyond ADR-013's persistence-side use of HF Hub (cache + checkpoint storage), AD
 - `src/scoring/anthropic_judge.py::AnthropicJudge` — claude-sonnet-4-6 subclass.
 - `src/scoring/prompts/prompt_template_v1.md` — versioned LLM-judge prompt template per ADR-018 line 67.
 
+## Phase 4+ inference deps (v1.1.2 Phase B per ADR-060; inventoried at v1.2.0 per ADR-064)
+
+| Primitive | Imported in | Purpose |
+|---|---|---|
+| `transformers.PreTrainedTokenizerBase.__call__(return_overflowing_tokens=True, stride=N, padding='max_length')` | `src/inference/windowed.py::chunk_and_average_inference` (v1.1.2 Phase B per ADR-060) | HF tokenizer's native sliding-window protocol — emits 512-token windows with stride 256 (50% overlap) per ADR-060 chunk-and-average truncation strategy. No hand-rolled window-stride math; library-first per the project invariant. Each window is forward-passed through the model; per-window softmax_fp32 (per ADR-019) is averaged to produce final `predicted_proba_class1`. |
+| `src.training.softmax_cast.softmax_fp32` (project-internal; not a library import) | `src/inference/windowed.py::chunk_and_average_inference` + `head_truncation_inference` (v1.1.2 Phase B) | Numerical-stability fp32 cast before softmax per ADR-019, applied per-window during the windowed inference path. Mirrors the existing `src/training/train_modernbert.py::_predict_proba` usage. |
+| `src/inference/windowed.py::predict_with_strategy(model, tokenizer, texts, strategy, window_size, stride, per_device_batch_size)` (project-internal) | `scripts/run_deberta_ood_inference.py` (v1.1.2 Phase D OOD inference for ADR-060 ablation) | Dispatcher: routes `'chunk_and_average'` → `chunk_and_average_inference` or `'head_truncation'` → `head_truncation_inference`. Rejects unknown strategy with ValueError per ADR-060 lock + no-silent-failures discipline. Used by the DeBERTa OOD inference orchestrator to score 5 OOD slices per strategy with the matching truncation behavior. |
+
+**Scope rationale** (per ADR-060 + ADR-064 §B / Phase 4+ inference deps section): chunk-and-average inference is a project-specific ModernBERT-vs-DeBERTa-v3 confound-control pattern, NOT a generic eval-toolkit primitive (eval-toolkit's scope is metrics + calibration + bootstrap; not model-inference strategies). No upstream MR filed against eval-toolkit; `src/inference/windowed.py` stays project-internal.
+
 ## Phase 1 Data deps (introduced incrementally per ADR-041 across Commits 1–6)
 
 | Library | First imported in | Purpose | Pinned at |
