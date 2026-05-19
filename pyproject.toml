@@ -9,7 +9,9 @@ dependencies = [
     # Load-bearing libraries (no hand-rolling allowed — see SPEC_GREENFIELD §Tech-Stack).
     # Versions locked at Phase 0-08 per ADR-036 (tag pin + freeze for submission window).
     # Bump triggers limited to blocking upstream bug + critical security fix + post-submission patch per ADR-033.
-    "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.39.0",
+    # v1.0.8: PyPI install per ADR-055 (narrow supersession of ADR-036 "git URL only" claim);
+    # eval-toolkit published to PyPI starting v0.40.0 (2026-05-18) via Trusted Publishing OIDC.
+    "eval-toolkit==0.40.0",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding

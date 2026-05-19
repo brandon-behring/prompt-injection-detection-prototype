@@ -8,7 +8,7 @@ The ledger is **positive evidence**: not just "we don't hand-roll" but "here is 
 
 | Library | Pinned version | pyproject.toml specifier |
 |---|---|---|
-| `eval-toolkit` | `v0.39.0` | `eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.39.0` (bumped v0.31→v0.34 mid-Phase-4 X8 commit `8af73ae`; bumped v0.34→v0.39 at v1.0.6 to consume upstream resolutions of `#39` `is_metric_defined_for_slice` + `#40` `LeakageCheck.name` read-only + `#41` `parallel_map` memory docs all closed 2026-05-18) |
+| `eval-toolkit` | `v0.40.0` | `eval-toolkit==0.40.0` **(PyPI install per ADR-055 narrow supersession of ADR-036)**; bumped v0.31→v0.34 mid-Phase-4 X8 commit `8af73ae`; v0.34→v0.39 at v1.0.6 (consumed #39 `is_metric_defined_for_slice` + #40 `LeakageCheck.name` + #41 `parallel_map`); v0.39→v0.40 + git+https→PyPI at v1.0.8 (consumed #43 `fit_platt_binary` + `fit_beta_binary`; refactored to `_binary` calibrator family per ADR-056; filed #44 `fit_isotonic_binary` for shape consistency) |
 | `runpod-deploy` | `v0.7.7` (matches ADR-020 pre-existing pin) | `runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7` — moved to `[project.optional-dependencies] dev` per Phase 4 X3 (validator-flagged 2026-05-17; runpod-deploy is a local orchestrator, pod never imports it) |
 | `research_toolkit` | `v1.9.1` | `research_toolkit @ git+https://github.com/brandon-behring/research_toolkit@v1.9.1` |
 

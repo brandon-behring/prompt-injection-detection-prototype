@@ -18,6 +18,149 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.0.8] — 2026-05-19
+
+eval-toolkit v0.39.0 → v0.40.0 + **PyPI install switch** (out of
+git+https) + **binary calibrator refactor** to upstream `_binary` API
+family + **Platt + Beta calibrators landed** + **per-prediction
+provenance manifest backfill** (282 manifests) + **3 new ADRs**
+(055/056/057) + 2 in-place superseded_by edits on ADR-036 + ADR-023.
+
+Closes NEXT_STEPS §1.4 (Platt + Beta deferral via upstream consume)
+and §1.9 (manifest backfill pipeline) per Path 3 / /exploring-options
+batches 10-11 locks.
+
+### Added
+
+- **`decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.md`**
+  — eval-toolkit installs from PyPI at v0.40.0+ (`eval-toolkit==0.40.0`
+  PEP 508 specifier); narrow supersession of ADR-036 "git URL is the
+  only viable spec format" sub-claim. Tag-pin convention + freeze
+  policy + bump-triggers + uv.lock backstop all preserved.
+  runpod-deploy + research_toolkit retain git+https tag-pin per
+  ADR-036.
+
+- **`decisions/ADR-056-binary-calibrator-refactor-and-platt-beta-narrow-supersession-of-adr-023.md`**
+  — `src/eval/calibration_battery.py` refactored to use eval-toolkit
+  `_binary` API family uniformly. Replaces `fit_temperature` (multi-
+  class log-prob; what we missed at earlier pin bumps) with
+  `fit_temperature_binary`. Adds `fit_platt_binary` + `fit_beta_binary`
+  per upstream #43 (closed ~17 min after filing — fastest turnaround
+  of v1.0.x series). Local `fit_isotonic_binary_local` adapter pending
+  upstream #44.
+
+- **`decisions/ADR-057-manifest-schema-v3-backfill-conventions.md`** —
+  per-prediction provenance manifest schema; `scripts/backfill_provenance.py`
+  emits 282 manifest.json files at `evals/manifests/`. Schema carries
+  git_sha + config_hash + contamination_flag (ADR-005 3-state taxonomy)
+  + rung/fold/seed/slice/n_rows + predictions_relpath. 3 filename
+  patterns supported (trained-with-tail + trained-no-tail + reference).
+  Non-destructive sibling-JSON design (parquets unchanged) chosen over
+  column injection.
+
+- **`scripts/backfill_provenance.py`** (new; ~230 LOC) — backfill CLI.
+  Default mode writes 282 manifests; `--check` mode verifies presence
+  (CI-friendly); `--rung <rung>` filter mode. Idempotent.
+
+- **`evals/manifests/`** (new directory; 282 JSON files; ~150 KB total)
+  — per-prediction provenance manifests per ADR-057.
+
+- **eval-toolkit#44** filed at v1.0.8 ("Add `fit_isotonic_binary` for
+  shape consistency with `fit_temperature_binary` + `fit_platt_binary`
+  + `fit_beta_binary`"). Library-first invariant; mirrors the
+  #39/#40/#41/#43 file-first pattern.
+
+- **Makefile targets**: `make backfill-provenance` invokes
+  `scripts/backfill_provenance.py` (default mode); `--check` variant
+  for CI integration.
+
+### Changed
+
+- **`pyproject.toml`** — eval-toolkit pin switched from
+  `git+https://github.com/brandon-behring/eval-toolkit@v0.39.0`
+  to `eval-toolkit==0.40.0` (PyPI install). runpod-deploy +
+  research_toolkit pins unchanged.
+
+- **`uv.lock`** — regenerated; eval-toolkit source line changes from
+  `git = "https://github.com/..."` to `registry = "https://pypi.org/simple"`.
+  uv.lock wheel-SHA backstop replaces the prior git-rev-SHA backstop;
+  byte-level reproducibility preserved.
+
+- **`src/eval/calibration_battery.py`** — full `_binary` API refactor
+  per ADR-056. Imports `fit_temperature_binary` + `fit_platt_binary` +
+  `fit_beta_binary` from `eval_toolkit.calibration`; `fit_temperature`
+  (multi-class API; the one we missed) removed. `CalibratorBundle`
+  NamedTuple gains 4 new fields (platt_params + test_scores_platt +
+  beta_params + test_scores_beta). Hand-rolled `proba_to_logprobs`
+  (23 LOC) + `apply_temperature` (28 LOC) helpers deleted per
+  no-orphaned-code invariant; both duplicated upstream's internal
+  apply callable.
+
+- **`tests/smoke/test_calibration_battery_smoke.py`** — 4 helper-tests
+  removed (`test_proba_to_logprobs_*` + `test_apply_temperature_*`).
+  New test `test_fit_and_apply_calibrators_returns_bundle_with_4_calibrators`
+  covers all 7 CalibratorBundle fields. 7/7 calibration smoke tests
+  pass; full smoke suite 167/167 (171 - 4 deleted = 167).
+
+- **`decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.md`** —
+  frontmatter `superseded_by: ["055"]` added in-place per ADR-029
+  immutability convention. Body unchanged; narrow supersession
+  documented inline + in ADR-055.
+
+- **`decisions/ADR-023-calibration-battery-and-interventions.md`** —
+  frontmatter `superseded_by: ["056"]` added in-place. Body unchanged;
+  narrow supersession (Platt + Beta deferral lifted) documented inline
+  + in ADR-056.
+
+- **`decisions/library_imports.md`** — eval-toolkit version pin table
+  row updated to `v0.40.0` + PyPI install spec format note (per
+  ADR-055).
+
+- **`decisions/upstream_issues.md`** — #43 row → RESOLVED (consumed
+  at v1.0.8). New row for #44 (`fit_isotonic_binary` filed v1.0.8).
+
+- **`NEXT_STEPS.md` §1.4 + §1.9** — Status (v1.0.8) lines mark both
+  closed per Path 3.
+
+- **`SUBMISSION_AUDIT.md`** — regenerated; 57 CLAIM rows (54 + 3
+  new at v1.0.8).
+
+### Governance notes
+
+- **In-place edits to ADR-036 + ADR-023 frontmatter** — `superseded_by`
+  field added; bodies unchanged. Per ADR-029 immutability convention;
+  established pattern (ADR-050 received the same edit at v1.0.3 when
+  ADR-052 narrowly superseded R2; ADR-053 received the same edit at
+  v1.0.5 when ADR-054 narrowly superseded dimension 1).
+
+- **Library-first invariant pattern observed twice**: filed #43 at
+  v1.0.6 → resolved upstream in 17 min → consumed at v1.0.8. Filed
+  #44 at v1.0.8 → workaround locally pending resolution. The pattern
+  is a project-wide signal that upstream-first beats hand-roll.
+
+### Files modified (16 file touches)
+
+- `pyproject.toml` (eval-toolkit pin format + version).
+- `uv.lock` (regenerated; PyPI source replaces git source).
+- `src/eval/calibration_battery.py` (full refactor per ADR-056).
+- `tests/smoke/test_calibration_battery_smoke.py` (refactor + 4 tests
+  deleted, 1 added).
+- `scripts/backfill_provenance.py` (new; ~230 LOC).
+- `decisions/ADR-055-...md` (new; ~150 LOC).
+- `decisions/ADR-056-...md` (new; ~170 LOC).
+- `decisions/ADR-057-...md` (new; ~160 LOC).
+- `decisions/ADR-036-...md` (frontmatter `superseded_by` in-place edit).
+- `decisions/ADR-023-...md` (frontmatter `superseded_by` in-place edit).
+- `decisions/library_imports.md` (version pin row + PyPI note).
+- `decisions/upstream_issues.md` (#43 RESOLVED + #44 NEW).
+- `NEXT_STEPS.md` (§1.4 + §1.9 status lines).
+- `Makefile` (`make backfill-provenance` target + .PHONY).
+- `evals/manifests/` (282 new JSON files).
+- `SUBMISSION_AUDIT.md` (regenerated; 57 CLAIM rows).
+- `CHANGELOG.md` (this entry).
+
+---
+
 ## [1.0.7] — 2026-05-18
 
 4 demo notebooks (jupytext-paired; pre-rendered + frozen output

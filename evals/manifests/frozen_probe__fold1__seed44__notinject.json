@@ -1,0 +1,14 @@
+{
+  "adr_ref": "ADR-013 + ADR-016 + ADR-032 + ADR-057",
+  "config_hash": "9f3c4df6691fc6a5ce317a202c0f735225fa0695d568e385ba008a4e3695eff3",
+  "contamination_flag": "backbone-partial-disjoint",
+  "fold": 1,
+  "generated_at_utc": "2026-05-19T01:00:05+00:00",
+  "git_sha": "01bb2540f149016b54777124dd525ab55ef42bc3",
+  "n_rows": 339,
+  "predictions_relpath": "evals/predictions/frozen_probe__fold1__seed44__notinject.parquet",
+  "rung": "frozen_probe",
+  "schema_version": "1.0",
+  "seed": 44,
+  "slice_name": "notinject"
+}

@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage notebooks export-analysis-csvs headline-dry-run headline-cloud eval-from-hub site site-preview clean \
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
@@ -90,6 +90,12 @@ notebooks:
 # Per NEXT_STEPS §1.2 + /exploring-options batch 9 Q3 lock (1:1 mirror).
 export-analysis-csvs:
 	uv run python scripts/export_analysis_csvs.py
+
+# v1.0.8 — backfill per-prediction provenance manifests at evals/manifests/.
+# Per ADR-057 + NEXT_STEPS §1.9. 282 manifests covering 3 filename patterns
+# (trained-with-tail + trained-no-tail + reference). Pass --check to verify.
+backfill-provenance:
+	uv run python scripts/backfill_provenance.py
 
 # `make headline-dry-run` — cost preview without provisioning (per ADR-027 + ADR-020).
 # Phase 2 wiring per ADR-044 Q6: dry-runs all 3 per-rung configs.

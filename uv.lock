@@ -770,13 +770,17 @@ wheels = [
 
 [[package]]
 name = "eval-toolkit"
-version = "0.39.0"
-source = { git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.39.0#0c1dc001a88e39535c922d3f9f0f609037adda03" }
+version = "0.40.0"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema" },
     { name = "numpy" },
     { name = "scikit-learn" },
     { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1c/25/314a078b776580ecc967cf35513294608297f0f1a01b0cd0f0cf0257c7d4/eval_toolkit-0.40.0.tar.gz", hash = "sha256:4ebc3dd8038ec08416f546ad5de07e52262b36fd01560a18bf1eabb52d3535e3", size = 687104, upload-time = "2026-05-19T00:23:37.528Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/63/7d/8165c601070bef4883b5b243186e184418f43d426bc19f6556dd97943c73/eval_toolkit-0.40.0-py3-none-any.whl", hash = "sha256:e9578bd7ccbc07598bfff25fcb2c65167fa174579a42f6d63544571b27ae438f", size = 187280, upload-time = "2026-05-19T00:23:35.551Z" },
 ]
 
 [[package]]
@@ -2523,7 +2527,7 @@ requires-dist = [
     { name = "accelerate", specifier = ">=1.0" },
     { name = "anthropic", specifier = ">=0.40" },
     { name = "datasets", specifier = ">=3.0" },
-    { name = "eval-toolkit", git = "https://github.com/brandon-behring/eval-toolkit?rev=v0.39.0" },
+    { name = "eval-toolkit", specifier = "==0.40.0" },
     { name = "huggingface-hub", specifier = ">=0.25" },
     { name = "ipykernel", marker = "extra == 'notebook'", specifier = ">=6.30" },
     { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1" },

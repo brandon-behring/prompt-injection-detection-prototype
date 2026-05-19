@@ -10,12 +10,10 @@ import pytest
 
 from src.eval.calibration_battery import (
     HEADLINE_N_BINS,
-    apply_temperature,
     calibration_battery_for_cell,
     compute_calibration_record,
     compute_reliability_curve,
     fit_and_apply_calibrators,
-    proba_to_logprobs,
 )
 from src.eval.schemas import CalibrationRecordModel
 
@@ -42,54 +40,12 @@ def _synthetic_predictions(
 
 
 # --------------------------------------------------------------------------- #
-# proba_to_logprobs + apply_temperature
+# (proba_to_logprobs + apply_temperature tests removed at v1.0.8 per ADR-056:
+# both helpers deleted from calibration_battery.py — superseded by upstream
+# `fit_temperature_binary`'s internal apply callable. Equivalent temperature
+# semantics now covered by the upstream eval-toolkit test suite + by the
+# fit_and_apply_calibrators smoke test below.)
 # --------------------------------------------------------------------------- #
-
-
-@pytest.mark.smoke
-def test_proba_to_logprobs_reconstructs_at_T_equals_1() -> None:
-    """softmax(logprobs)[:, 1] equals input probabilities at T=1 (no scaling)."""
-    p = np.array([0.1, 0.3, 0.5, 0.7, 0.95], dtype=np.float64)
-    out = apply_temperature(p, temperature=1.0)
-    np.testing.assert_allclose(out, p, atol=1e-6)
-
-
-@pytest.mark.smoke
-def test_apply_temperature_T_greater_than_1_flattens_distribution() -> None:
-    """T > 1 reduces confidence (pushes scores toward 0.5)."""
-    p = np.array([0.05, 0.95], dtype=np.float64)
-    out = apply_temperature(p, temperature=4.0)
-    # Both should move closer to 0.5
-    assert abs(out[0] - 0.5) < abs(p[0] - 0.5)
-    assert abs(out[1] - 0.5) < abs(p[1] - 0.5)
-
-
-@pytest.mark.smoke
-def test_apply_temperature_T_less_than_1_sharpens_distribution() -> None:
-    """T < 1 sharpens confidence (pushes scores toward 0 or 1)."""
-    p = np.array([0.4, 0.6], dtype=np.float64)
-    out = apply_temperature(p, temperature=0.25)
-    assert out[0] < p[0]
-    assert out[1] > p[1]
-
-
-@pytest.mark.smoke
-def test_apply_temperature_rejects_non_positive() -> None:
-    """T <= 0 raises ValueError per Guo 2017 constraint."""
-    with pytest.raises(ValueError):
-        apply_temperature(np.array([0.5]), temperature=0.0)
-    with pytest.raises(ValueError):
-        apply_temperature(np.array([0.5]), temperature=-1.0)
-
-
-@pytest.mark.smoke
-def test_proba_to_logprobs_softmax_invariant() -> None:
-    """softmax(proba_to_logprobs(p))[:, 1] equals p (sanity)."""
-    p = np.array([0.001, 0.25, 0.5, 0.75, 0.999], dtype=np.float64)
-    logprobs = proba_to_logprobs(p)
-    e_x = np.exp(logprobs - logprobs.max(axis=1, keepdims=True))
-    recovered = e_x[:, 1] / e_x.sum(axis=1)
-    np.testing.assert_allclose(recovered, p, atol=1e-5)
 
 
 # --------------------------------------------------------------------------- #
@@ -135,16 +91,36 @@ def test_compute_calibration_record_n_bins_locked_to_15() -> None:
 
 
 @pytest.mark.smoke
-def test_fit_and_apply_calibrators_returns_bundle_with_T_above_zero() -> None:
-    """CalibratorBundle carries positive temperature + calibrated test scores."""
+def test_fit_and_apply_calibrators_returns_bundle_with_4_calibrators() -> None:
+    """CalibratorBundle carries 4 calibrators (temperature + isotonic + Platt + Beta)
+    per ADR-056 v1.0.8 refactor; all 4 produce probability-valued test scores.
+    """
     y_val, s_val = _synthetic_predictions(n=200, seed=1)
     _, s_test = _synthetic_predictions(n=100, seed=2)
     bundle = fit_and_apply_calibrators(y_val=y_val, s_val=s_val, s_test=s_test)
+
+    # Temperature (scalar T > 0 per Guo-2017 + fit_temperature_binary v0.35.0).
     assert bundle.temperature_T > 0
     assert bundle.test_scores_temperature.shape == s_test.shape
-    assert bundle.test_scores_isotonic.shape == s_test.shape
     assert ((bundle.test_scores_temperature >= 0) & (bundle.test_scores_temperature <= 1)).all()
+
+    # Isotonic (non-parametric; no params; local adapter pending eval-toolkit#44).
+    assert bundle.test_scores_isotonic.shape == s_test.shape
     assert ((bundle.test_scores_isotonic >= 0) & (bundle.test_scores_isotonic <= 1)).all()
+
+    # Platt (v0.40.0 NEW per eval-toolkit#43; sigmoid σ(a·s + b); (a, b) tuple).
+    assert isinstance(bundle.platt_params, tuple)
+    assert len(bundle.platt_params) == 2
+    assert all(isinstance(p, float) for p in bundle.platt_params)
+    assert bundle.test_scores_platt.shape == s_test.shape
+    assert ((bundle.test_scores_platt >= 0) & (bundle.test_scores_platt <= 1)).all()
+
+    # Beta (v0.40.0 NEW; 3-parameter Kull-2017 fit; (a, b, c) tuple).
+    assert isinstance(bundle.beta_params, tuple)
+    assert len(bundle.beta_params) == 3
+    assert all(isinstance(p, float) for p in bundle.beta_params)
+    assert bundle.test_scores_beta.shape == s_test.shape
+    assert ((bundle.test_scores_beta >= 0) & (bundle.test_scores_beta <= 1)).all()
 
 
 @pytest.mark.smoke

@@ -1,0 +1,14 @@
+{
+  "adr_ref": "ADR-013 + ADR-016 + ADR-032 + ADR-057",
+  "config_hash": null,
+  "contamination_flag": "verified_disjoint",
+  "fold": 3,
+  "generated_at_utc": "2026-05-19T01:00:06+00:00",
+  "git_sha": "01bb2540f149016b54777124dd525ab55ef42bc3",
+  "n_rows": 62,
+  "predictions_relpath": "evals/predictions/tfidf-lr__fold3__seed44__injecagent.parquet",
+  "rung": "tfidf-lr",
+  "schema_version": "1.0",
+  "seed": 44,
+  "slice_name": "injecagent"
+}

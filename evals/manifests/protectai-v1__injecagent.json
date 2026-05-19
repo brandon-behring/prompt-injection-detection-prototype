@@ -1,0 +1,12 @@
+{
+  "adr_ref": "ADR-013 + ADR-016 + ADR-032 + ADR-057",
+  "config_hash": null,
+  "contamination_flag": "suspected_contamination",
+  "generated_at_utc": "2026-05-19T01:00:06+00:00",
+  "git_sha": "01bb2540f149016b54777124dd525ab55ef42bc3",
+  "n_rows": 62,
+  "predictions_relpath": "evals/predictions/protectai-v1__injecagent.parquet",
+  "rung": "protectai-v1",
+  "schema_version": "1.0",
+  "slice_name": "injecagent"
+}

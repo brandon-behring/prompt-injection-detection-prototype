@@ -31,13 +31,16 @@ is afterword scope per ADR-005 + SPEC §scope.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Any, Final, Literal, NamedTuple
 
 import numpy as np
 import pandas as pd
 from eval_toolkit.calibration import (
+    fit_beta_binary,
     fit_isotonic_calibrator,
-    fit_temperature,
+    fit_platt_binary,
+    fit_temperature_binary,
     reliability_curve,
 )
 from eval_toolkit.metrics import (
@@ -56,63 +59,25 @@ from src.eval.schemas import CalibrationRecordModel, CalibratorName
 # Locked headline binning per ADR-023.
 HEADLINE_N_BINS: Final[int] = 15
 
-# Probability clipping epsilon for numerical stability in log-space.
-_LOG_PROB_EPS: Final[float] = 1e-7
 
+def fit_isotonic_binary_local(
+    y_true: NDArray[np.int_], y_score: NDArray[np.float64]
+) -> tuple[None, Callable[[NDArray[np.float64]], NDArray[np.float64]]]:
+    """Local shape-adapter wrapping `fit_isotonic_calibrator` into `(None, apply)`.
 
-def proba_to_logprobs(p: NDArray[np.float64]) -> NDArray[np.float64]:
-    """Convert binary probabilities to 2-column log-probabilities for temperature fitting.
+    Isotonic regression is non-parametric — it has no introspectable scalar
+    parameters. This adapter returns ``(None, apply)`` so iterating over the
+    4-calibrator binary battery (temperature + isotonic + Platt + Beta) uses
+    a uniform `(params_tuple, apply_callable)` shape — matching the upstream
+    `fit_temperature_binary` (v0.35.0) + `fit_platt_binary` (v0.40.0) +
+    `fit_beta_binary` (v0.40.0) sibling API contract.
 
-    Returns columns ``(log(1-p), log(p))`` clipped to ``[eps, 1-eps]`` for
-    numerical stability. ``softmax(out)[:, 1] == p`` at T=1.0 by construction;
-    after temperature scaling, ``softmax(out / T)[:, 1]`` is the T-scaled
-    binary probability per the standard Guo 2017 formulation.
-
-    Parameters
-    ----------
-    p : numpy.ndarray
-        Predicted probabilities of the positive class, shape (n,), values in [0, 1].
-
-    Returns
-    -------
-    numpy.ndarray
-        2-column log-prob array of shape (n, 2) suitable for `fit_temperature`.
+    Removed when eval-toolkit#44 lands (upstream `fit_isotonic_binary`
+    with native `(None, apply)` return). Filed at v1.0.8 per library-first
+    invariant; removal trigger documented in `decisions/upstream_issues.md`.
     """
-    p_clip = np.clip(p, _LOG_PROB_EPS, 1.0 - _LOG_PROB_EPS)
-    logits = np.zeros((len(p_clip), 2), dtype=np.float64)
-    logits[:, 0] = np.log(1.0 - p_clip)
-    logits[:, 1] = np.log(p_clip)
-    return logits
-
-
-def apply_temperature(p: NDArray[np.float64], temperature: float) -> NDArray[np.float64]:
-    """Apply temperature ``T`` to binary probabilities; return softmax(logprobs/T)[:, 1].
-
-    Parameters
-    ----------
-    p : numpy.ndarray
-        Raw predicted probabilities (positive class), shape (n,), in [0, 1].
-    temperature : float
-        Fitted temperature from `fit_temperature`. Must be > 0.
-
-    Returns
-    -------
-    numpy.ndarray
-        Temperature-scaled probabilities of the positive class, shape (n,), in [0, 1].
-
-    Raises
-    ------
-    ValueError
-        If `temperature <= 0` (Guo 2017 requires T > 0).
-    """
-    if temperature <= 0:
-        raise ValueError(f"temperature must be positive, got {temperature}")
-    logits = proba_to_logprobs(p) / float(temperature)
-    # Numerically stable softmax.
-    max_vals = logits.max(axis=1, keepdims=True)
-    e_x = np.exp(logits - max_vals)
-    out: NDArray[np.float64] = np.asarray(e_x[:, 1] / e_x.sum(axis=1), dtype=np.float64)
-    return out
+    apply = fit_isotonic_calibrator(y_true, y_score)
+    return (None, apply)
 
 
 def compute_calibration_record(
@@ -191,11 +156,42 @@ def compute_calibration_record(
 
 
 class CalibratorBundle(NamedTuple):
-    """Fitted calibrators applied to test scores per ADR-023 validation-only discipline."""
+    """Fitted 4-calibrator binary battery applied to test scores per ADR-023 + ADR-056.
+
+    All 4 calibrators use the eval_toolkit `_binary` API family with the
+    canonical ``(params_tuple, apply)`` return shape. Refactor landed at
+    v1.0.8 (ADR-056 narrow supersession of ADR-023 "temperature + isotonic
+    only" scope deferral).
+
+    Fields
+    ------
+    temperature_T : float
+        Fitted temperature from `fit_temperature_binary` (v0.35.0; scalar
+        Guo-2017 temperature in (0, ∞]).
+    test_scores_temperature : NDArray[np.float64]
+        Temperature-calibrated test probabilities.
+    test_scores_isotonic : NDArray[np.float64]
+        Isotonic-regressed test probabilities (non-parametric; no params
+        to expose).
+    platt_params : tuple[float, float]
+        `(a, b)` for Platt scaling sigmoid σ(a·s + b); v0.40.0
+        `fit_platt_binary` per eval-toolkit#43.
+    test_scores_platt : NDArray[np.float64]
+        Platt-scaled test probabilities.
+    beta_params : tuple[float, float, float]
+        `(a, b, c)` for 3-parameter Kull-2017 Beta calibration; v0.40.0
+        `fit_beta_binary` per eval-toolkit#43.
+    test_scores_beta : NDArray[np.float64]
+        Beta-calibrated test probabilities.
+    """
 
     temperature_T: float
     test_scores_temperature: NDArray[np.float64]
     test_scores_isotonic: NDArray[np.float64]
+    platt_params: tuple[float, float]
+    test_scores_platt: NDArray[np.float64]
+    beta_params: tuple[float, float, float]
+    test_scores_beta: NDArray[np.float64]
 
 
 def fit_and_apply_calibrators(
@@ -225,21 +221,35 @@ def fit_and_apply_calibrators(
         Carries fitted temperature T plus calibrated test scores for both
         interventions.
     """
-    val_logprobs = proba_to_logprobs(np.asarray(s_val, dtype=np.float64))
-    temp_fit = fit_temperature(val_logprobs, np.asarray(y_val, dtype=np.int_))
-    temperature_T = float(temp_fit["temperature"])
-    test_scores_temperature = apply_temperature(np.asarray(s_test, dtype=np.float64), temperature_T)
-    iso_callable = fit_isotonic_calibrator(
-        np.asarray(y_val, dtype=np.int_),
-        np.asarray(s_val, dtype=np.float64),
-    )
-    test_scores_isotonic = np.asarray(
-        iso_callable(np.asarray(s_test, dtype=np.float64)), dtype=np.float64
-    )
+    y_val_arr = np.asarray(y_val, dtype=np.int_)
+    s_val_arr = np.asarray(s_val, dtype=np.float64)
+    s_test_arr = np.asarray(s_test, dtype=np.float64)
+
+    # Library-first per ADR-005 + ADR-056 — all 4 calibrators on
+    # eval_toolkit `_binary` API family with `(params_tuple, apply)` shape.
+    temperature_T, apply_temp = fit_temperature_binary(y_val_arr, s_val_arr)
+    test_scores_temperature = np.asarray(apply_temp(s_test_arr), dtype=np.float64)
+
+    # Isotonic via local adapter pending eval-toolkit#44 upstream `fit_isotonic_binary`.
+    _, apply_iso = fit_isotonic_binary_local(y_val_arr, s_val_arr)
+    test_scores_isotonic = np.asarray(apply_iso(s_test_arr), dtype=np.float64)
+
+    # Platt (v0.40.0 NEW per eval-toolkit#43).
+    platt_params, apply_platt = fit_platt_binary(y_val_arr, s_val_arr)
+    test_scores_platt = np.asarray(apply_platt(s_test_arr), dtype=np.float64)
+
+    # Beta (v0.40.0 NEW per eval-toolkit#43; 3-parameter Kull-2017 fit).
+    beta_params, apply_beta = fit_beta_binary(y_val_arr, s_val_arr)
+    test_scores_beta = np.asarray(apply_beta(s_test_arr), dtype=np.float64)
+
     return CalibratorBundle(
-        temperature_T=temperature_T,
+        temperature_T=float(temperature_T),
         test_scores_temperature=test_scores_temperature,
         test_scores_isotonic=test_scores_isotonic,
+        platt_params=platt_params,
+        test_scores_platt=test_scores_platt,
+        beta_params=beta_params,
+        test_scores_beta=test_scores_beta,
     )
 
 

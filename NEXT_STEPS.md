@@ -38,6 +38,7 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Scope*: `eval_toolkit.calibration` (Platt + Beta + Isotonic + ECE equal-mass + ECE debiased + Brier + reliability_curve). Render in `03_calibration.ipynb`.
 *Effort*: ~3 hours including notebook narrative.
 *Status (v1.0.6)*: 6 of 7 components landed (ECE equal-mass + Brier + reliability curves + temperature + isotonic + four-ECE-variant matrix). Platt + Beta NOT in eval-toolkit v0.39.0; **upstream issue [#43](https://github.com/brandon-behring/eval-toolkit/issues/43) filed at v1.0.6** per /exploring-options batch 8 Q1 lock (library-first invariant). v1.0.8 will consume upstream when shipped; otherwise §1.4 close deferred to v1.1.x. Notebook deferred to v1.0.7 `notebooks/03_calibration`.
+*Status (v1.0.8)*: **closed**. Upstream #43 closed in v0.40.0 (~17 min after filing — fastest turnaround of v1.0.x series). v1.0.8 lands the full 4-calibrator binary battery (temperature + isotonic + Platt + Beta) uniformly on the eval-toolkit `_binary` API per ADR-056. Code surface shrunk ~60 lines (`proba_to_logprobs` + `apply_temperature` helpers deleted). Local `fit_isotonic_binary_local` adapter pending upstream [#44](https://github.com/brandon-behring/eval-toolkit/issues/44) (filed v1.0.8; remove when ships).
 
 ### 1.5 Leakage audit framework (Phase 1-4)
 
@@ -73,6 +74,7 @@ Concrete items already scoped from the seed; populated incrementally during Phas
 *Scope*: `scripts/backfill_provenance.py` — reads `evals/<run>/predictions.parquet` + `config.yaml` + `git log`; emits `manifest.json` per the upstream schema.
 *Effort*: ~2 hours.
 *Status (v1.0.6)*: carryforward to v1.0.8. Provenance currently distributed across `evals/{data_audit,results,leakage_report,contamination_scan,dedup_calibration}.json`; prediction parquets lack `git_sha` / `config_hash` / `contamination_flags` columns. v1.0.8 lands `scripts/backfill_provenance.py` + new ADR-055 (Manifest schema v3 backfill conventions) per Path 3 close.
+*Status (v1.0.8)*: **closed**. `scripts/backfill_provenance.py` emits 282 per-prediction manifest JSON files at `evals/manifests/<rung>__<fold>__<seed>__<slice>.json` per ADR-057 (manifest schema v3). Each manifest carries git_sha + config_hash + contamination_flag (ADR-005 3-tier taxonomy) + rung/fold/seed/slice/n_rows + predictions_relpath. 3 filename patterns supported (trained-with-tail + trained-no-tail + reference). `make backfill-provenance` target + `--check` mode for CI integration. Per-prediction (not column injection) — non-destructive to source-of-truth parquets per /exploring-options batch 11 Q1 lock.
 
 ### 1.10 DeBERTa-v3-base long-context ablation (v1.1.x)
 

@@ -1,0 +1,14 @@
+{
+  "adr_ref": "ADR-013 + ADR-016 + ADR-032 + ADR-057",
+  "config_hash": "c42fa2dc6754259c472faa540b5c7b129b3582692e684f7d62f02282deb65c8b",
+  "contamination_flag": "backbone-partial-disjoint",
+  "epoch": 2,
+  "fold": 2,
+  "generated_at_utc": "2026-05-19T01:00:05+00:00",
+  "git_sha": "01bb2540f149016b54777124dd525ab55ef42bc3",
+  "n_rows": 2362,
+  "predictions_relpath": "evals/predictions/full-ft__fold2__seed42__epoch2.parquet",
+  "rung": "full-ft",
+  "schema_version": "1.0",
+  "seed": 42
+}
