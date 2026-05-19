@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-16">
+<meta name="dcterms.date" content="2026-05-19">
 
-<title>Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network) – Prompt-injection classifier evaluation</title>
+<title>Quarto writeup clarity rewrite and canonical reviewer figure slate – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -244,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html">Quarto writeup clarity rewrite and canonical reviewer figure slate</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -638,7 +638,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></a>
   </div>
 </li>
@@ -836,7 +836,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Quarto writeup clarity rewrite and canonical reviewer figure slate</span></a>
   </div>
 </li>
@@ -860,26 +860,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-029-test-marker-strategy-ratify-4-marker-stratification" id="toc-adr-029-test-marker-strategy-ratify-4-marker-stratification" class="nav-link active" data-scroll-target="#adr-029-test-marker-strategy-ratify-4-marker-stratification">ADR-029: Test marker strategy — ratify 4-marker stratification</a>
+  <li><a href="#adr-062-quarto-writeup-clarity-and-canonical-figures" id="toc-adr-062-quarto-writeup-clarity-and-canonical-figures" class="nav-link active" data-scroll-target="#adr-062-quarto-writeup-clarity-and-canonical-figures">ADR-062: Quarto Writeup Clarity and Canonical Figures</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
-  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
-  <ul class="collapse">
-  <li><a href="#locked-marker-taxonomy-exactly-4-markers" id="toc-locked-marker-taxonomy-exactly-4-markers" class="nav-link" data-scroll-target="#locked-marker-taxonomy-exactly-4-markers">Locked marker taxonomy — exactly 4 markers</a></li>
-  <li><a href="#strict-markers-enabled" id="toc-strict-markers-enabled" class="nav-link" data-scroll-target="#strict-markers-enabled"><code>--strict-markers</code> enabled</a></li>
-  <li><a href="#two-source-registration-pyproject-conftest" id="toc-two-source-registration-pyproject-conftest" class="nav-link" data-scroll-target="#two-source-registration-pyproject-conftest">Two-source registration (pyproject + conftest)</a></li>
-  <li><a href="#markers-explicitly-not-added-with-rationale" id="toc-markers-explicitly-not-added-with-rationale" class="nav-link" data-scroll-target="#markers-explicitly-not-added-with-rationale">Markers explicitly NOT added (with rationale)</a></li>
-  <li><a href="#marker-add-or-marker-remove-protocol" id="toc-marker-add-or-marker-remove-protocol" class="nav-link" data-scroll-target="#marker-add-or-marker-remove-protocol">Marker-add or marker-remove protocol</a></li>
-  </ul></li>
-  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a>
-  <ul class="collapse">
-  <li><a href="#positive" id="toc-positive" class="nav-link" data-scroll-target="#positive">Positive</a></li>
-  <li><a href="#negative" id="toc-negative" class="nav-link" data-scroll-target="#negative">Negative</a></li>
-  <li><a href="#limitation" id="toc-limitation" class="nav-link" data-scroll-target="#limitation">Limitation</a></li>
-  <li><a href="#extension-condition-for-revisit" id="toc-extension-condition-for-revisit" class="nav-link" data-scroll-target="#extension-condition-for-revisit">Extension condition for revisit</a></li>
-  </ul></li>
-  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives considered</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -887,9 +874,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html">Quarto writeup clarity rewrite and canonical reviewer figure slate</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Quarto writeup clarity rewrite and canonical reviewer figure slate</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -900,7 +887,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 16, 2026</p>
+      <p class="date">May 19, 2026</p>
     </div>
   </div>
   
@@ -912,161 +899,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="adr-029-test-marker-strategy-ratify-4-marker-stratification" class="level1">
-<h1>ADR-029: Test marker strategy — ratify 4-marker stratification</h1>
+<section id="adr-062-quarto-writeup-clarity-and-canonical-figures" class="level1">
+<h1>ADR-062: Quarto Writeup Clarity and Canonical Figures</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Accepted (2026-05-16). Closes the fourth and final [OPEN] row in Phase 0-06 (§5 Code architecture + §STYLE — rows 348-351 of SPEC_GREENFIELD ledger). Companion to ADR-026 (module layout), ADR-027 (smoke vs canonical), and ADR-028 (coverage floor).</p>
+<p>Accepted (2026-05-19; implementation patch for the live Quarto site).</p>
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p>pytest markers (<code>@pytest.mark.unit</code>, <code>@pytest.mark.smoke</code>, etc.) let the suite be sliced by intent — <code>pytest -m unit</code> runs only fast deterministic tests; <code>pytest -m integration</code> runs GPU/network-dependent ones. Markers must be registered (in <code>conftest.py</code> or <code>pyproject.toml</code>) for <code>--strict-markers</code> to allow them; unregistered markers fail loudly.</p>
-<p>The current state of the marker taxonomy is provisional but consistent across three artefacts:</p>
-<ul>
-<li><code>pyproject.toml [tool.pytest.ini_options]</code> registers <code>unit</code>, <code>smoke</code>, <code>integration</code>, <code>network</code> (4 markers) with <code>addopts = "-v --tb=short --strict-markers"</code>.</li>
-<li><code>tests/conftest.py</code> mirrors the same 4 markers via <code>pytest_configure</code> + <code>addinivalue_line</code> calls.</li>
-<li><code>STYLE.md</code> “project deltas” section documents the 4-marker stratification.</li>
-</ul>
-<p>The Q2 reframing (per ADR-027) — “math rigor lives upstream in eval-toolkit; here is debugging-grade” — pre-decides that <code>golden</code> and <code>property</code> markers should NOT be added here. They belong upstream where the math implementations and their golden contracts live.</p>
-<p>Five options were considered:</p>
-<ol type="A">
-<li><p><strong>Ratify existing 4 markers</strong> — zero churn; honors ADR-027 framing.</p></li>
-<li><p><strong>4 + slow</strong> (5 markers) — adds <code>slow</code> for tests &gt;30s. Redundant with <code>smoke</code> (smoke is already “~5min, end-to-end”).</p></li>
-<li><p><strong>3 markers (drop network)</strong> — simplifies by removing currently-unused marker. Wastes an ADR cycle when first network-dependent test lands at Phase 1.</p></li>
-<li><p><strong>4 + gpu</strong> (5 markers) — separates CUDA from generic integration. Marker proliferation; <code>pytest.importorskip</code> + <code>skipif</code> idiom handles it without a marker.</p></li>
-<li><p><strong>5 markers with both gpu and network</strong> — hybrid of A and D. Same proliferation cost as D.</p></li>
-</ol>
+<p>ADR-061 fixed navigation, but the first reading path still assumed too much ML/evaluation vocabulary. A first-time reviewer needed to infer why prompt injection matters, what the classifier was asked to do, what AUPRC/AUROC/FPR mean, and how to read the plots.</p>
+<p>Inspection also found that <code>docs/plots/F1-F7.svg</code> had been generated through the scaffold path in <code>scripts/render_figures.py</code>. Those plots were useful for testing the rendering pipeline, but they were not safe as reviewer-facing evidence because their numbers did not come from the canonical <code>evals/</code> artifacts.</p>
 </section>
 <section id="decision" class="level2">
 <h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<section id="locked-marker-taxonomy-exactly-4-markers" class="level3">
-<h3 class="anchored" data-anchor-id="locked-marker-taxonomy-exactly-4-markers">Locked marker taxonomy — exactly 4 markers</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Marker</th>
-<th>Registered location</th>
-<th>Semantics</th>
-<th>Wall-clock target</th>
-<th>Allowed external deps</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>unit</code></td>
-<td>pyproject + conftest</td>
-<td>fast, deterministic, no IO</td>
-<td>&lt; 1 sec/test</td>
-<td>none</td>
-</tr>
-<tr class="even">
-<td><code>smoke</code></td>
-<td>pyproject + conftest</td>
-<td>end-to-end fixture-data pass</td>
-<td>&lt; 10 min total</td>
-<td>none (no GPU, no network)</td>
-</tr>
-<tr class="odd">
-<td><code>integration</code></td>
-<td>pyproject + conftest</td>
-<td>exercises real external deps; may skip via importorskip/skipif</td>
-<td>~5-10 min</td>
-<td>GPU, HF Hub, RunPod (per pre-flight per ADR-027)</td>
-</tr>
-<tr class="even">
-<td><code>network</code></td>
-<td>pyproject + conftest</td>
-<td>strictly requires network access</td>
-<td>varies</td>
-<td>network only (HF Hub fetch, runpod-deploy GraphQL)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="strict-markers-enabled" class="level3">
-<h3 class="anchored" data-anchor-id="strict-markers-enabled"><code>--strict-markers</code> enabled</h3>
-<p>Already enabled in <code>pyproject.toml [tool.pytest.ini_options] addopts = "-v --tb=short --strict-markers"</code>. Unknown markers fail loudly — prevents typos like <code>@pytest.mark.itegration</code> from silently registering as a new marker.</p>
-</section>
-<section id="two-source-registration-pyproject-conftest" class="level3">
-<h3 class="anchored" data-anchor-id="two-source-registration-pyproject-conftest">Two-source registration (pyproject + conftest)</h3>
-<p>Both <code>pyproject.toml</code> AND <code>tests/conftest.py</code> register the markers. Reasons:</p>
+<p>Rebuild the reviewer path around plain-language interpretation:</p>
 <ul>
-<li><strong>pyproject is canonical</strong> (read by pytest at config time; visible to PEP-621-aware tools).</li>
-<li><strong>conftest mirrors for IDE discoverability</strong> (PyCharm + VS Code pytest integrations introspect <code>pytest_configure</code> calls; descriptions surface in the IDE marker dropdown).</li>
+<li>Problem first: prompt injection is untrusted text trying to override an LLM system’s instructions.</li>
+<li>Result second: no evaluated rung clearly beats the random AUPRC floor on the pooled cross-family OOD slice.</li>
+<li>Evidence third: exact tables plus a small canonical plot slate.</li>
+<li>Methodology/process detail remains available, but below the first-path story.</li>
 </ul>
-<p>The two MUST stay in sync — invariant test <code>test_pytest_markers_registered_and_in_sync</code> enforces.</p>
-</section>
-<section id="markers-explicitly-not-added-with-rationale" class="level3">
-<h3 class="anchored" data-anchor-id="markers-explicitly-not-added-with-rationale">Markers explicitly NOT added (with rationale)</h3>
-<ul>
-<li><strong><code>property</code></strong>: Hypothesis property-based tests belong upstream in eval-toolkit (where math kernels live and where the strategy library <code>eval_toolkit</code> already uses Hypothesis with <code>hypothesis.extra.numpy</code>). Adding <code>property</code> here would either duplicate upstream tests or pretend project-specific math exists when it does not.</li>
-<li><strong><code>golden</code></strong>: golden-output snapshot tests (where the output IS the contract) belong upstream — eval-toolkit uses <code>golden</code> for <code>docs.py</code> output. This repo has no docs-output contract surface; results.json is structural-but-not-byte-exact (per-row predictions vary by RNG seed).</li>
-<li><strong><code>slow</code></strong>: redundant with <code>smoke</code> for end-to-end tests; if a <code>unit</code> test crosses 30s, that’s a code-smell the marker should not paper over (the test should be re-classified as smoke or refactored).</li>
-<li><strong><code>gpu</code></strong>: standard pattern below handles GPU-conditional skipping cleanly without taxonomy proliferation.</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">@pytest.mark.integration</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_modernbert_load_on_gpu() <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    pytest.importorskip(<span class="st">"torch"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> torch.cuda.is_available():</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        pytest.skip(<span class="st">"GPU required"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... actual test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If Phase 1 reveals chronic friction with this pattern (e.g., &gt;5 tests need it), reopen via ADR to add <code>gpu</code> sub-marker.</p>
-</section>
-<section id="marker-add-or-marker-remove-protocol" class="level3">
-<h3 class="anchored" data-anchor-id="marker-add-or-marker-remove-protocol">Marker-add or marker-remove protocol</h3>
-<p>Adding or removing a marker post-lock requires a superseding ADR with rationale (e.g., “Phase 1 produced 8 GPU-conditional tests; the importorskip+skipif boilerplate is paying real cost; adding <code>gpu</code> sub-marker”). Quietly editing <code>pyproject.toml</code> or <code>conftest.py</code> is an anti-pattern (the in-sync invariant test would catch it but the supersession-without-ADR pattern is what the SDD discipline forbids).</p>
-</section>
+<p>The reviewer-facing plot slate becomes five figures:</p>
+<ol type="1">
+<li>Pooled OOD AUPRC by rung vs the prevalence baseline.</li>
+<li>Frozen-probe vs LoRA paired AUPRC deltas on comparable both-class slices.</li>
+<li>Per-slice AUPRC grid, with single-class slices explicitly marked <code>N/A</code>.</li>
+<li>Detection-threshold transfer against the 1% FPR target.</li>
+<li>Calibration comparison using ECE and Brier.</li>
+</ol>
+<p><code>scripts/render_figures.py</code> must read canonical artifacts by default. The <code>--scaffold</code> mode is retained for smoke tests only and refuses to write to <code>docs/plots</code>.</p>
 </section>
 <section id="consequences" class="level2">
 <h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
-<section id="positive" class="level3">
-<h3 class="anchored" data-anchor-id="positive">Positive</h3>
 <ul>
-<li><strong>Zero churn</strong>: existing artefacts (<code>pyproject.toml</code>, <code>conftest.py</code>, <code>STYLE.md</code>, <code>Makefile</code> <code>test-unit</code>/<code>test-smoke</code>/<code>test-integration</code> targets) are already aligned with the locked taxonomy.</li>
-<li><strong><code>--strict-markers</code> catches typos</strong>: any <code>@pytest.mark.&lt;typo&gt;</code> fails loudly at test-collection time.</li>
-<li><strong>Aligns with ADR-027 framing</strong>: math-correctness rigor (<code>property</code>, <code>golden</code>) explicitly stays upstream; this layer is debugging-grade.</li>
-<li><strong>Two-source registration matches IDE expectations</strong> without sacrificing canonical pyproject declaration.</li>
+<li>The live site becomes clearer for the intended hiring-manager audience.</li>
+<li>The main figures now align with the numerical tables and provenance sidecars.</li>
+<li>F6/F7 remain historical Phase 4 concepts, but they are no longer embedded in the main reviewer path unless regenerated from canonical artifacts in a future ADR.</li>
+<li>The figure renderer still uses eval-toolkit primitives where available: <code>set_plot_style</code>, <code>PALETTE</code>, <code>plot_lift_ci</code>, <code>plot_slice_metric_heatmap</code>, and <code>save_figure</code>. Remaining matplotlib code is project-specific composition.</li>
 </ul>
-</section>
-<section id="negative" class="level3">
-<h3 class="anchored" data-anchor-id="negative">Negative</h3>
-<ul>
-<li><strong><code>network</code> marker not currently used</strong> at lock time — risk of dead-letter taxonomy. Mitigated by Phase 1 expectations: HF dataset SHA-pinning tests (per ADR-016) will land marked <code>network</code>.</li>
-<li><strong>No <code>gpu</code> sub-marker</strong> means GPU-conditional tests carry the <code>importorskip</code> + <code>skipif</code> boilerplate. Acceptable cost for prototype scope; reopen if boilerplate proliferates.</li>
-<li><strong><code>slow</code> absence</strong> means a <code>unit</code> test that grows to 30s+ has nowhere to escape to without re-classification. Treated as a feature, not a bug.</li>
-</ul>
-</section>
-<section id="limitation" class="level3">
-<h3 class="anchored" data-anchor-id="limitation">Limitation</h3>
-<p>The 4-marker strata do not capture every cross-cutting concern (no <code>slow</code>, no <code>gpu</code>, no <code>flaky</code>, no <code>property</code>). The discipline relies on <code>pytest.mark.skipif</code> + <code>pytest.importorskip</code> to handle conditional skipping within a marker. If this pattern produces verbose boilerplate at Phase 1 (~5+ tests), reopen via superseding ADR.</p>
-</section>
-<section id="extension-condition-for-revisit" class="level3">
-<h3 class="anchored" data-anchor-id="extension-condition-for-revisit">Extension condition for revisit</h3>
-<ul>
-<li><strong><code>gpu</code> sub-marker</strong>: if conditional <code>skipif(not torch.cuda.is_available())</code> boilerplate appears in 5+ tests.</li>
-<li><strong><code>slow</code></strong>: if any <code>unit</code> test legitimately crosses 30s and cannot be split or re-marked as smoke.</li>
-<li><strong><code>property</code></strong>: only if scope extends to writing project-specific math primitives (currently out-of-scope per ADR-027 prototype-grade framing; math kernels live upstream).</li>
-<li><strong><code>flaky</code></strong>: only if Phase 1 reveals genuinely-flaky tests that cannot be made deterministic; preference is to fix the flakiness, not paper over with a marker.</li>
-</ul>
-</section>
 </section>
 <section id="alternatives-considered" class="level2">
-<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives considered</h2>
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
 <ul>
-<li><strong>(B) 4 + slow</strong> — rejected; redundant with <code>smoke</code>; absence is a feature.</li>
-<li><strong>(C) 3 markers (drop network)</strong> — rejected; HF SHA-pin tests will need it at Phase 1; pre-registering avoids ADR-cycle waste.</li>
-<li><strong>(D) 4 + gpu</strong> — rejected; standard <code>importorskip + skipif</code> idiom handles it; reopen if boilerplate proliferates.</li>
-<li><strong>(E) 5 with gpu + network</strong> — rejected; same proliferation cost as D.</li>
+<li><strong>Caption-only fix</strong>: rejected because scaffold-derived plots should not stay in the reviewer path with stronger prose.</li>
+<li><strong>Tables-only results page</strong>: rejected because the hiring-manager path needs visual support, but exact values still belong in tables.</li>
+<li><strong>Keep ADR/process detail prominent</strong>: rejected for the first reading path; methodology rigor remains linked and auditable, just not front-loaded.</li>
 </ul>
 
 
@@ -1532,138 +1409,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "029"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> test-marker-strategy-four-marker-ratification</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-029</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-06 locks the §STYLE ledger row 351 (Test marker strategy) by ratifying the existing 4-marker stratification — unit, smoke, integration, network — already declared in pyproject.toml [tool.pytest.ini_options] markers list, mirrored in tests/conftest.py via pytest_configure addinivalue_line calls, and documented in STYLE.md project-deltas section. --strict-markers is enabled in pyproject addopts so unknown markers fail loudly. Marker semantics — unit (fast, deterministic, no IO, no GPU, no network, less than 1 second per test typical); smoke (end-to-end fixture-data pass through real code paths, less than 10 minutes total, no GPU, no network); integration (exercises real external dependencies — GPU, HF Hub, RunPod — may skip via pytest.importorskip or pytest.mark.skipif on laptops without GPU per ADR-027 dual-execution-context pattern); network (strictly requires network access — HF Hub fetch, runpod-deploy GraphQL — skipped in offline CI). property and golden markers are explicitly NOT added — they belong upstream in eval-toolkit per ADR-027 debugging-grade-here-rigorous-upstream split. slow marker explicitly NOT added — smoke already plays this role for end-to-end tests; if a unit test ever creeps over 30 seconds, that is a code-smell the marker should not paper over. gpu sub-marker explicitly NOT added — pytest.importorskip("torch") plus pytest.mark.skipif(not torch.cuda.is_available()) is the standard idiom and handles the local-vs-cloud dual-execution case cleanly without taxonomy proliferation. Limitation — the 4-marker strata do not capture every cross-cutting concern; the discipline relies on conditional-skip idioms within a marker. Extension conditions — add gpu sub-marker if conditional skipif boilerplate exceeds approximately 5 tests; add slow if any unit test crosses 30 seconds; add property only if scope extends to writing project-specific math primitives (currently out-of-scope; math lives upstream). Adding or removing a marker post-lock requires a superseding ADR.</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §STYLE ledger row 351 + STYLE.md "project deltas" + pyproject.toml [tool.pytest.ini_options] + tests/conftest.py + Phase 0-06 walk Q4</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 351 carries locked-to-four-marker-ratification status (see ADR-029); STYLE.md project-deltas section "Test markers" bullet is preserved as-locked (no edit needed — already correct); pyproject.toml [tool.pytest.ini_options] markers list and tests/conftest.py pytest_configure addinivalue_line calls remain in sync (already in sync at ADR-029 entry); tests/test_invariants.py contains skip-marked stub test_pytest_markers_registered_and_in_sync asserting that (1) pyproject.toml [tool.pytest.ini_options] declares exactly the 4 markers (unit, smoke, integration, network) — set equality check; (2) tests/conftest.py pytest_configure registers exactly the same 4 markers via addinivalue_line; (3) --strict-markers is enabled in addopts; (4) no test file uses an unregistered marker (verified via grep of @pytest.mark.* in tests/ + comparison against the registered set); test_marker_semantics_unit_no_io stub asserting that pytest -m unit tests do not perform network requests or GPU calls — verified via socket-blocking + cuda.is_available-mocked pytest run; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> fa1ad33</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.pytest.org/en/stable/how-to/mark.html</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.pytest.org/en/stable/how-to/skipping.html</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/STYLE.md</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-026-module-layout-concern-grouped-subpackages.md</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.md</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-06__code-test-discipline.md</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-029: Test marker strategy — ratify 4-marker stratification</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the fourth and final <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> row in Phase 0-06 (§5 Code architecture + §STYLE — rows 348-351 of SPEC_GREENFIELD ledger). Companion to ADR-026 (module layout), ADR-027 (smoke vs canonical), and ADR-028 (coverage floor).</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>pytest markers (<span class="in">`@pytest.mark.unit`</span>, <span class="in">`@pytest.mark.smoke`</span>, etc.) let the suite be sliced by intent — <span class="in">`pytest -m unit`</span> runs only fast deterministic tests; <span class="in">`pytest -m integration`</span> runs GPU/network-dependent ones. Markers must be registered (in <span class="in">`conftest.py`</span> or <span class="in">`pyproject.toml`</span>) for <span class="in">`--strict-markers`</span> to allow them; unregistered markers fail loudly.</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>The current state of the marker taxonomy is provisional but consistent across three artefacts:</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pyproject.toml [tool.pytest.ini_options]`</span> registers <span class="in">`unit`</span>, <span class="in">`smoke`</span>, <span class="in">`integration`</span>, <span class="in">`network`</span> (4 markers) with <span class="in">`addopts = "-v --tb=short --strict-markers"`</span>.</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`tests/conftest.py`</span> mirrors the same 4 markers via <span class="in">`pytest_configure`</span> + <span class="in">`addinivalue_line`</span> calls.</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`STYLE.md`</span> "project deltas" section documents the 4-marker stratification.</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>The Q2 reframing (per ADR-027) — "math rigor lives upstream in eval-toolkit; here is debugging-grade" — pre-decides that <span class="in">`golden`</span> and <span class="in">`property`</span> markers should NOT be added here. They belong upstream where the math implementations and their golden contracts live.</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Five options were considered:</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>(A) **Ratify existing 4 markers** — zero churn; honors ADR-027 framing.</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>(B) **4 + slow** (5 markers) — adds <span class="in">`slow`</span> for tests &gt;30s. Redundant with <span class="in">`smoke`</span> (smoke is already "~5min, end-to-end").</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>(C) **3 markers (drop network)** — simplifies by removing currently-unused marker. Wastes an ADR cycle when first network-dependent test lands at Phase 1.</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>(D) **4 + gpu** (5 markers) — separates CUDA from generic integration. Marker proliferation; <span class="in">`pytest.importorskip`</span> + <span class="in">`skipif`</span> idiom handles it without a marker.</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>(E) **5 markers with both gpu and network** — hybrid of A and D. Same proliferation cost as D.</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked marker taxonomy — exactly 4 markers</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Marker <span class="pp">|</span> Registered location <span class="pp">|</span> Semantics <span class="pp">|</span> Wall-clock target <span class="pp">|</span> Allowed external deps <span class="pp">|</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`unit`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> fast, deterministic, no IO <span class="pp">|</span> &lt; 1 sec/test <span class="pp">|</span> none <span class="pp">|</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`smoke`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> end-to-end fixture-data pass <span class="pp">|</span> &lt; 10 min total <span class="pp">|</span> none (no GPU, no network) <span class="pp">|</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`integration`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> exercises real external deps; may skip via importorskip/skipif <span class="pp">|</span> ~5-10 min <span class="pp">|</span> GPU, HF Hub, RunPod (per pre-flight per ADR-027) <span class="pp">|</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`network`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> strictly requires network access <span class="pp">|</span> varies <span class="pp">|</span> network only (HF Hub fetch, runpod-deploy GraphQL) <span class="pp">|</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### `--strict-markers` enabled</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>Already enabled in <span class="in">`pyproject.toml [tool.pytest.ini_options] addopts = "-v --tb=short --strict-markers"`</span>. Unknown markers fail loudly — prevents typos like <span class="in">`@pytest.mark.itegration`</span> from silently registering as a new marker.</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Two-source registration (pyproject + conftest)</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>Both <span class="in">`pyproject.toml`</span> AND <span class="in">`tests/conftest.py`</span> register the markers. Reasons:</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**pyproject is canonical** (read by pytest at config time; visible to PEP-621-aware tools).</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**conftest mirrors for IDE discoverability** (PyCharm + VS Code pytest integrations introspect <span class="in">`pytest_configure`</span> calls; descriptions surface in the IDE marker dropdown).</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>The two MUST stay in sync — invariant test <span class="in">`test_pytest_markers_registered_and_in_sync`</span> enforces.</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Markers explicitly NOT added (with rationale)</span></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`property`**: Hypothesis property-based tests belong upstream in eval-toolkit (where math kernels live and where the strategy library <span class="in">`eval_toolkit`</span> already uses Hypothesis with <span class="in">`hypothesis.extra.numpy`</span>). Adding <span class="in">`property`</span> here would either duplicate upstream tests or pretend project-specific math exists when it does not.</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`golden`**: golden-output snapshot tests (where the output IS the contract) belong upstream — eval-toolkit uses <span class="in">`golden`</span> for <span class="in">`docs.py`</span> output. This repo has no docs-output contract surface; results.json is structural-but-not-byte-exact (per-row predictions vary by RNG seed).</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`slow`**: redundant with <span class="in">`smoke`</span> for end-to-end tests; if a <span class="in">`unit`</span> test crosses 30s, that's a code-smell the marker should not paper over (the test should be re-classified as smoke or refactored).</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`gpu`**: standard pattern below handles GPU-conditional skipping cleanly without taxonomy proliferation.</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="at">@pytest.mark.integration</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_modernbert_load_on_gpu() <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    pytest.importorskip(<span class="st">"torch"</span>)</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> torch.cuda.is_available():</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>        pytest.skip(<span class="st">"GPU required"</span>)</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... actual test</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>If Phase 1 reveals chronic friction with this pattern (e.g., &gt;5 tests need it), reopen via ADR to add <span class="in">`gpu`</span> sub-marker.</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marker-add or marker-remove protocol</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>Adding or removing a marker post-lock requires a superseding ADR with rationale (e.g., "Phase 1 produced 8 GPU-conditional tests; the importorskip+skipif boilerplate is paying real cost; adding <span class="in">`gpu`</span> sub-marker"). Quietly editing <span class="in">`pyproject.toml`</span> or <span class="in">`conftest.py`</span> is an anti-pattern (the in-sync invariant test would catch it but the supersession-without-ADR pattern is what the SDD discipline forbids).</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Zero churn**: existing artefacts (<span class="in">`pyproject.toml`</span>, <span class="in">`conftest.py`</span>, <span class="in">`STYLE.md`</span>, <span class="in">`Makefile`</span> <span class="in">`test-unit`</span>/<span class="in">`test-smoke`</span>/<span class="in">`test-integration`</span> targets) are already aligned with the locked taxonomy.</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`--strict-markers` catches typos**: any <span class="in">`@pytest.mark.&lt;typo&gt;`</span> fails loudly at test-collection time.</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-027 framing**: math-correctness rigor (<span class="in">`property`</span>, <span class="in">`golden`</span>) explicitly stays upstream; this layer is debugging-grade.</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Two-source registration matches IDE expectations** without sacrificing canonical pyproject declaration.</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`network` marker not currently used** at lock time — risk of dead-letter taxonomy. Mitigated by Phase 1 expectations: HF dataset SHA-pinning tests (per ADR-016) will land marked <span class="in">`network`</span>.</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No `gpu` sub-marker** means GPU-conditional tests carry the <span class="in">`importorskip`</span> + <span class="in">`skipif`</span> boilerplate. Acceptable cost for prototype scope; reopen if boilerplate proliferates.</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`slow` absence** means a <span class="in">`unit`</span> test that grows to 30s+ has nowhere to escape to without re-classification. Treated as a feature, not a bug.</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>The 4-marker strata do not capture every cross-cutting concern (no <span class="in">`slow`</span>, no <span class="in">`gpu`</span>, no <span class="in">`flaky`</span>, no <span class="in">`property`</span>). The discipline relies on <span class="in">`pytest.mark.skipif`</span> + <span class="in">`pytest.importorskip`</span> to handle conditional skipping within a marker. If this pattern produces verbose boilerplate at Phase 1 (~5+ tests), reopen via superseding ADR.</span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`gpu` sub-marker**: if conditional <span class="in">`skipif(not torch.cuda.is_available())`</span> boilerplate appears in 5+ tests.</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`slow`**: if any <span class="in">`unit`</span> test legitimately crosses 30s and cannot be split or re-marked as smoke.</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`property`**: only if scope extends to writing project-specific math primitives (currently out-of-scope per ADR-027 prototype-grade framing; math kernels live upstream).</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`flaky`**: only if Phase 1 reveals genuinely-flaky tests that cannot be made deterministic; preference is to fix the flakiness, not paper over with a marker.</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) 4 + slow** — rejected; redundant with <span class="in">`smoke`</span>; absence is a feature.</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(C) 3 markers (drop network)** — rejected; HF SHA-pin tests will need it at Phase 1; pre-registering avoids ADR-cycle waste.</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) 4 + gpu** — rejected; standard <span class="in">`importorskip + skipif`</span> idiom handles it; reopen if boilerplate proliferates.</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(E) 5 with gpu + network** — rejected; same proliferation cost as D.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "062"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> quarto-writeup-clarity-and-canonical-figures</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Quarto writeup clarity rewrite and canonical reviewer figure slate</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-19</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-062</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> &gt;-</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  User feedback after the v1.1.1 navigation pass found that the Quarto/writeup</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  was still too jargon-heavy and dense for a first-time hiring-manager reader:</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  the problem setup, metric meaning, plot interpretation, and limits were not</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  clear enough. This patch rewrites the first reading path problem-first,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  pushes ADR/process detail below the core story, and replaces the scaffolded</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  seven-figure slate with five reviewer-facing figures rendered only from</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  canonical eval artifacts. Synthetic scaffold plots remain available only for</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  smoke tests outside docs/plots.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> user request 2026-05-19; implementation plan "Quarto Writeup Clarity Rewrite"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> &gt;-</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  `index.qmd`, `EXECUTIVE_SUMMARY.md`, `WRITEUP.md`, `RESULTS.md`, README,</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  READING_GUIDE, and GLOSSARY explain the problem, metrics, headline result,</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  plots, and limitations in plain language before deep methodology detail.</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  `scripts/render_figures.py --out-dir docs/plots` renders exactly F1-F5 from</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  committed canonical artifacts under evals/; each sidecar records</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  `data_mode: canonical`, ADR-062, commit SHA, generation time, and source</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">  artifact paths. `--scaffold` refuses to write to docs/plots and is test-only.</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  F6/F7 scaffold figures are removed from the reviewer-facing path. Quarto site</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  renders cleanly and smoke tests pass.</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> pending implementation commit</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> [ADR-046, ADR-054, ADR-061]</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> []</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-046-phase-4-analysis-implementation-bundle.md</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-061-quarto-site-navigation-restructure.md</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/bootstrap/marginal_cells.parquet</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/bootstrap/paired_cells.parquet</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/metrics/per_cell.parquet</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/operating_points/dual_policy.parquet</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-19__quarto-writeup-clarity-rewrite.md</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-062: Quarto Writeup Clarity and Canonical Figures</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-19; implementation patch for the live Quarto site).</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>ADR-061 fixed navigation, but the first reading path still assumed too much</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>ML/evaluation vocabulary. A first-time reviewer needed to infer why prompt</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>injection matters, what the classifier was asked to do, what AUPRC/AUROC/FPR</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>mean, and how to read the plots.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>Inspection also found that <span class="in">`docs/plots/F1-F7.svg`</span> had been generated through</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>the scaffold path in <span class="in">`scripts/render_figures.py`</span>. Those plots were useful for</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>testing the rendering pipeline, but they were not safe as reviewer-facing</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>evidence because their numbers did not come from the canonical <span class="in">`evals/`</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>artifacts.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>Rebuild the reviewer path around plain-language interpretation:</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Problem first: prompt injection is untrusted text trying to override an LLM</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  system's instructions.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Result second: no evaluated rung clearly beats the random AUPRC floor on the</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  pooled cross-family OOD slice.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Evidence third: exact tables plus a small canonical plot slate.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Methodology/process detail remains available, but below the first-path story.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>The reviewer-facing plot slate becomes five figures:</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Pooled OOD AUPRC by rung vs the prevalence baseline.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Frozen-probe vs LoRA paired AUPRC deltas on comparable both-class slices.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Per-slice AUPRC grid, with single-class slices explicitly marked <span class="in">`N/A`</span>.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Detection-threshold transfer against the 1% FPR target.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Calibration comparison using ECE and Brier.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/render_figures.py`</span> must read canonical artifacts by default. The</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="in">`--scaffold`</span> mode is retained for smoke tests only and refuses to write to</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="in">`docs/plots`</span>.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The live site becomes clearer for the intended hiring-manager audience.</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The main figures now align with the numerical tables and provenance sidecars.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>F6/F7 remain historical Phase 4 concepts, but they are no longer embedded in</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>  the main reviewer path unless regenerated from canonical artifacts in a</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  future ADR.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The figure renderer still uses eval-toolkit primitives where available:</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  <span class="in">`set_plot_style`</span>, <span class="in">`PALETTE`</span>, <span class="in">`plot_lift_ci`</span>, <span class="in">`plot_slice_metric_heatmap`</span>, and</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  <span class="in">`save_figure`</span>. Remaining matplotlib code is project-specific composition.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Caption-only fix**: rejected because scaffold-derived plots should not stay</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  in the reviewer path with stronger prose.</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tables-only results page**: rejected because the hiring-manager path needs</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  visual support, but exact values still belong in tables.</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Keep ADR/process detail prominent**: rejected for the first reading path;</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  methodology rigor remains linked and auditable, just not front-loaded.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

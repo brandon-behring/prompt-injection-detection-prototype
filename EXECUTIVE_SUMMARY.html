@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="1-page summary of the prompt-injection classifier methodology submission. Read this first; deep-readers continue to WRITEUP.">
+<meta name="description" content="Plain-language one-page summary of the prompt-injection classifier methodology submission.">
 
-<title>Executive summary — 1-page decision-maker layer over WRITEUP – Prompt-injection classifier — methodology submission</title>
+<title>Executive summary: prompt-injection classifier evaluation – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    <span class="navbar-title">Prompt-injection classifier evaluation</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -150,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./WRITEUP/model-rungs.html">
- <span class="dropdown-text">Model rungs</span></a>
+ <span class="dropdown-text">Model details</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./WRITEUP/eval-design.html">
@@ -189,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+ <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./EVIDENCE.html">
@@ -244,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./EXECUTIVE_SUMMARY.html">Executive summary — 1-page decision-maker layer over WRITEUP</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./EXECUTIVE_SUMMARY.html">Executive summary: prompt-injection classifier evaluation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -282,13 +282,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results — model-run artifacts, grids, figures, raw data</span></a>
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+ <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </div>
 </li>
       </ul>
@@ -332,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model rungs</span></a>
+ <span class="menu-text">Model details</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -836,6 +836,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto writeup clarity rewrite and canonical reviewer figure slate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</span></a>
   </div>
@@ -854,14 +860,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive summary</a>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a>
   <ul class="collapse">
-  <li><a href="#thesis" id="toc-thesis" class="nav-link" data-scroll-target="#thesis">Thesis</a></li>
-  <li><a href="#headline-claims" id="toc-headline-claims" class="nav-link" data-scroll-target="#headline-claims">Headline claims</a></li>
-  <li><a href="#what-was-characterised" id="toc-what-was-characterised" class="nav-link" data-scroll-target="#what-was-characterised">What was characterised</a></li>
-  <li><a href="#what-is-deferred-out-of-scope-per-adr-014" id="toc-what-is-deferred-out-of-scope-per-adr-014" class="nav-link" data-scroll-target="#what-is-deferred-out-of-scope-per-adr-014">What is deferred (out of scope per ADR-014)</a></li>
-  <li><a href="#reading-path-pointer-the-30-minute-reviewer" id="toc-reading-path-pointer-the-30-minute-reviewer" class="nav-link" data-scroll-target="#reading-path-pointer-the-30-minute-reviewer">Reading-path pointer (the 30-minute reviewer)</a></li>
-  <li><a href="#honest-reading" id="toc-honest-reading" class="nav-link" data-scroll-target="#honest-reading">Honest reading</a></li>
+  <li><a href="#bottom-line" id="toc-bottom-line" class="nav-link" data-scroll-target="#bottom-line">Bottom Line</a></li>
+  <li><a href="#what-was-tested" id="toc-what-was-tested" class="nav-link" data-scroll-target="#what-was-tested">What Was Tested</a></li>
+  <li><a href="#how-to-read-the-metrics" id="toc-how-to-read-the-metrics" class="nav-link" data-scroll-target="#how-to-read-the-metrics">How To Read The Metrics</a></li>
+  <li><a href="#main-findings" id="toc-main-findings" class="nav-link" data-scroll-target="#main-findings">Main Findings</a></li>
+  <li><a href="#what-this-does-not-claim" id="toc-what-this-does-not-claim" class="nav-link" data-scroll-target="#what-this-does-not-claim">What This Does Not Claim</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where To Go Next</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -869,14 +875,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./EXECUTIVE_SUMMARY.html">Executive summary — 1-page decision-maker layer over WRITEUP</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./EXECUTIVE_SUMMARY.html">Executive summary: prompt-injection classifier evaluation</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Executive summary — 1-page decision-maker layer over WRITEUP</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Executive summary: prompt-injection classifier evaluation</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 <div>
   <div class="description">
-    1-page summary of the prompt-injection classifier methodology submission. Read this first; deep-readers continue to WRITEUP.
+    Plain-language one-page summary of the prompt-injection classifier methodology submission.
   </div>
 </div>
 
@@ -894,43 +900,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="executive-summary" class="level1">
-<h1>Executive summary</h1>
-<p><strong>Project</strong>: methodology + capability characterisation of a 5-rung prompt-injection classifier ladder, evaluated under an honest OOD slate. Spec-first SDD submission with 52 immutable ADRs (Michael Nygard format). Reviewer URL pin: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a>. Live Quarto site: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">brandon-behring.github.io/prompt-injection-detection-prototype/</a>.</p>
-<section id="thesis" class="level2">
-<h2 class="anchored" data-anchor-id="thesis">Thesis</h2>
-<p>Most prompt-injection detectors are evaluated on data that leaks into training, so their reported OOD numbers don’t tell you much. A classifier that cross-validates on a single direct-prompt- injection dataset is trivial to build, but it gives a poor read on OOD performance and raises real leakage concerns. <strong>The submission is an attempt to build a fairer evaluation harness around that — not to find the best model, but to lay the groundwork for fairer evaluation</strong> and to identify the weaknesses of both the trained rungs and the published reference scorers.</p>
+<h1>Executive Summary</h1>
+<p>This project evaluates prompt-injection detectors under out-of-distribution (OOD) shift. Prompt injection means untrusted text trying to override an LLM system’s instructions. The project is not trying to ship a production detector; it is trying to show what a fairer evaluation says about several detector designs.</p>
+<section id="bottom-line" class="level2">
+<h2 class="anchored" data-anchor-id="bottom-line">Bottom Line</h2>
+<p>Training on direct prompt-injection examples did <strong>not</strong> produce a detector that generalized to different attack families. On the pooled OOD slice, no evaluated detector clearly beat the AUPRC random floor of <strong>0.374</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Pooled OOD AUPRC</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">0.364 [0.354, 0.375]</td>
+<td>Best in-house score, but still at the random floor</td>
+</tr>
+<tr class="even">
+<td>ProtectAI v1</td>
+<td style="text-align: right;">0.361 [0.330, 0.391]</td>
+<td>Similar result; diagnostic only because of contamination caveats</td>
+</tr>
+<tr class="odd">
+<td>ProtectAI v2</td>
+<td style="text-align: right;">0.314 [0.283, 0.345]</td>
+<td>Does not dominate v1 on this evaluation</td>
+</tr>
+<tr class="even">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.293 [0.286, 0.301]</td>
+<td>Fine-tuning hurt OOD performance</td>
+</tr>
+<tr class="odd">
+<td>TF-IDF + LR</td>
+<td style="text-align: right;">0.291 [0.283, 0.298]</td>
+<td>Classical baseline, roughly tied with LoRA</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="headline-claims" class="level2">
-<h2 class="anchored" data-anchor-id="headline-claims">Headline claims</h2>
+<section id="what-was-tested" class="level2">
+<h2 class="anchored" data-anchor-id="what-was-tested">What Was Tested</h2>
+<ul>
+<li><strong>In scope</strong>: single-turn English text classification.</li>
+<li><strong>Training pool</strong>: four direct-injection sources.</li>
+<li><strong>OOD slate</strong>: five held-out slices covering indirect injection, agentic-flow injection, jailbreak-style questions, and benign-but-injection-shaped text.</li>
+<li><strong>Detectors</strong>: TF-IDF + logistic regression, ModernBERT frozen probe, ModernBERT LoRA, and ProtectAI v1/v2 reference scorers.</li>
+</ul>
+</section>
+<section id="how-to-read-the-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-the-metrics">How To Read The Metrics</h2>
+<ul>
+<li><strong>AUPRC</strong>: the primary ranking metric. On imbalanced data, its random floor is the positive rate, not 0.5. Here that floor is 412 / 1101 = 0.374.</li>
+<li><strong>AUROC</strong>: secondary diagnostic with a 0.5 random floor; useful for comparison, but less informative under imbalance.</li>
+<li><strong>95% CI</strong>: uncertainty around a number. If a model’s interval only touches the random floor, the result should be read cautiously.</li>
+<li><strong>FPR</strong>: false-positive rate. In this project, a 1% FPR threshold tuned on validation often did not hold on held-out sources.</li>
+<li><strong>ECE/Brier</strong>: calibration errors. Lower is better; they ask whether model scores behave like probabilities.</li>
+</ul>
+</section>
+<section id="main-findings" class="level2">
+<h2 class="anchored" data-anchor-id="main-findings">Main Findings</h2>
 <ol type="1">
-<li><strong>The OOD wall is cross-family, not cross-source.</strong> Training pool is 4 direct-injection sources (deepset/prompt-injections, Lakera/gandalf_ignore_instructions, Lakera/mosscap_prompt_injection, hackaprompt). The 5-slice OOD slate probes attack families <em>absent</em> from training: indirect injection via email-body context (BIPIA), multi-turn agentic-flow (InjecAgent), jailbreaks (JBB-Behaviors), and benign-but-injection-shaped texts (NotInject, XSTest). Direct-injection training performance does not translate.</li>
-<li><strong>None of the rungs clears the <code>pooled_ood</code> positive-class prevalence baseline (0.374) under AUPRC</strong> (range 0.291–0.364; frozen-probe best at 0.364). Random-predictor AUPRC equals the positive prevalence; the best trained rung still lands ~0.01 <em>below</em> that baseline.</li>
-<li><strong>Fine-tuning HURTS OOD generalization relative to the frozen probe.</strong> LoRA’s <code>pooled_ood</code> AUPRC delta vs frozen-probe is <strong>-0.071</strong> (paired-bootstrap CI clears zero); fine-tuning the head onto the LODO direct-injection pool actively degrades the pretrained ModernBERT-base embeddings on OOD. The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.</li>
-<li><strong>ProtectAI v1 → v2 is not a monotone improvement</strong> across the OOD slate: v2 beats v1 on jbb_behaviors (+0.037 AUPRC) and loses on xstest (-0.087 AUPRC). Off-the-shelf detector updates can regress on specific OOD distributions; downstream consumers should not assume v2 dominates v1 universally.</li>
+<li><strong>The OOD wall is cross-family.</strong> The training pool is direct-injection heavy, while the OOD slate includes attack families absent from training.</li>
+<li><strong>Fine-tuning hurt.</strong> LoRA scored 0.293 on pooled OOD, below the frozen probe’s 0.364 and roughly tied with TF-IDF + LR.</li>
+<li><strong>Reference detectors are not monotone by version.</strong> ProtectAI v2 improves one slice but regresses on another, so “newer” does not mean universally better.</li>
+<li><strong>Thresholds are fragile.</strong> Validation thresholds understate how many false positives appear on held-out sources.</li>
 </ol>
 </section>
-<section id="what-was-characterised" class="level2">
-<h2 class="anchored" data-anchor-id="what-was-characterised">What was characterised</h2>
-<p>5-rung ladder: TF-IDF + LR classical floor (<code>verified_disjoint</code>) → ModernBERT-base frozen-probe → ModernBERT-base LoRA (~1 % trainable params) → ModernBERT-base full-FT (LODO only; OOD dropped per ADR-052) → 2 reference scorers (ProtectAI v1 + v2; <code>suspected_contamination</code>). Evaluated under: source-disjoint LODO (4 folds × 3 seeds = 12 cells per rung), calibrated semantic dedup (threshold 0.80; 50-pair golden holdout), post-split leakage scrub (exact-hash + cosine ≥ 0.85), contamination-taxonomy audit per Kapoor &amp; Narayanan 2023 against the published reference scorers, paired-bootstrap MDE on every reported CI (10K resamples × 2 seeds; 0/40 stability flags), dual-policy threshold characterisation (detection FPR ≤ 1 %, verification recall ≥ 99 %; both with reachability audit).</p>
+<section id="what-this-does-not-claim" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-does-not-claim">What This Does Not Claim</h2>
+<p>The numbers do not cover multilingual attacks, encoded payloads, paraphrase robustness, adversarial perturbations, or full multi-turn system behavior. The result is a capability characterization and methodology artifact, not a deployment recommendation.</p>
 </section>
-<section id="what-is-deferred-out-of-scope-per-adr-014" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-deferred-out-of-scope-per-adr-014">What is deferred (out of scope per ADR-014)</h2>
-<p>Multi-turn agentic flows (named in test slate via InjecAgent to quantify the gap; not detected by single-turn classifier scope), encoded payloads (base64 / leetspeak / hex / Unicode confusables), paraphrase attacks (semantic equivalents), adversarial perturbations (gradient-guided / search-based evasion), cross-language coverage. Full-FT OOD inference dropped per ADR-052 (methodological: LoRA evidence + FUSE-EIO operational trigger); details in <a href="./WRITEUP/limitations-and-future-work.html">WRITEUP/limitations-and-future-work.md §8.1</a>.</p>
-</section>
-<section id="reading-path-pointer-the-30-minute-reviewer" class="level2">
-<h2 class="anchored" data-anchor-id="reading-path-pointer-the-30-minute-reviewer">Reading-path pointer (the 30-minute reviewer)</h2>
-<ol type="1">
-<li>This summary.</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html">WRITEUP §1 Motivation + §1.5 Attack-type taxonomy + train/test composition</a>.</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#results">WRITEUP §Results headline characterisation</a> (cross-family framing + 4 claims).</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/RESULTS.html">RESULTS.md</a> — full 5-rung × 5-slice AUPRC + AUROC + recall@FPR1% grid + 7 Phase 4 figures + raw-data pointers (the third entry artifact per ADR-054).</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html">EVIDENCE.md</a> — external-evidence audit trail (ProtectAI v1/v2 contamination findings).</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html">decisions/</a> — 52-ADR governance trail (the deep cut; ADR-005, ADR-015–022, ADR-050, ADR-052 are the headline locks).</li>
-</ol>
-</section>
-<section id="honest-reading" class="level2">
-<h2 class="anchored" data-anchor-id="honest-reading">Honest reading</h2>
-<p>This is a methodology + capability <em>characterisation</em>, not a leaderboard claim. The headline finding — that the OOD wall is cross-family and that fine-tuning consumes the OOD generalization budget the pretrained backbone provides — is methodologically richer than a “great classifier” framing would have allowed. A deployment context that includes attack classes outside the training pool (multi-turn agentic flows, encoded payloads, paraphrase attacks, adversarial perturbations) cannot rely on these numbers; the methodology spoke names what would need to land to extend coverage.</p>
+<section id="where-to-go-next" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-go-next">Where To Go Next</h2>
+<ul>
+<li><a href="./RESULTS.html">Results</a>: exact grids, canonical figures, and artifact links.</li>
+<li><a href="./WRITEUP.html">Writeup</a>: methodology narrative.</li>
+<li><a href="./EVIDENCE.html">Evidence</a>: external-evidence and reference-scorer audit trail.</li>
+<li><a href="./decisions/README.html">Decisions</a>: ADR trail, now including ADR-062 for this clarity and canonical-figures patch.</li>
+</ul>
 
 
 <!-- -->
@@ -1396,109 +1452,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Executive summary — 1-page decision-maker layer over WRITEUP"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "1-page summary of the prompt-injection classifier methodology submission. Read this first; deep-readers continue to WRITEUP."</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Executive summary: prompt-injection classifier evaluation"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Plain-language one-page summary of the prompt-injection classifier methodology submission."</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Executive summary</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Executive Summary</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>**Project**: methodology + capability characterisation of a 5-rung</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>prompt-injection classifier ladder, evaluated under an honest OOD</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>slate. Spec-first SDD submission with 52 immutable ADRs (Michael</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Nygard format). Reviewer URL pin:</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">`tree/v1.0.0`</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)</span>.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Live Quarto site:</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">brandon-behring.github.io/prompt-injection-detection-prototype/</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span>.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>This project evaluates prompt-injection detectors under out-of-distribution</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>(OOD) shift. Prompt injection means untrusted text trying to override an LLM</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>system's instructions. The project is not trying to ship a production detector;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>it is trying to show what a fairer evaluation says about several detector</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>designs.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bottom Line</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thesis</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Most prompt-injection detectors are evaluated on data that leaks</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>into training, so their reported OOD numbers don't tell you much.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>A classifier that cross-validates on a single direct-prompt-</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>injection dataset is trivial to build, but it gives a poor read on</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>OOD performance and raises real leakage concerns. **The submission</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>is an attempt to build a fairer evaluation harness around that —</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>not to find the best model, but to lay the groundwork for fairer</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>evaluation** and to identify the weaknesses of both the trained</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>rungs and the published reference scorers.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Training on direct prompt-injection examples did **not** produce a detector that</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>generalized to different attack families. On the pooled OOD slice, no evaluated</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>detector clearly beat the AUPRC random floor of **0.374**.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Detector <span class="pp">|</span> Pooled OOD AUPRC <span class="pp">|</span> Interpretation <span class="pp">|</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---:|---|</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT frozen probe <span class="pp">|</span> 0.364 <span class="co">[</span><span class="ot">0.354, 0.375</span><span class="co">]</span> <span class="pp">|</span> Best in-house score, but still at the random floor <span class="pp">|</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v1 <span class="pp">|</span> 0.361 <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span> <span class="pp">|</span> Similar result; diagnostic only because of contamination caveats <span class="pp">|</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v2 <span class="pp">|</span> 0.314 <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span> <span class="pp">|</span> Does not dominate v1 on this evaluation <span class="pp">|</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT LoRA <span class="pp">|</span> 0.293 <span class="co">[</span><span class="ot">0.286, 0.301</span><span class="co">]</span> <span class="pp">|</span> Fine-tuning hurt OOD performance <span class="pp">|</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TF-IDF + LR <span class="pp">|</span> 0.291 <span class="co">[</span><span class="ot">0.283, 0.298</span><span class="co">]</span> <span class="pp">|</span> Classical baseline, roughly tied with LoRA <span class="pp">|</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Headline claims</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## What Was Tested</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The OOD wall is cross-family, not cross-source.** Training</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>   pool is 4 direct-injection sources (deepset/prompt-injections,</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>   Lakera/gandalf_ignore_instructions, Lakera/mosscap_prompt_injection,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>   hackaprompt). The 5-slice OOD slate probes attack families</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>   *absent* from training: indirect injection via email-body context</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>   (BIPIA), multi-turn agentic-flow (InjecAgent), jailbreaks</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>   (JBB-Behaviors), and benign-but-injection-shaped texts</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>   (NotInject, XSTest). Direct-injection training performance does</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>   not translate.</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**None of the rungs clears the <span class="in">`pooled_ood`</span> positive-class</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>   prevalence baseline (0.374) under AUPRC** (range 0.291–0.364;</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>   frozen-probe best at 0.364). Random-predictor AUPRC equals the</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>   positive prevalence; the best trained rung still lands ~0.01</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>   *below* that baseline.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Fine-tuning HURTS OOD generalization relative to the frozen</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>   probe.** LoRA's <span class="in">`pooled_ood`</span> AUPRC delta vs frozen-probe is</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>   **-0.071** (paired-bootstrap CI clears zero); fine-tuning the</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>   head onto the LODO direct-injection pool actively degrades the</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>   pretrained ModernBERT-base embeddings on OOD. The pretrained</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>   backbone — not the LODO training pool — carries what little OOD</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>   generalization budget exists.</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**ProtectAI v1 → v2 is not a monotone improvement** across the</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>   OOD slate: v2 beats v1 on jbb_behaviors (+0.037 AUPRC) and loses</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   on xstest (-0.087 AUPRC). Off-the-shelf detector updates can</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>   regress on specific OOD distributions; downstream consumers</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>   should not assume v2 dominates v1 universally.</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## What was characterised</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>5-rung ladder: TF-IDF + LR classical floor (<span class="in">`verified_disjoint`</span>)</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>→ ModernBERT-base frozen-probe → ModernBERT-base LoRA (~1 %</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>trainable params) → ModernBERT-base full-FT (LODO only; OOD dropped</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>per ADR-052) → 2 reference scorers (ProtectAI v1 + v2;</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="in">`suspected_contamination`</span>). Evaluated under: source-disjoint LODO</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>(4 folds × 3 seeds = 12 cells per rung), calibrated semantic dedup</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>(threshold 0.80; 50-pair golden holdout), post-split leakage scrub</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>(exact-hash + cosine ≥ 0.85), contamination-taxonomy audit per</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>Kapoor &amp; Narayanan 2023 against the published reference scorers,</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>paired-bootstrap MDE on every reported CI (10K resamples × 2</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>seeds; 0/40 stability flags), dual-policy threshold characterisation</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>(detection FPR ≤ 1 %, verification recall ≥ 99 %; both with</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>reachability audit).</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is deferred (out of scope per ADR-014)</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>Multi-turn agentic flows (named in test slate via InjecAgent to</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>quantify the gap; not detected by single-turn classifier scope),</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>encoded payloads (base64 / leetspeak / hex / Unicode confusables),</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>paraphrase attacks (semantic equivalents), adversarial perturbations</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>(gradient-guided / search-based evasion), cross-language coverage.</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>Full-FT OOD inference dropped per ADR-052 (methodological: LoRA</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>evidence + FUSE-EIO operational trigger); details in</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">WRITEUP/limitations-and-future-work.md §8.1</span><span class="co">](./WRITEUP/limitations-and-future-work.md)</span>.</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reading-path pointer (the 30-minute reviewer)</span></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>This summary.</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">WRITEUP §1 Motivation + §1.5 Attack-type taxonomy + train/test composition</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html)</span>.</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="co">[</span><span class="ot">WRITEUP §Results headline characterisation</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#results)</span> (cross-family framing + 4 claims).</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="co">[</span><span class="ot">RESULTS.md</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/RESULTS.html)</span> — full 5-rung × 5-slice AUPRC + AUROC + recall@FPR1% grid + 7 Phase 4 figures + raw-data pointers (the third entry artifact per ADR-054).</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="co">[</span><span class="ot">EVIDENCE.md</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html)</span> — external-evidence audit trail (ProtectAI v1/v2 contamination findings).</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="co">[</span><span class="ot">decisions/</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html)</span> — 52-ADR governance trail (the deep cut; ADR-005, ADR-015–022, ADR-050, ADR-052 are the headline locks).</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Honest reading</span></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>This is a methodology + capability *characterisation*, not a</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>leaderboard claim. The headline finding — that the OOD wall is</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>cross-family and that fine-tuning consumes the OOD generalization</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>budget the pretrained backbone provides — is methodologically</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>richer than a "great classifier" framing would have allowed. A</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>deployment context that includes attack classes outside the</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>training pool (multi-turn agentic flows, encoded payloads,</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>paraphrase attacks, adversarial perturbations) cannot rely on</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>these numbers; the methodology spoke names what would need to</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>land to extend coverage.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**In scope**: single-turn English text classification.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Training pool**: four direct-injection sources.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD slate**: five held-out slices covering indirect injection, agentic-flow</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  injection, jailbreak-style questions, and benign-but-injection-shaped text.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Detectors**: TF-IDF + logistic regression, ModernBERT frozen probe,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  ModernBERT LoRA, and ProtectAI v1/v2 reference scorers.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## How To Read The Metrics</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AUPRC**: the primary ranking metric. On imbalanced data, its random floor is</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  the positive rate, not 0.5. Here that floor is 412 / 1101 = 0.374.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AUROC**: secondary diagnostic with a 0.5 random floor; useful for</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  comparison, but less informative under imbalance.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**95% CI**: uncertainty around a number. If a model's interval only touches</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  the random floor, the result should be read cautiously.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FPR**: false-positive rate. In this project, a 1% FPR threshold tuned on</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  validation often did not hold on held-out sources.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ECE/Brier**: calibration errors. Lower is better; they ask whether model</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  scores behave like probabilities.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Main Findings</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The OOD wall is cross-family.** The training pool is direct-injection</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>   heavy, while the OOD slate includes attack families absent from training.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Fine-tuning hurt.** LoRA scored 0.293 on pooled OOD, below the frozen</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>   probe's 0.364 and roughly tied with TF-IDF + LR.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Reference detectors are not monotone by version.** ProtectAI v2 improves</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>   one slice but regresses on another, so "newer" does not mean universally</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   better.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Thresholds are fragile.** Validation thresholds understate how many false</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>   positives appear on held-out sources.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Does Not Claim</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>The numbers do not cover multilingual attacks, encoded payloads, paraphrase</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>robustness, adversarial perturbations, or full multi-turn system behavior. The</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>result is a capability characterization and methodology artifact, not a</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>deployment recommendation.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where To Go Next</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Results</span><span class="co">](RESULTS.md)</span>: exact grids, canonical figures, and artifact links.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Writeup</span><span class="co">](WRITEUP.md)</span>: methodology narrative.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Evidence</span><span class="co">](EVIDENCE.md)</span>: external-evidence and reference-scorer audit trail.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Decisions</span><span class="co">](decisions/README.md)</span>: ADR trail, now including ADR-062 for this</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  clarity and canonical-figures patch.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>readme – Prompt-injection classifier — methodology submission</title>
+<title>readme – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    <span class="navbar-title">Prompt-injection classifier evaluation</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./WRITEUP/model-rungs.html">
- <span class="dropdown-text">Model rungs</span></a>
+ <span class="dropdown-text">Model details</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./WRITEUP/eval-design.html">
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+ <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./EVIDENCE.html">
@@ -281,13 +281,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results — model-run artifacts, grids, figures, raw data</span></a>
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+ <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </div>
 </li>
       </ul>
@@ -331,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model rungs</span></a>
+ <span class="menu-text">Model details</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -835,6 +835,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto writeup clarity rewrite and canonical reviewer figure slate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</span></a>
   </div>
@@ -855,18 +861,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#prompt-injection-detection-prototype" id="toc-prompt-injection-detection-prototype" class="nav-link active" data-scroll-target="#prompt-injection-detection-prototype">prompt-injection-detection-prototype</a>
   <ul class="collapse">
-  <li><a href="#what-this-submission-delivers" id="toc-what-this-submission-delivers" class="nav-link" data-scroll-target="#what-this-submission-delivers">What this submission delivers</a></li>
-  <li><a href="#what-this-submission-is-not" id="toc-what-this-submission-is-not" class="nav-link" data-scroll-target="#what-this-submission-is-not">What this submission is NOT</a></li>
-  <li><a href="#how-to-read-this-submission" id="toc-how-to-read-this-submission" class="nav-link" data-scroll-target="#how-to-read-this-submission">How to read this submission</a>
-  <ul class="collapse">
-  <li><a href="#three-reading-paths-pick-by-audit-depth" id="toc-three-reading-paths-pick-by-audit-depth" class="nav-link" data-scroll-target="#three-reading-paths-pick-by-audit-depth">Three reading paths (pick by audit depth)</a></li>
-  </ul></li>
-  <li><a href="#getting-started-reviewer-path" id="toc-getting-started-reviewer-path" class="nav-link" data-scroll-target="#getting-started-reviewer-path">Getting started — reviewer path</a></li>
-  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem">Problem</a></li>
-  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
-  <li><a href="#headline-characterisation" id="toc-headline-characterisation" class="nav-link" data-scroll-target="#headline-characterisation">Headline characterisation</a></li>
-  <li><a href="#repo-roadmap" id="toc-repo-roadmap" class="nav-link" data-scroll-target="#repo-roadmap">Repo roadmap</a></li>
-  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run">Run</a></li>
+  <li><a href="#what-this-project-is" id="toc-what-this-project-is" class="nav-link" data-scroll-target="#what-this-project-is">What This Project Is</a></li>
+  <li><a href="#headline-result" id="toc-headline-result" class="nav-link" data-scroll-target="#headline-result">Headline Result</a></li>
+  <li><a href="#how-to-read-the-site" id="toc-how-to-read-the-site" class="nav-link" data-scroll-target="#how-to-read-the-site">How To Read The Site</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">Key Terms</a></li>
+  <li><a href="#reproduce" id="toc-reproduce" class="nav-link" data-scroll-target="#reproduce">Reproduce</a></li>
+  <li><a href="#repository-map" id="toc-repository-map" class="nav-link" data-scroll-target="#repository-map">Repository Map</a></li>
+  <li><a href="#what-it-does-not-claim" id="toc-what-it-does-not-claim" class="nav-link" data-scroll-target="#what-it-does-not-claim">What It Does Not Claim</a></li>
   <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
   </ul></li>
   </ul>
@@ -880,98 +881,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="prompt-injection-detection-prototype" class="level1">
 <h1>prompt-injection-detection-prototype</h1>
-<p><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><img src="https://img.shields.io/badge/docs-live-blue.png" class="img-fluid" alt="Documentation"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg" class="img-fluid" alt="CI"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg" class="img-fluid" alt="Publish"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/latest"><img src="https://img.shields.io/github/v/release/brandon-behring/prompt-injection-detection-prototype?label=release.png" class="img-fluid" alt="Release"></a> <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe"><img src="https://img.shields.io/badge/HF%20Hub-frozen--probe-blue.png" class="img-fluid" alt="HF Hub: frozen-probe"></a> <a href="https://huggingface.co/BBehring/prompt-injection-lora"><img src="https://img.shields.io/badge/HF%20Hub-lora-blue.png" class="img-fluid" alt="HF Hub: lora"></a> <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.13-blue.svg" class="img-fluid" alt="Python 3.13"></a> <a href="./decisions/"><img src="https://img.shields.io/badge/ADRs-54-green.svg" class="img-fluid" alt="ADRs: 54"></a></p>
-<p><strong>Methodology + capability characterisation of a 5-rung prompt-injection classifier ladder, evaluated under an honest OOD slate.</strong></p>
-<blockquote class="blockquote">
-<p><strong>Thesis.</strong> My main concern after reading the literature: most prompt-injection detectors are evaluated on data that leaks into training, so their reported OOD numbers don’t tell you much. A classifier that cross-validates on a single direct-prompt-injection dataset is trivial to build, but it gives a poor read on OOD performance and raises real leakage concerns. <strong>This project is my attempt to build a fairer evaluation harness around that</strong> — not to find the best model, but to lay the groundwork for fairer evaluation and to identify the weaknesses of our model and of some existing reference scorers.</p>
-</blockquote>
-<p>A spec-first case-study submission: every decision is locked via a structured Phase 0 interview producing 52 ADRs (spec-driven development with immutable Michael-Nygard ADRs; supersede-don’t-edit); every claim cites evidence + bootstrap CIs; every reference scorer is contamination-audited per a three-state taxonomy. <strong>Library-first</strong> — three companion OSS repos I refined for this project:</p>
+<p><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><img src="https://img.shields.io/badge/docs-live-blue.png" class="img-fluid" alt="Documentation"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg" class="img-fluid" alt="CI"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg" class="img-fluid" alt="Publish"></a> <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.13-blue.svg" class="img-fluid" alt="Python 3.13"></a></p>
+<p>This is a methodology-focused prompt-injection classifier evaluation. It asks a simple question: if detectors are trained on direct prompt-injection examples, do they still work when the attack family changes?</p>
+<p>The headline answer is <strong>mostly no</strong>. On the pooled cross-family out-of-distribution (OOD) slice, none of the evaluated detectors clearly beats the AUPRC random floor of 0.374.</p>
+<section id="what-this-project-is" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-project-is">What This Project Is</h2>
 <ul>
-<li><strong><a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a></strong> — a methodology-aware harness on PyPI for binary-classifier eval: source-disjoint splits, bootstrap CIs (marginal + paired + cv-CLT), calibration battery, leakage detection, and a 17-chapter methodology curriculum.</li>
-<li><strong><a href="https://github.com/brandon-behring/runpod-deploy">runpod-deploy</a></strong> — a CLI I use to orchestrate RunPod GPU jobs: preflight validation, multi-GPU-class × multi-DC failover, per-job cost caps, dry-run cost previews, post-run cost reconciliation. Saved me from a lot of accidental spend.</li>
-<li><strong><a href="https://github.com/brandon-behring/research_toolkit">research_toolkit</a></strong> — a pipeline of Claude Code skills I abstracted for literature reviews: plan → gather primary sources → build a dossier → explicit audit pass that DROPs / CORRECTs / FLAGs each entry. I read most of the primary documents myself; the audit pass makes summary fidelity checkable rather than vibes-based.</li>
-</ul>
-<blockquote class="blockquote">
-<p><strong>Status</strong>: Phase 5 complete; tagged <code>v1.0.0</code> (patches via <code>v1.0.x</code> per ADR-033). The work is <strong>characterisation</strong>, not deployment — each rung’s trade-offs are reported; no rung is promoted as a winner.</p>
-<p><strong>Live site</strong>: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">brandon-behring.github.io/prompt-injection-detection-prototype/</a> — rendered Quarto methodology site with the 7-spoke WRITEUP + 52 ADRs + EVIDENCE + reference docs. Updated on every push to <code>main</code>.</p>
-<p><strong>HF Hub model cards</strong>: <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">BBehring/prompt-injection-frozen-probe</a> + <a href="https://huggingface.co/BBehring/prompt-injection-lora">BBehring/prompt-injection-lora</a> — canonical fold0/seed42 checkpoints per ADR-032. Reviewer-reproduce-the-numbers (T0) via <code>make eval-from-hub RUNG=&lt;rung&gt;</code>.</p>
-</blockquote>
-<section id="what-this-submission-delivers" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-submission-delivers">What this submission delivers</h2>
-<ul>
-<li><strong>5-rung trained ladder</strong> (per ADR-015 + ADR-017 + ADR-050 + ADR-052): TF-IDF + LogReg classical floor → ModernBERT-base frozen-probe (head-only training) → ModernBERT-base LoRA (~1 % trainable params) → ModernBERT-base full-FT. Plus 2 reference scorers (ProtectAI v1, ProtectAI v2) at native config. LLM-judge reference rungs were dropped at Phase 4 on cost re-estimation per ADR-050; full-FT OOD inference dropped at Phase 5 per ADR-052 (methodological: LoRA already showed fine-tuning on this training pool hurts OOD; FUSE EIO crash was the operational trigger). The <code>vendor_black_box</code> contamination tier ships with 0 rungs in this submission.</li>
-<li><strong>5-slice OOD test slate</strong> (per ADR-016 + ADR-021): BIPIA (indirect injection via email body, all-positive), InjecAgent (multi-turn agentic-flow injection, all-positive), JBB-Behaviors (jailbreak-style harmful elicitation, both classes), XSTest (jailbreak-as-question, both classes), NotInject (benign-but-injection-shaped false-positive probe, all-negative). The slate probes injection types deliberately <em>outside</em> the training-pool style mix.</li>
-<li><strong>4-source LODO training pool</strong> (per ADR-016): <code>deepset/prompt-injections</code> (170 rows post-dedup), <code>Lakera/gandalf_ignore_instructions</code> (525), <code>Lakera/mosscap_prompt_injection</code> (2362), <code>hackaprompt/hackaprompt-dataset</code> (1650). <strong>Direct-injection-heavy by composition</strong> — see WRITEUP §1.5 for the train/test mismatch table.</li>
-<li><strong>Methodology rigor</strong>: BCa bootstrap CIs on every headline metric; paired-bootstrap rung-vs-rung differences (Efron-Tibshirani protocol); MDE alongside every CI containing zero; calibration battery (ECE equal-mass + Kumar-2019-debiased + Brier + reliability curves; temperature / Platt / isotonic / Beta fits on val only); cross-fold CIs via Bayle-2020 <code>cv_clt_ci</code> + block-bootstrap-on-folds sensitivity per A-008; dual-policy threshold characterisation (detection FPR ≤ 1 % + verification recall ≥ 99 %); SHA-pinned data sources + leakage scan + per-fold contamination scan. Effect sizes + CIs throughout — no p-values.</li>
-<li><strong>Reviewer-reproducible</strong> (per ADR-034): <strong>T0</strong> = <code>make eval-from-hub RUNG=&lt;rung&gt;</code> runs a CPU eval against the published HF Hub checkpoint and score-matches against <code>evals/results.json</code> within 1e-4 absolute (~15 min per rung, $0). <strong>T1</strong> = <code>make test-smoke</code> (laptop, no GPU, no network, ~1 min). Optional <strong>T3</strong> = <code>make headline-cloud</code> (RunPod A100 80GB; ~$28; full LODO matrix re-train + re-eval).</li>
-<li><strong>Governance trail</strong>: 54 ADRs in <a href="./decisions/"><code>decisions/</code></a> (Michael Nygard format; immutable; ADR-050 is the rung-slate narrowing; ADR-053 is the reading-guide governance anchor at v1.0.4; ADR-054 narrowly supersedes ADR-053 dimension 1 to add <code>RESULTS.md</code> as a third entry artifact at v1.0.5). <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard gate). External-evidence audit in <a href="./EVIDENCE.html"><code>EVIDENCE.md</code></a>. Hyperparameter disclosure in <a href="./docs/HYPERPARAMETER_DISCLOSURE.md"><code>docs/HYPERPARAMETER_DISCLOSURE.md</code></a>. 16-file literature dossier in <a href="./docs/research/"><code>docs/research/</code></a> (produced via the <code>research_toolkit</code> pipeline).</li>
+<li><strong>A capability characterization</strong>, not a deployment recommendation.</li>
+<li><strong>A detector-ladder evaluation</strong>: TF-IDF + LR, ModernBERT frozen probe, ModernBERT LoRA, and ProtectAI v1/v2 references.</li>
+<li><strong>An OOD evaluation</strong>: indirect injection, agentic-flow injection, jailbreak-style questions, and benign-but-injection-shaped text.</li>
+<li><strong>A reproducible artifact</strong>: source-disjoint splits, leakage checks, persisted predictions, confidence intervals, calibration metrics, and Quarto-rendered documentation.</li>
 </ul>
 </section>
-<section id="what-this-submission-is-not" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-submission-is-not">What this submission is NOT</h2>
-<ul>
-<li><strong>Not a deployment recommendation.</strong> No rung is promoted as the deployment choice. Trade-offs are reported; readers with a specific deployment context map our characterisation onto their cost constraints.</li>
-<li><strong>Not a SOTA chase.</strong> Models are deliberately simple; the rigor lives in the evaluation framework. The headline finding <em>includes unflattering results</em> by design.</li>
-<li><strong>Not a benchmark.</strong> Slate is fixed by source-disjoint LODO + a 5-slice OOD test slate, not a sliding leaderboard.</li>
-<li><strong>Scope is single-turn English text classification only.</strong> Multi-turn agentic flows, encoded payloads (base64 / leetspeak / hex / Unicode confusables / ROT13), paraphrase attacks, adversarial perturbations, and cross-language attacks are <strong>out of scope</strong> per ADR-014 + WRITEUP §1 Scope. InjecAgent appears in the test slate to <em>quantify</em> the agentic-flow gap, not because we expect the single-turn classifier to handle it.</li>
-</ul>
-</section>
-<section id="how-to-read-this-submission" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-read-this-submission">How to read this submission</h2>
-<p><strong>Important</strong>: the GitHub blob view of <code>WRITEUP.md</code> (this single file) is <strong>only the cover narrative</strong> — the methodology is split into a hub (<code>WRITEUP.md</code>) <strong>plus 8 detailed spokes</strong> under <a href="./WRITEUP/"><code>WRITEUP/</code></a>. Reading <code>WRITEUP.md</code> alone is executive-summary depth; the full methodology requires all 8 spokes. <strong>The <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">live Quarto site</a> is the canonical reading surface</strong> — it renders the hub + all 8 spokes together with nested navigation under the <strong>Methodology</strong> dropdown. GitHub readers can click each spoke link in the table at the top of <code>WRITEUP.md</code> to drill in.</p>
-<section id="three-reading-paths-pick-by-audit-depth" class="level3">
-<h3 class="anchored" data-anchor-id="three-reading-paths-pick-by-audit-depth">Three reading paths (pick by audit depth)</h3>
-<ol type="1">
-<li><strong>Quick read (~5 min)</strong> — landing page only.
-<ul>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">Live site landing page</a> — headline AUPRC table + 5-bullet plain-language meaning + 3 obvious drill-down links. Restructured v1.1.1 per <a href="./decisions/ADR-061-quarto-site-navigation-restructure.html">ADR-061</a> for exactly this use case.</li>
-</ul></li>
-<li><strong>Full methodology (~60 min)</strong> — for the ML-researcher / due-diligence read.
-<ul>
-<li>Live site → Methodology dropdown → <strong>Cover narrative (hub)</strong> = <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html"><code>WRITEUP.md</code></a> → drill into each of the 8 spokes from the same dropdown.</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/READING_GUIDE.html">Reading guide</a> — 3 named paths + 14 headline ADRs + repo TOC + technical version of the 5 interpretation patterns.</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html">EVIDENCE.md</a> — external-evidence audit trail.</li>
-<li><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html">All 61 ADRs</a> (immutable decision records; Michael Nygard format).</li>
-</ul></li>
-<li><strong>Reproduce the numbers (~30 min CPU; $0)</strong> — for the engineer who wants the numbers to land on their machine.
-<ul>
-<li><code>make install &amp;&amp; make eval-from-hub RUNG=frozen-probe</code> (CPU; ~15 min) pulls the published checkpoint from <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">BBehring/prompt-injection-frozen-probe</a> and score-matches against <code>evals/results.json</code> within 1e-4 absolute per ADR-034 (wired at v1.0.9 per <a href="./decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html">ADR-058</a>).</li>
-<li><code>make eval-from-hub RUNG=lora</code> — same for <a href="https://huggingface.co/BBehring/prompt-injection-lora">BBehring/prompt-injection-lora</a>.</li>
-<li><code>make test-smoke</code> (no GPU, no network, ~1 min) verifies code-health on fixtures.</li>
-<li>Full T1 GPU re-eval via <code>make headline-cloud</code> (~$28; A100 80GB; ~7h).</li>
-</ul></li>
-</ol>
-</section>
-</section>
-<section id="getting-started-reviewer-path" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started-reviewer-path">Getting started — reviewer path</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install              <span class="co"># uv sync --extra dev</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test                 <span class="co"># ~220 tests; invariants + smoke</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe     <span class="co"># T0 score-match (CPU; ~15 min)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora             <span class="co"># T0 score-match (CPU; ~15 min)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>T0 verifies the published HF Hub checkpoints (<code>BBehring/prompt-injection-frozen-probe</code>, <code>BBehring/prompt-injection-lora</code>) score-match against the canonical results within 1e-4 absolute. See <code>docs/REPRODUCIBILITY.md</code> for T1 (full GPU re-eval via <code>make headline-cloud</code>).</p>
-<p>For the methodology-and-decision trail (Phase 0 → Phase 5; ~50 locked ADRs): - <code>WRITEUP.md</code> — full methodology narrative. - <code>decisions/</code> — 50 Michael-Nygard-format ADRs (immutable). - <code>SUBMISSION_AUDIT.md</code> — script-regenerated claim register sourced from ADR frontmatter; the audit ledger is in CI as a hard gate. - <code>docs/ROADMAP.md</code> — Phase 0-5 sequence + closing dates.</p>
-</section>
-<section id="problem" class="level2">
-<h2 class="anchored" data-anchor-id="problem">Problem</h2>
-<p>This is a case-study submission characterising what successive capability layers (classical TF-IDF + LR floor → frozen ModernBERT backbone with linear probe → LoRA adapters → full fine-tune) contribute to prompt-injection detection across an IID test slate (4-source LODO held-out positives) and a 5-slice OOD slate (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject).</p>
-<p>The brief asks for <strong>models of increasing complexity</strong> to characterise what each capability layer brings, plus <strong>the right amount of OOD coverage</strong>. The models are deliberately simple; the rigor lives in the evaluation framework — claims about each rung, including unflattering ones, are honest. Detection and verification operating modes are reported as two cost-weight characterisations of the same scores, not as deployment recommendations.</p>
-</section>
-<section id="approach" class="level2">
-<h2 class="anchored" data-anchor-id="approach">Approach</h2>
-<ul>
-<li><strong>Rung ladder</strong> locked at Phase 0-03 (ADR-015 + ADR-017 + ADR-019 + ADR-050): TF-IDF+LR classical floor (<code>verified_disjoint</code>) → ModernBERT-base frozen-probe → ModernBERT-base LoRA → ModernBERT-base full-FT. Each rung answers <em>what does this capability layer add over the rung below?</em> The ladder is the brief’s “models of increasing complexity”; it is also the <em>instrument</em> for the brief’s OOD-coverage ask — we look at which capabilities help OOD vs only help IID. ProtectAI v1 + v2 (<code>suspected_contamination</code>) are reference scorers per ADR-018, not in the trained ladder. LLM-judge reference scorers dropped at Phase 4 cost re-estimation per ADR-050; full-FT OOD inference dropped at X11 FUSE crash per ADR-050.</li>
-<li><strong>OOD slate</strong> locked at Phase 0-04 (ADR-016 + ADR-021): 5 slices (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) selected from <code>docs/research/benchmarks/</code> candidate dossier. See WRITEUP §5.5 for <em>why each slice was chosen</em>.</li>
-<li><strong>Methodology rigor</strong> via <a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a>: bootstrap CIs on every headline metric, paired-bootstrap differences for rung-vs-rung comparisons, minimum detectable effect (MDE), calibration battery (ECE + Brier + reliability), validation-set threshold selection. Effect sizes and CIs throughout — no p-values.</li>
-<li><strong>Reviewer-reproducible</strong>: <code>make test-smoke</code> runs a no-external-services smoke pass on a laptop in ~1 min; canonical numbers reproducible via <code>make eval-from-hub</code> (T0; CPU; ~15 min per rung) from <code>BBehring/prompt-injection-&lt;rung&gt;</code> HF Hub checkpoints. T1 GPU re-eval via <code>make headline-cloud</code>.</li>
-</ul>
-</section>
-<section id="headline-characterisation" class="level2">
-<h2 class="anchored" data-anchor-id="headline-characterisation">Headline characterisation</h2>
-<p><strong>The negative result IS the result.</strong> The OOD wall is <strong>cross-family</strong>, not cross-source: training pool is 4 direct-injection sources; the OOD slate probes <strong>indirect injection via email-body context (BIPIA)</strong>, <strong>multi-turn agentic-flow attacks (InjecAgent)</strong>, <strong>jailbreaks (JBB-Behaviors)</strong>, and <strong>benign-but-injection-shaped texts that test false-positive robustness (NotInject, XSTest)</strong> — attack types absent from training. <strong>Direct prompt-injection training and evaluation performance alone do not translate</strong> into these other attack families. That finding is the argument for a fairer evaluation framework, which is what this project is.</p>
-<p>Specifically: fine-tuning a ModernBERT-base backbone (LoRA) on the LODO training pool delivers <strong>no improvement</strong> over the frozen-probe rung on <code>pooled_ood</code>, and LoRA actively <em>underperforms</em> the frozen probe (-0.071 AUPRC on <code>pooled_ood</code>; paired-bootstrap CI clears zero). On IID (JBB-Behaviors), all rungs cluster around 0.55 AUPRC — the capability ladder is mostly indistinguishable. <strong>The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.</strong> Full results + per-fold variance live in <a href="./WRITEUP.html"><code>WRITEUP.md</code></a> §Results; only the punch-line is below.</p>
+<section id="headline-result" class="level2">
+<h2 class="anchored" data-anchor-id="headline-result">Headline Result</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 30%">
@@ -980,222 +903,130 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
-<th>Rung</th>
-<th style="text-align: right;"><code>pooled_ood</code> AUPRC (95 % CI)</th>
-<th>Contamination tier</th>
+<th>Detector</th>
+<th style="text-align: right;">Pooled OOD AUPRC</th>
+<th>Read</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Frozen-probe (in-house)</td>
-<td style="text-align: right;">0.364 [0.353, 0.375]</td>
-<td><code>backbone-partial-disjoint</code></td>
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">0.364 [0.354, 0.375]</td>
+<td>best in-house score, still at random floor</td>
 </tr>
 <tr class="even">
-<td>LoRA (in-house)</td>
-<td style="text-align: right;">0.293 [0.286, 0.301]</td>
-<td><code>backbone-partial-disjoint</code></td>
+<td>ProtectAI v1</td>
+<td style="text-align: right;">0.361 [0.330, 0.391]</td>
+<td>diagnostic reference; contamination caveats</td>
 </tr>
 <tr class="odd">
-<td>ProtectAI v2 (reference)</td>
-<td style="text-align: right;">0.314 [0.283, 0.345] <code>†</code></td>
-<td><code>suspected_contamination</code></td>
+<td>ProtectAI v2</td>
+<td style="text-align: right;">0.314 [0.283, 0.345]</td>
+<td>does not dominate v1</td>
 </tr>
 <tr class="even">
-<td>TF-IDF + LR (classical floor)</td>
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.293 [0.286, 0.301]</td>
+<td>fine-tuning hurt OOD performance</td>
+</tr>
+<tr class="odd">
+<td>TF-IDF + LR</td>
 <td style="text-align: right;">0.291 [0.283, 0.298]</td>
-<td><code>verified_disjoint</code></td>
+<td>classical floor, roughly tied with LoRA</td>
 </tr>
 </tbody>
 </table>
-<p>Source: <code>evals/bootstrap/marginal_cells.parquet</code> (BCa bootstrap, mean across folds × seeds × bootstrap-resamples per ADR-022). Full rung × slice × metric grid in WRITEUP §5; per-fold variance + cross-fold-CI in <code>evals/audit/cross_fold_ci_audit.parquet</code>.</p>
-<p><code>†</code> Reference scorers (ProtectAI v1 / v2) carry training-overlap caveats with our LODO training pool per the three-state taxonomy in <a href="./EVIDENCE.html"><code>EVIDENCE.md</code></a> §1-2. Reported as diagnostic reference, not as a clean baseline.</p>
-<p><strong>Headline findings</strong> (deep-read in WRITEUP §5 + §7):</p>
-<ul>
-<li>The IID-vs-OOD gap is large for every trained rung (≈ 0.55 → 0.29-0.36 AUPRC). Per ADR-021 + ADR-050 LODO-by-construction, this is <em>cross-source</em> OOD, not within-source noise.</li>
-<li><strong>Fine-tuning is a negative result on OOD</strong>: LoRA -0.071 AUPRC vs frozen-probe on <code>pooled_ood</code>; full-FT OOD inference dropped per ADR-050 X11 FUSE crash.</li>
-<li>Calibration (ECE equal-mass) is <em>worse</em> for LoRA (0.45) than frozen-probe (0.14) — fine-tuning collapses the calibration signal even on the slices where AUPRC is similar.</li>
-<li>At the detection operating point (val FPR ≤ 1 %), val→test transfer is partial: frozen-probe holds FPR ≈ 1.0 % on test but recall collapses to 0.063; LoRA blows past FPR cap to 11.5 % to recover recall to 0.42. See WRITEUP §5.3.</li>
-</ul>
-<p>Full reading + the headline characterisation claims in <a href="./WRITEUP.html"><code>WRITEUP.md</code></a>. Forward-looking work in <a href="./NEXT_STEPS.html"><code>NEXT_STEPS.md</code></a>. Negative results (things tried that didn’t work) in WRITEUP §9. Deferred items in WRITEUP §8. Audit trail for external-evidence claims in <a href="./EVIDENCE.html"><code>EVIDENCE.md</code></a>.</p>
+<p>For <code>pooled_ood</code>, random AUPRC is <strong>412 / 1101 = 0.374</strong>. That is why the 0.364 frozen-probe score is not a success claim.</p>
 </section>
-<section id="repo-roadmap" class="level2">
-<h2 class="anchored" data-anchor-id="repo-roadmap">Repo roadmap</h2>
+<section id="how-to-read-the-site" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-the-site">How To Read The Site</h2>
+<ul>
+<li><strong>5-minute read</strong>: start at the <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">live landing page</a>. It explains the problem, setup, result, and limits in plain language.</li>
+<li><strong>Results audit</strong>: read <a href="./RESULTS.html">RESULTS.md</a>. It contains the exact tables, five canonical figures, and raw artifact pointers.</li>
+<li><strong>Methodology audit</strong>: read <a href="./WRITEUP.html">WRITEUP.md</a>, then the eight spoke pages under <a href="./WRITEUP/"><code>WRITEUP/</code></a>.</li>
+<li><strong>Decision audit</strong>: read <a href="./decisions/"><code>decisions/</code></a>. ADR-062 records the clarity rewrite and canonical-figure correction.</li>
+</ul>
+</section>
+<section id="key-terms" class="level2">
+<h2 class="anchored" data-anchor-id="key-terms">Key Terms</h2>
+<ul>
+<li><strong>AUPRC</strong>: primary ranking metric; random floor equals the positive rate.</li>
+<li><strong>OOD</strong>: out-of-distribution. Here the important shift is cross-family, not just a different source name.</li>
+<li><strong>FPR</strong>: false-positive rate. A 1% FPR target means no more than one false alarm per 100 benign examples.</li>
+<li><strong>ECE/Brier</strong>: calibration errors; lower is better.</li>
+</ul>
+<p>More definitions are in <a href="./docs/GLOSSARY.md"><code>docs/GLOSSARY.md</code></a>.</p>
+</section>
+<section id="reproduce" class="level2">
+<h2 class="anchored" data-anchor-id="reproduce">Reproduce</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Useful targets:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site             <span class="co"># render Quarto site</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> audit            <span class="co"># regenerate/check ADR-derived submission audit</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render-figures   <span class="co"># render canonical F1-F5 figures from evals/</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud   <span class="co"># optional full cloud reproduction path</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="repository-map" class="level2">
+<h2 class="anchored" data-anchor-id="repository-map">Repository Map</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Path</th>
 <th>Role</th>
-<th>Read when</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>README.md</code></td>
-<td>Project entry; skim doc</td>
-<td>First</td>
+<td><code>index.qmd</code></td>
+<td>plain-language live-site landing page</td>
 </tr>
 <tr class="even">
-<td><code>SUBMISSION_TEMPLATE.md</code></td>
-<td>Cover-letter template (filled <code>SUBMISSION.md</code> is gitignored, emailed separately)</td>
-<td>First (reviewer)</td>
+<td><code>EXECUTIVE_SUMMARY.md</code></td>
+<td>one-page decision-maker summary</td>
 </tr>
 <tr class="odd">
-<td><code>docs/MISSION.md</code></td>
-<td>Mission + scope + non-goals</td>
-<td>Understanding “what is this”</td>
+<td><code>RESULTS.md</code></td>
+<td>exact result grids, figures, raw artifacts</td>
 </tr>
 <tr class="even">
-<td><code>docs/TECH_STACK.md</code></td>
-<td>Libraries + GPU + secrets discipline</td>
-<td>Understanding “what’s it built with”</td>
+<td><code>WRITEUP.md</code> + <code>WRITEUP/</code></td>
+<td>methodology hub and detailed spokes</td>
 </tr>
 <tr class="odd">
-<td><code>docs/ROADMAP.md</code></td>
-<td>Phase 0-5 sequence + replanning checkpoints</td>
-<td>Understanding “how it gets built”</td>
+<td><code>evals/</code></td>
+<td>canonical metrics, bootstrap artifacts, predictions</td>
 </tr>
 <tr class="even">
-<td><code>SPEC_GREENFIELD.md</code></td>
-<td>Binding pre-Phase-0 spec: Feature Specs §0-§7 + 50-row decision ledger</td>
-<td>Deep methodology dive; Phase 0 driver</td>
-</tr>
-<tr class="odd">
-<td><code>SPEC_SHEET.md</code></td>
-<td>Post-Phase-0 fill-in form (locks resolved during Phase 0)</td>
-<td>After Phase 0</td>
-</tr>
-<tr class="even">
-<td><code>SPEC_STRATEGY.md</code></td>
-<td>Classification: why lightweight pack vs heavier alternatives</td>
-<td>Reviewer wanting meta-justification of the spec structure</td>
-</tr>
-<tr class="odd">
-<td><code>WRITEUP.md</code></td>
-<td>Full methodology + characterization narrative</td>
-<td>Deep dive after spec</td>
-</tr>
-<tr class="even">
-<td><code>EVIDENCE.md</code></td>
-<td>External-evidence audit trail</td>
-<td>When verifying a specific claim</td>
-</tr>
-<tr class="odd">
-<td><code>NEXT_STEPS.md</code></td>
-<td>Deferred work + future directions</td>
-<td>After WRITEUP §8</td>
-</tr>
-<tr class="even">
-<td><code>SUBMISSION_AUDIT.md</code></td>
-<td>Claim-status register (script-generated from ADRs)</td>
-<td>Verifying submission readiness</td>
-</tr>
-<tr class="odd">
-<td><code>docs/THREAT_MODEL.md</code></td>
-<td>Convenience aggregator — threat surface summary</td>
-<td>Security-focused review</td>
-</tr>
-<tr class="even">
-<td><code>docs/REPRODUCIBILITY.md</code></td>
-<td>Convenience aggregator — make targets + manifest schema ref</td>
-<td>Re-running the work</td>
-</tr>
-<tr class="odd">
-<td><code>docs/HYPERPARAMETER_DISCLOSURE.md</code></td>
-<td>Anti-cherry-pick discipline</td>
-<td>Verifying tuning honesty</td>
-</tr>
-<tr class="even">
-<td><code>docs/MANIFEST_SCHEMA.md</code></td>
-<td>eval-output manifest schema (eval-toolkit upstream contract)</td>
-<td>Inspecting evals/</td>
-</tr>
-<tr class="odd">
-<td><code>docs/GLOSSARY.md</code></td>
-<td>Project terminology (living document)</td>
-<td>Encountering unfamiliar jargon</td>
-</tr>
-<tr class="even">
-<td><code>STYLE.md</code></td>
-<td>Coding-style discipline</td>
-<td>Contributors / Phase 1</td>
-</tr>
-<tr class="odd">
-<td><code>code_quality.md</code></td>
-<td>Lint / type / test / import / commit discipline</td>
-<td>Contributors / Phase 1</td>
-</tr>
-<tr class="even">
-<td><code>assumptions.md</code></td>
-<td>Severity-tagged registry of unverified inputs</td>
-<td>Verifying methodology rigor</td>
-</tr>
-<tr class="odd">
-<td><code>CHANGELOG.md</code></td>
-<td>Tag history (Keep-a-Changelog 1.1.0); v0.0.0 = seed</td>
-<td>Version history</td>
-</tr>
-<tr class="even">
-<td><code>CLAUDE.md</code>, <code>AGENTS.md</code></td>
-<td>Agent governance (Claude-specific + vendor-neutral)</td>
-<td>Any agent session</td>
+<td><code>docs/plots/</code></td>
+<td>canonical reviewer figures F1-F5 plus provenance sidecars</td>
 </tr>
 <tr class="odd">
 <td><code>decisions/</code></td>
-<td>ADRs (Michael Nygard format; immutable) + library_imports + upstream_issues + ADR_TEMPLATE</td>
-<td>Decision provenance</td>
+<td>Architecture Decision Records</td>
 </tr>
 <tr class="even">
-<td><code>transcripts/</code></td>
-<td>Phase 0 sub-session captures (gitignored; emailed separately)</td>
-<td>Decision rationale trail</td>
-</tr>
-<tr class="odd">
-<td><code>tests/</code>, <code>scripts/</code></td>
-<td>Code (invariant stubs + audit-regenerate scripts)</td>
-<td>Phase 1+</td>
-</tr>
-<tr class="even">
-<td><code>docs/research/</code></td>
-<td>Literature dossier (16 verified files + MANIFEST.json; produced via research_toolkit)</td>
-<td>Phase 0 reference; Phase 5 citations</td>
-</tr>
-<tr class="odd">
-<td><code>.github/</code>, <code>.pre-commit-config.yaml</code>, <code>Makefile</code>, <code>pyproject.toml</code></td>
-<td>Repo plumbing</td>
-<td>CI / setup</td>
-</tr>
-<tr class="even">
-<td><code>LICENSE</code></td>
-<td>MIT</td>
-<td>Legal</td>
+<td><code>src/</code>, <code>scripts/</code>, <code>tests/</code></td>
+<td>implementation and verification code</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="run" class="level2">
-<h2 class="anchored" data-anchor-id="run">Run</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install         <span class="co"># uv sync --extra dev</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> lint            <span class="co"># ruff + mypy strict</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test            <span class="co"># ~220 tests; invariants + smoke</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke      <span class="co"># no-external-services smoke pass (~1 min)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> audit           <span class="co"># SUBMISSION_AUDIT.md in sync with ADRs (CI hard gate)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> coverage        <span class="co"># pytest --cov (currently 89.82 %)</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> cost-rollup     <span class="co"># cost ledger vs ADR-020 caps</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe   <span class="co"># T0 reproducibility</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora           <span class="co"># T0 reproducibility</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud  <span class="co"># T1 GPU re-eval (frozen-probe + LoRA + full-FT)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site            <span class="co"># Quarto static site → _site/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>See <code>docs/REPRODUCIBILITY.md</code> for the T0 + T1 reproducibility tiers + full Makefile target list.</p>
+<section id="what-it-does-not-claim" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-does-not-claim">What It Does Not Claim</h2>
+<p>This does not cover multilingual attacks, encoded payloads, paraphrase robustness, adversarial perturbations, or full multi-turn system behavior. It is an evaluation artifact and a negative result, not a ready-to-ship detector.</p>
 </section>
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
-<p><a href="./LICENSE">MIT</a>.</p>
+<p><a href="./LICENSE">MIT</a></p>
 
 
 <!-- -->
@@ -1662,186 +1493,105 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># prompt-injection-detection-prototype</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![Documentation](https://img.shields.io/badge/docs-live-blue)</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span> <span class="co">[</span><span class="al">![CI](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg)</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml)</span> <span class="co">[</span><span class="al">![Publish](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg)</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml)</span> <span class="co">[</span><span class="al">![Release](https://img.shields.io/github/v/release/brandon-behring/prompt-injection-detection-prototype?label=release)</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/latest)</span> <span class="co">[</span><span class="al">![HF Hub: frozen-probe](https://img.shields.io/badge/HF%20Hub-frozen--probe-blue)</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-frozen-probe)</span> <span class="co">[</span><span class="al">![HF Hub: lora](https://img.shields.io/badge/HF%20Hub-lora-blue)</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-lora)</span> <span class="co">[</span><span class="al">![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)</span><span class="co">](./LICENSE)</span> <span class="co">[</span><span class="al">![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)</span><span class="co">](https://www.python.org/)</span> <span class="co">[</span><span class="al">![ADRs: 54](https://img.shields.io/badge/ADRs-54-green.svg)</span><span class="co">](./decisions/)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![Documentation](https://img.shields.io/badge/docs-live-blue)</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span> <span class="co">[</span><span class="al">![CI](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg)</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml)</span> <span class="co">[</span><span class="al">![Publish](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg)</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml)</span> <span class="co">[</span><span class="al">![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)</span><span class="co">](./LICENSE)</span> <span class="co">[</span><span class="al">![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)</span><span class="co">](https://www.python.org/)</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>**Methodology + capability characterisation of a 5-rung prompt-injection classifier ladder, evaluated under an honest OOD slate.**</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Thesis.** My main concern after reading the literature: most prompt-injection detectors are evaluated on data that leaks into training, so their reported OOD numbers don't tell you much. A classifier that cross-validates on a single direct-prompt-injection dataset is trivial to build, but it gives a poor read on OOD performance and raises real leakage concerns. **This project is my attempt to build a fairer evaluation harness around that** — not to find the best model, but to lay the groundwork for fairer evaluation and to identify the weaknesses of our model and of some existing reference scorers.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>This is a methodology-focused prompt-injection classifier evaluation. It asks a</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>simple question: if detectors are trained on direct prompt-injection examples,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>do they still work when the attack family changes?</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>A spec-first case-study submission: every decision is locked via a structured Phase 0 interview producing 52 ADRs (spec-driven development with immutable Michael-Nygard ADRs; supersede-don't-edit); every claim cites evidence + bootstrap CIs; every reference scorer is contamination-audited per a three-state taxonomy. **Library-first** — three companion OSS repos I refined for this project:</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[eval-toolkit](https://github.com/brandon-behring/eval-toolkit)** — a methodology-aware harness on PyPI for binary-classifier eval: source-disjoint splits, bootstrap CIs (marginal + paired + cv-CLT), calibration battery, leakage detection, and a 17-chapter methodology curriculum.</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[runpod-deploy](https://github.com/brandon-behring/runpod-deploy)** — a CLI I use to orchestrate RunPod GPU jobs: preflight validation, multi-GPU-class × multi-DC failover, per-job cost caps, dry-run cost previews, post-run cost reconciliation. Saved me from a lot of accidental spend.</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[research_toolkit](https://github.com/brandon-behring/research_toolkit)** — a pipeline of Claude Code skills I abstracted for literature reviews: plan → gather primary sources → build a dossier → explicit audit pass that DROPs / CORRECTs / FLAGs each entry. I read most of the primary documents myself; the audit pass makes summary fidelity checkable rather than vibes-based.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>The headline answer is **mostly no**. On the pooled cross-family</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>out-of-distribution (OOD) slice, none of the evaluated detectors clearly beats</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>the AUPRC random floor of 0.374.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Project Is</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Status**: Phase 5 complete; tagged `v1.0.0` (patches via `v1.0.x` per ADR-033). The work is **characterisation**, not deployment — each rung's trade-offs are reported; no rung is promoted as a winner.</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Live site**: </span><span class="co">[</span><span class="ot">brandon-behring.github.io/prompt-injection-detection-prototype/</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span><span class="at"> — rendered Quarto methodology site with the 7-spoke WRITEUP + 52 ADRs + EVIDENCE + reference docs. Updated on every push to </span><span class="in">`main`</span><span class="at">.</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **HF Hub model cards**: </span><span class="co">[</span><span class="ot">BBehring/prompt-injection-frozen-probe</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-frozen-probe)</span><span class="at"> + </span><span class="co">[</span><span class="ot">BBehring/prompt-injection-lora</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-lora)</span><span class="at"> — canonical fold0/seed42 checkpoints per ADR-032. Reviewer-reproduce-the-numbers (T0) via </span><span class="in">`make eval-from-hub RUNG=&lt;rung&gt;`</span><span class="at">.</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## What this submission delivers</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**5-rung trained ladder** (per ADR-015 + ADR-017 + ADR-050 + ADR-052): TF-IDF + LogReg classical floor → ModernBERT-base frozen-probe (head-only training) → ModernBERT-base LoRA (~1 % trainable params) → ModernBERT-base full-FT. Plus 2 reference scorers (ProtectAI v1, ProtectAI v2) at native config. LLM-judge reference rungs were dropped at Phase 4 on cost re-estimation per ADR-050; full-FT OOD inference dropped at Phase 5 per ADR-052 (methodological: LoRA already showed fine-tuning on this training pool hurts OOD; FUSE EIO crash was the operational trigger). The <span class="in">`vendor_black_box`</span> contamination tier ships with 0 rungs in this submission.</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**5-slice OOD test slate** (per ADR-016 + ADR-021): BIPIA (indirect injection via email body, all-positive), InjecAgent (multi-turn agentic-flow injection, all-positive), JBB-Behaviors (jailbreak-style harmful elicitation, both classes), XSTest (jailbreak-as-question, both classes), NotInject (benign-but-injection-shaped false-positive probe, all-negative). The slate probes injection types deliberately *outside* the training-pool style mix.</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**4-source LODO training pool** (per ADR-016): `deepset/prompt-injections` (170 rows post-dedup), `Lakera/gandalf_ignore_instructions` (525), `Lakera/mosscap_prompt_injection` (2362), `hackaprompt/hackaprompt-dataset` (1650). **Direct-injection-heavy by composition** — see WRITEUP §1.5 for the train/test mismatch table.</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology rigor**: BCa bootstrap CIs on every headline metric; paired-bootstrap rung-vs-rung differences (Efron-Tibshirani protocol); MDE alongside every CI containing zero; calibration battery (ECE equal-mass + Kumar-2019-debiased + Brier + reliability curves; temperature / Platt / isotonic / Beta fits on val only); cross-fold CIs via Bayle-2020 <span class="in">`cv_clt_ci`</span> + block-bootstrap-on-folds sensitivity per A-008; dual-policy threshold characterisation (detection FPR ≤ 1 % + verification recall ≥ 99 %); SHA-pinned data sources + leakage scan + per-fold contamination scan. Effect sizes + CIs throughout — no p-values.</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer-reproducible** (per ADR-034): **T0** = `make eval-from-hub RUNG=&lt;rung&gt;` runs a CPU eval against the published HF Hub checkpoint and score-matches against `evals/results.json` within 1e-4 absolute (~15 min per rung, $0). **T1** = `make test-smoke` (laptop, no GPU, no network, ~1 min). Optional **T3** = <span class="in">`make headline-cloud`</span> (RunPod A100 80GB; ~$28; full LODO matrix re-train + re-eval).</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Governance trail**: 54 ADRs in <span class="co">[</span><span class="ot">`decisions/`</span><span class="co">](./decisions/)</span> (Michael Nygard format; immutable; ADR-050 is the rung-slate narrowing; ADR-053 is the reading-guide governance anchor at v1.0.4; ADR-054 narrowly supersedes ADR-053 dimension 1 to add <span class="in">`RESULTS.md`</span> as a third entry artifact at v1.0.5). <span class="in">`SUBMISSION_AUDIT.md`</span> regenerates from ADR frontmatter via <span class="in">`scripts/regenerate_audit.py`</span> (CI hard gate). External-evidence audit in <span class="co">[</span><span class="ot">`EVIDENCE.md`</span><span class="co">](./EVIDENCE.md)</span>. Hyperparameter disclosure in <span class="co">[</span><span class="ot">`docs/HYPERPARAMETER_DISCLOSURE.md`</span><span class="co">](./docs/HYPERPARAMETER_DISCLOSURE.md)</span>. 16-file literature dossier in <span class="co">[</span><span class="ot">`docs/research/`</span><span class="co">](./docs/research/)</span> (produced via the <span class="in">`research_toolkit`</span> pipeline).</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## What this submission is NOT</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Not a deployment recommendation.** No rung is promoted as the deployment choice. Trade-offs are reported; readers with a specific deployment context map our characterisation onto their cost constraints.</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Not a SOTA chase.** Models are deliberately simple; the rigor lives in the evaluation framework. The headline finding *includes unflattering results* by design.</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Not a benchmark.** Slate is fixed by source-disjoint LODO + a 5-slice OOD test slate, not a sliding leaderboard.</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scope is single-turn English text classification only.** Multi-turn agentic flows, encoded payloads (base64 / leetspeak / hex / Unicode confusables / ROT13), paraphrase attacks, adversarial perturbations, and cross-language attacks are **out of scope** per ADR-014 + WRITEUP §1 Scope. InjecAgent appears in the test slate to *quantify* the agentic-flow gap, not because we expect the single-turn classifier to handle it.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A capability characterization**, not a deployment recommendation.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A detector-ladder evaluation**: TF-IDF + LR, ModernBERT frozen probe,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  ModernBERT LoRA, and ProtectAI v1/v2 references.</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**An OOD evaluation**: indirect injection, agentic-flow injection,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  jailbreak-style questions, and benign-but-injection-shaped text.</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A reproducible artifact**: source-disjoint splits, leakage checks,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  persisted predictions, confidence intervals, calibration metrics, and</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  Quarto-rendered documentation.</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Headline Result</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Detector <span class="pp">|</span> Pooled OOD AUPRC <span class="pp">|</span> Read <span class="pp">|</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---:|---|</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT frozen probe <span class="pp">|</span> 0.364 <span class="co">[</span><span class="ot">0.354, 0.375</span><span class="co">]</span> <span class="pp">|</span> best in-house score, still at random floor <span class="pp">|</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v1 <span class="pp">|</span> 0.361 <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span> <span class="pp">|</span> diagnostic reference; contamination caveats <span class="pp">|</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v2 <span class="pp">|</span> 0.314 <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span> <span class="pp">|</span> does not dominate v1 <span class="pp">|</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT LoRA <span class="pp">|</span> 0.293 <span class="co">[</span><span class="ot">0.286, 0.301</span><span class="co">]</span> <span class="pp">|</span> fine-tuning hurt OOD performance <span class="pp">|</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TF-IDF + LR <span class="pp">|</span> 0.291 <span class="co">[</span><span class="ot">0.283, 0.298</span><span class="co">]</span> <span class="pp">|</span> classical floor, roughly tied with LoRA <span class="pp">|</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>For <span class="in">`pooled_ood`</span>, random AUPRC is **412 / 1101 = 0.374**. That is why the</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>0.364 frozen-probe score is not a success claim.</span>
 <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to read this submission</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## How To Read The Site</span></span>
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>**Important**: the GitHub blob view of `WRITEUP.md` (this single file) is **only the cover narrative** — the methodology is split into a hub (`WRITEUP.md`) **plus 8 detailed spokes** under [`WRITEUP/`](./WRITEUP/). Reading `WRITEUP.md` alone is executive-summary depth; the full methodology requires all 8 spokes. **The [live Quarto site](https://brandon-behring.github.io/prompt-injection-detection-prototype/) is the canonical reading surface** — it renders the hub + all 8 spokes together with nested navigation under the **Methodology** dropdown. GitHub readers can click each spoke link in the table at the top of <span class="in">`WRITEUP.md`</span> to drill in.</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Three reading paths (pick by audit depth)</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Quick read (~5 min)** — landing page only.</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="co">[</span><span class="ot">Live site landing page</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span> — headline AUPRC table + 5-bullet plain-language meaning + 3 obvious drill-down links. Restructured v1.1.1 per <span class="co">[</span><span class="ot">ADR-061</span><span class="co">](decisions/ADR-061-quarto-site-navigation-restructure.md)</span> for exactly this use case.</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Full methodology (~60 min)** — for the ML-researcher / due-diligence read.</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Live site → Methodology dropdown → **Cover narrative (hub)** = <span class="co">[</span><span class="ot">`WRITEUP.md`</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html)</span> → drill into each of the 8 spokes from the same dropdown.</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="co">[</span><span class="ot">Reading guide</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/READING_GUIDE.html)</span> — 3 named paths + 14 headline ADRs + repo TOC + technical version of the 5 interpretation patterns.</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="co">[</span><span class="ot">EVIDENCE.md</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html)</span> — external-evidence audit trail.</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="co">[</span><span class="ot">All 61 ADRs</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html)</span> (immutable decision records; Michael Nygard format).</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Reproduce the numbers (~30 min CPU; $0)** — for the engineer who wants the numbers to land on their machine.</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`make install &amp;&amp; make eval-from-hub RUNG=frozen-probe`</span> (CPU; ~15 min) pulls the published checkpoint from <span class="co">[</span><span class="ot">BBehring/prompt-injection-frozen-probe</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-frozen-probe)</span> and score-matches against <span class="in">`evals/results.json`</span> within 1e-4 absolute per ADR-034 (wired at v1.0.9 per <span class="co">[</span><span class="ot">ADR-058</span><span class="co">](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md)</span>).</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`make eval-from-hub RUNG=lora`</span> — same for <span class="co">[</span><span class="ot">BBehring/prompt-injection-lora</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-lora)</span>.</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`make test-smoke`</span> (no GPU, no network, ~1 min) verifies code-health on fixtures.</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Full T1 GPU re-eval via <span class="in">`make headline-cloud`</span> (~$28; A100 80GB; ~7h).</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**5-minute read**: start at the</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">live landing page</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span>.</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  It explains the problem, setup, result, and limits in plain language.</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Results audit**: read <span class="co">[</span><span class="ot">RESULTS.md</span><span class="co">](./RESULTS.md)</span>. It contains the exact</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  tables, five canonical figures, and raw artifact pointers.</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology audit**: read <span class="co">[</span><span class="ot">WRITEUP.md</span><span class="co">](./WRITEUP.md)</span>, then the eight spoke</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  pages under <span class="co">[</span><span class="ot">`WRITEUP/`</span><span class="co">](./WRITEUP/)</span>.</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Decision audit**: read <span class="co">[</span><span class="ot">`decisions/`</span><span class="co">](./decisions/)</span>. ADR-062 records the</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  clarity rewrite and canonical-figure correction.</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Terms</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**AUPRC**: primary ranking metric; random floor equals the positive rate.</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD**: out-of-distribution. Here the important shift is cross-family, not</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  just a different source name.</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FPR**: false-positive rate. A 1% FPR target means no more than one false</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  alarm per 100 benign examples.</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ECE/Brier**: calibration errors; lower is better.</span>
 <span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Getting started — reviewer path</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>More definitions are in <span class="co">[</span><span class="ot">`docs/GLOSSARY.md`</span><span class="co">](./docs/GLOSSARY.md)</span>.</span>
 <span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install              <span class="co"># uv sync --extra dev</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test                 <span class="co"># ~220 tests; invariants + smoke</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe     <span class="co"># T0 score-match (CPU; ~15 min)</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora             <span class="co"># T0 score-match (CPU; ~15 min)</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>T0 verifies the published HF Hub checkpoints (<span class="in">`BBehring/prompt-injection-frozen-probe`</span>,</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="in">`BBehring/prompt-injection-lora`</span>) score-match against the canonical results</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>within 1e-4 absolute. See <span class="in">`docs/REPRODUCIBILITY.md`</span> for T1 (full GPU re-eval</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>via <span class="in">`make headline-cloud`</span>).</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>For the methodology-and-decision trail (Phase 0 → Phase 5; ~50 locked ADRs):</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`WRITEUP.md`</span> — full methodology narrative.</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/`</span> — 50 Michael-Nygard-format ADRs (immutable).</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`SUBMISSION_AUDIT.md`</span> — script-regenerated claim register sourced from ADR</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>  frontmatter; the audit ledger is in CI as a hard gate.</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`docs/ROADMAP.md`</span> — Phase 0-5 sequence + closing dates.</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problem</span></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>This is a case-study submission characterising what successive capability</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>layers (classical TF-IDF + LR floor → frozen ModernBERT backbone with linear</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>probe → LoRA adapters → full fine-tune) contribute to prompt-injection</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>detection across an IID test slate (4-source LODO held-out positives) and</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>a 5-slice OOD slate (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject).</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>The brief asks for **models of increasing complexity** to characterise what each capability layer brings, plus **the right amount of OOD coverage**. The models are deliberately simple; the rigor lives in the evaluation framework — claims about each rung, including unflattering ones, are honest. Detection and verification operating modes are reported as two cost-weight characterisations of the same scores, not as deployment recommendations.</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Approach</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproduce</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>Useful targets:</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site             <span class="co"># render Quarto site</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> audit            <span class="co"># regenerate/check ADR-derived submission audit</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render-figures   <span class="co"># render canonical F1-F5 figures from evals/</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud   <span class="co"># optional full cloud reproduction path</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repository Map</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Path <span class="pp">|</span> Role <span class="pp">|</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`index.qmd`</span> <span class="pp">|</span> plain-language live-site landing page <span class="pp">|</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`EXECUTIVE_SUMMARY.md`</span> <span class="pp">|</span> one-page decision-maker summary <span class="pp">|</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`RESULTS.md`</span> <span class="pp">|</span> exact result grids, figures, raw artifacts <span class="pp">|</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP.md`</span> + <span class="in">`WRITEUP/`</span> <span class="pp">|</span> methodology hub and detailed spokes <span class="pp">|</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`evals/`</span> <span class="pp">|</span> canonical metrics, bootstrap artifacts, predictions <span class="pp">|</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/plots/`</span> <span class="pp">|</span> canonical reviewer figures F1-F5 plus provenance sidecars <span class="pp">|</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/`</span> <span class="pp">|</span> Architecture Decision Records <span class="pp">|</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`src/`</span>, <span class="in">`scripts/`</span>, <span class="in">`tests/`</span> <span class="pp">|</span> implementation and verification code <span class="pp">|</span></span>
 <span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Rung ladder** locked at Phase 0-03 (ADR-015 + ADR-017 + ADR-019 + ADR-050):</span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>  TF-IDF+LR classical floor (<span class="in">`verified_disjoint`</span>) → ModernBERT-base frozen-probe</span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>  → ModernBERT-base LoRA → ModernBERT-base full-FT. Each rung answers *what does this capability layer add over the rung below?* The ladder is the brief's "models of increasing complexity"; it is also the *instrument* for the brief's OOD-coverage ask — we look at which capabilities help OOD vs only help IID. ProtectAI v1 + v2 (<span class="in">`suspected_contamination`</span>) are reference scorers per ADR-018, not in the trained ladder. LLM-judge reference scorers dropped at Phase 4 cost re-estimation per ADR-050; full-FT OOD inference dropped at X11 FUSE crash per ADR-050.</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD slate** locked at Phase 0-04 (ADR-016 + ADR-021): 5 slices (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) selected from <span class="in">`docs/research/benchmarks/`</span> candidate dossier. See WRITEUP §5.5 for *why each slice was chosen*.</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology rigor** via <span class="co">[</span><span class="ot">eval-toolkit</span><span class="co">](https://github.com/brandon-behring/eval-toolkit)</span>: bootstrap CIs on every headline metric, paired-bootstrap differences for rung-vs-rung comparisons, minimum detectable effect (MDE), calibration battery (ECE + Brier + reliability), validation-set threshold selection. Effect sizes and CIs throughout — no p-values.</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer-reproducible**: <span class="in">`make test-smoke`</span> runs a no-external-services smoke pass on a laptop in ~1 min; canonical numbers reproducible via <span class="in">`make eval-from-hub`</span> (T0; CPU; ~15 min per rung) from <span class="in">`BBehring/prompt-injection-&lt;rung&gt;`</span> HF Hub checkpoints. T1 GPU re-eval via <span class="in">`make headline-cloud`</span>.</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Headline characterisation</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>**The negative result IS the result.** The OOD wall is **cross-family**, not cross-source: training pool is 4 direct-injection sources; the OOD slate probes **indirect injection via email-body context (BIPIA)**, **multi-turn agentic-flow attacks (InjecAgent)**, **jailbreaks (JBB-Behaviors)**, and **benign-but-injection-shaped texts that test false-positive robustness (NotInject, XSTest)** — attack types absent from training. **Direct prompt-injection training and evaluation performance alone do not translate** into these other attack families. That finding is the argument for a fairer evaluation framework, which is what this project is.</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>Specifically: fine-tuning a ModernBERT-base backbone (LoRA) on the LODO training pool delivers **no improvement** over the frozen-probe rung on `pooled_ood`, and LoRA actively *underperforms* the frozen probe (-0.071 AUPRC on `pooled_ood`; paired-bootstrap CI clears zero). On IID (JBB-Behaviors), all rungs cluster around 0.55 AUPRC — the capability ladder is mostly indistinguishable. **The pretrained backbone — not the LODO training pool — carries what little OOD generalization budget exists.** Full results + per-fold variance live in <span class="co">[</span><span class="ot">`WRITEUP.md`</span><span class="co">](./WRITEUP.md)</span> §Results; only the punch-line is below.</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rung <span class="pp">|</span> <span class="in">`pooled_ood`</span> AUPRC (95 % CI) <span class="pp">|</span> Contamination tier <span class="pp">|</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---:|---|</span></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Frozen-probe (in-house) <span class="pp">|</span> 0.364 <span class="co">[</span><span class="ot">0.353, 0.375</span><span class="co">]</span> <span class="pp">|</span> <span class="in">`backbone-partial-disjoint`</span> <span class="pp">|</span></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LoRA (in-house) <span class="pp">|</span> 0.293 <span class="co">[</span><span class="ot">0.286, 0.301</span><span class="co">]</span> <span class="pp">|</span> <span class="in">`backbone-partial-disjoint`</span> <span class="pp">|</span></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v2 (reference) <span class="pp">|</span> 0.314 <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span> <span class="in">`†`</span> <span class="pp">|</span> <span class="in">`suspected_contamination`</span> <span class="pp">|</span></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TF-IDF + LR (classical floor) <span class="pp">|</span> 0.291 <span class="co">[</span><span class="ot">0.283, 0.298</span><span class="co">]</span> <span class="pp">|</span> <span class="in">`verified_disjoint`</span> <span class="pp">|</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>Source: <span class="in">`evals/bootstrap/marginal_cells.parquet`</span> (BCa bootstrap, mean across folds × seeds × bootstrap-resamples per ADR-022). Full rung × slice × metric grid in WRITEUP §5; per-fold variance + cross-fold-CI in <span class="in">`evals/audit/cross_fold_ci_audit.parquet`</span>.</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in">`†`</span> Reference scorers (ProtectAI v1 / v2) carry training-overlap caveats with our LODO training pool per the three-state taxonomy in <span class="co">[</span><span class="ot">`EVIDENCE.md`</span><span class="co">](./EVIDENCE.md)</span> §1-2. Reported as diagnostic reference, not as a clean baseline.</span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>**Headline findings** (deep-read in WRITEUP §5 + §7):</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The IID-vs-OOD gap is large for every trained rung (≈ 0.55 → 0.29-0.36 AUPRC).</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>  Per ADR-021 + ADR-050 LODO-by-construction, this is *cross-source* OOD,</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>  not within-source noise.</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Fine-tuning is a negative result on OOD**: LoRA -0.071 AUPRC vs frozen-probe on <span class="in">`pooled_ood`</span>; full-FT OOD inference dropped per ADR-050 X11 FUSE crash.</span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calibration (ECE equal-mass) is *worse* for LoRA (0.45) than frozen-probe (0.14) — fine-tuning collapses the calibration signal even on the slices where AUPRC is similar.</span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>At the detection operating point (val FPR ≤ 1 %), val→test transfer is partial: frozen-probe holds FPR ≈ 1.0 % on test but recall collapses to 0.063; LoRA blows past FPR cap to 11.5 % to recover recall to 0.42. See WRITEUP §5.3.</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>Full reading + the headline characterisation claims in <span class="co">[</span><span class="ot">`WRITEUP.md`</span><span class="co">](./WRITEUP.md)</span>. Forward-looking work in <span class="co">[</span><span class="ot">`NEXT_STEPS.md`</span><span class="co">](./NEXT_STEPS.md)</span>. Negative results (things tried that didn't work) in WRITEUP §9. Deferred items in WRITEUP §8. Audit trail for external-evidence claims in <span class="co">[</span><span class="ot">`EVIDENCE.md`</span><span class="co">](./EVIDENCE.md)</span>.</span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repo roadmap</span></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Path <span class="pp">|</span> Role <span class="pp">|</span> Read when <span class="pp">|</span></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`README.md`</span> <span class="pp">|</span> Project entry; skim doc <span class="pp">|</span> First <span class="pp">|</span></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SUBMISSION_TEMPLATE.md`</span> <span class="pp">|</span> Cover-letter template (filled <span class="in">`SUBMISSION.md`</span> is gitignored, emailed separately) <span class="pp">|</span> First (reviewer) <span class="pp">|</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/MISSION.md`</span> <span class="pp">|</span> Mission + scope + non-goals <span class="pp">|</span> Understanding "what is this" <span class="pp">|</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/TECH_STACK.md`</span> <span class="pp">|</span> Libraries + GPU + secrets discipline <span class="pp">|</span> Understanding "what's it built with" <span class="pp">|</span></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/ROADMAP.md`</span> <span class="pp">|</span> Phase 0-5 sequence + replanning checkpoints <span class="pp">|</span> Understanding "how it gets built" <span class="pp">|</span></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SPEC_GREENFIELD.md`</span> <span class="pp">|</span> Binding pre-Phase-0 spec: Feature Specs §0-§7 + 50-row decision ledger <span class="pp">|</span> Deep methodology dive; Phase 0 driver <span class="pp">|</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SPEC_SHEET.md`</span> <span class="pp">|</span> Post-Phase-0 fill-in form (locks resolved during Phase 0) <span class="pp">|</span> After Phase 0 <span class="pp">|</span></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SPEC_STRATEGY.md`</span> <span class="pp">|</span> Classification: why lightweight pack vs heavier alternatives <span class="pp">|</span> Reviewer wanting meta-justification of the spec structure <span class="pp">|</span></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP.md`</span> <span class="pp">|</span> Full methodology + characterization narrative <span class="pp">|</span> Deep dive after spec <span class="pp">|</span></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`EVIDENCE.md`</span> <span class="pp">|</span> External-evidence audit trail <span class="pp">|</span> When verifying a specific claim <span class="pp">|</span></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`NEXT_STEPS.md`</span> <span class="pp">|</span> Deferred work + future directions <span class="pp">|</span> After WRITEUP §8 <span class="pp">|</span></span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`SUBMISSION_AUDIT.md`</span> <span class="pp">|</span> Claim-status register (script-generated from ADRs) <span class="pp">|</span> Verifying submission readiness <span class="pp">|</span></span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/THREAT_MODEL.md`</span> <span class="pp">|</span> Convenience aggregator — threat surface summary <span class="pp">|</span> Security-focused review <span class="pp">|</span></span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/REPRODUCIBILITY.md`</span> <span class="pp">|</span> Convenience aggregator — make targets + manifest schema ref <span class="pp">|</span> Re-running the work <span class="pp">|</span></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/HYPERPARAMETER_DISCLOSURE.md`</span> <span class="pp">|</span> Anti-cherry-pick discipline <span class="pp">|</span> Verifying tuning honesty <span class="pp">|</span></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/MANIFEST_SCHEMA.md`</span> <span class="pp">|</span> eval-output manifest schema (eval-toolkit upstream contract) <span class="pp">|</span> Inspecting evals/ <span class="pp">|</span></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/GLOSSARY.md`</span> <span class="pp">|</span> Project terminology (living document) <span class="pp">|</span> Encountering unfamiliar jargon <span class="pp">|</span></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`STYLE.md`</span> <span class="pp">|</span> Coding-style discipline <span class="pp">|</span> Contributors / Phase 1 <span class="pp">|</span></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`code_quality.md`</span> <span class="pp">|</span> Lint / type / test / import / commit discipline <span class="pp">|</span> Contributors / Phase 1 <span class="pp">|</span></span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`assumptions.md`</span> <span class="pp">|</span> Severity-tagged registry of unverified inputs <span class="pp">|</span> Verifying methodology rigor <span class="pp">|</span></span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`CHANGELOG.md`</span> <span class="pp">|</span> Tag history (Keep-a-Changelog 1.1.0); v0.0.0 = seed <span class="pp">|</span> Version history <span class="pp">|</span></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`CLAUDE.md`</span>, <span class="in">`AGENTS.md`</span> <span class="pp">|</span> Agent governance (Claude-specific + vendor-neutral) <span class="pp">|</span> Any agent session <span class="pp">|</span></span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/`</span> <span class="pp">|</span> ADRs (Michael Nygard format; immutable) + library_imports + upstream_issues + ADR_TEMPLATE <span class="pp">|</span> Decision provenance <span class="pp">|</span></span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`transcripts/`</span> <span class="pp">|</span> Phase 0 sub-session captures (gitignored; emailed separately) <span class="pp">|</span> Decision rationale trail <span class="pp">|</span></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`tests/`</span>, <span class="in">`scripts/`</span> <span class="pp">|</span> Code (invariant stubs + audit-regenerate scripts) <span class="pp">|</span> Phase 1+ <span class="pp">|</span></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/research/`</span> <span class="pp">|</span> Literature dossier (16 verified files + MANIFEST.json; produced via research_toolkit) <span class="pp">|</span> Phase 0 reference; Phase 5 citations <span class="pp">|</span></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`.github/`</span>, <span class="in">`.pre-commit-config.yaml`</span>, <span class="in">`Makefile`</span>, <span class="in">`pyproject.toml`</span> <span class="pp">|</span> Repo plumbing <span class="pp">|</span> CI / setup <span class="pp">|</span></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`LICENSE`</span> <span class="pp">|</span> MIT <span class="pp">|</span> Legal <span class="pp">|</span></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Run</span></span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install         <span class="co"># uv sync --extra dev</span></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> lint            <span class="co"># ruff + mypy strict</span></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test            <span class="co"># ~220 tests; invariants + smoke</span></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke      <span class="co"># no-external-services smoke pass (~1 min)</span></span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> audit           <span class="co"># SUBMISSION_AUDIT.md in sync with ADRs (CI hard gate)</span></span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> coverage        <span class="co"># pytest --cov (currently 89.82 %)</span></span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> cost-rollup     <span class="co"># cost ledger vs ADR-020 caps</span></span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe   <span class="co"># T0 reproducibility</span></span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora           <span class="co"># T0 reproducibility</span></span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud  <span class="co"># T1 GPU re-eval (frozen-probe + LoRA + full-FT)</span></span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site            <span class="co"># Quarto static site → _site/</span></span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>See <span class="in">`docs/REPRODUCIBILITY.md`</span> for the T0 + T1 reproducibility tiers + full</span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>Makefile target list.</span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a><span class="fu">## License</span></span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MIT</span><span class="co">](./LICENSE)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## What It Does Not Claim</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>This does not cover multilingual attacks, encoded payloads, paraphrase</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>robustness, adversarial perturbations, or full multi-turn system behavior. It</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>is an evaluation artifact and a negative result, not a ready-to-ship detector.</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## License</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MIT</span><span class="co">](./LICENSE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

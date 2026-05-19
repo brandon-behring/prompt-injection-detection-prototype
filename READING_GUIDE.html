@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="How to read this site (Quarto + GitHub) at the depth that matches your audit goal. The displaced reading-guide content that used to live on the landing page.">
+<meta name="description" content="How to read the prompt-injection classifier evaluation at different depths.">
 
-<title>Reading guide — 3 reading paths + repo TOC + interpretation pedagogy – Prompt-injection classifier — methodology submission</title>
+<title>Reading guide – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Prompt-injection classifier — methodology submission</span>
+    <span class="navbar-title">Prompt-injection classifier evaluation</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -150,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./WRITEUP/model-rungs.html">
- <span class="dropdown-text">Model rungs</span></a>
+ <span class="dropdown-text">Model details</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./WRITEUP/eval-design.html">
@@ -189,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+ <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./EVIDENCE.html">
@@ -282,13 +282,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results — model-run artifacts, grids, figures, raw data</span></a>
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Executive summary — 1-page decision-maker layer over WRITEUP</span></a>
+ <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
   </div>
 </li>
       </ul>
@@ -332,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./WRITEUP/model-rungs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model rungs</span></a>
+ <span class="menu-text">Model details</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -836,6 +836,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto writeup clarity rewrite and canonical reviewer figure slate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</span></a>
   </div>
@@ -854,15 +860,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reading-guide" id="toc-reading-guide" class="nav-link active" data-scroll-target="#reading-guide">Reading guide</a>
+  <li><a href="#reading-guide" id="toc-reading-guide" class="nav-link active" data-scroll-target="#reading-guide">Reading Guide</a>
   <ul class="collapse">
-  <li><a href="#how-to-read-the-headline-numbers-5-interpretation-patterns" id="toc-how-to-read-the-headline-numbers-5-interpretation-patterns" class="nav-link" data-scroll-target="#how-to-read-the-headline-numbers-5-interpretation-patterns">How to read the headline numbers — 5 interpretation patterns</a></li>
-  <li><a href="#quick-skim-path-a1-hiring-manager-executive-15-min" id="toc-quick-skim-path-a1-hiring-manager-executive-15-min" class="nav-link" data-scroll-target="#quick-skim-path-a1-hiring-manager-executive-15-min">Quick-skim path — A1 (hiring manager / executive, ~15 min)</a></li>
-  <li><a href="#audit-path-a2-ml-researcher-due-diligence-60-min" id="toc-audit-path-a2-ml-researcher-due-diligence-60-min" class="nav-link" data-scroll-target="#audit-path-a2-ml-researcher-due-diligence-60-min">Audit path — A2 (ML researcher / due diligence, ~60 min)</a></li>
-  <li><a href="#deep-dive-path-a3-reproduce-the-numbers-30-min-cpu-0" id="toc-deep-dive-path-a3-reproduce-the-numbers-30-min-cpu-0" class="nav-link" data-scroll-target="#deep-dive-path-a3-reproduce-the-numbers-30-min-cpu-0">Deep-dive path — A3, reproduce the numbers (~30 min CPU; $0)</a></li>
-  <li><a href="#repo-map" id="toc-repo-map" class="nav-link" data-scroll-target="#repo-map">Repo map</a></li>
-  <li><a href="#submission-anchors" id="toc-submission-anchors" class="nav-link" data-scroll-target="#submission-anchors">Submission anchors</a></li>
-  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
+  <li><a href="#path-a-hiring-manager-10-15-minutes" id="toc-path-a-hiring-manager-10-15-minutes" class="nav-link" data-scroll-target="#path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</a></li>
+  <li><a href="#path-b-technical-reviewer-45-60-minutes" id="toc-path-b-technical-reviewer-45-60-minutes" class="nav-link" data-scroll-target="#path-b-technical-reviewer-45-60-minutes">Path B: Technical Reviewer, 45-60 Minutes</a></li>
+  <li><a href="#path-c-reproduce-30-minutes" id="toc-path-c-reproduce-30-minutes" class="nav-link" data-scroll-target="#path-c-reproduce-30-minutes">Path C: Reproduce, 30+ Minutes</a></li>
+  <li><a href="#how-to-read-the-headline-numbers" id="toc-how-to-read-the-headline-numbers" class="nav-link" data-scroll-target="#how-to-read-the-headline-numbers">How To Read The Headline Numbers</a></li>
+  <li><a href="#repo-map" id="toc-repo-map" class="nav-link" data-scroll-target="#repo-map">Repo Map</a></li>
+  <li><a href="#submission-anchors" id="toc-submission-anchors" class="nav-link" data-scroll-target="#submission-anchors">Submission Anchors</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -872,12 +877,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP.html">Methodology</a></li><li class="breadcrumb-item"><a href="./READING_GUIDE.html">Reading guide</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Reading guide — 3 reading paths + repo TOC + interpretation pedagogy</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Reading guide</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 <div>
   <div class="description">
-    How to read this site (Quarto + GitHub) at the depth that matches your audit goal. The displaced reading-guide content that used to live on the landing page.
+    How to read the prompt-injection classifier evaluation at different depths.
   </div>
 </div>
 
@@ -895,106 +900,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="reading-guide" class="level1">
-<h1>Reading guide</h1>
-<p>This page is the <strong>how-to-read-this-site</strong> companion to the landing page (<a href="./index.html"><code>index.qmd</code></a>). The landing page is intentionally short — results + plain-language interpretation + 3 obvious drill-down links. This page expands those drill-downs into 3 named reading paths (matched to audit depth), the headline-ADR shortlist, the repo TOC, and the detailed interpretation pedagogy.</p>
-<p>This reading-guide architecture is anchored at <a href="./decisions/ADR-053-reading-guide-governance-and-newcomer-paths.html">ADR-053</a> (dimensions 2-5 — 3-reading-paths + headline-finding-block + interpretation pedagogy + pointer convention; the navigation dimension 1 was narrowly superseded by <a href="./decisions/ADR-061-quarto-site-navigation-restructure.html">ADR-061</a> at v1.1.1).</p>
-<hr>
-<section id="how-to-read-the-headline-numbers-5-interpretation-patterns" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-read-the-headline-numbers-5-interpretation-patterns">How to read the headline numbers — 5 interpretation patterns</h2>
-<p>These are the framing moves a reviewer needs in order to read the landing-page headline table honestly. They are not “tricks” — they are the consequences of choosing AUPRC under class imbalance + a cross-family OOD slate.</p>
-<p><strong>1. Prevalence baseline vs chance.</strong> AUPRC’s random-predictor floor equals the positive-class prevalence — here 0.374 on <code>pooled_ood</code> (412 positives / 1101 rows). Falling BELOW the prevalence baseline means the classifier’s ranking is anti-correlated with the label <em>on this slice</em> — worse than guessing. AUROC’s chance floor is 0.5 regardless of prevalence; under class imbalance AUROC over-states performance, which is why AUPRC is the project’s preferred ranking metric (per <a href="./WRITEUP/eval-design.html">WRITEUP/eval-design.md §5.1</a>). When the table says frozen-probe at 0.364 is <em>below baseline</em>, that’s not pedantry: the best trained rung does not beat random guessing in expectation on the OOD slice.</p>
-<p><strong>2. Cross-family vs cross-source OOD.</strong> “In-domain test” (held-out LODO source) is still a direct-injection attack — just an unseen source held out by source-disjoint LODO. The 5-slice OOD slate is something else entirely: indirect injection via email-body context (BIPIA), multi-turn agentic-flow attacks (InjecAgent), jailbreaks (JBB-Behaviors), and benign-but-injection-shaped texts that probe false-positive robustness (NotInject, XSTest). The OOD wall is cross-FAMILY, not cross-source — the trained rungs are failing on attack types absent from training, not failing because the source distribution drifted. This is the load-bearing framing of the submission: see <a href="./WRITEUP.html#attack-type-taxonomy-traintest-composition">WRITEUP §1.5 Attack-type taxonomy</a>.</p>
-<p><strong>3. Negative LoRA delta — what it means.</strong> LoRA’s -0.071 AUPRC vs frozen-probe on <code>pooled_ood</code> (paired-bootstrap CI clears zero) reads as: <strong>fine-tuning the classification head onto the LODO training pool ACTIVELY HURTS cross-family OOD generalisation.</strong> The pretrained ModernBERT-base backbone (which frozen-probe taps before any task-specific weight movement) carries what little OOD signal exists; fine-tuning consumes that budget by specialising on direct-injection structure. Per <a href="./decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.html">ADR-052</a>, this is <em>also</em> the load-bearing reason full-FT OOD inference was dropped — full-FT is a larger version of the same fine-tuning mechanism LoRA already showed to be net-harmful on OOD; the FUSE crash made the drop operational, but the methodological judgment came first.</p>
-<p><strong>4. ProtectAI v1 → v2 is non-monotone.</strong> On <code>pooled_ood</code> AUPRC, v1 (0.361) slightly edges v2 (0.314). On the per-slice breakdown (see <a href="./WRITEUP.html#results">WRITEUP §Results</a>) v2 wins on JBB-Behaviors (+0.037 AUPRC) but loses on XSTest (-0.087 AUPRC). The “newer version is better” reading fails here; publication version monotonicity is not guaranteed under a cross-family slate. Operational implication: detector version selection must be slice-aware, not version-monotone.</p>
-<p><strong>5. val → LODO threshold transfer fails.</strong> Thresholds tuned on the validation slice produce detection FPRs of ~1-12 % when applied to LODO test data — the standard “tune on val, ship to prod” recipe under-quantifies operational FPR. The dual-policy threshold characterisation in <a href="./WRITEUP/threshold-policy.html">WRITEUP/threshold-policy.md §7</a> is the project’s response: separate detection threshold (FPR ≤ 1 %) from verification threshold (recall ≥ 99 %) and report both with reachability flags per (rung, fold, seed).</p>
-<p>For the full interpretation guide + diagnostic-AUROC comparisons, see <a href="./WRITEUP/eval-design.html">WRITEUP/eval-design.md §5</a>.</p>
-<hr>
-</section>
-<section id="quick-skim-path-a1-hiring-manager-executive-15-min" class="level2">
-<h2 class="anchored" data-anchor-id="quick-skim-path-a1-hiring-manager-executive-15-min">Quick-skim path — A1 (hiring manager / executive, ~15 min)</h2>
-<p>For readers who want the thesis + headline finding + interpretation, no code dive.</p>
+<h1>Reading Guide</h1>
+<p>The site is organized from least to most technical. Start with the result, then drill into evidence and methodology only as needed.</p>
+<section id="path-a-hiring-manager-10-15-minutes" class="level2">
+<h2 class="anchored" data-anchor-id="path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</h2>
+<p>Goal: understand the problem, the result, and what the project demonstrates.</p>
 <ol type="1">
-<li><a href="./EXECUTIVE_SUMMARY.html"><code>EXECUTIVE_SUMMARY.md</code></a> — 1-page thesis + 4 headline claims + reading-path pointer.</li>
-<li><a href="./WRITEUP.html"><code>WRITEUP.md</code> §1 Motivation + §1.5 Attack-type taxonomy</a> — the eval-fairness thesis + 5 injection types + train/test composition table.</li>
-<li><a href="./WRITEUP.html#results"><code>WRITEUP.md</code> §Results headline</a> — cross-family OOD framing + per-rung AUPRC table.</li>
-<li><a href="./WRITEUP/limitations-and-future-work.html"><code>WRITEUP/limitations-and-future-work.md</code></a> — what’s deferred + why.</li>
+<li><a href="./index.html">Landing page</a>: problem, setup, headline result, limits.</li>
+<li><a href="./EXECUTIVE_SUMMARY.html">Executive summary</a>: one-page version.</li>
+<li><a href="./RESULTS.html">Results</a>: skim F1 and the primary AUPRC table.</li>
 </ol>
-<hr>
+<p>What to take away: this is an honest negative result. The detectors trained on direct prompt injection do not clearly generalize to different attack families.</p>
 </section>
-<section id="audit-path-a2-ml-researcher-due-diligence-60-min" class="level2">
-<h2 class="anchored" data-anchor-id="audit-path-a2-ml-researcher-due-diligence-60-min">Audit path — A2 (ML researcher / due diligence, ~60 min)</h2>
-<p>For readers who want to scrutinise the methodology before trusting the numbers.</p>
+<section id="path-b-technical-reviewer-45-60-minutes" class="level2">
+<h2 class="anchored" data-anchor-id="path-b-technical-reviewer-45-60-minutes">Path B: Technical Reviewer, 45-60 Minutes</h2>
+<p>Goal: decide whether the result is methodologically credible.</p>
 <ol type="1">
-<li>Full <a href="./WRITEUP.html"><code>WRITEUP.md</code></a> cover-to-cover.</li>
-<li><a href="./WRITEUP/eval-design.html"><code>WRITEUP/eval-design.md</code></a> — OOD slate, calibration battery, paired-bootstrap protocol, AUPRC vs AUROC framing.</li>
-<li><a href="./WRITEUP/methodology-guarantees.html"><code>WRITEUP/methodology-guarantees.md</code></a> — banned approaches surfaced as guarantees.</li>
-<li><a href="./WRITEUP/reference-scorer-audit.html"><code>WRITEUP/reference-scorer-audit.md</code></a> — ProtectAI v1/v2 contamination findings + reference-rung stratification.</li>
-<li><a href="./WRITEUP/threshold-policy.html"><code>WRITEUP/threshold-policy.md</code></a> — dual-policy detection + verification operating points + reachability audit.</li>
-<li><a href="./EVIDENCE.html"><code>EVIDENCE.md</code></a> — external-evidence audit trail (contamination scan, dedup calibration, leakage scrub).</li>
-<li><a href="./decisions/README.html"><code>decisions/</code></a> — full ADR ledger; Architecture Decision Records in Michael Nygard format. <strong>61 ADRs at v1.1.1 close.</strong></li>
+<li><a href="./RESULTS.html">Results</a>: exact tables and canonical figures.</li>
+<li><a href="./WRITEUP.html">Writeup</a>: methodology hub.</li>
+<li><a href="./WRITEUP/eval-design.html">Evaluation design</a>: metric and CI rationale.</li>
+<li><a href="./WRITEUP/data-decisions.html">Data decisions</a>: source slate, dedup, leakage.</li>
+<li><a href="./WRITEUP/reference-scorer-audit.html">Reference-scorer audit</a>: ProtectAI contamination caveats.</li>
+<li><a href="./decisions/README.html">Decisions</a>: ADR trail, especially ADR-016, ADR-022, ADR-050, ADR-052, and ADR-062.</li>
 </ol>
-<p><strong>Headline ADRs to read</strong> (the methodology + narrowing trail; cuts through the 61-file ledger):</p>
-<ul>
-<li><a href="decisions/ADR-005-methodology-over-metrics.md">ADR-005</a> — methodology-over-metrics + three-state contamination taxonomy.</li>
-<li><a href="decisions/ADR-015-rung-slate-and-backbone.md">ADR-015</a> — single-backbone slate (ModernBERT-base) + truncation-confound mitigation.</li>
-<li><a href="decisions/ADR-016-data-design.md">ADR-016</a> — source-disjoint LODO + dedup + SHA-pinned data.</li>
-<li><a href="decisions/ADR-017-classical-floor.md">ADR-017</a> — TF-IDF + LR classical floor as <code>verified_disjoint</code> anchor.</li>
-<li><a href="decisions/ADR-018-reference-scorers.md">ADR-018</a> — original 4-rung reference slate (LLM judges + ProtectAI v1/v2).</li>
-<li><a href="decisions/ADR-022-statistical-apparatus.md">ADR-022</a> — paired-bootstrap + cv_clt_ci + block-bootstrap sensitivity.</li>
-<li><a href="decisions/ADR-046-phase-4-walkthrough.md">ADR-046</a> — Phase 4 analysis-pipeline implementation bundle.</li>
-<li><a href="./decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.html">ADR-050</a> — rung-slate narrowing (LLM-judge cost drop + full-FT OOD drop).</li>
-<li><a href="./decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.html">ADR-051</a> — v1.0.x carryforward governance (T0 + invariant scaffolds).</li>
-<li><a href="./decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.html">ADR-052</a> — methodological reframing of full-FT OOD drop.</li>
-<li><a href="./decisions/ADR-053-reading-guide-governance-and-newcomer-paths.html">ADR-053</a> — reading-guide governance (this artifact).</li>
-<li><a href="./decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html">ADR-058</a> — v1.0.9 eval-from-hub T0 wiring (narrow supersession of ADR-051 Block A).</li>
-<li><a href="./decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html">ADR-059</a> — v1.1.0 runpod-deploy PyPI switch.</li>
-<li><a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> — v1.1.0 DeBERTa-v3-base methodology lock (Path B; execution v1.1.1).</li>
-<li><a href="./decisions/ADR-061-quarto-site-navigation-restructure.html">ADR-061</a> — v1.1.1 navigation restructure (this page is the result).</li>
-</ul>
-<hr>
 </section>
-<section id="deep-dive-path-a3-reproduce-the-numbers-30-min-cpu-0" class="level2">
-<h2 class="anchored" data-anchor-id="deep-dive-path-a3-reproduce-the-numbers-30-min-cpu-0">Deep-dive path — A3, reproduce the numbers (~30 min CPU; $0)</h2>
-<p>Three reproduction tiers per <a href="./decisions/ADR-034-reproducibility-tier-full-ladder.html">ADR-034</a>. Pick the tier matching your audit depth + budget.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Tier</th>
-<th>Command</th>
-<th>Cost</th>
-<th>Time</th>
-<th>What it verifies</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>T0</strong> — eval-from-hub</td>
-<td><code>make eval-from-hub RUNG=frozen-probe</code> (and <code>RUNG=lora</code>)</td>
-<td>$0 (HF Hub bandwidth)</td>
-<td>~15-30 min per rung</td>
-<td>Headline scores reproduce on the published HF Hub checkpoint within 1e-4 absolute (wired at v1.0.9 per ADR-058)</td>
-</tr>
-<tr class="even">
-<td><strong>T1</strong> — smoke</td>
-<td><code>make test-smoke</code></td>
-<td>$0</td>
-<td>~1-2 min</td>
-<td>Code health; fixture pipeline runs end-to-end; no network required</td>
-</tr>
-<tr class="odd">
-<td><strong>T3</strong> — headline-cloud</td>
-<td><code>make headline-cloud</code></td>
-<td>~$28+ per <a href="decisions/ADR-020-runpod-orchestration-and-cost-discipline.md">ADR-020</a></td>
-<td>~hours</td>
-<td>Full retraining from scratch reproduces headline numbers</td>
-</tr>
-</tbody>
-</table>
-<p>Detailed instructions in <a href="./WRITEUP/reproducibility.html"><code>WRITEUP/reproducibility.md</code></a>.</p>
-<hr>
+<section id="path-c-reproduce-30-minutes" class="level2">
+<h2 class="anchored" data-anchor-id="path-c-reproduce-30-minutes">Path C: Reproduce, 30+ Minutes</h2>
+<p>Goal: check that the numbers can be regenerated.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For the full cloud path, see <a href="./WRITEUP/reproducibility.html">reproducibility</a>.</p>
+</section>
+<section id="how-to-read-the-headline-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-the-headline-numbers">How To Read The Headline Numbers</h2>
+<p><strong>AUPRC is not measured against 0.5.</strong> For the pooled out-of-distribution slice (<code>pooled_ood</code>), random AUPRC is the positive rate: 412 positives / 1101 rows = 0.374. The frozen probe scores 0.364, so it is at the random floor, not clearly above it.</p>
+<p><strong>Out-of-distribution (OOD) means cross-family here.</strong> The training data is direct-injection-heavy. The OOD slate includes indirect injection, agentic-flow injection, jailbreak-style questions, and benign text that resembles attacks.</p>
+<p><strong>LoRA getting worse matters.</strong> Fine-tuning on the direct-injection training pool reduced pooled OOD AUPRC from 0.364 to 0.293. That suggests the pretrained backbone carried the useful OOD signal and the adapter specialized away from it.</p>
+<p><strong>Reference scorers are diagnostic.</strong> ProtectAI v1/v2 are useful comparison points, but their training-data disclosure creates contamination caveats.</p>
+<p><strong>Thresholds are not deployment recommendations.</strong> The threshold analysis shows how scores behave under two cost regimes. It does not select a production policy.</p>
 </section>
 <section id="repo-map" class="level2">
-<h2 class="anchored" data-anchor-id="repo-map">Repo map</h2>
+<h2 class="anchored" data-anchor-id="repo-map">Repo Map</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1004,63 +953,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="src/"><code>src/</code></a></td>
-<td>Library code — <code>data/</code>, <code>training/</code>, <code>scoring/</code>, <code>eval/</code>, <code>utils/</code> per <a href="./decisions/ADR-026-module-layout-concern-grouped-subpackages.html">ADR-026</a></td>
+<td><code>index.qmd</code></td>
+<td>first-reader landing page</td>
 </tr>
 <tr class="even">
-<td><a href="scripts/"><code>scripts/</code></a></td>
-<td>CLI entrypoint glue — argparse + IO orchestrating <code>src/</code> calls</td>
+<td><code>EXECUTIVE_SUMMARY.md</code></td>
+<td>one-page summary</td>
 </tr>
 <tr class="odd">
-<td><a href="configs/"><code>configs/</code></a></td>
-<td>YAML rung + RunPod + profile configs</td>
+<td><code>RESULTS.md</code></td>
+<td>exact tables, figures, artifacts</td>
 </tr>
 <tr class="even">
-<td><a href="./decisions/README.html"><code>decisions/</code></a></td>
-<td>ADRs (immutable decision records) — 61 ADRs at v1.1.1</td>
+<td><code>WRITEUP.md</code></td>
+<td>methodology hub</td>
 </tr>
 <tr class="odd">
-<td><a href="evals/"><code>evals/</code></a></td>
-<td>Per-row predictions + metrics + bootstrap + audit JSON (populated Phase 1-5)</td>
+<td><code>WRITEUP/</code></td>
+<td>detailed methodology spokes</td>
 </tr>
 <tr class="even">
-<td><a href="tests/"><code>tests/</code></a></td>
-<td>Invariant tests + unit/smoke/integration suites</td>
+<td><code>docs/plots/</code></td>
+<td>canonical F1-F5 figures with metadata sidecars</td>
 </tr>
 <tr class="odd">
-<td><a href="./WRITEUP.html"><code>WRITEUP.md</code></a></td>
-<td>Methodology hub document (cover narrative)</td>
+<td><code>evals/</code></td>
+<td>metrics, bootstrap, operating points, predictions</td>
 </tr>
 <tr class="even">
-<td><a href="WRITEUP/"><code>WRITEUP/</code></a></td>
-<td>Topic-focused methodology spokes (8 files; detailed deep-dives)</td>
+<td><code>decisions/</code></td>
+<td>ADRs and decision provenance</td>
 </tr>
 <tr class="odd">
-<td><a href="./EXECUTIVE_SUMMARY.html"><code>EXECUTIVE_SUMMARY.md</code></a></td>
-<td>1-page decision-maker layer over WRITEUP</td>
-</tr>
-<tr class="even">
-<td><a href="./RESULTS.html"><code>RESULTS.md</code></a></td>
-<td>Full 5-rung × 5-slice grid + figures + raw-data pointers</td>
+<td><code>src/</code>, <code>scripts/</code>, <code>tests/</code></td>
+<td>implementation and tests</td>
 </tr>
 </tbody>
 </table>
-<hr>
 </section>
 <section id="submission-anchors" class="level2">
-<h2 class="anchored" data-anchor-id="submission-anchors">Submission anchors</h2>
+<h2 class="anchored" data-anchor-id="submission-anchors">Submission Anchors</h2>
 <ul>
-<li><strong>Source pin</strong> (canonical; never drifts): <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>github.com/.../tree/v1.0.0</code></a></li>
-<li><strong>Live rendered site</strong> (reflects latest patch): <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><code>brandon-behring.github.io/prompt-injection-detection-prototype/</code></a></li>
-<li><strong>Release page</strong> (CHANGELOG + offline-readable site bundle): <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0"><code>github.com/.../releases/tag/v1.0.0</code></a></li>
-<li><strong>HF Hub model cards</strong> (published checkpoints; T0 reproducibility): <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe"><code>BBehring/prompt-injection-frozen-probe</code></a> + <a href="https://huggingface.co/BBehring/prompt-injection-lora"><code>BBehring/prompt-injection-lora</code></a></li>
+<li>Canonical source pin: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a></li>
+<li>Live rendered site: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a></li>
+<li>HF Hub checkpoints: <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">frozen probe</a> and <a href="https://huggingface.co/BBehring/prompt-injection-lora">LoRA</a></li>
 </ul>
-<p>Per <a href="./decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html">ADR-033</a> — <code>v0.9.0-rc1</code>/<code>rc2</code>/<code>rc3</code> are rehearsal tags; <code>v1.0.0</code> is the canonical submission tag; <code>v1.0.x</code> SemVer patch tags reserved for post-submission typo / link / clarity / reviewer-feedback fixes (reviewer URL stays pinned at <code>tree/v1.0.0</code>; live Quarto site reflects latest patch). <code>v1.1.x</code> MINOR tags reserved for non-methodology infrastructure + governance updates per ADR-033.</p>
-<hr>
-</section>
-<section id="status" class="level2">
-<h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Phase 5 closed at v1.0.0 (2026-05-18). Submission audit loop closed at v1.0.2 (ADR-051 carryforward governance for T0 + invariant scaffolds). Full-FT OOD drop reframed methodologically at v1.0.3 (ADR-052). Reading-guide architecture anchored at v1.0.4 (ADR-053). v1.0.9 closed ADR-051 Block A (T0 score-match wiring per ADR-058). v1.1.0 closed the runpod-deploy modernization track (ADR-059) + locked DeBERTa-v3-base medium ablation methodology (ADR-060; execution deferred to v1.1.1). <strong>v1.1.1 restructured the navigation per ADR-061 (you are reading the v1.1.1 artifact)</strong>. Live site reflects the latest v1.1.x tag; reviewer URL pin stays at <code>tree/v1.0.0</code> per ADR-033. <strong>61 ADRs</strong> across Phase 0-00 → v1.1.1 close.</p>
 
 
 <!-- -->
@@ -1525,236 +1462,100 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Reading guide — 3 reading paths + repo TOC + interpretation pedagogy"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "How to read this site (Quarto + GitHub) at the depth that matches your audit goal. The displaced reading-guide content that used to live on the landing page."</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reading guide</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>This page is the **how-to-read-this-site** companion to the landing page</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>(<span class="co">[</span><span class="ot">`index.qmd`</span><span class="co">](index.qmd)</span>). The landing page is intentionally short —</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>results + plain-language interpretation + 3 obvious drill-down links.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>This page expands those drill-downs into 3 named reading paths (matched</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>to audit depth), the headline-ADR shortlist, the repo TOC, and the</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>detailed interpretation pedagogy.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>This reading-guide architecture is anchored at</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-053</span><span class="co">](decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md)</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>(dimensions 2-5 — 3-reading-paths + headline-finding-block +</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>interpretation pedagogy + pointer convention; the navigation dimension</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>1 was narrowly superseded by</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-061</span><span class="co">](decisions/ADR-061-quarto-site-navigation-restructure.md)</span> at v1.1.1).</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to read the headline numbers — 5 interpretation patterns</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>These are the framing moves a reviewer needs in order to read the</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>landing-page headline table honestly. They are not "tricks" — they are</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>the consequences of choosing AUPRC under class imbalance + a</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>cross-family OOD slate.</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>**1. Prevalence baseline vs chance.** AUPRC's random-predictor floor</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>equals the positive-class prevalence — here 0.374 on <span class="in">`pooled_ood`</span> (412</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>positives / 1101 rows). Falling BELOW the prevalence baseline means</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>the classifier's ranking is anti-correlated with the label *on this</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>slice* — worse than guessing. AUROC's chance floor is 0.5 regardless</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>of prevalence; under class imbalance AUROC over-states performance,</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>which is why AUPRC is the project's preferred ranking metric (per</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">WRITEUP/eval-design.md §5.1</span><span class="co">](WRITEUP/eval-design.md)</span>). When the</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>table says frozen-probe at 0.364 is *below baseline*, that's not</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>pedantry: the best trained rung does not beat random guessing in</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>expectation on the OOD slice.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>**2. Cross-family vs cross-source OOD.** "In-domain test" (held-out</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>LODO source) is still a direct-injection attack — just an unseen</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>source held out by source-disjoint LODO. The 5-slice OOD slate is</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>something else entirely: indirect injection via email-body context</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>(BIPIA), multi-turn agentic-flow attacks (InjecAgent), jailbreaks</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>(JBB-Behaviors), and benign-but-injection-shaped texts that probe</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>false-positive robustness (NotInject, XSTest). The OOD wall is</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>cross-FAMILY, not cross-source — the trained rungs are failing on</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>attack types absent from training, not failing because the source</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>distribution drifted. This is the load-bearing framing of the</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>submission: see <span class="co">[</span><span class="ot">WRITEUP §1.5 Attack-type taxonomy</span><span class="co">](WRITEUP.md#attack-type-taxonomy-traintest-composition)</span>.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**3. Negative LoRA delta — what it means.** LoRA's -0.071 AUPRC vs</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>frozen-probe on <span class="in">`pooled_ood`</span> (paired-bootstrap CI clears zero) reads</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>as: **fine-tuning the classification head onto the LODO training pool</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>ACTIVELY HURTS cross-family OOD generalisation.** The pretrained</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>ModernBERT-base backbone (which frozen-probe taps before any</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>task-specific weight movement) carries what little OOD signal exists;</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>fine-tuning consumes that budget by specialising on direct-injection</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>structure. Per</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-052</span><span class="co">](decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.md)</span>,</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>this is *also* the load-bearing reason full-FT OOD inference was</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>dropped — full-FT is a larger version of the same fine-tuning</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>mechanism LoRA already showed to be net-harmful on OOD; the FUSE</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>crash made the drop operational, but the methodological judgment came</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>first.</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>**4. ProtectAI v1 → v2 is non-monotone.** On <span class="in">`pooled_ood`</span> AUPRC, v1</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>(0.361) slightly edges v2 (0.314). On the per-slice breakdown (see</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">WRITEUP §Results</span><span class="co">](WRITEUP.md#results)</span>) v2 wins on JBB-Behaviors</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>(+0.037 AUPRC) but loses on XSTest (-0.087 AUPRC). The "newer version</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>is better" reading fails here; publication version monotonicity is not</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>guaranteed under a cross-family slate. Operational implication:</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>detector version selection must be slice-aware, not version-monotone.</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>**5. val → LODO threshold transfer fails.** Thresholds tuned on the</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>validation slice produce detection FPRs of ~1-12 % when applied to</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>LODO test data — the standard "tune on val, ship to prod" recipe</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>under-quantifies operational FPR. The dual-policy threshold</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>characterisation in <span class="co">[</span><span class="ot">WRITEUP/threshold-policy.md §7</span><span class="co">](WRITEUP/threshold-policy.md)</span></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>is the project's response: separate detection threshold (FPR ≤ 1 %)</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>from verification threshold (recall ≥ 99 %) and report both with</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>reachability flags per (rung, fold, seed).</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>For the full interpretation guide + diagnostic-AUROC comparisons, see</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">WRITEUP/eval-design.md §5</span><span class="co">](WRITEUP/eval-design.md)</span>.</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quick-skim path — A1 (hiring manager / executive, ~15 min)</span></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>For readers who want the thesis + headline finding + interpretation,</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>no code dive.</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="co">[</span><span class="ot">`EXECUTIVE_SUMMARY.md`</span><span class="co">](EXECUTIVE_SUMMARY.md)</span> — 1-page thesis + 4</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>   headline claims + reading-path pointer.</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">`WRITEUP.md` §1 Motivation + §1.5 Attack-type taxonomy</span><span class="co">](WRITEUP.md)</span> —</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>   the eval-fairness thesis + 5 injection types + train/test</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>   composition table.</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="co">[</span><span class="ot">`WRITEUP.md` §Results headline</span><span class="co">](WRITEUP.md#results)</span> — cross-family</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>   OOD framing + per-rung AUPRC table.</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="co">[</span><span class="ot">`WRITEUP/limitations-and-future-work.md`</span><span class="co">](WRITEUP/limitations-and-future-work.md)</span> —</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>   what's deferred + why.</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Audit path — A2 (ML researcher / due diligence, ~60 min)</span></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>For readers who want to scrutinise the methodology before trusting the</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>numbers.</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Full <span class="co">[</span><span class="ot">`WRITEUP.md`</span><span class="co">](WRITEUP.md)</span> cover-to-cover.</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">`WRITEUP/eval-design.md`</span><span class="co">](WRITEUP/eval-design.md)</span> — OOD slate,</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>   calibration battery, paired-bootstrap protocol, AUPRC vs AUROC</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>   framing.</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="co">[</span><span class="ot">`WRITEUP/methodology-guarantees.md`</span><span class="co">](WRITEUP/methodology-guarantees.md)</span> —</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>   banned approaches surfaced as guarantees.</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="co">[</span><span class="ot">`WRITEUP/reference-scorer-audit.md`</span><span class="co">](WRITEUP/reference-scorer-audit.md)</span> —</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>   ProtectAI v1/v2 contamination findings + reference-rung stratification.</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="co">[</span><span class="ot">`WRITEUP/threshold-policy.md`</span><span class="co">](WRITEUP/threshold-policy.md)</span> —</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>   dual-policy detection + verification operating points + reachability</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>   audit.</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span><span class="co">[</span><span class="ot">`EVIDENCE.md`</span><span class="co">](EVIDENCE.md)</span> — external-evidence audit trail</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>   (contamination scan, dedup calibration, leakage scrub).</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span><span class="co">[</span><span class="ot">`decisions/`</span><span class="co">](decisions/README.md)</span> — full ADR ledger; Architecture</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>   Decision Records in Michael Nygard format. **61 ADRs at v1.1.1</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>   close.**</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>**Headline ADRs to read** (the methodology + narrowing trail; cuts</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>through the 61-file ledger):</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-005</span><span class="co">](decisions/ADR-005-methodology-over-metrics.md)</span> —</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>  methodology-over-metrics + three-state contamination taxonomy.</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-015</span><span class="co">](decisions/ADR-015-rung-slate-and-backbone.md)</span> —</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>  single-backbone slate (ModernBERT-base) + truncation-confound mitigation.</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-016</span><span class="co">](decisions/ADR-016-data-design.md)</span> — source-disjoint LODO +</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>  dedup + SHA-pinned data.</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-017</span><span class="co">](decisions/ADR-017-classical-floor.md)</span> — TF-IDF + LR</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>  classical floor as <span class="in">`verified_disjoint`</span> anchor.</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-018</span><span class="co">](decisions/ADR-018-reference-scorers.md)</span> — original 4-rung</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>  reference slate (LLM judges + ProtectAI v1/v2).</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-022</span><span class="co">](decisions/ADR-022-statistical-apparatus.md)</span> —</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>  paired-bootstrap + cv_clt_ci + block-bootstrap sensitivity.</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-046</span><span class="co">](decisions/ADR-046-phase-4-walkthrough.md)</span> — Phase 4</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>  analysis-pipeline implementation bundle.</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-050</span><span class="co">](decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md)</span> —</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>  rung-slate narrowing (LLM-judge cost drop + full-FT OOD drop).</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-051</span><span class="co">](decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md)</span> —</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>  v1.0.x carryforward governance (T0 + invariant scaffolds).</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-052</span><span class="co">](decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.md)</span> —</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>  methodological reframing of full-FT OOD drop.</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-053</span><span class="co">](decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md)</span> —</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>  reading-guide governance (this artifact).</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-058</span><span class="co">](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md)</span> —</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>  v1.0.9 eval-from-hub T0 wiring (narrow supersession of ADR-051 Block A).</span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-059</span><span class="co">](decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md)</span> —</span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>  v1.1.0 runpod-deploy PyPI switch.</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-060</span><span class="co">](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)</span> —</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>  v1.1.0 DeBERTa-v3-base methodology lock (Path B; execution v1.1.1).</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-061</span><span class="co">](decisions/ADR-061-quarto-site-navigation-restructure.md)</span> —</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>  v1.1.1 navigation restructure (this page is the result).</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## Deep-dive path — A3, reproduce the numbers (~30 min CPU; $0)</span></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>Three reproduction tiers per</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-034</span><span class="co">](decisions/ADR-034-reproducibility-tier-full-ladder.md)</span>. Pick</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>the tier matching your audit depth + budget.</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tier <span class="pp">|</span> Command <span class="pp">|</span> Cost <span class="pp">|</span> Time <span class="pp">|</span> What it verifies <span class="pp">|</span></span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T0** — eval-from-hub <span class="pp">|</span> <span class="in">`make eval-from-hub RUNG=frozen-probe`</span> (and <span class="in">`RUNG=lora`</span>) <span class="pp">|</span> $0 (HF Hub bandwidth) <span class="pp">|</span> ~15-30 min per rung <span class="pp">|</span> Headline scores reproduce on the published HF Hub checkpoint within 1e-4 absolute (wired at v1.0.9 per ADR-058) <span class="pp">|</span></span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T1** — smoke <span class="pp">|</span> <span class="in">`make test-smoke`</span> <span class="pp">|</span> $0 <span class="pp">|</span> ~1-2 min <span class="pp">|</span> Code health; fixture pipeline runs end-to-end; no network required <span class="pp">|</span></span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T3** — headline-cloud <span class="pp">|</span> <span class="in">`make headline-cloud`</span> <span class="pp">|</span> ~$28+ per <span class="co">[</span><span class="ot">ADR-020</span><span class="co">](decisions/ADR-020-runpod-orchestration-and-cost-discipline.md)</span> <span class="pp">|</span> ~hours <span class="pp">|</span> Full retraining from scratch reproduces headline numbers <span class="pp">|</span></span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>Detailed instructions in</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">`WRITEUP/reproducibility.md`</span><span class="co">](WRITEUP/reproducibility.md)</span>.</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repo map</span></span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Path <span class="pp">|</span> Contents <span class="pp">|</span></span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`src/`</span><span class="co">](src/)</span> <span class="pp">|</span> Library code — <span class="in">`data/`</span>, <span class="in">`training/`</span>, <span class="in">`scoring/`</span>, <span class="in">`eval/`</span>, <span class="in">`utils/`</span> per <span class="co">[</span><span class="ot">ADR-026</span><span class="co">](decisions/ADR-026-module-layout-concern-grouped-subpackages.md)</span> <span class="pp">|</span></span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`scripts/`</span><span class="co">](scripts/)</span> <span class="pp">|</span> CLI entrypoint glue — argparse + IO orchestrating <span class="in">`src/`</span> calls <span class="pp">|</span></span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`configs/`</span><span class="co">](configs/)</span> <span class="pp">|</span> YAML rung + RunPod + profile configs <span class="pp">|</span></span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`decisions/`</span><span class="co">](decisions/README.md)</span> <span class="pp">|</span> ADRs (immutable decision records) — 61 ADRs at v1.1.1 <span class="pp">|</span></span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`evals/`</span><span class="co">](evals/)</span> <span class="pp">|</span> Per-row predictions + metrics + bootstrap + audit JSON (populated Phase 1-5) <span class="pp">|</span></span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`tests/`</span><span class="co">](tests/)</span> <span class="pp">|</span> Invariant tests + unit/smoke/integration suites <span class="pp">|</span></span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`WRITEUP.md`</span><span class="co">](WRITEUP.md)</span> <span class="pp">|</span> Methodology hub document (cover narrative) <span class="pp">|</span></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`WRITEUP/`</span><span class="co">](WRITEUP/)</span> <span class="pp">|</span> Topic-focused methodology spokes (8 files; detailed deep-dives) <span class="pp">|</span></span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`EXECUTIVE_SUMMARY.md`</span><span class="co">](EXECUTIVE_SUMMARY.md)</span> <span class="pp">|</span> 1-page decision-maker layer over WRITEUP <span class="pp">|</span></span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="co">[</span><span class="ot">`RESULTS.md`</span><span class="co">](RESULTS.md)</span> <span class="pp">|</span> Full 5-rung × 5-slice grid + figures + raw-data pointers <span class="pp">|</span></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## Submission anchors</span></span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source pin** (canonical; never drifts): <span class="co">[</span><span class="ot">`github.com/.../tree/v1.0.0`</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)</span></span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Live rendered site** (reflects latest patch): <span class="co">[</span><span class="ot">`brandon-behring.github.io/prompt-injection-detection-prototype/`</span><span class="co">](https://brandon-behring.github.io/prompt-injection-detection-prototype/)</span></span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Release page** (CHANGELOG + offline-readable site bundle): <span class="co">[</span><span class="ot">`github.com/.../releases/tag/v1.0.0`</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0)</span></span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HF Hub model cards** (published checkpoints; T0 reproducibility): <span class="co">[</span><span class="ot">`BBehring/prompt-injection-frozen-probe`</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-frozen-probe)</span> + <span class="co">[</span><span class="ot">`BBehring/prompt-injection-lora`</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-lora)</span></span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>Per <span class="co">[</span><span class="ot">ADR-033</span><span class="co">](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)</span> —</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="in">`v0.9.0-rc1`</span>/<span class="in">`rc2`</span>/<span class="in">`rc3`</span> are rehearsal tags; <span class="in">`v1.0.0`</span> is the canonical</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>submission tag; <span class="in">`v1.0.x`</span> SemVer patch tags reserved for post-submission</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>typo / link / clarity / reviewer-feedback fixes (reviewer URL stays</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>pinned at <span class="in">`tree/v1.0.0`</span>; live Quarto site reflects latest patch).</span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="in">`v1.1.x`</span> MINOR tags reserved for non-methodology infrastructure +</span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>governance updates per ADR-033.</span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>Phase 5 closed at v1.0.0 (2026-05-18). Submission audit loop closed at</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>v1.0.2 (ADR-051 carryforward governance for T0 + invariant scaffolds).</span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>Full-FT OOD drop reframed methodologically at v1.0.3 (ADR-052).</span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>Reading-guide architecture anchored at v1.0.4 (ADR-053). v1.0.9 closed</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>ADR-051 Block A (T0 score-match wiring per ADR-058). v1.1.0 closed</span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>the runpod-deploy modernization track (ADR-059) + locked DeBERTa-v3-base</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>medium ablation methodology (ADR-060; execution deferred to v1.1.1).</span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>**v1.1.1 restructured the navigation per ADR-061 (you are reading the</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>v1.1.1 artifact)**. Live site reflects the latest v1.1.x tag; reviewer</span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>URL pin stays at <span class="in">`tree/v1.0.0`</span> per ADR-033. **61 ADRs** across Phase</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>0-00 → v1.1.1 close.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Reading guide"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "How to read the prompt-injection classifier evaluation at different depths."</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reading Guide</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>The site is organized from least to most technical. Start with the result, then</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>drill into evidence and methodology only as needed.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Path A: Hiring Manager, 10-15 Minutes</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Goal: understand the problem, the result, and what the project demonstrates.</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="co">[</span><span class="ot">Landing page</span><span class="co">](index.qmd)</span>: problem, setup, headline result, limits.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">Executive summary</span><span class="co">](EXECUTIVE_SUMMARY.md)</span>: one-page version.</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="co">[</span><span class="ot">Results</span><span class="co">](RESULTS.md)</span>: skim F1 and the primary AUPRC table.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>What to take away: this is an honest negative result. The detectors trained on</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>direct prompt injection do not clearly generalize to different attack families.</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Path B: Technical Reviewer, 45-60 Minutes</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Goal: decide whether the result is methodologically credible.</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="co">[</span><span class="ot">Results</span><span class="co">](RESULTS.md)</span>: exact tables and canonical figures.</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">Writeup</span><span class="co">](WRITEUP.md)</span>: methodology hub.</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="co">[</span><span class="ot">Evaluation design</span><span class="co">](WRITEUP/eval-design.md)</span>: metric and CI rationale.</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="co">[</span><span class="ot">Data decisions</span><span class="co">](WRITEUP/data-decisions.md)</span>: source slate, dedup, leakage.</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="co">[</span><span class="ot">Reference-scorer audit</span><span class="co">](WRITEUP/reference-scorer-audit.md)</span>: ProtectAI</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>   contamination caveats.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span><span class="co">[</span><span class="ot">Decisions</span><span class="co">](decisions/README.md)</span>: ADR trail, especially ADR-016, ADR-022,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>   ADR-050, ADR-052, and ADR-062.</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Path C: Reproduce, 30+ Minutes</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>Goal: check that the numbers can be regenerated.</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>For the full cloud path, see <span class="co">[</span><span class="ot">reproducibility</span><span class="co">](WRITEUP/reproducibility.md)</span>.</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## How To Read The Headline Numbers</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>**AUPRC is not measured against 0.5.** For the pooled out-of-distribution slice</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>(<span class="in">`pooled_ood`</span>), random AUPRC is the positive rate: 412 positives / 1101 rows =</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>0.374. The frozen probe scores 0.364, so it is at the random floor, not clearly</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>above it.</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>**Out-of-distribution (OOD) means cross-family here.** The training data is</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>direct-injection-heavy. The OOD slate includes indirect injection,</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>agentic-flow injection, jailbreak-style questions, and benign text that</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>resembles attacks.</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>**LoRA getting worse matters.** Fine-tuning on the direct-injection training</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>pool reduced pooled OOD AUPRC from 0.364 to 0.293. That suggests the pretrained</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>backbone carried the useful OOD signal and the adapter specialized away from it.</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>**Reference scorers are diagnostic.** ProtectAI v1/v2 are useful comparison</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>points, but their training-data disclosure creates contamination caveats.</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>**Thresholds are not deployment recommendations.** The threshold analysis shows</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>how scores behave under two cost regimes. It does not select a production</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>policy.</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repo Map</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Path <span class="pp">|</span> Contents <span class="pp">|</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`index.qmd`</span> <span class="pp">|</span> first-reader landing page <span class="pp">|</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`EXECUTIVE_SUMMARY.md`</span> <span class="pp">|</span> one-page summary <span class="pp">|</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`RESULTS.md`</span> <span class="pp">|</span> exact tables, figures, artifacts <span class="pp">|</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP.md`</span> <span class="pp">|</span> methodology hub <span class="pp">|</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/`</span> <span class="pp">|</span> detailed methodology spokes <span class="pp">|</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`docs/plots/`</span> <span class="pp">|</span> canonical F1-F5 figures with metadata sidecars <span class="pp">|</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`evals/`</span> <span class="pp">|</span> metrics, bootstrap, operating points, predictions <span class="pp">|</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/`</span> <span class="pp">|</span> ADRs and decision provenance <span class="pp">|</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`src/`</span>, <span class="in">`scripts/`</span>, <span class="in">`tests/`</span> <span class="pp">|</span> implementation and tests <span class="pp">|</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Submission Anchors</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Canonical source pin:</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">`tree/v1.0.0`</span><span class="co">](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Live rendered site:</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="ot">&lt;https://brandon-behring.github.io/prompt-injection-detection-prototype/&gt;</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>HF Hub checkpoints:</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">frozen probe</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-frozen-probe)</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  and <span class="co">[</span><span class="ot">LoRA</span><span class="co">](https://huggingface.co/BBehring/prompt-injection-lora)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
