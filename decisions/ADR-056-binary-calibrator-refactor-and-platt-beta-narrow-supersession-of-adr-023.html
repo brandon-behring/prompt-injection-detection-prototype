@@ -862,6 +862,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Writeup accuracy-audit methodology + Quarto callout-note convention + narrative invariants — additive layer on top of ADR-064</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library-first carryforward refactor v1.2.2 — consume 7 closed eval-toolkit primitives across 6 sites</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -935,7 +947,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p><a href="ADR-023-calibration-battery.md">ADR-023</a> (Phase 0-04) locked the calibration battery to <strong>temperature + isotonic</strong> + ECE 4-variant matrix + Brier + reliability curves. Platt scaling + Beta calibration were considered but deferred — at our v0.31.0 pin time, eval-toolkit’s upstream scalar-prob binary calibrator family was incomplete: only <code>fit_temperature_binary</code> (v0.35.0+; we missed it then bumped past) and the multi-shape <code>fit_*_calibrator</code> family (<code>fit_platt_calibrator</code> + <code>fit_beta_calibrator</code> exist but return non-canonical shapes like bare <code>Callable</code> or <code>PlattFit</code> dataclass). The deferral was the library-first correct call.</p>
+<p><a href="../decisions/ADR-023-calibration-battery-and-interventions.html">ADR-023</a> (Phase 0-04) locked the calibration battery to <strong>temperature + isotonic</strong> + ECE 4-variant matrix + Brier + reliability curves. Platt scaling + Beta calibration were considered but deferred — at our v0.31.0 pin time, eval-toolkit’s upstream scalar-prob binary calibrator family was incomplete: only <code>fit_temperature_binary</code> (v0.35.0+; we missed it then bumped past) and the multi-shape <code>fit_*_calibrator</code> family (<code>fit_platt_calibrator</code> + <code>fit_beta_calibrator</code> exist but return non-canonical shapes like bare <code>Callable</code> or <code>PlattFit</code> dataclass). The deferral was the library-first correct call.</p>
 <p><strong>v0.40.0 (2026-05-18)</strong> shipped <code>fit_platt_binary</code> + <code>fit_beta_binary</code> per <a href="https://github.com/brandon-behring/eval-toolkit/issues/43">eval-toolkit#43</a> (filed by us at v1.0.6; closed ~17 min after filing — fastest upstream turnaround of the v1.0.x series). Both adopt the canonical <code>(params_tuple, apply)</code> return shape matching <code>fit_temperature_binary</code>. This completes 3 of 4 binary scalar-prob calibrators on the canonical shape; <code>fit_isotonic_binary</code> is the remaining gap, filed at v1.0.8 as <a href="https://github.com/brandon-behring/eval-toolkit/issues/44">eval-toolkit#44</a>.</p>
 <p><strong>Diagnosis of our prior miss</strong>: <code>src/eval/calibration_battery.py</code> used <code>fit_temperature(val_logprobs, y_val)</code> — the multi-class log-prob API. We constructed a 2-column log-prob array via local helper <code>proba_to_logprobs</code> then called the multi-class fitter. This was correct numerically but used the wrong upstream API: <code>fit_temperature_binary</code> (v0.35.0+) takes scalar <code>y_score</code> directly + handles the log-prob conversion internally. We caught this gap during the v1.0.8 preliminary analysis.</p>
 </section>
@@ -1054,7 +1066,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="links" class="level2">
 <h2 class="anchored" data-anchor-id="links">Links</h2>
 <ul>
-<li><a href="ADR-023-calibration-battery.md">ADR-023 — Calibration battery design</a> — narrowly superseded on the “Platt + Beta deferred” sub-decision only; ECE + Brier + reliability curve + temperature + isotonic + validation-only-fitting all preserved.</li>
+<li><a href="../decisions/ADR-023-calibration-battery-and-interventions.html">ADR-023 — Calibration battery design</a> — narrowly superseded on the “Platt + Beta deferred” sub-decision only; ECE + Brier + reliability curve + temperature + isotonic + validation-only-fitting all preserved.</li>
 <li><a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html">ADR-055 — eval-toolkit PyPI install</a> — enabled the v0.40.0 bump that made Platt + Beta available.</li>
 <li><a href="https://github.com/brandon-behring/eval-toolkit/issues/43">eval-toolkit#43</a> — Platt + Beta request (filed v1.0.6; closed v1.0.8 in 17 min).</li>
 <li><a href="https://github.com/brandon-behring/eval-toolkit/issues/44">eval-toolkit#44</a> — <code>fit_isotonic_binary</code> request (filed v1.0.8; consume when shipped).</li>
@@ -1588,7 +1600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
 <span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-023</span><span class="co">](ADR-023-calibration-battery.md)</span> (Phase 0-04) locked the</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-023</span><span class="co">](ADR-023-calibration-battery-and-interventions.md)</span> (Phase 0-04) locked the</span>
 <span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>calibration battery to **temperature + isotonic** + ECE 4-variant</span>
 <span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>matrix + Brier + reliability curves. Platt scaling + Beta calibration</span>
 <span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>were considered but deferred — at our v0.31.0 pin time, eval-toolkit's</span>
@@ -1747,7 +1759,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="fu">## Links</span></span>
 <span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-023 — Calibration battery design</span><span class="co">](ADR-023-calibration-battery.md)</span> — narrowly superseded on the "Platt + Beta deferred" sub-decision only; ECE + Brier + reliability curve + temperature + isotonic + validation-only-fitting all preserved.</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-023 — Calibration battery design</span><span class="co">](ADR-023-calibration-battery-and-interventions.md)</span> — narrowly superseded on the "Platt + Beta deferred" sub-decision only; ECE + Brier + reliability curve + temperature + isotonic + validation-only-fitting all preserved.</span>
 <span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-055 — eval-toolkit PyPI install</span><span class="co">](ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.md)</span> — enabled the v0.40.0 bump that made Platt + Beta available.</span>
 <span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">eval-toolkit#43</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/43)</span> — Platt + Beta request (filed v1.0.6; closed v1.0.8 in 17 min).</span>
 <span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">eval-toolkit#44</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/44)</span> — <span class="in">`fit_isotonic_binary`</span> request (filed v1.0.8; consume when shipped).</span>

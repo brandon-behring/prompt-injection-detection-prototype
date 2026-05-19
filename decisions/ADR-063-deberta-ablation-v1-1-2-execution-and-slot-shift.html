@@ -862,6 +862,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Writeup accuracy-audit methodology + Quarto callout-note convention + narrative invariants — additive layer on top of ADR-064</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library-first carryforward refactor v1.2.2 — consume 7 closed eval-toolkit primitives across 6 sites</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1011,9 +1023,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> — methodology lock; this ADR carries forward its execution landing condition to v1.1.2 (narrow renaming-only).</li>
 <li><a href="../decisions/ADR-061-quarto-site-navigation-restructure.html">ADR-061</a> — consumed the v1.1.1 slot that ADR-060 had body-text-named for DeBERTa execution.</li>
-<li><a href="./ADR-006-single-seed-protocol-for-comparative-claims.md">ADR-006</a> — single-class slice handling (AUROC nan-guard).</li>
-<li><a href="./ADR-019-modernbert-training-recipe.md">ADR-019</a> — bf16 + lr=1e-4 default; this ADR’s <code>build_training_args</code> plumbing change preserves ADR-019 ModernBERT defaults while allowing DeBERTa fp32 overrides via YAML.</li>
-<li><a href="./ADR-020-runpod-orchestration-and-cost-discipline.md">ADR-020</a> — cost envelope ($25 per-job soft cap honored; $1.34 actual).</li>
+<li><a href="../decisions/ADR-006-headline-metrics-and-statistical-apparatus.html">ADR-006</a> — single-class slice handling (AUROC nan-guard).</li>
+<li><a href="../decisions/ADR-019-lora-and-transformer-training-recipe.html">ADR-019</a> — bf16 + lr=1e-4 default; this ADR’s <code>build_training_args</code> plumbing change preserves ADR-019 ModernBERT defaults while allowing DeBERTa fp32 overrides via YAML.</li>
+<li><a href="../decisions/ADR-020-compute-infrastructure-and-cost-discipline.html">ADR-020</a> — cost envelope ($25 per-job soft cap honored; $1.34 actual).</li>
 <li><a href="../decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html">ADR-059</a> — runpod-deploy v0.8.4 lifecycle.on_success: recycle (the warm-pod 2-fire shape this ADR consumed).</li>
 </ul></li>
 <li><strong>Source</strong>: v1.1.2 execution session per <code>transcripts/2026-05-19__v1-1-2-deberta-execution.md</code> (private; emailed at submission).</li>
@@ -1545,9 +1557,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md</span></span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-061-quarto-site-navigation-restructure.md</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-single-seed-protocol-for-comparative-claims.md</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-modernbert-training-recipe.md</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-runpod-orchestration-and-cost-discipline.md</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-lora-and-transformer-training-recipe.md</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</span></span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md</span></span>
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co">  - NEXT_STEPS.md  # §1.10 Status (v1.1.2)</span></span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co">  - CHANGELOG.md  # [1.1.2]</span></span>
@@ -1753,13 +1765,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-061</span><span class="co">](./ADR-061-quarto-site-navigation-restructure.md)</span> —</span>
 <span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>    consumed the v1.1.1 slot that ADR-060 had body-text-named for</span>
 <span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>    DeBERTa execution.</span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-006</span><span class="co">](./ADR-006-single-seed-protocol-for-comparative-claims.md)</span></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-006</span><span class="co">](./ADR-006-headline-metrics-and-statistical-apparatus.md)</span></span>
 <span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>    — single-class slice handling (AUROC nan-guard).</span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-019</span><span class="co">](./ADR-019-modernbert-training-recipe.md)</span> — bf16 +</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-019</span><span class="co">](./ADR-019-lora-and-transformer-training-recipe.md)</span> — bf16 +</span>
 <span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>    lr=1e-4 default; this ADR's <span class="in">`build_training_args`</span> plumbing</span>
 <span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>    change preserves ADR-019 ModernBERT defaults while allowing</span>
 <span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>    DeBERTa fp32 overrides via YAML.</span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-020</span><span class="co">](./ADR-020-runpod-orchestration-and-cost-discipline.md)</span></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-020</span><span class="co">](./ADR-020-compute-infrastructure-and-cost-discipline.md)</span></span>
 <span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>    — cost envelope ($25 per-job soft cap honored; $1.34 actual).</span>
 <span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-059</span><span class="co">](./ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md)</span></span>
 <span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>    — runpod-deploy v0.8.4 lifecycle.on_success: recycle (the</span>

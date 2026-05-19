@@ -57,6 +57,12 @@ Each locked decision produces:
 The **ADR is the source of truth**. ADRs are immutable; supersede via new
 ADR marking prior `status: superseded-by-NNN`.
 
+**Narrow exception** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md)):
+factual typos in cross-reference slug filenames MAY be corrected in-place
+with a commit message citing ADR-067 + listing per-file corrections. ALL
+other content (numeric values, methodology, prose, alternatives, non-slug
+frontmatter) remains immutable per the rule above.
+
 ### Phase 0 shorthand
 
 When the user invokes `/exploring-options phase 0-NN` (or any

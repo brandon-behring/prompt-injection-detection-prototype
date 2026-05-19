@@ -862,6 +862,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Writeup accuracy-audit methodology + Quarto callout-note convention + narrative invariants — additive layer on top of ADR-064</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Library-first carryforward refactor v1.2.2 — consume 7 closed eval-toolkit primitives across 6 sites</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -935,7 +947,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p><a href="ADR-013-persistence-discipline-before-teardown.md">ADR-013</a> locked the persistence discipline (predictions parquets pulled to local storage before pod teardown) but did not specify a per-prediction provenance manifest format. <a href="ADR-016-data-design.md">ADR-016</a> ties data sources to SHAs via <code>configs/data/source_manifest.yaml</code> (data- layer provenance). <a href="ADR-032-hf-hub-model-card-schema.md">ADR-032</a> ties HF Hub model cards to <code>evals/results.json</code> (rung-aggregate provenance). Neither covers the <em>per-prediction</em> layer: for each of 282 prediction parquets, what was the exact git SHA + config hash + contamination status at the time of generation?</p>
+<p><a href="../decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.html">ADR-013</a> locked the persistence discipline (predictions parquets pulled to local storage before pod teardown) but did not specify a per-prediction provenance manifest format. <a href="../decisions/ADR-016-data-design-bundle.html">ADR-016</a> ties data sources to SHAs via <code>configs/data/source_manifest.yaml</code> (data- layer provenance). <a href="../decisions/ADR-032-hf-hub-publication-headline-rungs-only.html">ADR-032</a> ties HF Hub model cards to <code>evals/results.json</code> (rung-aggregate provenance). Neither covers the <em>per-prediction</em> layer: for each of 282 prediction parquets, what was the exact git SHA + config hash + contamination status at the time of generation?</p>
 <p>NEXT_STEPS §1.9 (tactical next steps, original scope per the seed) called for <code>scripts/backfill_provenance.py</code> to inject <code>git_sha</code> + <code>config_hash</code> + <code>contamination_flags</code> columns into the prediction parquets. We deferred this through Phases 1-5. v1.0.8 closes the backfill, but with a refinement: <strong>provenance lives in sibling JSON manifests, not in the parquet columns themselves</strong>.</p>
 <p>Three reasons for the sibling-JSON convention:</p>
 <ol type="1">
@@ -1100,10 +1112,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="links" class="level2">
 <h2 class="anchored" data-anchor-id="links">Links</h2>
 <ul>
-<li><a href="ADR-013-persistence-discipline-before-teardown.md">ADR-013 — Persistence discipline before pod teardown</a> — manifest extends the per-prediction-parquet persistence.</li>
-<li><a href="ADR-016-data-design.md">ADR-016 — Data design (per-source SHA pinning + LODO splits)</a> — manifest’s <code>config_hash</code> complements <code>source_manifest.yaml</code> data-layer SHAs.</li>
-<li><a href="ADR-032-hf-hub-model-card-schema.md">ADR-032 — HF Hub model card schema</a> — manifest’s <code>contamination_flag</code> matches the model card’s ADR-005 tier field.</li>
-<li><a href="ADR-005-methodology-over-metrics.md">ADR-005 — Methodology over metrics + 3-state contamination taxonomy</a> — sources the <code>contamination_flag</code> enum.</li>
+<li><a href="../decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.html">ADR-013 — Persistence discipline before pod teardown</a> — manifest extends the per-prediction-parquet persistence.</li>
+<li><a href="../decisions/ADR-016-data-design-bundle.html">ADR-016 — Data design (per-source SHA pinning + LODO splits)</a> — manifest’s <code>config_hash</code> complements <code>source_manifest.yaml</code> data-layer SHAs.</li>
+<li><a href="../decisions/ADR-032-hf-hub-publication-headline-rungs-only.html">ADR-032 — HF Hub model card schema</a> — manifest’s <code>contamination_flag</code> matches the model card’s ADR-005 tier field.</li>
+<li><a href="../decisions/ADR-005-methodology-principles.html">ADR-005 — Methodology over metrics + 3-state contamination taxonomy</a> — sources the <code>contamination_flag</code> enum.</li>
 <li><a href="../decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.html">ADR-050 — Rung-slate narrowing + LLM-judge drop</a> — vendor_black_box tier carries 0 entries.</li>
 <li><a href="../docs/MANIFEST_SCHEMA.md"><code>docs/MANIFEST_SCHEMA.md</code></a> — upstream manifest.v3 schema documentation.</li>
 <li><a href="../scripts/backfill_provenance.py"><code>scripts/backfill_provenance.py</code></a> — the v1.0.8 implementation.</li>
@@ -1629,12 +1641,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-013</span><span class="co">](ADR-013-persistence-discipline-before-teardown.md)</span> locked</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-013</span><span class="co">](ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md)</span> locked</span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>the persistence discipline (predictions parquets pulled to local</span>
 <span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>storage before pod teardown) but did not specify a per-prediction</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>provenance manifest format. <span class="co">[</span><span class="ot">ADR-016</span><span class="co">](ADR-016-data-design.md)</span> ties</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>provenance manifest format. <span class="co">[</span><span class="ot">ADR-016</span><span class="co">](ADR-016-data-design-bundle.md)</span> ties</span>
 <span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>data sources to SHAs via <span class="in">`configs/data/source_manifest.yaml`</span> (data-</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>layer provenance). <span class="co">[</span><span class="ot">ADR-032</span><span class="co">](ADR-032-hf-hub-model-card-schema.md)</span> ties</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>layer provenance). <span class="co">[</span><span class="ot">ADR-032</span><span class="co">](ADR-032-hf-hub-publication-headline-rungs-only.md)</span> ties</span>
 <span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>HF Hub model cards to <span class="in">`evals/results.json`</span> (rung-aggregate provenance).</span>
 <span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>Neither covers the *per-prediction* layer: for each of 282 prediction</span>
 <span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>parquets, what was the exact git SHA + config hash + contamination</span>
@@ -1793,10 +1805,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="fu">## Links</span></span>
 <span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-013 — Persistence discipline before pod teardown</span><span class="co">](ADR-013-persistence-discipline-before-teardown.md)</span> — manifest extends the per-prediction-parquet persistence.</span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-016 — Data design (per-source SHA pinning + LODO splits)</span><span class="co">](ADR-016-data-design.md)</span> — manifest's <span class="in">`config_hash`</span> complements <span class="in">`source_manifest.yaml`</span> data-layer SHAs.</span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-032 — HF Hub model card schema</span><span class="co">](ADR-032-hf-hub-model-card-schema.md)</span> — manifest's <span class="in">`contamination_flag`</span> matches the model card's ADR-005 tier field.</span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-005 — Methodology over metrics + 3-state contamination taxonomy</span><span class="co">](ADR-005-methodology-over-metrics.md)</span> — sources the <span class="in">`contamination_flag`</span> enum.</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-013 — Persistence discipline before pod teardown</span><span class="co">](ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md)</span> — manifest extends the per-prediction-parquet persistence.</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-016 — Data design (per-source SHA pinning + LODO splits)</span><span class="co">](ADR-016-data-design-bundle.md)</span> — manifest's <span class="in">`config_hash`</span> complements <span class="in">`source_manifest.yaml`</span> data-layer SHAs.</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-032 — HF Hub model card schema</span><span class="co">](ADR-032-hf-hub-publication-headline-rungs-only.md)</span> — manifest's <span class="in">`contamination_flag`</span> matches the model card's ADR-005 tier field.</span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-005 — Methodology over metrics + 3-state contamination taxonomy</span><span class="co">](ADR-005-methodology-principles.md)</span> — sources the <span class="in">`contamination_flag`</span> enum.</span>
 <span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-050 — Rung-slate narrowing + LLM-judge drop</span><span class="co">](ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md)</span> — vendor_black_box tier carries 0 entries.</span>
 <span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`docs/MANIFEST_SCHEMA.md`</span><span class="co">](../docs/MANIFEST_SCHEMA.md)</span> — upstream manifest.v3 schema documentation.</span>
 <span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`scripts/backfill_provenance.py`</span><span class="co">](../scripts/backfill_provenance.py)</span> — the v1.0.8 implementation.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
