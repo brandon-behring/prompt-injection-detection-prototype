@@ -18,6 +18,96 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.0] — 2026-05-19
+
+**Minor release**: heavy writeup-clarity pass + dedicated hiring-manager landing
+page. Third (and final) stage of the v1.1.3 → v1.1.4 → v1.2.0 clarity-and-
+consistency series. Per [ADR-064](decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md)
+(layered additively on top of ADR-062 — no supersession).
+
+Triggered by 2026-05-19 user feedback that the v1.1.1 navigation pass left the
+writeup *"jargon heavy and dense and pretty unreadable to a hiring manager —
+doesn't demonstrate clear thought."* Then expanded: *"take a broad look over
+everything ... to make sure we are consistent throughout the guide."*
+
+### Added
+
+- **`decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md`**
+  (NEW) — codifies the polish layer + documentation-wide consistency invariants.
+  §A context; §B clarity decisions; §C consistency invariants (canonical
+  terminology table); §D known errors in prior immutable ADRs flagged
+  (7 broken slug refs + 1 stale cumulative-cost figure in ADR-046/048/059/060/063);
+  §E consequences.
+- **`docs/for-hiring-managers.md`** (NEW) — ~250 words, 4-question format
+  (problem / found / trust / how the candidate thinks). Reachable from navbar
+  Reference dropdown + `index.qmd` "Read Next" (first entry).
+- **`RESULTS.md` §1B** "Ablation: does a longer-context backbone fix the OOD
+  gap?" — full per-strategy DeBERTa table + "what shows / does not show" pair
+  + backbone-dominant interpretation. Resolves the previously-broken
+  `WRITEUP/limitations-and-future-work.md:161` → RESULTS §1B anchor.
+- **`docs/GLOSSARY.md` Canonical terminology conventions** — 9-row table
+  documenting the prose-vs-identifier split. Plus 3 new entries (Ablation,
+  Confound, Rung / detector clarifier).
+- **`decisions/library_imports.md` Phase 4+ inference deps** — inventories
+  the deferred-from-v1.1.2-Phase-B `src/inference/windowed.py` primitives.
+- **8-spoke "How to read this spoke" signposts** — every WRITEUP/*.md spoke
+  gains a blockquote after the v1.1.1 back-link telling skimmers vs auditors
+  where to look.
+
+### Changed
+
+- **F1/F2/F5 SVG axis-label rebuild** — F1 random-floor legend gains
+  derivation `(0.374 = 412/1101 prevalence)`; F2 xlabel adds CI-crossing-zero
+  cue; F5 ylabel inlines ECE + Brier definitions. F3/F4 unchanged (already
+  adequate). SVGs + .meta.json sidecars regenerated.
+- **RESULTS.md** — top-of-page "How to read this page" blockquote; §1 AUPRC
+  table pre-context blockquote; §7 Raw Artifacts hiring-manager-facing intro;
+  F1-F5 caption prose refinements.
+- **`index.qmd`** — Pooled OOD footnote under headline table (5 OOD sources
+  enumerated + random floor derivation + CI-width-as-noise-floor cue);
+  "Read Next" gains the hiring-manager landing as the first link.
+- **`WRITEUP.md`** line 13-14: LODO inline gloss; canonical prose triad
+  "frozen-probe / LoRA / full-FT"; rung↔detector clarifier with GLOSSARY link.
+- **`WRITEUP/limitations-and-future-work.md` §9.2** — DeBERTa ablation status
+  updated with v1.1.2 execution result + backbone-dominant interpretation +
+  residual-confounds disclaimer.
+- **`WRITEUP/model-rungs.md`** — signpost includes inline rung↔detector
+  clarifier.
+- **`_quarto.yml`** — navbar Reference dropdown adds hiring-manager landing
+  as first menu entry.
+- **`NEXT_STEPS.md` §1.10** — Status (v1.2.0) paragraph appended.
+- **`.lycheeignore`** — extended with 12 patterns covering stale ADR slug
+  refs in immutable historical ADRs (canonical-correct slugs in ADR-064 §D
+  + [1.1.2] postscript). Lychee CI now passes despite the flagged-not-fixed
+  residual refs.
+- **`SUBMISSION_AUDIT.md`** — regenerated; 64 CLAIM rows (CLAIM-064 added
+  for ADR-064).
+- **Stale ADR slug refs in CHANGELOG history** — 10+ historical CHANGELOG
+  entries that cited ADRs with stale slug paths now resolve correctly
+  (ADR-005, ADR-013, ADR-016, ADR-019, ADR-023, ADR-029, ADR-032, ADR-037,
+  ADR-046 — full mapping in the `sed` batch documented in commit `ee2b33f`).
+
+### Coordination
+
+This v1.2.0 release closes the 3-stage series. The doc-agent's ADR-062 work
+was committed as the v1.1.3 baseline; v1.1.4 added the documentation-wide
+consistency fix-pack + lychee CI prophylaxis; v1.2.0 lands the heavy clarity
+polish + hiring-manager landing page. Total: 12 commits across the three
+stages. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033. Live Quarto
+site reflects v1.2.0.
+
+### References
+
+- ADR-064 (NEW): clarity polish + consistency invariants.
+- ADR-062 (v1.1.3 baseline): structural writeup rewrite layered-on.
+- ADR-060 + ADR-063: DeBERTa methodology + execution; cited from RESULTS
+  §1B + WRITEUP §9.2 + hiring-manager landing.
+- CLAUDE.md: project ADR-discipline (the actual immutability rule source;
+  older CHANGELOG entries misattribute to "ADR-029"; that historical drift
+  is documented in ADR-064 §D).
+
+---
+
 ## [1.1.4] — 2026-05-19
 
 **Patch release**: documentation-wide consistency fix-pack +
