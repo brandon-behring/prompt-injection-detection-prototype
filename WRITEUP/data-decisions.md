@@ -2,6 +2,8 @@
 
 *Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
 
+> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
+
 This spoke covers §3 of the methodology narrative — source slate
 selection, dedup discipline, leakage handling, and split structure.
 For the headline characterisation that consumes these decisions, see

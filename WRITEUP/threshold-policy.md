@@ -2,6 +2,8 @@
 
 *Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
 
+> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
+
 This spoke covers §5.3 — the dual-policy detection / verification
 operating-point characterisation per ADR-025. The same classifier
 scores are configured to two different cost-weight thresholds; what

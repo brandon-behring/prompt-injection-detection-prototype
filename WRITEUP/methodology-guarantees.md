@@ -2,6 +2,8 @@
 
 *Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
 
+> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
+
 This spoke covers §6 — the three-library tooling split + SDD / ADR
 process discipline that backs every methodology claim in the
 writeup. For the statistical apparatus that consumes these

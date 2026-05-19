@@ -2,6 +2,8 @@
 
 *Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
 
+> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
+
 This spoke covers §5.1, §5.2, §5.4, §5.5 — the evaluation framework,
 statistical apparatus, per-source breakdown discipline, and OOD slate
 composition. Threshold policy (§5.3) is its own spoke

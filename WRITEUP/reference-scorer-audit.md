@@ -2,6 +2,8 @@
 
 *Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
 
+> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
+
 This spoke covers the three-state contamination taxonomy (ADR-005)
 as applied to the reference-scorer slate (ProtectAI v1 + v2 +
 TF-IDF+LR classical floor) per ADR-018 + ADR-050 narrowing, plus
