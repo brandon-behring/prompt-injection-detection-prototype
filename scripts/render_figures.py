@@ -30,6 +30,7 @@ from eval_toolkit.plotting import (  # noqa: E402
     save_figure,
     set_plot_style,
 )
+from matplotlib.axes import Axes  # noqa: E402
 from matplotlib.figure import Figure  # noqa: E402
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -123,7 +124,7 @@ def _read_canonical() -> dict[str, pd.DataFrame]:
     return {name: pd.read_parquet(path) for name, path in CANONICAL_ARTIFACTS.items()}
 
 
-def _style_axes(ax: plt.Axes) -> None:
+def _style_axes(ax: Axes) -> None:
     ax.grid(True, axis="y", alpha=0.25)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
