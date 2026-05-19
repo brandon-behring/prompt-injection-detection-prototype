@@ -78,4 +78,11 @@ folds: [0]             # single fold per ADR-060 medium ablation scope
 # Output paths.
 predictions_dir: evals/predictions
 predictions_file_template: deberta_v3_base_{truncation_strategy}__fold{fold}__seed{seed}__epoch{epoch}.parquet
-checkpoint_dir_template: evals/checkpoints/deberta_v3_base/{truncation_strategy}/fold{fold}/seed{seed}
+# v1.1.2 Phase D fix: template was prefixed `evals/checkpoints/...` in the
+# v1.1.0 scaffold (mirroring ModernBERT yamls) but `checkpoint_root` in
+# train_rung.py defaults to `_REPO_ROOT/evals/checkpoints`, so the prefix
+# doubled (`.../evals/checkpoints/evals/checkpoints/...`). Stripped the
+# prefix so paths concatenate correctly under the v1.1.2 codepath
+# (mirrors the headline-deberta.yaml artifacts.remote_path expectation of
+# `{remote_repo}/evals/checkpoints/deberta_v3_base/`).
+checkpoint_dir_template: deberta_v3_base/{truncation_strategy}/fold{fold}/seed{seed}

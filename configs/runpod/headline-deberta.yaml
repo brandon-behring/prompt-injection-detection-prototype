@@ -193,11 +193,15 @@ run:
     cd {remote_repo}
 
     echo "[pid-v1-1-2-deberta] START strategy={truncation_strategy} $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    # v1.1.2 Phase D: NO --checkpoint-staging-root needed. Since remote_repo is
+    # now on /root (container overlay disk; not FUSE), HF Trainer's atomic-save
+    # via POSIX F_SETLKW works normally. Skipping the staging-dir bounce saves
+    # ~2x disk usage during the post-training copy phase (which previously
+    # exhausted the 20 GB /root container disk on a full-fp32 184M-param fire).
     uv run python scripts/train_rung.py \
       --rung deberta_v3_base \
       --fold-only 0 --seed-only 42 \
-      --truncation-strategy {truncation_strategy} \
-      --checkpoint-staging-root /root/training_staging
+      --truncation-strategy {truncation_strategy}
     echo "[pid-v1-1-2-deberta] DONE strategy={truncation_strategy} $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 artifacts:
@@ -208,6 +212,7 @@ artifacts:
   - label: pid-checkpoints-deberta
     remote_path: "{remote_repo}/evals/checkpoints/deberta_v3_base/"
     local_path: "{project_root}/evals/checkpoints/deberta_v3_base/"
+    required: false  # checkpoints are optional per ADR-019 storage discipline; predictions are the audit-relevant artifact
     delete: false
   - label: log
     remote_path: /root/pid_v1_1_2_deberta_{truncation_strategy}.log
