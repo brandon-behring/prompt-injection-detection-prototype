@@ -1,5 +1,7 @@
 # Model rungs
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke covers §4 of the methodology narrative — the rung ladder
 (5 rungs: classical floor + 3 trained transformer rungs + 2 reference
 scorers) per ADR-015 + ADR-017 + ADR-018 + ADR-050. Each rung answers

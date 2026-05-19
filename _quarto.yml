@@ -16,6 +16,7 @@ project:
     - CHANGELOG.md
     - WRITEUP.md
     - WRITEUP/*.md
+    - READING_GUIDE.md
     - EVIDENCE.md
     - SPEC_SHEET.md
     - SUBMISSION_AUDIT.md
@@ -33,62 +34,73 @@ project:
 website:
   title: "Prompt-injection classifier — methodology submission"
   description: "Methodology + capability characterisation of a prompt-injection classifier rung ladder, with honest OOD evaluation."
+  # Navbar restructured v1.1.1 per ADR-061: 9 items → 5. Single Methodology
+  # dropdown carries hub + reading guide + 8 spokes; Reference dropdown
+  # collapses Executive summary + Evidence + auxiliary artifacts + Notebooks;
+  # Repo direct-links to GitHub.
   navbar:
     left:
-      - href: EXECUTIVE_SUMMARY.md
-        text: Executive summary
-      - href: index.qmd
-        text: Reading guide
       - href: RESULTS.md
         text: Results
-      - href: WRITEUP.md
-        text: Methodology (TOC)
-      - text: Spokes
+      - text: Methodology
         menu:
-          - WRITEUP/data-decisions.md
-          - WRITEUP/model-rungs.md
-          - WRITEUP/eval-design.md
-          - WRITEUP/threshold-policy.md
-          - WRITEUP/reference-scorer-audit.md
-          - WRITEUP/methodology-guarantees.md
-          - WRITEUP/limitations-and-future-work.md
-          - WRITEUP/reproducibility.md
-      - text: Notebooks
-        menu:
-          - notebooks/01_canonical_results.ipynb
-          - notebooks/02_frozen_vs_lora.ipynb
-          - notebooks/03_calibration.ipynb
-          - notebooks/04_ood_slate.ipynb
-      - href: EVIDENCE.md
-        text: Evidence
+          - text: "Cover narrative (hub)"
+            href: WRITEUP.md
+          - text: "Reading guide"
+            href: READING_GUIDE.md
+          - href: WRITEUP/data-decisions.md
+          - href: WRITEUP/model-rungs.md
+          - href: WRITEUP/eval-design.md
+          - href: WRITEUP/threshold-policy.md
+          - href: WRITEUP/reference-scorer-audit.md
+          - href: WRITEUP/methodology-guarantees.md
+          - href: WRITEUP/limitations-and-future-work.md
+          - href: WRITEUP/reproducibility.md
+      - text: Decisions
+        href: decisions/README.md
       - text: Reference
         menu:
+          - EXECUTIVE_SUMMARY.md
+          - EVIDENCE.md
           - SPEC_SHEET.md
           - SUBMISSION_AUDIT.md
           - NEXT_STEPS.md
           - assumptions.md
-      - text: Decisions (ADRs)
-        href: decisions/README.md
+          - notebooks/01_canonical_results.ipynb
+          - notebooks/02_frozen_vs_lora.ipynb
+          - notebooks/03_calibration.ipynb
+          - notebooks/04_ood_slate.ipynb
+      - text: Repo
+        href: https://github.com/brandon-behring/prompt-injection-detection-prototype
+        target: _blank
+  # Sidebar restructured v1.1.1 per ADR-061: 2-level nesting under Methodology
+  # makes the hub-spoke relationship visible at-a-glance.
   sidebar:
     style: docked
     search: true
     contents:
-      - section: "Reading guide"
+      - section: "Entry"
         contents:
-          - EXECUTIVE_SUMMARY.md
-          - index.qmd
+          - text: "Landing page (results + meaning)"
+            href: index.qmd
           - RESULTS.md
+          - EXECUTIVE_SUMMARY.md
       - section: "Methodology"
         contents:
-          - WRITEUP.md
-          - WRITEUP/data-decisions.md
-          - WRITEUP/model-rungs.md
-          - WRITEUP/eval-design.md
-          - WRITEUP/threshold-policy.md
-          - WRITEUP/reference-scorer-audit.md
-          - WRITEUP/methodology-guarantees.md
-          - WRITEUP/limitations-and-future-work.md
-          - WRITEUP/reproducibility.md
+          - text: "Cover narrative (hub)"
+            href: WRITEUP.md
+          - text: "Reading guide"
+            href: READING_GUIDE.md
+          - section: "Detailed spokes (8 topics)"
+            contents:
+              - WRITEUP/data-decisions.md
+              - WRITEUP/model-rungs.md
+              - WRITEUP/eval-design.md
+              - WRITEUP/threshold-policy.md
+              - WRITEUP/reference-scorer-audit.md
+              - WRITEUP/methodology-guarantees.md
+              - WRITEUP/limitations-and-future-work.md
+              - WRITEUP/reproducibility.md
       - section: "Notebooks"
         contents:
           - notebooks/01_canonical_results.ipynb

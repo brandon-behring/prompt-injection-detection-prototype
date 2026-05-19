@@ -34,23 +34,23 @@ A spec-first case-study submission: every decision is locked via a structured Ph
 - **Not a benchmark.** Slate is fixed by source-disjoint LODO + a 5-slice OOD test slate, not a sliding leaderboard.
 - **Scope is single-turn English text classification only.** Multi-turn agentic flows, encoded payloads (base64 / leetspeak / hex / Unicode confusables / ROT13), paraphrase attacks, adversarial perturbations, and cross-language attacks are **out of scope** per ADR-014 + WRITEUP §1 Scope. InjecAgent appears in the test slate to *quantify* the agentic-flow gap, not because we expect the single-turn classifier to handle it.
 
-## Reading paths
+## How to read this submission
 
-Pick the path matching your audit depth. All paths link into the [live Quarto site](https://brandon-behring.github.io/prompt-injection-detection-prototype/); each is also navigable via the repo files if you've cloned.
+**Important**: the GitHub blob view of `WRITEUP.md` (this single file) is **only the cover narrative** — the methodology is split into a hub (`WRITEUP.md`) **plus 8 detailed spokes** under [`WRITEUP/`](./WRITEUP/). Reading `WRITEUP.md` alone is executive-summary depth; the full methodology requires all 8 spokes. **The [live Quarto site](https://brandon-behring.github.io/prompt-injection-detection-prototype/) is the canonical reading surface** — it renders the hub + all 8 spokes together with nested navigation under the **Methodology** dropdown. GitHub readers can click each spoke link in the table at the top of `WRITEUP.md` to drill in.
 
-1. **Quick-skim (~15 min)** — for the hiring-manager / executive read.
-   - [Live site index](https://brandon-behring.github.io/prompt-injection-detection-prototype/) → §Motivation + §Reading guide.
-   - [WRITEUP §1.5 Attack-type taxonomy](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#attack-type-taxonomy-traintest-composition) — 5 injection types + the 9-column train/test composition table.
-   - [WRITEUP §Results headline](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html#results) + §Takeaways — the OOD wall finding in 3 numbered points.
+### Three reading paths (pick by audit depth)
 
-2. **Audit (~60 min)** — for the ML-researcher / due-diligence read.
-   - Full [WRITEUP.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html) cover-to-cover.
-   - All 8 [WRITEUP/ spokes](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/data-decisions.html) (data, model-rungs, eval-design, threshold-policy, reference-scorer-audit, methodology-guarantees, limitations, reproducibility).
+1. **Quick read (~5 min)** — landing page only.
+   - [Live site landing page](https://brandon-behring.github.io/prompt-injection-detection-prototype/) — headline AUPRC table + 5-bullet plain-language meaning + 3 obvious drill-down links. Restructured v1.1.1 per [ADR-061](decisions/ADR-061-quarto-site-navigation-restructure.md) for exactly this use case.
+
+2. **Full methodology (~60 min)** — for the ML-researcher / due-diligence read.
+   - Live site → Methodology dropdown → **Cover narrative (hub)** = [`WRITEUP.md`](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html) → drill into each of the 8 spokes from the same dropdown.
+   - [Reading guide](https://brandon-behring.github.io/prompt-injection-detection-prototype/READING_GUIDE.html) — 3 named paths + 14 headline ADRs + repo TOC + technical version of the 5 interpretation patterns.
    - [EVIDENCE.md](https://brandon-behring.github.io/prompt-injection-detection-prototype/EVIDENCE.html) — external-evidence audit trail.
-   - Headline [ADRs](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html): ADR-005 (methodology over metrics), ADR-015 (single-backbone slate), ADR-016 (data design), ADR-017 (rung-slate), ADR-018 (reference scorers; superseded by ADR-050), ADR-022 (statistical apparatus), ADR-050 (rung-slate narrowing).
+   - [All 61 ADRs](https://brandon-behring.github.io/prompt-injection-detection-prototype/decisions/README.html) (immutable decision records; Michael Nygard format).
 
 3. **Reproduce the numbers (~30 min CPU; $0)** — for the engineer who wants the numbers to land on their machine.
-   - `make install && make eval-from-hub RUNG=frozen-probe` (CPU; ~15 min) pulls the published checkpoint from [BBehring/prompt-injection-frozen-probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe) and score-matches against `evals/results.json` within 1e-4 absolute per ADR-034.
+   - `make install && make eval-from-hub RUNG=frozen-probe` (CPU; ~15 min) pulls the published checkpoint from [BBehring/prompt-injection-frozen-probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe) and score-matches against `evals/results.json` within 1e-4 absolute per ADR-034 (wired at v1.0.9 per [ADR-058](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md)).
    - `make eval-from-hub RUNG=lora` — same for [BBehring/prompt-injection-lora](https://huggingface.co/BBehring/prompt-injection-lora).
    - `make test-smoke` (no GPU, no network, ~1 min) verifies code-health on fixtures.
    - Full T1 GPU re-eval via `make headline-cloud` (~$28; A100 80GB; ~7h).

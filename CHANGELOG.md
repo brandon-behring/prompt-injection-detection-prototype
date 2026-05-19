@@ -18,6 +18,102 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.1.1] — 2026-05-19
+
+**Patch release**: Quarto site navigation restructure — landing-page
+rebuild + navbar consolidation + sidebar hub-spoke nesting + hub-spoke
+signposting. **No methodology content changed** — pure navigation +
+discoverability fix per [ADR-061](decisions/ADR-061-quarto-site-navigation-restructure.md)
+(narrow supersession of [ADR-053](decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md)
+navigation dimension 1; dimensions 2-5 preserved).
+
+Triggered by 2026-05-19 user feedback: *"the quatro documents they
+seem really confusing and hard to follow, the whole points was them
+to be a cleaner version. ... it isn't immdiately clear to me where
+to find the results and explanations in clear language about wha
+they mean."*
+
+The reading-guide content displaced from `index.qmd` (3 reading
+paths + 14 headline ADRs + repo map + submission anchors + 5
+technical-interpretation patterns) moves to a new `READING_GUIDE.md`
+page accessible from the Methodology dropdown but no longer
+crowding the landing page.
+
+### Added
+
+- **`decisions/ADR-061-quarto-site-navigation-restructure.md`** —
+  narrow supersession of ADR-053 dimension 1 (navbar/sidebar/landing
+  architecture). Documents the 6 subsection changes (navbar 9→5 +
+  sidebar hub-spoke nesting + index rebuild + WRITEUP primer + 8
+  spoke back-links + README clarification) + dimensions 2-5 of
+  ADR-053 preserved.
+
+- **`READING_GUIDE.md`** (NEW) — receives the reading-guide content
+  displaced from `index.qmd`: 3 named reading paths (A1 quick-skim /
+  A2 audit / A3 reproduce), 14 headline ADRs, repo TOC, submission
+  anchors, status, and the full technical version of the 5
+  interpretation patterns.
+
+### Changed
+
+- **`_quarto.yml`** — navbar consolidated from 9 top-level items to 5
+  (Results / Methodology dropdown / Decisions / Reference dropdown /
+  Repo external link). The single Methodology dropdown carries the
+  hub (`WRITEUP.md`) + reading guide (`READING_GUIDE.md`) + all 8
+  spokes. Sidebar restructured with 2-level nesting: "Methodology >
+  Detailed spokes (8 topics) > ..." so the hub-spoke relationship is
+  visible at-a-glance.
+
+- **`index.qmd`** — rebuilt from 137 lines to ~85 lines (results +
+  meaning ONLY). Above the fold: 1-paragraph thesis + headline
+  finding table + 5-bullet plain-language interpretation + 3 obvious
+  drill-down links. The full technical interpretation pedagogy +
+  reading paths + ADR shortlist + repo map move to READING_GUIDE.md
+  (one click away).
+
+- **`WRITEUP.md`** — 2-paragraph hub-spoke primer inserted
+  immediately after the title (before the existing reading-guide
+  table). Reframes the cover narrative as INTENTIONAL and signposts
+  that the GitHub blob view alone is executive-summary depth; the
+  full methodology requires all 8 spokes.
+
+- **`WRITEUP/data-decisions.md`** + **`model-rungs.md`** +
+  **`eval-design.md`** + **`threshold-policy.md`** +
+  **`reference-scorer-audit.md`** + **`methodology-guarantees.md`** +
+  **`limitations-and-future-work.md`** + **`reproducibility.md`** —
+  each gains a 1-line back-link at the top: *"Part of the [WRITEUP
+  methodology](../WRITEUP.md) — see the hub for the cover narrative
+  + reading guide."*
+
+- **`README.md`** — "Reading paths" section rewritten as "How to
+  read this submission" with explicit Quarto-vs-GitHub guidance: the
+  GitHub blob view of `WRITEUP.md` is only the cover narrative; the
+  live Quarto site is the canonical reading surface with hub + 8
+  spokes + nested navigation. Three named reading paths (5 min / 60
+  min / 30 min CPU reproduce).
+
+- **`decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md`**
+  frontmatter — `superseded_by: ["054", "061"]` (narrow supersessions
+  of dimension 1 only; dimensions 2-5 unchanged).
+
+- **`SUBMISSION_AUDIT.md`** — regenerated; 61 CLAIM rows total
+  (ADR-061 added).
+
+### References
+
+- Supersedes (narrow, navigation dimension only): [ADR-053](decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md).
+- Preserves: ADR-053 dimensions 2 (3-reading-paths; now in
+  READING_GUIDE.md), 3 (headline-finding-block; preserved on
+  index.qmd), 4 (interpretation pedagogy; 5-bullet plain-language
+  on index.qmd + full technical version in READING_GUIDE.md), 5
+  (pointer convention; markdown links unchanged). Also preserves
+  ADR-054 (RESULTS as 3rd entry artifact; default landing-page link
+  unchanged).
+- Reviewer URL pin: `tree/v1.0.0` unchanged per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
+  Live Quarto site reflects v1.1.1.
+
+---
+
 ## [1.1.0] — 2026-05-19
 
 **Minor release**: closes the runpod-deploy modernization track (config

@@ -1,5 +1,7 @@
 # Data decisions
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke covers §3 of the methodology narrative — source slate
 selection, dedup discipline, leakage handling, and split structure.
 For the headline characterisation that consumes these decisions, see

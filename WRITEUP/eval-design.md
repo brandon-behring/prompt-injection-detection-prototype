@@ -1,5 +1,7 @@
 # Evaluation design
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke covers §5.1, §5.2, §5.4, §5.5 — the evaluation framework,
 statistical apparatus, per-source breakdown discipline, and OOD slate
 composition. Threshold policy (§5.3) is its own spoke

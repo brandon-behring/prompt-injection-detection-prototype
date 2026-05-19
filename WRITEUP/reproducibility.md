@@ -5,6 +5,8 @@ description: "Documents the T0 + T1 + T3 reproducibility tier ladder per ADR-034
 
 # Reproducibility
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This submission documents three tiers of reproduction, ordered by cost. **Pick the tier matching your audit depth + budget.**
 
 This spoke is referenced by `index.qmd`'s "Deep-dive path — reproduce the numbers" section.

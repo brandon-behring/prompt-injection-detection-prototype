@@ -1,5 +1,7 @@
 # Methodology guarantees
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke covers §6 — the three-library tooling split + SDD / ADR
 process discipline that backs every methodology claim in the
 writeup. For the statistical apparatus that consumes these

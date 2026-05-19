@@ -1,5 +1,7 @@
 # Limitations and future work
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke consolidates §8 scope deferrals, §8.2 methodology
 caveats, §9 negative results (tried + abandoned), and §11 lessons.
 The distinction matters: §8 = scope decisions we can defend; §9 =

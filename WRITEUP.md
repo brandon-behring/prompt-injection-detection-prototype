@@ -1,11 +1,19 @@
 # Prompt-injection classification — methodology + capability characterisation
 
-**Author**: Brandon Behring · **Date**: 2026-05-18 · **Status**: `v1.0.0` submission tag (Phase 5 close)
+**Author**: Brandon Behring · **Date**: 2026-05-19 · **Status**: `v1.1.1` (post-v1.0.0 navigation restructure per ADR-061; methodology unchanged from v1.0.0 submission)
 
-This document is the **TOC + landing page**: the cover narrative
-(§1 Motivation, §2 Approach overview, §Results, §Lessons,
-§Appendix) lives here; the detailed sections live as spokes
-under [`WRITEUP/`](./WRITEUP/) (linked below).
+**This is the hub of the methodology — a cover narrative + headline
+results.** The detailed methodology lives in 8 spoke pages linked
+in the table below; each spoke is a focused deep-dive on one topic
+(data design, rung ladder, evaluation, thresholds, calibration,
+reference-scorer audit, limitations, reproducibility).
+
+**Reading on the live Quarto site**: drill into each spoke from the
+Methodology dropdown in the navbar or the sidebar.
+**Reading on GitHub**: click each spoke link in the table below — the
+GitHub blob view of this file alone is the cover narrative; the full
+methodology requires all 8 spokes. Reading `WRITEUP.md` alone is
+executive-summary depth.
 
 ## Reading guide
 

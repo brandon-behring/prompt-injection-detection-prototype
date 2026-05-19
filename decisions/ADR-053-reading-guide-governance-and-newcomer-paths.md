@@ -68,7 +68,7 @@ acceptance_criterion: >-
   in the sidebar.
 closing_commit: v1.0.4
 supersedes: []
-superseded_by: ["054"]  # narrow supersession of dimension 1 (two-entry-artifacts) only; dimensions 2-5 unchanged. ADR-054 adds RESULTS.md as third entry artifact.
+superseded_by: ["054", "061"]  # narrow supersessions of dimension 1 — once by ADR-054 (adds RESULTS.md as 3rd entry artifact at v1.0.5) and once by ADR-061 (navbar 9→5 / sidebar hub-spoke nesting / landing-page rebuild + READING_GUIDE.md extraction / hub-spoke signposting at v1.1.1). Dimensions 2-5 (3-reading-paths + headline-finding-block + interpretation pedagogy + pointer convention) all preserved.
 references:
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/index.qmd
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/EXECUTIVE_SUMMARY.md

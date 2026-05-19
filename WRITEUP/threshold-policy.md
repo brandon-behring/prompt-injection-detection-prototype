@@ -1,5 +1,7 @@
 # Threshold policy
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke covers §5.3 — the dual-policy detection / verification
 operating-point characterisation per ADR-025. The same classifier
 scores are configured to two different cost-weight thresholds; what

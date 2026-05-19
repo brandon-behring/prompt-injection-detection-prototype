@@ -1,5 +1,7 @@
 # Reference-scorer audit
 
+*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+
 This spoke covers the three-state contamination taxonomy (ADR-005)
 as applied to the reference-scorer slate (ProtectAI v1 + v2 +
 TF-IDF+LR classical floor) per ADR-018 + ADR-050 narrowing, plus
