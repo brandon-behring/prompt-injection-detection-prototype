@@ -32,11 +32,11 @@ ADR-032 + Q10 lock (canonical fold0/seed42 checkpoint per rung); HF
 Hub repos go live at v1.0.1 close. Full-FT skipped per ADR-050
 (FUSE EIO crash; weights missing locally).
 
-**Maintainer note (v1.0.9):** the `scripts/eval_from_hub.py` non-dry-run
-body is now fully wired per ADR-058 (narrow supersession of ADR-051
-Block A). `make eval-from-hub RUNG=frozen-probe` + `RUNG=lora` exit 0
-with score-match summary within 1e-4 absolute tolerance per ADR-034
-§Tier T0. Per-row strict mode: exit 1 on any row exceeding tolerance
+**Result (Maintainer note v1.0.9):** the `scripts/eval_from_hub.py`
+non-dry-run body is fully wired per ADR-058 (narrow supersession of
+ADR-051 Block A). `make eval-from-hub RUNG=frozen-probe` + `RUNG=lora`
+exit 0 with score-match summary within 1e-4 absolute tolerance per
+ADR-034 §Tier T0. Per-row strict mode: exit 1 on any row exceeding tolerance
 (no silent failures); per-row delta diagnostics printed to stderr on
 fail. ADR-051 Block B (38 invariant scaffolds) remains carryforward
 to v1.1.x.
@@ -132,7 +132,7 @@ The tier ladder maps approximately onto [ACM Artifact Review and Badging (v1.1)]
 - T0 + T1 supply *Artifacts Available* + *Functional* + *Reusable* badge levels.
 - T3 supplies the *Reproducible* badge level (deepest).
 
-Reviewers familiar with ACM artifact policies will recognize the structure.
+**Result**: the tier ladder is recognizable to reviewers familiar with ACM artifact policies.
 
 ---
 

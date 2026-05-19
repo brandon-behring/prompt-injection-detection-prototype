@@ -69,9 +69,9 @@ All 11 sources are pinned at HF revision SHAs (where applicable) per
 Label-blind dedup looks innocuous and is wrong. It removes minimal
 pairs — cases where two near-identical texts have *different* labels —
 which are exactly the informative examples a classifier needs to learn
-the decision boundary. We use **calibrated semantic dedup** (encoder +
-threshold locked at Phase 0); label-aware (within-source, drop;
-cross-label, preserve); cross-source minimal pairs preserved.
+the decision boundary. This project uses **calibrated semantic dedup**
+(encoder + threshold locked at Phase 0); label-aware (within-source,
+drop; cross-label, preserve); cross-source minimal pairs preserved.
 
 Calibration evidence: `evals/dedup_calibration.json` records
 `threshold_locked: 0.80` (cosine) for the cross-source
@@ -105,7 +105,7 @@ audit:
    level, the audit shifts to fold-pattern + scope-mismatch analysis —
    see [`../EVIDENCE.md`](../EVIDENCE.md) §1-2.
 
-Reported as 0 exact-hash overlaps + 0 cosine overlaps at threshold
+**Result**: 0 exact-hash overlaps + 0 cosine overlaps at threshold
 0.85 across all (train, val, test) per-fold-seed pairs —
 `evals/leakage_report.json` carries `leakage_clean: True`. The
 eval-toolkit leakage check suite operationalises the 8-type taxonomy
@@ -118,8 +118,8 @@ papers traced to leakage — via reference implementations:
 
 ## 3.4 Splits
 
-Splits structure locked at *source-disjoint LODO* (4-fold; 3 seeds =
-12 cells per rung) per ADR-016. When ≥3 positive sources are
+**Result**: splits structure locked at *source-disjoint LODO* (4-fold;
+3 seeds = 12 cells per rung) per ADR-016. When ≥3 positive sources are
 available, source-disjoint LODO is the field-standard choice (Fomin
 2025, "When Benchmarks Lie"). See
 [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).

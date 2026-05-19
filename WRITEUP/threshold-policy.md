@@ -79,11 +79,11 @@ For comparison, the **frozen-probe** rung at the same policies:
 | Detection (FPR ≤ 1 %) | 0.829 | 0.063 | 0.010 | val: 12/12; test: 11/12 within target |
 | Verification (recall ≥ 99 %) | 0.215 | 0.957 | 0.891 | val: 12/12; test: 5/12 within target |
 
-This is **characterisation, not deployment recommendation**. We are
-showing what the scores deliver under each cost weight, not advocating
-either policy for any deployment.
+This is **characterisation, not deployment recommendation**. The
+table shows what the scores deliver under each cost weight, not an
+advocation of either policy for any deployment.
 
-**Key val→test transfer findings**:
+**Result (key val→test transfer findings)**:
 
 - All 72 op-points are reachable on val (the threshold-fitting set
   by ADR-025); transfer to LODO held-out test is partial-to-poor.

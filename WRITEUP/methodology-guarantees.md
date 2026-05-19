@@ -55,11 +55,11 @@ code; separating it makes both auditable independently. See
 templates; runbook commentary inlined in
 [`reproducibility.md`](./reproducibility.md) §10.2.
 
-**Prediction-persistence pattern** `[LOCKED]`: `runpod-deploy` pulls
-per-row score artifacts in addition to metrics JSON, so downstream
-threshold / calibration analyses run from persisted predictions
-without re-running inference. The submission persists 282 prediction
-parquets per ADR-013 + ADR-021 at
+**Result**: prediction-persistence pattern `[LOCKED]`. `runpod-deploy`
+pulls per-row score artifacts in addition to metrics JSON, so
+downstream threshold / calibration analyses run from persisted
+predictions without re-running inference. The submission persists 282
+prediction parquets per ADR-013 + ADR-021 at
 `evals/predictions/<rung>__fold<F>__seed<S>__<source>.parquet`
 schema-validated against `src.eval.schemas.PredictionsRowModel`.
 
@@ -85,13 +85,13 @@ tests-passing, not metric thresholds — instantiate the discipline.
   references its source transcript in the `transcript:` frontmatter
   field.
 
-**Library-first invariant** (Phase 4 entry walkthrough Q6
-reaffirmation): at every module-design step audit `eval-toolkit +
-runpod-deploy + research_toolkit` for an existing primitive BEFORE
-writing project glue. ADR-047 retrofitted 4 hand-rolls in `src/data/`
-in a single carryforward refactor commit; future module additions
-follow the same audit discipline. Upstream gaps land in
-`decisions/upstream_issues.md` *before* a local workaround.
+**Result**: the **library-first invariant** (Phase 4 entry walkthrough
+Q6 reaffirmation) is project-wide. At every module-design step audit
+`eval-toolkit + runpod-deploy + research_toolkit` for an existing
+primitive BEFORE writing project glue. ADR-047 retrofitted 4
+hand-rolls in `src/data/` in a single carryforward refactor commit;
+future module additions follow the same audit discipline. Upstream
+gaps land in `decisions/upstream_issues.md` *before* a local workaround.
 
 ## Library-first carryforward refactor (ADR-047)
 

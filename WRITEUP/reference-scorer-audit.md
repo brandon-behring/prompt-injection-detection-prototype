@@ -49,7 +49,7 @@ NOT. v1 distinguishes positives from negatives at marginally-above-
 chance rates on the OOD slate. Training-data disclosure is at
 category level only via the HF model card; cross-source overlap
 check via `data/contamination_templates.parquet` is partial; full
-disjointness cannot be verified. **Verdict**:
+disjointness cannot be verified. **Result (verdict)**:
 `suspected_contamination` retained; results reported with caveat.
 
 ### ProtectAI v2 — `suspected_contamination`
@@ -62,10 +62,10 @@ Per-slice AUROC on the OOD slate:
 | xstest | 0.391 | [0.341, 0.442] |
 | pooled_ood | 0.402 | [0.369, 0.437] |
 
-v2 is BETTER than v1 on jbb_behaviors (+0.06 AUROC; CIs overlap but
-separated by ~1 SD) and WORSE on xstest (-0.15 AUROC; CIs do not
-overlap — a clear regression). v2's broader-scope training did NOT
-monotonically improve across the OOD slate. The contamination
+**Result**: v2 is BETTER than v1 on jbb_behaviors (+0.06 AUROC; CIs
+overlap but separated by ~1 SD) and WORSE on xstest (-0.15 AUROC; CIs
+do not overlap — a clear regression). v2's broader-scope training did
+NOT monotonically improve across the OOD slate. The contamination
 caveat from v1 carries over: training scope is disclosed at category
 level only.
 

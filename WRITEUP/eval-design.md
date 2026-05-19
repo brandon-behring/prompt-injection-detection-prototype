@@ -42,8 +42,9 @@ for why each metric is preferred over plain F1.
 
 ## 5.2 Statistical tests
 
-**Stance**: report effect sizes and CIs. Do not rely on p-values. This
-is the modern preference in applied ML evaluation and is aligned with
+**Result (Stance)**: report effect sizes and CIs. Do not rely on
+p-values. This is the modern preference in applied ML evaluation and
+is aligned with
 [eval-toolkit](https://github.com/brandon-behring/eval-toolkit)'s
 primitive design.
 
@@ -199,9 +200,9 @@ See
 [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md)
 for the source-disjoint discipline this project applies.
 
-**Single-class slice convention**: BIPIA + InjecAgent are all-
-positive; NotInject is all-negative. AUROC and AUPRC are mathemati-
-cally undefined on single-class slices. The metrics pipeline
+**Result (Single-class slice convention)**: BIPIA + InjecAgent are
+all-positive; NotInject is all-negative. AUROC and AUPRC are
+mathematically undefined on single-class slices. The metrics pipeline
 filters these slices out of AUROC / AUPRC artifacts at source
 (per Item 4 of the v1.0.0 closure sweep — see WRITEUP §Methodology
 caveats); per-slice recall-at-threshold is reported on single-class
