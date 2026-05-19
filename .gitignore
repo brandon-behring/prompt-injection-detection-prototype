@@ -76,3 +76,4 @@ artifacts/runpod/2026*/
 # Local-only scratch drafts + review notes (not part of submission)
 /draft.md
 /draft_review.md
+.scratch/
