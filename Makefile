@@ -311,10 +311,15 @@ deberta-ablation:
 	uv run runpod-deploy validate --config configs/runpod/headline-deberta.yaml --all
 	uv run runpod-deploy run --dry-run --config configs/runpod/headline-deberta.yaml
 	@read -p "Approve DeBERTa-v3-base 2-fire ablation (cap \$$25; expected ~\$$5-7)? [y/N] " ans && [ "$$ans" = "y" ] || exit 1
-	# Fire 1: chunk_and_average (lifecycle.on_success: recycle keeps pod warm)
-	TRUNCATION_STRATEGY=chunk_and_average uv run runpod-deploy run --config configs/runpod/headline-deberta.yaml
-	# Fire 2: head_truncation (reuses warm pod via state-file)
-	TRUNCATION_STRATEGY=head_truncation uv run runpod-deploy run --config configs/runpod/headline-deberta.yaml
+	# Fire 1: chunk_and_average (lifecycle.on_success: recycle keeps pod warm).
+	# `--var truncation_strategy=...` substitutes {truncation_strategy} in
+	# headline-deberta.yaml body / script_path / log_path. runpod-deploy uses
+	# template-variable expansion ({KEY}); shell env vars are NOT interpolated.
+	uv run runpod-deploy run --config configs/runpod/headline-deberta.yaml \
+		--var truncation_strategy=chunk_and_average
+	# Fire 2: head_truncation (reuses warm pod via state-file).
+	uv run runpod-deploy run --config configs/runpod/headline-deberta.yaml \
+		--var truncation_strategy=head_truncation
 	# Explicit pod teardown after fire 2 (no per-fire on_success override flag).
 	uv run runpod-deploy stop --state-file ~/.runpod-pid-deberta-ablation-current
 	# Aggregate per-strategy metrics into per_cell_deberta.parquet.
