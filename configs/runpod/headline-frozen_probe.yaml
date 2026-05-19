@@ -191,6 +191,7 @@ artifacts:
 
 # Preserve pod on failure for forensic SSH; stop on success per ADR-013 pre-
 # teardown checklist (predictions parquets are pulled to artifacts/ first).
-stop:
-  on_success: true
-  on_failure: false
+# Migrated to lifecycle: schema at v1.1.0-prep per runpod-deploy v0.8.3+ requirement.
+lifecycle:
+  on_success: delete  # was: stop.on_success=true (teardown after success)
+  on_failure: stop    # was: stop.on_failure=false (preserve pod for forensic SSH)
