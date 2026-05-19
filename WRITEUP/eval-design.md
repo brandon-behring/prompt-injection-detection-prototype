@@ -47,7 +47,7 @@ The headline metric battery reports with BCa bootstrap CIs:
 - **ECE (equal-mass + Kumar-2019 debiased) + Brier** — calibration;
   see §5.2 calibration battery below.
 
-See [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md)
+See eval-toolkit `comparison` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme))
 for why each metric is preferred over plain F1.
 
 ## 5.2 Statistical tests
@@ -72,7 +72,7 @@ metrics. Pinned seed; stability check at a second seed flags
 instability if per-fold CI shifts > 0.01. **Report the point estimate,
 not the resample mean** — `BootstrapCI.point_estimate` is the metric
 on the *original* data. See
-[methodology/bootstrap.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md).
+eval-toolkit `bootstrap` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 ### Paired-bootstrap differences for rung-vs-rung — `paired_bootstrap_diff`
 
@@ -132,7 +132,7 @@ binned estimator; small bin counts understate, large bin counts
 overstate.
 
 See
-[methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md).
+eval-toolkit `calibration` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 ### CV-CLT CI for cross-fold variance — `cv_clt_ci`
 
@@ -141,7 +141,7 @@ metrics are not independent — train sets overlap across folds. A naive
 standard-error treatment overstates confidence. CLT-based CI with
 Bayle 2020 (Annals of Statistics) Theorem 3.1 correction handles the
 dependence properly. See
-[methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+eval-toolkit `splits` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 LODO non-exchangeability is a real assumption violation per
 assumption A-008 — the `cv_clt_ci` primitive was derived for
@@ -207,7 +207,7 @@ from `docs/research/benchmarks/` candidate set:
 | `injecagent` | Local git repo (release-pinned SHA in source_manifest.yaml) | All-positive (multi-turn agentic injection) | Agentic-flow generalization | Tests agentic-flow injection |
 
 See
-[methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md)
+eval-toolkit `splits` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme))
 for the source-disjoint discipline this project applies.
 
 **Result (Single-class slice convention)**: BIPIA + InjecAgent are

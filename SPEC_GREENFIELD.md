@@ -79,7 +79,7 @@ The classifier targets a subset of the prompt-injection attack surface. Naming t
 
 > **Decision needed:** dedup encoder + threshold.
 > **Options:** label-blind n-gram cosine / label-aware sentence-embedding cosine (MiniLM or MPNet) / hybrid.
-> **Considerations:** anisotropic-embedding pitfalls; calibrate the threshold against labelled holdouts before locking; cross-link the [methodology/text_dedup.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/text_dedup.md) chapter.
+> **Considerations:** anisotropic-embedding pitfalls; calibrate the threshold against labelled holdouts before locking; cross-link the eval-toolkit `text_dedup` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)) chapter.
 > **Default if unsure:** label-aware semantic dedup with MiniLM/MPNet bake-off, threshold chosen by 4-gate selection rule, calibration evidence persisted in `evals/dedup_calibration.json`.
 
 **Cross-source benign dedup ordering** — `[OPEN]`:
@@ -95,7 +95,7 @@ The classifier targets a subset of the prompt-injection attack surface. Naming t
 2. High-cosine train-test overlap scan — assert no test row has cosine ≥ `[OPEN: threshold]` to any train row of the same label.
 3. **Public-model leakage audit** — for any external reference scorer (a published classifier evaluated alongside the rung ladder), audit its training-data overlap with each evaluation slice. Document overlap percentages in the writeup so the reference scorer's numbers are read as diagnostic, not as a clean baseline.
 
-Cross-link [methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
+Cross-link eval-toolkit `leakage` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 **Reference-scorer audit methodology — partial-disclosure case** — `[OPEN]`:
 
@@ -108,7 +108,7 @@ Cross-link [methodology/leakage.md](https://github.com/brandon-behring/eval-tool
 
 > **Decision needed:** single-split vs k-fold.
 > **Options:** single 70/15/15 / source-disjoint k-fold (k chosen against power) / source-disjoint LODO (leave-one-dataset-out) per Fomin 2025 / hybrid.
-> **Considerations:** k-fold gives variance estimates but consumes test rows; single-split is simpler but doesn't estimate variance. LODO with k=number-of-positive-sources is the field standard for distribution-shift evaluation. Cross-link [methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+> **Considerations:** k-fold gives variance estimates but consumes test rows; single-split is simpler but doesn't estimate variance. LODO with k=number-of-positive-sources is the field standard for distribution-shift evaluation. Cross-link eval-toolkit `splits` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 > **Default if unsure:** source-disjoint LODO with k = number of positive sources (typically 3–4).
 
 ### §2 Model recipe — the rung ladder
@@ -164,14 +164,14 @@ Cross-link [methodology/leakage.md](https://github.com/brandon-behring/eval-tool
 - **recall @ FPR** at multiple operational points (e.g., 0.1%, 1%, 5%).
 - **ECE (equal-mass + Kumar-debiased) + Brier** — calibration battery; see below.
 
-Cross-link [methodology/comparison.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/comparison.md) for why each metric is preferred over plain F1.
+Cross-link eval-toolkit `comparison` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)) for why each metric is preferred over plain F1.
 
 **Statistical tests** — `[LOCKED]` minimum set, all from eval-toolkit:
 
 - **Per-metric bootstrap CIs** (`bootstrap_ci`) — finite-sample uncertainty on every headline number; percentile bootstrap; pinned seed with a stability check at a second seed.
-- **Paired-bootstrap differences** (`paired_bootstrap_diff`) — same-test-set rung-vs-rung comparison; accounts for paired-error correlation without requiring parametric assumptions like DeLong's. Cross-link [methodology/bootstrap.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/bootstrap.md).
+- **Paired-bootstrap differences** (`paired_bootstrap_diff`) — same-test-set rung-vs-rung comparison; accounts for paired-error correlation without requiring parametric assumptions like DeLong's. Cross-link eval-toolkit `bootstrap` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 - **MDE** (`mde_from_ci`) — minimum detectable effect from CI width at α = 0.05, power = 0.80. Distinguishes "no difference detected" from "no power to detect."
-- **Calibration battery** — `reliability_curve`, `fit_temperature`, `fit_isotonic_calibrator`, ECE variants, Brier score. Cross-link [methodology/calibration.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/calibration.md).
+- **Calibration battery** — `reliability_curve`, `fit_temperature`, `fit_isotonic_calibrator`, ECE variants, Brier score. Cross-link eval-toolkit `calibration` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 - **CV-CLT CI** (`cv_clt_ci`) — when k-fold is used, CLT-based CI with Nadeau-Bengio-style variance correction handles per-fold dependence properly.
 
 **Per-row prediction persistence** — `[LOCKED]`: every training/inference run persists per-row score predictions alongside summary metrics (e.g., `evals/predictions/<rung>__<fold>__<seed>.parquet` with columns `text_hash, y_true, y_score, source, slice`). Downstream analyses (calibration, threshold sweeps, ROC curves, recall@FPR at arbitrary pinpoints) MUST be able to operate on persisted predictions without re-running inference. Failing to persist predictions is a methodology bug — it forces all downstream analysis to re-run inference, which means most downstream analysis simply doesn't happen.
@@ -200,7 +200,7 @@ Selection uses eval-toolkit's `ThresholdSelector` protocol on **validation only*
 
 > **Decision needed:** FPR target for detection policy; FNR target for verification policy.
 > **Considerations:** symmetric targets (e.g., both 1%) make the framing clean and the comparison readable; asymmetric targets require justification.
-> **Default if unsure:** detection policy targets FPR ≤ 1% on validation; verification policy targets FNR ≤ 1%. Cross-link [methodology/thresholds.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md).
+> **Default if unsure:** detection policy targets FPR ≤ 1% on validation; verification policy targets FNR ≤ 1%. Cross-link eval-toolkit `thresholds` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 ### §5 Code architecture
 

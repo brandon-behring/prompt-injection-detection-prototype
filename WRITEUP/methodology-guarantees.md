@@ -39,7 +39,7 @@ A library-grade harness for binary classification with three tiers:
   NeurIPS-aligned manifest capturing seeds, git SHA, data hashes,
   data revisions, GPU info, leakage report, guardrails, source
   roles. See
-  [methodology/reproducibility.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/reproducibility.md)
+  eval-toolkit `reproducibility` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme))
   for the NeurIPS-checklist field mapping.
 
 Plus a

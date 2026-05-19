@@ -93,7 +93,7 @@ FPR=0, FNR=33.3 %. Operator follow-up gated at v1.0.0: raise
 `human_verified_pct` from 0 to 100 by manually examining
 `data/dedup_holdout.jsonl` and confirming each LLM-pre-label is correct.
 
-See [methodology/text_dedup.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/text_dedup.md)
+See eval-toolkit `text_dedup` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme))
 for the general framework.
 
 ## 3.3 Leakage handling + reference-scorer audit
@@ -123,7 +123,7 @@ papers traced to leakage — via reference implementations:
 `ExactDuplicateCheck`, `NearDuplicateCheck`, `NormalizedFormLeakageCheck`,
 `CrossSplitLeakageCheck`, `LabelConflictCheck`, `GroupLeakageCheck`,
 `TemporalLeakageCheck`. See
-[methodology/leakage.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/leakage.md).
+eval-toolkit `leakage` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 ## 3.4 Splits
 
@@ -131,7 +131,7 @@ papers traced to leakage — via reference implementations:
 3 seeds = 12 cells per rung) per ADR-016. When ≥3 positive sources are
 available, source-disjoint LODO is the field-standard choice (Fomin
 2025, "When Benchmarks Lie"). See
-[methodology/splits.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/splits.md).
+eval-toolkit `splits` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 ## Cross-references
 

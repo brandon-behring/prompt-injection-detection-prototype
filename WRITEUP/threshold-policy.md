@@ -53,7 +53,7 @@ Symmetric cost-weight configurations of the same primitive.
 Operationally-interpretable targets (FPR / FNR) — not score-space
 targets — so the same selection rule applies across heterogeneous
 rungs whose score scales aren't comparable. See
-[methodology/thresholds.md](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md).
+eval-toolkit `thresholds` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme)).
 
 Per-(rung, fold, seed) fitting on validation only: 24 thresholds per
 trained rung × 3 trained rungs (post-ADR-050 narrowing) = 72
