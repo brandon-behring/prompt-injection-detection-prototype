@@ -28,7 +28,14 @@ local:
     - uv.lock
 
 variables:
-  remote_repo: /workspace/prompt-injection-detection-submission
+  # v1.1.2 Phase D retry-3: project code lives on /root (container overlay disk)
+  # NOT /workspace (FUSE/MooseFS). Three prior fire attempts hit transient
+  # `Input/output error (5)` mid-rsync push on different /workspace files
+  # (FUSE intermittency per `fuse-workspace-needs-uv-link-mode-copy` memory;
+  # X8 workaround for venv extended here to project files too). /root has
+  # 20 GB container disk; project + data + venv + DeBERTa weights fit
+  # comfortably (~5 GB total).
+  remote_repo: /root/prompt-injection-detection-submission
   # X8 (2026-05-17): venv on overlay disk (/root), NOT on /workspace (FUSE/MooseFS).
   # See headline-frozen_probe.yaml for the discovery context (HF Trainer atomic
   # checkpoint save + uv install-phase atomic writes acquire POSIX exclusive
@@ -83,16 +90,21 @@ budget:
 # HF_TOKEN injection per ADR-035 three-store split (RunPod pod-secrets layer).
 secrets:
   - name: hf
-    destination: /workspace/secrets/env
+    destination: /root/secrets/env
     mode: "0600"
     env: [HF_TOKEN]
 
 remote_env:
   source_files:
-    - /workspace/secrets/env
+    - /root/secrets/env
   exports:
-    HF_HOME: /workspace/.hf_cache
-    HUGGINGFACE_HUB_CACHE: /workspace/.hf_cache
+    # v1.1.2 Phase D retry-3: HF cache on /root (overlay disk) not /workspace
+    # (FUSE). Mirrors the X8 venv-on-/root workaround per `fuse-workspace-
+    # needs-uv-link-mode-copy` memory. HF Hub download writes large files
+    # (snapshot of DeBERTa-v3-base ~440 MB) with atomic-rename semantics;
+    # FUSE F_SETLKW hangs on the rename.
+    HF_HOME: /root/.hf_cache
+    HUGGINGFACE_HUB_CACHE: /root/.hf_cache
     HF_HUB_DOWNLOAD_TIMEOUT: "120"
     # X8 (2026-05-17): uv_cache on overlay disk (NOT FUSE). uv's resolution
     # phase does git operations on cached git+https deps; FUSE F_SETLKW hangs.
@@ -104,13 +116,14 @@ remote_env:
     UV_LINK_MODE: copy
 
 setup:
-  - command: "test -d /workspace && touch /workspace/.runpod-deploy-write-test && rm /workspace/.runpod-deploy-write-test"
+  # /root sanity write-test (overlay disk; should always pass).
+  - command: "touch /root/.runpod-deploy-write-test && rm /root/.runpod-deploy-write-test"
     timeout_sec: 60
   - command: "which rsync >/dev/null 2>&1 || { apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq rsync ; }"
     timeout_sec: 300
   - command: "curl -LsSf https://astral.sh/uv/install.sh | sh"
     timeout_sec: 300
-  - command: "mkdir -p /workspace/.hf_cache /workspace/uv_cache {remote_repo}/evals/predictions {remote_repo}/evals/checkpoints"
+  - command: "mkdir -p /root/.hf_cache /root/uv_cache {remote_repo}/evals/predictions {remote_repo}/evals/checkpoints"
     timeout_sec: 120
 
 staging:
@@ -163,16 +176,16 @@ preflight:
     with_env: true
 
 run:
-  script_path: /workspace/pid_v1_1_2_deberta_{truncation_strategy}.sh
-  log_path: /workspace/pid_v1_1_2_deberta_{truncation_strategy}.log
+  script_path: /root/pid_v1_1_2_deberta_{truncation_strategy}.sh
+  log_path: /root/pid_v1_1_2_deberta_{truncation_strategy}.log
   success_marker: "[train_rung] DONE rung=deberta_v3_base"
   body: |
     #!/usr/bin/env bash
     set -euo pipefail
     export PATH="$HOME/.local/bin:$PATH"
-    [ -f /workspace/secrets/env ] && source /workspace/secrets/env || true
-    export HF_HOME=/workspace/.hf_cache
-    export HUGGINGFACE_HUB_CACHE=/workspace/.hf_cache
+    [ -f /root/secrets/env ] && source /root/secrets/env || true
+    export HF_HOME=/root/.hf_cache
+    export HUGGINGFACE_HUB_CACHE=/root/.hf_cache
     export HF_HUB_DOWNLOAD_TIMEOUT=120
     export UV_CACHE_DIR=/root/uv_cache
     export UV_PROJECT_ENVIRONMENT={remote_venv}
@@ -197,7 +210,7 @@ artifacts:
     local_path: "{project_root}/evals/checkpoints/deberta_v3_base/"
     delete: false
   - label: log
-    remote_path: /workspace/pid_v1_1_2_deberta_{truncation_strategy}.log
+    remote_path: /root/pid_v1_1_2_deberta_{truncation_strategy}.log
     local_path: "{run_dir}"
     required: false
     delete: false
