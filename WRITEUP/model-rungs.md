@@ -35,11 +35,16 @@ per ADR-019 + ADR-049 (per-pod cap $40/$60/$100 per ADR-020).
 
 ## 4.1 Detector 1: *the linear floor*
 
-TF-IDF (word ngrams 1-2 + char ngrams 3-5; max_features=15000 each;
-sublinear TF; lowercase + strip_accents=unicode) + logistic regression
-(`solver=liblinear`, `C=1.0`, `class_weight=balanced`, `max_iter=1000`).
-Deterministic; one fit per fold × seed. Per ADR-017 + ADR-044.
-Contamination tier: `verified_disjoint` per ADR-005.
+The minimum-viable linear classifier: TF-IDF features + logistic
+regression. Deterministic; one fit per fold × seed. Per ADR-017 +
+ADR-044. Contamination tier: `verified_disjoint` per ADR-005.
+
+:::{.callout-tip collapse="true"}
+## Hyperparameters (TF-IDF + LR)
+
+- **TF-IDF**: word ngrams 1-2 + char ngrams 3-5; `max_features=15000` each; sublinear TF; lowercase + `strip_accents=unicode`
+- **Logistic regression**: `solver=liblinear`, `C=1.0`, `class_weight=balanced`, `max_iter=1000`
+:::
 
 *Why this detector exists*: a linear model is the minimum-viable
 classifier for the task; everything above it has to earn its
@@ -58,11 +63,18 @@ under AUROC's prior-independent framing.
 
 ## 4.2 Detector 2: *what the backbone already encodes*
 
-ModernBERT-base (`answerdotai/ModernBERT-base`, revision pinned at SHA
-`8949b909ec900327062f0ebf497f51aef5e6f0c8`) with all backbone weights
-FROZEN; only the 2-class classification head is trained per ADR-015 +
-ADR-019. 2 epochs × class-balanced loss × bf16 × 12 cells (4 folds × 3
-seeds). Contamination tier: `backbone-partial-disjoint` per ADR-005.
+ModernBERT-base with all backbone weights FROZEN; only the 2-class
+classification head is trained per ADR-015 + ADR-019. Contamination
+tier: `backbone-partial-disjoint` per ADR-005.
+
+:::{.callout-tip collapse="true"}
+## Hyperparameters (Frozen probe)
+
+- **Backbone**: `answerdotai/ModernBERT-base` at revision SHA `8949b909ec900327062f0ebf497f51aef5e6f0c8` (pinned)
+- **Training**: backbone weights frozen; 2-class classification head trained
+- **Schedule**: 2 epochs × class-balanced loss × bf16
+- **Cells**: 12 (4 LODO folds × 3 seeds)
+:::
 
 *Why this detector exists*: separates *pretraining alone* from
 *fine-tuning*. If the frozen probe matches or beats the linear floor but the
@@ -81,15 +93,19 @@ This is the headline finding of WRITEUP §Results.
 
 ## 4.3 Detector 3: *the fine-tuning ceiling at the project's compute budget*
 
-ModernBERT-base with LoRA adapters per ADR-015 + ADR-019:
-- `r = 8`, `alpha = 16`, `dropout = 0.1`
-- `target_modules = [Wqkv, attn.Wo, mlp.Wo, mlp.Wi]` (ModernBERT
-  attention + MLP linear modules)
-- `modules_to_save = [classifier]`, `task_type = SEQ_CLS`, `bias = none`
-
-2 epochs × class-balanced loss × bf16 × 12 cells. Approximately 0.5 %
-to 1 % of parameters trainable. Contamination tier:
+ModernBERT-base with LoRA adapters per ADR-015 + ADR-019. Approximately
+0.5 % to 1 % of parameters trainable. Contamination tier:
 `backbone-partial-disjoint` per ADR-005.
+
+:::{.callout-tip collapse="true"}
+## Hyperparameters (LoRA fine-tune)
+
+- **LoRA config**: `r = 8`, `alpha = 16`, `dropout = 0.1`
+- **Target modules**: `[Wqkv, attn.Wo, mlp.Wo, mlp.Wi]` (ModernBERT attention + MLP linear modules)
+- **PEFT config**: `modules_to_save = [classifier]`, `task_type = SEQ_CLS`, `bias = none`
+- **Schedule**: 2 epochs × class-balanced loss × bf16
+- **Cells**: 12 (4 LODO folds × 3 seeds)
+:::
 
 *Why this detector exists*: it is the maximally-adapted model in the
 project compute budget. If anything above the frozen probe is worth
