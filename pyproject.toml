@@ -13,7 +13,11 @@ dependencies = [
     # eval-toolkit published to PyPI starting v0.40.0 (2026-05-18) via Trusted Publishing OIDC.
     # v1.0.9 bump → v0.42.0 (2026-05-19) ships fit_isotonic_binary (eval-toolkit#44);
     # removes the v1.0.8 fit_isotonic_binary_local adapter per library-first invariant.
-    "eval-toolkit==0.42.0",
+    # v1.2.8 bump → v0.43.0 (2026-05-19) P1 batch: closes #48 (ood_dataset_from_manifest),
+    # #49 (character_injection core-6), #53 (ActivationDeltaProbe). Per Gate-1 rolling-bump
+    # decision in eval-toolkit v0.43→v1.0 plan §Decision 9. Consumer-side ledger entries
+    # tracking these resolutions live at decisions/upstream_issues.md.
+    "eval-toolkit==0.43.0",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
