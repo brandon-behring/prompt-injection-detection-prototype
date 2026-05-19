@@ -18,6 +18,60 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.1] — 2026-05-19
+
+**Patch release**: narrative consistency + clarity + accuracy closing-polish
+pass on top of v1.2.0. Per [ADR-065](decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md)
+(layered additively on top of ADR-064 — no supersession). Reviewer URL pin
+`tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.1.
+
+Locked through 3 sequential `/exploring-options` rounds:
+
+- **Round 3** (top-level scope): heavy pass on all three properties; every-number programmatic re-verification; Quarto callout-note "visual boxes" (not "TL;DR" per user directive); collapsible hyperparameter blocks for `WRITEUP/model-rungs.md`.
+- **Round 5** (audit-script architecture): configurable `--strict` default + `--report-only` opt-out; project-internal (not upstream); on-demand local + CI hard-gate (no pre-commit hook); 7-commit hybrid cadence (Commit 4 splits into 4a + 4b + 4c).
+- **Round 6** (execution mechanics): hybrid voice/tense scan (grep prefilter + spot-read + ADR-diff); Summary-box bullets distilled from `**Result**`-bolded sentences; strict swap of Commits 4a + 5 so Result-bolding lands before Summary-box distillation; cumulative-cost figure as `$17.08` with provenance footnote in ADR-065 §E.
+
+### Added
+
+- **`decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md`** — closing-polish ADR. §A Context (3 `/exploring-options` rounds; 11 locked decisions) + §B Accuracy-audit methodology (4 scan categories; `--strict` / `--report-only` flag; project-internal per Q2 round-5; CI hard-gate per Q3 round-5) + §C Quarto callout-note convention (3 callout types) + §D Narrative invariants (third-person voice; tense discipline; transitions; ADR-anchor) + §E Cumulative-cost canonical figure (`$17.08`; supersedes ADR-063's stale `$9.92`) + §F Consequences.
+
+- **`scripts/audit_writeup_numbers.py`** (~290 LOC; project-internal per ADR-065 §B3) — programmatic numeric-claim audit on 12 reviewer-facing markdown surfaces. 4 scan categories: numbers + ADR slugs + version strings + URL slugs. Cross-checks dollar figures against `evals/cost_ledger.csv`; ADR slug refs against actual filenames in `decisions/`. Configurable `--strict` default + `--report-only` opt-out per Q1 round-5. Context-aware filters skip intentional broken-slug documentation patterns + historical cost figures whose +/-15-line context flags them as stale/superseded.
+
+- **`.github/workflows/audit-writeup.yml`** — CI hard-gate per ADR-065 §B4. Runs default-strict on push to main + PR + weekly schedule. Mirrors lychee CI pattern from ADR-064 §C2. No pre-commit hook (matches ADR-064 §C2's "CI only; no local pre-commit hook to avoid contributor friction" discipline).
+
+- **Canonical Quarto callout-note convention** (`docs/GLOSSARY.md` new section per ADR-065 §C) — 3-row table covering `:::{.callout-note}` Summary boxes (top of spoke; 3-5 bullets distilled from `**Result**` sentences), `:::{.callout-tip collapse="true"}` Hyperparameters (collapsible audit-detail), `:::{.callout-warning}` (caveats / limitations). "Summary" label (NOT "TL;DR" per Q3 round-3 user directive).
+
+- **Canonical cumulative-cost figure** `$17.08` per ADR-065 §E — full precision $17.0807; sum of `actual_cost_usd` across 17 GPU-pod rows in `evals/cost_ledger.csv` as of v1.2.0 close commit `3212cc5`. Propagated to 3 places per Q3 round-4: ADR-065 §E authoritative + CHANGELOG [1.1.2] postscript patch (this commit; see below) + NEXT_STEPS.md §1.10 footnote.
+
+- **`decisions/library_imports.md`** new "Audit tooling (project-internal; not a methodology primitive)" section — 4-script inventory table (audit_writeup_numbers + audit_leakage + audit_reference_scorers + regenerate_audit) with explicit `audit-tooling-not-primitive` / `audit-tooling-wrapping-library-primitive` / `audit-tooling-derived-artifact` tags per Q2 round-5 inventory invariant.
+
+### Changed
+
+- **Voice + tense + transitions pass** across 11 reviewer-facing surfaces (per ADR-065 §D + Q1 round-6 hybrid mechanism). 15 first-person hits converted to third-person prose (passive constructions; "this project" / "the harness" / "the test" referents); 0 future-tense hits remain. 3 transition sentences added at major section boundaries: WRITEUP/eval-design.md §5.2 → §5.4 (signposts §5.3 lives in its own spoke per ADR-025); WRITEUP/limitations-and-future-work.md §8.2 → §9.1 (signposts shift from defensible scope to experimental dead-ends); WRITEUP/limitations-and-future-work.md §9.4 → §11 (signposts shift to process lessons).
+
+- **Hand-picked `**Result**` bolding** on 7 WRITEUP spokes (per Q5 round-4 lock; closes deferred Q3 round-1 lock from v1.2.0). 11 new bolds across data-decisions + eval-design + methodology-guarantees + reference-scorer-audit + reproducibility + threshold-policy. `WRITEUP/model-rungs.md` already had 5 `**Result**` bolds from v1.2.0 (per ADR-064 §B5).
+
+- **Top-of-spoke `:::{.callout-note}` Summary boxes** added to all 8 WRITEUP spokes per ADR-065 §C1. Each Summary distills 3-5 bullet headline takeaways from existing `**Result**`-bolded subsection sentences (uniform source-strategy per Q2 round-6).
+
+- **Collapsible `:::{.callout-tip collapse="true"}` Hyperparameter blocks** in WRITEUP/model-rungs.md §4.1 (TF-IDF + LR), §4.2 (Frozen probe — ModernBERT-base + revision SHA), §4.3 (LoRA — r/alpha/dropout/target_modules/PEFT config) per ADR-065 §C2. Reader sees a brief detector overview + can expand for hyperparameter detail. Audit-detail content preserved either way (GH blob fallback renders expanded with `:::` fences visible; acceptable per ADR-030 Quarto-as-canonical-surface).
+
+### Postscript patch to [1.1.2] (canonical cumulative-cost figure)
+
+The CHANGELOG `[1.1.2]` v1.1.4 postscript already flagged the stale `$9.92` cumulative-cost figure from ADR-063 but did not compute the canonical value. v1.2.1 Commit 2 patches the v1.1.4 postscript with a new sub-postscript that quotes the canonical `$17.08` (per ADR-065 §E provenance) — supersession via postscript chain since ADR-063 itself remains immutable per CLAUDE.md ADR-discipline.
+
+### Out of scope (still deferred)
+
+- 17 historical broken ADR slug refs in immutable ADRs (flagged in ADR-064 §D + `.lycheeignored`; ADR-immutability discipline preserved; future patches may add an "immutability clarification ADR").
+- Pre-v1.1.4 CHANGELOG entries' "ADR-029 immutability" misattribution (historical narrative; corrected at v1.1.4+ onwards).
+
+### References
+
+- Closing ADR: [ADR-065](decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md).
+- Predecessor: [ADR-064](decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md) (additive layer).
+- Cost discipline (unchanged): [ADR-020](decisions/ADR-020-compute-infrastructure-and-cost-discipline.md) `$200` hard cap; current cumulative $17.08 well within.
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
+- Live Quarto site: reflects v1.2.1 within ~2 min of push.
+
 ## [1.2.0] — 2026-05-19
 
 **Minor release**: heavy writeup-clarity pass + dedicated hiring-manager landing
