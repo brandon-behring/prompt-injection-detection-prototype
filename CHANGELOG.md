@@ -18,6 +18,47 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.8] — 2026-05-19
+
+**Patch release**: rendered-site hardening plus dependency/ledger maintenance.
+No compute spend; no methodology, model, data, or result change; reviewer URL
+pin remains `v1.0.0`.
+
+### Fixed
+
+- **Notebook pages render as HTML** — Jupytext companion scripts moved to
+  `notebooks/_jupytext/`; the Quarto site renders the four frozen notebooks as
+  static HTML appendices without re-executing cells.
+- **Raw site leaks blocked** — top-level docs, `docs/*.md`, `CLAUDE.md`, and
+  `code_quality.md` are rendered as HTML; `make site-audit` fails on raw
+  `.md` / `.ipynb` files, missing notebook HTML, or rendered internal links to
+  raw Markdown/notebooks.
+- **Publish path hardened** — CI now has a hard rendered-site gate, and the
+  Pages workflow renders + audits before publishing the existing `_site/`
+  output with `render: false`.
+- **Quarto warnings cleaned** — `citeproc: false` suppresses false citation
+  warnings from literal test decorators; ADR-070 authorizes the narrow
+  render-only ADR-034 fence delimiter correction.
+
+### Changed
+
+- **eval-toolkit bumped to `0.43.0`** — records resolved upstream issues #48,
+  #49, and #53 in the library/import and upstream-issue ledgers. This is
+  dependency/library-first maintenance only.
+- **Presentation/status drift cleaned** — notebook references now describe
+  static rendered analysis appendices, `NEXT_STEPS.md` records the v1.2.8 site
+  hardening close, and mutable docs/tests consistently treat F1-F5 as the
+  reviewer-facing figure slate while F6/F7 remain diagnostic/historical paths.
+- **Private artifact inventory completed** — tracked RunPod/eval/notebook
+  artifacts and generated leftovers were inventoried privately. The inventory
+  is not committed or rendered as public documentation.
+
+### References
+
+- Closing ADR: [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md)
+- Predecessor: [v1.2.7](#127---2026-05-19)
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
+
 ## [1.2.7] — 2026-05-19
 
 **Patch release**: fix-forward for the single CI-only lychee residue after
