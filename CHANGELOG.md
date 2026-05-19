@@ -18,6 +18,170 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.1.2] — 2026-05-19
+
+**Patch release**: closes the
+[ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)
+DeBERTa-v3-base medium-ablation execution landing condition. The
+methodology lock landed at v1.1.0 with `[v1.1.1 execution]` body
+wording, but that slot was consumed by [ADR-061](decisions/ADR-061-quarto-site-navigation-restructure.md)
+(Quarto navigation restructure) so execution carried forward to v1.1.2.
+ADR-060 stays immutable; commit messages document the slot shift.
+
+### Headline result
+
+Per-cell metrics at `evals/metrics/per_cell_deberta.parquet` (epoch=2;
+4 single-class slices skipped per ADR-006):
+
+| strategy | jbb_behaviors AUPRC | xstest AUPRC | pooled_ood AUPRC |
+|---|---:|---:|---:|
+| `chunk_and_average` | 0.4855 | 0.3966 | 0.2912 |
+| `head_truncation` | 0.4890 | 0.3912 | 0.2895 |
+
+The 2 truncation strategies produce **essentially identical** metrics
+across the 5-slice OOD slate — a publishable null result. By the
+ADR-060 confound-control interpretation, this indicates the ModernBERT
+advantage on the headline ladder is **backbone-dominant**, not
+context-window-dominant; long-context (chunk-and-average) provides
+no measurable benefit over head-truncation on this slate.
+
+### Added
+
+- **`src/training/load_backbone.py`** (NEW; replaces
+  `src/training/load_modernbert.py`) — generic
+  `load_backbone(*, hf_id, revision, num_labels=2, attn_impl_preferred,
+  event_logger, torch_dtype=torch.bfloat16)` accepting an arbitrary HF
+  Hub backbone identifier. The flash-attn-fallback recipe (per
+  ADR-020) + `flash_attn_fallback` event emission are unchanged.
+  DeBERTa-v3-base loads with `torch_dtype=torch.float32` to avoid the
+  known bf16 + disentangled-attention numerical-instability
+  (loss=0 + grad_norm=NaN from step 1).
+
+- **`src/inference/windowed.py`** (NEW) — chunk-and-average +
+  head-truncation truncation strategies for the ADR-060 ablation.
+  Uses HF tokenizer's native sliding-window protocol
+  (`return_overflowing_tokens=True` + `stride`) — no hand-rolled
+  window-stride arithmetic. Reuses `src.training.softmax_cast.softmax_fp32`
+  for ADR-019 numerical stability. 15 mocked-only smoke tests in
+  `tests/smoke/test_windowed_inference_smoke.py`.
+
+- **`scripts/run_deberta_ood_inference.py`** (NEW) — standalone OOD
+  inference for the ADR-060 ablation. Iterates both strategies; loads
+  the epoch-2 final checkpoint; dispatches each OOD slice through
+  `predict_with_strategy`. Writes the 10 per-(strategy, slice)
+  parquets at `evals/predictions/deberta_v3_base_<strategy>__fold0__
+  seed42__<slice>.parquet`. Designed as a narrow companion to
+  `run_inference_battery.py` rather than overloading the
+  ModernBERT-shaped orchestrator (DeBERTa checkpoints have an extra
+  strategy nesting level the existing iteration doesn't recognise).
+
+- **`evals/metrics/per_cell_deberta.parquet`** (NEW) — aggregated 6
+  cells via `make eval-deberta-v3` (run_metrics_battery.py with
+  `--epoch-filter 2 --rung-pattern deberta_v3_base`); 4 single-class
+  slices (iid + bipia + injecagent + notinject) correctly skip per
+  ADR-006.
+
+### Changed
+
+- **`src/training/train_modernbert.py`** — `prepare_model` adds
+  `backbone_hf_id` + `torch_dtype` kwargs; `train_one_cell` reads
+  `cfg["training"]["bf16"]/["fp16"]/["learning_rate"]/["num_train_epochs"]`
+  YAML overrides + threads them to `prepare_model` +
+  `build_training_args`. Per-strategy `rung_id` distinguishing for
+  downstream metrics aggregation (`f"{rung_id_base}_{strategy}"` for
+  non-native truncation). `VALID_RUNG_NAMES` + `VALID_TRUNCATION_STRATEGIES`
+  constants added.
+
+- **`src/training/training_args.py`** — `build_training_args` accepts
+  `learning_rate`/`num_train_epochs`/`bf16`/`fp16` optional overrides.
+  None preserves ADR-019 ModernBERT defaults; explicit `bf16=False +
+  fp16=False` selects fp32 (DeBERTa path).
+
+- **`scripts/train_rung.py`** — `--rung` choices switched from
+  `VALID_CLASSIFIER_TYPES` to `VALID_RUNG_NAMES` (adds
+  `deberta_v3_base`). New `--truncation-strategy` CLI override.
+
+- **`scripts/run_metrics_battery.py`** — new `--epoch-filter INT` arg.
+  When set, restricts aggregation to that epoch BEFORE groupby.
+  Default `None` preserves pre-v1.1.2 ModernBERT behaviour.
+
+- **`Makefile`** — wired 3 DeBERTa targets (`train-deberta-v3`,
+  `eval-deberta-v3`, `deberta-ablation`). The orchestration target
+  fires both strategies via `--var truncation_strategy=...` (NOT shell
+  env var; runpod-deploy uses `{KEY}` template-variable expansion),
+  reuses the warm pod via `lifecycle.on_success: recycle`, then
+  explicitly stops the pod (no per-fire `on_success` CLI override flag
+  in runpod-deploy v0.8.4) and aggregates metrics.
+
+- **`configs/rungs/deberta_v3_base.yaml`** — pinned backbone revision
+  `8ccc9b6f36199bec6961081d44eb72fb3f7353f3` (live SHA from
+  `huggingface_hub.HfApi.model_info`); switched `bf16: true → false`
+  (DeBERTa-v3 numerical stability); `checkpoint_dir_template` stripped
+  of the `evals/checkpoints/` prefix to avoid path doubling against
+  `train_rung.py --checkpoint-root` default.
+
+- **`configs/runpod/headline-deberta.yaml`** — brought to schema
+  parity with `headline-frozen_probe.yaml` (the v1.1.0 scaffold was
+  incomplete: missing staging/preflight blocks + wrong setup shape).
+  All working files (project + HF cache + secrets + run scripts +
+  logs) moved off `/workspace` (FUSE) to `/root` (container overlay
+  disk) per the `fuse-workspace-needs-uv-link-mode-copy` memory entry,
+  re-extending the X8 venv-on-/root workaround to all writable paths.
+  Staging excludes broadened (evals/audit + evals/manifests + WRITEUP/
+  + docs/ + decisions/ + analysis/ + _site/ + artifacts/ + notebooks/
+  + tests/) to reduce upload time + sidestep concurrent-writer
+  collisions with the in-flight doc-rewrite work. Truncation strategy
+  flows via `{truncation_strategy}` template variable +
+  `runpod-deploy run --var truncation_strategy=...` CLI flag.
+
+- **`pyproject.toml`** + **`uv.lock`** — added `sentencepiece>=0.2` +
+  `protobuf>=4.0` (both required by transformers' DeBERTa-v3
+  AutoTokenizer load path; transformers' `SentencePieceExtractor`
+  needs protobuf to parse `spm.model` independently from sentencepiece
+  itself).
+
+- **`evals/cost_ledger.csv`** — appended 9 Phase D pod rows
+  (`pid-deberta-2026051*`) totalling **$1.34** actual GPU spend.
+  Well under ADR-060 $5-7 expected envelope; well under ADR-020 $25
+  per-job soft cap. Cumulative project spend: $9.92 / $200 hard cap.
+
+- **`NEXT_STEPS.md`** §1.10 — Status (v1.1.2) appended with the
+  per-strategy headline + null-result interpretation.
+
+### Fixed (v1.1.2 Phase D fix-cycle)
+
+Eight sub-commits before the closing commit cleared a cascade of
+infrastructure errors:
+
+1. **`83fd348`** — added `sentencepiece` dep (DeBERTa-v3 tokenizer).
+2. **`99501ba`** — narrowed staging excludes (later superseded by
+   `33387b5`; kept for audit trail).
+3. **`33387b5`** — moved `/workspace` (FUSE) → `/root` (overlay disk)
+   for project + HF cache + secrets + scripts + logs (the FUSE
+   workaround was the load-bearing rsync-stability fix).
+4. **`f660f76`** — added `protobuf` dep (second tokenizer-import
+   error after sentencepiece).
+5. **`60fdc53`** — bound `truncation_strategy` in
+   `checkpoint_dir_template.format()` (the v1.1.2 Phase C2 dispatch
+   missed this format site).
+6. **`aa91067`** — DeBERTa fp32 + YAML-driven training hyperparams
+   (the load-bearing numerical-stability fix; locally validated via
+   forward+backward before re-firing GPU).
+7. **`67679a5`** — fixed checkpoint path doubling (template prefix
+   conflicted with `checkpoint_root` default); dropped the FUSE
+   staging-bounce (no longer needed on /root).
+
+### References
+
+- Methodology lock: [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md).
+- Cost discipline: [ADR-020](decisions/ADR-020-runpod-orchestration-and-cost-discipline.md).
+- Single-class slice handling: [ADR-006](decisions/ADR-006-single-seed-protocol-for-comparative-claims.md).
+- Reviewer URL pin: `tree/v1.0.0` unchanged per
+  [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
+  Live Quarto site reflects v1.1.2.
+
+---
+
 ## [1.1.1] — 2026-05-19
 
 **Patch release**: Quarto site navigation restructure — landing-page
