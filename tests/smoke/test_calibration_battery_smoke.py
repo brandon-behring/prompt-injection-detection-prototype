@@ -104,7 +104,7 @@ def test_fit_and_apply_calibrators_returns_bundle_with_4_calibrators() -> None:
     assert bundle.test_scores_temperature.shape == s_test.shape
     assert ((bundle.test_scores_temperature >= 0) & (bundle.test_scores_temperature <= 1)).all()
 
-    # Isotonic (non-parametric; no params; local adapter pending eval-toolkit#44).
+    # Isotonic (non-parametric; upstream fit_isotonic_binary consumed at v1.0.9).
     assert bundle.test_scores_isotonic.shape == s_test.shape
     assert ((bundle.test_scores_isotonic >= 0) & (bundle.test_scores_isotonic <= 1)).all()
 

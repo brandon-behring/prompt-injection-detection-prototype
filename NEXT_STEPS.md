@@ -14,12 +14,13 @@ state appears first.
 
 ### 1.1 Demo notebooks (Phase 2+)
 
-*Final status*: **closed at v1.0.7**. Four jupytext-paired notebooks landed and render through Quarto.
+*Final status*: **closed at v1.0.7; rendered-site hardening closed at v1.2.8**. Four Jupytext-paired notebooks landed at v1.0.7. v1.2.8 moved companion scripts to `notebooks/_jupytext/`, renders the notebooks as static HTML appendices, and hard-gates that no raw `.ipynb` pages leak to the live site.
 *Why*: paper-figure notebooks are reviewer-facing deliverables; paired `.ipynb` + `.py` (via `jupytext`) lets reviewers diff notebook logic, not just outputs.
 *Scope*: `notebooks/01_canonical_results.ipynb` (headline table population); `02_frozen_vs_lora.ipynb` (paired-bootstrap rung-comparison); `03_calibration.ipynb` (reliability curves + ECE per rung); `04_ood_slate.ipynb` (per-slice IID-vs-OOD gap viz).
 *Effort*: ~1 hour per notebook once Phase 4 analysis outputs exist. Library-first: use `eval_toolkit.bootstrap_ci` / `plot_pr_curve` / `plot_reliability_diagram`.
 *Status (v1.0.6)*: carryforward to v1.0.7. Jupytext config + `notebooks/README.md` scaffolded at Phase 2; 4 notebooks themselves deferred to v1.0.7 (Path 3 close per /exploring-options batches 7-9).
 *Status (v1.0.7)*: **closed**. 4 jupytext-paired notebooks (`01_canonical_results` + `02_frozen_vs_lora` + `03_calibration` + `04_ood_slate`) landed with frozen output cells per batch 9 Q2 lock. Rendered via Quarto + linked from new "Notebooks" sidebar section + navbar menu. `make notebooks` target available for operator re-render.
+*Status (v1.2.8)*: **site hardening closed**. Folder-paired Jupytext scripts live under `notebooks/_jupytext/`; Quarto renders 4 notebook HTML pages without executing cells; `make site-audit` fails if raw `.ipynb` files or raw notebook links appear in `_site`.
 
 ### 1.2 Analysis output templating
 

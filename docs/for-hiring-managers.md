@@ -13,12 +13,12 @@ Four questions, ~60 seconds. If you have 5 more minutes after this, jump to the 
 
 ## 2. What did the candidate find?
 
-**The honest result is mostly negative.** On the pooled OOD slate (five held-out attack and benign sources), the best in-house detector — a frozen probe over ModernBERT-base — scored **AUPRC 0.364** versus a random-ranking floor of **0.374**. None of the trained detectors clearly beat the random floor. A v1.1.2 follow-up ablation also confirmed that switching to a different short-context backbone (DeBERTa-v3-base) with two truncation strategies produced **essentially identical** OOD performance — so the gap is **backbone-dominant**, not a context-window issue. See [RESULTS §1 + §1B](../RESULTS.md) for the per-detector and per-strategy tables.
+**The honest result is mostly negative.** On the pooled OOD slate (five held-out attack and benign sources), the best in-house detector — a frozen probe over ModernBERT-base — scored **AUPRC 0.364** versus a random-ranking floor of **0.374**. AUPRC is a ranking metric for imbalanced detection problems; here, higher than the random floor is the basic bar. None of the trained detectors clearly beat that floor. A v1.1.2 follow-up ablation also confirmed that switching to a different short-context backbone (DeBERTa-v3-base) with two truncation strategies produced **essentially identical** OOD performance — so the gap is **backbone-dominant**, not a context-window issue. See [RESULTS §1 + §1B](../RESULTS.md) for the per-detector and per-strategy tables.
 
 ## 3. Why should I trust the finding?
 
 - **Held-out evaluation, not in-sample**: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.
-- **Statistical apparatus, not point estimates**: every reported AUPRC carries a 95% bootstrap confidence interval; figures show CI overlap so weak claims are visible.
+- **Statistical apparatus, not point estimates**: every reported AUPRC carries a 95% bootstrap confidence interval (an uncertainty band); figures show CI overlap so weak claims are visible.
 - **Honest single-class slice handling**: when a slice has only positives or only negatives (BIPIA, InjecAgent, NotInject), AUPRC is undefined and reported as N/A — not silently zero-filled.
 
 ## 4. What does this say about how the candidate thinks?
@@ -28,3 +28,5 @@ Four questions, ~60 seconds. If you have 5 more minutes after this, jump to the 
 - **Library-first invariant**: shared evaluation primitives (bootstrap CIs, calibration, leakage detection) live in dedicated upstream libraries (`eval-toolkit`, `runpod-deploy`, `research_toolkit`); local code is project-specific glue only. See [`decisions/library_imports.md`](../decisions/library_imports.md).
 
 If you want the deeper read, the [WRITEUP hub](../WRITEUP.md) carries the cover narrative and links to 8 topic spokes (data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations and future work, reproducibility). The full reading-guide is at [`READING_GUIDE.md`](../READING_GUIDE.md).
+
+If you want the supporting analysis, the **Notebooks** sidebar section provides 4 static rendered appendices with frozen output cells: per-cell results, calibration diagrams, and held-out slice breakdowns. Operators regenerate those appendix outputs via `make notebooks` against the committed evaluation parquets.

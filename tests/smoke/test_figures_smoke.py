@@ -172,7 +172,7 @@ def test_render_f5_slice_heatmap_shape_mismatch_raises() -> None:
 
 
 # --------------------------------------------------------------------------- #
-# F6 — LODO breakdown (library-first right; project glue left pending #22)
+# F6 — LODO breakdown (diagnostic/historical; #22 consumed at v1.2.2)
 # --------------------------------------------------------------------------- #
 
 

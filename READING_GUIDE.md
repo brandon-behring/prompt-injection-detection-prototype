@@ -49,6 +49,19 @@ make site
 
 For the full cloud path, see [reproducibility](WRITEUP/reproducibility.md).
 
+## Path D: Static Analysis Appendices, 20-30 Minutes
+
+Goal: inspect the rendered per-cell results, calibration, and OOD slice breakdowns.
+
+Four Jupytext-paired notebooks ship as static rendered HTML appendices with frozen output cells (per ADR-053 reading-guide governance + v1.0.7). Each is reachable from the sidebar **Notebooks** section on the rendered Quarto site:
+
+1. [`01_canonical_results`](notebooks/01_canonical_results.ipynb) — headline AUPRC + AUROC per trained detector, with bootstrap CIs and the random-floor reference line.
+2. [`02_frozen_vs_lora`](notebooks/02_frozen_vs_lora.ipynb) — 3-method cross-check (paired bootstrap deltas + DeLong + BH-FDR) on the frozen-probe vs LoRA gap.
+3. [`03_calibration`](notebooks/03_calibration.ipynb) — temperature + isotonic + Platt + Beta calibration on per-detector scores; reliability diagrams.
+4. [`04_ood_slate`](notebooks/04_ood_slate.ipynb) — per-OOD-slice AUPRC breakdown; identifies which sources drive the pooled-OOD gap.
+
+The notebooks render to static HTML on the Quarto site without re-execution (`execute.enabled: false` + `freeze: true` per v1.2.8). Operators regenerate the frozen outputs via `make notebooks` after pulling new evaluation parquets.
+
 ## How To Read The Headline Numbers
 
 **AUPRC is not measured against 0.5.** For the pooled out-of-distribution slice
