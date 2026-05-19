@@ -26,15 +26,15 @@ claim: >-
   created upstream docs). ADR-068 extends the narrow-relaxation rule
   to cover both classes with the SAME §B2-style out-of-scope-list
   discipline (numeric values + methodology + prose + alternatives +
-  non-slug frontmatter remain immutable). v1.2.5 applies the rule to
+  non-slug frontmatter remain immutable). v1.2.6 applies the rule to
   fix 2 immutable-ADR markdown links (ADR-065 lines 108 + 122) plus
   the YAML frontmatter list-item in ADR-025 line 13. Mutable files
   (SPEC_SHEET.md + SPEC_GREENFIELD.md + WRITEUP/*.md + decisions/
   library_imports.md + CHANGELOG.md) are fixed in a separate commit
   without ADR-068 coverage (the rule applies ONLY to immutable ADRs).
-source: v1.2.5 /exploring-options 4-question walk (2026-05-19) — user picked all 4 recommended options including "Extend ADR-067 narrow relaxation → ADR-068 + in-place fix" + "Full structural fix — v1.2.5 = ADR-068 + DOI canon + triage"
+source: v1.2.6 link-check fix-forward (root-cause analysis began during the v1.2.5 /exploring-options 4-question walk on 2026-05-19) — user picked all 4 recommended options including "Extend ADR-067 narrow relaxation → ADR-068 + in-place fix" + "Full structural fix — ADR-068 + DOI canon + triage"
 acceptance_criterion: >-
-  At v1.2.5 close: `decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md`
+  At v1.2.6 close: `decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md`
   exists (this file). `CLAUDE.md` §"Phase 0 workflow" immutability-rule
   block updated to cite both ADR-067 + ADR-068 as the two narrow exceptions.
   `decisions/README.md` §Lifecycle updated with the same dual-citation.
@@ -45,11 +45,11 @@ acceptance_criterion: >-
   (YAML frontmatter `references:` list-item pointing at non-existent
   eval-toolkit/blob/main/docs/methodology/thresholds.md) is replaced with a
   descriptive marker or the closest existing upstream URL. Lychee CI on
-  the v1.2.5 push reports the affected immutable-ADR errors RESOLVED.
+  the v1.2.6 push reports the affected immutable-ADR errors RESOLVED.
   Future PR reviews flag any in-place ADR edit that goes beyond the
   enumerated narrow scope (numeric values + methodology + prose + non-slug
   frontmatter + decision content remain immutable per the existing rule).
-closing_commit: v1.2.5
+closing_commit: v1.2.6
 supersedes: []
 superseded_by: []
 references:
@@ -77,7 +77,7 @@ ADR-067 (v1.2.2) established a precedent narrow exception for factual typos in c
 1. **No decision content is affected.** A local-filesystem path is a citation/reference, not a methodology decision. An aspirational upstream link is a forward-reference to planned docs, not a methodology decision.
 2. **CI cannot resolve them.** `file:///home/<author>/...` and `../../../.claude/...` paths require the author's own filesystem; they never resolve on any CI runner OR reviewer browser. Aspirational `eval-toolkit/blob/main/docs/methodology/*.md` URLs return 404 because those docs were planned but never created upstream.
 3. **Reader experience strictly improves with in-place fix.** A reader clicking the broken link sees a 404. Replacing with descriptive prose preserves the citation intent + eliminates the 404.
-4. **Audit trail is preserved.** The broken-link CONTENT is removed but the surrounding prose + the decision that referenced it remains immutable. Future `git log decisions/ADR-NNN.md` shows the original commit + the v1.2.5 broken-ref-fix commit; both are recoverable.
+4. **Audit trail is preserved.** The broken-link CONTENT is removed but the surrounding prose + the decision that referenced it remains immutable. Future `git log decisions/ADR-NNN.md` shows the original commit + the v1.2.6 broken-ref-fix commit; both are recoverable.
 
 Both classes meet the §B-style narrow-scope test that ADR-067 applies to its own exception.
 
@@ -135,7 +135,7 @@ No decision content changed. ADR audit trail preserved.
 
 In-place ADR edits that go beyond the narrow scopes (ADR-067 slug typos + ADR-068 broken external refs) should be flagged by PR review + require a new superseding ADR per the existing rule. ADR-068 does NOT establish a slippery slope; it codifies a specific narrow class adjacent to ADR-067.
 
-## §C Decision — apply at v1.2.5 Commit 2 (consolidated inventory)
+## §C Decision — apply in the v1.2.6 fix-forward (consolidated inventory)
 
 ### C1 — Immutable-ADR markdown links covered by ADR-068 (3 fixes)
 
@@ -145,7 +145,7 @@ In-place ADR edits that go beyond the narrow scopes (ADR-067 slug typos + ADR-06
 | `decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md:122` | X | `[memory/library_first_is_project_wide_invariant.md](../../../.claude/projects/.../memory/library_first_is_project_wide_invariant.md)` | `` `memory/library_first_is_project_wide_invariant.md` (project-local Claude memory; not committed) `` |
 | `decisions/ADR-025-dual-policy-threshold-characterization.md:13` (YAML frontmatter `references:` list-item) | Y | `https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md` | Replace with `eval_toolkit.thresholds` (the actual upstream primitive surface), OR closest-existing upstream URL: `https://github.com/brandon-behring/eval-toolkit#readme`. Choose the README pointer for ADR-025 line 13 since it's the references-list field. |
 
-### C2 — Mutable files (NOT covered by ADR-068; fixed separately at v1.2.5 Commit 3)
+### C2 — Mutable files (NOT covered by ADR-068; fixed separately in the v1.2.6 fix-forward)
 
 For completeness — mutable files have similar fixes applied without ADR-068 coverage:
 
@@ -165,7 +165,7 @@ Both documents get the dual-narrow-exception update (cites both ADR-067 + ADR-06
 
 > The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior `status: superseded-by-NNN`.
 >
-> **Narrow exceptions** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) + [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)): TWO factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections:
+> **Narrow exceptions** (per [ADR-067](./ADR-067-immutability-clarification-and-canonical-slug-reference.md) + [ADR-068](./ADR-068-immutability-narrow-relaxation-for-broken-external-references.md)): TWO factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections:
 >
 > 1. **Cross-reference slug filename typos** (per ADR-067) — a slug pointing at a wrong-but-existing file in `decisions/`.
 > 2. **Broken external references** (per ADR-068) — markdown links pointing at local-filesystem paths or aspirational upstream resources that do not exist.
@@ -178,15 +178,15 @@ Both documents get the dual-narrow-exception update (cites both ADR-067 + ADR-06
 
 ### E1 — Reader experience improved (immutable-ADR class)
 
-After v1.2.5 Commit 2, readers reading ADR-025 / ADR-065 see descriptive prose where they previously saw broken markdown links. No more 404s on CI runners. No more misleading citation targets for non-author readers.
+After the v1.2.6 fix-forward, readers reading ADR-025 / ADR-065 see descriptive prose where they previously saw broken markdown links. No more 404s on CI runners. No more misleading citation targets for non-author readers.
 
 ### E2 — Audit-trail discipline preserved
 
-The 3 immutable-ADR fixes do NOT change decision content; ADR audit trail remains intact. Per-file `git log` shows the original commit + the v1.2.5 broken-ref-fix commit; both are recoverable. The narrow scope (§B2 out-of-scope) prevents slippery-slope drift to decision-content edits.
+The 3 immutable-ADR fixes do NOT change decision content; ADR audit trail remains intact. Per-file `git log` shows the original commit + the v1.2.6 broken-ref-fix commit; both are recoverable. The narrow scope (§B2 out-of-scope) prevents slippery-slope drift to decision-content edits.
 
-### E3 — Documentation debt paid down (v1.1.4 → v1.2.5 trail)
+### E3 — Documentation debt paid down (v1.1.4 → v1.2.6 trail)
 
-The lychee link-check CI was introduced at v1.1.4 as an "URL rot defense" but was non-functional from inception. v1.2.3 + v1.2.4 fixed the workflow's v0.23.0 compat issues; v1.2.5 closes the surfaced content debt (35 unique broken URLs across 7 root-cause classes). The lychee CI now runs end-to-end + actually catches link rot going forward.
+The lychee link-check CI was introduced at v1.1.4 as an "URL rot defense" but was non-functional from inception. v1.2.3 + v1.2.4 fixed the workflow's v0.23.0 compat issues; v1.2.6 closes the surfaced content debt (35 unique broken URLs across 7 root-cause classes). The lychee CI now runs end-to-end + actually catches link rot going forward.
 
 ### E4 — Two-ADR symmetry
 
@@ -208,10 +208,10 @@ $0. CPU-only edits across 3 immutable-ADR lines (ADR-025 line 13 + ADR-065 lines
 
 - **References**:
   - CLAUDE.md — the source-of-truth for immutability (clarified by ADR-067 + ADR-068 dual-narrow-exception)
-  - decisions/README.md — the ADR lifecycle + frontmatter schema (also gets the dual-citation update at Commit 1)
+  - decisions/README.md — the ADR lifecycle + frontmatter schema (also gets the dual-citation update)
   - [ADR-067](./ADR-067-immutability-clarification-and-canonical-slug-reference.md) — precedent narrow relaxation for slug typos; ADR-068 extends with two additional classes
-- **Source**: v1.2.5 /exploring-options 4-question walk (2026-05-19) — user picked "Extend ADR-067 narrow relaxation → ADR-068 + in-place fix (Recommended)" on Question 1 + "Full structural fix — v1.2.5 = ADR-068 + DOI canon + triage (Recommended)" on Question 4.
+- **Source**: v1.2.6 link-check fix-forward; root-cause analysis began during the v1.2.5 /exploring-options 4-question walk (2026-05-19), where the user picked "Extend ADR-067 narrow relaxation → ADR-068 + in-place fix (Recommended)" on Question 1 + "Full structural fix — ADR-068 + DOI canon + triage (Recommended)" on Question 4.
 
 ## Transcript
 
-`transcripts/2026-05-19__v1-2-5-link-check-content-debt-and-immutability-extension.md` — captures the v1.2.5 multi-class link-check content debt close + the ADR-068 narrow relaxation extension.
+`transcripts/2026-05-19__v1-2-5-link-check-content-debt-and-immutability-extension.md` — captures the multi-class link-check content debt close + the ADR-068 narrow relaxation extension.

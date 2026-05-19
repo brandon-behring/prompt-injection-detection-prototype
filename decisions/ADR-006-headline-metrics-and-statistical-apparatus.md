@@ -10,8 +10,8 @@ source: SPEC_GREENFIELD.md §Brief row 308 (Brief-mandated metrics / constraints
 acceptance_criterion: All headline rung-tables show the four metrics with three Recall@FPR pinpoints; every reported metric has a bootstrap CI; rung-vs-rung comparisons are reported as Δ-CIs (paired bootstrap), not p-values; MDE is computed for every CI; cost-weighted thresholding is absent from the writeup and replaced by ≥3 deployment scenarios in the threshold-policy spoke.
 closing_commit: e760faf
 references:
-  - https://journals.sagepub.com/doi/10.1177/0956797613504966
-  - https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108
+  - https://doi.org/10.1177/0956797613504966
+  - https://doi.org/10.1080/00031305.2016.1154108
   - https://arxiv.org/abs/1909.10155
   - https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full
 transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md
@@ -79,9 +79,9 @@ The choice cluster has substantial literature behind it. Microsoft PromptShield 
 
 ## References
 
-- Cumming 2014 — "The New Statistics: Why and How" — https://journals.sagepub.com/doi/10.1177/0956797613504966
-- Wasserstein & Lazar 2016 — ASA Statement on p-values — https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108
-- Gelman & Stern 2006 — Difference Between Significant and Not Significant — https://www.tandfonline.com/doi/abs/10.1198/000313006X152649
+- Cumming 2014 — "The New Statistics: Why and How" — https://doi.org/10.1177/0956797613504966
+- Wasserstein & Lazar 2016 — ASA Statement on p-values — https://doi.org/10.1080/00031305.2016.1154108
+- Gelman & Stern 2006 — Difference Between Significant and Not Significant — https://doi.org/10.1198/000313006X152649
 - Kumar 2019 — Debiased calibration estimators — https://arxiv.org/abs/1909.10155
 - Efron 1979 — Bootstrap — https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full
 - PromptShield (Microsoft 2024) — provisional https://arxiv.org/abs/2405.14478

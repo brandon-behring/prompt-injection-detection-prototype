@@ -11,7 +11,7 @@ acceptance_criterion: WRITEUP/methodology-guarantees.md spoke enumerates all eig
 closing_commit: e760faf
 references:
   - https://neurips.cc/Conferences/2024/PaperInformation/PaperChecklist
-  - https://journals.sagepub.com/doi/10.1177/001316446002000104
+  - https://doi.org/10.1177/001316446002000104
 transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md
 ---
 
@@ -96,7 +96,7 @@ Per ADR-005 Principles 1 and 2 (methodology over metrics; honest evaluation pref
 ## References
 
 - NeurIPS Paper Checklist (most guarantees map to checklist items) — https://neurips.cc/Conferences/2024/PaperInformation/PaperChecklist
-- Cohen 1960 — kappa methodology referenced in Guarantee 4 — https://journals.sagepub.com/doi/10.1177/001316446002000104
+- Cohen 1960 — kappa methodology referenced in Guarantee 4 — https://doi.org/10.1177/001316446002000104
 - `CLAUDE.md` — Anti-patterns enumeration
 - `docs/ROADMAP.md` — Phase 5 pre-submission grep + verification suite
 - ADR-005 (Principles 1 and 2 — direct rationale for surfacing guarantees)

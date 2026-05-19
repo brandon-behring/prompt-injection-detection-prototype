@@ -13,7 +13,7 @@ references:
   - https://www.jmlr.org/papers/v7/demsar06a.html
   - https://arxiv.org/abs/2405.14478
   - https://arxiv.org/abs/2410.22770
-  - https://dl.acm.org/doi/10.1145/1143844.1143874
+  - https://doi.org/10.1145/1143844.1143874
   - decisions/ADR-016-data-design-bundle.md
   - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.md

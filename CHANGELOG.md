@@ -18,6 +18,35 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [1.2.6] — 2026-05-19
+
+**Patch release**: fix-forward for inherited Markdown link-check content debt
+surfaced after the `v1.2.5` presentation patch was already tagged. Docs-only;
+no compute spend; reviewer URL pin remains `v1.0.0`.
+
+### Fixed
+
+- **Project-owned broken links repaired** — replaced aspirational
+  `eval-toolkit/docs/methodology/*` links in mutable specs/writeup spokes with
+  stable eval-toolkit README references, and fixed the `CHANGELOG.md` root
+  link to the writeup hub.
+- **ADR-068 narrow exception applied** — fixed the immutable ADR-025
+  aspirational eval-toolkit reference and the ADR-065 local-filesystem memory
+  links without changing decision content.
+- **ADR-069 DOI canonicalization added** — bot-blocked publisher citation
+  URLs in immutable ADRs are replaced with DOI-equivalent targets without
+  changing the cited paper identity.
+- **Residual historical URL policy clarified** — `.lycheeignore` now
+  documents the remaining bot-blocked vendor pages and specific pre-existing
+  retired citation URLs so push-time lychee catches current project drift
+  instead of failing on immutable historical reference rot.
+
+### References
+
+- Closing ADRs: [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) + [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md)
+- Predecessor: [v1.2.5](#125---2026-05-19) (presentation path and NEXT_STEPS remediation)
+- Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
+
 ## [1.2.5] — 2026-05-19
 
 **Patch release**: docs-only presentation + status-drift remediation for the
@@ -759,7 +788,7 @@ crowding the landing page.
   **`reference-scorer-audit.md`** + **`methodology-guarantees.md`** +
   **`limitations-and-future-work.md`** + **`reproducibility.md`** —
   each gains a 1-line back-link at the top: *"Part of the [WRITEUP
-  methodology](../WRITEUP.md) — see the hub for the cover narrative
+  methodology](WRITEUP.md) — see the hub for the cover narrative
   + reading guide."*
 
 - **`README.md`** — "Reading paths" section rewritten as "How to

@@ -16,7 +16,7 @@ references:
   - https://arxiv.org/abs/2106.09685
   - https://huggingface.co/docs/peft
   - https://arxiv.org/abs/2306.05685
-  - https://journals.sagepub.com/doi/10.1177/001316446002000104
+  - https://doi.org/10.1177/001316446002000104
 transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md
 ---
 
@@ -96,8 +96,8 @@ LLM-judge calls: temperature=0 (deterministic; multi-seed irrelevant); prompt te
 - LoRA (Hu et al. 2021) — https://arxiv.org/abs/2106.09685
 - HF PEFT documentation — https://huggingface.co/docs/peft
 - LLM-as-judge (Zheng et al. 2023) — https://arxiv.org/abs/2306.05685
-- Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://journals.sagepub.com/doi/10.1177/001316446002000104
-- Landis & Koch 1977 — Observer Agreement for Categorical Data — https://www.jstor.org/stable/2529310 (interpretive bands cited with caveat)
+- Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://doi.org/10.1177/001316446002000104
+- Landis & Koch 1977 — Observer Agreement for Categorical Data — https://doi.org/10.2307/2529310 (interpretive bands cited with caveat)
 - scikit-learn cohen_kappa_score — https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html
 - `docs/research/attacks_defenses/` — Lakera Guard / ProtectAI references
 - ADR-005 (methodology principles, especially Principle 1)

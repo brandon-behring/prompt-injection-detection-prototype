@@ -16,7 +16,7 @@ references:
   - https://arxiv.org/abs/2106.09685
   - https://huggingface.co/docs/peft
   - https://arxiv.org/abs/2306.05685
-  - https://journals.sagepub.com/doi/10.1177/001316446002000104
+  - https://doi.org/10.1177/001316446002000104
 transcript: transcripts/2026-05-15__phase-0-01__threat-model.md
 ---
 
@@ -123,7 +123,7 @@ Reference rungs are not subject to our adaptive chunked scoring policy. ProtectA
 - LoRA (Hu et al. 2021) — https://arxiv.org/abs/2106.09685
 - HF PEFT documentation — https://huggingface.co/docs/peft
 - LLM-as-judge (Zheng et al. 2023) — https://arxiv.org/abs/2306.05685
-- Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://journals.sagepub.com/doi/10.1177/001316446002000104
+- Cohen 1960 — Coefficient of Agreement for Nominal Scales — https://doi.org/10.1177/001316446002000104
 - ADR-007 (superseded by this ADR)
 - ADR-001 (fallback ladder updated to `1x3 → 1x2 → 1x1`)
 - ADR-005 (Principle 1 methodology over metrics; Principle 2 honest evaluation preferred — direct rationale for the supersession)

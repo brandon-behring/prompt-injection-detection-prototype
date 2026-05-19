@@ -29,3 +29,35 @@
 # message convention; do NOT add new ignore patterns for internal ADR
 # cross-refs. External-URL ignore patterns (HF Hub bot-403s; GH anchor
 # false-positives) remain above as they have a different rationale.
+
+# Historical scholarly/vendor references in immutable ADRs. Current
+# reader-facing docs should use stable replacements instead of adding here.
+^https://www\.acm\.org/publications/policies/artifact-review-and-badging-current$
+^https://www\.researchgate\.net/publication/.*$
+^https://platform\.openai\.com/docs/deprecations$
+^https://platform\.openai\.com/docs/models/gpt-4o$
+^https://openai\.com/api/pricing/?$
+
+# Exact DOI citations from immutable ADRs whose DOI resolver redirects to
+# publisher pages that 403 unauthenticated CI bots. DOI targets remain the
+# canonical human-readable citation form; keep this list exact, not broad.
+^https://doi\.org/10\.1177/0956797613504966$
+^https://doi\.org/10\.1080/00031305\.2016\.1154108$
+^https://doi\.org/10\.1198/000313006X152649$
+^https://doi\.org/10\.1177/001316446002000104$
+^https://doi\.org/10\.2307/2529310$
+^https://doi\.org/10\.1145/1143844\.1143874$
+^https://doi\.org/10\.2307/2531595$
+^https://doi\.org/10\.1080/01621459\.2023\.2197686$
+^https://doi\.org/10\.2307/2290993$
+
+# Specific historical 404s retained only in immutable ADR citation fields.
+# Fix mutable docs in-place; do not broaden these patterns without a concrete
+# lychee failure and a note explaining why the reference is historical.
+^https://neurips\.cc/Conferences/2024/PaperInformation/PaperChecklist$
+^https://scikit-learn\.org/stable/tutorial/text_analytics/working_with_text_data\.html$
+^https://arxiv\.org/abs/2311\.18964$
+^https://www\.cs\.cmu\.edu/~aarti/Class/10704_Spring15/Niculescu-Mizil_Caruana\.pdf$
+^https://www\.cs\.iastate\.edu/~honavar/elkan\.pdf$
+^https://github\.com/Microsoft/calibration/Kull-2017-Beta-calibration$
+^https://www\.jstor\.org/stable/27033529$

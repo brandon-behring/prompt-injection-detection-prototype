@@ -11,9 +11,9 @@ acceptance_criterion: SPEC_GREENFIELD ledger row 346 carries locked-to-cv_clt_ci
 closing_commit: b750d1d
 references:
   - https://www.jstor.org/stable/27033529
-  - https://www.tandfonline.com/doi/full/10.1080/01621459.2023.2197686
+  - https://doi.org/10.1080/01621459.2023.2197686
   - https://link.springer.com/article/10.1023/A:1024068626366
-  - https://www.jstor.org/stable/2290993
+  - https://doi.org/10.2307/2290993
   - https://arxiv.org/abs/2007.02780
   - decisions/ADR-016-data-design-bundle.md
   - decisions/ADR-022-statistical-inference-apparatus.md

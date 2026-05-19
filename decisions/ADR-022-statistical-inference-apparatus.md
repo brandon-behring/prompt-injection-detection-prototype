@@ -13,9 +13,9 @@ references:
   - https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full
   - https://projecteuclid.org/journals/statistical-science/volume-11/issue-3/Bootstrap-confidence-intervals/10.1214/ss/1032280214.full
   - http://www.stat.columbia.edu/~gelman/research/published/ForkingPaths.pdf
-  - https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108
-  - https://www.tandfonline.com/doi/abs/10.1198/000313006X152649
-  - https://www.jstor.org/stable/2531595
+  - https://doi.org/10.1080/00031305.2016.1154108
+  - https://doi.org/10.1198/000313006X152649
+  - https://doi.org/10.2307/2531595
   - https://www.aaai.org/Library/ICML/2003/icml03-013.php
   - https://www.jmlr.org/papers/v7/demsar06a.html
   - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md

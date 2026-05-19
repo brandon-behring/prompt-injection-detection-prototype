@@ -10,8 +10,8 @@ source: Phase 0-00 brief alignment conversation (Q4 Signals 2-3, Q7 add-on)
 acceptance_criterion: Every methodology component has an ADR whose Consequences section names its extension condition; every scope-bound in the writeup is paired with the limitation it imposes and when it would or wouldn't make sense to extend; reported metrics include cases where the model looks worse under honest eval, named as such; comparisons interpreted via effect-size + uncertainty, not via dichotomous test outcomes.
 closing_commit: 2a7b123
 references:
-  - https://journals.sagepub.com/doi/10.1177/0956797613504966
-  - https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108
+  - https://doi.org/10.1177/0956797613504966
+  - https://doi.org/10.1080/00031305.2016.1154108
   - docs/ROADMAP.md
 transcript: transcripts/2026-05-15__phase-0-00__brief-alignment.md
 ---
@@ -77,9 +77,9 @@ Every scope-bound, methodology choice, and metric reported is paired with **(a)*
 
 ## References
 
-- Cumming 2014 — "The New Statistics: Why and How" — https://journals.sagepub.com/doi/10.1177/0956797613504966
-- Wasserstein & Lazar 2016 — ASA Statement on p-values — https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108
-- Gelman & Stern 2006 — "The Difference Between 'Significant' and 'Not Significant' is Not Itself Statistically Significant" — https://www.tandfonline.com/doi/abs/10.1198/000313006X152649
+- Cumming 2014 — "The New Statistics: Why and How" — https://doi.org/10.1177/0956797613504966
+- Wasserstein & Lazar 2016 — ASA Statement on p-values — https://doi.org/10.1080/00031305.2016.1154108
+- Gelman & Stern 2006 — "The Difference Between 'Significant' and 'Not Significant' is Not Itself Statistically Significant" — https://doi.org/10.1198/000313006X152649
 - `docs/ROADMAP.md` — phase checklists are work-completed, not metric thresholds (principle-aligned)
 - `CLAUDE.md` — anti-pattern: adding methodology component without ADR (principle-aligned)
 - ADR-004 (reviewer profile + hub-and-spoke — implements the principles in writeup structure)

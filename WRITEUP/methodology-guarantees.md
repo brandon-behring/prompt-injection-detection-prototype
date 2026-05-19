@@ -42,8 +42,8 @@ A library-grade harness for binary classification with three tiers:
   eval-toolkit `reproducibility` methodology (see [README](https://github.com/brandon-behring/eval-toolkit#readme))
   for the NeurIPS-checklist field mapping.
 
-Plus a
-[17-chapter methodology curriculum](https://github.com/brandon-behring/eval-toolkit/tree/main/docs/methodology)
+Plus methodology notes referenced from the
+[eval-toolkit README](https://github.com/brandon-behring/eval-toolkit#readme)
 covering leakage, splits, thresholds, calibration, comparison,
 bootstrap, length stratification, text dedup, versioning, fairness,
 reproducibility, and testing.
