@@ -955,18 +955,108 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-did-the-candidate-find" class="level2">
 <h2 class="anchored" data-anchor-id="what-did-the-candidate-find">2. What did the candidate find?</h2>
 <p><strong>The honest result is two-sided: direct detection works better; cross-family generalization fails.</strong></p>
-<ul>
-<li><strong>Direct validation worked</strong>: on balanced direct+benign validation, ModernBERT LoRA reached <strong>AUPRC 0.974</strong>, <strong>AUROC 0.993</strong>, and <strong>recall@0.5 0.934</strong>.</li>
-<li><strong>Held-out direct-source recall was weaker</strong>: on the LODO direct-source test, the best recall@0.5 was <strong>0.641</strong> from the frozen probe. That test is all-positive, so false positives, AUPRC, and AUROC are omitted.</li>
-<li><strong>OOD transfer failed</strong>: on the pooled OOD slate, the best in-house detector scored <strong>AUPRC 0.364</strong> versus a random-ranking floor of <strong>0.374</strong>. Higher than the random floor is the basic bar; none of the trained detectors clearly beat it.</li>
-<li><strong>The context-window follow-up was a null result</strong>: the v1.1.2 DeBERTa-v3-base ablation produced essentially identical OOD performance under two truncation strategies, so the gap is <strong>backbone-dominant</strong>, not a context-window issue.</li>
-</ul>
+<p><strong>OOD contrast</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Pooled OOD AUPRC</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;"><strong>0.364</strong> vs random floor <strong>0.374</strong></td>
+<td>best in-house score, still not a success claim</td>
+</tr>
+<tr class="even">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.293</td>
+<td>fine-tuning hurt cross-family ranking</td>
+</tr>
+<tr class="odd">
+<td>TF-IDF + LR</td>
+<td style="text-align: right;">0.291</td>
+<td>classical floor, roughly tied with LoRA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Direct detection check</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Balanced direct+benign validation</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">AUPRC <strong>0.974</strong>, AUROC <strong>0.993</strong>, recall@0.5 <strong>0.934</strong></td>
+<td>strongest direct-pattern detector</td>
+</tr>
+<tr class="even">
+<td>TF-IDF + LR</td>
+<td style="text-align: right;">AUPRC 0.971, AUROC 0.992, recall@0.5 0.930</td>
+<td>lexical direct baseline is also strong</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">AUPRC 0.653, AUROC 0.907, recall@0.5 0.849</td>
+<td>weaker ranking, still discriminative</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Held-out direct-source recall@0.5</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;"><strong>0.641</strong></td>
+<td>best direct-source holdout recall</td>
+</tr>
+<tr class="even">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.625</td>
+<td>similar direct-source recall, but worse pooled OOD ranking</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT full fine-tune</td>
+<td style="text-align: right;">0.558</td>
+<td>lower direct-source holdout recall</td>
+</tr>
+</tbody>
+</table>
+<p>The held-out direct-source test is all-positive, so false positives, AUPRC, and AUROC are omitted there. The context-window follow-up was also a null result: the v1.1.2 DeBERTa-v3-base ablation produced essentially identical OOD performance under two truncation strategies, so the gap is backbone-dominant, not a context-window issue.</p>
 <p>See <a href="../RESULTS.html">RESULTS</a> for the direct, OOD, and ablation tables.</p>
 </section>
 <section id="why-should-i-trust-the-finding" class="level2">
 <h2 class="anchored" data-anchor-id="why-should-i-trust-the-finding">3. Why should I trust the finding?</h2>
 <ul>
-<li><strong>Held-out evaluation, not in-sample</strong>: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.</li>
+<li><strong>Held-out evaluation, not training-set performance</strong>: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.</li>
 <li><strong>Direct and OOD results separated</strong>: validation direct+benign AUPRC shows whether the detector learned the basic pattern; pooled OOD AUPRC shows whether that pattern transfers to new attack families.</li>
 <li><strong>Statistical apparatus, not point estimates</strong>: every reported AUPRC carries a 95% bootstrap confidence interval (an uncertainty band); figures show CI overlap so weak claims are visible.</li>
 <li><strong>Honest single-class slice handling</strong>: when a slice has only positives or only negatives (BIPIA, InjecAgent, NotInject), undefined metrics are omitted from summary tables instead of silently filled with zeros.</li>

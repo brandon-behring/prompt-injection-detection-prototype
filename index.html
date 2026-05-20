@@ -912,6 +912,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#what-was-evaluated" id="toc-what-was-evaluated" class="nav-link" data-scroll-target="#what-was-evaluated">What Was Evaluated</a></li>
   <li><a href="#headline-result" id="toc-headline-result" class="nav-link" data-scroll-target="#headline-result">Headline Result</a></li>
+  <li><a href="#direct-detection-check" id="toc-direct-detection-check" class="nav-link" data-scroll-target="#direct-detection-check">Direct Detection Check</a></li>
   <li><a href="#what-this-means" id="toc-what-this-means" class="nav-link" data-scroll-target="#what-this-means">What This Means</a></li>
   <li><a href="#read-next" id="toc-read-next" class="nav-link" data-scroll-target="#read-next">Read Next</a></li>
   </ul></li>
@@ -974,9 +975,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="headline-result" class="level2">
 <h2 class="anchored" data-anchor-id="headline-result">Headline Result</h2>
-<p>The direct prompt-injection numbers are real: on the balanced validation split containing direct-injection positives plus benign negatives, LoRA reaches <strong>0.974 AUPRC</strong>, <strong>0.993 AUROC</strong>, and <strong>0.934 recall@0.5</strong>. TF-IDF + logistic regression is similar, and the frozen probe is weaker but still discriminative at <strong>0.653 AUPRC</strong>.</p>
-<p>The direct held-out-source test is stricter but all-positive by design, so it can only report recall, not false positives or AUPRC/AUROC. On that LODO direct-source test, recall@0.5 is <strong>0.641</strong> for frozen probe, <strong>0.625</strong> for LoRA, and <strong>0.558</strong> for full fine-tuning.</p>
-<p>The failure appears when the family changes. On pooled OOD, the main metric is <strong>AUPRC</strong>, which is useful for imbalanced binary classification. A random ranking scores <strong>0.374</strong> because 412 of 1101 examples are positive. A detector needs to beat that floor to show useful ranking signal.</p>
+<p>Two direct detection checks set up the contrast: balanced direct+benign validation asks whether the detectors learned the basic direct prompt-injection pattern, and held-out direct-source recall asks whether that direct signal survives a source holdout. The failure appears when the attack family changes. On pooled OOD, the main metric is <strong>AUPRC</strong>, which is useful for imbalanced binary classification. A random ranking scores <strong>0.374</strong> because 412 of 1101 examples are positive. A detector needs to beat that floor to show useful ranking signal.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 21%">
@@ -1032,6 +1031,85 @@ ul.task-list li input[type="checkbox"] {
 <li>Any detector at or below that floor is not clearly better than guessing.</li>
 <li>The 95% confidence interval (CI) is the uncertainty band around the score.</li>
 </ul>
+</section>
+<section id="direct-detection-check" class="level2">
+<h2 class="anchored" data-anchor-id="direct-detection-check">Direct Detection Check</h2>
+<p>The pooled OOD table is the failure case. The direct detection check below shows why that failure is meaningful: the same evaluation stack did learn the direct task before it failed under cross-family shift.</p>
+<p><strong>Balanced direct+benign validation.</strong> This split includes direct-injection positives and benign negatives, so AUPRC, AUROC, and recall are all defined.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">AUPRC</th>
+<th style="text-align: right;">AUROC</th>
+<th style="text-align: right;">Recall@0.5</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;"><strong>0.974</strong></td>
+<td style="text-align: right;"><strong>0.993</strong></td>
+<td style="text-align: right;"><strong>0.934</strong></td>
+<td>strongest direct-pattern detector</td>
+</tr>
+<tr class="even">
+<td>TF-IDF + LR</td>
+<td style="text-align: right;">0.971</td>
+<td style="text-align: right;">0.992</td>
+<td style="text-align: right;">0.930</td>
+<td>lexical direct baseline is also strong</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">0.653</td>
+<td style="text-align: right;">0.907</td>
+<td style="text-align: right;">0.849</td>
+<td>weaker ranking, still discriminative</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Held-out direct-source recall.</strong> This leave-one-dataset-out direct-source test is all-positive, so the table reports recall only.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Recall@0.5</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;"><strong>0.641</strong></td>
+<td>best held-out direct-source recall</td>
+</tr>
+<tr class="even">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.625</td>
+<td>similar recall, despite worse pooled OOD ranking</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT full fine-tune</td>
+<td style="text-align: right;">0.558</td>
+<td>lower direct-source recall</td>
+</tr>
+</tbody>
+</table>
+<p>False positives, AUPRC, and AUROC are omitted from the held-out direct-source table because that slice has no negatives. Direct-task success makes the OOD failure more informative, not less: the detectors learned one family and did not transfer cleanly to others.</p>
 </section>
 <section id="what-this-means" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-means">What This Means</h2>

@@ -909,6 +909,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a>
   <ul class="collapse">
   <li><a href="#bottom-line" id="toc-bottom-line" class="nav-link" data-scroll-target="#bottom-line">Bottom Line</a></li>
+  <li><a href="#direct-detection-check" id="toc-direct-detection-check" class="nav-link" data-scroll-target="#direct-detection-check">Direct Detection Check</a></li>
   <li><a href="#what-was-tested" id="toc-what-was-tested" class="nav-link" data-scroll-target="#what-was-tested">What Was Tested</a></li>
   <li><a href="#how-to-read-the-metrics" id="toc-how-to-read-the-metrics" class="nav-link" data-scroll-target="#how-to-read-the-metrics">How To Read The Metrics</a></li>
   <li><a href="#main-findings" id="toc-main-findings" class="nav-link" data-scroll-target="#main-findings">Main Findings</a></li>
@@ -1025,6 +1026,85 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+</section>
+<section id="direct-detection-check" class="level2">
+<h2 class="anchored" data-anchor-id="direct-detection-check">Direct Detection Check</h2>
+<p>The OOD result should not be read as “nothing worked.” The direct detection check shows that the detectors learned the direct prompt-injection task, then failed to generalize cleanly across attack families.</p>
+<p><strong>Balanced direct+benign validation</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">AUPRC</th>
+<th style="text-align: right;">AUROC</th>
+<th style="text-align: right;">Recall@0.5</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;"><strong>0.974</strong></td>
+<td style="text-align: right;"><strong>0.993</strong></td>
+<td style="text-align: right;"><strong>0.934</strong></td>
+<td>strongest direct-pattern detector</td>
+</tr>
+<tr class="even">
+<td>TF-IDF + LR</td>
+<td style="text-align: right;">0.971</td>
+<td style="text-align: right;">0.992</td>
+<td style="text-align: right;">0.930</td>
+<td>lexical direct baseline is also strong</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">0.653</td>
+<td style="text-align: right;">0.907</td>
+<td style="text-align: right;">0.849</td>
+<td>weaker ranking, still discriminative</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Held-out direct-source recall</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Recall@0.5</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;"><strong>0.641</strong></td>
+<td>best direct-source holdout recall</td>
+</tr>
+<tr class="even">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.625</td>
+<td>similar recall, despite worse pooled OOD ranking</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT full fine-tune</td>
+<td style="text-align: right;">0.558</td>
+<td>lower direct-source recall</td>
+</tr>
+</tbody>
+</table>
+<p>False positives, AUPRC, and AUROC are omitted from the held-out direct-source table because that slice is all-positive.</p>
 </section>
 <section id="what-was-tested" class="level2">
 <h2 class="anchored" data-anchor-id="what-was-tested">What Was Tested</h2>

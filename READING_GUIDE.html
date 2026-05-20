@@ -943,6 +943,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#reading-guide" id="toc-reading-guide" class="nav-link active" data-scroll-target="#reading-guide">Reading Guide</a>
   <ul class="collapse">
+  <li><a href="#result-map" id="toc-result-map" class="nav-link" data-scroll-target="#result-map">Result Map</a></li>
   <li><a href="#path-a-hiring-manager-10-15-minutes" id="toc-path-a-hiring-manager-10-15-minutes" class="nav-link" data-scroll-target="#path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</a></li>
   <li><a href="#path-b-technical-reviewer-45-60-minutes" id="toc-path-b-technical-reviewer-45-60-minutes" class="nav-link" data-scroll-target="#path-b-technical-reviewer-45-60-minutes">Path B: Technical Reviewer, 45-60 Minutes</a></li>
   <li><a href="#path-c-reproduce-30-minutes" id="toc-path-c-reproduce-30-minutes" class="nav-link" data-scroll-target="#path-c-reproduce-30-minutes">Path C: Reproduce, 30+ Minutes</a></li>
@@ -984,6 +985,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reading-guide" class="level1">
 <h1>Reading Guide</h1>
 <p>The site is organized from least to most technical. Start with the result, then drill into evidence and methodology only as needed.</p>
+<section id="result-map" class="level2">
+<h2 class="anchored" data-anchor-id="result-map">Result Map</h2>
+<p>Use this map when scanning the project for what was actually accomplished. Each row points to the deeper table and states why the result matters.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Finding</th>
+<th>Where to read</th>
+<th>What the result says</th>
+<th>Why it matters or is limited</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Direct validation</td>
+<td><a href="./RESULTS.html#direct-prompt-injection-performance">Results: Direct Prompt-Injection Performance</a></td>
+<td>LoRA reaches 0.974 AUPRC / 0.993 AUROC / 0.934 recall@0.5 on balanced direct+benign validation; TF-IDF + LR is similar</td>
+<td>confirms the detector stack learned direct prompt-injection patterns</td>
+</tr>
+<tr class="even">
+<td>Held-out direct-source recall</td>
+<td><a href="./RESULTS.html#direct-prompt-injection-performance">Results: Direct Prompt-Injection Performance</a></td>
+<td>frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune is 0.558</td>
+<td>stricter direct-source holdout, but recall-only because the slice is all-positive</td>
+</tr>
+<tr class="odd">
+<td>Pooled OOD failure</td>
+<td><a href="./RESULTS.html#1-cross-family-ood-table-auprc">Results: §1 Cross-Family OOD Table</a></td>
+<td>best pooled OOD AUPRC is 0.364 against a random floor of 0.374</td>
+<td>main scientific finding: direct-trained detectors do not beat guessing under family shift</td>
+</tr>
+<tr class="even">
+<td>LoRA vs frozen-probe OOD degradation</td>
+<td><a href="./RESULTS.html#2-frozen-probe-vs-lora">Results: §2 Frozen Probe vs LoRA</a></td>
+<td>LoRA is -0.071 AUPRC below frozen probe on pooled OOD</td>
+<td>fine-tuning on direct examples specialized away from useful OOD signal</td>
+</tr>
+<tr class="odd">
+<td>DeBERTa context-window null result</td>
+<td><a href="./RESULTS.html#1b-ablation-does-a-longer-context-backbone-fix-the-ood-gap">Results: §1B Ablation</a></td>
+<td>chunk-and-average scores 0.291 pooled OOD AUPRC; head-truncation scores 0.290</td>
+<td>longer context access did not explain the OOD gap; backbone effects remain</td>
+</tr>
+<tr class="even">
+<td>Threshold transfer failure</td>
+<td><a href="./RESULTS.html#4-threshold-transfer">Results: §4 Threshold Transfer</a></td>
+<td>LoRA catches more positives but jumps to 11.5% test FPR under a 1% validation-FPR policy</td>
+<td>validation thresholds are characterization, not deployment recommendations</td>
+</tr>
+<tr class="odd">
+<td>Calibration ranking</td>
+<td><a href="./RESULTS.html#5-calibration">Results: §5 Calibration</a></td>
+<td>frozen probe has the lowest mean ECE (0.144) and Brier (0.265)</td>
+<td>score quality and direct-pattern accuracy diverge under OOD shift</td>
+</tr>
+<tr class="even">
+<td>ProtectAI/reference-detector caveats</td>
+<td><a href="./RESULTS.html#1-cross-family-ood-table-auprc">Results: §1 Cross-Family OOD Table</a> and <a href="./WRITEUP/reference-scorer-audit.html">reference-scorer audit</a></td>
+<td>ProtectAI v1 is near frozen probe on pooled OOD; v2 regresses on this slate</td>
+<td>useful diagnostic references, but training-overlap disclosure limits clean baseline claims</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="path-a-hiring-manager-10-15-minutes" class="level2">
 <h2 class="anchored" data-anchor-id="path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</h2>
 <p>Goal: understand the problem, the result, and what the project demonstrates.</p>
