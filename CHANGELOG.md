@@ -20,7 +20,15 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
-### Changed
+## [1.2.9] — 2026-05-20
+
+**Audit-remediation patch release**: 2026-05-20 second-opinion audit cycle
+surfaced + closed P0/P1 governance + presentation + narrative findings.
+12 commits; no methodology, model, data, compute, or result change. The
+new canonical source pin moves to `v1.2.9`; v1.0.0 preserved as the
+original submission reviewer pin per ADR-033.
+
+### Changed (now packaged from [Unreleased] pre-2026-05-20 work)
 
 - **Direct-injection results co-headlined** — `README.md` and primary reader
   surfaces now show the direct-performance story alongside the OOD story:
@@ -38,13 +46,84 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
   tools disabled for public docs; generated `SUBMISSION_AUDIT.md` now renders
   from `scripts/regenerate_audit.py` as a claim index plus detail sections;
   assumptions/spec/reference ledgers now carry current-state reader notes.
-  Docs-only; no methodology, model, data, compute, or `v1.0.0` reviewer-pin
-  change.
 - **Entry-path result tables clarified** — landing page, README, executive
   summary, hiring-manager page, and reading guide now show detector-level
   direct detection checks beside the pooled OOD failure, with interpretation
-  columns and undefined all-positive metrics omitted. Docs-only; no
-  methodology, model, data, compute, or `v1.0.0` reviewer-pin change.
+  columns and undefined all-positive metrics omitted.
+
+### Changed (2026-05-20 audit remediation)
+
+- **AUROC anti-correlation propagated to headline framing** — landing /
+  EXECUTIVE_SUMMARY / WRITEUP §7 Finding 3 / for-hiring-managers Q2 /
+  RESULTS §2+§6 / READING_GUIDE Result Map / WRITEUP/model-rungs §4.3 /
+  WRITEUP/limitations §9.5 (new section) all surface the sharper finding:
+  LoRA pooled OOD AUROC 0.383 + TF-IDF + LR 0.371 both fall below the 0.5
+  random floor with CIs that clear on the wrong side. In-pool to
+  cross-family generalization gap: ~0.6 AUROC for trained detectors,
+  ~0.4 for the frozen probe. Mechanism: lexical overfitting + slate-induced
+  label-relevance shift (NotInject inverts the negative side; indirect/
+  agentic attacks invert the positive side). Headline numbers unchanged;
+  framing sharpened.
+- **Canonical source pin moved to `v1.2.8`** (now `v1.2.9` with this tag) —
+  READING_GUIDE.md §Submission Anchors + WRITEUP.md header updated;
+  v1.0.0 preserved as historical "original submission tag" per ADR-033.
+- **ADR count standardized to 70** across reader-facing docs:
+  docs/for-hiring-managers.md (was 60+); WRITEUP/methodology-guarantees.md
+  (was 50+); CLAUDE.md (was 53 at v1.0.4 close). CHANGELOG historical
+  entries with prior counts preserved per Keep-A-Changelog convention.
+- **Site polish**: favicon.svg added + referenced via `_quarto.yml`;
+  styles.css updated to suppress "Anchor" text leakage in headings via
+  `font-size: 0` on `.anchorjs-link` with a hover-only `#` pseudo-element
+  preserving the click-to-anchor affordance.
+
+### Added (2026-05-20 audit remediation — new ADRs)
+
+- **ADR-071**: cross-reference slug-sweep closure. Executes the 33-pattern
+  slug-mapping authorized by ADR-067 §C1 + post-2026-05-20 audit extension
+  across 22 ADR files (63 substitutions). Strips the
+  `/home/brandon_behring/.claude/plans/twinkly-weaving-puppy.md` local-fs
+  path leak from ADR-040 (3 occurrences). Closes the
+  "documented-but-unexecuted authorization" optic from the
+  ADR-067-070 chain.
+- **ADR-072**: backfill ADR-051 + ADR-052 frontmatter (`closing_commit`,
+  template `## Status` + `## Alternatives Considered` sections). Resolves
+  the structural debt that the 2026-05-18 self-audit had attributed
+  (incorrectly) to ADR-049 + ADR-050; the v1.0.x patch cycle had since
+  populated 049+050. The 2026-05-20 re-verification surfaced the actual
+  gap was in 051+052.
+- **ADR-073**: immutability rule consolidated re-statement. Collapses the
+  4-ADR narrow-relaxation chain (ADR-067/068/069/070) into a single
+  canonical immutability ADR with four named exception classes (A/B/C/D).
+  Same authorization surface; reduced "immutability is loose" reader
+  optic from 4 signals to 1 rule + 4 exceptions. ADRs 067-070 remain as
+  historical artifacts; prospective citation moves to ADR-073.
+- **ADR-074**: redact verbatim self-criticism quote in ADR-064. Replaces
+  the publicly-readable "doesn't demonstrate clear thought" wording with
+  a neutral paraphrase preserving the decision context. Original verbatim
+  feedback preserved in the (private; gitignored) transcript file per
+  AGENTS.md transcript discipline.
+- **ADR-075**: full-FT OOD drop rationale unified narrative. Consolidates
+  ADR-050 Revision 2 (FUSE-crash-forced-drop framing) + ADR-052
+  (methodology-load-bearing-with-crash-as-trigger framing) into a single
+  prospective citation, removing the same-day retcon optic without
+  changing the underlying outcome. ADR-050 R1 (LLM-judge cost drop)
+  unaffected; remains on its separate axis.
+
+### Removed (2026-05-20 audit remediation)
+
+- **`REPO_AUDIT_2026-05-18.md` moved from repo root** to
+  `decisions/audits/REPO_AUDIT_2026-05-18.md` with a "Status: resolved"
+  header. The 2026-05-18 audit's executive verdict "Not submission-ready"
+  no longer headlines the repo file-tree glance. All 5 P0 blockers + most
+  P1/P2 findings are resolved or explicitly carryforwarded via ADR-051 /
+  ADR-052 / ADR-058. The audit remains preserved as part of the SDD audit
+  trail under `decisions/audits/`.
+- **Stale `chore/eval-toolkit-v0.34.0-migration` branch deleted** on
+  origin. The v0.34.0 migration was applied via PR #2 (merged 2026-05-18).
+- **Issue #1 closed**: v0.34.0 eval-toolkit BREAKING note resolved by
+  PR #2; consumer uses positional form at `src/eval/mde.py:63` unaffected
+  by the keyword rename. eval-toolkit dependency is at v0.43.0 as of
+  v1.2.8.
 
 ## [1.2.8] — 2026-05-19
 
