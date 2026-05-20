@@ -1,8 +1,9 @@
 # Prompt-Injection Classification: Methodology and Capability Characterization
 
 **Author**: Brandon Behring | **Date**: 2026-05-19 | **Status**:
-live-site clarity patches; canonical submission source pin remains
-`tree/v1.0.0`.
+live-site current state `tree/v1.2.8`; original submission tag
+`tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
+ADR-033.
 
 This is the methodology hub. It explains the problem, the evaluation setup, the
 headline result, and the limits in one place. The detailed spokes remain linked

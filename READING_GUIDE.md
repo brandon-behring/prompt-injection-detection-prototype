@@ -122,8 +122,12 @@ policy.
 
 ## Submission Anchors
 
-- Canonical source pin:
+- Current state:
+  [`tree/v1.2.8`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.2.8)
+  (2026-05-19) --- live-site source
+- Original submission tag:
   [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
+  (2026-05-18) --- preserved as historical reviewer pin per ADR-033
 - Live rendered site:
   <https://brandon-behring.github.io/prompt-injection-detection-prototype/>
 - HF Hub checkpoints:
