@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-05-20">
 
-<title>reproducibility – Prompt-injection classifier evaluation</title>
+<title>Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -252,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-074-adr-064-self-criticism-quote-redaction.html">Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -499,13 +465,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">Decisions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
@@ -946,7 +912,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-074-adr-064-self-criticism-quote-redaction.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-074-adr-064-self-criticism-quote-redaction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision</span></a>
   </div>
 </li>
@@ -970,110 +936,135 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reproducibility-recipe" id="toc-reproducibility-recipe" class="nav-link active" data-scroll-target="#reproducibility-recipe">Reproducibility — recipe</a>
+  <li><a href="#adr-074-redact-verbatim-self-criticism-quote-in-adr-064" id="toc-adr-074-redact-verbatim-self-criticism-quote-in-adr-064" class="nav-link active" data-scroll-target="#adr-074-redact-verbatim-self-criticism-quote-in-adr-064">ADR-074: Redact verbatim self-criticism quote in ADR-064</a>
   <ul class="collapse">
-  <li><a href="#fresh-clone-reproduction" id="toc-fresh-clone-reproduction" class="nav-link" data-scroll-target="#fresh-clone-reproduction">Fresh-clone reproduction</a></li>
-  <li><a href="#expected-runtime-post-phase-4-state" id="toc-expected-runtime-post-phase-4-state" class="nav-link" data-scroll-target="#expected-runtime-post-phase-4-state">Expected runtime (post-Phase 4 state)</a></li>
-  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a></li>
-  <li><a href="#manifest-provenance-per-phase-4-evaluation-run" id="toc-manifest-provenance-per-phase-4-evaluation-run" class="nav-link" data-scroll-target="#manifest-provenance-per-phase-4-evaluation-run">Manifest provenance (per Phase 4 evaluation run)</a></li>
-  <li><a href="#ci-gates" id="toc-ci-gates" class="nav-link" data-scroll-target="#ci-gates">CI gates</a></li>
-  <li><a href="#reviewer-reproduction-tier" id="toc-reviewer-reproduction-tier" class="nav-link" data-scroll-target="#reviewer-reproduction-tier">Reviewer reproduction tier</a></li>
-  <li><a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references">Cross-references</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
+  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-074-adr-064-self-criticism-quote-redaction.html">Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="reproducibility-recipe" class="level1">
-<h1>Reproducibility — recipe</h1>
-<p>Convenience aggregator. Canonical content lives in the <code>Makefile</code>, <code>pyproject.toml</code>, and <code>docs/MANIFEST_SCHEMA.md</code>. This file gives a single-page reproduction recipe that a fresh-clone reviewer can follow.</p>
-<section id="fresh-clone-reproduction" class="level2">
-<h2 class="anchored" data-anchor-id="fresh-clone-reproduction">Fresh-clone reproduction</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install        <span class="co"># uv sync --extra dev</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> lint           <span class="co"># ruff + mypy strict</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test           <span class="co"># tests/test_invariants.py invariants</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> coverage       <span class="co"># pytest --cov</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 20, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="adr-074-redact-verbatim-self-criticism-quote-in-adr-064" class="level1">
+<h1>ADR-074: Redact verbatim self-criticism quote in ADR-064</h1>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Accepted.</p>
 </section>
-<section id="expected-runtime-post-phase-4-state" class="level2">
-<h2 class="anchored" data-anchor-id="expected-runtime-post-phase-4-state">Expected runtime (post-Phase 4 state)</h2>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>ADR-064 documents the writeup-hiring-manager-clarity-and-consistency pass that landed across v1.1.4 and v1.2.0. The ADR is well-structured and its decisions (B1-B6 commit cadence, C1-C2 spoke density, D1 figure refinements, E1-E5 release shape) are load-bearing for the post-v1.1.3 narrative arc.</p>
+<p>The ADR also has a problem: it embeds a verbatim user-feedback quote from 2026-05-19 that includes the phrase “doesn’t demonstrate clear thought.” This quote appears in two places:</p>
+<ol type="1">
+<li>The frontmatter <code>claim:</code> field (lines 9-16). This field is rendered into the live Quarto site via <code>decisions/ADR-*.md</code> in <code>_quarto.yml</code>, so the quote is publicly readable on the rendered site.</li>
+<li>The body §A Context section (lines 105-110), which repeats the quote with ellipses + the expanded user instruction.</li>
+</ol>
+<p>ADR-064’s title slug also literally contains “hiring-manager-clarity-and-consistency-pass.” A curious hiring manager who searches the candidate’s GitHub profile for “hiring-manager” lands on this ADR. They then read the verbatim quote.</p>
+<p>The decision context (post-v1.1.3 user review surfaced that the writeup needed a clarity pass; 6-commit cadence + DeBERTa §1B + landing-page redesign + nav simplification followed) is preserved intact by a neutral paraphrase. The verbatim user wording serves no decision-anchoring function — the substantive feedback (jargon density, plot-interpretation cues, table-context framing under-served) can be summarized professionally.</p>
+<p>Per ADR-073’s consolidated immutability rule, this fix sits adjacent to Class B (“broken external references — embedded content that doesn’t serve the decision”) or could justify a future Class E (“embedded prose with hiring-manager-optic cost”). The principle is consistent: no decision content changes; only the surface artifact is improved.</p>
+</section>
+<section id="decision" class="level2">
+<h2 class="anchored" data-anchor-id="decision">Decision</h2>
+<p>Replace the verbatim self-criticism quote in ADR-064 at both occurrence sites with a neutral paraphrase.</p>
+<p><strong>Frontmatter <code>claim:</code> field (lines 9-16):</strong></p>
+<p>Before:</p>
+<pre><code>User feedback 2026-05-19 (post-v1.1.3 ADR-062 baseline): *"the
+writeup/quatro is a little obscure and hard to follow and is not very
+polished. Imagine a new person coming to it and understanding the
+problem and understanding what the plots say and don't say what the
+metrics mean. It is jargon heavy and dense and pretty unreadable to a
+hiring manager and doesn't demonstrate clear thought."* Then expanded:
+*"take a broad look over everything including readme etc and other
+documentations to make sure we are consistent throughout the guide."*</code></pre>
+<p>After:</p>
+<pre><code>Post-v1.1.3 user review (ADR-062 baseline) surfaced that the Quarto
+writeup needed a hiring-manager clarity pass: jargon density,
+plot-interpretation cues, and table-context framing were under-served.
+User expansion: ensure consistency across README and other
+documentation surfaces.</code></pre>
+<p><strong>Body §A Context section (lines 105-110):</strong></p>
+<p>Before:</p>
+<pre><code>User feedback 2026-05-19 (post-v1.1.3): *"the writeup/quatro is a
+little obscure and hard to follow ... jargon heavy and dense and
+pretty unreadable to a hiring manager ... doesn't demonstrate clear
+thought."* Then expanded: *"take a broad look over everything
+including readme etc and other documentations to make sure we are
+consistent throughout the guide."*</code></pre>
+<p>After:</p>
+<pre><code>Post-v1.1.3 user review (ADR-062 baseline) flagged that the Quarto
+writeup needed a hiring-manager clarity pass: jargon density,
+plot-interpretation cues, table-context framing under-served. Plus
+a documentation-wide consistency review across README, RESULTS,
+EXECUTIVE_SUMMARY, and reference docs.</code></pre>
+<p>ADR-064’s decisions (B1-B6, C1-C2, D1, E1-E5) are entirely unchanged. Only the verbatim wording in two prose surfaces is replaced. The original verbatim user feedback remains preserved in the (private, gitignored) transcript file per AGENTS.md transcript discipline.</p>
+</section>
+<section id="consequences" class="level2">
+<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
 <ul>
-<li><code>make install</code>: ~30 seconds with warm uv cache; ~2 minutes from scratch</li>
-<li><code>make lint</code>: ~5 seconds</li>
-<li><code>make test</code>: ~30 seconds (~220 tests; invariants live + smoke parametrised)</li>
-<li><code>make test-smoke</code>: ~1 minute (laptop-friendly, no GPU, no network)</li>
-<li><code>make coverage</code>: ~45 seconds (currently 89.82 %)</li>
-<li><code>make audit</code>: ~5 seconds (<code>scripts/regenerate_audit.py --check</code>)</li>
-</ul>
-<p>Headline + cloud reproduction targets (Phase 4):</p>
-<ul>
-<li><code>make headline-frozen-probe</code>: frozen-probe headline eval via runpod-deploy (~30 min on A100 80GB; ~$3 per cell)</li>
-<li><code>make headline-lora</code>: LoRA headline eval (~45 min; ~$5)</li>
-<li><code>make headline-full-ft</code>: full-FT headline eval (~6h; ~$20; LODO only — OOD dropped per ADR-050)</li>
-<li><code>make headline-cloud</code>: meta-target for all three above</li>
-<li><code>make eval-from-hub RUNG=&lt;frozen-probe|lora&gt;</code>: T0 reproducibility — pulls the canonical fold0/seed42 checkpoint from HF Hub and score-matches within 1e-4 (per ADR-034). CPU-only (~10-30 min per rung).</li>
-<li><code>make metrics-battery</code>: regenerate the full per-cell metrics parquet + bootstrap CIs from existing prediction parquets (CPU-only; ~5 minutes)</li>
+<li>The single most embarrassing string in <code>decisions/</code> (“doesn’t demonstrate clear thought”) no longer appears in a publicly readable artifact</li>
+<li>ADR-064’s decisions remain unchanged + remain immutable</li>
+<li>Future hiring-manager reviewers wandering into <code>decisions/ADR-064</code> see professional neutral language describing the post-v1.1.3 clarity-pass motivation</li>
+<li>Transcript file (private; emailed separately at submission) preserves the original verbatim feedback for audit-trail completeness — the substantive critique is not lost, just not exposed in the public-rendered ADR surface</li>
+<li>ADR-064’s title slug remains “writeup-hiring-manager-clarity-and- consistency-pass” — the slug is descriptive of the decision and doesn’t carry the embarrassing phrasing; not changing it</li>
+<li>Establishes precedent for Class B-adjacent / Class E (“embedded-prose-with-optic-cost”) narrow relaxations in the consolidated ADR-073 framework</li>
 </ul>
 </section>
-<section id="environment" class="level2">
-<h2 class="anchored" data-anchor-id="environment">Environment</h2>
-<p>Python <code>&gt;=3.13</code> (pinned at Phase 0-08; see <code>pyproject.toml</code> + <code>.python-version</code>). Load-bearing dependencies pinned at Phase 0:</p>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ol type="1">
+<li><strong>Leave the verbatim quote intact.</strong> Rejected — the embarrassment cost is real (the quote is publicly readable on the rendered site
 <ul>
-<li><code>eval-toolkit</code> (evaluation primitives) — version locked at Phase 0-08</li>
-<li><code>runpod-deploy</code> (cloud orchestration) — version locked at Phase 0-08</li>
-<li><code>research_toolkit</code> (dossier production) — version locked at Phase 0-08</li>
-</ul>
-<p><code>uv.lock</code> is committed for byte-reproducible dependency resolution. <code>.python-version</code> pins the interpreter.</p>
+<li>searchable via the slug). The decision content survives the paraphrase intact. There’s no reason to preserve the verbatim public-facing wording when (a) the substance is preserved in the paraphrase and (b) the original is preserved privately in the transcript.</li>
+</ul></li>
+<li><strong>Delete ADR-064 entirely.</strong> Rejected — the decisions it documents (B1-B6 commit cadence, C1-C2 spoke density, D1 figure refinements, E1-E5 release shape) are load-bearing for the post-v1.1.3 narrative arc. Supersession (not deletion) is the right move.</li>
+<li><strong>Paraphrase the body but leave the <code>claim:</code> field verbatim.</strong> Rejected — the <code>claim:</code> field is rendered to the live site as part of the ADR frontmatter display (<code>scripts/regenerate_audit.py</code> reads <code>claim:</code> into <code>SUBMISSION_AUDIT.md</code>; <code>_quarto.yml</code> renders both). Both surfaces need the redaction or neither.</li>
+<li><strong>Rename ADR-064’s slug to remove “hiring-manager.”</strong> Rejected — the slug is descriptive of the decision; renaming would itself be a broken-ref class that would need its own slug-sweep treatment (ADR-071-style). Not worth the cascade.</li>
+</ol>
 </section>
-<section id="manifest-provenance-per-phase-4-evaluation-run" class="level2">
-<h2 class="anchored" data-anchor-id="manifest-provenance-per-phase-4-evaluation-run">Manifest provenance (per Phase 4 evaluation run)</h2>
-<p>Every canonical eval run produces a <code>manifest.json</code> capturing:</p>
+<section id="linked-adrs" class="level2">
+<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><code>git_sha</code> (repo state at run time)</li>
-<li><code>config_hash</code> (sha256 of trainer/eval config)</li>
-<li><code>data_hashes</code> (sha256 per artifact: metrics, predictions, parquets)</li>
-<li><code>data_revisions</code> (HuggingFace dataset + model commit SHAs)</li>
-<li><code>contamination_flags</code> (three-state taxonomy per reference scorer)</li>
-<li><code>guardrails</code> (audit-rule outcomes: leakage checks, schema validation)</li>
-<li><code>code_versions</code> (eval-toolkit version)</li>
-<li><code>env</code> (Python, torch, transformers, etc.)</li>
-<li><code>gpu_info</code> (count, memory_gb, name)</li>
-</ul>
-<p>Full field list: <code>docs/MANIFEST_SCHEMA.md</code>. The schema is owned upstream by <code>eval-toolkit</code>’s manifest version; this project follows the upstream contract.</p>
-</section>
-<section id="ci-gates" class="level2">
-<h2 class="anchored" data-anchor-id="ci-gates">CI gates</h2>
-<p><code>.github/workflows/ci.yml</code> runs on every push + PR:</p>
-<ul>
-<li><strong>Hard gates</strong> (block merge): pre-commit hooks, ruff, mypy strict, unit tests, audit-register-in-sync</li>
-<li><strong>Soft gate</strong> (continue-on-error): smoke tests</li>
-<li><strong>Opt-in</strong> (workflow_dispatch only): integration tests, network tests, notebook execution</li>
+<li>ADR-064 (writeup-hiring-manager-clarity-and-consistency-pass): superseded on the embedded-quote axis only; decisions B1-B6, C1-C2, D1, E1-E5 all unchanged + remain in force</li>
+<li>ADR-062 (the pre-v1.1.3 baseline that motivated ADR-064’s pass): not superseded; provides the context the paraphrase preserves</li>
+<li>ADR-067 (narrow-relaxation precedent — Class A slug typos): ADR-074 follows the same discipline pattern (no decision content changes; surface fix)</li>
+<li>ADR-073 (consolidated immutability rule): ADR-074 is the first documented Class B-adjacent / Class E candidate; if a future ADR-074-style embedded-prose redaction is needed, fold the class into ADR-073 then</li>
 </ul>
 </section>
-<section id="reviewer-reproduction-tier" class="level2">
-<h2 class="anchored" data-anchor-id="reviewer-reproduction-tier">Reviewer reproduction tier</h2>
-<p>Two-tier reproduction (locked at Phase 0-07 via ADR-029):</p>
-<ul>
-<li><strong>Tier 0 (T0) — HF Hub score match</strong> (no GPU): <code>make eval-from-hub RUNG=frozen-probe</code> and <code>make eval-from-hub RUNG=lora</code> pull the canonical fold0/seed42 checkpoint from <code>BBehring/prompt-injection-&lt;rung&gt;</code>, run CPU inference against the local val slate, and score-match against <code>evals/results.json</code> within 1e-4 absolute (ADR-034 tolerance). ~10-30 min per rung. Verifies eval-pipeline integrity + checkpoint-download integrity.</li>
-<li><strong>Tier 1 (T1) — full canonical re-eval</strong> (GPU; A100 80GB): <code>make headline-cloud</code> re-runs frozen-probe + LoRA + full-FT through the full LODO matrix via <code>runpod-deploy</code>. ~7h wall-clock; ~$28 GPU spend (per ADR-039 cost envelope). Verifies the full training-through-eval pipeline.</li>
-</ul>
-<p>T0 is the recommended reviewer path. T1 is offered for the reviewer who wants to independently verify training-side numerics; T0 alone covers the methodology-and-eval-side reproducibility claim.</p>
-</section>
-<section id="cross-references" class="level2">
-<h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>
-<ul>
-<li><code>Makefile</code> — canonical commands</li>
-<li><code>pyproject.toml</code> — dependency declarations + tool configs</li>
-<li><code>docs/MANIFEST_SCHEMA.md</code> — eval-output schema</li>
-<li><code>.github/workflows/ci.yml</code> — CI gate definitions</li>
-<li><code>SPEC_GREENFIELD.md</code> decision ledger §Submission row “Reproducibility tier”</li>
-</ul>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>Transcript file (gitignored per AGENTS.md): the 2026-05-20 audit hiring-manager-curious finding identified ADR-064’s verbatim quote as the highest-impact single-string redaction target. Captured in <code>~/notes/prompt-injection-audit-2026-05-20.md</code> (P0-5) and <code>~/notes/prompt-injection-audit-2026-05-20-adr-appendix.md</code> (drafted ADR-074).</p>
 
 
 </section>

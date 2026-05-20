@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-05-20">
 
-<title>reproducibility – Prompt-injection classifier evaluation</title>
+<title>Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -252,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -499,13 +465,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">Decisions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
@@ -952,7 +918,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</span></a>
   </div>
 </li>
@@ -970,110 +936,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reproducibility-recipe" id="toc-reproducibility-recipe" class="nav-link active" data-scroll-target="#reproducibility-recipe">Reproducibility — recipe</a>
+  <li><a href="#adr-075-full-ft-ood-drop-rationale-unified-narrative" id="toc-adr-075-full-ft-ood-drop-rationale-unified-narrative" class="nav-link active" data-scroll-target="#adr-075-full-ft-ood-drop-rationale-unified-narrative">ADR-075: full-FT OOD drop rationale – unified narrative</a>
   <ul class="collapse">
-  <li><a href="#fresh-clone-reproduction" id="toc-fresh-clone-reproduction" class="nav-link" data-scroll-target="#fresh-clone-reproduction">Fresh-clone reproduction</a></li>
-  <li><a href="#expected-runtime-post-phase-4-state" id="toc-expected-runtime-post-phase-4-state" class="nav-link" data-scroll-target="#expected-runtime-post-phase-4-state">Expected runtime (post-Phase 4 state)</a></li>
-  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a></li>
-  <li><a href="#manifest-provenance-per-phase-4-evaluation-run" id="toc-manifest-provenance-per-phase-4-evaluation-run" class="nav-link" data-scroll-target="#manifest-provenance-per-phase-4-evaluation-run">Manifest provenance (per Phase 4 evaluation run)</a></li>
-  <li><a href="#ci-gates" id="toc-ci-gates" class="nav-link" data-scroll-target="#ci-gates">CI gates</a></li>
-  <li><a href="#reviewer-reproduction-tier" id="toc-reviewer-reproduction-tier" class="nav-link" data-scroll-target="#reviewer-reproduction-tier">Reviewer reproduction tier</a></li>
-  <li><a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references">Cross-references</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
+  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="reproducibility-recipe" class="level1">
-<h1>Reproducibility — recipe</h1>
-<p>Convenience aggregator. Canonical content lives in the <code>Makefile</code>, <code>pyproject.toml</code>, and <code>docs/MANIFEST_SCHEMA.md</code>. This file gives a single-page reproduction recipe that a fresh-clone reviewer can follow.</p>
-<section id="fresh-clone-reproduction" class="level2">
-<h2 class="anchored" data-anchor-id="fresh-clone-reproduction">Fresh-clone reproduction</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/brandon-behring/prompt-injection-detection-prototype</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> prompt-injection-detection-prototype</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install        <span class="co"># uv sync --extra dev</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> lint           <span class="co"># ruff + mypy strict</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test           <span class="co"># tests/test_invariants.py invariants</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> coverage       <span class="co"># pytest --cov</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 20, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="adr-075-full-ft-ood-drop-rationale-unified-narrative" class="level1">
+<h1>ADR-075: full-FT OOD drop rationale – unified narrative</h1>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Accepted.</p>
 </section>
-<section id="expected-runtime-post-phase-4-state" class="level2">
-<h2 class="anchored" data-anchor-id="expected-runtime-post-phase-4-state">Expected runtime (post-Phase 4 state)</h2>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>ADR-050 was published in two revisions on 2026-05-18:</p>
 <ul>
-<li><code>make install</code>: ~30 seconds with warm uv cache; ~2 minutes from scratch</li>
-<li><code>make lint</code>: ~5 seconds</li>
-<li><code>make test</code>: ~30 seconds (~220 tests; invariants live + smoke parametrised)</li>
-<li><code>make test-smoke</code>: ~1 minute (laptop-friendly, no GPU, no network)</li>
-<li><code>make coverage</code>: ~45 seconds (currently 89.82 %)</li>
-<li><code>make audit</code>: ~5 seconds (<code>scripts/regenerate_audit.py --check</code>)</li>
+<li><strong>Revision 1</strong>: LLM-judge reference scorers (gpt-4o-2024-08-06 + claude-sonnet-4-6) dropped at Phase 4 cost re-estimation when the envelope landed ~16x the original ADR-018 estimate ($14 -&gt; $240) driven by per-row LLM-judge inference being charged at the full input-prompt token count. The <code>vendor_black_box</code> contamination tier therefore carries 0 rungs in this submission; the contamination- stratification gradient compresses from 4 tiers to 3.</li>
+<li><strong>Revision 2</strong>: full-FT OOD inference dropped after the Phase 5 X11 FUSE EIO crash on /workspace MooseFS storage. The 24 LODO direct- source predictions from Phase 2 survived; the post-Phase-5 OOD inference required a re-fire on Low-stock A100 80GB which the operational state didn’t allow.</li>
 </ul>
-<p>Headline + cloud reproduction targets (Phase 4):</p>
-<ul>
-<li><code>make headline-frozen-probe</code>: frozen-probe headline eval via runpod-deploy (~30 min on A100 80GB; ~$3 per cell)</li>
-<li><code>make headline-lora</code>: LoRA headline eval (~45 min; ~$5)</li>
-<li><code>make headline-full-ft</code>: full-FT headline eval (~6h; ~$20; LODO only — OOD dropped per ADR-050)</li>
-<li><code>make headline-cloud</code>: meta-target for all three above</li>
-<li><code>make eval-from-hub RUNG=&lt;frozen-probe|lora&gt;</code>: T0 reproducibility — pulls the canonical fold0/seed42 checkpoint from HF Hub and score-matches within 1e-4 (per ADR-034). CPU-only (~10-30 min per rung).</li>
-<li><code>make metrics-battery</code>: regenerate the full per-cell metrics parquet + bootstrap CIs from existing prediction parquets (CPU-only; ~5 minutes)</li>
-</ul>
+<p>Hours later the same day, ADR-052 was published, reframing the full-FT drop as methodologically load-bearing (LoRA’s paired-bootstrap evidence already showed fine-tuning was hurting OOD; the FUSE crash was the proximate trigger that exposed an already-implicit decision, not the cause of it).</p>
+<p>A skeptical reader reading ADR-050 R2 then ADR-052 sees: “I cut a planned experiment because it crashed -&gt; wait, actually I cut it because the methodology pointed there -&gt; so why did you write ADR-050 R2 with the operational framing?” Same-day retcons in immutable records erode reader trust in <em>any</em> ADR the author wrote, even when (as here) the methodological reasoning is genuinely sound and the operational trigger is genuinely separate.</p>
+<p>ADR-050 Revision 1 (LLM-judge cost drop) is unaffected by this; that’s a separate decision on a different axis.</p>
 </section>
-<section id="environment" class="level2">
-<h2 class="anchored" data-anchor-id="environment">Environment</h2>
-<p>Python <code>&gt;=3.13</code> (pinned at Phase 0-08; see <code>pyproject.toml</code> + <code>.python-version</code>). Load-bearing dependencies pinned at Phase 0:</p>
-<ul>
-<li><code>eval-toolkit</code> (evaluation primitives) — version locked at Phase 0-08</li>
-<li><code>runpod-deploy</code> (cloud orchestration) — version locked at Phase 0-08</li>
-<li><code>research_toolkit</code> (dossier production) — version locked at Phase 0-08</li>
-</ul>
-<p><code>uv.lock</code> is committed for byte-reproducible dependency resolution. <code>.python-version</code> pins the interpreter.</p>
+<section id="decision" class="level2">
+<h2 class="anchored" data-anchor-id="decision">Decision</h2>
+<p>Replace the two-ADR same-day retcon with one unified account in ADR-075:</p>
+<blockquote class="blockquote">
+<p>Full-FT OOD inference was not run because BOTH (a) the Phase 4 paired-bootstrap CI on LoRA already showed the fine-tuning direction was net-harmful for OOD generalization (LoRA -0.071 AUPRC vs frozen-probe on pooled_ood, CI clears zero; paired_cells.parquet seed=1 + seed=2 stability check 0/40 cells flagged), AND (b) the Phase 5 X11 re-fire attempt crashed on a FUSE EIO before any full-FT checkpoint persisted. The methodological reasoning is load-bearing; the operational event is the trigger that exposed the already-implicit decision. Both halves are real; neither would have independently sufficed for a defensible drop (without the LoRA evidence the FUSE crash would have required a re-fire attempt; without the FUSE crash the methodology argument alone might have deferred to v1.1.x rather than dropping at v1.0.x).</p>
+</blockquote>
+<p>The unified narrative is the prospective citation. ADR-050 Revision 2 and ADR-052 are preserved as historical artifacts in <code>decisions/</code> — the record of how the decision logic was authored in stages on 2026-05-18. WRITEUP.md §8.1 + WRITEUP/limitations-and-future-work.md §8.1 + WRITEUP/model-rungs.md §4.x cite ADR-075 as the single source of truth on the full-FT OOD drop rationale.</p>
+<p>ADR-050 R1 (LLM-judge cost drop) is preserved cleanly — separate decision, separate ADR axis, untouched by this supersession.</p>
 </section>
-<section id="manifest-provenance-per-phase-4-evaluation-run" class="level2">
-<h2 class="anchored" data-anchor-id="manifest-provenance-per-phase-4-evaluation-run">Manifest provenance (per Phase 4 evaluation run)</h2>
-<p>Every canonical eval run produces a <code>manifest.json</code> capturing:</p>
+<section id="consequences" class="level2">
+<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
 <ul>
-<li><code>git_sha</code> (repo state at run time)</li>
-<li><code>config_hash</code> (sha256 of trainer/eval config)</li>
-<li><code>data_hashes</code> (sha256 per artifact: metrics, predictions, parquets)</li>
-<li><code>data_revisions</code> (HuggingFace dataset + model commit SHAs)</li>
-<li><code>contamination_flags</code> (three-state taxonomy per reference scorer)</li>
-<li><code>guardrails</code> (audit-rule outcomes: leakage checks, schema validation)</li>
-<li><code>code_versions</code> (eval-toolkit version)</li>
-<li><code>env</code> (Python, torch, transformers, etc.)</li>
-<li><code>gpu_info</code> (count, memory_gb, name)</li>
-</ul>
-<p>Full field list: <code>docs/MANIFEST_SCHEMA.md</code>. The schema is owned upstream by <code>eval-toolkit</code>’s manifest version; this project follows the upstream contract.</p>
-</section>
-<section id="ci-gates" class="level2">
-<h2 class="anchored" data-anchor-id="ci-gates">CI gates</h2>
-<p><code>.github/workflows/ci.yml</code> runs on every push + PR:</p>
-<ul>
-<li><strong>Hard gates</strong> (block merge): pre-commit hooks, ruff, mypy strict, unit tests, audit-register-in-sync</li>
-<li><strong>Soft gate</strong> (continue-on-error): smoke tests</li>
-<li><strong>Opt-in</strong> (workflow_dispatch only): integration tests, network tests, notebook execution</li>
+<li>Reviewers reading the ADR sequence + the WRITEUP cross-references see one coherent rationale rather than two competing ones authored hours apart</li>
+<li>The same-day retcon optic is removed without erasing the historical record (ADR-050 R2 + ADR-052 both remain readable)</li>
+<li>ADR-050 R1 (LLM-judge cost drop) survives intact on its separate axis</li>
+<li>WRITEUP cross-references simplify: one ADR citation (ADR-075) instead of two with a “see also” thread between them</li>
+<li>Future references to the full-FT OOD drop in CHANGELOG, NEXT_STEPS, or other prose can cite ADR-075 directly rather than navigating the ADR-050 R2 -&gt; ADR-052 history</li>
+<li>ADR-072 (frontmatter backfill for ADR-051 + ADR-052) and ADR-075 both supersede ADR-052 on different axes — ADR-072 on the frontmatter axis (closing_commit + Alternatives Considered), ADR-075 on the narrative axis (unified full-FT drop rationale). Both supersessions are documented; ADR-052’s full historical content remains in <code>decisions/</code> for audit-trail purposes</li>
 </ul>
 </section>
-<section id="reviewer-reproduction-tier" class="level2">
-<h2 class="anchored" data-anchor-id="reviewer-reproduction-tier">Reviewer reproduction tier</h2>
-<p>Two-tier reproduction (locked at Phase 0-07 via ADR-029):</p>
-<ul>
-<li><strong>Tier 0 (T0) — HF Hub score match</strong> (no GPU): <code>make eval-from-hub RUNG=frozen-probe</code> and <code>make eval-from-hub RUNG=lora</code> pull the canonical fold0/seed42 checkpoint from <code>BBehring/prompt-injection-&lt;rung&gt;</code>, run CPU inference against the local val slate, and score-match against <code>evals/results.json</code> within 1e-4 absolute (ADR-034 tolerance). ~10-30 min per rung. Verifies eval-pipeline integrity + checkpoint-download integrity.</li>
-<li><strong>Tier 1 (T1) — full canonical re-eval</strong> (GPU; A100 80GB): <code>make headline-cloud</code> re-runs frozen-probe + LoRA + full-FT through the full LODO matrix via <code>runpod-deploy</code>. ~7h wall-clock; ~$28 GPU spend (per ADR-039 cost envelope). Verifies the full training-through-eval pipeline.</li>
-</ul>
-<p>T0 is the recommended reviewer path. T1 is offered for the reviewer who wants to independently verify training-side numerics; T0 alone covers the methodology-and-eval-side reproducibility claim.</p>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ol type="1">
+<li><strong>Leave ADR-050 R2 + ADR-052 as the two-ADR pair.</strong> Rejected — the retcon optic is a real reader-trust risk for <em>any</em> ADR the author wrote. The methodological reasoning in ADR-052 is sound; the narrative structure (two ADRs authored hours apart with different framings) is the issue. Unifying removes the structural problem without changing the methodology content.</li>
+<li><strong>Edit ADR-050 in place to incorporate ADR-052’s framing.</strong> Rejected — would violate the immutability rule (this is content change, not editorial fix; doesn’t fit ADR-073’s named exception classes). The immutability discipline is the load-bearing constraint; the cost of working within it is the supersession chain.</li>
+<li><strong>Delete ADR-052.</strong> Rejected — historical record (the decision- trail of the same-day reframe) is preserved by keeping both ADR-050 R2 and ADR-052 in decisions/ while citing ADR-075 prospectively. Deletion would lose the lesson about how same-day retcons happen + why they should be avoided.</li>
+<li><strong>Write ADR-052 differently at the time.</strong> This isn’t an alternative to ADR-075 (it’s an alternative history); noting it here for completeness. The 2026-05-18 author’s choice to write a second ADR rather than revise the first followed the immutability discipline (correctly); ADR-075 is the deferred-consolidation move the discipline supports.</li>
+</ol>
 </section>
-<section id="cross-references" class="level2">
-<h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>
+<section id="linked-adrs" class="level2">
+<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><code>Makefile</code> — canonical commands</li>
-<li><code>pyproject.toml</code> — dependency declarations + tool configs</li>
-<li><code>docs/MANIFEST_SCHEMA.md</code> — eval-output schema</li>
-<li><code>.github/workflows/ci.yml</code> — CI gate definitions</li>
-<li><code>SPEC_GREENFIELD.md</code> decision ledger §Submission row “Reproducibility tier”</li>
+<li>ADR-050 Revision 2 (full-FT OOD drop via FUSE EIO): superseded on the prospective-citation axis only; the historical record (operational facts) remains intact</li>
+<li>ADR-050 Revision 1 (LLM-judge cost drop): NOT superseded; separate decision on a separate axis; remains in force</li>
+<li>ADR-052 (methodological reframing of ADR-050 R2): superseded entirely in prospective citation; its sole purpose was the ADR-050 R2 reframe which ADR-075 now subsumes. Historical content remains for audit-trail purposes</li>
+<li>ADR-019 (LoRA training recipe): provides the LoRA evidence that ADR-075 cites as the methodological half</li>
+<li>ADR-022 (statistical apparatus): defines the paired-bootstrap CI methodology that produced LoRA’s -0.071 AUPRC delta vs frozen-probe</li>
+<li>ADR-020 (cost discipline): names the GPU spend cap that constrained the re-fire decision</li>
+<li>ADR-049 (GPU order): names the A100 80GB platform the X11 crash hit</li>
+<li>ADR-072 (frontmatter backfill for ADR-051 + ADR-052): supersedes ADR-052 on the orthogonal frontmatter axis; this ADR’s narrative supersession + ADR-072’s frontmatter supersession are complementary, not conflicting</li>
 </ul>
+</section>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>Transcript file (gitignored per AGENTS.md): the 2026-05-20 audit governance-audit cycle’s identification of the ADR-050 -&gt; ADR-052 same-day retcon as a contradiction class. Captured in <code>~/notes/prompt-injection-audit-2026-05-20.md</code> (high-impact ADR finding #5) and <code>~/notes/prompt-injection-audit-2026-05-20-adr-appendix.md</code> (drafted ADR-075).</p>
 
 
 </section>
