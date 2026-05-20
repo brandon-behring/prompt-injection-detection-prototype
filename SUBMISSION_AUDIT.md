@@ -82,6 +82,7 @@
 | CLAIM-072 | [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) | Accepted |  |
 | CLAIM-073 | [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md) | Accepted |  |
 | CLAIM-074 | [ADR-074](decisions/ADR-074-adr-064-self-criticism-quote-redaction.md) | Accepted |  |
+| CLAIM-075 | [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md) | Accepted |  |
 
 ## Claim details
 
@@ -3813,5 +3814,37 @@ changes; reader experience strictly improved).
 + body context narrate the decision provenance without the verbatim self-criticism phrase. ADR-064's
 actual decisions (B1-B6, C1-C2, D1, E1-E5) remain unchanged. The transcript file (private) preserves
 the original verbatim user feedback for audit-trail completeness.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-075 - [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md): Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account
+
+**Status**: Accepted
+
+**Source**: 2026-05-20 audit hiring-manager-curious finding — the ADR-050 → ADR-052 same-day reason-swap erodes reader trust in the rest of the ADR corpus. Unification removes the retcon optic while preserving both historical ADRs as artifacts.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+ADR-050 Revision 2 (2026-05-18 morning) attributed the Phase 5 full-FT OOD inference drop to an X11
+FUSE EIO crash on /workspace MooseFS storage (operational forced-drop framing). ADR-052 (2026- 05-18
+hours later) narrowly superseded ADR-050 R2 to reframe the drop as methodologically load-bearing
+with the FUSE crash as proximate trigger. A skeptical reader reading both in sequence sees a
+same-day retcon of the load-bearing reason for cutting a planned experiment. This ADR consolidates
+the two framings into one prospective narrative that names both the methodological reasoning and the
+operational trigger together, removing the same-day retcon optic without changing the underlying
+outcome (full-FT OOD inference remains dropped; LODO comparison ships 3-rung; OOD ships 2 trained
+rungs + 1 classical floor + 2 reference scorers per ADR-050 R1 + R2 + ADR-052).
+
+**Acceptance criterion**
+
+WRITEUP.md §8.1 + WRITEUP/limitations-and-future-work.md §8.1 + WRITEUP/model-rungs.md §4.x cite
+ADR-075 (or ADR-050 R1 for the LLM-judge axis) as the single source of truth on the full-FT OOD drop
+rationale. Future reviewers see one coherent narrative rather than the ADR-050 R2 + ADR-052 sequence
+framed as competing rationales. ADR-050 R2 + ADR-052 remain in decisions/ as historical artifacts.
 
 </div>
