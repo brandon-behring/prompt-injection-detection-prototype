@@ -162,6 +162,7 @@ format:
   html:
     theme: cosmo
     css: styles.css
+    favicon: favicon.svg
     toc: true
     toc-depth: 3
     toc-location: right

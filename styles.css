@@ -62,3 +62,29 @@ details[open] summary {
   margin-top: 1.25rem;
   padding-top: 1rem;
 }
+
+/* Suppress "Anchor" text leakage in headings.
+ * Quarto's anchorjs library appends an <a class="anchorjs-link">Anchor</a>
+ * element after each heading's text. Some Quarto theme versions render the
+ * accessible-name "Anchor" as visible text inside the heading (e.g.,
+ * "What Was EvaluatedAnchor"). Hide the link's text content; keep the link
+ * clickable via a hover-only "#" pseudo-element. */
+.anchorjs-link {
+  font-size: 0 !important;
+}
+.anchorjs-link::before {
+  content: "#";
+  font-size: 1rem;
+  margin-left: 0.25em;
+  color: var(--site-muted-border);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+h1:hover .anchorjs-link::before,
+h2:hover .anchorjs-link::before,
+h3:hover .anchorjs-link::before,
+h4:hover .anchorjs-link::before,
+h5:hover .anchorjs-link::before,
+h6:hover .anchorjs-link::before {
+  opacity: 1;
+}
