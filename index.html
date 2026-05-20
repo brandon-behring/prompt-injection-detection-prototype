@@ -983,8 +983,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="prompt-injection-classifier-what-the-evaluation-found" class="level1">
 <h1>Prompt-injection classifier: what the evaluation found</h1>
-<p>Prompt injection is untrusted text that tries to override the instructions an LLM system is supposed to follow. This project asks a narrow question: when several simple prompt-injection detectors are trained on direct instruction-override examples, do they still work when the attack family changes?</p>
-<p>The short answer is <strong>mostly no</strong>. The evaluation is useful because it makes that failure visible instead of hiding it behind an in-domain score.</p>
+<p>Prompt injection is untrusted text that tries to override the instructions an LLM system is supposed to follow. This project asks a narrow question: when several simple prompt-injection detectors are trained on direct instruction-override examples, can they detect that pattern, and do they still work when the attack family changes?</p>
+<p>The short answer is: <strong>direct detection works better; cross-family generalization fails</strong>. The evaluation is useful because it shows both halves of that story instead of hiding the OOD failure behind a strong direct score.</p>
 <p>Here, <strong>out-of-distribution (OOD)</strong> means examples drawn from attack families that were absent or underrepresented in training.</p>
 <section id="what-was-evaluated" class="level2">
 <h2 class="anchored" data-anchor-id="what-was-evaluated">What Was Evaluated</h2>
@@ -998,7 +998,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="headline-result" class="level2">
 <h2 class="anchored" data-anchor-id="headline-result">Headline Result</h2>
-<p>The main metric is <strong>AUPRC</strong>, which is useful for imbalanced binary classification. On this pooled OOD slice, a random ranking scores <strong>0.374</strong> because 412 of 1101 examples are positive. A detector needs to beat that floor to show useful ranking signal.</p>
+<p>The direct prompt-injection numbers are real: on the balanced validation split containing direct-injection positives plus benign negatives, LoRA reaches <strong>0.974 AUPRC</strong>, <strong>0.993 AUROC</strong>, and <strong>0.934 recall@0.5</strong>. TF-IDF + logistic regression is similar, and the frozen probe is weaker but still discriminative at <strong>0.653 AUPRC</strong>.</p>
+<p>The direct held-out-source test is stricter but all-positive by design, so it can only report recall, not false positives or AUPRC/AUROC. On that LODO direct-source test, recall@0.5 is <strong>0.641</strong> for frozen probe, <strong>0.625</strong> for LoRA, and <strong>0.558</strong> for full fine-tuning.</p>
+<p>The failure appears when the family changes. On pooled OOD, the main metric is <strong>AUPRC</strong>, which is useful for imbalanced binary classification. A random ranking scores <strong>0.374</strong> because 412 of 1101 examples are positive. A detector needs to beat that floor to show useful ranking signal.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 21%">
@@ -1047,18 +1049,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<blockquote class="blockquote">
-<p><em>Reading the table</em>: <strong>Pooled OOD AUPRC</strong> is the area under the precision-recall curve on the combined out-of-distribution (OOD) test slices — five held-out attack and benign sources (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) that no detector saw during training. A random ranking on this slate scores ≈ <strong>0.374</strong> (the positive-class prevalence, 412/1101). Any detector at or below the random floor is not clearly better than guessing. The 95% confidence interval (CI) width is the noise floor for a comparison; if two detectors’ CIs overlap heavily, the difference between them is not statistically meaningful.</p>
-</blockquote>
+<p><strong>Reading the table:</strong></p>
+<ul>
+<li><strong>Pooled OOD AUPRC</strong> is the area under the precision-recall curve on the combined held-out attack-family slate.</li>
+<li>A random ranking on this slate scores about <strong>0.374</strong> because 412 of 1101 examples are positive.</li>
+<li>Any detector at or below that floor is not clearly better than guessing.</li>
+<li>The 95% confidence interval (CI) is the uncertainty band around the score.</li>
+</ul>
 </section>
 <section id="what-this-means" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-means">What This Means</h2>
 <ol type="1">
-<li><strong>The failure is cross-family.</strong> The models saw direct prompt injections in training, but the OOD slate includes attack families they did not see.</li>
-<li><strong>Fine-tuning did not help.</strong> LoRA fits the direct-injection training pool and loses much of the OOD signal present in the frozen backbone.</li>
+<li><strong>Direct detection was learned.</strong> The trained detectors can separate direct prompt injections from benign validation examples.</li>
+<li><strong>The failure is cross-family.</strong> The OOD slate includes attack families the direct-trained detectors did not see.</li>
+<li><strong>Fine-tuning did not help OOD.</strong> LoRA fits the direct-injection training pool and loses much of the OOD signal present in the frozen backbone.</li>
 <li><strong>A newer detector is not automatically better.</strong> ProtectAI v2 improves one slice but regresses on another.</li>
 <li><strong>Thresholds do not transfer cleanly.</strong> A threshold tuned for 1% false positives on validation can produce much higher false-positive rates on held-out sources.</li>
-<li><strong>The honest result is negative.</strong> The project demonstrates the evaluation harness and the limits of the trained detectors, not a ready-to-ship model.</li>
+<li><strong>The accomplishment is characterization.</strong> The project demonstrates the evaluation harness, direct-pattern learning, and the limits of the trained detectors under family shift.</li>
 </ol>
 </section>
 <section id="read-next" class="level2">
@@ -1546,69 +1553,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Prompt injection is untrusted text that tries to override the instructions an</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>LLM system is supposed to follow. This project asks a narrow question: when</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>several simple prompt-injection detectors are trained on direct</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>instruction-override examples, do they still work when the attack family</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>changes?</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>instruction-override examples, can they detect that pattern, and do they still</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>work when the attack family changes?</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>The short answer is **mostly no**. The evaluation is useful because it makes</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>that failure visible instead of hiding it behind an in-domain score.</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Here, **out-of-distribution (OOD)** means examples drawn from attack families</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>that were absent or underrepresented in training.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## What Was Evaluated</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Task**: single-turn English text classification: injection vs benign.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Training style**: four direct-injection sources, such as "ignore the</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  previous instructions" attacks.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD test style**: five held-out slices covering indirect injection,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  multi-turn agentic flow, jailbreak-style questions, and benign text that</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  only looks injection-shaped.</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Models**: a TF-IDF + logistic-regression floor, a frozen ModernBERT probe,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  a ModernBERT LoRA fine-tune, and two ProtectAI reference detectors.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Non-goal**: this is not a deployment recommendation and not a leaderboard.</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Headline Result</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>The main metric is **AUPRC**, which is useful for imbalanced binary</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>classification. On this pooled OOD slice, a random ranking scores **0.374**</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>because 412 of 1101 examples are positive. A detector needs to beat that floor</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>to show useful ranking signal.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Detector <span class="pp">|</span> Pooled OOD AUPRC <span class="pp">|</span> 95% CI <span class="pp">|</span> Read <span class="pp">|</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---:|---:|---|</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT frozen probe <span class="pp">|</span> **0.364** <span class="pp">|</span> <span class="co">[</span><span class="ot">0.354, 0.375</span><span class="co">]</span> <span class="pp">|</span> Best in-house score, still at the random floor <span class="pp">|</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v1 <span class="pp">|</span> 0.361 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span> <span class="pp">|</span> Similar, but reference scorer has training-overlap caveats <span class="pp">|</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v2 <span class="pp">|</span> 0.314 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span> <span class="pp">|</span> Worse than v1 on this slate <span class="pp">|</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT LoRA <span class="pp">|</span> 0.293 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.286, 0.301</span><span class="co">]</span> <span class="pp">|</span> Fine-tuning hurt OOD ranking <span class="pp">|</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TF-IDF + LR <span class="pp">|</span> 0.291 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.283, 0.298</span><span class="co">]</span> <span class="pp">|</span> Classical floor, roughly tied with LoRA <span class="pp">|</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Reading the table*: **Pooled OOD AUPRC** is the area under the precision-recall curve on the combined out-of-distribution (OOD) test slices — five held-out attack and benign sources (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) that no detector saw during training. A random ranking on this slate scores ≈ **0.374** (the positive-class prevalence, 412/1101). Any detector at or below the random floor is not clearly better than guessing. The 95% confidence interval (CI) width is the noise floor for a comparison; if two detectors' CIs overlap heavily, the difference between them is not statistically meaningful.</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Means</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>The short answer is: **direct detection works better; cross-family</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>generalization fails**. The evaluation is useful because it shows both halves</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>of that story instead of hiding the OOD failure behind a strong direct score.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>Here, **out-of-distribution (OOD)** means examples drawn from attack families</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>that were absent or underrepresented in training.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## What Was Evaluated</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Task**: single-turn English text classification: injection vs benign.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Training style**: four direct-injection sources, such as "ignore the</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  previous instructions" attacks.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD test style**: five held-out slices covering indirect injection,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  multi-turn agentic flow, jailbreak-style questions, and benign text that</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  only looks injection-shaped.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Models**: a TF-IDF + logistic-regression floor, a frozen ModernBERT probe,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  a ModernBERT LoRA fine-tune, and two ProtectAI reference detectors.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Non-goal**: this is not a deployment recommendation and not a leaderboard.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Headline Result</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>The direct prompt-injection numbers are real: on the balanced validation split</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>containing direct-injection positives plus benign negatives, LoRA reaches</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>**0.974 AUPRC**, **0.993 AUROC**, and **0.934 recall@0.5**. TF-IDF + logistic</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>regression is similar, and the frozen probe is weaker but still discriminative</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>at **0.653 AUPRC**.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>The direct held-out-source test is stricter but all-positive by design, so it</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>can only report recall, not false positives or AUPRC/AUROC. On that LODO</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>direct-source test, recall@0.5 is **0.641** for frozen probe, **0.625** for</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>LoRA, and **0.558** for full fine-tuning.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>The failure appears when the family changes. On pooled OOD, the main metric is</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>**AUPRC**, which is useful for imbalanced binary classification. A random</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>ranking scores **0.374** because 412 of 1101 examples are positive. A detector</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>needs to beat that floor to show useful ranking signal.</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The failure is cross-family.** The models saw direct prompt injections in</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>   training, but the OOD slate includes attack families they did not see.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Fine-tuning did not help.** LoRA fits the direct-injection training pool</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>   and loses much of the OOD signal present in the frozen backbone.</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**A newer detector is not automatically better.** ProtectAI v2 improves one</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>   slice but regresses on another.</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Thresholds do not transfer cleanly.** A threshold tuned for 1% false</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>   positives on validation can produce much higher false-positive rates on</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>   held-out sources.</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**The honest result is negative.** The project demonstrates the evaluation</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>   harness and the limits of the trained detectors, not a ready-to-ship model.</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Read Next</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Start here for a fast review → [60-second hiring-manager tour](docs/for-hiring-managers.md)**:</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  4 questions (what problem / what found / why trust / how the candidate</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  thinks). This is the primary path after the landing page.</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Then verify the numbers → [Results](RESULTS.md)**: exact tables, five</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  canonical figures, and raw artifact pointers.</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Executive summary</span><span class="co">](EXECUTIVE_SUMMARY.md)</span>: one-page decision-maker version.</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Writeup</span><span class="co">](WRITEUP.md)</span>: methodology narrative and links to detailed spokes.</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Reading guide</span><span class="co">](READING_GUIDE.md)</span>: paths for quick review, audit, and</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  reproduction.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Detector <span class="pp">|</span> Pooled OOD AUPRC <span class="pp">|</span> 95% CI <span class="pp">|</span> Read <span class="pp">|</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---:|---:|---|</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT frozen probe <span class="pp">|</span> **0.364** <span class="pp">|</span> <span class="co">[</span><span class="ot">0.354, 0.375</span><span class="co">]</span> <span class="pp">|</span> Best in-house score, still at the random floor <span class="pp">|</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v1 <span class="pp">|</span> 0.361 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.330, 0.391</span><span class="co">]</span> <span class="pp">|</span> Similar, but reference scorer has training-overlap caveats <span class="pp">|</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ProtectAI v2 <span class="pp">|</span> 0.314 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.283, 0.345</span><span class="co">]</span> <span class="pp">|</span> Worse than v1 on this slate <span class="pp">|</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ModernBERT LoRA <span class="pp">|</span> 0.293 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.286, 0.301</span><span class="co">]</span> <span class="pp">|</span> Fine-tuning hurt OOD ranking <span class="pp">|</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> TF-IDF + LR <span class="pp">|</span> 0.291 <span class="pp">|</span> <span class="co">[</span><span class="ot">0.283, 0.298</span><span class="co">]</span> <span class="pp">|</span> Classical floor, roughly tied with LoRA <span class="pp">|</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>**Reading the table:**</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pooled OOD AUPRC** is the area under the precision-recall curve on the</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  combined held-out attack-family slate.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A random ranking on this slate scores about **0.374** because 412 of 1101</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  examples are positive.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Any detector at or below that floor is not clearly better than guessing.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The 95% confidence interval (CI) is the uncertainty band around the score.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## What This Means</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Direct detection was learned.** The trained detectors can separate direct</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>   prompt injections from benign validation examples.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**The failure is cross-family.** The OOD slate includes attack families the</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>   direct-trained detectors did not see.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Fine-tuning did not help OOD.** LoRA fits the direct-injection training</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>   pool and loses much of the OOD signal present in the frozen backbone.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**A newer detector is not automatically better.** ProtectAI v2 improves one</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>   slice but regresses on another.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Thresholds do not transfer cleanly.** A threshold tuned for 1% false</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>   positives on validation can produce much higher false-positive rates on</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>   held-out sources.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**The accomplishment is characterization.** The project demonstrates the</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>   evaluation harness, direct-pattern learning, and the limits of the trained</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>   detectors under family shift.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Read Next</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Start here for a fast review → [60-second hiring-manager tour](docs/for-hiring-managers.md)**:</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  4 questions (what problem / what found / why trust / how the candidate</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>  thinks). This is the primary path after the landing page.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Then verify the numbers → [Results](RESULTS.md)**: exact tables, five</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  canonical figures, and raw artifact pointers.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Executive summary</span><span class="co">](EXECUTIVE_SUMMARY.md)</span>: one-page decision-maker version.</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Writeup</span><span class="co">](WRITEUP.md)</span>: methodology narrative and links to detailed spokes.</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Reading guide</span><span class="co">](READING_GUIDE.md)</span>: paths for quick review, audit, and</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  reproduction.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

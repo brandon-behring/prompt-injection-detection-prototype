@@ -969,31 +969,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="for-hiring-managers-in-a-hurry" class="level1">
 <h1>For hiring managers in a hurry</h1>
-<p>Four questions, ~60 seconds. If you have 5 more minutes after this, jump to the <a href="../index.html">headline table on the landing page</a> or the <a href="../EXECUTIVE_SUMMARY.html">one-page executive summary</a>. If you’re a technical reviewer instead, see the <a href="../READING_GUIDE.html">reading guide</a> for the audit-depth path.</p>
+<p>Four questions, ~60 seconds.</p>
+<p>If you have 5 more minutes after this, jump to the <a href="../index.html">headline table on the landing page</a> or the <a href="../EXECUTIVE_SUMMARY.html">one-page executive summary</a>. If you’re a technical reviewer instead, see the <a href="../READING_GUIDE.html">reading guide</a> for the audit-depth path.</p>
 <section id="what-problem-does-this-project-solve" class="level2">
 <h2 class="anchored" data-anchor-id="what-problem-does-this-project-solve">1. What problem does this project solve?</h2>
-<p><strong>Prompt injection</strong> is untrusted text trying to override the instructions an LLM system is supposed to follow (“ignore previous instructions and…”). The naive ask is “build a detector.” The real question is: <em>do these detectors actually generalize to attacks they did not see during training?</em> Most public benchmarks score detectors on attacks similar to their training data; that overstates production safety. This project builds an out-of-distribution (OOD) evaluation harness and asks the harder question honestly.</p>
+<p><strong>Prompt injection</strong> is untrusted text trying to override the instructions an LLM system is supposed to follow (“ignore previous instructions and…”).</p>
+<p>The naive ask is “build a detector.” The real question is: <em>do these detectors actually generalize to attacks they did not see during training?</em> Most public benchmarks score detectors on attacks similar to their training data; that overstates production safety. This project builds an out-of-distribution (OOD) evaluation harness and asks the harder question honestly.</p>
 </section>
 <section id="what-did-the-candidate-find" class="level2">
 <h2 class="anchored" data-anchor-id="what-did-the-candidate-find">2. What did the candidate find?</h2>
-<p><strong>The honest result is mostly negative.</strong> On the pooled OOD slate (five held-out attack and benign sources), the best in-house detector — a frozen probe over ModernBERT-base — scored <strong>AUPRC 0.364</strong> versus a random-ranking floor of <strong>0.374</strong>. AUPRC is a ranking metric for imbalanced detection problems; here, higher than the random floor is the basic bar. None of the trained detectors clearly beat that floor. A v1.1.2 follow-up ablation also confirmed that switching to a different short-context backbone (DeBERTa-v3-base) with two truncation strategies produced <strong>essentially identical</strong> OOD performance — so the gap is <strong>backbone-dominant</strong>, not a context-window issue. See <a href="../RESULTS.html">RESULTS §1 + §1B</a> for the per-detector and per-strategy tables.</p>
+<p><strong>The honest result is two-sided: direct detection works better; cross-family generalization fails.</strong></p>
+<ul>
+<li><strong>Direct validation worked</strong>: on balanced direct+benign validation, ModernBERT LoRA reached <strong>AUPRC 0.974</strong>, <strong>AUROC 0.993</strong>, and <strong>recall@0.5 0.934</strong>.</li>
+<li><strong>Held-out direct-source recall was weaker</strong>: on the LODO direct-source test, the best recall@0.5 was <strong>0.641</strong> from the frozen probe. That test is all-positive, so false positives, AUPRC, and AUROC are omitted.</li>
+<li><strong>OOD transfer failed</strong>: on the pooled OOD slate, the best in-house detector scored <strong>AUPRC 0.364</strong> versus a random-ranking floor of <strong>0.374</strong>. Higher than the random floor is the basic bar; none of the trained detectors clearly beat it.</li>
+<li><strong>The context-window follow-up was a null result</strong>: the v1.1.2 DeBERTa-v3-base ablation produced essentially identical OOD performance under two truncation strategies, so the gap is <strong>backbone-dominant</strong>, not a context-window issue.</li>
+</ul>
+<p>See <a href="../RESULTS.html">RESULTS</a> for the direct, OOD, and ablation tables.</p>
 </section>
 <section id="why-should-i-trust-the-finding" class="level2">
 <h2 class="anchored" data-anchor-id="why-should-i-trust-the-finding">3. Why should I trust the finding?</h2>
 <ul>
 <li><strong>Held-out evaluation, not in-sample</strong>: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.</li>
+<li><strong>Direct and OOD results separated</strong>: validation direct+benign AUPRC shows whether the detector learned the basic pattern; pooled OOD AUPRC shows whether that pattern transfers to new attack families.</li>
 <li><strong>Statistical apparatus, not point estimates</strong>: every reported AUPRC carries a 95% bootstrap confidence interval (an uncertainty band); figures show CI overlap so weak claims are visible.</li>
-<li><strong>Honest single-class slice handling</strong>: when a slice has only positives or only negatives (BIPIA, InjecAgent, NotInject), AUPRC is undefined and reported as N/A — not silently zero-filled.</li>
+<li><strong>Honest single-class slice handling</strong>: when a slice has only positives or only negatives (BIPIA, InjecAgent, NotInject), undefined metrics are omitted from summary tables instead of silently filled with zeros.</li>
 </ul>
 </section>
 <section id="what-does-this-say-about-how-the-candidate-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-this-say-about-how-the-candidate-thinks">4. What does this say about how the candidate thinks?</h2>
 <ul>
-<li><strong>Spec-Driven Development</strong>: 60+ immutable Architecture Decision Records (ADRs) lock methodology choices <em>before</em> code is written. Each ADR carries context, decision, alternatives considered, consequences. Browse <a href="../decisions/">decisions/</a> — every choice has a justification you can argue with.</li>
-<li><strong>Confound-control discipline</strong>: when the headline result raised the natural follow-up question (<em>does a bigger context window fix the OOD gap?</em>), the candidate designed a controlled ablation (chunk-and-average vs head-truncation), not a hand-wave. Result was a publishable null. See <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> + <a href="../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</li>
-<li><strong>Library-first invariant</strong>: shared evaluation primitives (bootstrap CIs, calibration, leakage detection) live in dedicated upstream libraries (<code>eval-toolkit</code>, <code>runpod-deploy</code>, <code>research_toolkit</code>); local code is project-specific glue only. See <a href="../decisions/library_imports.html"><code>decisions/library_imports.md</code></a>.</li>
+<li><strong>Spec-Driven Development</strong>: 60+ immutable Architecture Decision Records (ADRs) lock methodology choices <em>before</em> code is written. Browse <a href="../decisions/">decisions/</a> for the justification trail.</li>
+<li><strong>Confound-control discipline</strong>: when the headline result raised the natural follow-up question (<em>does a bigger context window fix the OOD gap?</em>), the candidate designed a controlled ablation. The result was a publishable null. See <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> and <a href="../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</li>
+<li><strong>Library-first invariant</strong>: shared evaluation primitives live in upstream libraries (<code>eval-toolkit</code>, <code>runpod-deploy</code>, <code>research_toolkit</code>); local code is project-specific glue. See <a href="../decisions/library_imports.html"><code>decisions/library_imports.md</code></a>.</li>
 </ul>
-<p>If you want the deeper read, the <a href="../WRITEUP.html">WRITEUP hub</a> carries the cover narrative and links to 8 topic spokes (data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations and future work, reproducibility). The full reading-guide is at <a href="../READING_GUIDE.html"><code>READING_GUIDE.md</code></a>.</p>
+<p>If you want the deeper read, the <a href="../WRITEUP.html">WRITEUP hub</a> carries the cover narrative and links to 8 topic spokes: data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations and future work, and reproducibility. The full reading-guide is at <a href="../READING_GUIDE.html"><code>READING_GUIDE.md</code></a>.</p>
 <p>If you want the supporting analysis, the <strong>Notebooks</strong> sidebar section provides 4 static rendered appendices with frozen output cells: per-cell results, calibration diagrams, and held-out slice breakdowns. Operators regenerate those appendix outputs via <code>make notebooks</code> against the committed evaluation parquets.</p>
 
 
@@ -1466,31 +1476,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># For hiring managers in a hurry</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Four questions, ~60 seconds. If you have 5 more minutes after this, jump to the <span class="co">[</span><span class="ot">headline table on the landing page</span><span class="co">](../index.qmd)</span> or the <span class="co">[</span><span class="ot">one-page executive summary</span><span class="co">](../EXECUTIVE_SUMMARY.md)</span>. If you're a technical reviewer instead, see the <span class="co">[</span><span class="ot">reading guide</span><span class="co">](../READING_GUIDE.md)</span> for the audit-depth path.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Four questions, ~60 seconds.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. What problem does this project solve?</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>**Prompt injection** is untrusted text trying to override the instructions an LLM system is supposed to follow ("ignore previous instructions and..."). The naive ask is "build a detector." The real question is: *do these detectors actually generalize to attacks they did not see during training?* Most public benchmarks score detectors on attacks similar to their training data; that overstates production safety. This project builds an out-of-distribution (OOD) evaluation harness and asks the harder question honestly.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. What did the candidate find?</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>**The honest result is mostly negative.** On the pooled OOD slate (five held-out attack and benign sources), the best in-house detector — a frozen probe over ModernBERT-base — scored **AUPRC 0.364** versus a random-ranking floor of **0.374**. AUPRC is a ranking metric for imbalanced detection problems; here, higher than the random floor is the basic bar. None of the trained detectors clearly beat that floor. A v1.1.2 follow-up ablation also confirmed that switching to a different short-context backbone (DeBERTa-v3-base) with two truncation strategies produced **essentially identical** OOD performance — so the gap is **backbone-dominant**, not a context-window issue. See <span class="co">[</span><span class="ot">RESULTS §1 + §1B</span><span class="co">](../RESULTS.md)</span> for the per-detector and per-strategy tables.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Why should I trust the finding?</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Held-out evaluation, not in-sample**: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Statistical apparatus, not point estimates**: every reported AUPRC carries a 95% bootstrap confidence interval (an uncertainty band); figures show CI overlap so weak claims are visible.</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Honest single-class slice handling**: when a slice has only positives or only negatives (BIPIA, InjecAgent, NotInject), AUPRC is undefined and reported as N/A — not silently zero-filled.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. What does this say about how the candidate thinks?</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spec-Driven Development**: 60+ immutable Architecture Decision Records (ADRs) lock methodology choices *before* code is written. Each ADR carries context, decision, alternatives considered, consequences. Browse <span class="co">[</span><span class="ot">decisions/</span><span class="co">](../decisions/)</span> — every choice has a justification you can argue with.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confound-control discipline**: when the headline result raised the natural follow-up question (*does a bigger context window fix the OOD gap?*), the candidate designed a controlled ablation (chunk-and-average vs head-truncation), not a hand-wave. Result was a publishable null. See <span class="co">[</span><span class="ot">ADR-060</span><span class="co">](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)</span> + <span class="co">[</span><span class="ot">ADR-063</span><span class="co">](../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md)</span>.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library-first invariant**: shared evaluation primitives (bootstrap CIs, calibration, leakage detection) live in dedicated upstream libraries (<span class="in">`eval-toolkit`</span>, <span class="in">`runpod-deploy`</span>, <span class="in">`research_toolkit`</span>); local code is project-specific glue only. See <span class="co">[</span><span class="ot">`decisions/library_imports.md`</span><span class="co">](../decisions/library_imports.md)</span>.</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>If you want the deeper read, the <span class="co">[</span><span class="ot">WRITEUP hub</span><span class="co">](../WRITEUP.md)</span> carries the cover narrative and links to 8 topic spokes (data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations and future work, reproducibility). The full reading-guide is at <span class="co">[</span><span class="ot">`READING_GUIDE.md`</span><span class="co">](../READING_GUIDE.md)</span>.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>If you want the supporting analysis, the **Notebooks** sidebar section provides 4 static rendered appendices with frozen output cells: per-cell results, calibration diagrams, and held-out slice breakdowns. Operators regenerate those appendix outputs via <span class="in">`make notebooks`</span> against the committed evaluation parquets.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>If you have 5 more minutes after this, jump to the [headline table on the</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>landing page](../index.qmd) or the <span class="co">[</span><span class="ot">one-page executive summary</span><span class="co">](../EXECUTIVE_SUMMARY.md)</span>.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>If you're a technical reviewer instead, see the <span class="co">[</span><span class="ot">reading guide</span><span class="co">](../READING_GUIDE.md)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>for the audit-depth path.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. What problem does this project solve?</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>**Prompt injection** is untrusted text trying to override the instructions an LLM system is supposed to follow ("ignore previous instructions and...").</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>The naive ask is "build a detector." The real question is: *do these detectors</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>actually generalize to attacks they did not see during training?* Most public</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>benchmarks score detectors on attacks similar to their training data; that</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>overstates production safety. This project builds an out-of-distribution (OOD)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>evaluation harness and asks the harder question honestly.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. What did the candidate find?</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>**The honest result is two-sided: direct detection works better; cross-family generalization fails.**</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Direct validation worked**: on balanced direct+benign validation, ModernBERT LoRA reached **AUPRC 0.974**, **AUROC 0.993**, and **recall@0.5 0.934**.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Held-out direct-source recall was weaker**: on the LODO direct-source test, the best recall@0.5 was **0.641** from the frozen probe. That test is all-positive, so false positives, AUPRC, and AUROC are omitted.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OOD transfer failed**: on the pooled OOD slate, the best in-house detector scored **AUPRC 0.364** versus a random-ranking floor of **0.374**. Higher than the random floor is the basic bar; none of the trained detectors clearly beat it.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The context-window follow-up was a null result**: the v1.1.2 DeBERTa-v3-base ablation produced essentially identical OOD performance under two truncation strategies, so the gap is **backbone-dominant**, not a context-window issue.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">RESULTS</span><span class="co">](../RESULTS.md)</span> for the direct, OOD, and ablation tables.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Why should I trust the finding?</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Held-out evaluation, not in-sample**: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Direct and OOD results separated**: validation direct+benign AUPRC shows whether the detector learned the basic pattern; pooled OOD AUPRC shows whether that pattern transfers to new attack families.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Statistical apparatus, not point estimates**: every reported AUPRC carries a 95% bootstrap confidence interval (an uncertainty band); figures show CI overlap so weak claims are visible.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Honest single-class slice handling**: when a slice has only positives or</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  only negatives (BIPIA, InjecAgent, NotInject), undefined metrics are omitted</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  from summary tables instead of silently filled with zeros.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. What does this say about how the candidate thinks?</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spec-Driven Development**: 60+ immutable Architecture Decision Records</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  (ADRs) lock methodology choices *before* code is written. Browse</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="co">[</span><span class="ot">decisions/</span><span class="co">](../decisions/)</span> for the justification trail.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confound-control discipline**: when the headline result raised the natural</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  follow-up question (*does a bigger context window fix the OOD gap?*), the</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  candidate designed a controlled ablation. The result was a publishable null.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  See <span class="co">[</span><span class="ot">ADR-060</span><span class="co">](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  and <span class="co">[</span><span class="ot">ADR-063</span><span class="co">](../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md)</span>.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library-first invariant**: shared evaluation primitives live in upstream</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  libraries (<span class="in">`eval-toolkit`</span>, <span class="in">`runpod-deploy`</span>, <span class="in">`research_toolkit`</span>); local code</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  is project-specific glue. See <span class="co">[</span><span class="ot">`decisions/library_imports.md`</span><span class="co">](../decisions/library_imports.md)</span>.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>If you want the deeper read, the <span class="co">[</span><span class="ot">WRITEUP hub</span><span class="co">](../WRITEUP.md)</span> carries the cover</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>narrative and links to 8 topic spokes: data decisions, model details,</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>evaluation design, threshold policy, reference-scorer audit, methodology</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>guarantees, limitations and future work, and reproducibility. The full</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>reading-guide is at <span class="co">[</span><span class="ot">`READING_GUIDE.md`</span><span class="co">](../READING_GUIDE.md)</span>.</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>If you want the supporting analysis, the **Notebooks** sidebar section provides</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>4 static rendered appendices with frozen output cells: per-cell results,</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>calibration diagrams, and held-out slice breakdowns. Operators regenerate those</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>appendix outputs via <span class="in">`make notebooks`</span> against the committed evaluation parquets.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
