@@ -80,6 +80,7 @@
 | CLAIM-070 | [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md) | Accepted | v1.2.8 |
 | CLAIM-071 | [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md) | Accepted |  |
 | CLAIM-072 | [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) | Accepted |  |
+| CLAIM-073 | [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md) | Accepted |  |
 
 ## Claim details
 
@@ -3749,5 +3750,36 @@ B carryforward to v1.1.x)`) and the body has `## Status`, `## Alternatives Consi
 opening line reads `# ADR-051: ...` (colon, not em-dash). `head -50 decisions/ADR-052-*.md` shows
 populated `closing_commit:` (value: `v1.0.3`) and the body has `## Alternatives Considered`.
 `scripts/regenerate_audit.py --check` passes after the backfill.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-073 - [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md): Collapse the four-ADR narrow-relaxation chain (ADR-067/068/069/070) into a single consolidated immutability rule with four named exception classes
+
+**Status**: Accepted
+
+**Source**: 2026-05-20 audit hiring-manager-curious risk finding — 4-ADR chain in 1 day reads as process-fragility for a 5-day artifact. Consolidation reduces the optic without changing the underlying authorization.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+The 2026-05-19 four-ADR immutability-relaxation chain (ADR-067/068/069/070) authorized four narrow
+classes of in-place editorial fixes to immutable ADRs. Each ADR in the chain insists it is "not a
+slippery slope"; the existence of four sequential relaxations in a single day undercuts that
+insistence from a reader-perception standpoint. This ADR consolidates the four narrow-relaxation
+classes into a single canonical immutability rule with named exception classes (A through D),
+reducing the visible "immutability is loose" surface from four signals to one rule + four named
+exceptions. ADRs 067/068/069/070 remain in decisions/ as historical artifacts documenting *when*
+each class was added; the prospective rule citation moves to ADR-073.
+
+**Acceptance criterion**
+
+decisions/README.md §Lifecycle (or equivalent) cites ADR-073 as the canonical immutability rule
+reference; ADRs 067-070 remain reachable but are no longer cited as the prospective rule. New
+contributors learn one rule with four classes instead of one rule + four patches. CLAUDE.md
+immutability section simplified to cite ADR-073.
 
 </div>
