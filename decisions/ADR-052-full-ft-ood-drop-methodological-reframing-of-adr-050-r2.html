@@ -898,6 +898,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Collapse the four-ADR narrow-relaxation chain (ADR-067/068/069/070) into a single consolidated immutability rule with four named exception classes</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -922,6 +934,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#retrospective-self-awareness-on-full-ft-lodo-investment" id="toc-retrospective-self-awareness-on-full-ft-lodo-investment" class="nav-link" data-scroll-target="#retrospective-self-awareness-on-full-ft-lodo-investment">Retrospective self-awareness on full-FT LODO investment</a></li>
   </ul></li>
   <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
   <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
   <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
@@ -1018,6 +1031,17 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Implementation</strong>: zero code or methodology changes ship with ADR-052. It is governance-only.</li>
 <li><strong>Audit-trail</strong>: SUBMISSION_AUDIT.md regenerates via <code>scripts/regenerate_audit.py</code> with ADR-052 included.</li>
 </ul>
+</section>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<p>Retroactively documented per ADR-072 (2026-05-20 frontmatter + structural backfill). The four alternatives surfaced at 2026-05-18 lock time:</p>
+<ol type="1">
+<li><strong>Re-fire full-FT OOD inference on a fresh DC.</strong> Rejected: the methodological reasoning was already load-bearing per LoRA’s paired-bootstrap evidence (-0.071 AUPRC vs frozen-probe on <code>pooled_ood</code>; CI clears zero). Cost + repeat-FUSE-risk + ~$5-12 GPU spend on a Low-stock A100 80GB didn’t justify the marginal methodology gain. Full-FT (~149M params trainable) is a larger version of the same fine-tuning mechanism LoRA had just shown to be net-harmful on cross-family OOD.</li>
+<li><strong>Restart from clean checkpoint.</strong> Rejected: same reasoning, same cost envelope. The X11 crash exposed the decision; the underlying methodological reasoning would still recommend the drop even from a clean restart.</li>
+<li><strong>Abandon outright with no ADR.</strong> Rejected: documentation contract under ADR-005 + AGENTS.md requires explicit reframe of ADR-050 Revision 2. Silent drops violate the immutability discipline that the rest of the ADR corpus invokes.</li>
+<li><strong>No ADR-052 reframing; let ADR-050 R2 stand as operational forced-drop.</strong> Rejected: the methodological reasoning was real and load-bearing for the characterisation conclusions; framing the drop as purely operational understates the methodology discipline that drove it. The same-day retcon optic is the acknowledged cost; the benefit is honest documentation of the actual decision logic. ADR-075 (2026-05-20 planned) further unifies the ADR-050 R2 + ADR-052 framings into one narrative.</li>
+</ol>
+<p>The chosen path (narrow supersession of ADR-050 R2 + explicit methodological reframe) preserves the audit trail’s honesty about the decision logic, even at the cost of the same-day-as-050 authoring pattern.</p>
 </section>
 <section id="linked-adrs" class="level2">
 <h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>

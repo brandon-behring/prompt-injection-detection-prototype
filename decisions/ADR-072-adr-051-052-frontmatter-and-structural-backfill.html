@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-19">
+<meta name="dcterms.date" content="2026-05-20">
 
-<title>eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format” – Prompt-injection classifier evaluation</title>
+<title>Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -253,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html">Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -833,7 +798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</span></a>
   </div>
 </li>
@@ -935,7 +900,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</span></a>
   </div>
 </li>
@@ -959,24 +924,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-055-eval-toolkit-installs-from-pypi-narrow-supersession-of-adr-036" id="toc-adr-055-eval-toolkit-installs-from-pypi-narrow-supersession-of-adr-036" class="nav-link active" data-scroll-target="#adr-055-eval-toolkit-installs-from-pypi-narrow-supersession-of-adr-036">ADR-055 — eval-toolkit installs from PyPI (narrow supersession of ADR-036)</a>
+  <li><a href="#adr-072-adr-051-adr-052-frontmatter-and-structural-backfill" id="toc-adr-072-adr-051-adr-052-frontmatter-and-structural-backfill" class="nav-link active" data-scroll-target="#adr-072-adr-051-adr-052-frontmatter-and-structural-backfill">ADR-072: ADR-051 + ADR-052 frontmatter and structural backfill</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
   <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
-  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a>
-  <ul class="collapse">
-  <li><a href="#positive" id="toc-positive" class="nav-link" data-scroll-target="#positive">Positive</a></li>
-  <li><a href="#negative" id="toc-negative" class="nav-link" data-scroll-target="#negative">Negative</a></li>
-  <li><a href="#neutral" id="toc-neutral" class="nav-link" data-scroll-target="#neutral">Neutral</a></li>
-  </ul></li>
-  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a>
-  <ul class="collapse">
-  <li><a href="#a.-keep-githttps-do-not-switch" id="toc-a.-keep-githttps-do-not-switch" class="nav-link" data-scroll-target="#a.-keep-githttps-do-not-switch">A. Keep git+https (do not switch)</a></li>
-  <li><a href="#b.-switch-but-keep-at-v0.39.0" id="toc-b.-switch-but-keep-at-v0.39.0" class="nav-link" data-scroll-target="#b.-switch-but-keep-at-v0.39.0">B. Switch but keep at v0.39.0</a></li>
-  <li><a href="#c.-switch-also-re-walk-adr-036-entirely-broad-supersession" id="toc-c.-switch-also-re-walk-adr-036-entirely-broad-supersession" class="nav-link" data-scroll-target="#c.-switch-also-re-walk-adr-036-entirely-broad-supersession">C. Switch + also re-walk ADR-036 entirely (broad supersession)</a></li>
-  </ul></li>
-  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
+  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -984,9 +940,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html">Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</h1>
+<h1 class="title">Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</h1>
 </div>
 
 
@@ -997,7 +953,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2026</p>
+      <p class="date">May 20, 2026</p>
     </div>
   </div>
   
@@ -1009,93 +965,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="adr-055-eval-toolkit-installs-from-pypi-narrow-supersession-of-adr-036" class="level1">
-<h1>ADR-055 — eval-toolkit installs from PyPI (narrow supersession of ADR-036)</h1>
+<section id="adr-072-adr-051-adr-052-frontmatter-and-structural-backfill" class="level1">
+<h1>ADR-072: ADR-051 + ADR-052 frontmatter and structural backfill</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Accepted (2026-05-19; landed in v1.0.8 patch alongside Platt + Beta calibrator wiring + manifest backfill).</p>
+<p>Accepted.</p>
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p><a href="../decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html">ADR-036</a> was written at Phase 0-08 (2026-05-16) when none of the three own-authored libraries (eval-toolkit + runpod-deploy + research_toolkit) had been published to PyPI. The ADR’s §Context says verbatim: <em>“All three are own-authored on GitHub (not on PyPI) — git URL is the only viable spec format.”</em> That premise was true at 2026-05-16; it is no longer true.</p>
-<p><strong>eval-toolkit v0.40.0</strong> (released 2026-05-18; PyPI link <a href="https://pypi.org/project/eval-toolkit/0.40.0/">here</a>) is the first PyPI publication for eval-toolkit, via Trusted Publishing OIDC (per runpod-deploy v0.7.1’s release.yml workflow pattern, adopted by eval-toolkit). The release workflow auto-publishes sdist + wheel on every <code>v*</code> tag push.</p>
-<p>Three reasons we should consume from PyPI rather than git+https:</p>
-<ol type="1">
-<li><strong>Install speed</strong>: <code>pip install eval-toolkit==0.40.0</code> from PyPI doesn’t require a git clone + setuptools build; ~10x faster on cold install + uv cache.</li>
-<li><strong>uv.lock SHA backstop is stronger via PyPI</strong>: the lock file records the exact wheel SHA-256, not a git rev. PyPI artifacts are immutable (re-uploads of the same version are forbidden); git rev can be force-pushed (which we ban per CLAUDE.md but the SHA-pinning is defense-in-depth).</li>
-<li><strong>Aligns with the consumer-facing pattern</strong>: PyPI is the canonical install path Python consumers expect; demonstrating PyPI consumption sets the reproducibility bar at “any clone of this repo can <code>uv sync</code> without GitHub access to eval-toolkit.” Methodology submission reviewers may not have git access to private clones (they don’t here, but the pattern is robust).</li>
-</ol>
+<p>The user’s 2026-05-18 self-audit (<code>decisions/audits/REPO_AUDIT_2026-05-18.md</code> §P1.4) flagged ADR-049 + ADR-050 for empty frontmatter fields (<code>closing_commit:</code>, <code>supersedes:</code>, <code>superseded_by:</code>). The 2026-05-20 audit re-verification confirms ADR-049 + ADR-050 have since been populated (<code>closing_commit: 423c2c8</code> and <code>3b16036</code> respectively). The user’s flag was stale.</p>
+<p>The actual structurally incomplete ADRs are ADR-051 and ADR-052, both 2026-05-18 governance ADRs that ship with:</p>
+<ul>
+<li>ADR-051: empty <code>closing_commit:</code> field (line 102), empty <code>transcript:</code> field (line 116), no <code>## Status</code> body section (jumps straight from frontmatter to <code>## Context</code>), no <code>## Alternatives Considered</code> section, and an opening line <code># ADR-051 — ...</code> that uses an em-dash instead of the template-convention colon (<code># ADR-051: ...</code>).</li>
+<li>ADR-052: empty <code>closing_commit:</code> field (line 86), empty <code>transcript:</code> field (line 98), no <code>## Alternatives Considered</code> section.</li>
+</ul>
+<p>Both ADRs document substantive supersession decisions in the ADR-034 + ADR-039 + ADR-050 chain. Their own frontmatter doesn’t conform to the schema they invoke — the immutability discipline applies to <em>other</em> ADRs but these two skipped fields.</p>
 </section>
 <section id="decision" class="level2">
 <h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<p>Switch the eval-toolkit pin in <code>pyproject.toml</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode diff code-with-copy"><code class="sourceCode diff"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">- "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.39.0",</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">+ "eval-toolkit==0.40.0",</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>uv sync</code> regenerates <code>uv.lock</code> to reference PyPI registry source.</p>
-<p><strong>Scope of supersession</strong>: narrow — only the “git URL is the only viable spec format” sub-claim in ADR-036 §Context. The remainder of ADR-036 is preserved:</p>
+<p>Treat the empty-frontmatter-fields gap as a fourth narrow-relaxation class adjacent to ADR-067 (Class A slug typos), ADR-068 (Class B broken external references), ADR-069 (Class C publisher-URL canonicalization), ADR-070 (Class D render-only markdown corrections). The same reasoning applies: no decision content changes, only audit-trail completeness is restored.</p>
+<p><strong>ADR-051 backfill:</strong></p>
 <ul>
-<li><strong>Tag-pin convention</strong>: replaced with PEP 508 <code>==&lt;version&gt;</code> specifier (equivalent semantics; readability preserved — pyproject answers “what version is in scope” at a glance).</li>
-<li><strong>Freeze-for-submission-window</strong>: preserved. We’re past the original v1.0.0 submission tag (now at v1.0.x patch series per ADR-033); bump trigger #3 (“reviewer-feedback / post-submission patch”) authorizes this bump. v1.0.8 is the closing-of-NEXT_STEPS-§1 sweep per Path 3.</li>
-<li><strong>3 bump triggers</strong>: preserved. The bump satisfies trigger #3 (post-submission patch; v1.0.x discipline per ADR-033).</li>
-<li><strong>uv.lock byte-level backstop</strong>: preserved (lock now carries PyPI wheel SHA-256 instead of git rev SHA).</li>
-<li><strong>Per-library requires-python compatibility</strong>: preserved (eval-toolkit v0.40.0 requires <code>python&gt;=3.13</code> per its pyproject.toml; matches our <code>.python-version</code> pin per ADR-037).</li>
+<li><code>closing_commit:</code> set to <code>v1.0.9 (Block A; Block B carryforward to v1.1.x)</code>. Block A (T0 score-match wiring) closed via ADR-058 which landed at v1.0.9. Block B (38 invariant-test stubs unskip per ADR-039 gate 3) remains carryforward to v1.1.x per ADR-051’s own §Decision Block B narrative.</li>
+<li><code>## Status</code> body section added (value: <code>Accepted.</code> — matches frontmatter).</li>
+<li><code>## Alternatives Considered</code> section added retroactively, documenting the three alternatives surfaced at 2026-05-18 lock time: (1) drop both T0 + invariant commitments outright (rejected: methodology contracts can’t be silently dropped); (2) fix-forward inline before v1.0.0 tag (rejected: time pressure at submission close + the implementation surface for both blocks was ~100 LOC + 38 test bodies, too large for the v1.0.0 rehearsal window); (3) no carryforward ADR, let ADR-034 + ADR-039 stand unmet (rejected: violates immutability discipline; the original commitments need an explicit superseding record).</li>
+<li>Opening line fixed: <code># ADR-051 —</code> → <code># ADR-051:</code> per <code>ADR_TEMPLATE.md</code> convention.</li>
 </ul>
-<p><strong>Out of scope</strong>:</p>
+<p><strong>ADR-052 backfill:</strong></p>
 <ul>
-<li><strong>runpod-deploy</strong>: not switched at v1.0.8 (planned for v1.1.0 per Path 3; this ADR’s scope is eval-toolkit only).</li>
-<li><strong>research_toolkit</strong>: not yet on PyPI as of v1.0.8 audit; remains git+https tag-pin per ADR-036.</li>
+<li><code>closing_commit:</code> set to <code>v1.0.3</code>. ADR-052 is a methodological reframing ADR; the act of writing it is itself the closure event. Per git log, ADR-052 was introduced at commit <code>3ba4636</code> which sits under the v1.0.3 tag.</li>
+<li><code>## Alternatives Considered</code> section added retroactively, documenting the four alternatives surfaced at 2026-05-18 lock time: (1) re-fire full-FT OOD inference on a fresh DC (rejected: methodological reasoning was already load-bearing per LoRA’s paired-bootstrap evidence; cost
+<ul>
+<li>repeat-FUSE-risk + ~$5-12 GPU spend didn’t justify); (2) restart from clean checkpoint (rejected: same reasoning, same cost); (3) abandon outright with no ADR (rejected: documentation contract requires explicit reframe of ADR-050 Revision 2); (4) no ADR-052 reframing, let ADR-050 R2 stand as operational forced-drop (rejected: the methodological reasoning was real and load-bearing for the characterisation conclusions; same-day retcon optic is the trade-off for honest documentation of the actual decision logic).</li>
+</ul></li>
 </ul>
+<p><code>transcript:</code> fields remain empty for both ADRs per the project’s “transcripts gitignored except <code>transcripts/README.md</code>” discipline; the field is reserved for future-session continuations and need not be populated retroactively.</p>
 </section>
 <section id="consequences" class="level2">
 <h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
-<section id="positive" class="level3">
-<h3 class="anchored" data-anchor-id="positive">Positive</h3>
 <ul>
-<li><strong>PyPI-resolvable install</strong> — any clone of this repo can <code>uv sync</code> without GitHub access to brandon-behring/eval-toolkit; methodology reviewer reproducibility improved.</li>
-<li><strong>Faster cold install</strong> — no git clone or setuptools build step.</li>
-<li><strong>uv.lock wheel-SHA backstop</strong> — PyPI artifacts are immutable once published; the lock’s recorded SHA-256 of the wheel cannot be retroactively changed by upstream (git rev can be force-pushed in theory; PyPI artifact uploads are append-only).</li>
-<li><strong>Consumer-pattern alignment</strong> — methodology submission demonstrates the canonical Python install path.</li>
+<li>Audit-trail completeness restored: <code>scripts/regenerate_audit.py --check</code> now sees populated closure metadata + complete body structure for ADR-051 and ADR-052</li>
+<li>Future reviewers checking frontmatter completeness no longer find a gap that contradicts the immutability discipline these ADRs themselves invoke</li>
+<li>The <code>## Alternatives Considered</code> sections retroactively document the decision space that was genuinely considered at lock-time (the transcripts capture it; this ADR surfaces a sanitized summary into the public record)</li>
+<li>ADR-051 + ADR-052 decisions are unchanged + remain immutable; only the frontmatter + missing-sections debt is closed</li>
+<li>Closes the loop on what the user’s prior 2026-05-18 self-audit was trying to flag (the audit was right about the gap class; the targets shifted from ADR-049+050 to ADR-051+052 after the v1.0.x patch cycle populated 049+050)</li>
 </ul>
-</section>
-<section id="negative" class="level3">
-<h3 class="anchored" data-anchor-id="negative">Negative</h3>
-<ul>
-<li><strong>ADR-036 §Context premise must be retired</strong> — the “git URL is the only viable spec format” claim is no longer load-bearing. Handled via this narrow-supersession ADR + <code>superseded_by: [055]</code> frontmatter edit on ADR-036.</li>
-<li><strong>runpod-deploy + research_toolkit pin styles diverge</strong> — eval-toolkit on <code>==&lt;version&gt;</code> (PyPI), runpod-deploy + research_toolkit on <code>git+https://...@v&lt;tag&gt;</code> (GitHub). Mitigation: clear comments in <code>pyproject.toml</code> for each; <code>decisions/library_imports.md</code> version pin table documents the per-library spec format.</li>
-</ul>
-</section>
-<section id="neutral" class="level3">
-<h3 class="anchored" data-anchor-id="neutral">Neutral</h3>
-<ul>
-<li>Tag-pin readability ≈ PEP 508 version-specifier readability. Both surface the version at a glance in pyproject.toml.</li>
-<li>uv.lock format is uv-internal; lock content changes (source field) but the byte-level-reproducibility guarantee is preserved.</li>
-</ul>
-</section>
 </section>
 <section id="alternatives-considered" class="level2">
 <h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
-<section id="a.-keep-githttps-do-not-switch" class="level3">
-<h3 class="anchored" data-anchor-id="a.-keep-githttps-do-not-switch">A. Keep git+https (do not switch)</h3>
-<p>Stay on <code>eval-toolkit @ git+https://...@v0.40.0</code>. <strong>Rejected</strong>: the user explicitly asked for PyPI install (“make sure this repo uses it from pypi”). PyPI is the consumer-expected format for Python distribution; demonstrating it sets the better reproducibility bar.</p>
+<ol type="1">
+<li><strong>Leave ADR-051 + ADR-052 as-is.</strong> Rejected — the SDD discipline applies to all ADRs including the meta-governance ones. Empty <code>closing_commit</code> is a methodology gap a reviewer checking frontmatter completeness would surface; ADR-051 also lacks template-required body sections.</li>
+<li><strong>Backfill via direct edit, no ADR-072.</strong> Rejected — the immutability rule means even narrow editorial edits need an authorizing ADR. ADR-067-070 established the precedent; ADR-072 extends it to the frontmatter-backfill class.</li>
+<li><strong>Two separate ADRs (one for 051, one for 052).</strong> Rejected — same class of fix, same scope, applied at the same time. One ADR is cleaner; the audit trail isn’t materially improved by splitting.</li>
+<li><strong>Treat ADR-029 misattribution refs (handled in ADR-071) and this frontmatter backfill as one ADR.</strong> Rejected — they’re different narrow-relaxation classes (slug-sweep vs frontmatter-backfill) with different supersession scopes. Cleaner to keep them as separate ADRs in the 071 → 072 → 073 → 074 → 075 sequence.</li>
+</ol>
 </section>
-<section id="b.-switch-but-keep-at-v0.39.0" class="level3">
-<h3 class="anchored" data-anchor-id="b.-switch-but-keep-at-v0.39.0">B. Switch but keep at v0.39.0</h3>
-<p>Switch source format but stay at v0.39.0 (which is also on PyPI as of 2026-05-18 release wave). <strong>Rejected</strong>: v0.40.0 adds Platt + Beta calibrators (eval-toolkit#43 closed; v1.0.8 Subsection C consumes them per ADR-056). The bump + format-switch are coupled work.</p>
-</section>
-<section id="c.-switch-also-re-walk-adr-036-entirely-broad-supersession" class="level3">
-<h3 class="anchored" data-anchor-id="c.-switch-also-re-walk-adr-036-entirely-broad-supersession">C. Switch + also re-walk ADR-036 entirely (broad supersession)</h3>
-<p>Write a single ADR superseding ADR-036 in whole (the freeze policy plus the git URL claim plus the bump-trigger protocol). <strong>Rejected</strong>: ADR-036’s freeze + bump-trigger discipline is still load-bearing; narrowly superseding only the “git URL only” sub-claim preserves the rest of the governance trail without re-litigation.</p>
-</section>
-</section>
-<section id="links" class="level2">
-<h2 class="anchored" data-anchor-id="links">Links</h2>
+<section id="linked-adrs" class="level2">
+<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><a href="../decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html">ADR-036 — Library version pins (tag-pin + freeze)</a> — narrowly superseded on the “git URL is the only viable spec format” sub-claim only; freeze + bump-triggers + uv.lock backstop preserved.</li>
-<li><a href="../decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html">ADR-033 — Github release strategy (rehearsal + submission)</a> — v1.0.x patch discipline that authorizes this bump under trigger #3.</li>
-<li><a href="../decisions/ADR-037-python-version-pin-3-13.html">ADR-037 — requires-python ≥ 3.13</a> — eval-toolkit v0.40.0’s requires-python matches.</li>
-<li><a href="https://pypi.org/project/eval-toolkit/0.40.0/">eval-toolkit v0.40.0 PyPI</a> — the artifact.</li>
-<li><a href="https://github.com/brandon-behring/eval-toolkit/issues/43">eval-toolkit#43</a> — Platt + Beta request that motivated the v0.40.0 bump.</li>
+<li>ADR-051 (v1.0.x-carryforward-of-t0-and-invariant-scaffolds): superseded on the empty-frontmatter axis only; decision content unchanged</li>
+<li>ADR-052 (full-ft-ood-drop-methodological-reframing-of-adr-050-r2): same supersession scope as ADR-051 here; ADR-075 separately supersedes ADR-052 on the narrative axis</li>
+<li>ADR-058 (eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a): closed ADR-051’s Block A; cited in ADR-051’s new closing_commit value</li>
+<li>ADR-067, ADR-068, ADR-069, ADR-070 (the 4-ADR immutability-relaxation chain): ADR-072 follows the same narrow-relaxation discipline (no decision content changes; audit trail strictly improved)</li>
+<li>ADR-075 (planned: full-ft-ood-drop-rationale-unified-narrative): supersedes ADR-052 entirely on the narrative axis; orthogonal to this ADR’s frontmatter-axis supersession</li>
 </ul>
+</section>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>Transcript file (gitignored per AGENTS.md): the 2026-05-20 audit re-verification cycle that surfaced the stale REPO_AUDIT_2026-05-18.md flag + identified the ADR-051+052 frontmatter gap; captured in <code>~/notes/prompt-injection-audit-2026-05-20.md</code> (consumer side) and <code>~/notes/prompt-injection-audit-2026-05-20-adr-appendix.md</code> (full ADR governance audit).</p>
 
 
 </section>

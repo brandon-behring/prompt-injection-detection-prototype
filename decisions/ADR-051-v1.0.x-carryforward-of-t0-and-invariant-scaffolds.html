@@ -898,6 +898,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Collapse the four-ADR narrow-relaxation chain (ADR-067/068/069/070) into a single consolidated immutability rule with four named exception classes</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -912,8 +924,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession" id="toc-adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession" class="nav-link active" data-scroll-target="#adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession">ADR-051 — v1.0.x carryforward of ADR-034 T0 + ADR-039 gate 3; narrow supersession</a>
+  <li><a href="#adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession" id="toc-adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession" class="nav-link active" data-scroll-target="#adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession">ADR-051: v1.0.x carryforward of ADR-034 T0 + ADR-039 gate 3; narrow supersession</a>
   <ul class="collapse">
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
   <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
   <ul class="collapse">
@@ -921,6 +934,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#block-b-adr-039-gate-3-invariant-scaffolds-v1.1.x" id="toc-block-b-adr-039-gate-3-invariant-scaffolds-v1.1.x" class="nav-link" data-scroll-target="#block-b-adr-039-gate-3-invariant-scaffolds-v1.1.x">Block B — ADR-039 gate 3 invariant scaffolds → v1.1.x</a></li>
   </ul></li>
   <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
   <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
   <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
@@ -956,7 +970,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 <section id="adr-051-v1.0.x-carryforward-of-adr-034-t0-adr-039-gate-3-narrow-supersession" class="level1">
-<h1>ADR-051 — v1.0.x carryforward of ADR-034 T0 + ADR-039 gate 3; narrow supersession</h1>
+<h1>ADR-051: v1.0.x carryforward of ADR-034 T0 + ADR-039 gate 3; narrow supersession</h1>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Accepted (2026-05-18). Block A closed at v1.0.9 via ADR-058. Block B (38 invariant-test stubs unskip per ADR-039 gate 3) remains carryforward to v1.1.x.</p>
+</section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
 <p>REPO_AUDIT_2026-05-18 (committed at <code>9ed7dd9</code> on 2026-05-18 morning) declared the repo “not submission-ready” against ADR-039 / Phase 5 gates. The audit’s P0 + P1 sections flagged 8 blocking surfaces. The v1.0.0 + v1.0.1 tags closed 6 of those surfaces by direct implementation:</p>
@@ -1012,12 +1030,22 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Audit-trail</strong>: SUBMISSION_AUDIT.md regenerates via <code>scripts/regenerate_audit.py</code> with ADR-051 included; the closure metadata fields (<code>closing_commit</code>, <code>supersedes</code>, <code>superseded_by</code>) are populated post-tag in a v1.0.2 final commit (or here in this ADR if the closing_commit is the ADR-051 commit itself).</li>
 </ul>
 </section>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<p>Retroactively documented per ADR-072 (2026-05-20 frontmatter + structural backfill). The three alternatives surfaced at 2026-05-18 lock time:</p>
+<ol type="1">
+<li><strong>Drop both T0 + invariant commitments outright.</strong> Rejected: ADR-034 + ADR-039 are methodology contracts; silently dropping them violates the SDD discipline that ADR-005 + AGENTS.md establish. The contracts need an explicit superseding record even if the implementation defers.</li>
+<li><strong>Fix-forward inline before v1.0.0 tag.</strong> Rejected: the implementation surface for both blocks was substantial — Block A is ~100 LOC of T0 score-match wiring (HF Hub download + AutoModelForSequenceClassification load + score-match within 1e-4 tolerance per ADR-034 §Tier T0); Block B is 38 invariant test bodies covering class-balance + source-disjoint splits + leakage + calibration + reporting-completeness invariants per ADR-039 gate 3. Both implementations exceeded the v1.0.0 rehearsal-tag window’s available time.</li>
+<li><strong>No carryforward ADR; let ADR-034 + ADR-039 stand unmet.</strong> Rejected: violates the immutability discipline ADR-005 + ADR-067 codify. An unmet methodology contract without an explicit supersession record creates an undocumented “methodology debt” that’s hard to audit. ADR-051’s existence makes the debt explicit + tracked.</li>
+</ol>
+<p>The chosen path (narrow supersession + explicit v1.1.x landing conditions) preserves the methodology contract by binding it to a future close while keeping the audit trail honest.</p>
+</section>
 <section id="linked-adrs" class="level2">
 <h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
 <li><strong>Superseded (narrow)</strong>: ADR-034 (T0 score-match wiring axis only); ADR-039 (gate 3 axis only).</li>
 <li><strong>Referenced</strong>: ADR-032 (HF Hub publication; v1.0.1 deliverable that closes the publish half of T0); ADR-046 (Phase 4 analysis bundle; defined many of the invariants now scaffolded).</li>
-<li><strong>Source</strong>: REPO_AUDIT_2026-05-18.md (the explicit audit finding that invited the supersession-or-implementation decision); WRITEUP/reproducibility.md (T0 maintainer note); tests/test_invariants.py (module docstring with the v1.0.0-carryforward catalog).</li>
+<li><strong>Source</strong>: decisions/audits/REPO_AUDIT_2026-05-18.md (the explicit audit finding that invited the supersession-or-implementation decision); WRITEUP/reproducibility.md (T0 maintainer note); tests/test_invariants.py (module docstring with the v1.0.0-carryforward catalog).</li>
 </ul>
 </section>
 <section id="transcript" class="level2">
