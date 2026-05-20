@@ -1007,16 +1007,17 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td>ModernBERT LoRA</td>
-<td style="text-align: right;">0.293</td>
-<td>fine-tuning hurt cross-family ranking</td>
+<td style="text-align: right;">0.293 (AUROC 0.383 below 0.5 floor)</td>
+<td>fine-tuning was actively harmful — lexical overfitting + slate-induced label-relevance inversion</td>
 </tr>
 <tr class="odd">
 <td>TF-IDF + LR</td>
-<td style="text-align: right;">0.291</td>
-<td>classical floor, roughly tied with LoRA</td>
+<td style="text-align: right;">0.291 (AUROC 0.371 also below 0.5 floor)</td>
+<td>classical floor, roughly tied with LoRA; same mechanism</td>
 </tr>
 </tbody>
 </table>
+<p>The deeper failure: in-pool 0.99 AUROC -&gt; cross-family 0.38 AUROC for trained detectors. CIs on LoRA + TF-IDF clear the 0.5 random floor on the wrong side (LoRA [0.374, 0.392], TF-IDF [0.362, 0.381]). The frozen probe (zero LODO-pool adaptation) holds at 0.515. The mechanism is <strong>lexical overfitting + a label-relevance shift</strong> on the OOD slate: NotInject (benign text engineered to look like injection) flips the negative side; indirect/agentic attacks (don’t share direct-injection lexical patterns) flip the positive side. Direct-injection training produced learned representations whose ordering is <em>systematically inverted</em> on cross-family slices where lexical signal stops tracking attack class.</p>
 <p><strong>Direct detection check</strong></p>
 <table class="caption-top table">
 <colgroup>

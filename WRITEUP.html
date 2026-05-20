@@ -947,7 +947,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#finding-1-direct-detection-was-learned" id="toc-finding-1-direct-detection-was-learned" class="nav-link" data-scroll-target="#finding-1-direct-detection-was-learned">Finding 1: Direct detection was learned</a></li>
   <li><a href="#finding-2-the-ood-wall-is-cross-family" id="toc-finding-2-the-ood-wall-is-cross-family" class="nav-link" data-scroll-target="#finding-2-the-ood-wall-is-cross-family">Finding 2: The OOD wall is cross-family</a></li>
-  <li><a href="#finding-3-fine-tuning-hurt-ood-generalization" id="toc-finding-3-fine-tuning-hurt-ood-generalization" class="nav-link" data-scroll-target="#finding-3-fine-tuning-hurt-ood-generalization">Finding 3: Fine-tuning hurt OOD generalization</a></li>
+  <li><a href="#finding-3-fine-tuning-was-actively-harmful-on-cross-family-ood-lexical-overfitting-label-relevance-inversion" id="toc-finding-3-fine-tuning-was-actively-harmful-on-cross-family-ood-lexical-overfitting-label-relevance-inversion" class="nav-link" data-scroll-target="#finding-3-fine-tuning-was-actively-harmful-on-cross-family-ood-lexical-overfitting-label-relevance-inversion">Finding 3: Fine-tuning was actively harmful on cross-family OOD (lexical overfitting + label-relevance inversion)</a></li>
   <li><a href="#finding-4-the-context-window-ablation-was-a-null-result" id="toc-finding-4-the-context-window-ablation-was-a-null-result" class="nav-link" data-scroll-target="#finding-4-the-context-window-ablation-was-a-null-result">Finding 4: The context-window ablation was a null result</a></li>
   <li><a href="#finding-5-published-detector-versions-are-slice-dependent" id="toc-finding-5-published-detector-versions-are-slice-dependent" class="nav-link" data-scroll-target="#finding-5-published-detector-versions-are-slice-dependent">Finding 5: Published detector versions are slice-dependent</a></li>
   <li><a href="#finding-6-validation-thresholds-are-fragile" id="toc-finding-6-validation-thresholds-are-fragile" class="nav-link" data-scroll-target="#finding-6-validation-thresholds-are-fragile">Finding 6: Validation thresholds are fragile</a></li>
@@ -1228,9 +1228,17 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="finding-2-the-ood-wall-is-cross-family">Finding 2: The OOD wall is cross-family</h3>
 <p>The OOD slices are not just new copies of the training data. They include indirect injection, agentic-flow attacks, jailbreak-style questions, and benign text that resembles injection text. Direct-injection training does not transfer cleanly to those families.</p>
 </section>
-<section id="finding-3-fine-tuning-hurt-ood-generalization" class="level3">
-<h3 class="anchored" data-anchor-id="finding-3-fine-tuning-hurt-ood-generalization">Finding 3: Fine-tuning hurt OOD generalization</h3>
-<p>LoRA scored <strong>0.293</strong> on pooled OOD, compared with <strong>0.364</strong> for the frozen probe and <strong>0.291</strong> for TF-IDF + LR. The frozen probe keeps the pretrained backbone signal; LoRA specializes to the direct-injection training pool and loses much of that signal.</p>
+<section id="finding-3-fine-tuning-was-actively-harmful-on-cross-family-ood-lexical-overfitting-label-relevance-inversion" class="level3">
+<h3 class="anchored" data-anchor-id="finding-3-fine-tuning-was-actively-harmful-on-cross-family-ood-lexical-overfitting-label-relevance-inversion">Finding 3: Fine-tuning was actively harmful on cross-family OOD (lexical overfitting + label-relevance inversion)</h3>
+<p>LoRA scored <strong>0.293</strong> AUPRC on pooled OOD vs <strong>0.364</strong> for the frozen probe and <strong>0.291</strong> for TF-IDF + LR. The frozen probe keeps the pretrained backbone signal; LoRA specializes to the direct-injection training pool and loses much of that signal.</p>
+<p>The sharper finding is under AUROC: LoRA’s pooled OOD AUROC is <strong>0.383</strong> [0.374, 0.392] and TF-IDF + LR’s is <strong>0.371</strong> [0.362, 0.381] — both with CIs that clear the 0.5 random floor <em>on the wrong side</em>. The frozen probe alone stays above floor at 0.515 [0.505, 0.525]. The in-pool to cross-family generalization gap is ~0.6 AUROC for the trained detectors (in-pool 0.99 -&gt; cross-family 0.38), the largest possible gap with confidence.</p>
+<p>This is more than overfitting alone (which predicts collapse toward random, not past it). The mechanism is <strong>lexical overfitting + a label-relevance shift on the OOD slate</strong>:</p>
+<ul>
+<li>LoRA + TF-IDF both learn lexical signatures of direct injection.</li>
+<li><strong>NotInject</strong> (n=339, all negative) is engineered to look like direct injection lexically; the trained detectors score these HIGH (false positives), inverting the negative class.</li>
+<li><strong>BIPIA + InjecAgent</strong> (indirect + agentic, n=112) don’t use direct-injection lexical patterns; the detectors score these LOW (false negatives), inverting the positive class.</li>
+</ul>
+<p>The lexical signal is real and internally consistent — it just stops tracking attack class on cross-family slices where lexical similarity to direct injection and actual attack class point opposite ways. The frozen probe (zero LODO-pool adaptation) preserves generic linguistic features that aren’t aligned with the direct-injection lexical distribution and therefore stay closer to floor on the cross-family slate.</p>
 </section>
 <section id="finding-4-the-context-window-ablation-was-a-null-result" class="level3">
 <h3 class="anchored" data-anchor-id="finding-4-the-context-window-ablation-was-a-null-result">Finding 4: The context-window ablation was a null result</h3>

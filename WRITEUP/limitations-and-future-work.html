@@ -943,6 +943,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#architectures-evaluated-and-dropped" id="toc-architectures-evaluated-and-dropped" class="nav-link" data-scroll-target="#architectures-evaluated-and-dropped">9.2 Architectures evaluated and dropped</a></li>
   <li><a href="#data-pipeline-experiments-that-didnt-matter" id="toc-data-pipeline-experiments-that-didnt-matter" class="nav-link" data-scroll-target="#data-pipeline-experiments-that-didnt-matter">9.3 Data-pipeline experiments that didn’t matter</a></li>
   <li><a href="#what-the-negatives-imply-for-v6" id="toc-what-the-negatives-imply-for-v6" class="nav-link" data-scroll-target="#what-the-negatives-imply-for-v6">9.4 What the negatives imply for v6</a></li>
+  <li><a href="#anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary" id="toc-anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary" class="nav-link" data-scroll-target="#anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary">9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary</a></li>
   <li><a href="#lessons-reflections" id="toc-lessons-reflections" class="nav-link" data-scroll-target="#lessons-reflections">§11 Lessons &amp; reflections</a></li>
   <li><a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references">Cross-references</a></li>
   </ul></li>
@@ -1041,6 +1042,26 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Pretrained backbone scaling</strong> — frozen ModernBERT-base embeddings provide more OOD generalization than LoRA fine-tuning does. A v6 ablation along backbone scale (ModernBERT-base 150M → ModernBERT-large 400M; or a different backbone family) would test whether the OOD ceiling is backbone-capacity-limited.</li>
 <li><strong>OOD-aware threshold selection</strong> — dual-policy thresholds fit on val do not transfer to LODO test (see <a href="../WRITEUP/threshold-policy.html"><code>threshold-policy.md</code></a>). Per-source temperature scaling or conformal calibration with a held-out OOD calibration set (currently impossible by LODO design) would close the val→LODO gap.</li>
 </ol>
+</section>
+<section id="anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary" class="level2">
+<h2 class="anchored" data-anchor-id="anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary">9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary</h2>
+<p>The headline AUPRC tables (WRITEUP §6 + RESULTS §1) show LoRA + TF-IDF + LR clustering at the pooled OOD random floor (0.374). The AUROC view says something stronger: both detectors score <strong>below</strong> the 0.5 random floor with CIs that clearly clear 0.5 on the wrong side:</p>
+<ul>
+<li><strong>LoRA pooled OOD AUROC</strong>: 0.383 [0.374, 0.392]</li>
+<li><strong>TF-IDF + LR pooled OOD AUROC</strong>: 0.371 [0.362, 0.381]</li>
+<li><strong>Frozen probe (no LODO-pool adaptation)</strong>: 0.515 [0.505, 0.525] — above floor</li>
+</ul>
+<p>In-pool to cross-family generalization gap: trained detectors hit AUROC 0.99 in-pool and AUROC 0.38 on cross-family — a ~0.6 drop. The frozen probe’s gap is smaller (0.91 in-pool → 0.515 cross-family, ~0.4 drop) because no LODO-pool adaptation drove the lexical-feature alignment.</p>
+<p>A score below 0.5 AUROC on a holdout means the ranking is <em>anti-correlated</em> with truth — informative in the wrong direction. This is more than pure overfitting (which predicts collapse toward random, not past it). The mechanism is <strong>lexical overfitting + a slate-induced label-relevance shift</strong>:</p>
+<ul>
+<li>LoRA + TF-IDF both learn lexical signatures of direct injection (“ignore previous instructions”, “you are now”, etc.) from the LODO training pool.</li>
+<li><strong>NotInject</strong> (n=339, all negative) is engineered to <em>look like</em> direct injection lexically while being benign. The trained detectors score these HIGH (false positives) — inverting the negative class.</li>
+<li><strong>BIPIA + InjecAgent</strong> (indirect + agentic, n=112): real attacks that <em>don’t</em> use direct-injection lexical patterns. The detectors score these LOW (false negatives) — inverting the positive class.</li>
+</ul>
+<p>The lexical signal is internally consistent. It just stops tracking attack class on cross-family slices where lexical similarity to direct injection and actual attack class point opposite ways. The frozen probe stays above floor because no LODO-pool adaptation aligned it with direct-injection lexical features.</p>
+<p>The §9.4 prescriptions (OOD-aware training data + backbone scaling + OOD-aware threshold selection) all bear on this finding. A v6 ablation that retains direct-injection training but adds cross-family signal would test whether the anti-correlation under AUROC is a function of training-distribution scope (fixable by widening the pool) or a deeper representation problem (requires backbone or objective changes).</p>
+<p>This finding is methodologically richer than “fine-tuning hurt OOD ranking” (which implies degradation toward chance); it is “training on this pool produced systematically wrong rankings on cross-family slices via the lexical-signal-doesn’t-match-attack-class mechanism.”</p>
+<hr>
 <p><em>The final section steps back from specific dead-ends to surface the <strong>process-level lessons</strong> that fell out of the work — what the SDD + LODO + bootstrap-CI discipline cost vs delivered, and what going-in expectations proved wrong.</em></p>
 </section>
 <section id="lessons-reflections" class="level2">

@@ -1048,9 +1048,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>LoRA vs frozen-probe OOD degradation</td>
-<td><a href="./RESULTS.html#2-frozen-probe-vs-lora">Results: §2 Frozen Probe vs LoRA</a></td>
-<td>LoRA is -0.071 AUPRC below frozen probe on pooled OOD</td>
-<td>fine-tuning on direct examples specialized away from useful OOD signal</td>
+<td><a href="./RESULTS.html#2-frozen-probe-vs-lora">Results: §2 Frozen Probe vs LoRA</a> + <a href="./RESULTS.html#6-secondary-table-auroc">§6 AUROC</a></td>
+<td>LoRA pooled OOD AUROC <strong>0.383 below 0.5 floor</strong>; -0.071 AUPRC vs frozen probe</td>
+<td>lexical overfitting + slate-induced label-relevance inversion; CIs clear 0.5 on the wrong side</td>
 </tr>
 <tr class="odd">
 <td>DeBERTa context-window null result</td>
@@ -1128,7 +1128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="how-to-read-the-headline-numbers">How To Read The Headline Numbers</h2>
 <p><strong>AUPRC is not measured against 0.5.</strong> For the pooled out-of-distribution slice (<code>pooled_ood</code>), random AUPRC is the positive rate: 412 positives / 1101 rows = 0.374. The frozen probe scores 0.364, so it is at the random floor, not clearly above it.</p>
 <p><strong>Out-of-distribution (OOD) means cross-family here.</strong> The training data is direct-injection-heavy. The OOD slate includes indirect injection, agentic-flow injection, jailbreak-style questions, and benign text that resembles attacks.</p>
-<p><strong>LoRA getting worse matters.</strong> Fine-tuning on the direct-injection training pool reduced pooled OOD AUPRC from 0.364 to 0.293. That suggests the pretrained backbone carried the useful OOD signal and the adapter specialized away from it.</p>
+<p><strong>LoRA being below the floor matters.</strong> Fine-tuning on the direct-injection training pool reduced pooled OOD AUPRC from 0.364 to 0.293. The sharper finding is under AUROC: LoRA scores 0.383 [0.374, 0.392], below the 0.5 random floor. TF-IDF + LR shows the same pattern at 0.371. CIs on both clear 0.5 on the wrong side; only the frozen probe stays above floor at 0.515. The mechanism is <strong>lexical overfitting + a label-relevance shift</strong> on the OOD slate — NotInject (benign text engineered to look like direct injection) inverts the negative class; indirect/agentic attacks (no direct-injection lexical signal) invert the positive class. The lexical signal is internally consistent; it just stops tracking attack class on cross-family slices.</p>
 <p><strong>Reference scorers are diagnostic.</strong> ProtectAI v1/v2 are useful comparison points, but their training-data disclosure creates contamination caveats.</p>
 <p><strong>Thresholds are not deployment recommendations.</strong> The threshold analysis shows how scores behave under two cost regimes. It does not select a production policy.</p>
 </section>

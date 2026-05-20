@@ -939,6 +939,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a>
   <ul class="collapse">
   <li><a href="#bottom-line" id="toc-bottom-line" class="nav-link" data-scroll-target="#bottom-line">Bottom Line</a></li>
+  <li><a href="#mechanism-lexical-overfitting-slate-induced-label-relevance-inversion" id="toc-mechanism-lexical-overfitting-slate-induced-label-relevance-inversion" class="nav-link" data-scroll-target="#mechanism-lexical-overfitting-slate-induced-label-relevance-inversion">Mechanism: lexical overfitting + slate-induced label-relevance inversion</a></li>
   <li><a href="#direct-detection-check" id="toc-direct-detection-check" class="nav-link" data-scroll-target="#direct-detection-check">Direct Detection Check</a></li>
   <li><a href="#what-was-tested" id="toc-what-was-tested" class="nav-link" data-scroll-target="#what-was-tested">What Was Tested</a></li>
   <li><a href="#how-to-read-the-metrics" id="toc-how-to-read-the-metrics" class="nav-link" data-scroll-target="#how-to-read-the-metrics">How To Read The Metrics</a></li>
@@ -1047,15 +1048,26 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>ModernBERT LoRA</td>
 <td style="text-align: right;">0.293 [0.286, 0.301]</td>
-<td>Fine-tuning hurt OOD performance</td>
+<td>Fine-tuning was actively harmful — AUROC 0.383 below 0.5 floor (lexical overfitting + slate-induced label-relevance inversion; see §Mechanism below)</td>
 </tr>
 <tr class="odd">
 <td>TF-IDF + LR</td>
 <td style="text-align: right;">0.291 [0.283, 0.298]</td>
-<td>Classical baseline, roughly tied with LoRA</td>
+<td>Classical baseline, roughly tied with LoRA — AUROC 0.371 also below 0.5 floor (same mechanism as LoRA)</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="mechanism-lexical-overfitting-slate-induced-label-relevance-inversion" class="level2">
+<h2 class="anchored" data-anchor-id="mechanism-lexical-overfitting-slate-induced-label-relevance-inversion">Mechanism: lexical overfitting + slate-induced label-relevance inversion</h2>
+<p>Two detectors land <strong>below</strong> the 0.5 AUROC random floor on pooled OOD with CIs that clear 0.5 on the wrong side: LoRA at 0.383 [0.374, 0.392] and TF-IDF + LR at 0.371 [0.362, 0.381]. A score below 0.5 AUROC isn’t pure overfitting (which predicts collapse <em>toward</em> random, not past it); it’s lexical overfitting combined with a label-relevance shift on this specific slate:</p>
+<ul>
+<li>LoRA + TF-IDF both learn lexical signatures of direct injection (“ignore previous instructions”, “you are now”, etc.).</li>
+<li><strong>NotInject</strong> (n=339, all negative): benign text engineered to <em>look like</em> direct injection. Both detectors score these HIGH (false positives).</li>
+<li><strong>BIPIA + InjecAgent</strong> (indirect + agentic, n=112): real attacks that <em>don’t</em> use direct-injection lexical patterns. Both detectors score these LOW (false negatives).</li>
+</ul>
+<p>The lexical signal is real and consistent within itself — it just stops tracking attack class on cross-family slices where the lexical and semantic labels diverge. The frozen ModernBERT probe (zero LODO-pool adaptation) stays at 0.515 AUROC — generic linguistic features are less aligned with the direct-injection lexical distribution and therefore less inverted on the cross-family slate.</p>
+<p>Generalization gap: in-pool 0.99 AUROC → cross-family 0.38 AUROC, ~0.6 drop for the trained detectors; frozen probe’s gap is 0.91 → 0.515, ~0.4 drop. The more training adapted to the LODO pool, the harder the cross-family fall.</p>
 </section>
 <section id="direct-detection-check" class="level2">
 <h2 class="anchored" data-anchor-id="direct-detection-check">Direct Detection Check</h2>

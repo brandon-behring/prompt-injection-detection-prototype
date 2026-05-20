@@ -1146,7 +1146,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><strong>Direct detection was learned.</strong> The trained detectors can separate direct prompt injections from benign validation examples.</li>
 <li><strong>The failure is cross-family.</strong> The OOD slate includes attack families the direct-trained detectors did not see.</li>
-<li><strong>Fine-tuning did not help OOD.</strong> LoRA fits the direct-injection training pool and loses much of the OOD signal present in the frozen backbone.</li>
+<li><strong>Fine-tuning was actively harmful, not neutral.</strong> Trained detectors hit AUROC 0.99 in-pool but drop to 0.38 on cross-family — a ~0.6 generalization gap that lands below the 0.5 random floor (LoRA 0.383, TF-IDF 0.371; CIs clear 0.5 on the wrong side). The mechanism is lexical overfitting + a label-relevance shift on the OOD slate: NotInject (benign-but-injection- shaped) inverts the negative side; indirect/agentic attacks (no direct-injection lexical patterns) invert the positive side. The frozen probe (no LODO-pool adaptation) holds at 0.515 — small positive signal preserved by not overfitting to direct-injection lexical features.</li>
 <li><strong>A newer detector is not automatically better.</strong> ProtectAI v2 improves one slice but regresses on another.</li>
 <li><strong>Thresholds do not transfer cleanly.</strong> A threshold tuned for 1% false positives on validation can produce much higher false-positive rates on held-out sources.</li>
 <li><strong>The accomplishment is characterization.</strong> The project demonstrates the evaluation harness, direct-pattern learning, and the limits of the trained detectors under family shift.</li>
