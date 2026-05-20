@@ -941,7 +941,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Three-library tooling split</strong>: <code>eval-toolkit</code> (methodology-aware harness — bootstrap CIs / calibration / leakage / splits / paired-bootstrap), <code>runpod-deploy</code> (cloud orchestration), <code>research_toolkit</code> (literature dossier pipeline). Each survives across iterations as a durable knowledge artifact.</li>
 <li><strong>Prediction-persistence pattern [LOCKED]</strong>: 282 prediction parquets persisted per ADR-013 + ADR-021 so downstream threshold / calibration analyses run from artifacts without re-running inference.</li>
-<li><strong>SDD / ADR process</strong>: 50+ ADRs accepted across Phase 0-00 through Phase 5; each significant decision locked before code; <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard-gate per ADR-039).</li>
+<li><strong>SDD / ADR process</strong>: 70 ADRs accepted across Phase 0-00 through ADR-070 (immutability-relaxation closures); each significant decision locked before code; <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard-gate per ADR-039).</li>
 <li><strong>Library-first invariant</strong> (project-wide per Phase 4 Q6 reaffirmation): audit <code>eval-toolkit + runpod-deploy + research_toolkit</code> BEFORE writing project glue. Upstream gaps land in <code>decisions/upstream_issues.md</code> before any local workaround. ADR-047 retrofitted 4 hand-rolls in a single carryforward refactor.</li>
 </ul>
 </div>
