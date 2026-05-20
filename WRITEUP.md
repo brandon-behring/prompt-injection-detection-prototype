@@ -33,7 +33,9 @@ the training examples.
 
 This project evaluates that question directly. The goal is not to produce a
 deployment-ready detector. The goal is to build a fair evaluation harness and
-show what several detector designs can and cannot do under distribution shift.
+show what several detector designs can and cannot do under distribution shift:
+they can learn direct prompt-injection patterns, but that skill does not carry
+cleanly to the harder OOD slate.
 
 ## 2. Scope
 
@@ -109,7 +111,18 @@ The project reports effect sizes and confidence intervals, not p-values.
 
 ## 6. Headline Result
 
+Direct detection works better; cross-family generalization fails. The project
+produced three result views that should be read together:
+
+| Result view | Best in-house result | What it says |
+|---|---:|---|
+| Balanced validation, direct + benign | LoRA AUPRC **0.974**, AUROC **0.993**, recall@0.5 **0.934** | direct-prompt-injection detection was learned |
+| LODO held-out direct-source test | frozen-probe recall@0.5 **0.641** | cross-source direct recall is meaningful |
+| Pooled OOD | frozen-probe AUPRC **0.364** vs random floor **0.374** | the direct-trained detectors did not learn robust cross-family ranking |
+
 No evaluated detector clearly beats the pooled OOD random floor under AUPRC.
+The LODO held-out direct-source test is all-positive, so false positives,
+AUPRC, and AUROC are left out of that result table.
 
 | Detector | Pooled OOD AUPRC | 95% CI | Read |
 |---|---:|---:|---|
@@ -119,39 +132,66 @@ No evaluated detector clearly beats the pooled OOD random floor under AUPRC.
 | ModernBERT LoRA | 0.293 | [0.286, 0.301] | fine-tuning hurt OOD ranking |
 | TF-IDF + LR | 0.291 | [0.283, 0.298] | classical floor, roughly tied with LoRA |
 
-The negative result is the point. A detector can look reasonable on
-direct-injection-style examples and still fail when the attack family changes.
+The negative result is not "nothing worked." The trained detectors learned
+direct-injection-style examples and still failed when the attack family changed.
 
 For exact grids, figures, and artifact links, see [Results](RESULTS.md).
 
 ## 7. Main Findings
 
-### Finding 1: The OOD wall is cross-family
+### Finding 1: Direct detection was learned
+
+On balanced validation data containing direct-injection positives and benign
+negatives, LoRA reaches **0.974 AUPRC** and TF-IDF + LR reaches **0.971 AUPRC**.
+The frozen probe is weaker at **0.653 AUPRC**, but still discriminative. This
+is the basic capability result: the pipeline can train detectors that recognize
+the direct instruction-override pattern.
+
+The LODO held-out direct-source test is harsher and all-positive by design. On
+that view, recall@0.5 is **0.641** for frozen probe, **0.625** for LoRA, and
+**0.558** for full fine-tuning. Because there are no negatives in that test,
+false positives, AUROC, and AUPRC are not defined there.
+
+### Finding 2: The OOD wall is cross-family
 
 The OOD slices are not just new copies of the training data. They include
 indirect injection, agentic-flow attacks, jailbreak-style questions, and benign
 text that resembles injection text. Direct-injection training does not transfer
 cleanly to those families.
 
-### Finding 2: Fine-tuning hurt OOD generalization
+### Finding 3: Fine-tuning hurt OOD generalization
 
 LoRA scored **0.293** on pooled OOD, compared with **0.364** for the frozen
 probe and **0.291** for TF-IDF + LR. The frozen probe keeps the pretrained
 backbone signal; LoRA specializes to the direct-injection training pool and
 loses much of that signal.
 
-### Finding 3: Published detector versions are slice-dependent
+### Finding 4: The context-window ablation was a null result
+
+DeBERTa-v3-base with chunk-and-average scored **0.291** pooled OOD AUPRC, while
+head-truncation scored **0.290**. Giving the short-context backbone access to
+the full text did not move the result. The ModernBERT advantage is therefore
+best read as backbone-dominant, not context-window-dominant.
+
+### Finding 5: Published detector versions are slice-dependent
 
 ProtectAI v2 improves over v1 on JBB but regresses on XSTest and pooled OOD.
 The practical lesson is not "v1 is better"; it is that detector updates should
 be evaluated against the actual slice mix that matters.
 
-### Finding 4: Validation thresholds are fragile
+### Finding 6: Validation thresholds are fragile
 
 The detection policy tunes a threshold on validation to target FPR <= 1%. On
 held-out test sources, TF-IDF + LR averages 6.7% FPR and LoRA averages 11.5%
 FPR. The frozen probe holds the FPR target but catches only about 6% of
 positives. That is characterization, not a deployable operating point.
+
+### Finding 7: Calibration favors the frozen probe
+
+Frozen probe has the lowest calibration error in the reported slate: mean ECE
+**0.144** and mean Brier **0.265**. LoRA worsens calibration even while fitting
+the direct training pool, which reinforces the main story: direct-pattern
+learning and deployable cross-family score behavior are different things.
 
 ## 8. What The Plots Say
 
@@ -160,9 +200,14 @@ from canonical artifacts:
 
 - F1 shows pooled OOD AUPRC against the random floor.
 - F2 shows paired frozen-probe vs LoRA deltas on comparable both-class slices.
-- F3 shows which slices have defined AUPRC and which are single-class `N/A`.
+- F3 shows which slices have defined AUPRC and which slices are single-class.
 - F4 shows validation-threshold transfer failure.
 - F5 shows calibration error by detector.
+
+The direct-performance tables are text tables rather than figures because the
+validation and LODO-direct views answer different questions: balanced
+validation supports AUPRC/AUROC, while LODO direct-source test supports recall
+only.
 
 Each `docs/plots/F*.meta.json` sidecar records `data_mode: canonical`, the
 source artifact, ADR-062, commit SHA, and generation time.

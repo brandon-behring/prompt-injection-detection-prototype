@@ -8,7 +8,15 @@ description: "Canonical results page for the prompt-injection classifier evaluat
 This page is the evidence layer behind the landing page. It gives exact values,
 five canonical figures, and pointers to the raw artifacts that produced them.
 
-> *How to read this page*: scan the **Metric Primer** (§Metric Primer below) if AUPRC or confidence intervals are new. Then **§1 Primary Table** is the headline number; **§1B** answers the natural follow-up question (does a bigger backbone fix the OOD gap?); **§2–§5** drill into the specific findings (frozen-probe vs LoRA delta; per-slice view; threshold transfer; calibration). **§6 AUROC** is reported for comparison with prior work. **§7 Raw Artifacts** is for readers who want to verify or extend the analysis.
+**How to read this page:**
+
+1. Scan the **Metric Primer** if AUPRC or confidence intervals are new.
+2. Read **Direct Prompt-Injection Performance** and **§1 Cross-Family OOD
+   Table** together. The direct task was learned; cross-family generalization
+   failed.
+3. Use **§1B–§5** for the follow-up findings: DeBERTa ablation, frozen-probe
+   vs LoRA, per-slice behavior, threshold transfer, and calibration.
+4. Use **§6–§7** for AUROC comparison and raw artifact pointers.
 
 ## Metric Primer
 
@@ -24,26 +32,70 @@ five canonical figures, and pointers to the raw artifacts that produced them.
   interval crossing an important baseline means the claim is weak.
 - **ECE and Brier** are calibration errors. Lower is better.
 
-## 1. Primary Table: AUPRC
+## Direct Prompt-Injection Performance
+
+The detectors did learn direct prompt-injection patterns. This matters because
+the OOD result is not a total capability failure: they learned the direct task,
+then failed to carry that skill cleanly across attack-family shift.
+
+**Balanced validation view.** Source:
+`evals/predictions_val/`, pooled across trained in-house detectors, folds, and
+seeds. This split contains direct-injection positives and benign negatives, so
+AUPRC, AUROC, and recall are all defined.
+
+| Detector | Direct+benign validation AUPRC | AUROC | Recall@0.5 | Read |
+|---|---:|---:|---:|---|
+| ModernBERT LoRA | **0.974** | **0.993** | **0.934** | strong direct-pattern detection |
+| TF-IDF + LR | 0.971 | 0.992 | 0.930 | lexical direct baseline is also strong |
+| ModernBERT frozen probe | 0.653 | 0.907 | 0.849 | weaker ranking, still discriminative |
+
+**Held-out direct-source view.** Source:
+`evals/predictions/*__epoch2.parquet`, pooled across folds and seeds. This LODO
+test holds out one direct-injection source at a time. It is all positive by
+design, so the table reports recall only.
+
+| Detector | LODO direct-source recall@0.5 |
+|---|---:|
+| ModernBERT frozen probe | **0.641** |
+| ModernBERT LoRA | 0.625 |
+| ModernBERT full fine-tune | 0.558 |
+
+**Takeaway:** direct-prompt-injection detection was not the failure mode. The
+failure is transfer: success on direct examples did not produce robust OOD
+ranking or stable thresholds when the attack family changed. False positives,
+AUPRC, and AUROC are omitted from the LODO direct-source table because that
+test is all-positive.
+
+## 1. Cross-Family OOD Table: AUPRC
 
 Source: `evals/bootstrap/marginal_cells.parquet`, seed=1, BCa bootstrap with
-10000 resamples. Single-class slices are marked `N/A` because AUPRC requires
-both positives and negatives.
+10000 resamples. Single-class slices are omitted from this table because AUPRC
+requires both positives and negatives.
 
-> *Reading this table*: the headline column is **Pooled OOD AUPRC** (the rightmost binary-class column with both positives and negatives). A random ranking on Pooled OOD scores ≈ **0.374** — any detector at or below that floor is not clearly better than guessing. Per-slice columns (JBB, XSTest) refine the picture: a detector might be strong on one OOD family and weak on another. **What to look at**: (1) the magnitude of pooled OOD AUPRC vs the random floor; (2) the width of the 95% CI (a wide CI means low statistical confidence in the point estimate); (3) the cross-detector ordering on pooled OOD.
+**Reading this table:**
 
-| Detector \ Slice | JBB (100p/100n) | XSTest (200p/250n) | Pooled OOD (412p/689n) | BIPIA | InjecAgent | NotInject |
-|---|---:|---:|---:|---:|---:|---:|
-| ModernBERT frozen probe | 0.552 [0.520, 0.580] | 0.468 [0.448, 0.486] | **0.364 [0.354, 0.375]** | N/A | N/A | N/A |
-| ProtectAI v1 | 0.519 [0.437, 0.597] | 0.469 [0.415, 0.523] | 0.361 [0.330, 0.391] | N/A | N/A | N/A |
-| ProtectAI v2 | 0.556 [0.453, 0.648] | 0.382 [0.333, 0.429] | 0.314 [0.283, 0.345] | N/A | N/A | N/A |
-| ModernBERT LoRA | 0.535 [0.504, 0.563] | 0.467 [0.447, 0.486] | 0.293 [0.286, 0.301] | N/A | N/A | N/A |
-| TF-IDF + LR | 0.470 [0.443, 0.496] | 0.395 [0.379, 0.410] | 0.291 [0.283, 0.298] | N/A | N/A | N/A |
-| Random floor | 0.500 | 0.444 | 0.374 | undefined | undefined | undefined |
+- The headline column is **Pooled OOD AUPRC**, the rightmost column with both
+  positives and negatives.
+- A random ranking on Pooled OOD scores about **0.374**. Any detector at or
+  below that floor is not clearly better than guessing.
+- JBB and XSTest show whether a detector is strong on one OOD family but weak
+  on another.
+- The main checks are magnitude against the random floor, 95% CI width, and
+  cross-detector ordering on pooled OOD.
 
-**Takeaway:** the best pooled OOD AUPRC is the frozen probe at 0.364, but the
-random floor is 0.374. The honest reading is that none of these detectors clearly
-learned the cross-family OOD ranking problem.
+| Detector \ Slice | JBB (100p/100n) | XSTest (200p/250n) | Pooled OOD (412p/689n) |
+|---|---:|---:|---:|
+| ModernBERT frozen probe | 0.552 [0.520, 0.580] | 0.468 [0.448, 0.486] | **0.364 [0.354, 0.375]** |
+| ProtectAI v1 | 0.519 [0.437, 0.597] | 0.469 [0.415, 0.523] | 0.361 [0.330, 0.391] |
+| ProtectAI v2 | 0.556 [0.453, 0.648] | 0.382 [0.333, 0.429] | 0.314 [0.283, 0.345] |
+| ModernBERT LoRA | 0.535 [0.504, 0.563] | 0.467 [0.447, 0.486] | 0.293 [0.286, 0.301] |
+| TF-IDF + LR | 0.470 [0.443, 0.496] | 0.395 [0.379, 0.410] | 0.291 [0.283, 0.298] |
+| Random floor | 0.500 | 0.444 | 0.374 |
+
+**Takeaway:** this is where the direct-trained detectors break. The best pooled
+OOD AUPRC is the frozen probe at 0.364, but the random floor is 0.374. The
+honest reading is that none of these detectors clearly learned the cross-family
+OOD ranking problem.
 
 ![F1: Pooled OOD AUPRC vs random floor](docs/plots/F1.svg)
 
@@ -187,23 +239,32 @@ cross-family ranking failure.
 AUROC is reported for comparison with other work, but AUPRC is the headline
 metric because this task is imbalanced.
 
-| Detector \ Slice | JBB | XSTest | Pooled OOD | BIPIA | InjecAgent | NotInject |
-|---|---:|---:|---:|---:|---:|---:|
-| ModernBERT frozen probe | 0.542 [0.520, 0.565] | 0.537 [0.522, 0.552] | **0.515 [0.505, 0.525]** | N/A | N/A | N/A |
-| ModernBERT LoRA | 0.528 [0.505, 0.552] | 0.530 [0.515, 0.546] | 0.383 [0.374, 0.392] | N/A | N/A | N/A |
-| TF-IDF + LR | 0.445 [0.422, 0.469] | 0.451 [0.436, 0.466] | 0.371 [0.362, 0.381] | N/A | N/A | N/A |
-| ProtectAI v1 | 0.533 [0.464, 0.602] | 0.544 [0.497, 0.589] | 0.440 [0.409, 0.469] | N/A | N/A | N/A |
-| ProtectAI v2 | 0.594 [0.512, 0.671] | 0.391 [0.341, 0.442] | 0.402 [0.369, 0.437] | N/A | N/A | N/A |
-| Random floor | 0.500 | 0.500 | 0.500 | undefined | undefined | undefined |
+Single-class slices are omitted here for the same reason as the AUPRC table:
+AUROC requires both positives and negatives.
+
+| Detector \ Slice | JBB | XSTest | Pooled OOD |
+|---|---:|---:|---:|
+| ModernBERT frozen probe | 0.542 [0.520, 0.565] | 0.537 [0.522, 0.552] | **0.515 [0.505, 0.525]** |
+| ModernBERT LoRA | 0.528 [0.505, 0.552] | 0.530 [0.515, 0.546] | 0.383 [0.374, 0.392] |
+| TF-IDF + LR | 0.445 [0.422, 0.469] | 0.451 [0.436, 0.466] | 0.371 [0.362, 0.381] |
+| ProtectAI v1 | 0.533 [0.464, 0.602] | 0.544 [0.497, 0.589] | 0.440 [0.409, 0.469] |
+| ProtectAI v2 | 0.594 [0.512, 0.671] | 0.391 [0.341, 0.442] | 0.402 [0.369, 0.437] |
+| Random floor | 0.500 | 0.500 | 0.500 |
 
 ## 7. Raw Artifacts
 
-If you want to verify the numbers above or do your own slice / threshold / calibration analysis, the raw evaluation artifacts are committed under `evals/`. You do not need these to understand the results — the tables and figures above are sufficient — but they are here if you want to audit the math, re-render the figures, or extend the analysis. All five figures (F1–F5) record their source-artifact paths in the per-figure `.meta.json` sidecars next to the SVGs in `docs/plots/`.
+The tables and figures above are enough to understand the result. The raw
+evaluation artifacts are committed under `evals/` for readers who want to audit
+the math, re-render figures, or extend the analysis.
+
+All five figures (F1–F5) record their source-artifact paths in the per-figure
+`.meta.json` sidecars next to the SVGs in `docs/plots/`.
 
 | Artifact | Role |
 |---|---|
 | `evals/bootstrap/marginal_cells.parquet` | AUPRC/AUROC point estimates and marginal CIs |
 | `evals/bootstrap/paired_cells.parquet` | paired-bootstrap detector-vs-detector differences |
+| `evals/predictions_val/` | direct+benign validation predictions used for direct-performance checks |
 | `evals/metrics/per_cell.parquet` | per-detector, per-fold, per-seed metrics including ECE and Brier |
 | `evals/operating_points/dual_policy.parquet` | validation-fitted detection and verification thresholds |
 | `evals/predictions/` | per-row predictions used by downstream analyses |

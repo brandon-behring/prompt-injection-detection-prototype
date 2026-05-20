@@ -13,9 +13,21 @@ designs.
 
 ## Bottom Line
 
-Training on direct prompt-injection examples did **not** produce a detector that
-generalized to different attack families. On the pooled OOD slice, no evaluated
-detector clearly beat the AUPRC random floor of **0.374**.
+Training on direct prompt-injection examples produced real direct-pattern
+detection, but it did **not** produce a detector that generalized to different
+attack families. The co-headline is:
+
+**Direct detection works better; cross-family generalization fails.**
+
+| Result view | Best in-house result | Interpretation |
+|---|---:|---|
+| Balanced validation, direct + benign | LoRA AUPRC **0.974**, AUROC **0.993**, recall@0.5 **0.934** | the direct task was learned |
+| LODO held-out direct-source test | frozen-probe recall@0.5 **0.641** | held-out direct-source recall |
+| Pooled OOD | frozen-probe AUPRC **0.364** vs random floor **0.374** | cross-family ranking did not beat guessing |
+
+On the pooled OOD slice, no evaluated detector clearly beat the AUPRC random
+floor of **0.374**. The LODO held-out direct-source test is all-positive, so
+false positives, AUPRC, and AUROC are left out of that table.
 
 | Detector | Pooled OOD AUPRC | Interpretation |
 |---|---:|---|
@@ -49,14 +61,16 @@ detector clearly beat the AUPRC random floor of **0.374**.
 
 ## Main Findings
 
-1. **The OOD wall is cross-family.** The training pool is direct-injection
+1. **Direct detection worked better than OOD.** LoRA reached 0.974 AUPRC on
+   balanced direct+benign validation, while the best pooled OOD AUPRC was 0.364.
+2. **The OOD wall is cross-family.** The training pool is direct-injection
    heavy, while the OOD slate includes attack families absent from training.
-2. **Fine-tuning hurt.** LoRA scored 0.293 on pooled OOD, below the frozen
+3. **Fine-tuning hurt OOD.** LoRA scored 0.293 on pooled OOD, below the frozen
    probe's 0.364 and roughly tied with TF-IDF + LR.
-3. **Reference detectors are not monotone by version.** ProtectAI v2 improves
+4. **Reference detectors are not monotone by version.** ProtectAI v2 improves
    one slice but regresses on another, so "newer" does not mean universally
    better.
-4. **Thresholds are fragile.** Validation thresholds understate how many false
+5. **Thresholds are fragile.** Validation thresholds understate how many false
    positives appear on held-out sources.
 
 ## What This Does Not Claim

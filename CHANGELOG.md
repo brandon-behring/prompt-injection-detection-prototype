@@ -18,6 +18,23 @@ Named tags map to phase gates (refined at Phase 0-07 per ADR-033):
 
 Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closing ADRs.
 
+## [Unreleased]
+
+### Changed
+
+- **Direct-injection results co-headlined** — `README.md` and primary reader
+  surfaces now show the direct-performance story alongside the OOD story:
+  balanced direct+benign validation is strong, LODO direct-source recall is
+  reported honestly as recall-only, and pooled OOD remains the cross-family
+  failure mode.
+- **Writeup result map clarified** — the methodology hub now inventories the
+  major findings instead of only foregrounding pooled OOD: direct learning,
+  OOD failure, LoRA-vs-frozen behavior, DeBERTa null ablation, threshold
+  fragility, calibration, and reference-detector slice dependence.
+- **Guide polish tightened** — `NEXT_STEPS.md` now uses real bullet lists for
+  status entries, and the hiring-manager / reading-guide path is split into
+  shorter scan-friendly blocks.
+
 ## [1.2.8] — 2026-05-19
 
 **Patch release**: rendered-site hardening plus dependency/ledger maintenance.

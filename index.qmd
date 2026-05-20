@@ -10,11 +10,12 @@ description: "Plain-language landing page for the prompt-injection classifier ev
 Prompt injection is untrusted text that tries to override the instructions an
 LLM system is supposed to follow. This project asks a narrow question: when
 several simple prompt-injection detectors are trained on direct
-instruction-override examples, do they still work when the attack family
-changes?
+instruction-override examples, can they detect that pattern, and do they still
+work when the attack family changes?
 
-The short answer is **mostly no**. The evaluation is useful because it makes
-that failure visible instead of hiding it behind an in-domain score.
+The short answer is: **direct detection works better; cross-family
+generalization fails**. The evaluation is useful because it shows both halves
+of that story instead of hiding the OOD failure behind a strong direct score.
 
 Here, **out-of-distribution (OOD)** means examples drawn from attack families
 that were absent or underrepresented in training.
@@ -33,10 +34,21 @@ that were absent or underrepresented in training.
 
 ## Headline Result
 
-The main metric is **AUPRC**, which is useful for imbalanced binary
-classification. On this pooled OOD slice, a random ranking scores **0.374**
-because 412 of 1101 examples are positive. A detector needs to beat that floor
-to show useful ranking signal.
+The direct prompt-injection numbers are real: on the balanced validation split
+containing direct-injection positives plus benign negatives, LoRA reaches
+**0.974 AUPRC**, **0.993 AUROC**, and **0.934 recall@0.5**. TF-IDF + logistic
+regression is similar, and the frozen probe is weaker but still discriminative
+at **0.653 AUPRC**.
+
+The direct held-out-source test is stricter but all-positive by design, so it
+can only report recall, not false positives or AUPRC/AUROC. On that LODO
+direct-source test, recall@0.5 is **0.641** for frozen probe, **0.625** for
+LoRA, and **0.558** for full fine-tuning.
+
+The failure appears when the family changes. On pooled OOD, the main metric is
+**AUPRC**, which is useful for imbalanced binary classification. A random
+ranking scores **0.374** because 412 of 1101 examples are positive. A detector
+needs to beat that floor to show useful ranking signal.
 
 | Detector | Pooled OOD AUPRC | 95% CI | Read |
 |---|---:|---:|---|
@@ -46,21 +58,31 @@ to show useful ranking signal.
 | ModernBERT LoRA | 0.293 | [0.286, 0.301] | Fine-tuning hurt OOD ranking |
 | TF-IDF + LR | 0.291 | [0.283, 0.298] | Classical floor, roughly tied with LoRA |
 
-> *Reading the table*: **Pooled OOD AUPRC** is the area under the precision-recall curve on the combined out-of-distribution (OOD) test slices — five held-out attack and benign sources (BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject) that no detector saw during training. A random ranking on this slate scores ≈ **0.374** (the positive-class prevalence, 412/1101). Any detector at or below the random floor is not clearly better than guessing. The 95% confidence interval (CI) width is the noise floor for a comparison; if two detectors' CIs overlap heavily, the difference between them is not statistically meaningful.
+**Reading the table:**
+
+- **Pooled OOD AUPRC** is the area under the precision-recall curve on the
+  combined held-out attack-family slate.
+- A random ranking on this slate scores about **0.374** because 412 of 1101
+  examples are positive.
+- Any detector at or below that floor is not clearly better than guessing.
+- The 95% confidence interval (CI) is the uncertainty band around the score.
 
 ## What This Means
 
-1. **The failure is cross-family.** The models saw direct prompt injections in
-   training, but the OOD slate includes attack families they did not see.
-2. **Fine-tuning did not help.** LoRA fits the direct-injection training pool
-   and loses much of the OOD signal present in the frozen backbone.
-3. **A newer detector is not automatically better.** ProtectAI v2 improves one
+1. **Direct detection was learned.** The trained detectors can separate direct
+   prompt injections from benign validation examples.
+2. **The failure is cross-family.** The OOD slate includes attack families the
+   direct-trained detectors did not see.
+3. **Fine-tuning did not help OOD.** LoRA fits the direct-injection training
+   pool and loses much of the OOD signal present in the frozen backbone.
+4. **A newer detector is not automatically better.** ProtectAI v2 improves one
    slice but regresses on another.
-4. **Thresholds do not transfer cleanly.** A threshold tuned for 1% false
+5. **Thresholds do not transfer cleanly.** A threshold tuned for 1% false
    positives on validation can produce much higher false-positive rates on
    held-out sources.
-5. **The honest result is negative.** The project demonstrates the evaluation
-   harness and the limits of the trained detectors, not a ready-to-ship model.
+6. **The accomplishment is characterization.** The project demonstrates the
+   evaluation harness, direct-pattern learning, and the limits of the trained
+   detectors under family shift.
 
 ## Read Next
 

@@ -15,12 +15,14 @@ Goal: understand the problem, the result, and what the project demonstrates.
 1. [Landing page](index.qmd): problem, setup, headline result, limits.
 2. [For hiring managers in a hurry](docs/for-hiring-managers.md): 60-second
    version of the problem, finding, trust basis, and candidate signal.
-3. [Results](RESULTS.md): skim F1 and the primary AUPRC table.
+3. [Results](RESULTS.md): skim Direct Prompt-Injection Performance and the
+   Cross-Family OOD table together.
 4. [Executive summary](EXECUTIVE_SUMMARY.md): one-page version if you want a
    slightly fuller decision-maker view.
 
-What to take away: this is an honest negative result. The detectors trained on
-direct prompt injection do not clearly generalize to different attack families.
+What to take away: this is an honest two-sided result. Direct prompt-injection
+detection works on balanced validation, but that learned signal does not
+clearly transfer to different attack families.
 
 ## Path B: Technical Reviewer, 45-60 Minutes
 
@@ -60,7 +62,9 @@ Four Jupytext-paired notebooks ship as static rendered HTML appendices with froz
 3. [`03_calibration`](notebooks/03_calibration.ipynb) — temperature + isotonic + Platt + Beta calibration on per-detector scores; reliability diagrams.
 4. [`04_ood_slate`](notebooks/04_ood_slate.ipynb) — per-OOD-slice AUPRC breakdown; identifies which sources drive the pooled-OOD gap.
 
-The notebooks render to static HTML on the Quarto site without re-execution (`execute.enabled: false` + `freeze: true` per v1.2.8). Operators regenerate the frozen outputs via `make notebooks` after pulling new evaluation parquets.
+The notebooks render to static HTML on the Quarto site without re-execution.
+Operators regenerate the frozen outputs via `make notebooks` after pulling new
+evaluation parquets.
 
 ## How To Read The Headline Numbers
 

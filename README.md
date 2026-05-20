@@ -4,11 +4,13 @@
 
 This is a methodology-focused prompt-injection classifier evaluation. It asks a
 simple question: if detectors are trained on direct prompt-injection examples,
-do they still work when the attack family changes?
+can they detect that pattern, and do they still work when the attack family
+changes?
 
-The headline answer is **mostly no**. On the pooled held-out attack-family
-slice (the out-of-distribution, or OOD, test), none of the evaluated detectors
-clearly beats the random floor for AUPRC, the primary ranking metric.
+The headline answer is two-sided: **direct detection works better;
+cross-family generalization fails**. The detectors learned direct prompt
+injection patterns, but none of the evaluated detectors clearly beat the random
+floor on the pooled held-out attack-family slice.
 
 ## What This Project Is
 
@@ -22,6 +24,19 @@ clearly beats the random floor for AUPRC, the primary ranking metric.
   Quarto-rendered documentation.
 
 ## Headline Result
+
+| Result view | Best in-house result | Read |
+|---|---:|---|
+| Balanced validation, direct + benign | LoRA AUPRC **0.974**, AUROC **0.993**, recall@0.5 **0.934** | direct-pattern detection worked |
+| LODO held-out direct-source test | frozen-probe recall@0.5 **0.641** | recall-only because the slice is all positive |
+| Pooled OOD | frozen-probe AUPRC **0.364** vs random floor **0.374** | cross-family ranking did not beat guessing |
+
+The balanced validation view shows that the detector stack can learn the direct
+prompt-injection pattern. The held-out direct-source test is stricter but
+all-positive, so false positives, AUPRC, and AUROC are omitted there. The OOD
+view is the hard failure mode.
+
+## Pooled OOD Table
 
 | Detector | Pooled OOD AUPRC | Read |
 |---|---:|---|
@@ -52,6 +67,8 @@ For `pooled_ood`, random AUPRC is **412 / 1101 = 0.374**. That is why the
 - **AUPRC**: primary ranking metric; random floor equals the positive rate.
 - **OOD**: out-of-distribution. Here the important shift is cross-family, not
   just a different source name.
+- **LODO**: leave-one-dataset-out. One source is held out while the detector is
+  trained on the others.
 - **FPR**: false-positive rate. A 1% FPR target means no more than one false
   alarm per 100 benign examples.
 - **ECE/Brier**: calibration errors; lower is better.
@@ -96,7 +113,8 @@ make headline-cloud   # optional full cloud reproduction path
 
 This does not cover multilingual attacks, encoded payloads, paraphrase
 robustness, adversarial perturbations, or full multi-turn system behavior. It
-is an evaluation artifact and a negative result, not a ready-to-ship detector.
+is an evaluation artifact and capability characterization, not a ready-to-ship
+detector.
 
 ## License
 
