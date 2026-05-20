@@ -1,5 +1,9 @@
 # Tech Stack
 
+> **Public-site note.** This is one part of the historical project
+> Constitution. It documents the library-first stack and process constraints,
+> not the headline results.
+
 This file is the Tech-Stack portion of the project Constitution (alongside `MISSION.md` and `ROADMAP.md`). Each component listed here is locked in as the default; substitution is possible but requires an ADR explaining the swap.
 
 ## Load-bearing libraries

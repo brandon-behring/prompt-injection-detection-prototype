@@ -1,5 +1,9 @@
 # Mission
 
+> **Public-site note.** This is one part of the historical project
+> Constitution. It explains the original scope discipline; read the README or
+> Results page first for the completed-project story.
+
 This file is the Mission portion of the project Constitution. SPEC_GREENFIELD.md links to this file (along with `TECH_STACK.md` and `ROADMAP.md`) as the three-file Constitution. Together they replace what would otherwise be the `## Constitution` section of a single-file spec.
 
 ## Vision

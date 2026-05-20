@@ -1,5 +1,9 @@
 # Upstream issues filed during this iteration
 
+> **How to read this page.** This is the evidence ledger behind the
+> anti-hand-rolling rule. It is dense by design: each row ties a discovered
+> upstream gap to the project code or documentation that depended on it.
+
 Ledger tying anti-hand-rolling discipline to its evidence. Every discovered library gap, bug, or feature request is filed to the relevant upstream GitHub repo before any local workaround. Local site lists where the dependency or workaround lives in this repo.
 
 Filed issues go to:
@@ -9,6 +13,17 @@ Filed issues go to:
 - `brandon-behring/research_toolkit` — dossier production
 
 Triage label on filed issues: `tracked`.
+
+## Current interpretation
+
+- Many early eval-toolkit gaps are now resolved and consumed; stale local
+  workaround annotations should not be read as active debt unless the status
+  column still says filed or contribution pending.
+- The v1.2.8 dependency bump records eval-toolkit #48, #49, and #53 as
+  library-first maintenance only. It does not add a new methodology claim or
+  change the reported results.
+- Demo-strategy ideas such as activation-delta analysis stay outside this
+  patch unless a future ADR scopes them into the project.
 
 | Date | Repo | Issue # | Title | Local site (file:line) | Status |
 |---|---|---|---|---|---|

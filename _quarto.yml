@@ -76,17 +76,28 @@ website:
         menu:
           - text: "For hiring managers in a hurry"
             href: docs/for-hiring-managers.md
-          - EXECUTIVE_SUMMARY.md
-          - EVIDENCE.md
-          - SPEC_SHEET.md
-          - SUBMISSION_AUDIT.md
+          - text: "Public site reader map"
+            href: docs/site-reader-map.md
+          - text: "Executive summary"
+            href: EXECUTIVE_SUMMARY.md
+          - text: "Evidence ledger"
+            href: EVIDENCE.md
+          - text: "Spec lock sheet"
+            href: SPEC_SHEET.md
+          - text: "Submission audit ledger"
+            href: SUBMISSION_AUDIT.md
           - text: "Carryforward + future work"
             href: NEXT_STEPS.md
-          - assumptions.md
-          - notebooks/01_canonical_results.ipynb
-          - notebooks/02_frozen_vs_lora.ipynb
-          - notebooks/03_calibration.ipynb
-          - notebooks/04_ood_slate.ipynb
+          - text: "Assumptions registry"
+            href: assumptions.md
+          - text: "Notebook: canonical results"
+            href: notebooks/01_canonical_results.ipynb
+          - text: "Notebook: frozen vs LoRA"
+            href: notebooks/02_frozen_vs_lora.ipynb
+          - text: "Notebook: calibration"
+            href: notebooks/03_calibration.ipynb
+          - text: "Notebook: OOD slate"
+            href: notebooks/04_ood_slate.ipynb
       - text: Repo
         href: https://github.com/brandon-behring/prompt-injection-detection-prototype
         target: _blank
@@ -127,14 +138,20 @@ website:
           - notebooks/04_ood_slate.ipynb
       - section: "Evidence + audit"
         contents:
-          - EVIDENCE.md
+          - text: "Evidence ledger"
+            href: EVIDENCE.md
       - section: "Reference"
         contents:
-          - SPEC_SHEET.md
-          - SUBMISSION_AUDIT.md
+          - text: "Public site reader map"
+            href: docs/site-reader-map.md
+          - text: "Spec lock sheet"
+            href: SPEC_SHEET.md
+          - text: "Submission audit ledger"
+            href: SUBMISSION_AUDIT.md
           - text: "Carryforward + future work"
             href: NEXT_STEPS.md
-          - assumptions.md
+          - text: "Assumptions registry"
+            href: assumptions.md
       - section: "Decisions (ADRs)"
         contents:
           - decisions/README.md
@@ -144,10 +161,11 @@ website:
 format:
   html:
     theme: cosmo
+    css: styles.css
     toc: true
     toc-depth: 3
     toc-location: right
     code-fold: false
-    code-tools: true
+    code-tools: false
     link-external-newwindow: true
     citeproc: false

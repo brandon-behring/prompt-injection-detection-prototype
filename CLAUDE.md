@@ -1,5 +1,8 @@
 # Project-level Claude instructions
 
+> **Public-site note.** This is an operator/agent instruction file rendered for
+> transparency. It is not part of the main results narrative.
+
 This is a case-study submission repo using SDD (spec-driven development).
 Before any work, read `SPEC_GREENFIELD.md` (the binding spec).
 

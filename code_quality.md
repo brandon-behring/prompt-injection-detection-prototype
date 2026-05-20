@@ -1,5 +1,8 @@
 # Code quality discipline
 
+> **Public-site note.** This is an implementation-discipline reference. It
+> explains the repo's quality gates; it is not a results page.
+
 `[LOCKED]` discipline. Concrete values populated at Phase 1; placeholders below mark the choices Phase 0 / Phase 1 must lock.
 
 ## Lint + format

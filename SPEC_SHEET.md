@@ -1,27 +1,91 @@
 # Project specification (filled at end of Phase 0)
 
-**Status**: `[LOCKED]` (Phase 0 through Phase 5 closed; **63 ADRs accepted through v1.1.3** spanning Phase 0-00 through the v1.1.3 doc-clarity baseline; landmark closes at v1.0.4 include ADR-050 rung-slate narrowing + ADR-051 v1.0.x carryforward + ADR-052 full-FT OOD methodological reframing + ADR-053 reading-guide governance; landmark closes at v1.1.x include ADR-059 runpod-deploy PyPI switch + ADR-060 DeBERTa methodology lock + ADR-061 Quarto navigation restructure + ADR-062 writeup clarity rewrite + ADR-063 DeBERTa execution carryforward; every `[OPEN]` ledger row in SPEC_GREENFIELD locked to an ADR; remaining `[OPEN]` text references in this doc are documentation about the spec lifecycle convention, not unresolved decisions; rung-language alignment to ADR-050 narrowing landed at Item 7 of the v1.0.0 closure sweep; reading-guide headline-paragraph alignment to ADR-050 landed at v1.0.4)
-**Type**: Single-version SDD spec; revisions tracked via ADRs (Michael Nygard format)
+> **How to read this page.** This is a historical spec-lock sheet. It is useful for
+> auditing what Phase 0 locked and how later phases propagated those decisions. It is
+> not the best first read for the project story; start with `README.md`, `RESULTS.md`,
+> or `WRITEUP.md` instead.
 
-> **Role of this document.** SPEC_GREENFIELD.md is the authoritative pre-Phase-0 spec — it defines the contract and the open decisions. SPEC_SHEET.md is the post-Phase-0 fill-in form: same skeleton, but each `[OPEN]` row gets replaced with `[LOCKED: <chosen value>]` once Phase 0 resolves it. Phase 1 cannot begin until SPEC_SHEET.md has zero `[OPEN]` rows.
+**Current state**: locked historical spec sheet. The current live site is in the
+v1.2.x patch series; later patches may clarify presentation, render quality, or
+status drift without changing the original Phase 0 methodology contract. ADRs
+remain the source of truth for decision changes.
 
-> **Companion docs**:
-> - [`code_quality.md`](./code_quality.md) — implementation discipline
-> - [`assumptions.md`](./assumptions.md) — registry of unverified assumptions
-> - [`decisions/`](./decisions/) — ADR index + immutable decision records
-> - [`EVIDENCE.md`](./EVIDENCE.md) — external-evidence audit trail
+**Type**: Single-version SDD spec; revisions tracked through Michael Nygard ADRs.
 
----
+## Companion docs
 
-## Context
+- [`code_quality.md`](./code_quality.md) - implementation discipline.
+- [`assumptions.md`](./assumptions.md) - historical assumptions with current-state overlay.
+- [`decisions/`](./decisions/) - ADR index and immutable decision records.
+- [`EVIDENCE.md`](./EVIDENCE.md) - external-evidence audit trail.
+- [`SUBMISSION_AUDIT.md`](./SUBMISSION_AUDIT.md) - generated claim-status ledger.
 
-This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on 2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase 0-05 + Phase 0-06 + Phase 0-07 + Phase 0-08 (and post-Phase-0-08 final audit per ADR-040 surfacing 7 backfilled assumptions A-010 through A-016)** (4-rung trained slate — TF-IDF + LR classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus 2 reference rungs at their published native configs — `protectai/deberta-v3-base-prompt-injection` (v1) + `protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 (superseded by ADR-050 R1; LLM judges `gpt-4o-2024-08-06` + `claude-sonnet-4-6` dropped Phase 4 on cost re-estimation per ADR-050 R1) partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) — with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke), paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci` (Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy` 0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC + adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full 5-rung OOD slate (2 trained + 2 reference + 1 classical) + 4-rung LODO ladder is stratified along ADR-005's three-state contamination taxonomy (per ADR-018 + ADR-050 R1) — TF-IDF+LR verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2 suspected_contamination (vendor_black_box tier empty per ADR-050 R1; 3-tier gradient compressed from the original 4) — making contamination disclosure a methodology axis rather than a footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100 prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed) values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a public GitHub repo rendered as a Quarto-built static HTML site auto-published to GitHub Pages via a `quarto-actions/publish@v2` workflow (per ADR-030 supersedes ADR-002 — PDF removed; pandoc + LaTeX dependencies dropped). The site uses an `index.qmd` entry-point + Quarto sidebar nav declared in `_quarto.yml` to surface 8 spokes + decisions/ ADRs to a dual A1+A2 audience (hiring manager + ML researcher; per ADR-031 supersedes ADR-004 — A1+A2 + B4 + hub-and-spoke survive; hub artefact shifts from PDF to Quarto site). The submission is governed by three project-level methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even when models look worse, and structured limitations with extension conditions.
+## Current-state orientation
 
-- **Locked methodology defaults**: process discipline + validated content patterns are `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams, OOD slate, budget) are `[OPEN]` for Phase 0
-- **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview
-- **Open at start of Phase 0**: see SPEC_GREENFIELD ledger appendix for the ~50 [OPEN] decisions resolved during the interview
+- The spec was locked before implementation; it intentionally preserves some
+  Phase 0 language and historical status conventions.
+- Later v1.x patches may narrow, supersede, or clarify individual decisions via
+  ADRs and changelog entries. Read the relevant ADR when current and historical
+  wording differ.
+- The page is organized as an audit artifact, not a narrative. The main reader
+  path summarizes the project in plain language before linking here.
 
-This is an **exploration spec** for an SDD-disciplined iteration — not a production system, not a paper, not a publishable benchmark. The work is *methodology + capability characterization braided*: characterize what each capability layer adds, using an evaluation methodology rigorous enough to detect real differences and quantify uncertainty.
+<details>
+<summary>Historical Phase-0 context retained for auditability</summary>
+
+This submission targets the morning of 2026-05-18 (≈ 2.5 working days from Phase 0-00 start on
+2026-05-15), with **Long-scope ambition refined by Phase 0-01 + Phase 0-03 + Phase 0-04 + Phase
+0-05 + Phase 0-06 + Phase 0-07 + Phase 0-08 (and post-Phase-0-08 final audit per ADR-040
+surfacing 7 backfilled assumptions A-010 through A-016)** (4-rung trained slate — TF-IDF + LR
+classical floor per ADR-017 + ModernBERT-base × {frozen-probe, LoRA, full-FT} per ADR-015 — plus
+2 reference rungs at their published native configs —
+`protectai/deberta-v3-base-prompt-injection` (v1) +
+`protectai/deberta-v3-base-prompt-injection-v2` per ADR-018 (superseded by ADR-050 R1; LLM
+judges `gpt-4o-2024-08-06` + `claude-sonnet-4-6` dropped Phase 4 on cost re-estimation per
+ADR-050 R1) partially supersedes ADR-015 reference slate (Lakera dropped, ProtectAI v1 added) —
+with 3-seed multi-seed protocol per ADR-006 floor formalized per ADR-022 paired-across-rungs
+implementation, full OOD slate aggregated per ADR-021 (pooled headline + per-slice spoke),
+paired-bootstrap apparatus per ADR-006 + ADR-022 with cross-fold CI via eval-toolkit `cv_clt_ci`
+(Bayle 2020) headline + block-bootstrap-on-folds spoke ablation per ADR-024, and calibration
+battery via raw + temperature + isotonic interventions per ADR-023) leveraging `runpod-deploy`
+0.7.7 + `eval-toolkit` library infrastructure (per ADR-020 — 8-class GPU failover + dual-DC +
+adaptive batch + dual-layer cost cap; per ADR-022 joblib parallelization on 64-core Threadripper
+at orchestrator layer), and an explicit fallback ladder updated per ADR-015 (1×3 → 1×2 → 1×1 for
+transformer rungs; TF-IDF+LR classical floor retained across all fallbacks per ADR-017) that
+activates if mid-Phase-2 surfaces infeasibility (per ADR-001). The single-backbone refinement
+eliminates the per-backbone-truncation confound on the indirect-injection zero-shot OOD slice
+that the original 2-backbone framing would have produced (per ADR-014 Q3/Q4 walk). The full
+5-rung OOD slate (2 trained + 2 reference + 1 classical) + 4-rung LODO ladder is stratified
+along ADR-005's three-state contamination taxonomy (per ADR-018 + ADR-050 R1) — TF-IDF+LR
+verified_disjoint anchor + transformer rungs backbone-partial-disjoint + ProtectAI v1/v2
+suspected_contamination (vendor_black_box tier empty per ADR-050 R1; 3-tier gradient compressed
+from the original 4) — making contamination disclosure a methodology axis rather than a
+footnote. Total: 48 trained runs (4 rungs × 3 seeds × 4 LODO folds; TF-IDF+LR runs are sklearn
+CPU, transformer runs are H100/equivalent bf16 with per-epoch prediction save) plus 100
+prediction parquet files (84 trained + 16 reference) feeding cv_clt_ci on 12 per-(fold, seed)
+values per rung plus per-row paired-bootstrap on pooled rows. The deliverable is a public GitHub
+repo rendered as a Quarto-built static HTML site auto-published to GitHub Pages via a
+`quarto-actions/publish@v2` workflow (per ADR-030 supersedes ADR-002 — PDF removed; pandoc +
+LaTeX dependencies dropped). The site uses an `index.qmd` entry-point + Quarto sidebar nav
+declared in `_quarto.yml` to surface 8 spokes + decisions/ ADRs to a dual A1+A2 audience (hiring
+manager + ML researcher; per ADR-031 supersedes ADR-004 — A1+A2 + B4 + hub-and-spoke survive;
+hub artefact shifts from PDF to Quarto site). The submission is governed by three project-level
+methodology principles (ADR-005): methodology over metrics, honest evaluation preferred even
+when models look worse, and structured limitations with extension conditions.
+
+- **Locked methodology defaults**: process discipline + validated content patterns are
+  `[LOCKED]` generically; project-specific instantiation details (datasets, rungs, hyperparams,
+  OOD slate, budget) are `[OPEN]` for Phase 0.
+- **Resolved at Phase 0**: see `decisions/` for ADRs locked during the spec interview.
+- **Open at start of Phase 0**: see SPEC_GREENFIELD ledger appendix for the ~50 [OPEN]
+  decisions resolved during the interview.
+
+This is an **exploration spec** for an SDD-disciplined iteration — not a production system, not
+a paper, not a publishable benchmark. The work is *methodology + capability characterization
+braided*: characterize what each capability layer adds, using an evaluation methodology rigorous
+enough to detect real differences and quantify uncertainty.
+
+</details>
 
 ---
 

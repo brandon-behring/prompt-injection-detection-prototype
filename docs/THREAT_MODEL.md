@@ -1,5 +1,9 @@
 # Threat model — summary
 
+> **Public-site note.** This is a scope reference. It tells you which attack
+> classes were in scope and which were deliberately deferred; it does not
+> claim deployment coverage.
+
 This file is a convenience aggregator. Canonical content lives in `WRITEUP.md` §0 + §5.6; the decision ledger rows in `SPEC_GREENFIELD.md` §0 Threat are the lock points for what's in / out of scope. This file gives a single-page security-flavor entry to those.
 
 ## Attack classes named

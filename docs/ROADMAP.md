@@ -1,5 +1,9 @@
 # Roadmap
 
+> **Public-site note.** This is the historical process roadmap. It preserves
+> phase gates and operator follow-ups for auditability; the current project
+> results live in README, Results, and Writeup.
+
 This file is the Roadmap portion of the project Constitution (alongside `MISSION.md` and `TECH_STACK.md`). The phases below are `[LOCKED]` as discipline (each phase has a checklist of work-completed and tests-passing — never metric thresholds, so the eval reports what was found rather than what was needed to advance). Phase structure may be tailored to project specifics; the recommendation below works for a typical instantiation.
 
 ## Phase 0 — Spec lock-in interview `[LOCKED]`

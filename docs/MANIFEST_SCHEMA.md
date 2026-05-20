@@ -1,5 +1,8 @@
 # Manifest schema
 
+> **Public-site note.** This is a technical provenance reference for people
+> inspecting run artifacts. It is not a required first read.
+
 Every canonical evaluation run produces a `manifest.json` capturing provenance. The schema is owned upstream by [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) and has evolved across versions:
 
 - `manifest.v1.json` — original NeurIPS-aligned schema (git_sha, code_versions, env, gpu_info, seeds, data_hashes, config_hash, leakage_report, versioned_objects, source_roles, guardrails, prediction_artifacts)

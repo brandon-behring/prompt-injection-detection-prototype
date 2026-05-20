@@ -1,8 +1,25 @@
 # Library imports — discipline ledger
 
+> **How to read this page.** This is a reference ledger for auditing
+> library-first discipline. It is not a first-read narrative page. Use it when
+> you want to verify that generic evaluation, orchestration, and research
+> primitives came from the load-bearing libraries instead of being reimplemented
+> locally.
+
 This repo uses three load-bearing libraries (see `SPEC_GREENFIELD.md` §Tech-Stack). Anything implementable as a library primitive is filed upstream (see `upstream_issues.md`); this ledger lists what is actually imported / invoked from each library. Updated incrementally as code lands.
 
 The ledger is **positive evidence**: not just "we don't hand-roll" but "here is exactly what we use from each library." Reviewer-readable; CI-friendly.
+
+## At-a-glance
+
+- `eval-toolkit`: metrics, bootstrap CIs, calibration, thresholding,
+  leakage/dedup primitives, and plotting helpers.
+- `runpod-deploy`: RunPod validation, launch, lifecycle, manifest, cost, and
+  FUSE-workspace operational recipes.
+- `research_toolkit`: research dossier production skills used before Phase 0
+  decisions were locked.
+- Project-local scripts remain allowed when they glue project-specific data,
+  paths, or submission audit surfaces around upstream primitives.
 
 ## Version pinning lock (Phase 0-08 per ADR-036)
 

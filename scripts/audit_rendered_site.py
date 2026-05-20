@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import re
 import sys
 from pathlib import Path
@@ -34,6 +35,14 @@ NOTEBOOK_INPUTS = [
     "04_ood_slate",
 ]
 LINK_RE = re.compile(r"""(?:href|src)=["']([^"']+)["']""")
+HTML_TAG_RE = re.compile(r"<[^>]+>")
+TABLE_CELL_RE = re.compile(r"<t[dh]\b[^>]*>(.*?)</t[dh]>", re.IGNORECASE | re.DOTALL)
+EMBEDDED_SOURCE_MARKERS = (
+    'class="btn code-tools-button"',
+    'id="quarto-code-tools-source"',
+    'id="quarto-embedded-source-code-modal"',
+)
+MAX_TABLE_CELL_CHARS = 1200
 
 
 def rel(path: Path, base: Path) -> str:
@@ -80,6 +89,34 @@ def rendered_raw_links(site_root: Path) -> list[str]:
     return failures
 
 
+def embedded_source_code_blocks(site_root: Path) -> list[str]:
+    failures: list[str] = []
+    for html_path in sorted(site_root.rglob("*.html")):
+        text = html_path.read_text(encoding="utf-8", errors="replace")
+        if any(marker in text for marker in EMBEDDED_SOURCE_MARKERS):
+            failures.append(rel(html_path, site_root))
+    return failures
+
+
+def _plain_text_from_html(fragment: str) -> str:
+    without_tags = HTML_TAG_RE.sub(" ", fragment)
+    return " ".join(html.unescape(without_tags).split())
+
+
+def long_table_cells(site_root: Path) -> list[str]:
+    failures: list[str] = []
+    for html_path in sorted(site_root.rglob("*.html")):
+        relative = rel(html_path, site_root)
+        if relative.startswith("decisions/ADR-"):
+            continue
+        text = html_path.read_text(encoding="utf-8", errors="replace")
+        for index, match in enumerate(TABLE_CELL_RE.finditer(text), start=1):
+            cell_text = _plain_text_from_html(match.group(1))
+            if len(cell_text) > MAX_TABLE_CELL_CHARS:
+                failures.append(f"{relative} cell {index}: {len(cell_text)} chars")
+    return failures
+
+
 def audit(site_root: Path) -> list[str]:
     failures: list[str] = []
     if not site_root.exists():
@@ -103,6 +140,20 @@ def audit(site_root: Path) -> list[str]:
     if raw_links:
         failures.append(
             "Rendered internal links still point at raw .md/.ipynb files:\n" + "\n".join(raw_links)
+        )
+
+    source_blocks = embedded_source_code_blocks(site_root)
+    if source_blocks:
+        failures.append(
+            "Rendered pages include Quarto embedded source-code blocks:\n"
+            + "\n".join(source_blocks)
+        )
+
+    long_cells = long_table_cells(site_root)
+    if long_cells:
+        failures.append(
+            f"Rendered non-ADR table cells exceed {MAX_TABLE_CELL_CHARS} characters:\n"
+            + "\n".join(long_cells)
         )
 
     notebook_html = sorted((site_root / "notebooks").glob("*.html"))

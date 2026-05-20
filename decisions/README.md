@@ -2,6 +2,11 @@
 
 ADRs document significant decisions in [Michael Nygard format](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions): `Status / Context / Decision / Consequences / Alternatives Considered`. Numbered sequentially. **Immutable**.
 
+> **How to read this section.** ADRs are historical decision records, not a
+> polished narrative. Start with the project README, Results, or Writeup for
+> the current story. Use ADRs when you need to audit why a decision was made,
+> what alternatives were rejected, or which later ADR superseded a prior lock.
+
 ## Lifecycle
 
 - New ADR → `decisions/ADR-NNN-<slug>.md`, status `Accepted` (or `Proposed` if pending review)

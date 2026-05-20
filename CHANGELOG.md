@@ -34,6 +34,12 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 - **Guide polish tightened** — `NEXT_STEPS.md` now uses real bullet lists for
   status entries, and the hiring-manager / reading-guide path is split into
   shorter scan-friendly blocks.
+- **Public reference pages made legible at root cause** — Quarto source-code
+  tools disabled for public docs; generated `SUBMISSION_AUDIT.md` now renders
+  from `scripts/regenerate_audit.py` as a claim index plus detail sections;
+  assumptions/spec/reference ledgers now carry current-state reader notes.
+  Docs-only; no methodology, model, data, compute, or `v1.0.0` reviewer-pin
+  change.
 
 ## [1.2.8] — 2026-05-19
 

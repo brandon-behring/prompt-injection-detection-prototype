@@ -1,5 +1,9 @@
 # Evidence — audit trail
 
+> **How to read this page.** This is a reference ledger for external-evidence
+> claims. It is useful when auditing contamination and source-faithfulness, but
+> it is not the project narrative.
+
 This document is the **single source of truth** for what external evidence
 was verified, what couldn't be, and what was left unresolved. Every claim in
 `WRITEUP.md` §7 that depends on external evidence has a corresponding entry
