@@ -78,6 +78,7 @@
 | CLAIM-068 | [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) | Accepted | v1.2.6 |
 | CLAIM-069 | [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) | Accepted | v1.2.6 |
 | CLAIM-070 | [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md) | Accepted | v1.2.8 |
+| CLAIM-071 | [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md) | Accepted |  |
 
 ## Claim details
 
@@ -2021,7 +2022,7 @@ SUBMISSION_AUDIT.md regenerates from the new ADR.
 
 **Status**: Accepted
 
-**Source**: User request 2026-05-16 (Phase 0 final audit before submission); 3-agent parallel audit findings; plan at /home/brandon_behring/.claude/plans/twinkly-weaving-puppy.md
+**Source**: User request 2026-05-16 (Phase 0 final audit before submission); 3-agent parallel audit findings; plan at the Phase 0 audit synthesis plan file (gitignored; emailed separately at submission)
 
 **Closing commit/ADR**: cc7ed9f
 
@@ -3670,5 +3671,46 @@ narrow immutability exceptions including this render-only Markdown syntax class;
 only the outer fence delimiter around the existing reproducibility-spoke Markdown example; `make
 site` emits no citation-processor or fenced-div warning for the affected ADR; `make audit` passes
 after regenerating SUBMISSION_AUDIT.md.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-071 - [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md): Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit
+
+**Status**: Accepted
+
+**Source**: 2026-05-20 audit re-verification; ADR-067 §C1 canonical mapping table + post-2026-05-20 audit extension; user request to close the documented-but-unexecuted authorization loop.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+ADR-067 + ADR-068 + ADR-069 + ADR-070 (2026-05-19, the four-ADR immutability-relaxation chain)
+authorized four narrow classes of in-place editorial fixes to immutable ADRs: slug typos (Class A),
+broken external references (Class B), publisher-URL to DOI canonicalization (Class C), render-only
+markdown corrections (Class D). The Class A authorization specifically said the slug substitutions
+would land in v1.2.2 and v1.2.6 commits, with corresponding patterns deleted from `.lycheeignore`.
+The substitution commits never landed. As of 2026-05-20 audit re-verification, 59 broken
+`decisions/ADR-NNN-<wrong-slug>.md` references still ship across 21 ADR files; ADR-067's own §C1
+substitution table contains 14 live broken markdown links in its wrong-slug column; the
+`.lycheeignore` patterns ADR-067 §C3 said would be removed at v1.2.2 are still present. This ADR
+closes the loop: applies the full slug-mapping table derived from ADR-067 §C1 + the post-2026-05-20
+audit extension (33 patterns total mapping to ~15 canonical files) across all 22 affected ADRs;
+strips the local-fs path leak in ADR-040
+(`/home/brandon_behring/.claude/plans/twinkly-weaving-puppy.md`, 3 occurrences); removes the
+corresponding `.lycheeignore` patterns; and removes the 2 ADR-029 misattribution references (which
+cited a non-existent "immutability ADR-029" slug — actual ADR-029 is
+`test-marker-strategy-four-marker-ratification`) per ADR-067 §C2.5 "remove without replacement"
+rule.
+
+**Acceptance criterion**
+
+`git grep "decisions/ADR-[0-9]\{3\}-[a-z0-9-]*\.md" decisions/ADR-*.md` shows zero references to
+non-existent ADR files (all targets resolve to existing canonical filenames). The `.lycheeignore` no
+longer contains the broken-slug patterns ADR-067 §C3 promised to remove at v1.2.2. The
+`/home/brandon_behring/.claude/plans/` path no longer appears in any committed file. CI lychee check
+passes on `decisions/` with the smaller ignore set.
 
 </div>

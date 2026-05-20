@@ -15,7 +15,7 @@ references:
   - SPEC_SHEET.md
   - SPEC_GREENFIELD.md
   - decisions/README.md
-  - decisions/ADR-005-project-level-methodology-principles.md
+  - decisions/ADR-005-methodology-principles.md
   - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md
 transcript: transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md
 ---

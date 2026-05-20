@@ -31,7 +31,7 @@ references:
   - https://resources.nvidia.com/en-us-tensor-core/nvidia-tensor-core-gpu-datasheet
   - decisions/ADR-015-rung-architecture-refinement.md
   - decisions/ADR-014-threat-model-bundle.md
-  - decisions/ADR-006-statistical-multi-seed-protocol.md
+  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-017-trained-rung-slate-expansion.md
 transcript: transcripts/2026-05-15__phase-0-03__model-scope.md
 ---

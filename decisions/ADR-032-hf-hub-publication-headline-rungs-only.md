@@ -17,7 +17,7 @@ references:
   - decisions/ADR-016-data-design-bundle.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
   - decisions/ADR-019-lora-and-transformer-training-recipe.md
-  - decisions/ADR-005-project-level-methodology-principles.md
+  - decisions/ADR-005-methodology-principles.md
 transcript: transcripts/2026-05-16__phase-0-07__submission-deliverables.md
 ---
 

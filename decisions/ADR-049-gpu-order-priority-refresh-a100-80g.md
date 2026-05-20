@@ -13,8 +13,8 @@ supersedes:
 superseded_by:
 references:
   - decisions/ADR-019-lora-and-transformer-training-recipe.md
-  - decisions/ADR-020-cost-cap-and-runpod-deploy.md
-  - decisions/ADR-033-tag-discipline-and-publish-pipeline.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
+  - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md
   - decisions/ADR-044-phase-2-training-implementation-bundle.md
   - decisions/ADR-046-phase-4-analysis-implementation-bundle.md
   - decisions/library_imports.md
@@ -137,8 +137,8 @@ The full-FT defer is documented in `docs/ROADMAP.md` Phase 4 close note rehearsa
 ## References
 
 - `decisions/ADR-019-lora-and-transformer-training-recipe.md` — 4-rung training recipe (classical-floor + frozen-probe + LoRA + full-FT)
-- `decisions/ADR-020-cost-cap-and-runpod-deploy.md` — ADR being partially superseded (gpu_order priority axis only)
-- `decisions/ADR-033-tag-discipline-and-publish-pipeline.md` — v0.9.0-rc1 rehearsal-tag dispatch + fix-forward via rc2 if rehearsal exposes issues
+- `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md` — ADR being partially superseded (gpu_order priority axis only)
+- `decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md` — v0.9.0-rc1 rehearsal-tag dispatch + fix-forward via rc2 if rehearsal exposes issues
 - `decisions/ADR-044-phase-2-training-implementation-bundle.md` — Phase 2 implementation bundle (per-rung orchestration Q6)
 - `decisions/ADR-046-phase-4-analysis-implementation-bundle.md` — Phase 4 implementation bundle (Q7 phase-tailoring lock that gates Phase 5 entry on rehearsal)
 - `decisions/library_imports.md` — runpod-deploy primitives invoked (unchanged by this ADR)

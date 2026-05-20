@@ -46,7 +46,7 @@ references:
   - decisions/ADR-034-reproducibility-tier-full-ladder.md
   - decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md
   - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md
-  - decisions/ADR-019-numerical-precision-bf16-vs-fp32.md
+  - decisions/ADR-019-lora-and-transformer-training-recipe.md
   - scripts/eval_from_hub.py
   - tests/smoke/test_eval_from_hub_smoke.py
   - evals/results.json

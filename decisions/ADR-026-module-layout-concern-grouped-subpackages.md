@@ -14,7 +14,7 @@ references:
   - https://packaging.python.org/en/latest/tutorials/packaging-projects/
   - https://hynek.me/articles/testing-packaging/
   - decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md
-  - decisions/ADR-020-cloud-orchestration-and-cost-discipline.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-022-statistical-inference-apparatus.md
   - decisions/ADR-023-calibration-battery-and-interventions.md
   - decisions/ADR-025-dual-policy-threshold-characterization.md

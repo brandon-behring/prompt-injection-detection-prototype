@@ -14,15 +14,15 @@ superseded_by:
 references:
   - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
-  - decisions/ADR-020-cost-cap-and-runpod-deploy.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md
   - decisions/ADR-022-statistical-inference-apparatus.md
   - decisions/ADR-023-calibration-battery-and-interventions.md
   - decisions/ADR-024-cross-fold-ci-methodology.md
   - decisions/ADR-025-dual-policy-threshold-characterization.md
   - decisions/ADR-026-module-layout-concern-grouped-subpackages.md
-  - decisions/ADR-031-writeup-hub-and-spoke-eight-spoke-structure.md
-  - decisions/ADR-033-tag-discipline-and-publish-pipeline.md
+  - decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.md
+  - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md
   - decisions/ADR-038-phase-tailoring-light-roadmap-edits.md
   - decisions/ADR-045-phase-3-evaluation-implementation-bundle.md
   - decisions/ADR-047-phase-1-library-first-carryforward-refactor.md
@@ -194,14 +194,14 @@ Phase 4 stays analysis-only (single-concern phase per ADR-038 phase-tailoring lo
 
 - `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` — MDE-on-every-CI source
 - `decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md` — 4 reference rungs source
-- `decisions/ADR-020-cost-cap-and-runpod-deploy.md` — Q5 cost-cap-gated interactive approval source
+- `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md` — Q5 cost-cap-gated interactive approval source
 - `decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md` — 5-slice OOD slate source
 - `decisions/ADR-022-statistical-inference-apparatus.md` — bootstrap apparatus source
 - `decisions/ADR-023-calibration-battery-and-interventions.md` — F4 reliability source
 - `decisions/ADR-024-cross-fold-ci-methodology.md` — Q3 cv_clt_ci + A-008 source
 - `decisions/ADR-025-dual-policy-threshold-characterization.md` — F7 dual-policy source
-- `decisions/ADR-031-writeup-hub-and-spoke-eight-spoke-structure.md` — WRITEUP spoke structure
-- `decisions/ADR-033-tag-discipline-and-publish-pipeline.md` — v0.9.0-rc1 rehearsal tag source
+- `decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.md` — WRITEUP spoke structure
+- `decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md` — v0.9.0-rc1 rehearsal tag source
 - `decisions/ADR-038-phase-tailoring-light-roadmap-edits.md` — Q7 phase-tailoring lock
 - `decisions/ADR-045-phase-3-evaluation-implementation-bundle.md` — Phase 3 precedent + Q6 full-pairwise persistence
 - `decisions/ADR-047-phase-1-library-first-carryforward-refactor.md` — Phase 1 carryforward refactor (closed immediately before this ADR)

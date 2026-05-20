@@ -11,7 +11,7 @@ acceptance_criterion: scripts/llm_prelabel_dedup_holdout.py exists at repo root 
 closing_commit: df72b01
 references:
   - decisions/ADR-041-phase-1-data-implementation-bundle.md
-  - decisions/ADR-018-llm-judge-and-reference-rung-pins.md
+  - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
   - decisions/ADR-035-secrets-management-three-store-split.md
   - https://platform.openai.com/docs/models/gpt-4o
 transcript: transcripts/2026-05-16__phase-1-implementation.md

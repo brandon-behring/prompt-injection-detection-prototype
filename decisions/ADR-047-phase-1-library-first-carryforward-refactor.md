@@ -12,11 +12,11 @@ closing_commit: ab8a501
 supersedes:
 superseded_by:
 references:
-  - decisions/ADR-016-data-design-foundation.md
+  - decisions/ADR-016-data-design-bundle.md
   - decisions/ADR-041-phase-1-data-implementation-bundle.md
-  - decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md
-  - decisions/ADR-043-post-split-leakage-cleanup-protocol.md
-  - decisions/ADR-036-library-version-pinning-strategy.md
+  - decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.md
+  - decisions/ADR-043-post-split-cross-source-leakage-cleanup.md
+  - decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.md
   - decisions/library_imports.md
   - decisions/upstream_issues.md
   - https://github.com/brandon-behring/eval-toolkit/issues/18
@@ -152,11 +152,11 @@ Two filed at audit close:
 
 ## References
 
-- `decisions/ADR-016-data-design-foundation.md` — methodology source for LODO k=4 plus seed plus threshold constants
+- `decisions/ADR-016-data-design-bundle.md` — methodology source for LODO k=4 plus seed plus threshold constants
 - `decisions/ADR-041-phase-1-data-implementation-bundle.md` — Phase 1 implementation bundle being carryforward-refactored
-- `decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md` — dedup-holdout dataset that issue #18 contributes upstream
-- `decisions/ADR-043-post-split-leakage-cleanup-protocol.md` — leakage cleanup threshold = 0.85 source
-- `decisions/ADR-036-library-version-pinning-strategy.md` — eval-toolkit `v0.31.0` pin
+- `decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.md` — dedup-holdout dataset that issue #18 contributes upstream
+- `decisions/ADR-043-post-split-cross-source-leakage-cleanup.md` — leakage cleanup threshold = 0.85 source
+- `decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.md` — eval-toolkit `v0.31.0` pin
 - `decisions/library_imports.md` — discipline ledger (positive evidence of upstream consumption; expands post-refactor)
 - `decisions/upstream_issues.md` — discipline ledger (gap-filing record; entries #14-19 listed)
 - `https://github.com/brandon-behring/eval-toolkit/issues/18` — golden dedup-holdout test contribution

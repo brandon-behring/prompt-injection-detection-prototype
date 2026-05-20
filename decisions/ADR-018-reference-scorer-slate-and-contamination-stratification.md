@@ -23,7 +23,7 @@ references:
   - https://arxiv.org/abs/2204.06745
   - decisions/ADR-015-rung-architecture-refinement.md
   - decisions/ADR-007-rung-architecture-and-reference-scorers.md
-  - decisions/ADR-005-honest-methodology-over-claimed-best-numbers.md
+  - decisions/ADR-005-methodology-principles.md
   - decisions/ADR-016-data-design-bundle.md
 transcript: transcripts/2026-05-15__phase-0-03__model-scope.md
 ---

@@ -12,14 +12,14 @@ closing_commit: 0fad4e1
 supersedes:
 superseded_by:
 references:
-  - decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md
+  - decisions/ADR-005-methodology-principles.md
   - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
-  - decisions/ADR-019-trained-rung-ladder-and-lora-config.md
-  - decisions/ADR-020-cost-cap-and-runpod-deploy.md
+  - decisions/ADR-019-lora-and-transformer-training-recipe.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md
   - decisions/ADR-022-statistical-inference-apparatus.md
-  - decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md
+  - decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.md
   - decisions/ADR-045-phase-3-evaluation-implementation-bundle.md
   - decisions/ADR-046-phase-4-analysis-implementation-bundle.md
 transcript: transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md
@@ -190,14 +190,14 @@ Audit fires after `make headline-lora` lands (operator-gated GPU run per ADR-020
 
 ## References
 
-- `decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md` — 3 contamination_states stratification axis
+- `decisions/ADR-005-methodology-principles.md` — 3 contamination_states stratification axis
 - `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` — statistical floor context
 - `decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md` — 4 reference rungs source
-- `decisions/ADR-019-trained-rung-ladder-and-lora-config.md` — LoRA rung config (the disagreement baseline)
-- `decisions/ADR-020-cost-cap-and-runpod-deploy.md` — cost-cap discipline + dry-run preview pattern
+- `decisions/ADR-019-lora-and-transformer-training-recipe.md` — LoRA rung config (the disagreement baseline)
+- `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md` — cost-cap discipline + dry-run preview pattern
 - `decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md` — 5 OOD slices stratification axis
 - `decisions/ADR-022-statistical-inference-apparatus.md` — bootstrap apparatus context
-- `decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md` — inter-rater protocol precedent
+- `decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.md` — inter-rater protocol precedent
 - `decisions/ADR-045-phase-3-evaluation-implementation-bundle.md` — Q4 cost-UX pattern source (single interactive approval)
 - `decisions/ADR-046-phase-4-analysis-implementation-bundle.md` — Q5 user override (the parent decision this ADR extends)
 

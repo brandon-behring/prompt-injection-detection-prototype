@@ -329,22 +329,22 @@ when clicking the in-ADR cross-refs:
 
 Broken refs:
 - `decisions/ADR-046-phase-4-analysis-implementation-bundle.md:15,195`
-  cite as `ADR-006-headline-metrics-and-statistical-floor.md` (wrong slug)
+  cite as `ADR-006-headline-metrics-and-statistical-apparatus.md` (wrong slug)
 - `decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.md:16,194`
-  cite as `ADR-006-headline-metrics-and-statistical-floor.md` (wrong slug)
+  cite as `ADR-006-headline-metrics-and-statistical-apparatus.md` (wrong slug)
 - `decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md:60,268`
-  cite as `ADR-006-single-seed-protocol-for-comparative-claims.md` (wrong slug)
+  cite as `ADR-006-headline-metrics-and-statistical-apparatus.md` (wrong slug)
 
 **ADR-020 actual filename**:
 `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md`
 
 Broken refs:
 - `decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md:47`
-  cites as `ADR-020-runpod-orchestration-and-cost-discipline.md` (wrong slug)
+  cites as `ADR-020-compute-infrastructure-and-cost-discipline.md` (wrong slug)
 - `decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md:64`
-  cites as `ADR-020-runpod-orchestration-and-cost-discipline.md` (wrong slug)
+  cites as `ADR-020-compute-infrastructure-and-cost-discipline.md` (wrong slug)
 - `decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md:62,274`
-  cites as `ADR-020-runpod-orchestration-and-cost-discipline.md` (wrong slug)
+  cites as `ADR-020-compute-infrastructure-and-cost-discipline.md` (wrong slug)
 
 **ADR-063 stale cumulative-cost figure**:
 

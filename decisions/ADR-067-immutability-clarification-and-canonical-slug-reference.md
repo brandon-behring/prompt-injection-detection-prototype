@@ -80,7 +80,7 @@ The rule applies cleanly to **decision content**:
 
 For these, the immutability rule is load-bearing: editing them in-place would silently rewrite history. The supersede-via-new-ADR mechanism preserves the audit trail.
 
-The rule was ALSO applied — over-strictly — to **factual-typo defects in cross-reference slug filenames**. Example from ADR-046 line 15: `decisions/ADR-006-headline-metrics-and-statistical-floor.md` is a broken reference (the actual filename is `ADR-006-headline-metrics-and-statistical-apparatus.md`). Fixing this typo:
+The rule was ALSO applied — over-strictly — to **factual-typo defects in cross-reference slug filenames**. Example from ADR-046 line 15: `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` is a broken reference (the actual filename is `ADR-006-headline-metrics-and-statistical-apparatus.md`). Fixing this typo:
 - Does NOT change any decision content
 - Does NOT alter the audit trail (the meaning of ADR-046 line 15's cross-reference is unchanged — it always meant "see ADR-006"; only the slug is typo'd)
 - DOES improve reader experience (the in-ADR link resolves correctly)
@@ -97,7 +97,7 @@ ADRs remain immutable for **decision content** (per CLAUDE.md): methodology choi
 
 ### B1 — In-scope corrections (allowed in-place)
 
-1. **Broken cross-reference slug filenames** where a slug points at a wrong-but-existing canonical file in `decisions/`. Example: `decisions/ADR-006-headline-metrics-and-statistical-floor.md` → `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` (the canonical filename for ADR-006).
+1. **Broken cross-reference slug filenames** where a slug points at a wrong-but-existing canonical file in `decisions/`. Example: `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` → `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` (the canonical filename for ADR-006).
 2. **Slug filenames in the `references:` frontmatter list** that point at the wrong canonical filename. Same rule.
 3. **Slug filenames in markdown body link syntax** (`[link text](decisions/ADR-NNN-wrong-slug.md)` → `[link text](decisions/ADR-NNN-correct-slug.md)`).
 
@@ -141,18 +141,18 @@ The full inventory of broken slug-reference patterns (per `.lycheeignore` at v1.
 
 | Broken pattern (in `.lycheeignore`) | Canonical-correct slug |
 |---|---|
-| `decisions/ADR-005-methodology-over-metrics.md` | `decisions/ADR-005-methodology-principles.md` |
-| `decisions/ADR-006-single-seed-protocol-for-comparative-claims.md` | `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` |
-| `decisions/ADR-006-headline-metrics-and-statistical-floor.md` | `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` |
-| `decisions/ADR-013-persistence-discipline-before-teardown.md` | `decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md` |
-| `decisions/ADR-016-data-design.md` | `decisions/ADR-016-data-design-bundle.md` |
-| `decisions/ADR-019-modernbert-training-recipe.md` | `decisions/ADR-019-lora-and-transformer-training-recipe.md` |
-| `decisions/ADR-020-runpod-orchestration-and-cost-discipline.md` | `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md` |
-| `decisions/ADR-023-calibration-battery.md` | `decisions/ADR-023-calibration-battery-and-interventions.md` |
-| `decisions/ADR-030-quarto-html-site-via-github-actions.md` | `decisions/ADR-030-deliverable-format-quarto-html-site.md` |
-| `decisions/ADR-032-hf-hub-model-card-schema.md` | `decisions/ADR-032-hf-hub-publication-headline-rungs-only.md` |
-| `decisions/ADR-037-requires-python-floor-3-13.md` | `decisions/ADR-037-python-version-pin-3-13.md` |
-| `decisions/ADR-046-phase-4-walkthrough.md` | `decisions/ADR-046-phase-4-analysis-implementation-bundle.md` |
+| `decisions/ADR-005-methodology-principles.md` | `decisions/ADR-005-methodology-principles.md` |
+| `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` | `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` |
+| `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` | `decisions/ADR-006-headline-metrics-and-statistical-apparatus.md` |
+| `decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md` | `decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md` |
+| `decisions/ADR-016-data-design-bundle.md` | `decisions/ADR-016-data-design-bundle.md` |
+| `decisions/ADR-019-lora-and-transformer-training-recipe.md` | `decisions/ADR-019-lora-and-transformer-training-recipe.md` |
+| `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md` | `decisions/ADR-020-compute-infrastructure-and-cost-discipline.md` |
+| `decisions/ADR-023-calibration-battery-and-interventions.md` | `decisions/ADR-023-calibration-battery-and-interventions.md` |
+| `decisions/ADR-030-deliverable-format-quarto-html-site.md` | `decisions/ADR-030-deliverable-format-quarto-html-site.md` |
+| `decisions/ADR-032-hf-hub-publication-headline-rungs-only.md` | `decisions/ADR-032-hf-hub-publication-headline-rungs-only.md` |
+| `decisions/ADR-037-python-version-pin-3-13.md` | `decisions/ADR-037-python-version-pin-3-13.md` |
+| `decisions/ADR-046-phase-4-analysis-implementation-bundle.md` | `decisions/ADR-046-phase-4-analysis-implementation-bundle.md` |
 
 Commit 2 applies these substitutions via `grep -rn` audit across `decisions/*.md` + `find / -replace` edits.
 
@@ -160,8 +160,8 @@ Commit 2 applies these substitutions via `grep -rn` audit across `decisions/*.md
 
 Two patterns in `.lycheeignore` reference a non-existent "ADR-029 immutability" file:
 
-- `decisions/ADR-029-immutable-adrs-supersede-dont-edit.md` — no such file exists
-- `decisions/ADR-029-adr-immutability-and-supersession-discipline.md` — no such file exists
+- `ADR-029` — no such file exists
+- `ADR-029` — no such file exists
 
 The actual `decisions/ADR-029-test-marker-strategy-four-marker-ratification.md` is about test markers, NOT immutability. The misattribution surfaced because older CHANGELOG entries + ADR cross-refs cited "ADR-029" as the immutability ADR, but the immutability rule actually lives in `CLAUDE.md` (per memory entry `adr-029-immutability-misattribution-historical-drift`).
 

@@ -14,7 +14,7 @@ references:
   - https://keepachangelog.com/en/1.1.0/
   - https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
   - https://cli.github.com/manual/gh_release_create
-  - decisions/ADR-001-brief-alignment-tight-calendar-with-fallback-ladder.md
+  - decisions/ADR-001-submission-deadline-and-scope-ambition.md
   - decisions/ADR-030-deliverable-format-quarto-html-site.md
   - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md
 transcript: transcripts/2026-05-16__phase-0-07__submission-deliverables.md

@@ -82,10 +82,10 @@ supersedes:
 superseded_by:
   - ADR-052  # narrow — Revision 2 (full-FT OOD drop) axis only; Revision 1 (LLM-judge cost drop) unchanged
 references:
-  - decisions/ADR-005-honest-methodology-over-claimed-best-numbers.md
+  - decisions/ADR-005-methodology-principles.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md
   - decisions/ADR-019-lora-and-transformer-training-recipe.md
-  - decisions/ADR-021-slice-aggregation-and-headline-metric-protocol.md
+  - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md
   - decisions/upstream_issues.md
   - https://github.com/astral-sh/uv/issues/17801
   - https://github.com/moosefs/moosefs/discussions/380

@@ -60,7 +60,7 @@ closing_commit: v1.1.0 (methodology); v1.1.1 (execution carryforward)
 supersedes: []
 superseded_by: []
 references:
-  - decisions/ADR-015-backbone-selection-modernbert-base.md
+  - decisions/ADR-015-rung-architecture-refinement.md
   - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md
   - decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md

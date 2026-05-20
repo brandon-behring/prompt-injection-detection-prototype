@@ -14,7 +14,7 @@ references:
   - https://github.com/brandon-behring/runpod-deploy
   - https://docs.pytest.org/en/stable/how-to/skipping.html
   - decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md
-  - decisions/ADR-020-cloud-orchestration-and-cost-discipline.md
+  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-026-module-layout-concern-grouped-subpackages.md
   - decisions/library_imports.md
 transcript: transcripts/2026-05-16__phase-0-06__code-test-discipline.md

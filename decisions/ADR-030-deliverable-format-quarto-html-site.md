@@ -15,7 +15,7 @@ references:
   - https://quarto.org/docs/publishing/github-pages.html
   - https://github.com/quarto-dev/quarto-actions
   - decisions/ADR-002-deliverable-format-pdf-and-repo.md
-  - decisions/ADR-001-brief-alignment-tight-calendar-with-fallback-ladder.md
+  - decisions/ADR-001-submission-deadline-and-scope-ambition.md
   - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md
 transcript: transcripts/2026-05-16__phase-0-07__submission-deliverables.md
 ---

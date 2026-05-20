@@ -54,7 +54,7 @@ closing_commit: v1.1.1
 supersedes: [ADR-053]
 superseded_by: []
 references:
-  - decisions/ADR-030-output-format-quarto-static-site.md
+  - decisions/ADR-030-deliverable-format-quarto-html-site.md
   - decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md
   - decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md
   - decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md

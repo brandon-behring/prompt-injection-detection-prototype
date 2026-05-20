@@ -20,7 +20,7 @@ references:
   - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md
   - decisions/ADR-016-data-design-bundle.md
   - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md
-  - decisions/ADR-005-project-level-methodology-principles.md
+  - decisions/ADR-005-methodology-principles.md
 transcript: transcripts/2026-05-16__phase-0-07__submission-deliverables.md
 ---
 

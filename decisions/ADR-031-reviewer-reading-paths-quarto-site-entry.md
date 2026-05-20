@@ -14,7 +14,7 @@ references:
   - https://quarto.org/docs/websites/website-navigation.html
   - https://quarto.org/docs/websites/website-tools.html#sidebar-tools
   - decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.md
-  - decisions/ADR-005-project-level-methodology-principles.md
+  - decisions/ADR-005-methodology-principles.md
   - decisions/ADR-030-deliverable-format-quarto-html-site.md
   - decisions/ADR-034-reproducibility-tier-full-ladder.md
 transcript: transcripts/2026-05-16__phase-0-07__submission-deliverables.md
