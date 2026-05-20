@@ -927,6 +927,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Narrow immutability relaxation for render-only Markdown corrections in immutable ADRs</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-071-adr-cross-reference-slug-sweep-closure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1148,14 +1154,14 @@ python scripts/audit_reference_scorers.py
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <ul>
-<li><code>decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md</code> — 3 contamination_states stratification axis</li>
+<li><code>decisions/ADR-005-methodology-principles.md</code> — 3 contamination_states stratification axis</li>
 <li><code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code> — statistical floor context</li>
 <li><code>decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</code> — 4 reference rungs source</li>
-<li><code>decisions/ADR-019-trained-rung-ladder-and-lora-config.md</code> — LoRA rung config (the disagreement baseline)</li>
-<li><code>decisions/ADR-020-cost-cap-and-runpod-deploy.md</code> — cost-cap discipline + dry-run preview pattern</li>
+<li><code>decisions/ADR-019-lora-and-transformer-training-recipe.md</code> — LoRA rung config (the disagreement baseline)</li>
+<li><code>decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</code> — cost-cap discipline + dry-run preview pattern</li>
 <li><code>decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md</code> — 5 OOD slices stratification axis</li>
 <li><code>decisions/ADR-022-statistical-inference-apparatus.md</code> — bootstrap apparatus context</li>
-<li><code>decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md</code> — inter-rater protocol precedent</li>
+<li><code>decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.md</code> — inter-rater protocol precedent</li>
 <li><code>decisions/ADR-045-phase-3-evaluation-implementation-bundle.md</code> — Q4 cost-UX pattern source (single interactive approval)</li>
 <li><code>decisions/ADR-046-phase-4-analysis-implementation-bundle.md</code> — Q5 user override (the parent decision this ADR extends)</li>
 </ul>

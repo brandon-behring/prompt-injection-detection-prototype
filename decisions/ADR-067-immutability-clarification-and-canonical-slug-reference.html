@@ -892,6 +892,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Narrow immutability relaxation for render-only Markdown corrections in immutable ADRs</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-071-adr-cross-reference-slug-sweep-closure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -978,7 +984,7 @@ ul.task-list li input[type="checkbox"] {
 <p>CLAUDE.md §“Phase 0 workflow” states: <em>“The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior <code>status: superseded-by-NNN</code>.”</em> This rule was authored to protect the audit-trail discipline: a reviewer should be able to read any tagged release’s ADRs + reconstruct exactly what-was-decided-at-that-tag without worrying that the decision content was edited post-hoc.</p>
 <p>The rule applies cleanly to <strong>decision content</strong>: - Methodology choices (e.g., “ADR-016 locks LODO 4-fold × 3 seeds”) - Locked numeric values (e.g., “ADR-019 locks LoRA r=8, alpha=16”) - Alternatives considered + why rejected - Prose rationale + the consequences section - Frontmatter fields like <code>claim</code>, <code>acceptance_criterion</code>, <code>closing_commit</code></p>
 <p>For these, the immutability rule is load-bearing: editing them in-place would silently rewrite history. The supersede-via-new-ADR mechanism preserves the audit trail.</p>
-<p>The rule was ALSO applied — over-strictly — to <strong>factual-typo defects in cross-reference slug filenames</strong>. Example from ADR-046 line 15: <code>decisions/ADR-006-headline-metrics-and-statistical-floor.md</code> is a broken reference (the actual filename is <code>ADR-006-headline-metrics-and-statistical-apparatus.md</code>). Fixing this typo: - Does NOT change any decision content - Does NOT alter the audit trail (the meaning of ADR-046 line 15’s cross-reference is unchanged — it always meant “see ADR-006”; only the slug is typo’d) - DOES improve reader experience (the in-ADR link resolves correctly)</p>
+<p>The rule was ALSO applied — over-strictly — to <strong>factual-typo defects in cross-reference slug filenames</strong>. Example from ADR-046 line 15: <code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code> is a broken reference (the actual filename is <code>ADR-006-headline-metrics-and-statistical-apparatus.md</code>). Fixing this typo: - Does NOT change any decision content - Does NOT alter the audit trail (the meaning of ADR-046 line 15’s cross-reference is unchanged — it always meant “see ADR-006”; only the slug is typo’d) - DOES improve reader experience (the in-ADR link resolves correctly)</p>
 <p>ADR-064 §D documented 9 broken slug references; subsequent audit (.lycheeignore at v1.2.0 close) surfaced 14 total patterns. Treating these as “flagged-not-fixed per ADR-immutability discipline” imposes reader friction (404s on in-ADR cross-refs; lychee CI noise; documentation debt) without protecting any decision content.</p>
 <p>This ADR codifies a narrow exception.</p>
 </section>
@@ -989,7 +995,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="b1-in-scope-corrections-allowed-in-place" class="level3">
 <h3 class="anchored" data-anchor-id="b1-in-scope-corrections-allowed-in-place">B1 — In-scope corrections (allowed in-place)</h3>
 <ol type="1">
-<li><strong>Broken cross-reference slug filenames</strong> where a slug points at a wrong-but-existing canonical file in <code>decisions/</code>. Example: <code>decisions/ADR-006-headline-metrics-and-statistical-floor.md</code> → <code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code> (the canonical filename for ADR-006).</li>
+<li><strong>Broken cross-reference slug filenames</strong> where a slug points at a wrong-but-existing canonical file in <code>decisions/</code>. Example: <code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code> → <code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code> (the canonical filename for ADR-006).</li>
 <li><strong>Slug filenames in the <code>references:</code> frontmatter list</strong> that point at the wrong canonical filename. Same rule.</li>
 <li><strong>Slug filenames in markdown body link syntax</strong> (<code>[link text](decisions/ADR-NNN-wrong-slug.md)</code> → <code>[link text](decisions/ADR-NNN-correct-slug.md)</code>).</li>
 </ol>
@@ -1043,51 +1049,51 @@ No decision content changed. ADR audit trail preserved.</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>decisions/ADR-005-methodology-over-metrics.md</code></td>
+<td><code>decisions/ADR-005-methodology-principles.md</code></td>
 <td><code>decisions/ADR-005-methodology-principles.md</code></td>
 </tr>
 <tr class="even">
-<td><code>decisions/ADR-006-single-seed-protocol-for-comparative-claims.md</code></td>
+<td><code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code></td>
 <td><code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code></td>
 </tr>
 <tr class="odd">
-<td><code>decisions/ADR-006-headline-metrics-and-statistical-floor.md</code></td>
+<td><code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code></td>
 <td><code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code></td>
 </tr>
 <tr class="even">
-<td><code>decisions/ADR-013-persistence-discipline-before-teardown.md</code></td>
+<td><code>decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md</code></td>
 <td><code>decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md</code></td>
 </tr>
 <tr class="odd">
-<td><code>decisions/ADR-016-data-design.md</code></td>
+<td><code>decisions/ADR-016-data-design-bundle.md</code></td>
 <td><code>decisions/ADR-016-data-design-bundle.md</code></td>
 </tr>
 <tr class="even">
-<td><code>decisions/ADR-019-modernbert-training-recipe.md</code></td>
+<td><code>decisions/ADR-019-lora-and-transformer-training-recipe.md</code></td>
 <td><code>decisions/ADR-019-lora-and-transformer-training-recipe.md</code></td>
 </tr>
 <tr class="odd">
-<td><code>decisions/ADR-020-runpod-orchestration-and-cost-discipline.md</code></td>
+<td><code>decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</code></td>
 <td><code>decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</code></td>
 </tr>
 <tr class="even">
-<td><code>decisions/ADR-023-calibration-battery.md</code></td>
+<td><code>decisions/ADR-023-calibration-battery-and-interventions.md</code></td>
 <td><code>decisions/ADR-023-calibration-battery-and-interventions.md</code></td>
 </tr>
 <tr class="odd">
-<td><code>decisions/ADR-030-quarto-html-site-via-github-actions.md</code></td>
+<td><code>decisions/ADR-030-deliverable-format-quarto-html-site.md</code></td>
 <td><code>decisions/ADR-030-deliverable-format-quarto-html-site.md</code></td>
 </tr>
 <tr class="even">
-<td><code>decisions/ADR-032-hf-hub-model-card-schema.md</code></td>
+<td><code>decisions/ADR-032-hf-hub-publication-headline-rungs-only.md</code></td>
 <td><code>decisions/ADR-032-hf-hub-publication-headline-rungs-only.md</code></td>
 </tr>
 <tr class="odd">
-<td><code>decisions/ADR-037-requires-python-floor-3-13.md</code></td>
+<td><code>decisions/ADR-037-python-version-pin-3-13.md</code></td>
 <td><code>decisions/ADR-037-python-version-pin-3-13.md</code></td>
 </tr>
 <tr class="even">
-<td><code>decisions/ADR-046-phase-4-walkthrough.md</code></td>
+<td><code>decisions/ADR-046-phase-4-analysis-implementation-bundle.md</code></td>
 <td><code>decisions/ADR-046-phase-4-analysis-implementation-bundle.md</code></td>
 </tr>
 </tbody>
@@ -1098,8 +1104,8 @@ No decision content changed. ADR audit trail preserved.</code></pre>
 <h3 class="anchored" data-anchor-id="c2-adr-029-immutability-misattributions-2-patterns">C2 — ADR-029 immutability misattributions (2 patterns)</h3>
 <p>Two patterns in <code>.lycheeignore</code> reference a non-existent “ADR-029 immutability” file:</p>
 <ul>
-<li><code>decisions/ADR-029-immutable-adrs-supersede-dont-edit.md</code> — no such file exists</li>
-<li><code>decisions/ADR-029-adr-immutability-and-supersession-discipline.md</code> — no such file exists</li>
+<li><code>ADR-029</code> — no such file exists</li>
+<li><code>ADR-029</code> — no such file exists</li>
 </ul>
 <p>The actual <code>decisions/ADR-029-test-marker-strategy-four-marker-ratification.md</code> is about test markers, NOT immutability. The misattribution surfaced because older CHANGELOG entries + ADR cross-refs cited “ADR-029” as the immutability ADR, but the immutability rule actually lives in <code>CLAUDE.md</code> (per memory entry <code>adr-029-immutability-misattribution-historical-drift</code>).</p>
 <p><strong>Fix at Commit 2</strong>: each occurrence of the broken ADR-029 immutability ref gets removed + replaced with an inline citation to CLAUDE.md (or to ADR-067 itself once it lands, since ADR-067 codifies the discipline). Pattern:</p>

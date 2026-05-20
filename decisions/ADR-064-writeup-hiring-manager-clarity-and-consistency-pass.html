@@ -892,6 +892,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Narrow immutability relaxation for render-only Markdown corrections in immutable ADRs</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-071-adr-cross-reference-slug-sweep-closure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1094,9 +1100,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="d-known-errors-in-prior-adrs-flagged-not-fixed-per-project-adr-discipline">§D Known errors in prior ADRs (flagged-not-fixed per project ADR-discipline)</h2>
 <p>The full-repo audit at v1.1.4 surfaced 9 broken ADR slug references across 5 immutable ADR files. These cannot be edited per the project ADR-discipline (CLAUDE.md: “ADRs are immutable; supersede via new ADR”). Note: the project’s older CHANGELOG entries cite “ADR-029” as the immutability ADR, but the actual ADR-029 file is about test-marker strategy; the immutability rule lives in CLAUDE.md / <code>decisions/README.md</code>. That historical drift is itself a documentation-consistency issue not in v1.2.0 scope; future patches may add a narrow “immutability ADR” clarification. Canonical-correct slugs documented here for readers who hit a 404 when clicking the in-ADR cross-refs:</p>
 <p><strong>ADR-006 actual filename</strong>: <code>decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</code></p>
-<p>Broken refs: - <code>decisions/ADR-046-phase-4-analysis-implementation-bundle.md:15,195</code> cite as <code>ADR-006-headline-metrics-and-statistical-floor.md</code> (wrong slug) - <code>decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.md:16,194</code> cite as <code>ADR-006-headline-metrics-and-statistical-floor.md</code> (wrong slug) - <code>decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md:60,268</code> cite as <code>ADR-006-single-seed-protocol-for-comparative-claims.md</code> (wrong slug)</p>
+<p>Broken refs: - <code>decisions/ADR-046-phase-4-analysis-implementation-bundle.md:15,195</code> cite as <code>ADR-006-headline-metrics-and-statistical-apparatus.md</code> (wrong slug) - <code>decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.md:16,194</code> cite as <code>ADR-006-headline-metrics-and-statistical-apparatus.md</code> (wrong slug) - <code>decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md:60,268</code> cite as <code>ADR-006-headline-metrics-and-statistical-apparatus.md</code> (wrong slug)</p>
 <p><strong>ADR-020 actual filename</strong>: <code>decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</code></p>
-<p>Broken refs: - <code>decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md:47</code> cites as <code>ADR-020-runpod-orchestration-and-cost-discipline.md</code> (wrong slug) - <code>decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md:64</code> cites as <code>ADR-020-runpod-orchestration-and-cost-discipline.md</code> (wrong slug) - <code>decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md:62,274</code> cites as <code>ADR-020-runpod-orchestration-and-cost-discipline.md</code> (wrong slug)</p>
+<p>Broken refs: - <code>decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md:47</code> cites as <code>ADR-020-compute-infrastructure-and-cost-discipline.md</code> (wrong slug) - <code>decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md:64</code> cites as <code>ADR-020-compute-infrastructure-and-cost-discipline.md</code> (wrong slug) - <code>decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md:62,274</code> cites as <code>ADR-020-compute-infrastructure-and-cost-discipline.md</code> (wrong slug)</p>
 <p><strong>ADR-063 stale cumulative-cost figure</strong>:</p>
 <p>ADR-063 reads <code>Cumulative project spend: $9.92 / ADR-020 $200 hard cap</code>. This figure was calculated from a subset of pod rows at the time ADR-063 was authored. The canonical cumulative cost source-of- truth is <code>evals/cost_ledger.csv</code> (sum the <code>actual_cost_usd</code> column at any point in time). Future patches should consult the ledger directly rather than re-quote ADR-063’s figure.</p>
 <p>The v1.1.2 DeBERTa execution GPU spend of <code>$1.34</code> (cited in NEXT_STEPS §1.10 and CHANGELOG [1.1.2]) is correct and self-consistent.</p>
