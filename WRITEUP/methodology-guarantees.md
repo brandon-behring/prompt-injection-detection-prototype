@@ -9,7 +9,7 @@
 
 - **Three-library tooling split**: `eval-toolkit` (methodology-aware harness — bootstrap CIs / calibration / leakage / splits / paired-bootstrap), `runpod-deploy` (cloud orchestration), `research_toolkit` (literature dossier pipeline). Each survives across iterations as a durable knowledge artifact.
 - **Prediction-persistence pattern [LOCKED]**: 282 prediction parquets persisted per ADR-013 + ADR-021 so downstream threshold / calibration analyses run from artifacts without re-running inference.
-- **SDD / ADR process**: 50+ ADRs accepted across Phase 0-00 through Phase 5; each significant decision locked before code; `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard-gate per ADR-039).
+- **SDD / ADR process**: 70 ADRs accepted across Phase 0-00 through ADR-070 (immutability-relaxation closures); each significant decision locked before code; `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard-gate per ADR-039).
 - **Library-first invariant** (project-wide per Phase 4 Q6 reaffirmation): audit `eval-toolkit + runpod-deploy + research_toolkit` BEFORE writing project glue. Upstream gaps land in `decisions/upstream_issues.md` before any local workaround. ADR-047 retrofitted 4 hand-rolls in a single carryforward refactor.
 :::
 

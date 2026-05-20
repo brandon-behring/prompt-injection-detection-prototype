@@ -10,9 +10,10 @@ Before any work, read `SPEC_GREENFIELD.md` (the binding spec).
 
 Phase 0 runs the spec lock-in interview via the `/exploring-options` skill
 against `SPEC_GREENFIELD.md`'s decision ledger (~50 Phase-0 decisions across
-~9 topic-focused sub-sessions; 53 ADRs at v1.0.4 close including post-v1.0.0
+~9 topic-focused sub-sessions; 70 ADRs at v1.2.8 close including post-v1.0.0
 patch governance: ADR-051 carryforward + ADR-052 full-FT reframing + ADR-053
-reading-guide governance). See `SPEC_GREENFIELD.md` §Phase 0 for the
+reading-guide governance + ADR-061 nav restructure + ADR-067-070
+immutability-relaxation chain). See `SPEC_GREENFIELD.md` §Phase 0 for the
 recommended sub-session sequence.
 
 **For each `[OPEN]` decision walked, Claude must surface:**
