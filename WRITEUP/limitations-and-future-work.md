@@ -242,6 +242,57 @@ suggestions for a successor iteration:
    OOD calibration set (currently impossible by LODO design)
    would close the val→LODO gap.
 
+## 9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary
+
+The headline AUPRC tables (WRITEUP §6 + RESULTS §1) show LoRA + TF-IDF + LR
+clustering at the pooled OOD random floor (0.374). The AUROC view says
+something stronger: both detectors score **below** the 0.5 random floor with
+CIs that clearly clear 0.5 on the wrong side:
+
+- **LoRA pooled OOD AUROC**: 0.383 [0.374, 0.392]
+- **TF-IDF + LR pooled OOD AUROC**: 0.371 [0.362, 0.381]
+- **Frozen probe (no LODO-pool adaptation)**: 0.515 [0.505, 0.525] --- above floor
+
+In-pool to cross-family generalization gap: trained detectors hit AUROC 0.99
+in-pool and AUROC 0.38 on cross-family --- a ~0.6 drop. The frozen probe's
+gap is smaller (0.91 in-pool → 0.515 cross-family, ~0.4 drop) because no
+LODO-pool adaptation drove the lexical-feature alignment.
+
+A score below 0.5 AUROC on a holdout means the ranking is *anti-correlated*
+with truth --- informative in the wrong direction. This is more than pure
+overfitting (which predicts collapse toward random, not past it). The
+mechanism is **lexical overfitting + a slate-induced label-relevance shift**:
+
+- LoRA + TF-IDF both learn lexical signatures of direct injection
+  ("ignore previous instructions", "you are now", etc.) from the LODO
+  training pool.
+- **NotInject** (n=339, all negative) is engineered to *look like* direct
+  injection lexically while being benign. The trained detectors score
+  these HIGH (false positives) --- inverting the negative class.
+- **BIPIA + InjecAgent** (indirect + agentic, n=112): real attacks that
+  *don't* use direct-injection lexical patterns. The detectors score
+  these LOW (false negatives) --- inverting the positive class.
+
+The lexical signal is internally consistent. It just stops tracking attack
+class on cross-family slices where lexical similarity to direct injection
+and actual attack class point opposite ways. The frozen probe stays above
+floor because no LODO-pool adaptation aligned it with direct-injection
+lexical features.
+
+The §9.4 prescriptions (OOD-aware training data + backbone scaling +
+OOD-aware threshold selection) all bear on this finding. A v6 ablation
+that retains direct-injection training but adds cross-family signal would
+test whether the anti-correlation under AUROC is a function of
+training-distribution scope (fixable by widening the pool) or a deeper
+representation problem (requires backbone or objective changes).
+
+This finding is methodologically richer than "fine-tuning hurt OOD ranking"
+(which implies degradation toward chance); it is "training on this pool
+produced systematically wrong rankings on cross-family slices via the
+lexical-signal-doesn't-match-attack-class mechanism."
+
+---
+
 *The final section steps back from specific dead-ends to surface the
 **process-level lessons** that fell out of the work — what the SDD +
 LODO + bootstrap-CI discipline cost vs delivered, and what going-in

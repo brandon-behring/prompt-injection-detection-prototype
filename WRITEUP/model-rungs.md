@@ -123,6 +123,24 @@ slice. By AUROC, LoRA lands at 0.383 [0.374, 0.392], -0.132 below
 frozen-probe. See WRITEUP §Results §Frozen probe vs adapter fine-tuned for the
 paired-bootstrap detail.
 
+The sharper interpretation: LoRA's pooled OOD AUROC is *below* the 0.5
+random floor (CI [0.374, 0.392] clears 0.5 on the wrong side). This isn't
+pure overfitting (which would land at chance, not below it); it's lexical
+overfitting + a slate-induced label-relevance shift. The LoRA adapter learns
+direct-injection lexical signatures from the LODO training pool; on the
+cross-family OOD slate, NotInject (benign text engineered to look like
+direct injection) inverts the negative side, and indirect/agentic attacks
+(no direct-injection lexical patterns) invert the positive side. The
+learned signal is real and internally consistent; it just stops tracking
+attack class on cross-family slices. The frozen probe stays above floor at
+0.515 because no LODO-pool adaptation happened — generic ModernBERT
+embeddings are less aligned with the direct-injection lexical distribution
+and therefore less inverted. The tfidf-lr classical floor shows the same
+sub-floor pattern under AUROC (0.371 [0.362, 0.381]; see §4.1 above and
+§6 of RESULTS) for the same mechanism, confirming this isn't a LoRA-
+specific artifact but a LODO-direct-injection-training artifact across
+detector capacities.
+
 **Note on full-FT**: full-FT was the planned full-backbone detector (full backbone
 trainable) per ADR-019 and was trained for LODO at Phase 2 (24
 prediction parquets retained); OOD inference was dropped at Phase 5

@@ -18,7 +18,7 @@ row points to the deeper table and states why the result matters.
 | Direct validation | [Results: Direct Prompt-Injection Performance](RESULTS.md#direct-prompt-injection-performance) | LoRA reaches 0.974 AUPRC / 0.993 AUROC / 0.934 recall@0.5 on balanced direct+benign validation; TF-IDF + LR is similar | confirms the detector stack learned direct prompt-injection patterns |
 | Held-out direct-source recall | [Results: Direct Prompt-Injection Performance](RESULTS.md#direct-prompt-injection-performance) | frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune is 0.558 | stricter direct-source holdout, but recall-only because the slice is all-positive |
 | Pooled OOD failure | [Results: §1 Cross-Family OOD Table](RESULTS.md#1-cross-family-ood-table-auprc) | best pooled OOD AUPRC is 0.364 against a random floor of 0.374 | main scientific finding: direct-trained detectors do not beat guessing under family shift |
-| LoRA vs frozen-probe OOD degradation | [Results: §2 Frozen Probe vs LoRA](RESULTS.md#2-frozen-probe-vs-lora) | LoRA is -0.071 AUPRC below frozen probe on pooled OOD | fine-tuning on direct examples specialized away from useful OOD signal |
+| LoRA vs frozen-probe OOD degradation | [Results: §2 Frozen Probe vs LoRA](RESULTS.md#2-frozen-probe-vs-lora) + [§6 AUROC](RESULTS.md#6-secondary-table-auroc) | LoRA pooled OOD AUROC **0.383 below 0.5 floor**; -0.071 AUPRC vs frozen probe | lexical overfitting + slate-induced label-relevance inversion; CIs clear 0.5 on the wrong side |
 | DeBERTa context-window null result | [Results: §1B Ablation](RESULTS.md#1b-ablation-does-a-longer-context-backbone-fix-the-ood-gap) | chunk-and-average scores 0.291 pooled OOD AUPRC; head-truncation scores 0.290 | longer context access did not explain the OOD gap; backbone effects remain |
 | Threshold transfer failure | [Results: §4 Threshold Transfer](RESULTS.md#4-threshold-transfer) | LoRA catches more positives but jumps to 11.5% test FPR under a 1% validation-FPR policy | validation thresholds are characterization, not deployment recommendations |
 | Calibration ranking | [Results: §5 Calibration](RESULTS.md#5-calibration) | frozen probe has the lowest mean ECE (0.144) and Brier (0.265) | score quality and direct-pattern accuracy diverge under OOD shift |
@@ -94,9 +94,16 @@ direct-injection-heavy. The OOD slate includes indirect injection,
 agentic-flow injection, jailbreak-style questions, and benign text that
 resembles attacks.
 
-**LoRA getting worse matters.** Fine-tuning on the direct-injection training
-pool reduced pooled OOD AUPRC from 0.364 to 0.293. That suggests the pretrained
-backbone carried the useful OOD signal and the adapter specialized away from it.
+**LoRA being below the floor matters.** Fine-tuning on the direct-injection
+training pool reduced pooled OOD AUPRC from 0.364 to 0.293. The sharper finding
+is under AUROC: LoRA scores 0.383 [0.374, 0.392], below the 0.5 random floor.
+TF-IDF + LR shows the same pattern at 0.371. CIs on both clear 0.5 on the
+wrong side; only the frozen probe stays above floor at 0.515. The mechanism
+is **lexical overfitting + a label-relevance shift** on the OOD slate ---
+NotInject (benign text engineered to look like direct injection) inverts the
+negative class; indirect/agentic attacks (no direct-injection lexical signal)
+invert the positive class. The lexical signal is internally consistent; it
+just stops tracking attack class on cross-family slices.
 
 **Reference scorers are diagnostic.** ProtectAI v1/v2 are useful comparison
 points, but their training-data disclosure creates contamination caveats.

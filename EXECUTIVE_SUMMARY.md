@@ -34,8 +34,35 @@ false positives, AUPRC, and AUROC are left out of that table.
 | ModernBERT frozen probe | 0.364 [0.354, 0.375] | Best in-house score, but still at the random floor |
 | ProtectAI v1 | 0.361 [0.330, 0.391] | Similar result; diagnostic only because of contamination caveats |
 | ProtectAI v2 | 0.314 [0.283, 0.345] | Does not dominate v1 on this evaluation |
-| ModernBERT LoRA | 0.293 [0.286, 0.301] | Fine-tuning hurt OOD performance |
-| TF-IDF + LR | 0.291 [0.283, 0.298] | Classical baseline, roughly tied with LoRA |
+| ModernBERT LoRA | 0.293 [0.286, 0.301] | Fine-tuning was actively harmful --- AUROC 0.383 below 0.5 floor (lexical overfitting + slate-induced label-relevance inversion; see §Mechanism below) |
+| TF-IDF + LR | 0.291 [0.283, 0.298] | Classical baseline, roughly tied with LoRA --- AUROC 0.371 also below 0.5 floor (same mechanism as LoRA) |
+
+## Mechanism: lexical overfitting + slate-induced label-relevance inversion
+
+Two detectors land **below** the 0.5 AUROC random floor on pooled OOD with CIs
+that clear 0.5 on the wrong side: LoRA at 0.383 [0.374, 0.392] and TF-IDF + LR
+at 0.371 [0.362, 0.381]. A score below 0.5 AUROC isn't pure overfitting (which
+predicts collapse *toward* random, not past it); it's lexical overfitting
+combined with a label-relevance shift on this specific slate:
+
+- LoRA + TF-IDF both learn lexical signatures of direct injection
+  ("ignore previous instructions", "you are now", etc.).
+- **NotInject** (n=339, all negative): benign text engineered to *look like*
+  direct injection. Both detectors score these HIGH (false positives).
+- **BIPIA + InjecAgent** (indirect + agentic, n=112): real attacks that *don't*
+  use direct-injection lexical patterns. Both detectors score these LOW
+  (false negatives).
+
+The lexical signal is real and consistent within itself — it just stops
+tracking attack class on cross-family slices where the lexical and semantic
+labels diverge. The frozen ModernBERT probe (zero LODO-pool adaptation) stays
+at 0.515 AUROC — generic linguistic features are less aligned with the
+direct-injection lexical distribution and therefore less inverted on the
+cross-family slate.
+
+Generalization gap: in-pool 0.99 AUROC → cross-family 0.38 AUROC, ~0.6 drop
+for the trained detectors; frozen probe's gap is 0.91 → 0.515, ~0.4 drop. The
+more training adapted to the LODO pool, the harder the cross-family fall.
 
 ## Direct Detection Check
 

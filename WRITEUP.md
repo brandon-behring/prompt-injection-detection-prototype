@@ -160,12 +160,38 @@ indirect injection, agentic-flow attacks, jailbreak-style questions, and benign
 text that resembles injection text. Direct-injection training does not transfer
 cleanly to those families.
 
-### Finding 3: Fine-tuning hurt OOD generalization
+### Finding 3: Fine-tuning was actively harmful on cross-family OOD (lexical overfitting + label-relevance inversion)
 
-LoRA scored **0.293** on pooled OOD, compared with **0.364** for the frozen
-probe and **0.291** for TF-IDF + LR. The frozen probe keeps the pretrained
-backbone signal; LoRA specializes to the direct-injection training pool and
-loses much of that signal.
+LoRA scored **0.293** AUPRC on pooled OOD vs **0.364** for the frozen probe
+and **0.291** for TF-IDF + LR. The frozen probe keeps the pretrained backbone
+signal; LoRA specializes to the direct-injection training pool and loses much
+of that signal.
+
+The sharper finding is under AUROC: LoRA's pooled OOD AUROC is **0.383**
+[0.374, 0.392] and TF-IDF + LR's is **0.371** [0.362, 0.381] --- both with CIs
+that clear the 0.5 random floor *on the wrong side*. The frozen probe alone
+stays above floor at 0.515 [0.505, 0.525]. The in-pool to cross-family
+generalization gap is ~0.6 AUROC for the trained detectors (in-pool 0.99 ->
+cross-family 0.38), the largest possible gap with confidence.
+
+This is more than overfitting alone (which predicts collapse toward random,
+not past it). The mechanism is **lexical overfitting + a label-relevance
+shift on the OOD slate**:
+
+- LoRA + TF-IDF both learn lexical signatures of direct injection.
+- **NotInject** (n=339, all negative) is engineered to look like direct
+  injection lexically; the trained detectors score these HIGH (false
+  positives), inverting the negative class.
+- **BIPIA + InjecAgent** (indirect + agentic, n=112) don't use
+  direct-injection lexical patterns; the detectors score these LOW (false
+  negatives), inverting the positive class.
+
+The lexical signal is real and internally consistent --- it just stops
+tracking attack class on cross-family slices where lexical similarity to
+direct injection and actual attack class point opposite ways. The frozen
+probe (zero LODO-pool adaptation) preserves generic linguistic features
+that aren't aligned with the direct-injection lexical distribution and
+therefore stay closer to floor on the cross-family slate.
 
 ### Finding 4: The context-window ablation was a null result
 

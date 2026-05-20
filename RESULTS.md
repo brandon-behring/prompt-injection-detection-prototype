@@ -158,7 +158,11 @@ for the execution record + actual GPU spend ($1.34 of the $5-7 envelope).
 The frozen probe uses the pretrained ModernBERT backbone without task-specific
 weight movement. LoRA fine-tunes a small adapter on the direct-injection
 training pool. If fine-tuning helped OOD, LoRA should beat the frozen probe.
-It does not.
+It does not --- and under AUROC the gap is sharper than the AUPRC delta
+suggests: LoRA's pooled OOD AUROC is 0.383 against frozen probe's 0.515
+(delta -0.132; see §6). LoRA's CI clears the 0.5 random floor on the wrong
+side, meaning its ranking is systematically inverted relative to cross-family
+attack truth --- not merely degraded toward chance.
 
 | Comparison | Slice | Metric | LoRA - frozen probe | 95% CI | Read |
 |---|---|---|---:|---:|---|
@@ -236,8 +240,25 @@ cross-family ranking failure.
 
 ## 6. Secondary Table: AUROC
 
-AUROC is reported for comparison with other work, but AUPRC is the headline
-metric because this task is imbalanced.
+AUROC is reported for comparison with other work; AUPRC is the headline metric
+because this task is imbalanced. AUROC carries one finding AUPRC understates,
+though: **two detectors score below the 0.5 random floor on pooled OOD** ---
+LoRA at 0.383 [0.374, 0.392] and TF-IDF + LR at 0.371 [0.362, 0.381], CIs
+clear on the wrong side. The frozen probe alone stays above floor at 0.515.
+Trained detectors hit AUROC 0.99 in-pool and AUROC 0.38 on cross-family ---
+a ~0.6 generalization gap.
+
+Mechanism (consistent with §1 AUPRC + §2 LoRA-vs-frozen delta): **lexical
+overfitting + slate-induced label-relevance inversion**. LoRA + TF-IDF both
+learn lexical signatures of direct injection. On the OOD slate, NotInject
+(benign text engineered to look like direct injection) inverts the negative
+class (high scores --> wrong); BIPIA + InjecAgent (no direct-injection
+lexical patterns) invert the positive class (low scores --> wrong). The
+lexical signal is internally consistent --- it just stops tracking attack
+class on cross-family slices. The frozen probe (no LODO-pool adaptation)
+preserves generic linguistic features less aligned with direct-injection
+lexical patterns, so its cross-family ordering stays close to chance rather
+than inverting past it.
 
 Single-class slices are omitted here for the same reason as the AUPRC table:
 AUROC requires both positives and negatives.

@@ -31,8 +31,19 @@ evaluation harness and asks the harder question honestly.
 | Detector | Pooled OOD AUPRC | Interpretation |
 |---|---:|---|
 | ModernBERT frozen probe | **0.364** vs random floor **0.374** | best in-house score, still not a success claim |
-| ModernBERT LoRA | 0.293 | fine-tuning hurt cross-family ranking |
-| TF-IDF + LR | 0.291 | classical floor, roughly tied with LoRA |
+| ModernBERT LoRA | 0.293 (AUROC 0.383 below 0.5 floor) | fine-tuning was actively harmful --- lexical overfitting + slate-induced label-relevance inversion |
+| TF-IDF + LR | 0.291 (AUROC 0.371 also below 0.5 floor) | classical floor, roughly tied with LoRA; same mechanism |
+
+The deeper failure: in-pool 0.99 AUROC -> cross-family 0.38 AUROC for trained
+detectors. CIs on LoRA + TF-IDF clear the 0.5 random floor on the wrong side
+(LoRA [0.374, 0.392], TF-IDF [0.362, 0.381]). The frozen probe (zero
+LODO-pool adaptation) holds at 0.515. The mechanism is **lexical overfitting
++ a label-relevance shift** on the OOD slate: NotInject (benign text engineered
+to look like injection) flips the negative side; indirect/agentic attacks
+(don't share direct-injection lexical patterns) flip the positive side.
+Direct-injection training produced learned representations whose ordering
+is *systematically inverted* on cross-family slices where lexical signal stops
+tracking attack class.
 
 **Direct detection check**
 
