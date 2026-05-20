@@ -1,5 +1,17 @@
 # Repo audit - 2026-05-18
 
+> **Status (resolved 2026-05-20).** Internal audit conducted 2026-05-18 in advance of
+> v1.0.0 submission. All 5 P0 blockers + the majority of P1/P2 findings are now
+> resolved (reviewer URLs return 200; remote CI + Publish workflows green;
+> public docs `[TBD]` placeholders cleared; HF Hub T0 rungs published per ADR-058;
+> Quarto render path narrowed). The remaining ADR-frontmatter governance gaps
+> (`closing_commit` on ADR-051 + ADR-052) are addressed in the follow-up
+> 2026-05-20 audit cycle (see new ADR-072).
+>
+> Preserved here under `decisions/audits/` as part of the SDD audit trail
+> (per ADR-040 phase-0 audit-findings discipline). The resolution narrative
+> is in `CHANGELOG.md` from v0.9.0-rc2 onward.
+
 Internal audit. Blunt by design. Submission-readiness is judged against the repo's
 own ADR-039 / Phase 5 gates, not by a looser "some artifacts exist locally"
 standard.
