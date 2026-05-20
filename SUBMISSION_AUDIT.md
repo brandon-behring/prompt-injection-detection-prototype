@@ -81,6 +81,7 @@
 | CLAIM-071 | [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md) | Accepted |  |
 | CLAIM-072 | [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) | Accepted |  |
 | CLAIM-073 | [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md) | Accepted |  |
+| CLAIM-074 | [ADR-074](decisions/ADR-074-adr-064-self-criticism-quote-redaction.md) | Accepted |  |
 
 ## Claim details
 
@@ -3345,26 +3346,25 @@ scopes discipline). SUBMISSION_AUDIT.md regenerates with at least 63 CLAIM rows 
 
 **Claim**
 
-User feedback 2026-05-19 (post-v1.1.3 ADR-062 baseline): *"the writeup/quatro is a little obscure
-and hard to follow and is not very polished. Imagine a new person coming to it and understanding the
-problem and understanding what the plots say and don't say what the metrics mean. It is jargon heavy
-and dense and pretty unreadable to a hiring manager and doesn't demonstrate clear thought."* Then
-expanded: *"take a broad look over everything including readme etc and other documentations to make
-sure we are consistent throughout the guide."* Three /exploring-options rounds locked: heavy/fresh
-pass (not light/ medium); commit doc-agent ADR-062 work as v1.1.3 baseline; DeBERTa null-result
-lives as RESULTS §1B callout (NOT a new F6 figure); hiring-manager landing = new standalone page;
-spoke density = light signpost + Result-bolding; figure refinements = prose + SVG axis-label fixes;
-sub-commits = logical (6 commits); full-repo audit + 3-stage release shape (v1.1.3 baseline + v1.1.4
-consistency-only + v1.2.0 heavy pass); ADR-063 fact-correction via CHANGELOG postscript + this ADR
-§D narrative flag (lightest ceremony respecting the project ADR-discipline per CLAUDE.md "ADRs are
-immutable; supersede via new ADR"); markdown-link-checker pre-commit prophylaxis (CI only; no local
-pre-commit hook to avoid contributor friction); no companion technical-reviewer landing page
-(READING_GUIDE.md already serves that role). The 3-audit findings + locked decisions produce a
-~5.5-hour 6-commit heavy pass on top of ADR-062's structural rewrite. The pass adds reviewer-facing
-clarity polish (jargon glossing invariant + spoke skim signposts + table/plot context + DeBERTa §1B
-+ figure caption + SVG axis-label refinements + hiring-manager landing) AND documentation-wide
-consistency invariants (canonical terminology table + project-ADR-discipline-immutable
-broken-slug-ref + cumulative-cost-figure flag for 5 prior ADRs).
+Post-v1.1.3 user review (ADR-062 baseline) surfaced that the Quarto writeup needed a hiring-manager
+clarity pass: jargon density, plot-interpretation cues, and table-context framing were under-served.
+User expansion: ensure consistency across README and other documentation surfaces. [Redacted
+2026-05-20 per ADR-074 narrow-relaxation; verbatim user wording preserved in private transcript
+file.] Three /exploring-options rounds locked: heavy/fresh pass (not light/ medium); commit
+doc-agent ADR-062 work as v1.1.3 baseline; DeBERTa null-result lives as RESULTS §1B callout (NOT a
+new F6 figure); hiring-manager landing = new standalone page; spoke density = light signpost +
+Result-bolding; figure refinements = prose + SVG axis-label fixes; sub-commits = logical (6
+commits); full-repo audit + 3-stage release shape (v1.1.3 baseline + v1.1.4 consistency-only +
+v1.2.0 heavy pass); ADR-063 fact-correction via CHANGELOG postscript + this ADR §D narrative flag
+(lightest ceremony respecting the project ADR-discipline per CLAUDE.md "ADRs are immutable;
+supersede via new ADR"); markdown-link-checker pre-commit prophylaxis (CI only; no local pre-commit
+hook to avoid contributor friction); no companion technical-reviewer landing page (READING_GUIDE.md
+already serves that role). The 3-audit findings + locked decisions produce a ~5.5-hour 6-commit
+heavy pass on top of ADR-062's structural rewrite. The pass adds reviewer-facing clarity polish
+(jargon glossing invariant + spoke skim signposts + table/plot context + DeBERTa §1B + figure
+caption + SVG axis-label refinements + hiring-manager landing) AND documentation-wide consistency
+invariants (canonical terminology table + project-ADR-discipline-immutable broken-slug-ref +
+cumulative-cost-figure flag for 5 prior ADRs).
 
 **Acceptance criterion**
 
@@ -3781,5 +3781,37 @@ decisions/README.md §Lifecycle (or equivalent) cites ADR-073 as the canonical i
 reference; ADRs 067-070 remain reachable but are no longer cited as the prospective rule. New
 contributors learn one rule with four classes instead of one rule + four patches. CLAUDE.md
 immutability section simplified to cite ADR-073.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-074 - [ADR-074](decisions/ADR-074-adr-064-self-criticism-quote-redaction.md): Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision
+
+**Status**: Accepted
+
+**Source**: 2026-05-20 audit hiring-manager-curious risk finding — the single most embarrassing string in decisions/ sits in a publicly rendered ADR. Verbatim quote preserved privately in the transcript file (gitignored, emailed separately at submission).
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+ADR-064 ("writeup-hiring-manager-clarity-and-consistency-pass") has a title slug that explicitly
+contains "hiring-manager-clarity" — a curious reviewer who searches the candidate's profile + the
+keyword "hiring-manager" lands on this ADR. The frontmatter `claim:` field (lines 9-16) and body §A
+Context (lines 105-110) contain a verbatim user-feedback quote that includes the phrase "doesn't
+demonstrate clear thought" — an embarrassing self-assessment string surviving in an immutable record
+that any hiring manager wandering into decisions/ will see. The decision context (what changed and
+why) survives intact without the verbatim quote. This ADR replaces the verbatim quote with a neutral
+paraphrase per ADR-073 Class A / Class B-adjacent narrow-relaxation discipline (no decision content
+changes; reader experience strictly improved).
+
+**Acceptance criterion**
+
+`grep "doesn't demonstrate clear thought" decisions/ADR-064-*.md` returns 0 matches. ADR-064's claim
++ body context narrate the decision provenance without the verbatim self-criticism phrase. ADR-064's
+actual decisions (B1-B6, C1-C2, D1, E1-E5) remain unchanged. The transcript file (private) preserves
+the original verbatim user feedback for audit-trail completeness.
 
 </div>

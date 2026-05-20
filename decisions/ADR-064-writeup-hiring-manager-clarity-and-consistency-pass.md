@@ -6,14 +6,13 @@ date: 2026-05-19
 status: Accepted
 claim_id: CLAIM-064
 claim: >-
-  User feedback 2026-05-19 (post-v1.1.3 ADR-062 baseline): *"the
-  writeup/quatro is a little obscure and hard to follow and is not very
-  polished. Imagine a new person coming to it and understanding the
-  problem and understanding what the plots say and don't say what the
-  metrics mean. It is jargon heavy and dense and pretty unreadable to a
-  hiring manager and doesn't demonstrate clear thought."* Then expanded:
-  *"take a broad look over everything including readme etc and other
-  documentations to make sure we are consistent throughout the guide."*
+  Post-v1.1.3 user review (ADR-062 baseline) surfaced that the Quarto
+  writeup needed a hiring-manager clarity pass: jargon density,
+  plot-interpretation cues, and table-context framing were under-served.
+  User expansion: ensure consistency across README and other
+  documentation surfaces.
+  [Redacted 2026-05-20 per ADR-074 narrow-relaxation; verbatim user
+  wording preserved in private transcript file.]
   Three /exploring-options rounds locked: heavy/fresh pass (not light/
   medium); commit doc-agent ADR-062 work as v1.1.3 baseline; DeBERTa
   null-result lives as RESULTS §1B callout (NOT a new F6 figure);
@@ -102,12 +101,14 @@ not say" caption discipline for F1-F5, expanded `docs/GLOSSARY.md`,
 3 reader-type paths in `READING_GUIDE.md`, F1-F5 canonical reviewer
 figure slate (F6-F7 removed).
 
-User feedback 2026-05-19 (post-v1.1.3): *"the writeup/quatro is a
-little obscure and hard to follow ... jargon heavy and dense and
-pretty unreadable to a hiring manager ... doesn't demonstrate clear
-thought."* Then expanded: *"take a broad look over everything
-including readme etc and other documentations to make sure we are
-consistent throughout the guide."*
+Post-v1.1.3 user review (ADR-062 baseline) flagged that the Quarto
+writeup needed a hiring-manager clarity pass: jargon density,
+plot-interpretation cues, table-context framing under-served. Plus
+a documentation-wide consistency review across README, RESULTS,
+EXECUTIVE_SUMMARY, and reference docs.
+
+*[Verbatim user feedback redacted 2026-05-20 per ADR-074
+narrow-relaxation; original preserved in private transcript file.]*
 
 Three parallel /exploring-options rounds (2026-05-19 — full transcript
 above) surfaced + locked the v1.2.0 scope: heavy clarity polish
