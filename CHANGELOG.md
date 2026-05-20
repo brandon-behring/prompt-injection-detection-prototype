@@ -40,6 +40,11 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
   assumptions/spec/reference ledgers now carry current-state reader notes.
   Docs-only; no methodology, model, data, compute, or `v1.0.0` reviewer-pin
   change.
+- **Entry-path result tables clarified** — landing page, README, executive
+  summary, hiring-manager page, and reading guide now show detector-level
+  direct detection checks beside the pooled OOD failure, with interpretation
+  columns and undefined all-positive metrics omitted. Docs-only; no
+  methodology, model, data, compute, or `v1.0.0` reviewer-pin change.
 
 ## [1.2.8] — 2026-05-19
 

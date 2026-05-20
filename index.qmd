@@ -34,18 +34,11 @@ that were absent or underrepresented in training.
 
 ## Headline Result
 
-The direct prompt-injection numbers are real: on the balanced validation split
-containing direct-injection positives plus benign negatives, LoRA reaches
-**0.974 AUPRC**, **0.993 AUROC**, and **0.934 recall@0.5**. TF-IDF + logistic
-regression is similar, and the frozen probe is weaker but still discriminative
-at **0.653 AUPRC**.
-
-The direct held-out-source test is stricter but all-positive by design, so it
-can only report recall, not false positives or AUPRC/AUROC. On that LODO
-direct-source test, recall@0.5 is **0.641** for frozen probe, **0.625** for
-LoRA, and **0.558** for full fine-tuning.
-
-The failure appears when the family changes. On pooled OOD, the main metric is
+Two direct detection checks set up the contrast: balanced direct+benign
+validation asks whether the detectors learned the basic direct prompt-injection
+pattern, and held-out direct-source recall asks whether that direct signal
+survives a source holdout. The failure appears when the attack family changes.
+On pooled OOD, the main metric is
 **AUPRC**, which is useful for imbalanced binary classification. A random
 ranking scores **0.374** because 412 of 1101 examples are positive. A detector
 needs to beat that floor to show useful ranking signal.
@@ -66,6 +59,35 @@ needs to beat that floor to show useful ranking signal.
   examples are positive.
 - Any detector at or below that floor is not clearly better than guessing.
 - The 95% confidence interval (CI) is the uncertainty band around the score.
+
+## Direct Detection Check
+
+The pooled OOD table is the failure case. The direct detection check below
+shows why that failure is meaningful: the same evaluation stack did learn the
+direct task before it failed under cross-family shift.
+
+**Balanced direct+benign validation.** This split includes direct-injection
+positives and benign negatives, so AUPRC, AUROC, and recall are all defined.
+
+| Detector | AUPRC | AUROC | Recall@0.5 | Interpretation |
+|---|---:|---:|---:|---|
+| ModernBERT LoRA | **0.974** | **0.993** | **0.934** | strongest direct-pattern detector |
+| TF-IDF + LR | 0.971 | 0.992 | 0.930 | lexical direct baseline is also strong |
+| ModernBERT frozen probe | 0.653 | 0.907 | 0.849 | weaker ranking, still discriminative |
+
+**Held-out direct-source recall.** This leave-one-dataset-out direct-source
+test is all-positive, so the table reports recall only.
+
+| Detector | Recall@0.5 | Interpretation |
+|---|---:|---|
+| ModernBERT frozen probe | **0.641** | best held-out direct-source recall |
+| ModernBERT LoRA | 0.625 | similar recall, despite worse pooled OOD ranking |
+| ModernBERT full fine-tune | 0.558 | lower direct-source recall |
+
+False positives, AUPRC, and AUROC are omitted from the held-out direct-source
+table because that slice has no negatives. Direct-task success makes the OOD
+failure more informative, not less: the detectors learned one family and did
+not transfer cleanly to others.
 
 ## What This Means
 

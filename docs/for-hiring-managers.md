@@ -26,16 +26,41 @@ evaluation harness and asks the harder question honestly.
 
 **The honest result is two-sided: direct detection works better; cross-family generalization fails.**
 
-- **Direct validation worked**: on balanced direct+benign validation, ModernBERT LoRA reached **AUPRC 0.974**, **AUROC 0.993**, and **recall@0.5 0.934**.
-- **Held-out direct-source recall was weaker**: on the LODO direct-source test, the best recall@0.5 was **0.641** from the frozen probe. That test is all-positive, so false positives, AUPRC, and AUROC are omitted.
-- **OOD transfer failed**: on the pooled OOD slate, the best in-house detector scored **AUPRC 0.364** versus a random-ranking floor of **0.374**. Higher than the random floor is the basic bar; none of the trained detectors clearly beat it.
-- **The context-window follow-up was a null result**: the v1.1.2 DeBERTa-v3-base ablation produced essentially identical OOD performance under two truncation strategies, so the gap is **backbone-dominant**, not a context-window issue.
+**OOD contrast**
+
+| Detector | Pooled OOD AUPRC | Interpretation |
+|---|---:|---|
+| ModernBERT frozen probe | **0.364** vs random floor **0.374** | best in-house score, still not a success claim |
+| ModernBERT LoRA | 0.293 | fine-tuning hurt cross-family ranking |
+| TF-IDF + LR | 0.291 | classical floor, roughly tied with LoRA |
+
+**Direct detection check**
+
+| Detector | Balanced direct+benign validation | Interpretation |
+|---|---:|---|
+| ModernBERT LoRA | AUPRC **0.974**, AUROC **0.993**, recall@0.5 **0.934** | strongest direct-pattern detector |
+| TF-IDF + LR | AUPRC 0.971, AUROC 0.992, recall@0.5 0.930 | lexical direct baseline is also strong |
+| ModernBERT frozen probe | AUPRC 0.653, AUROC 0.907, recall@0.5 0.849 | weaker ranking, still discriminative |
+
+| Detector | Held-out direct-source recall@0.5 | Interpretation |
+|---|---:|---|
+| ModernBERT frozen probe | **0.641** | best direct-source holdout recall |
+| ModernBERT LoRA | 0.625 | similar direct-source recall, but worse pooled OOD ranking |
+| ModernBERT full fine-tune | 0.558 | lower direct-source holdout recall |
+
+The held-out direct-source test is all-positive, so false positives, AUPRC,
+and AUROC are omitted there. The context-window follow-up was also a null
+result: the v1.1.2 DeBERTa-v3-base ablation produced essentially identical OOD
+performance under two truncation strategies, so the gap is backbone-dominant,
+not a context-window issue.
 
 See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
 
 ## 3. Why should I trust the finding?
 
-- **Held-out evaluation, not in-sample**: leave-one-dataset-out (LODO) splits ensure the test slate is unseen during training. No published benchmark numbers borrowed.
+- **Held-out evaluation, not training-set performance**:
+  leave-one-dataset-out (LODO) splits ensure the test slate is unseen during
+  training. No published benchmark numbers borrowed.
 - **Direct and OOD results separated**: validation direct+benign AUPRC shows whether the detector learned the basic pattern; pooled OOD AUPRC shows whether that pattern transfers to new attack families.
 - **Statistical apparatus, not point estimates**: every reported AUPRC carries a 95% bootstrap confidence interval (an uncertainty band); figures show CI overlap so weak claims are visible.
 - **Honest single-class slice handling**: when a slice has only positives or

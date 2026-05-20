@@ -8,6 +8,22 @@ description: "How to read the prompt-injection classifier evaluation at differen
 The site is organized from least to most technical. Start with the result, then
 drill into evidence and methodology only as needed.
 
+## Result Map
+
+Use this map when scanning the project for what was actually accomplished. Each
+row points to the deeper table and states why the result matters.
+
+| Finding | Where to read | What the result says | Why it matters or is limited |
+|---|---|---|---|
+| Direct validation | [Results: Direct Prompt-Injection Performance](RESULTS.md#direct-prompt-injection-performance) | LoRA reaches 0.974 AUPRC / 0.993 AUROC / 0.934 recall@0.5 on balanced direct+benign validation; TF-IDF + LR is similar | confirms the detector stack learned direct prompt-injection patterns |
+| Held-out direct-source recall | [Results: Direct Prompt-Injection Performance](RESULTS.md#direct-prompt-injection-performance) | frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune is 0.558 | stricter direct-source holdout, but recall-only because the slice is all-positive |
+| Pooled OOD failure | [Results: §1 Cross-Family OOD Table](RESULTS.md#1-cross-family-ood-table-auprc) | best pooled OOD AUPRC is 0.364 against a random floor of 0.374 | main scientific finding: direct-trained detectors do not beat guessing under family shift |
+| LoRA vs frozen-probe OOD degradation | [Results: §2 Frozen Probe vs LoRA](RESULTS.md#2-frozen-probe-vs-lora) | LoRA is -0.071 AUPRC below frozen probe on pooled OOD | fine-tuning on direct examples specialized away from useful OOD signal |
+| DeBERTa context-window null result | [Results: §1B Ablation](RESULTS.md#1b-ablation-does-a-longer-context-backbone-fix-the-ood-gap) | chunk-and-average scores 0.291 pooled OOD AUPRC; head-truncation scores 0.290 | longer context access did not explain the OOD gap; backbone effects remain |
+| Threshold transfer failure | [Results: §4 Threshold Transfer](RESULTS.md#4-threshold-transfer) | LoRA catches more positives but jumps to 11.5% test FPR under a 1% validation-FPR policy | validation thresholds are characterization, not deployment recommendations |
+| Calibration ranking | [Results: §5 Calibration](RESULTS.md#5-calibration) | frozen probe has the lowest mean ECE (0.144) and Brier (0.265) | score quality and direct-pattern accuracy diverge under OOD shift |
+| ProtectAI/reference-detector caveats | [Results: §1 Cross-Family OOD Table](RESULTS.md#1-cross-family-ood-table-auprc) and [reference-scorer audit](WRITEUP/reference-scorer-audit.md) | ProtectAI v1 is near frozen probe on pooled OOD; v2 regresses on this slate | useful diagnostic references, but training-overlap disclosure limits clean baseline claims |
+
 ## Path A: Hiring Manager, 10-15 Minutes
 
 Goal: understand the problem, the result, and what the project demonstrates.

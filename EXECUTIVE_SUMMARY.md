@@ -37,6 +37,31 @@ false positives, AUPRC, and AUROC are left out of that table.
 | ModernBERT LoRA | 0.293 [0.286, 0.301] | Fine-tuning hurt OOD performance |
 | TF-IDF + LR | 0.291 [0.283, 0.298] | Classical baseline, roughly tied with LoRA |
 
+## Direct Detection Check
+
+The OOD result should not be read as "nothing worked." The direct detection
+check shows that the detectors learned the direct prompt-injection task, then
+failed to generalize cleanly across attack families.
+
+**Balanced direct+benign validation**
+
+| Detector | AUPRC | AUROC | Recall@0.5 | Interpretation |
+|---|---:|---:|---:|---|
+| ModernBERT LoRA | **0.974** | **0.993** | **0.934** | strongest direct-pattern detector |
+| TF-IDF + LR | 0.971 | 0.992 | 0.930 | lexical direct baseline is also strong |
+| ModernBERT frozen probe | 0.653 | 0.907 | 0.849 | weaker ranking, still discriminative |
+
+**Held-out direct-source recall**
+
+| Detector | Recall@0.5 | Interpretation |
+|---|---:|---|
+| ModernBERT frozen probe | **0.641** | best direct-source holdout recall |
+| ModernBERT LoRA | 0.625 | similar recall, despite worse pooled OOD ranking |
+| ModernBERT full fine-tune | 0.558 | lower direct-source recall |
+
+False positives, AUPRC, and AUROC are omitted from the held-out direct-source
+table because that slice is all-positive.
+
 ## What Was Tested
 
 - **In scope**: single-turn English text classification.

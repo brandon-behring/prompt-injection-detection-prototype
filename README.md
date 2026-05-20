@@ -49,6 +49,31 @@ view is the hard failure mode.
 For `pooled_ood`, random AUPRC is **412 / 1101 = 0.374**. That is why the
 0.364 frozen-probe score is not a success claim.
 
+## Direct Detection Check
+
+The direct-task result is the contrast for the OOD failure: the detectors did
+learn direct prompt-injection patterns, but that skill did not transfer cleanly
+to new attack families.
+
+**Balanced direct+benign validation**
+
+| Detector | AUPRC | AUROC | Recall@0.5 | Interpretation |
+|---|---:|---:|---:|---|
+| ModernBERT LoRA | **0.974** | **0.993** | **0.934** | strongest direct-pattern detector |
+| TF-IDF + LR | 0.971 | 0.992 | 0.930 | lexical direct baseline is also strong |
+| ModernBERT frozen probe | 0.653 | 0.907 | 0.849 | weaker ranking, still discriminative |
+
+**Held-out direct-source recall**
+
+| Detector | Recall@0.5 | Interpretation |
+|---|---:|---|
+| ModernBERT frozen probe | **0.641** | best direct-source holdout recall |
+| ModernBERT LoRA | 0.625 | similar recall, but worse pooled OOD ranking |
+| ModernBERT full fine-tune | 0.558 | lower direct-source recall |
+
+The held-out direct-source slice is all-positive, so false positives, AUPRC,
+and AUROC are undefined and omitted.
+
 ## How To Read The Site
 
 - **5-minute read**: start at the
