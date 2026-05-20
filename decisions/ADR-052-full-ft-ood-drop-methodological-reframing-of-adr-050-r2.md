@@ -83,7 +83,7 @@ acceptance_criterion: >-
   SUBMISSION_AUDIT.md regenerates via
   scripts/regenerate_audit.py with ADR-052 included; CHANGELOG
   [1.0.3] entry summarises the supersession.
-closing_commit:
+closing_commit: v1.0.3
 supersedes:
   - ADR-050
 superseded_by:
@@ -248,6 +248,42 @@ biases the gradient against the OOD slices it'll be evaluated on.
   ADR-052. It is governance-only.
 - **Audit-trail**: SUBMISSION_AUDIT.md regenerates via
   `scripts/regenerate_audit.py` with ADR-052 included.
+
+## Alternatives Considered
+
+Retroactively documented per ADR-072 (2026-05-20 frontmatter +
+structural backfill). The four alternatives surfaced at 2026-05-18
+lock time:
+
+1. **Re-fire full-FT OOD inference on a fresh DC.** Rejected: the
+   methodological reasoning was already load-bearing per LoRA's
+   paired-bootstrap evidence (-0.071 AUPRC vs frozen-probe on
+   `pooled_ood`; CI clears zero). Cost + repeat-FUSE-risk + ~$5-12
+   GPU spend on a Low-stock A100 80GB didn't justify the marginal
+   methodology gain. Full-FT (~149M params trainable) is a larger
+   version of the same fine-tuning mechanism LoRA had just shown
+   to be net-harmful on cross-family OOD.
+2. **Restart from clean checkpoint.** Rejected: same reasoning,
+   same cost envelope. The X11 crash exposed the decision; the
+   underlying methodological reasoning would still recommend the
+   drop even from a clean restart.
+3. **Abandon outright with no ADR.** Rejected: documentation
+   contract under ADR-005 + AGENTS.md requires explicit reframe of
+   ADR-050 Revision 2. Silent drops violate the immutability
+   discipline that the rest of the ADR corpus invokes.
+4. **No ADR-052 reframing; let ADR-050 R2 stand as operational
+   forced-drop.** Rejected: the methodological reasoning was real
+   and load-bearing for the characterisation conclusions; framing
+   the drop as purely operational understates the methodology
+   discipline that drove it. The same-day retcon optic is the
+   acknowledged cost; the benefit is honest documentation of the
+   actual decision logic. ADR-075 (2026-05-20 planned) further
+   unifies the ADR-050 R2 + ADR-052 framings into one narrative.
+
+The chosen path (narrow supersession of ADR-050 R2 + explicit
+methodological reframe) preserves the audit trail's honesty about
+the decision logic, even at the cost of the same-day-as-050
+authoring pattern.
 
 ## Linked ADRs
 

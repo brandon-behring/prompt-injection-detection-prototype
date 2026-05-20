@@ -58,8 +58,8 @@
 | CLAIM-048 | [ADR-048](decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.md) | Accepted | 0fad4e1 |
 | CLAIM-049 | [ADR-049](decisions/ADR-049-gpu-order-priority-refresh-a100-80g.md) | Accepted | 423c2c8 |
 | CLAIM-050 | [ADR-050](decisions/ADR-050-rung-slate-narrowing-llm-judges-and-full-ft-ood-dropped.md) | Accepted | 3b16036 |
-| CLAIM-051 | [ADR-051](decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md) | Accepted |  |
-| CLAIM-052 | [ADR-052](decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.md) | Accepted |  |
+| CLAIM-051 | [ADR-051](decisions/ADR-051-v1.0.x-carryforward-of-t0-and-invariant-scaffolds.md) | Accepted | v1.0.9 (Block A; Block B carryforward to v1.1.x) |
+| CLAIM-052 | [ADR-052](decisions/ADR-052-full-ft-ood-drop-methodological-reframing-of-adr-050-r2.md) | Accepted | v1.0.3 |
 | CLAIM-053 | [ADR-053](decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md) | Accepted | v1.0.4 |
 | CLAIM-054 | [ADR-054](decisions/ADR-054-results-page-as-third-entry-artifact-extending-adr-053.md) | Accepted | v1.0.5 |
 | CLAIM-055 | [ADR-055](decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.md) | Accepted | v1.0.8 |
@@ -79,6 +79,7 @@
 | CLAIM-069 | [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) | Accepted | v1.2.6 |
 | CLAIM-070 | [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md) | Accepted | v1.2.8 |
 | CLAIM-071 | [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md) | Accepted |  |
+| CLAIM-072 | [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) | Accepted |  |
 
 ## Claim details
 
@@ -2727,7 +2728,7 @@ re-fire entry carries the failed status + manual_recovery true + the FUSE EIO cr
 
 **Source**: REPO_AUDIT_2026-05-18.md §P0 "HF Hub / T0 reproducibility is unfinished" + §P1 "Tests pass but invariant readiness is not real" + post-v1.0.1 audit re-examination (this session, 2026-05-18). The audit said explicitly: "Either finish this path or write a superseding ADR that explicitly waives it for submission" (T0 context) and "Passing pytest does not prove submission readiness under the repo's own contract" (invariant context). v1.0.0 + v1.0.1 did neither; this ADR closes the gap via the supersession path explicitly invited by the audit.
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: v1.0.9 (Block A; Block B carryforward to v1.1.x)
 
 **Claim**
 
@@ -2796,7 +2797,7 @@ cross-references this ADR (already drafted at v1.0.1 with the anticipatory refer
 
 **Source**: Post-v1.0.2 review of REPO_AUDIT_2026-05-18 + user's cover-letter draft language (draft.md) that framed the full-FT decision as methodological judgment rather than operational forced-drop. The cover-letter version is the more honest read of the decision-not-to-push-through; ADR-050 R2's operational-only framing under-states the methodological reasoning that decided the post-crash choice. AskUserQuestion 4-Q batch 2026-05-18 #N+2 Q1 user-locked the methodological- load-bearing-with-crash-as-trigger framing.
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: v1.0.3
 
 **Claim**
 
@@ -3712,5 +3713,41 @@ non-existent ADR files (all targets resolve to existing canonical filenames). Th
 longer contains the broken-slug patterns ADR-067 §C3 promised to remove at v1.2.2. The
 `/home/brandon_behring/.claude/plans/` path no longer appears in any committed file. CI lychee check
 passes on `decisions/` with the smaller ignore set.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-072 - [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md): Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline
+
+**Status**: Accepted
+
+**Source**: 2026-05-20 audit re-verification (grep on v1.2.8 head confirmed empty closing_commit/transcript + missing sections); ADR-067-070 narrow-relaxation methodology applied to the frontmatter-backfill class.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+ADR-051 + ADR-052 (both 2026-05-18 governance ADRs) ship with empty `closing_commit:` and
+`transcript:` frontmatter fields and no `## Alternatives Considered` body section. ADR-051 also
+lacks a `## Status` body section heading and opens with `# ADR-051 —` instead of `# ADR-051:`
+(template convention). The user's 2026-05-18 self-audit (REPO_AUDIT_2026-05-18.md §P1.4) flagged
+ADR-049 + ADR-050 for the same class of gap, but those have since been populated (closing_commit
+`423c2c8` and `3b16036` respectively); the actual structural debt is in ADR-051 + ADR-052. This ADR
+treats the empty-frontmatter-fields gap as a fourth narrow-relaxation class adjacent to ADR-067-070
+(slug typos / broken external refs / publisher-URL canon / render markdown fixes): populates the
+missing closing_commit values from observable tag history (ADR-051 Block A closed at v1.0.9 via
+ADR-058; ADR-052 introduced + closed at v1.0.3), adds the retrospective `## Alternatives Considered`
+sections documenting the decision space at lock time, restores the `## Status` body heading on
+ADR-051, and fixes ADR-051's opening line per template convention.
+
+**Acceptance criterion**
+
+`head -50 decisions/ADR-051-*.md` shows populated `closing_commit:` (value: `v1.0.9 (Block A; Block
+B carryforward to v1.1.x)`) and the body has `## Status`, `## Alternatives Considered` sections; the
+opening line reads `# ADR-051: ...` (colon, not em-dash). `head -50 decisions/ADR-052-*.md` shows
+populated `closing_commit:` (value: `v1.0.3`) and the body has `## Alternatives Considered`.
+`scripts/regenerate_audit.py --check` passes after the backfill.
 
 </div>
