@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,6 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +158,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -960,7 +936,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-022-statistical-inference-apparatus.html">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</h1>
 </div>
 
 
@@ -1200,8 +1176,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-15__phase-0-04__eval-framework.md</code> for the conversation that led to this decision.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1276,57 +1250,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1661,147 +1584,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 022</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> statistical-inference-apparatus</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-022</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-04 formalizes the statistical inference apparatus at the ledger-row level by ratifying and extending ADR-006's brief-level pre-locks across four §3 Eval rows. (1) Bootstrap N plus stability check (row 340) — 10K iterations at seed=1 (BCa for marginals via eval_toolkit.bootstrap_ci, percentile for paired-Delta-CIs via eval_toolkit.paired_bootstrap_diff) as headline; 10K iterations at seed=2 as stability check; flag in audit JSON when the stability-check CI half-width differs from the headline CI half-width by more than 5 percent (signals resampling instability requiring escalation to 100K iterations or honest reporting of wider CI); parallelize across independent CI computations via joblib.Parallel(n_jobs=-1) at the orchestrator layer (library-first discipline preserved — primitive itself stays as eval-toolkit shipped) on the 64-core Threadripper CPU (approximately 10000 independent CIs across 84 trained plus 16 reference prediction parquets times 4 headline metrics times 3 recall@FPR pinpoints times 6 slice aggregations times approximately 28 rung-vs-rung pairs); upstream issue filed against eval-toolkit proposing optional n_jobs parameter on paired_bootstrap_diff for internal resample-loop parallelization. (2) Multi-comparison correction (row 341) — no formal correction applied per ADR-006 estimation-over-testing stance ratified; methodology spoke at WRITEUP/methodology.md gains an explicit "family of comparisons" acknowledgment paragraph citing Gelman and Loken 2014 garden-of-forking-paths plus ASA 2016 statement on p-values; pre-empts A2 reviewer concern about ~28 paired comparisons without re-importing significance-testing apparatus. (3) Multi-seed protocol details (row 344) — 3 seeds {42, 1337, 2025} per ADR-006 ratified; trained rungs have 12 (fold, seed) observations per rung (4 LODO folds times 3 seeds) per ADR-016; reference rungs have 4 (fold) observations per rung (no seed dimension, inference-only); paired-across-rungs implementation uses (a) row-level pairing for trained-vs-trained comparisons via eval-toolkit paired_bootstrap_diff, (b) per-row replication of reference scores across the 12 trained seeds for trained-vs-reference comparisons (reference-side variance correctly fold-only); rank-based metrics aggregate per-(fold, seed)-then-mean (12 values per rung yielding cross-fold CI per ADR-024); per-row metrics (ECE plus Brier) pool rows across (fold, seed) and compute once per rung; recall@FPR thresholds computed per-(seed) from val per-(rung, fold) and applied to test (12 thresholds per rung yielding 12 recall values per rung); calibration interventions fit per-(rung, fold, seed) yielding 12 calibrators per rung times 2 interventions per ADR-023; per-(rung, fold, seed) observations dumped to evals/audit/per_seed_observations.parquet per ADR-011 Guarantee 5; methodology spoke gains variance-attribution subsection decomposing per-rung variance into fold-to-fold plus seed-to-seed plus within-(fold, seed)-bootstrap noise. (4) Paired-test method (row 345) — eval-toolkit paired_bootstrap_diff (Efron-Tibshirani 1993 §10.3 row-level pairing) ratified; DeLong 1988 plus McNemar plus Cochran-Q rejected at the row level with multi-source-LODO-specific rationale (DeLong's asymptotic Gaussian assumption breaks at our per-fold scale of approximately 4000 to 5000 benigns; designed for AUROC only not AUPRC or ECE; produces p-value contradicting estimation-over-testing; McNemar requires fixed-threshold commitment contradicting ADR-006 scenario-based threshold framing; Cochran-Q designed for fixed-classifier-vs-many-datasets — inverse of our setting). LLM-judge non-determinism at temperature=0 surfaced as new assumption A-007 (reference-rung scores cached at first call; re-run only on cache miss; inter-call variance not measured).</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §3 Eval ledger rows 340 + 341 + 344 + 345 + Phase 0-04 walk Q2 + Q3 + Q6 + Q7</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 340 carries locked-to-10K-bootstrap-with-second-seed-stability-check status; ledger row 341 carries locked-to-no-formal-correction-with-Gelman-Loken-acknowledgment-paragraph status; ledger row 344 carries locked-to-3-seeds-paired-across-rungs-with-gap-honest-defaults status; ledger row 345 carries locked-to-paired-bootstrap-diff-with-multi-source-LODO-rejection-rationale status; SPEC_SHEET §5.2 statistical tests expanded with explicit listing of headline-bootstrap-iteration-counts plus stability-check-protocol plus multi-comparison-acknowledgment plus paired-across-rungs-implementation-details; assumptions.md gains A-007 documenting LLM-judge non-determinism reference treatment; decisions/library_imports.md eval-toolkit section populated with bootstrap_ci + paired_bootstrap_diff + paired_bootstrap_ece_diff + cross_validate_metric primitives; decisions/upstream_issues.md gains entry for paired_bootstrap_diff parallelization proposal; tests/test_invariants.py contains skip-marked stub test_bootstrap_n_and_stability_check asserting 10K-plus-10K-at-second-seed pipeline plus 5pct-half-width-flag emission; tests/test_invariants.py contains skip-marked stub test_paired_across_rungs_pairing asserting (a) trained-vs-trained row-level pairing plus (b) trained-vs-reference per-row replication pattern.</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> b750d1d</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://projecteuclid.org/journals/statistical-science/volume-11/issue-3/Bootstrap-confidence-intervals/10.1214/ss/1032280214.full</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - http://www.stat.columbia.edu/~gelman/research/published/ForkingPaths.pdf</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://doi.org/10.1080/00031305.2016.1154108</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://doi.org/10.1198/000313006X152649</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://doi.org/10.2307/2531595</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.aaai.org/Library/ICML/2003/icml03-013.php</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.jmlr.org/papers/v7/demsar06a.html</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-011-methodology-guarantees.md</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-016-data-design-bundle.md</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-04__eval-framework.md</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-022: Statistical inference apparatus — bootstrap N + stability check, multi-comparison stance, multi-seed protocol, paired-test method</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). Formalizes ADR-006 brief-level pre-locks at the §3 Eval ledger-row level + adds row-specific operational details.</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>ADR-006 (Phase 0-00 brief alignment) pre-locked the brief-level inferential stance: 10K bootstrap iterations, BCa marginals plus paired Delta-CIs, estimation-over-testing, 3 seeds paired-across-rungs, no formal p-tests. The §3 Eval ledger rows 340 / 341 / 344 / 345 require formalization at the row level with the operational details ADR-006 left implicit:</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Row 340 (bootstrap N): the SPEC-text "pinned seed with stability check at a second seed" was not operationalized</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Row 341 (multi-comparison correction): ADR-006 stated "not applicable" but did not specify whether to surface the acknowledgment in the writeup</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Row 344 (multi-seed protocol): the "paired-across-rungs" semantics — what is paired and how heterogeneous rung observation counts (12 trained vs 4 reference) reconcile — were ambiguous</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Row 345 (paired-test method): DeLong / McNemar rejection rationale was stated at the brief level but lacked the LODO-specific operational reasoning</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Phase 0-04 walks Q2 / Q3 / Q6 / Q7 surfaced 6 gaps in the original pre-lock — reference-rung observation-count asymmetry; aggregation order for rank-based vs per-row metrics; (fold, seed) blocking violating iid; LLM-judge non-determinism at T=0; recall@FPR threshold drift across seeds; per-(rung, fold, seed) calibrator fitting. This ADR resolves each gap with a methodology-honest default.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bootstrap N plus stability check (row 340)</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Layer <span class="pp">|</span> Decision <span class="pp">|</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Headline iterations <span class="pp">|</span> 10K via eval_toolkit.bootstrap_ci (BCa for marginals); 10K via eval_toolkit.paired_bootstrap_diff (percentile for paired Delta-CIs) <span class="pp">|</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Stability check <span class="pp">|</span> 10K at a second resampling seed (seed=2); flag when stability-check half-width differs from headline half-width by more than 5 percent <span class="pp">|</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Parallelization <span class="pp">|</span> joblib.Parallel(n_jobs=-1) at the orchestrator layer in scripts/run_bootstrap_battery.py; library primitive itself stays single-threaded as shipped (library-first discipline); 64-core Threadripper expected to compress approximately 10000 independent CIs from hours of serial walltime to minutes <span class="pp">|</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Upstream issue <span class="pp">|</span> Filed against eval-toolkit proposing optional n_jobs parameter on paired_bootstrap_diff for internal resample-loop parallelization <span class="pp">|</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multi-comparison correction (row 341)</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>**No formal correction applied** per ADR-006 estimation-over-testing stance. The methodology spoke at WRITEUP/methodology.md gains an explicit "Family of comparisons" acknowledgment paragraph that:</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Names the comparison family size (~28 paired rung-vs-rung comparisons across 8 rungs choose 2)</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cites Gelman and Loken 2014 "garden of forking paths" framing</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cites the ASA 2016 statement on p-values supporting effect-size-with-CI over null-hypothesis testing</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>States explicitly that paired-bootstrap Delta-CIs are not Bonferroni-corrected and explains the rationale (correction applies to significance-testing; we report effect sizes)</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multi-seed protocol details (row 344)</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**3 seeds {42, 1337, 2025}** per ADR-006 ratified plus the following gap-honest implementation defaults:</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sub-decision <span class="pp">|</span> Locked policy <span class="pp">|</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Trained-rung observations per rung <span class="pp">|</span> 12 = 4 LODO folds × 3 seeds per ADR-016 <span class="pp">|</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reference-rung observations per rung <span class="pp">|</span> 4 = 4 LODO folds × 1 (no seed dimension; inference-only at T=0) <span class="pp">|</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Trained-vs-trained pairing <span class="pp">|</span> Row-level pairing via eval-toolkit paired_bootstrap_diff (same y_true rows across both rungs) <span class="pp">|</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Trained-vs-reference pairing <span class="pp">|</span> Per-row replication of reference scores across the 12 trained seeds; reference-side variance is fold-only (correctly so — reference has no seed dimension) <span class="pp">|</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rank-based metric aggregation (PR-AUC, ROC-AUC, recall@FPR) <span class="pp">|</span> Compute per-(fold, seed) → 12 values per rung → mean → cross-fold CI per ADR-024; pool-then-compute reported in spoke as sensitivity-check ablation <span class="pp">|</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Per-row metric aggregation (ECE, Brier) <span class="pp">|</span> Pool rows across (fold, seed) and compute once per rung (within-block iid violation is small for per-row scoring rules) <span class="pp">|</span></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Recall@FPR threshold computation <span class="pp">|</span> Per-(seed) thresholds computed from val per-(rung, fold); applied to test; 12 thresholds per (rung, fold) yielding 12 recall values per rung; averaged <span class="pp">|</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Calibration intervention fit <span class="pp">|</span> Per-(rung, fold, seed) → 12 calibrators per rung × 2 interventions (temperature + isotonic) per ADR-023 <span class="pp">|</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Per-seed transparency <span class="pp">|</span> Per-(rung, fold, seed) values dumped to evals/audit/per_seed_observations.parquet per ADR-011 Guarantee 5 <span class="pp">|</span></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variance attribution spoke <span class="pp">|</span> Per-rung decomposition: fold-to-fold vs seed-to-seed vs within-(fold, seed) bootstrap noise <span class="pp">|</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LLM-judge non-determinism <span class="pp">|</span> Reference scores cached at first call; re-run only on cache miss; inter-call variance not measured (A-007) <span class="pp">|</span></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paired-test method (row 345)</span></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>**eval-toolkit paired_bootstrap_diff** (Efron-Tibshirani 1993 §10.3 row-level pairing) ratified. Rejection rationale for the field-standard alternatives at the row level:</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Method <span class="pp">|</span> Why rejected (multi-source-LODO-specific) <span class="pp">|</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> DeLong 1988 <span class="pp">|</span> Asymptotic Gaussian assumption breaks at per-fold n ≈ 4-5K benigns; designed for AUROC only — doesn't extend to AUPRC or ECE; produces p-value contradicting estimation-over-testing; LODO fold-blocking violates the iid assumption underlying the DeLong variance estimate <span class="pp">|</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> McNemar <span class="pp">|</span> Threshold-dependent; would require committing to a single deployment operating point we explicitly refuse to commit to (ADR-006 + scenario-based framing); doesn't handle the dual-policy framing <span class="pp">|</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cochran's Q / Friedman <span class="pp">|</span> Designed for fixed-classifier-vs-many-datasets — inverse of our setting (many rungs vs few LODO folds); produces p-value <span class="pp">|</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Permutation test on Delta <span class="pp">|</span> Equivalent to bootstrap on the null hypothesis; would require explicit p-value reporting; contradicts ADR-006 stance; more compute <span class="pp">|</span></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All four rows formalized at the ledger-row level with operational details ADR-006 left implicit; A2 reviewer can read exact apparatus without inferring from brief-level claims</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Parallelization-via-glue plan preserves library-first discipline while leveraging 64-core hardware — upstream issue captures the future improvement path</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gap-honest multi-seed defaults eliminate the silent-aggregation-choice failure mode (the choice of "pool-rows-and-compute-once" vs "compute-per-(fold,seed)-and-aggregate" is itself a methodology decision; both are now explicit)</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Multi-comparison acknowledgment paragraph pre-empts A2 reviewer concern; cheap (~1 paragraph)</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DeLong / McNemar rejection rationale at the row level satisfies ADR-011 Guarantee 8 (no untracked methodology components)</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-(rung, fold, seed) audit JSON pipeline + per-seed observations parquet add Phase 3 deliverables</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Variance-attribution spoke subsection requires Phase 4 analysis work (per-rung ANOVA-style decomposition)</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LLM-judge response caching infrastructure (Phase 1 deliverable) adds a small persistence concern</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Rank-based-metric-aggregation choice (compute-per-(fold, seed)-then-mean) pushes weight onto ADR-024's cross-fold CI machinery; the two ADRs are intentionally coupled</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>For each row's alternatives, see ADR-006's Alternatives Considered section. The ADR-022-specific additions:</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No stability check (Option A of Q2)**: rejected because cannot distinguish narrow-CI from narrow-but-lucky-CI; cheap to add second-seed run</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**100K-iteration headline plus 10K second-seed ablation (Option C of Q2)**: rejected because 100K walltime ~10x of 10K at scale of ~10000 independent CIs; marginal gain over 10K+10K is small per Efron-Tibshirani 1993 iteration-count guidance</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Silent multi-comparison treatment (Option A of Q3)**: rejected because A2 reviewer may infer cherry-picking from many-comparisons surface</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**BH-FDR post-hoc on the comparison family as ablation (Option C of Q3)**: rejected because adds inferential apparatus contradicting estimation-over-testing stance; muddles narrative</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pre-registration of primary-vs-exploratory comparisons (Option D of Q3)**: rejected because adds bureaucracy; some comparisons are genuinely planned-vs-incidental and the line is hard to draw cleanly</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Seed-only pairing across folds (alternative to (fold, seed)-tuple pairing in Q6)**: rejected because loses fold-level pairing</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Trained-vs-reference per-rung-seed-aggregation (Option (b) of Q6 Gap 1)**: rejected because drops trained-side seed variance from the Delta-CI making it tighter than honest</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 1 deliverables</span></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>scripts/run_bootstrap_battery.py with joblib parallelization scaffolding</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/audit/per_seed_observations.parquet schema documented in evals/audit/README.md</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/audit/llm_judge_cache/ directory layout documented (per-row response cache for gpt-4o + claude-sonnet)</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>decisions/upstream_issues.md gains entry for paired_bootstrap_diff parallelization proposal</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>See frontmatter references list. Primary anchors — Efron 1979 plus Efron-Tibshirani 1993 §10.3 (bootstrap apparatus); DiCiccio-Efron 1996 (BCa derivation); Gelman-Loken 2014 (forking paths); ASA 2016 statement on p-values; Gelman-Stern 2006 (significance vs not-significance distinction); DeLong 1988 (the test we are not using); Bouckaert 2003 (multi-seed paired-across-rungs precedent); Demsar 2006 (per-dataset reporting in multi-dataset settings); ADR-006 (brief-level pre-lock); ADR-011 Guarantee 5 (no cherry-picking seeds); ADR-016 (LODO + 12-obs-per-rung); ADR-018 (reference rung slate + contamination taxonomy).</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-15__phase-0-04__eval-framework.md`</span> for the conversation that led to this decision.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

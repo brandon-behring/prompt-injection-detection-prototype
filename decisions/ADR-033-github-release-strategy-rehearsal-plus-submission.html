@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -955,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.html">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</h1>
 </div>
 
 
@@ -1181,8 +1192,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-0-07__submission-deliverables.md</code> for the conversation that led to this decision (Q3 walk + option D + C-post + version format + release assets).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1257,57 +1266,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1642,185 +1600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "033"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> github-release-strategy-rehearsal-plus-submission</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> GitHub release strategy — rehearsal tag plus SemVer submission tag plus post-submission patches</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-033</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-07 locks SPEC_GREENFIELD ledger row 349 (GitHub release strategy) at a two-tag-canonical plus post-submission-patches policy (Option D plus C-post-submission of the Phase 0-07 Q3 walk). Tag sequence — v0.9.0-rc1 at end of Phase 4 (release candidate; dress-rehearsal tag that fires the full publish pipeline — Quarto site build per ADR-030 plus GH Pages deploy plus HF Hub model card pushes per ADR-032 — so that any first-time-GH-Actions plus HF Hub auth plus model card schema issues surface 24-plus hours before submission day) plus v1.0.0 at submission day (canonical reviewer reference; CHANGELOG.md entry committed; GH release object created via gh release create v1.0.0 plus the title flag plus the notes flag pointing at CHANGELOG plus the generate-notes flag) plus optional v1.0.x SemVer patch tags post-submission for typo plus link plus reviewer-feedback fixes (reviewer URL stays pinned at v1.0.0; live Quarto site reflects latest patch per ADR-030 push trigger). No phase-boundary tags during Phases 1-3 — the existing ADR closing_commit SHA field per ADR already provides ADR-granular pinning at finer grain than phase tags; phase-boundary tagging would add discipline overhead under tight deadline without paying back. Tag version format — vMAJOR.MINOR.PATCH per SemVer 2.0.0 (vs annotated suffix vs calendar-versioning); chosen for gh release UI compatibility plus clean MAJOR-bump path if a post-submission methodology revision lands. GH release assets for v1.0.0 — CHANGELOG.md (default) plus _site.tar.gz (offline-readable rendered Quarto site for reviewers without internet; built from quarto render output dir plus tarred); per-row predictions parquet files NOT attached as release binaries (they stay in results/predictions/ within the repo at their natural location to avoid duplication). CHANGELOG.md committed at submission per Keep-a-Changelog 1.1.0 format — entries written in human language not git-shortlog dumps; one entry per tag going forward maintained via gh release create with the notes flag. Reviewer email at submission carries three URLs — source pin at github.com tree v1.0.0 (canonical anchor; never drifts) plus live rendered Quarto site at brandon-behring.github.io (reflects latest publish) plus GH release page at github.com releases tag v1.0.0 (CHANGELOG plus _site.tar.gz download) — plus transcripts as private email attachment per existing convention. Limitation — GH Pages serves a single live URL pinned to whatever the latest deploy was; there is no built-in this-URL-is-frozen-at-v1.0.0 affordance without snapshot tooling; mitigated by the canonical-source-pin URL pointing at tagged source plus reviewers can git checkout v1.0.0 plus quarto preview for a frozen-rendered view. Extension condition — post-submission methodology revision (not patch-grade typo fixes; actual content revisions) bumps to v2.0.0 via superseding ADR with rationale plus reviewer-notification step; patch tags v1.0.x are reserved for non-methodology fixes only.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Submission ledger row 349 + Phase 0-07 walk Q3</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 349 carries locked-to-rehearsal-plus-submission-plus-patches status (see ADR-033); CHANGELOG.md exists at repo root in Keep-a-Changelog 1.1.0 format with an Unreleased section (populated continuously) plus a stub for v1.0.0 (populated at submission tag); the v0.9.0-rc1 tag and v1.0.0 tag are created at their respective Phase 4 close and submission day (Phase 5 work items captured in assumptions.md or Phase 5 checklist); the .github/workflows/publish.yml workflow per ADR-030 triggers on tag push v* so both rehearsal and submission tags fire the Quarto-publish plus HF Hub model card pipelines; tests/test_invariants.py contains skip-marked stub test_submission_tag_changelog_present asserting that CHANGELOG.md exists and parses (the keepachangelog Python package can validate) plus contains a v1.0.0 section at submission close plus follows Keep-a-Changelog 1.1.0 section structure (Added plus Changed plus Deprecated plus Removed plus Fixed plus Security); SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 7979dc9</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://semver.org/</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://keepachangelog.com/en/1.1.0/</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://cli.github.com/manual/gh_release_create</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-001-brief-alignment-tight-calendar-with-fallback-ladder.md</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-030-deliverable-format-quarto-html-site.md</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-07__submission-deliverables.md</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-033: GitHub release strategy — rehearsal tag + SemVer submission tag + post-submission patches</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the third of 4 <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> rows in Phase 0-07 (§Submission — row 349). Companion to ADR-030 (deliverable format — tag push triggers Quarto publish), ADR-031 (reading paths — reviewer URLs pinned at tag), ADR-032 (HF Hub publication — gated by rehearsal tag), and ADR-034 (reproducibility tier — T0 commands reference HF Hub repos at known SHA pin).</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>Tags in git mark immutable point-in-time references. For this submission, tags serve three load-bearing functions:</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Reviewer URL stability** — ADR-031 (reading paths) requires stable cross-link permalinks; if <span class="in">`main`</span> advances after submission, untagged URLs rot.</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Reproduction reference** — ADR-034 (reproducibility tier) anchors "a stranger can reproduce headline numbers" to a specific commit; tag = friendlier name for that commit SHA.</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Audit trail granularity coarser than ADR `closing_commit`** — 33+ ADRs each carry <span class="in">`closing_commit: &lt;SHA&gt;`</span>; tags add a coarser human-readable layer on top.</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>ADR-030's Quarto + GH Pages workflow also triggers on tag push — so tags double as deploy triggers, not just historical markers.</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>Five strategy positions on the spectrum were considered (per Q3 walk):</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(A) Single submission tag only — minimal discipline; loses dress-rehearsal value.</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(B) Phase-boundary tags + submission tag — granular but adds tagging discipline overhead under tight deadline; ADR <span class="in">`closing_commit`</span> already provides finer-grained pinning.</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(C) Submission + post-submission patches only — reviewer URL stable; live URL advances on patches; matches SemVer convention.</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(D) Pre-submission rehearsal + submission tag — dress-rehearsal pattern catches publish-pipeline issues before canonical submission tag.</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(E) Continuous SemVer per work unit — tag flood; pollutes releases UI.</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>User selection at Q3 walk: **D + C-post-submission**.</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>**Tag sequence**:</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tag <span class="pp">|</span> When <span class="pp">|</span> Trigger <span class="pp">|</span> Purpose <span class="pp">|</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`v0.9.0-rc1`</span> <span class="pp">|</span> End of Phase 4 (release candidate) <span class="pp">|</span> Manual <span class="in">`git tag v0.9.0-rc1 &amp;&amp; git push origin v0.9.0-rc1`</span> <span class="pp">|</span> Dress-rehearsal — fires full publish pipeline (Quarto site + GH Pages deploy + HF Hub model card pushes per ADR-032). Catches first-time-CI / auth / schema issues 24+ hours before submission day. If rehearsal fails, fix-forward via new commits + <span class="in">`v0.9.0-rc2`</span>. <span class="pp">|</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`v1.0.0`</span> <span class="pp">|</span> Submission day (2026-05-18 per ADR-001) <span class="pp">|</span> Manual <span class="in">`gh release create v1.0.0 ...`</span> <span class="pp">|</span> Canonical reviewer reference. CHANGELOG.md entry committed. GH release object with <span class="in">`_site.tar.gz`</span> asset. <span class="pp">|</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`v1.0.x`</span> (optional) <span class="pp">|</span> Post-submission per patch <span class="pp">|</span> Manual <span class="pp">|</span> Typo / link / reviewer-feedback fixes. Reviewer URL stays pinned at <span class="in">`v1.0.0`</span>. Live Quarto site advances. <span class="pp">|</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`v2.0.0`</span> (optional) <span class="pp">|</span> Post-submission per methodology revision <span class="pp">|</span> Manual + superseding ADR <span class="pp">|</span> Reserved for actual methodology revisions, not patch-grade fixes. Signals "the submission has been revised; re-read." <span class="pp">|</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>**Tag version format**: <span class="in">`vMAJOR.MINOR.PATCH`</span> per SemVer 2.0.0 (https://semver.org/). Chosen over:</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Annotated suffix <span class="in">`v1.0.0-submission`</span> — less SemVer-tooling-friendly; SemVer pre-release identifier semantics confuse <span class="in">`gh release`</span> defaults.</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calendar-versioning <span class="in">`2026.05.18`</span> — date-anchored but breaks SemVer-bump semantics for post-submission patches.</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>**CHANGELOG.md** committed at repo root in Keep-a-Changelog 1.1.0 format (https://keepachangelog.com/en/1.1.0/). Structure:</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu"># Changelog</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>All notable changes documented per Keep-a-Changelog 1.1.0.</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## [Unreleased]</span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### Added</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(continuously populated as features land)</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Changed</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fixed</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## [v1.0.0] - 2026-05-18</span></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Submission</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Initial Ciphero take-home submission.</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Quarto site published to GH Pages.</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>3 trained-rung checkpoints published to HF Hub per ADR-032.</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>See methodology writeup at https://brandon-behring.github.io/prompt-injection-detection-prototype/</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## [v0.9.0-rc1] - 2026-05-17</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Release candidate</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dress-rehearsal tag — exercises the publish pipeline.</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Fires the Quarto + GH Pages + HF Hub model card publication workflow per ADR-030 + ADR-032.</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="in">**GH release for `v1.0.0`** — created via:</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="in">gh release create v1.0.0 \</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="in">  --title "Submission v1.0.0" \</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="in">  --notes-file CHANGELOG.md \</span></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="in">  --generate-notes \</span></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="in">  _site.tar.gz \</span></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="in">  CHANGELOG.md</span></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>Release assets attached:</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`CHANGELOG.md`</span> (always attached by <span class="in">`--notes-file`</span>).</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`_site.tar.gz`</span> (offline-readable Quarto site bundle; built via <span class="in">`tar czf _site.tar.gz _site/`</span> after <span class="in">`quarto render`</span>).</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>NOT attached as release binaries:</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-row predictions parquet files — stay in <span class="in">`results/predictions/`</span> within the repo at their natural location. Duplicating large parquet files as release binaries is wasteful + the per-row predictions are reachable from the tagged source pin.</span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>**Reviewer email at submission** — three URLs + private attachment:</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> URL <span class="pp">|</span> Purpose <span class="pp">|</span> Drift behavior <span class="pp">|</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0`</span> <span class="pp">|</span> Canonical source pin <span class="pp">|</span> Never drifts <span class="pp">|</span></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`https://brandon-behring.github.io/prompt-injection-detection-prototype/`</span> <span class="pp">|</span> Live rendered Quarto site <span class="pp">|</span> Reflects latest patch (<span class="in">`v1.0.x`</span>) <span class="pp">|</span></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0`</span> <span class="pp">|</span> GH release page <span class="pp">|</span> CHANGELOG + <span class="in">`_site.tar.gz`</span> download <span class="pp">|</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>Plus transcripts as private email attachment (gitignored, per existing convention).</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>**No phase-boundary tags during Phases 1-3** — ADR <span class="in">`closing_commit`</span> field already pins history at ADR-grain (finer than phase-grain); phase-boundary tags would add discipline overhead under tight deadline without paying back.</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>**Patch-tag protocol** — <span class="in">`v1.0.x`</span> patches restricted to non-methodology fixes (typos, broken links, reviewer-feedback responses to questions of the form "did you mean X"). Methodology revisions require <span class="in">`v2.0.0`</span> + superseding ADR.</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Rehearsal tag mitigates first-time-CI risk** — the worst moment to discover that <span class="in">`quarto-actions/publish@v2`</span> permissions are misconfigured is submission day; <span class="in">`v0.9.0-rc1`</span> surfaces these issues 24+ hours earlier.</span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer URL is stable forever** — <span class="in">`v1.0.0`</span> source pin never drifts; reviewer can audit at exactly the submission state regardless of post-submission iteration.</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Live URL stays useful post-submission** — <span class="in">`v1.0.x`</span> patches improve the rendered site for late readers; reviewer who wants the original submission has the tagged URL.</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CHANGELOG.md is the audit trail** — human-language entries (not git-shortlog dumps); reviewer can read the release notes without git archaeology.</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**SemVer compatibility with `gh release` tooling** — <span class="in">`gh release create v1.0.1`</span> etc. works without flag adaptation; SemVer-aware tools sort releases correctly.</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Avoids tag flood** — ~3 tags total (rehearsal + submission + maybe 1-2 patches); GH releases UI stays clean.</span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Manual tagging discipline** — both <span class="in">`v0.9.0-rc1`</span> and <span class="in">`v1.0.0`</span> are manual operations; risk of forgetting at the moment of submission. Mitigation: Phase 5 close-checklist explicitly enumerates the tag-push steps.</span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CHANGELOG.md maintenance overhead** — <span class="in">`Unreleased`</span> section needs ongoing updates as features land; can drift if not maintained. Mitigation: <span class="in">`gh release create --generate-notes`</span> flag auto-generates from commit messages as a fallback if the manual CHANGELOG falls behind.</span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`_site.tar.gz` release asset adds a build step** — <span class="in">`tar czf _site.tar.gz _site/`</span> after Quarto render. Trivial; can be part of <span class="in">`make release-bundle`</span> target.</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GH Pages serves single live URL** — no built-in "this URL is frozen at v1.0.0" affordance. Mitigation per Limitation below; not a deal-breaker.</span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tag versioning convention is SemVer-strict** — minor bumps (<span class="in">`v1.1.0`</span>) are not currently scoped; reserved for post-submission feature additions if iteration continues.</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>GH Pages publishes a single live URL pinned to whatever the latest deploy was. There is no built-in "this URL = v1.0.0 frozen forever" pattern without extra tooling (e.g., snapshot <span class="in">`_site/`</span> to a <span class="in">`submission-v1.0.0`</span> branch and serve that as a separate GH Pages config — overkill for this scope). Mitigation: the canonical-submission tag URL points at *source*, not the rendered HTML site; reviewer can <span class="in">`git checkout v1.0.0 &amp;&amp; quarto preview`</span> for a frozen-rendered view; the <span class="in">`_site.tar.gz`</span> release asset provides an offline-readable snapshot.</span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer-feedback-driven methodology revision**: bump to <span class="in">`v2.0.0`</span> via superseding ADR with rationale; signals "re-read" to anyone watching the repo.</span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Rehearsal failure cascade**: if <span class="in">`v0.9.0-rc1`</span> reveals a foundational publish-pipeline issue (e.g., <span class="in">`quarto-actions/publish@v2`</span> is broken on the GH runners), fall back to a manual <span class="in">`quarto publish gh-pages`</span> via the developer's local machine — fix-forward, not abandon-the-format; document via Phase 5 incident note.</span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Phase 1+ surprise that requires phase-boundary tagging**: if a Phase 2-3 surprise (e.g., a training run that's particularly valuable to be able to reproduce in isolation) emerges, add a phase-boundary tag (<span class="in">`v0.2.0-phase2-training-complete`</span>) via Phase 1+ ADR amendment; tag-flood-avoidance is heuristic, not absolute.</span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Multi-org / multi-account complications**: if the repo is moved to a Ciphero org post-submission, the URLs in the submission email become legacy redirects; mitigation = preserve the old URLs as GitHub repo redirects for at least 1 year.</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) Single submission tag only** — loses the dress-rehearsal value; first-time-CI failures would surface on submission day rather than at rehearsal. Rejected per Q3 walk.</span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) Phase-boundary tags + submission tag** — ADR <span class="in">`closing_commit`</span> already provides finer-grained pinning; phase-boundary tags would add discipline overhead under tight deadline without paying back. Rejected per Q3 walk.</span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(E) Continuous SemVer per work unit** — tag flood; pollutes <span class="in">`gh release`</span> UI; loses the "what's the submission?" signal entirely. Rejected per Q3 walk.</span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Annotated suffix `v1.0.0-submission`** — less SemVer-tooling-friendly; <span class="in">`gh release`</span> defaults misinterpret SemVer pre-release identifiers; rejected in favor of clean <span class="in">`v1.0.0`</span>.</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Calendar-versioning `2026.05.18`** — date-anchored but breaks SemVer-bump semantics for post-submission patches (no clean MAJOR/MINOR/PATCH ladder); rejected.</span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-row predictions as release asset** — duplicates files already in <span class="in">`results/predictions/`</span> accessible at the tagged source pin; rejected for storage waste.</span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>SemVer 2.0.0 spec — https://semver.org/</span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Keep-a-Changelog 1.1.0 — https://keepachangelog.com/en/1.1.0/</span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GitHub releases — https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases</span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`gh release create`</span> manual — https://cli.github.com/manual/gh_release_create</span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-001 (tight calendar — informs the rehearsal-tag deadline-risk-mitigation framing)</span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-030 (Quarto + GH Actions publish — tag triggers the publish workflow)</span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-032 (HF Hub publication — gated by rehearsal tag success)</span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-07__submission-deliverables.md`</span> for the conversation that led to this decision (Q3 walk + option D + C-post + version format + release assets).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

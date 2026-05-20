@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,6 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +158,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -953,7 +929,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 “v1.1.1” body references) — null result, backbone-dominant interpretation</h1>
 </div>
 
 
@@ -1078,8 +1054,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>transcripts/2026-05-19__v1-1-2-deberta-execution.md</code> — captures the full A-D sub-phase walkthrough including the 7-commit fix-cycle diagnosis + the load-bearing FUSE + fp32 fixes.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1154,57 +1128,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1539,296 +1462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "063"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> deberta-ablation-v1-1-2-execution-and-slot-shift</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> DeBERTa-v3-base medium ablation execution (v1.1.2 carryforward; narrow renaming-only supersession of ADR-060 "v1.1.1" body references) — null result, backbone-dominant interpretation</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-19</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-063</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> &gt;-</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-060 (2026-05-19) landed the DeBERTa-v3-base medium ablation</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  methodology lock at v1.1.0 with body text *"execution deferred to</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  v1.1.1"*. That naming did not survive the same calendar day — the</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  v1.1.1 slot was consumed by ADR-061 (Quarto site navigation</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  restructure; user-feedback discoverability fix) before the DeBERTa</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  execution could begin. DeBERTa execution carried forward to v1.1.2</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  per the v1.1.2-handoff doc, with the ADR-060 body text left</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  immutable per the project's `no-amend / no-squash` ADR-discipline.</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  This ADR codifies the carryforward as a narrow renaming-only</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  supersession of ADR-060's "v1.1.1" body references; the</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  methodology lock itself (single fold/seed, 2 truncation strategies,</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  5-slice OOD eval, ablation-appendix framing, ~$5-7 GPU envelope)</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  is unchanged.</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  v1.1.2 execution shipped both training fires on a single warm</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  A100-SXM4-80GB pod via `lifecycle.on_success: recycle`</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  (chunk_and_average -&gt; recycle -&gt; head_truncation -&gt; explicit</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">  `runpod-deploy stop`). The 2-strategy ablation produced essentially</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  identical per-slice metrics (pooled OOD AUPRC 0.2912 vs 0.2895;</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  jbb_behaviors AUPRC 0.4855 vs 0.4890; xstest AUPRC 0.3966 vs</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  0.3912) — a publishable null result. By the ADR-060 confound-</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">  control interpretation, this indicates the ModernBERT advantage</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">  on the headline ladder is BACKBONE-DOMINANT, not context-window-</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">  dominant. Actual GPU spend: $1.34 (well under the $5-7 expected</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">  envelope; well under the ADR-020 $125 per-job soft cap and $200</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">  cumulative hard cap).</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> transcripts/2026-05-19__v1-1-2-deberta-execution.md (private; emailed at submission)</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> &gt;-</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">  At v1.1.2 close: `evals/metrics/per_cell_deberta.parquet` exists</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">  with at least the 6 binary-class slice rows (2 strategies x</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">  {jbb_behaviors, xstest, pooled_ood}; single-class slices bipia +</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">  injecagent + notinject + iid correctly skipped per ADR-006</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">  single-class-slice handling). `evals/cost_ledger.csv` carries the</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">  9 `pid-deberta-2026051*` rows totaling $1.34. `NEXT_STEPS.md`</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">  §1.10 has a Status (v1.1.2) paragraph capturing the headline +</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">  null-result interpretation. `CHANGELOG.md` [1.1.2] block exists</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">  with the headline-result table. `src/inference/windowed.py` +</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">  `src/training/load_backbone.py` + `scripts/run_deberta_ood_inference.py`</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">  all committed. `configs/rungs/deberta_v3_base.yaml` carries the</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">  pinned `revision: 8ccc9b6f36199bec6961081d44eb72fb3f7353f3` +</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">  `bf16: false` (DeBERTa numerical-stability fix). RESULTS §1B +</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">  WRITEUP §9.2 + library_imports.md inventory updates defer to a</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">  follow-up patch after the in-flight ADR-062 doc-rewrite commit</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">  stabilises (audit-clean separation per project no-conflated-</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">  scopes discipline). SUBMISSION_AUDIT.md regenerates with at</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">  least 63 CLAIM rows (ADRs 001 through 063).</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> v1.1.2</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> []  # narrow renaming-only; see ADR-060 superseded_by</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> []</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-061-quarto-site-navigation-restructure.md</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-lora-and-transformer-training-recipe.md</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co">  - NEXT_STEPS.md  # §1.10 Status (v1.1.2)</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co">  - CHANGELOG.md  # [1.1.2]</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/metrics/per_cell_deberta.parquet</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">  - evals/cost_ledger.csv</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-19__v1-1-2-deberta-execution.md</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-063 — DeBERTa-v3-base ablation v1.1.2 execution + slot-shift</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-19; narrow renaming-only carryforward of ADR-060</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>v1.1.1 -&gt; v1.1.2 + capture of the executed ablation result).</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-060</span><span class="co">](./ADR-060-deberta-v3-base-long-context-ablation-methodology.md)</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>landed the DeBERTa-v3-base medium ablation methodology lock at v1.1.0</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>with body text "execution deferred to v1.1.1". The execution did not</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>happen at v1.1.1 because that release-tag slot was consumed by</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-061</span><span class="co">](./ADR-061-quarto-site-navigation-restructure.md)</span> (a</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>user-feedback-driven Quarto site navigation restructure that took</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>priority on calendar-day 2026-05-19).</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>The v1.1.2 handoff doc at</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="in">`/home/brandon_behring/.claude/plans/v1-1-2-deberta-execution-handoff.md`</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>sequenced the execution as Phase A (generic loader refactor) -&gt; Phase B</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>(windowed-inference module) -&gt; Phase C (training dispatch + Makefile)</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>-&gt; Phase D (GPU fires) -&gt; Phase E (governance close) -&gt; Phase F</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>(transcript). The full v1.1.2 session executed Phases A-D end-to-end</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>on 2026-05-19 and partial Phase E (this ADR + NEXT_STEPS + CHANGELOG;</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>the wider RESULTS/WRITEUP/library_imports updates defer per the</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>no-conflated-scopes discipline because the in-flight doc agent</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>working on ADR-062 holds unstaged edits on those same files).</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### Narrow renaming-only supersession of ADR-060 body references</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>ADR-060 is immutable per project ADR-discipline. The body's "v1.1.1</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>execution" wording is treated as a placeholder that was assigned</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>without knowing the v1.1.1 slot would be needed for ADR-061. The</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>DeBERTa execution carries forward to v1.1.2; commit messages document</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>the shift. ADR-060's methodology lock (single fold/seed; 2 truncation</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>strategies; 5-slice OOD eval; ablation-appendix framing; ~$5-7 GPU</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>envelope) is BINDING regardless of release-slot. No methodology</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>content is changed by this carryforward.</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### v1.1.2 Phase A–D execution outcome</span></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>**Phase A** (commit <span class="in">`a34128b`</span>): refactored</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="in">`src/training/load_modernbert.py`</span> to <span class="in">`src/training/load_backbone.py`</span></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>with a generic <span class="in">`hf_id`</span> kwarg so the same flash-attn-fallback recipe</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>(per ADR-020) serves both ModernBERT (ADR-019) and DeBERTa-v3-base</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>(ADR-060). Per the no-orphans invariant, the old loader was deleted</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>in the same commit; 6 call sites + 3 test files updated.</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>**Phase B** (commit <span class="in">`9ecf0e3`</span>): added <span class="in">`src/inference/windowed.py`</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>implementing chunk-and-average + head-truncation truncation</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>strategies via HF tokenizer's native sliding-window protocol</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>(<span class="in">`return_overflowing_tokens=True`</span> + <span class="in">`stride`</span>); 15 mocked-only smoke</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>tests at <span class="in">`tests/smoke/test_windowed_inference_smoke.py`</span>. Reuses</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="in">`src.training.softmax_cast.softmax_fp32`</span> for ADR-019 numerical</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>stability.</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>**Phase C** (commit <span class="in">`2ed8e04`</span>): pinned DeBERTa-v3-base revision SHA</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="in">`8ccc9b6f36199bec6961081d44eb72fb3f7353f3`</span> via</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="in">`huggingface_hub.HfApi.model_info`</span>; wired training_strategy dispatch</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>into <span class="in">`train_modernbert.py`</span> (prepare_model + _write_predictions_parquet</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>PerEpochPredictionsCallback + train_one_cell); added</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="in">`VALID_RUNG_NAMES`</span> + <span class="in">`VALID_TRUNCATION_STRATEGIES`</span> constants; extended</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="in">`train_rung.py`</span> with <span class="in">`--truncation-strategy`</span> CLI override + DeBERTa</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>rung dispatch; added <span class="in">`--epoch-filter`</span> to <span class="in">`run_metrics_battery.py`</span>;</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>wired 3 Makefile targets (<span class="in">`train-deberta-v3`</span> / <span class="in">`eval-deberta-v3`</span> /</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="in">`deberta-ablation`</span>).</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>**Phase D** (commits <span class="in">`3791c1a`</span> through <span class="in">`898fae5`</span>; 8 commits total</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>across the fix-cycle + the closing feat commit): fired both</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>strategies on a single warm A100-SXM4-80GB pod (US-MD-1) via</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="in">`lifecycle.on_success: recycle`</span>. Pre-flight surfaced 7 distinct</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>infrastructure errors before the training succeeded end-to-end:</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`83fd348`</span> — added <span class="in">`sentencepiece`</span> Python dep (DeBERTa-v3 tokenizer</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>   needs the SentencePiece backend).</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="in">`99501ba`</span> — narrowed <span class="in">`headline-deberta.yaml`</span> staging excludes</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>   (later subsumed by <span class="in">`33387b5`</span>; kept for audit-trail completeness).</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`33387b5`</span> — **load-bearing FUSE fix** — moved <span class="in">`/workspace`</span></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>   (FUSE/MooseFS) -&gt; <span class="in">`/root`</span> (container overlay disk; POSIX</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>   semantics work) for project code + HF cache + secrets + run</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>   scripts + logs. Re-extends the X8 venv-on-/root workaround</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>   (per <span class="in">`fuse-workspace-needs-uv-link-mode-copy`</span> memory) to all</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>   writable paths; without this the rsync push fails with</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>   <span class="in">`Input/output error (5)`</span> on <span class="in">`/workspace`</span>.</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span><span class="in">`f660f76`</span> — added <span class="in">`protobuf`</span> Python dep (transformers'</span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>   <span class="in">`SentencePieceExtractor.__init__`</span> calls</span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>   <span class="in">`requires_backends(self, "protobuf")`</span> independently from the</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>   sentencepiece package).</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="in">`60fdc53`</span> — bound <span class="in">`truncation_strategy`</span> in</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>   <span class="in">`checkpoint_dir_template.format()`</span> (the Phase C2 dispatch wiring</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>   missed this specific format site).</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span><span class="in">`aa91067`</span> — **load-bearing numerical-stability fix** — DeBERTa-v3</span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="ss">   + </span>bf16 produces <span class="in">`loss=0`</span> + <span class="in">`grad_norm=NaN`</span> from training step 1</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>   (disentangled attention overflows bf16 mantissa). Made</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>   <span class="in">`build_training_args`</span> + <span class="in">`load_backbone`</span> accept YAML-driven</span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>   <span class="in">`bf16`</span>/<span class="in">`fp16`</span>/<span class="in">`learning_rate`</span>/<span class="in">`num_train_epochs`</span> overrides;</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>   switched DeBERTa to fp32. Locally validated forward+backward</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>   before re-firing (<span class="in">`loss=0.7268`</span> + 202/202 finite gradients on</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>   fp32 vs <span class="in">`loss=NaN`</span> + 0/202 finite on bf16).</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span><span class="in">`67679a5`</span> — fixed checkpoint path doubling (deberta_v3_base.yaml</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>   <span class="in">`checkpoint_dir_template`</span> prefix conflicted with</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>   <span class="in">`train_rung.py --checkpoint-root`</span> default); dropped the FUSE</span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>   staging-bounce (<span class="in">`--checkpoint-staging-root /root/training_staging`</span></span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>   is unnecessary since we're already on /root overlay disk).</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>The 8th commit (<span class="in">`898fae5`</span>) closed Phase D with both training fires</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>complete, 4 training-time predictions parquets, 10 OOD-inference</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>predictions parquets (via the new</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/run_deberta_ood_inference.py`</span> standalone OOD orchestrator,</span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>designed as a narrow companion to <span class="in">`scripts/run_inference_battery.py`</span></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>since the DeBERTa checkpoint path has an extra strategy-nesting</span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>level), and the 6-row <span class="in">`evals/metrics/per_cell_deberta.parquet`</span>.</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Headline result (publishable null)</span></span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> strategy <span class="pp">|</span> jbb_behaviors AUPRC <span class="pp">|</span> xstest AUPRC <span class="pp">|</span> pooled_ood AUPRC <span class="pp">|</span></span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---:|---:|---:|</span></span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`chunk_and_average`</span> <span class="pp">|</span> 0.4855 <span class="pp">|</span> 0.3966 <span class="pp">|</span> 0.2912 <span class="pp">|</span></span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`head_truncation`</span>   <span class="pp">|</span> 0.4890 <span class="pp">|</span> 0.3912 <span class="pp">|</span> 0.2895 <span class="pp">|</span></span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>Single-class slices (bipia, injecagent, notinject all-positive; iid</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>all-negative for the LODO held-out source) correctly skip per ADR-006</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>single-class-slice handling (AUROC undefined -&gt; pydantic validation</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>nan-guard).</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>The 2 truncation strategies produce essentially identical per-slice</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>metrics. By the ADR-060 confound-control interpretation: **the</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>ModernBERT advantage on the headline ladder is BACKBONE-DOMINANT,</span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>not context-window-dominant**. Long-context (chunk-and-average)</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>provides no measurable benefit over head-truncation on this 5-slice</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>OOD slate. The interpretive caveat goes in the RESULTS §1B +</span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>WRITEUP/limitations-and-future-work.md §9.2 follow-up patch.</span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cost reconciliation</span></span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>Actual GPU spend across the 9 Phase D pod manifests (7 short</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>failures averaging ~$0.05-0.20 each + 2 successful ~6-min training</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>fires at ~$0.18 each): **$1.34**, well under the ADR-060 $5-7</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>expected envelope. Cumulative project spend: $9.92 / ADR-020 $200</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>hard cap.</span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-060 immutability preserved**: this narrow renaming-only</span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>  supersession captures the release-slot shift without rewriting</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>  ADR-060's body text. Future readers cross-reference</span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>  ADR-060 -&gt; ADR-063 to understand why "v1.1.1 execution" actually</span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>  landed at v1.1.2.</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology lock honored**: the executed ablation matches every</span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>  ADR-060 constraint (microsoft/deberta-v3-base; fold 0; seed 42; 2</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>  epochs; 2 truncation strategies; full 5-slice OOD; ablation</span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>  appendix; not a 6th rung). No methodology drift.</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Publishable null result**: the per-strategy headline directly</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>  resolves the long-context-vs-backbone-dominance question that</span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>  motivated NEXT_STEPS §1.10 and the v1.1.x carryforward. The</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>  ModernBERT-vs-DeBERTa headline-ladder gap (per RESULTS §1) is</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>  attributed to backbone architecture, not context window. The</span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>  reviewer can now read the ablation appendix in RESULTS §1B and</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>  conclude: "ModernBERT's 8192-token window did not help on this</span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>  slate; the win is backbone-architectural."</span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Deferred Phase E artifacts**: RESULTS §1B + WRITEUP §9.2 +</span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>  library_imports.md inventory entries + SUBMISSION_AUDIT</span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>  regeneration defer to a follow-up patch after the in-flight</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>  doc agent's ADR-062 commit stabilises. The deferral is documented</span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>  here + in <span class="in">`898fae5`</span> + <span class="in">`61a09c9`</span> commit messages so the audit trail</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>  is complete even before the doc artifacts land.</span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library-first preserved**: <span class="in">`src/inference/windowed.py`</span> uses HF</span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>  tokenizer's native sliding-window protocol; no hand-rolled</span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>  window-stride arithmetic. Reuses <span class="in">`softmax_cast.softmax_fp32`</span></span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>  (ADR-019 numerical stability). The chunk-and-average pattern is</span>
-<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>  project-internal infrastructure (specific to the</span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>  ModernBERT-vs-DeBERTa-v3 confound control), not a generic</span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>  eval-toolkit primitive; no upstream MR filed.</span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No methodology drift**: the bf16 -&gt; fp32 switch was a numerical-</span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>  stability fix (DeBERTa-v3 + bf16 produces NaN gradients), not a</span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>  methodology change. ADR-060 did not constrain the precision; the</span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>  fp32 choice was made via the YAML's <span class="in">`training.bf16: false`</span> flag,</span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>  with <span class="in">`build_training_args`</span> honoring the override per a backward-</span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>  compatible plumbing change that preserves ADR-019 ModernBERT bf16</span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>  default.</span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linked ADRs</span></span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Referenced**:</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-060</span><span class="co">](./ADR-060-deberta-v3-base-long-context-ablation-methodology.md)</span></span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>    — methodology lock; this ADR carries forward its execution</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>    landing condition to v1.1.2 (narrow renaming-only).</span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-061</span><span class="co">](./ADR-061-quarto-site-navigation-restructure.md)</span> —</span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>    consumed the v1.1.1 slot that ADR-060 had body-text-named for</span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>    DeBERTa execution.</span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-006</span><span class="co">](./ADR-006-headline-metrics-and-statistical-apparatus.md)</span></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>    — single-class slice handling (AUROC nan-guard).</span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-019</span><span class="co">](./ADR-019-lora-and-transformer-training-recipe.md)</span> — bf16 +</span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>    lr=1e-4 default; this ADR's <span class="in">`build_training_args`</span> plumbing</span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>    change preserves ADR-019 ModernBERT defaults while allowing</span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>    DeBERTa fp32 overrides via YAML.</span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-020</span><span class="co">](./ADR-020-compute-infrastructure-and-cost-discipline.md)</span></span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>    — cost envelope ($25 per-job soft cap honored; $1.34 actual).</span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-059</span><span class="co">](./ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md)</span></span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>    — runpod-deploy v0.8.4 lifecycle.on_success: recycle (the</span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>    warm-pod 2-fire shape this ADR consumed).</span>
-<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source**: v1.1.2 execution session per</span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>  <span class="in">`transcripts/2026-05-19__v1-1-2-deberta-execution.md`</span> (private;</span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>  emailed at submission).</span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a><span class="in">`transcripts/2026-05-19__v1-1-2-deberta-execution.md`</span> — captures the</span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>full A-D sub-phase walkthrough including the 7-commit fix-cycle</span>
-<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>diagnosis + the load-bearing FUSE + fp32 fixes.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

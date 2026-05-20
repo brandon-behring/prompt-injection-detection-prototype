@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -957,7 +968,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 “git URL is the only viable spec format”</h1>
 </div>
 
 
@@ -1069,8 +1080,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1145,57 +1154,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1530,191 +1488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "055"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> eval-toolkit-pypi-install-narrow-supersession-of-adr-036</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> eval-toolkit installs from PyPI (not git+https) at v0.40.0+ — narrow supersession of ADR-036 "git URL is the only viable spec format"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-19</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-055</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> &gt;-</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-036 §Context claims "All three are own-authored on GitHub (not on PyPI)</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  — git URL is the only viable spec format." This premise is false for</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  eval-toolkit as of v0.40.0 (released 2026-05-18 via Trusted Publishing</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  OIDC at https://pypi.org/project/eval-toolkit/). v1.0.8 switches the</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  eval-toolkit pin from `git+https://github.com/brandon-behring/eval-toolkit@v0.39.0`</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  to the PyPI install spec `eval-toolkit==0.40.0` (PEP 508 version</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  specifier). uv.lock continues to provide byte-level reproducibility</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  via SHA-256 of the PyPI wheel artifact. runpod-deploy + research_toolkit</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  retain git+https tag-pin per ADR-036 (runpod-deploy v1.1.0 may also</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  switch per separate v1.1.0 governance; research_toolkit not yet on PyPI).</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  The remainder of ADR-036 — tag-pin convention, freeze-for-submission-</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  window discipline, 3 bump triggers (blocking-bug + critical-security +</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">  reviewer-feedback-patch), uv.lock byte-level backstop — is unchanged.</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> transcripts/2026-05-19__phase-13-pypi-install-and-platt-beta.md (private; emailed at submission)</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> &gt;-</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">  At v1.0.8 close, `pyproject.toml` specifies `eval-toolkit==0.40.0`</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">  (PyPI install) not `eval-toolkit @ git+https://...@v0.39.0`. `uv pip show</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">  eval-toolkit` reports `Version: 0.40.0` + `Location:</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  .venv/lib/python3.13/site-packages/` (not git-clone source). uv.lock</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">  source line shows `registry = "https://pypi.org/simple"` not</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">  `git = "https://github.com/..."`. 171+/171+ smoke tests pass post-bump.</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-036 frontmatter `superseded_by` updated to `["055"]` in-place per</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-029 convention.</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> v1.0.8</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> [ADR-036]</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> []</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://pypi.org/project/eval-toolkit/0.40.0/</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/releases/tag/v0.40.0</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://peps.python.org/pep-0508/</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-19__phase-13-pypi-install-and-platt-beta.md</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-055 — eval-toolkit installs from PyPI (narrow supersession of ADR-036)</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-19; landed in v1.0.8 patch alongside Platt + Beta</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>calibrator wiring + manifest backfill).</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">ADR-036</span><span class="co">](ADR-036-library-version-pins-tag-pin-plus-freeze.md)</span> was</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>written at Phase 0-08 (2026-05-16) when none of the three own-authored</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>libraries (eval-toolkit + runpod-deploy + research_toolkit) had been</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>published to PyPI. The ADR's §Context says verbatim: *"All three are</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>own-authored on GitHub (not on PyPI) — git URL is the only viable spec</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>format."* That premise was true at 2026-05-16; it is no longer true.</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>**eval-toolkit v0.40.0** (released 2026-05-18; PyPI link</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">here</span><span class="co">](https://pypi.org/project/eval-toolkit/0.40.0/)</span>) is the first</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>PyPI publication for eval-toolkit, via Trusted Publishing OIDC (per</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>runpod-deploy v0.7.1's release.yml workflow pattern, adopted by</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>eval-toolkit). The release workflow auto-publishes sdist + wheel on</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>every <span class="in">`v*`</span> tag push.</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>Three reasons we should consume from PyPI rather than git+https:</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Install speed**: <span class="in">`pip install eval-toolkit==0.40.0`</span> from PyPI</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>   doesn't require a git clone + setuptools build; ~10x faster on</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>   cold install + uv cache.</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**uv.lock SHA backstop is stronger via PyPI**: the lock file records</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>   the exact wheel SHA-256, not a git rev. PyPI artifacts are immutable</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>   (re-uploads of the same version are forbidden); git rev can be</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>   force-pushed (which we ban per CLAUDE.md but the SHA-pinning is</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>   defense-in-depth).</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Aligns with the consumer-facing pattern**: PyPI is the canonical</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>   install path Python consumers expect; demonstrating PyPI consumption</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>   sets the reproducibility bar at "any clone of this repo can</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>   <span class="in">`uv sync`</span> without GitHub access to eval-toolkit." Methodology</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>   submission reviewers may not have git access to private clones</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>   (they don't here, but the pattern is robust).</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>Switch the eval-toolkit pin in <span class="in">`pyproject.toml`</span>:</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="in">```diff</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="in">- "eval-toolkit @ git+https://github.com/brandon-behring/eval-toolkit@v0.39.0",</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="in">+ "eval-toolkit==0.40.0",</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="in">`uv sync`</span> regenerates <span class="in">`uv.lock`</span> to reference PyPI registry source.</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>**Scope of supersession**: narrow — only the "git URL is the only</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>viable spec format" sub-claim in ADR-036 §Context. The remainder of</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>ADR-036 is preserved:</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tag-pin convention**: replaced with PEP 508 <span class="in">`==&lt;version&gt;`</span> specifier</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>  (equivalent semantics; readability preserved — pyproject answers</span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  "what version is in scope" at a glance).</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Freeze-for-submission-window**: preserved. We're past the original</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>  v1.0.0 submission tag (now at v1.0.x patch series per ADR-033); bump</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>  trigger #3 ("reviewer-feedback / post-submission patch") authorizes</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>  this bump. v1.0.8 is the closing-of-NEXT_STEPS-§1 sweep per Path 3.</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3 bump triggers**: preserved. The bump satisfies trigger #3</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>  (post-submission patch; v1.0.x discipline per ADR-033).</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**uv.lock byte-level backstop**: preserved (lock now carries PyPI</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>  wheel SHA-256 instead of git rev SHA).</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-library requires-python compatibility**: preserved</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>  (eval-toolkit v0.40.0 requires <span class="in">`python&gt;=3.13`</span> per its pyproject.toml;</span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>  matches our <span class="in">`.python-version`</span> pin per ADR-037).</span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>**Out of scope**:</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**runpod-deploy**: not switched at v1.0.8 (planned for v1.1.0</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>  per Path 3; this ADR's scope is eval-toolkit only).</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**research_toolkit**: not yet on PyPI as of v1.0.8 audit; remains</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>  git+https tag-pin per ADR-036.</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PyPI-resolvable install** — any clone of this repo can <span class="in">`uv sync`</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>  without GitHub access to brandon-behring/eval-toolkit; methodology</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>  reviewer reproducibility improved.</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Faster cold install** — no git clone or setuptools build step.</span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**uv.lock wheel-SHA backstop** — PyPI artifacts are immutable once</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>  published; the lock's recorded SHA-256 of the wheel cannot be</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>  retroactively changed by upstream (git rev can be force-pushed</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>  in theory; PyPI artifact uploads are append-only).</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Consumer-pattern alignment** — methodology submission demonstrates</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>  the canonical Python install path.</span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ADR-036 §Context premise must be retired** — the "git URL is the</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  only viable spec format" claim is no longer load-bearing. Handled via</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  this narrow-supersession ADR + <span class="in">`superseded_by: [055]`</span> frontmatter</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  edit on ADR-036.</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**runpod-deploy + research_toolkit pin styles diverge** — eval-toolkit</span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  on <span class="in">`==&lt;version&gt;`</span> (PyPI), runpod-deploy + research_toolkit on</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>  <span class="in">`git+https://...@v&lt;tag&gt;`</span> (GitHub). Mitigation: clear comments in</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>  <span class="in">`pyproject.toml`</span> for each; <span class="in">`decisions/library_imports.md`</span> version</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>  pin table documents the per-library spec format.</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tag-pin readability ≈ PEP 508 version-specifier readability. Both</span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>  surface the version at a glance in pyproject.toml.</span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>uv.lock format is uv-internal; lock content changes (source field)</span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>  but the byte-level-reproducibility guarantee is preserved.</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### A. Keep git+https (do not switch)</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>Stay on <span class="in">`eval-toolkit @ git+https://...@v0.40.0`</span>. **Rejected**: the</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>user explicitly asked for PyPI install ("make sure this repo uses it</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>from pypi"). PyPI is the consumer-expected format for Python</span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>distribution; demonstrating it sets the better reproducibility bar.</span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### B. Switch but keep at v0.39.0</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>Switch source format but stay at v0.39.0 (which is also on PyPI as</span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>of 2026-05-18 release wave). **Rejected**: v0.40.0 adds Platt + Beta</span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>calibrators (eval-toolkit#43 closed; v1.0.8 Subsection C consumes them</span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>per ADR-056). The bump + format-switch are coupled work.</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### C. Switch + also re-walk ADR-036 entirely (broad supersession)</span></span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>Write a single ADR superseding ADR-036 in whole (the freeze policy</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>plus the git URL claim plus the bump-trigger protocol). **Rejected**:</span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>ADR-036's freeze + bump-trigger discipline is still load-bearing;</span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>narrowly superseding only the "git URL only" sub-claim preserves the</span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>rest of the governance trail without re-litigation.</span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Links</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-036 — Library version pins (tag-pin + freeze)</span><span class="co">](ADR-036-library-version-pins-tag-pin-plus-freeze.md)</span> — narrowly superseded on the "git URL is the only viable spec format" sub-claim only; freeze + bump-triggers + uv.lock backstop preserved.</span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-033 — Github release strategy (rehearsal + submission)</span><span class="co">](ADR-033-github-release-strategy-rehearsal-plus-submission.md)</span> — v1.0.x patch discipline that authorizes this bump under trigger #3.</span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">ADR-037 — requires-python ≥ 3.13</span><span class="co">](ADR-037-python-version-pin-3-13.md)</span> — eval-toolkit v0.40.0's requires-python matches.</span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">eval-toolkit v0.40.0 PyPI</span><span class="co">](https://pypi.org/project/eval-toolkit/0.40.0/)</span> — the artifact.</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">eval-toolkit#43</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/43)</span> — Platt + Beta request that motivated the v0.40.0 bump.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

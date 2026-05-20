@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,6 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +158,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -959,7 +935,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-017-trained-rung-slate-expansion.html">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</h1>
 </div>
 
 
@@ -1109,119 +1085,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See frontmatter references list. Primary anchors — SPEC_GREENFIELD §2 line 121 common pattern; LoRA paper §5.4 ablations (Hu et al.&nbsp;2021); BERT-rediscovers-pipeline (Tenney et al.&nbsp;2019); Sentence-BERT (Reimers and Gurevych 2019); fastText char n-grams (Joulin et al.&nbsp;2017); HackAPrompt 2023 baseline (Schulhoff et al.&nbsp;2023); ADR-015 transformer-slate single-backbone claim; ADR-007 historical record.</p>
 
 
-<!-- -->
-
 </section>
 </s></s></section><s><s>
 
-</s></s></main><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 017</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> trained-rung-slate-expansion</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-017</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-03 expands the trained-rung slate from the three-condition ModernBERT-base lineup locked by ADR-015 to a four-rung architecture by prepending a classical-NLP floor rung — TF-IDF plus Logistic Regression — that restores the SPEC_GREENFIELD §2 documented common-pattern default (linear floor then frozen-features probe then off-the-shelf classifier then adapter-fine-tuned transformer) that ADR-007 originally deviated from. The classical floor rung uses sklearn TfidfVectorizer with combined word 1-2-grams capped at 15000 features and char 3-5-grams capped at 15000 features (FeatureUnion stacked sparse matrix), feeding sklearn LogisticRegression with solver=liblinear plus C=1.0 plus class_weight=balanced plus max_iter=1000 — fit-to-convergence with sklearn default tolerance, no epoch concept. The frozen-probe role (ledger row 332) is locked as both candidate detector (appears in headline table alongside LoRA and full-FT with same metrics and same statistical machinery) and diagnostic anchor (the methodology spoke uses the lift-delta chain TF-IDF+LR then frozen-probe then LoRA then full-FT as a three-step capability decomposition narrative — pretrained transformer features beat classical features, adapter tuning adds something, full backbone fine-tuning adds something beyond adapters). The expansion is methodologically additive — it does not supersede ADR-015 because ADR-015 locked the ModernBERT-base single-backbone architecture for the transformer slate (still valid) — the classical-NLP rung occupies a separate spec axis (different feature space, different library stack — sklearn versus HF). Training-time scope (ledger row 331) is formally locked at frozen-probe plus LoRA plus full-FT (the three conditions enumerated by ADR-015 plus the classical-floor addition) — uniform across all four trained rungs for clean cross-rung lift attribution.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §2 Model ledger rows 331 + 332 + Phase 0-03 walk Q1 + Q1b</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 331 carries locked-to-frozen-probe-plus-LoRA-plus-full-FT (see ADR-017 complements ADR-015) status; ledger row 332 carries locked-to-both-candidate-detector-plus-diagnostic-anchor (see ADR-017) status; SPEC_SHEET §4 model recipe gains new §4.1 (Classical floor rung — TF-IDF plus LR specification) before the existing transformer-rung sections; SPEC_SHEET §4 enumerates the trained-rung slate as four rungs (TF-IDF+LR plus ModernBERT-base across frozen-probe plus LoRA plus full-FT); assumptions.md A-001 updated to reflect run count of 48 (four trained rungs times three seeds times four LODO folds) instead of 36 with the fallback ladder still applicable to the transformer rungs; tests/test_invariants.py contains skip-marked stub test_classical_floor_rung_present asserting the TF-IDF+LR rung is in the trained-rung config enumeration with sklearn TfidfVectorizer plus LogisticRegression(class_weight=balanced) plus combined word-1-2-grams plus char-3-5-grams plus per-vectorizer max_features 15000; tests/test_invariants.py existing stub test_trained_backbone_modernbert_only_invariant is reframed to assert trained transformer rungs (not all trained rungs) contain exactly ModernBERT-base across three conditions (carve out the classical floor rung); WRITEUP methodology spoke contains a dedicated lift-delta-chain subsection narrating the three-step capability decomposition (TF-IDF+LR then frozen-probe quantifies pretrained-transformer-feature contribution, frozen-probe then LoRA quantifies adapter-tuning contribution, LoRA then full-FT quantifies full-backbone-FT contribution).</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> cfa7559</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/1607.01759</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2311.16119</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/1908.10084</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/1905.05950</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2106.09685</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://scikit-learn.org/stable/modules/generated/sklearn.utils.class_weight.compute_class_weight.html</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-015-rung-architecture-refinement.md</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-007-rung-architecture-and-reference-scorers.md</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - SPEC_GREENFIELD.md §2 line 121 common pattern</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-03__model-scope.md</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-017: Trained-rung-slate expansion — TF-IDF plus LR classical floor and frozen-probe dual role</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). Complementary to ADR-015 (does not supersede — ADR-015's single-backbone-for-transformer-slate claim remains valid).</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>ADR-007 originally locked a six-trained-rung architecture (two backbones times three conditions) and skipped the SPEC_GREENFIELD §2 documented common-pattern "linear floor (TF-IDF plus LR)" entry. ADR-015 superseded ADR-007 by narrowing the transformer slate to a single backbone (ModernBERT-base across three conditions) to eliminate the per-backbone truncation confound on the indirect-injection slice. Neither ADR included the classical-NLP floor that SPEC §2 line 121 lists as the first rung of the common ladder pattern.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>The Phase 0-03 walk surfaced that the rung-ladder framework in SPEC §2 was originally designed to enumerate four capability layers — linear features alone, pretrained features alone, adapter-tuned features, fully-fine-tuned features — each step's lift attributing to a specific capability contribution. Without the TF-IDF+LR floor, the architecture has no comparison point for "what classical NLP achieves" and the methodology spoke cannot answer "how much benefit does any level of transformer training give over classical features?"</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>Brandon's Phase 0-03 Q1 framing made this explicit — the frozen-probe was intended to be both candidate detector and diagnostic anchor (Option C), and the classical-NLP floor was specifically requested as a baseline rung to anchor the lift-delta narrative.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Adding the classical-NLP floor is spec-aligned (restores the SPEC §2 common pattern), methodologically additive (does not change ADR-015's transformer-architecture claims), and cheap (sklearn CPU compute for the TF-IDF+LR rung is approximately one to two dollars added on top of the existing GPU budget).</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### Trained-rung slate (four rungs)</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rung <span class="pp">|</span> Model <span class="pp">|</span> Stack <span class="pp">|</span> Capability layer <span class="pp">|</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> TF-IDF + LR <span class="pp">|</span> sklearn <span class="pp">|</span> classical NLP — bag-of-features <span class="pp">|</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> ModernBERT-base, frozen-probe <span class="pp">|</span> HF (frozen body + linear head) <span class="pp">|</span> pretrained transformer features alone <span class="pp">|</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> ModernBERT-base, LoRA <span class="pp">|</span> HF + PEFT <span class="pp">|</span> adapter fine-tuning <span class="pp">|</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> ModernBERT-base, full-FT <span class="pp">|</span> HF Trainer <span class="pp">|</span> full backbone fine-tuning <span class="pp">|</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Classical floor rung specification</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>TfidfVectorizer (FeatureUnion of two): word 1-2-grams with max_features 15000 plus char 3-5-grams with max_features 15000 — combined sparse matrix dimension up to 30000 features</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Common vectorizer settings — sublinear_tf=True, lowercase=True, strip_accents=unicode</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LogisticRegression — solver=liblinear, C=1.0, class_weight=balanced, max_iter=1000, random_state per ADR-006 seed slate (42, 1337, 2025)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Training — fit-to-convergence with sklearn default tolerance, no epoch concept; one fit per LODO fold per seed</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Inference — predict_proba on held-out positive source plus benign sample; per-row predictions persisted to evals/predictions/tfidf-lr__fold&lt;F&gt;__seed<span class="dt">&lt;</span><span class="kw">S</span><span class="dt">&gt;</span>.parquet (no epoch suffix since no epoch concept)</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Frozen-probe role lock (ledger row 332)</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>Both. The frozen-probe is evaluated as a detection rung in the headline table (same AUPRC plus AUROC plus recall@FPR plus ECE columns as LoRA and full-FT) AND serves as the linear-probe baseline anchor in the methodology spoke for the lift-delta decomposition. A one-paragraph framing note in WRITEUP/methodology.md handles the dual interpretation explicitly.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training-time scope lock (ledger row 331)</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>Frozen-probe plus LoRA plus full-FT. The three conditions enumerated by ADR-015 are formally locked at the ledger-row level (the row previously read open even though ADR-015's body enumerated the three conditions). This is bookkeeping that aligns the ledger with ADR-015's claim.</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lift-delta-chain methodology spoke section</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>The methodology spoke gains a dedicated subsection narrating the three-step capability decomposition — TF-IDF+LR then frozen-probe delta quantifies pretrained-transformer-feature contribution; frozen-probe then LoRA delta quantifies adapter-tuning contribution; LoRA then full-FT delta quantifies full-backbone-FT contribution. Each delta is reported with bootstrap CI per ADR-006 plus the paired-bootstrap-difference methodology from eval-toolkit.</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Restores the SPEC §2 common-pattern default that ADR-007 originally omitted; the architecture is now spec-aligned</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adds the only fully verified-disjoint reference point (TF-IDF+LR trained on our LODO splits by construction; no possibility of pretrain contamination) — anchors the contamination-stratified comparison structure that ADR-018 codifies</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The lift-delta chain becomes a designed methodology contribution rather than a post-hoc observation</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cheap — adds 12 sklearn CPU runs at near-zero cost (under five dollars total impact on the budget envelope)</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The frozen-probe dual role preserves both headline-table presence and diagnostic-anchor framing without adding compute</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Increases trained-run count from 36 to 48 (four rungs times three seeds times four LODO folds); the increase is dominated by 12 sklearn CPU runs at near-zero compute cost</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The writeup spoke gains a dual-framing paragraph for the frozen-probe; modest narrative complexity</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The tests/test_invariants.py existing test_trained_backbone_modernbert_only_invariant requires reframing — the literal claim "trained rung slate contains exactly ModernBERT-base across three conditions" is now incorrect because the trained slate also contains TF-IDF+LR; the reframed invariant asserts "trained transformer rungs contain exactly ModernBERT-base across three conditions" (carves out the classical-NLP rung from the no-DeBERTa-fallback assertion)</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Phase 1 deliverables</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/rungs/tfidf_lr.py — sklearn pipeline implementing the locked recipe with seed handling</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/predictions/tfidf-lr__fold&lt;F&gt;__seed<span class="dt">&lt;</span><span class="kw">S</span><span class="dt">&gt;</span>.parquet — per-row predictions for each of the 12 sklearn runs</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>WRITEUP/methodology.md — lift-delta-chain subsection drafted</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Keep the 3-rung ADR-015 architecture without the classical floor** — rejected because the architecture has no comparison point for "what classical NLP achieves" and cannot answer the lift question "how much benefit does any level of transformer training give over classical features?" Brandon explicitly surfaced this gap in Q1 with the intent that the frozen-probe serve as both candidate detector and diagnostic anchor.</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Use HashingVectorizer instead of TfidfVectorizer** — rejected for prototype because TfidfVectorizer is more interpretable (coefficients per feature support afterword feature-attribution analyses) and 30000-feature dimension is manageable. HashingVectorizer deferred to afterword for very-long-document handling.</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Char-only n-grams or word-only n-grams** — rejected because combined word-1-2-grams plus char-3-5-grams capture both instruction-style patterns ("ignore previous instructions" type) and URL-encoded plus base64 plus delimiter attack patterns; either alone underperforms.</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Grid-search C and class_weight on val** — rejected because the SPEC §2 hyperparameter-immutability rule prohibits val-set tuning; we use literature defaults.</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Calibrated LR via CalibratedClassifierCV** — rejected for prototype because sklearn LR's predict_proba is reasonably calibrated for binary classification at our scale; deferred to afterword as a calibration-comparison extension.</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>See frontmatter references list. Primary anchors — SPEC_GREENFIELD §2 line 121 common pattern; LoRA paper §5.4 ablations (Hu et al. 2021); BERT-rediscovers-pipeline (Tenney et al. 2019); Sentence-BERT (Reimers and Gurevych 2019); fastText char n-grams (Joulin et al. 2017); HackAPrompt 2023 baseline (Schulhoff et al. 2023); ADR-015 transformer-slate single-backbone claim; ADR-007 historical record.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div><s><s> <!-- /main -->
+</s></s></main><s><s> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1292,57 +1159,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

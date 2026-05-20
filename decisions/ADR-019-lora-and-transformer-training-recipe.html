@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -961,7 +972,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-019-lora-and-transformer-training-recipe.html">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</h1>
 </div>
 
 
@@ -1165,233 +1176,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See frontmatter references list. Primary anchors — LoRA paper (Hu et al.&nbsp;2021); Mosbach et al.&nbsp;2021 BERT FT stability; ModernBERT paper (Warner et al.&nbsp;2024); Kalamkar et al.&nbsp;2019 bfloat16 study; HuggingFace PEFT documentation; PEFT sequence-classification LoRA notebook; Sebastian Raschka 2024 practical LoRA tips; Phil Schmid 2025 ModernBERT FT guide; sklearn class_weight documentation; King and Zeng 2001 rare-events logistic regression; PyTorch CrossEntropyLoss reference; NVIDIA H100 tensor-core whitepaper; ModernBERT HF docs and transformers source; ADR-015 single-backbone lock; ADR-014 truncation policy; ADR-006 multi-seed protocol; ADR-017 classical-floor and frozen-probe role.</p>
 
 
-<!-- -->
-
 </section>
 </s></s></section><s><s>
 
-</s></s></main><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 019</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> lora-and-transformer-training-recipe</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> LoRA and transformer-rung training recipe — hyperparameters, epochs, precision, class weighting</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-019</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-03 locks the complete training recipe for the three trained transformer rungs (ModernBERT-base across frozen-probe, LoRA, full-FT) as a single hyperparameter-immutability-compatible bundle. LoRA core hyperparameters use literature defaults from the LoRA paper and modern HF PEFT recipes — r equals 8 plus lora_alpha equals 16 (alpha equals 2r modern convention) plus lora_dropout equals 0.1 plus task_type SEQ_CLS plus bias none — with explicit deterministic target_modules enumeration listing four suffixes (Wqkv, attn.Wo, mlp.Wo, mlp.Wi) covering the fused QKV projection plus attention output projection plus both MLP projections per ModernBERT encoder layer (avoids dependency on PEFT all-linear auto-detection per SDD discipline). LoRA modules_to_save includes the classifier head (randomly-initialized; needs full fine-tuning alongside the LoRA adapters). Optimizer settings shared across the three transformer rungs — learning_rate equals 1e-4 plus warmup_ratio equals 0.10 plus lr_scheduler_type cosine plus per_device_train_batch_size equals 16 plus gradient_accumulation_steps equals 2 (effective batch 32 on H100 plus 80GB-VRAM equivalent classes; per ADR-020 the BATCH_TABLE scales per_device plus grad_accum on smaller GPU classes preserving effective batch 32) plus max_grad_norm equals 1.0 plus weight_decay equals 0.01 plus AdamW optimizer (HF Trainer default) plus DataCollatorWithPadding with max_length equals 8192 plus dynamic padding plus head-truncation when exceeded (per ADR-014 Q4 training-time policy). Epoch policy (ledger row 335) is locked at 2 epochs uniformly across all three transformer rungs (SPEC §2 default sweet spot; cross-rung uniformity eliminates the epoch-count confound when attributing lift between rungs) with per-epoch inference predictions persisted for every (rung, seed, fold) combination (epoch-2 is the headline number; epoch-1 is reported as a diagnostic ablation in the methodology spoke) — this converts SPEC §2 line 132 default suggestion of a 1-epoch-control on at-least-one-fold into a per-fold per-seed 1-epoch diagnostic at near-zero added cost. Intermediate full-FT weight checkpoints are not persisted to disk (approximately 150 megabytes per checkpoint times 12 training runs equals approximately 1.8 gigabytes of throwaway weights) — per-row inference predictions for epoch-1 are saved without persisting the underlying full-FT weights since predictions are the audit-relevant artifact for downstream analyses. LoRA plus frozen-probe intermediate adapter and head checkpoints are persisted (tiny; under 10 megabytes each). Precision policy (ledger row 336) is locked at bf16 for both training and inference with explicit fp32 cast before the final softmax or sigmoid (per SPEC §2 default; matches H100 native tensor-core throughput plus same dynamic range as fp32 avoiding gradient underflow concerns; ModernBERT was pretrained and tested with bf16 per Warner et al. 2024). Class-weight implementation (ledger row 337) is locked at sklearn-style class_weight balanced uniformly across all four trained rungs (TF-IDF+LR per ADR-017 Q1b lock plus the three transformer rungs via a WeightedTrainer subclass that overrides compute_loss with CrossEntropyLoss using a per-fold-recomputed compute_class_weight tensor) — uniform convention across the trained-rung slate enables clean cross-rung lift attribution and aligns with the sklearn convention already established by ADR-017 for the classical-floor rung. TrainingArguments configuration locks save_strategy equals epoch (saves per-epoch checkpoint for LoRA plus frozen-probe; full-FT intermediate checkpoints are deleted post-inference per the storage-management discipline above) plus eval_strategy equals no (no val-set-driven evaluation during training per SPEC §2 hyperparameter-immutability) plus seed slot iterated across the ADR-006 three-seed slate (42, 1337, 2025). Phase 1 verification task — after uv-resolving PEFT plus Transformers pinned versions, instantiate LoraConfig plus AutoModelForSequenceClassification.from_pretrained for answerdotai/ModernBERT-base wrapped with get_peft_model plus dump the resolved trainable parameter enumeration plus target module list to evals/lora_target_modules.json (asserts four LoRA layers per ModernBERT encoder block times 22 layers equals 88 LoRA adapter modules; classifier head is in modules_to_save; trainable parameter ratio approximately 0.5 to 1 percent of total).</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §2 Model ledger rows 335 + 336 + 337 + Phase 0-03 walk Q4 + Q5 + Q6 + Q7</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 335 carries locked-to-2-epochs-uniform-with-per-epoch-prediction-save (see ADR-019) status; ledger row 336 carries locked-to-bf16-training-plus-inference-with-fp32-softmax-cast (see ADR-019) status; ledger row 337 carries locked-to-sklearn-style-class-weight-balanced-uniform-across-trained-rungs (see ADR-019) status; SPEC_SHEET §4.2 through §4.4 transformer-rung subsections are populated with the locked recipe (LoRA core hyperparameters plus epoch policy plus precision plus class-weight); SPEC_SHEET §4 contains a Per-epoch prediction-save discipline subsection noting epoch-2 is headline plus epoch-1 is diagnostic; assumptions.md A-003 (pre-teardown persistence checklist per ADR-013) is extended in spirit to require per-epoch parquet predictions persisting before any pod teardown; tests/test_invariants.py contains skip-marked stub test_per_epoch_predictions_present asserting predictions exist for both epoch=1 and epoch=2 for every transformer (rung, seed, fold) combination per the 96-file enumeration; src/training/lora_config.py contains the locked LoraConfig instantiation matching the recipe; src/training/weighted_trainer.py contains the WeightedTrainer subclass with per-fold compute_class_weight; evals/lora_target_modules.json is the Phase 1 deliverable that captures the actual resolved LoRA target module enumeration plus trainable parameter count from the pinned PEFT and Transformers versions; src/inference/softmax_cast.py contains the fp32-cast-before-softmax helper.</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> cfa7559</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2106.09685</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2006.04884</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2412.13663</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/1905.12322</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/peft/main/en/conceptual_guides/lora</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/peft/main/en/developer_guides/lora</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/peft/main/en/task_guides/seq_classification_lora</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/huggingface/peft/blob/main/examples/sequence_classification/LoRA.ipynb</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/transformers/en/perf_train_gpu_one</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/transformers/model_doc/modernbert</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/huggingface/transformers/blob/main/src/transformers/models/modernbert/modeling_modernbert.py</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/answerdotai/ModernBERT-base</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.philschmid.de/fine-tune-modern-bert-in-2025</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://scikit-learn.org/stable/modules/generated/sklearn.utils.class_weight.compute_class_weight.html</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://gking.harvard.edu/files/0s.pdf</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://resources.nvidia.com/en-us-tensor-core/nvidia-tensor-core-gpu-datasheet</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-015-rung-architecture-refinement.md</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-014-threat-model-bundle.md</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-statistical-multi-seed-protocol.md</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-017-trained-rung-slate-expansion.md</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-03__model-scope.md</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-019: LoRA and transformer-rung training recipe</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). Complements ADR-015 (trained-rung architecture) and ADR-017 (rung-slate expansion). Does not supersede any prior ADR; specifies the deferred hyperparameter bundle that ADR-007 line 42 and ADR-015 line 44 both flagged as Phase 0-03 deliverables.</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>ADR-007 and ADR-015 both deferred the specific LoRA hyperparameters (r, alpha, dropout, target_modules, lr, epochs, precision, batch, max_len, warmup) to Phase 0-03 with the comment that the discipline rule from SPEC §2 (lock hyperparameters per rung before training; no val-set gridsearch) requires committing to literature defaults rather than tuning.</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>Phase 0-03 Q4 through Q7 walk fully specified the recipe. The walk surfaced one SDD-discipline refinement that exceeded SPEC §2's documented default — Q4 verification of PEFT plus ModernBERT compatibility surfaced that the modern recipe convention target_modules equals all-linear is an auto-detection convention that creates a silent dependency on PEFT version-specific behavior; the SDD-aligned move is explicit module enumeration listing the four suffixes that match ModernBERT's fused QKV plus attention output plus both MLP projections, removing the auto-detection dependency.</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>Q5 surfaced an opportunity to upgrade SPEC §2's default 1-epoch-control on at-least-one-fold suggestion into a per-fold per-seed 1-epoch diagnostic at near-zero added cost by saving per-epoch inference predictions throughout the 2-epoch training run. This converts a single-fold sanity check into a slate-wide diagnostic without adding any training compute and without violating hyperparameter-immutability (the headline number remains epoch-2 predictions; epoch-1 predictions are reported as a diagnostic ablation in the methodology spoke).</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>Q6 confirmed the SPEC §2 default for bf16; no contested ground.</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>Q7 surfaced a cross-rung-consistency point — the TF-IDF+LR rung from ADR-017 uses sklearn class_weight equals balanced; locking the transformer-rung class-weight implementation to the same sklearn-style formula gives the four trained rungs a uniform weighting convention. This is auditable and aligns with the sklearn convention already established by ADR-017.</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>Q4 specified per_device_train_batch_size equals 16 and gradient_accumulation_steps equals 2 (effective batch 32) for H100 80GB. The follow-up Q8 walk surfaced that runpod-deploy's GPU-failover ladder may land us on smaller GPU classes (A100 40GB, L40S, L40); ADR-020 addresses this by specifying a per-GPU-class BATCH_TABLE that preserves effective batch 32 by scaling per_device plus grad_accum together. The recipe locked by this ADR is the H100 default; ADR-020 documents the GPU-class-adaptive batch sizing.</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked LoRA configuration</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> peft <span class="im">import</span> LoraConfig</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>lora_config <span class="op">=</span> LoraConfig(</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    r<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    lora_alpha<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    lora_dropout<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    target_modules<span class="op">=</span>[<span class="st">"Wqkv"</span>, <span class="st">"attn.Wo"</span>, <span class="st">"mlp.Wo"</span>, <span class="st">"mlp.Wi"</span>],</span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    modules_to_save<span class="op">=</span>[<span class="st">"classifier"</span>],</span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    task_type<span class="op">=</span><span class="st">"SEQ_CLS"</span>,</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    bias<span class="op">=</span><span class="st">"none"</span>,</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Explicit target_modules enumeration (not "all-linear" auto-detection) — SDD discipline; deterministic; stable across PEFT version updates</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>modules_to_save includes the classifier head for full fine-tuning alongside the LoRA adapters</span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-encoder-layer count: 4 LoRA modules (Wqkv plus attn.Wo plus mlp.Wi plus mlp.Wo); 22 encoder layers in ModernBERT-base equals 88 LoRA adapter modules total</span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked TrainingArguments (shared across all three transformer rungs)</span></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> TrainingArguments</span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>training_args <span class="op">=</span> TrainingArguments(</span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-4</span>,</span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>    warmup_ratio<span class="op">=</span><span class="fl">0.10</span>,</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>    lr_scheduler_type<span class="op">=</span><span class="st">"cosine"</span>,</span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>    per_device_train_batch_size<span class="op">=</span><span class="dv">16</span>,        <span class="co"># H100 80GB default; ADR-020 BATCH_TABLE scales for other classes</span></span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    gradient_accumulation_steps<span class="op">=</span><span class="dv">2</span>,         <span class="co"># effective batch 32 across all GPU classes</span></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>    num_train_epochs<span class="op">=</span><span class="dv">2</span>,                    <span class="co"># Q5 lock; uniform across the three transformer rungs</span></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>    bf16<span class="op">=</span><span class="va">True</span>,                             <span class="co"># Q6 lock; SPEC §2 default</span></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    fp16<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>    max_grad_norm<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>    weight_decay<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>    save_strategy<span class="op">=</span><span class="st">"epoch"</span>,                 <span class="co"># per-epoch checkpoint (LoRA + frozen-probe only; full-FT intermediates deleted post-inference)</span></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>    eval_strategy<span class="op">=</span><span class="st">"no"</span>,                    <span class="co"># no val-set evaluation during training per hyperparameter-immutability</span></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">=</span><span class="dv">42</span>,                               <span class="co"># iterated across ADR-006 slate (42, 1337, 2025)</span></span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other defaults (AdamW optimizer, AdamW eps=1e-8, etc.) inherited from HF Trainer</span></span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data collator</span></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> DataCollatorWithPadding</span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>data_collator <span class="op">=</span> DataCollatorWithPadding(</span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>    tokenizer,</span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>    max_length<span class="op">=</span><span class="dv">8192</span>,                  <span class="co"># per ADR-014 Q3 ModernBERT-base native cap</span></span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>    pad_to_multiple_of<span class="op">=</span><span class="dv">8</span>,             <span class="co"># tensor-core alignment for bf16 throughput</span></span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Dynamic padding to batch-longest; truncation head-first when max_length exceeded per ADR-014 Q4</span></span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### WeightedTrainer subclass for class-weighted loss</span></span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils.class_weight <span class="im">import</span> compute_class_weight</span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> CrossEntropyLoss</span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> Trainer</span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WeightedTrainer(Trainer):</span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, <span class="op">*</span>args, class_weights<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kwargs):</span>
-<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.class_weights <span class="op">=</span> class_weights</span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> compute_loss(<span class="va">self</span>, model, inputs, return_outputs<span class="op">=</span><span class="va">False</span>, <span class="op">**</span>kwargs):</span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>        labels <span class="op">=</span> inputs.pop(<span class="st">"labels"</span>)</span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> model(<span class="op">**</span>inputs)</span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>        logits <span class="op">=</span> outputs.logits</span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>        loss_fct <span class="op">=</span> CrossEntropyLoss(weight<span class="op">=</span><span class="va">self</span>.class_weights.to(logits.device))</span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> loss_fct(logits, labels)</span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (loss, outputs) <span class="cf">if</span> return_outputs <span class="cf">else</span> loss</span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-fold computation (different LODO fold = different class balance)</span></span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> compute_class_weight(</span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>    class_weight<span class="op">=</span><span class="st">"balanced"</span>,</span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>    classes<span class="op">=</span>np.array([<span class="dv">0</span>, <span class="dv">1</span>]),</span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>train_labels,</span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>class_weights <span class="op">=</span> torch.tensor(weights, dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Per-epoch prediction-save discipline</span></span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Save per-row inference predictions for every (transformer rung, seed, fold, epoch) combination — 3 transformer rungs times 3 seeds times 4 folds times 2 epochs equals 72 prediction files</span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>File path convention — evals/predictions/<span class="dt">&lt;</span><span class="kw">rung</span><span class="dt">&gt;</span>__fold&lt;F&gt;__seed&lt;S&gt;__epoch<span class="dt">&lt;</span><span class="kw">N</span><span class="dt">&gt;</span>.parquet</span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LoRA plus frozen-probe — persist intermediate adapter and head checkpoints (tiny; under 10 MB each)</span>
-<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Full-FT — do NOT persist intermediate weight checkpoint (approximately 150 MB times 12 runs equals ~1.8 GB of throwaway weights); per-row predictions are the audit-relevant artifact; final epoch checkpoint is persisted</span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Discipline rule — epoch-2 predictions are the headline numbers; epoch-1 predictions are reported as a diagnostic ablation in the methodology spoke; the ADR pre-commits this so cherry-picking is precluded</span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The methodology spoke includes a per-(rung, seed, fold) epoch-1-to-epoch-2 AUPRC delta plot — surfaces undertraining versus overfitting boundaries; if epoch-1 systematically outperforms epoch-2 on some slice that IS a finding to report honestly</span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fp32 cast before final softmax or sigmoid</span></span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a><span class="co"># scripts/inference.py (sketch)</span></span>
-<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.inference_mode():</span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>    logits <span class="op">=</span> model(<span class="op">**</span>inputs).logits  <span class="co"># bf16</span></span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>    probs <span class="op">=</span> torch.softmax(logits.<span class="bu">float</span>(), dim<span class="op">=-</span><span class="dv">1</span>)  <span class="co"># fp32 cast before softmax</span></span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>Applies to all three trained transformer rungs and to ProtectAI v1 plus v2 inference (preserves numerical-stability discipline uniformly across the bf16-inference rungs).</span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### Phase 1 verification task</span></span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>After uv-resolving PEFT plus Transformers pinned versions, instantiate the locked LoraConfig plus AutoModelForSequenceClassification.from_pretrained for answerdotai/ModernBERT-base wrapped with get_peft_model. Dump the resolved trainable parameter enumeration plus target module list to evals/lora_target_modules.json. Assert — exactly 4 LoRA layers per ModernBERT encoder block times 22 layers equals 88 LoRA adapter modules; classifier head is in modules_to_save; trainable parameter ratio approximately 0.5 to 1 percent of total.</span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Complete training recipe is auditable in a single ADR; no hidden hyperparameters; reproducible without dependence on PEFT auto-detection</span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-epoch prediction-save converts the SPEC §2 default 1-epoch sanity-check suggestion into a per-fold per-seed diagnostic at near-zero added cost</span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cross-rung sklearn-style class_weight balanced gives all four trained rungs a uniform weighting convention; auditable; aligns with ADR-017 Q1b classical-floor lock</span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>bf16 training plus inference with fp32-cast-before-softmax matches modern transformer FT best practice on H100; ModernBERT pretrained with bf16</span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Explicit target_modules enumeration removes a silent dependency on PEFT version-specific auto-detection; survives PEFT updates</span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Storage discipline (no intermediate full-FT weights persisted; per-row predictions persisted instead) controls disk footprint while preserving all audit-relevant artifacts</span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-epoch inference doubles eval-time compute (one extra inference pass per training run); on H100 this is approximately 30 to 60 minutes added across the 36 transformer training runs; well inside the compute envelope locked by ADR-020</span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The recipe is a single-point lock — no tuning means if r=8 or lr=1e-4 happens to be suboptimal for this data scale, we report what we get under the locked recipe rather than tuning to improve; this is methodologically intentional per SPEC §2 hyperparameter-immutability</span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Storage of 96 per-epoch parquet predictions (32 with epoch dim from transformers plus 12 from TF-IDF+LR plus 16 from reference rungs) requires the pre-teardown checklist (A-003) to cover all of them; spirit of the rule extends to the per-epoch dimension</span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The 1-epoch diagnostic is not a true "1-epoch-locked recipe" — the LR schedule (cosine decay over 2 epochs) means at end-of-epoch-1 LR is mid-decay rather than near-zero; the epoch-1 predictions are "partial-training diagnostic" not "what a 1-epoch-locked recipe would achieve"; documented in the spoke</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="fu">### Phase 1 deliverables</span></span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/training/lora_config.py — the locked LoraConfig instance</span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/training/weighted_trainer.py — WeightedTrainer subclass</span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/training/training_args.py — locked TrainingArguments factory keyed on seed</span>
-<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/inference/softmax_cast.py — fp32-cast-before-softmax helper</span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/lora_target_modules.json — Phase 1 verification output</span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/predictions/<span class="dt">&lt;</span><span class="kw">rung</span><span class="dt">&gt;</span>__fold&lt;F&gt;__seed&lt;S&gt;__epoch<span class="dt">&lt;</span><span class="kw">N</span><span class="dt">&gt;</span>.parquet — per-(rung, seed, fold, epoch) predictions</span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**r=16 instead of r=8** — rejected; r=8 is the PEFT default and well-cited; r=16 doubles adapter capacity which may help on larger datasets but introduces overfit risk on our moderate-scale positive class. The hyperparameter-immutability rule prevents tuning so we pick the literature default.</span>
-<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**target_modules equals all-linear (PEFT auto-detection)** — rejected per SDD discipline; deterministic explicit enumeration is preferred; eliminates dependency on PEFT version-specific auto-detection logic.</span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Higher learning rate (3e-4 or 5e-4)** — rejected; 1e-4 is conservative; preserves backbone-pretrained features; reduces overfit risk on small positive class. The LoRA paper §A.2 uses 5e-4 but on different task scales; modern recipes converge on lr=1e-4 to 3e-4 for BERT-class fine-tuning on moderate-scale data.</span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**1 epoch instead of 2** — rejected; SPEC §2 explicitly warns "1-epoch LoRA can dramatically undertrain on small pools (cross-source generalization may collapse)"; our LODO folds have approximately 9K positives, in the moderate-small range where undertraining is likely.</span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3+ epochs** — rejected; deviates from SPEC §2 default without strong justification; Mosbach et al. 2021 argues for ≥3 epochs for BERT full-FT stability but with frozen backbone (LoRA case) stability is much less of a concern.</span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Early-stopping on val** — rejected; violates SPEC §2 hyperparameter-immutability (early-stop is a val-tuned signal); anti-pattern per CLAUDE.md ("tuning on val/test"); requires carving val from train reducing LODO train pool.</span>
-<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**fp16 instead of bf16** — rejected on H100; bf16 has fp32-equivalent dynamic range (no gradient underflow); fp16 requires GradScaler complexity and softmax fp32 cast for stability; bf16 is the modern default on Ampere+.</span>
-<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**fp32 throughout** — rejected; 2x memory plus 2x slower; wastes H100 tensor-core throughput; no methodological reason on this hardware.</span>
-<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HF-Trainer-style pos_weight via BCEWithLogitsLoss** — rejected for cross-rung consistency with TF-IDF+LR's sklearn-style; both formulations give identical relative weighting (deltas under 0.001 PR-AUC per SPEC §2 line 145); the methodology decision is implementation convention.</span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Uniform class weighting (no weighting)** — rejected; SPEC §2 line 145 warns "uniform may underperform on small positive classes"; at our 1:2.2 LODO-train pool imbalance the impact is small but the sklearn-style move gives free recall improvement on the minority class with negligible added complexity.</span>
-<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Save full-FT intermediate weights** — rejected; per-row predictions are the audit-relevant artifact; the model state itself is only needed for resumption (handled by the pre-teardown checklist) or further fine-tuning (out of prototype scope). Storage saved is approximately 1.8 GB across the 12 full-FT runs.</span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Skip per-epoch save entirely** — rejected; per-epoch predictions are near-zero added cost (one extra inference per training run) and provide a per-fold-per-seed 1-epoch diagnostic that strictly improves on SPEC §2's at-least-one-fold suggestion.</span>
-<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>See frontmatter references list. Primary anchors — LoRA paper (Hu et al. 2021); Mosbach et al. 2021 BERT FT stability; ModernBERT paper (Warner et al. 2024); Kalamkar et al. 2019 bfloat16 study; HuggingFace PEFT documentation; PEFT sequence-classification LoRA notebook; Sebastian Raschka 2024 practical LoRA tips; Phil Schmid 2025 ModernBERT FT guide; sklearn class_weight documentation; King and Zeng 2001 rare-events logistic regression; PyTorch CrossEntropyLoss reference; NVIDIA H100 tensor-core whitepaper; ModernBERT HF docs and transformers source; ADR-015 single-backbone lock; ADR-014 truncation policy; ADR-006 multi-seed protocol; ADR-017 classical-floor and frozen-probe role.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div><s><s> <!-- /main -->
+</s></s></main><s><s> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1462,57 +1250,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

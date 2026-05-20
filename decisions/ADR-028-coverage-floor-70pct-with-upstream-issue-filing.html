@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -958,7 +969,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.html">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</h1>
 </div>
 
 
@@ -1128,8 +1139,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1204,57 +1213,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1589,149 +1547,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "028"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> coverage-floor-70pct-with-upstream-issue-filing</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-028</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-06 locks the §STYLE ledger row 350 (Test coverage floor) at 70% flat across the repo with a co-locked upstream-issue-filing discipline. The CI command is uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing — single threshold across the codebase (no src/-vs-scripts/ stratification). The Makefile coverage target is updated from the current ungated form (pytest --cov=. --cov-report=term-missing) to the gated form. The 70% threshold reflects the case-study composition layer's prototype-grade framing (per ADR-027 debugging-grade-here-rigorous-upstream split) — high enough to catch a whole-module-untested regression, low enough to avoid forcing low-value tests against orchestration glue. Co-locked process commitment extending ADR-006 + decisions/upstream_issues.md from library-primitive-gaps to test-coverage-gaps — when a local coverage gap is identified that would be better addressed by an upstream library test (e.g., a test pattern that should live in eval-toolkit's harness coverage, or a runpod-deploy preflight scenario), file an issue at the upstream repo with the proposed test pattern + rationale. Log the upstream issue in decisions/upstream_issues.md with a "test-coverage-gap" tag in the row. This prevents the 70% floor from forcing low-value local tests when the right home for the test logic is upstream. If a gap genuinely cannot be filed upstream (project-specific glue), the gap is either tested locally OR explicitly documented as deferred via comment + upstream_issues.md "not-applicable" entry pointing at the deferral rationale. STYLE.md project-deltas section is updated from the prior "[OPEN — coverage floor; resolved at Phase 0]" placeholder to the locked 70%-flat-with-upstream-filing-discipline. Limitation — 70% is empirically chosen, not derived; if Phase 1 reveals chronic failure on legitimate orchestration glue with no viable upstream home, reopen via superseding ADR with the actual data. Extension condition — production-deployment scope extension lifts floor to 85% with src/eval at 90%; currently out-of-scope.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §STYLE ledger row 350 + STYLE.md "project deltas" + Phase 0-06 walk Q3</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 350 carries locked-to-70pct-flat-with-upstream-issue-filing-discipline status (see ADR-028); STYLE.md project-deltas section first bullet is rewritten from the prior "[OPEN — coverage floor; resolved at Phase 0]" placeholder to the locked 70% with the upstream-filing-discipline pointer; Makefile coverage target is updated from the current ungated form to "uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing"; decisions/upstream_issues.md ledger gains a "test-coverage-gap" tag convention documented in the "How to use this ledger" section + a worked example row in the table (or a placeholder row marked TBD-at-Phase-1-entry); tests/test_invariants.py contains skip-marked stub test_coverage_floor_enforced asserting that the Makefile coverage target invokes pytest with --cov-fail-under=70 (or the equivalent CI invocation does so) — verification is via subprocess + assert that exit code is non-zero when synthetic coverage drops below 70%; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> fa1ad33</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://pytest-cov.readthedocs.io/en/latest/config.html</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/STYLE.md</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/Makefile</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-026-module-layout-concern-grouped-subpackages.md</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/upstream_issues.md</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/library_imports.md</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-06__code-test-discipline.md</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-028: Test coverage floor — 70% flat with co-locked upstream-issue-filing discipline</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the third of 4 <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> rows in Phase 0-06 (§5 Code architecture + §STYLE — rows 348-351 of SPEC_GREENFIELD ledger). Companion to ADR-026 (module layout), ADR-027 (smoke vs canonical), and ADR-029 (test marker strategy).</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="in">`pytest --cov`</span> measures source-line coverage from the test suite; a **coverage floor** is a CI gate that fails the build if coverage drops below threshold. STYLE.md's "project deltas" section explicitly defers this decision to Phase 0:</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Test coverage floor**: </span><span class="in">`[OPEN: coverage floor; resolved at Phase 0]`</span><span class="at">. eval-toolkit uses 90%; case-study composition layer typically doesn't need foundational-library rigor.</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>Five options were considered:</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>(A) **90%** — eval-toolkit parity. Contradicts the prototype-grade framing locked by ADR-027; forces low-value tests against glue.</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>(B) **80%** — middle ground. Same low-value-test pressure as 90%, just delayed.</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>(C) **70%** — relaxed; matches STYLE.md hint. Low enough to accommodate orchestration glue, high enough to signal that critical paths get tested.</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>(D) **No formal floor; measure-only** — zero false positives, but no gate means coverage decay is invisible until writeup time.</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>(E) **Stratified floor** (70% on src/, no floor on scripts/) — most pragmatic version of C; aligns with the src/-vs-scripts/ boundary locked by ADR-026.</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>User feedback at decision time selected option C with an additional process commitment:</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "C, but whenever we find things that should be sent to runpod-deploy or eval-toolkit we should send issues to those repos for those tests."</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>This addendum extends the existing library-first discipline (don't hand-roll library primitives — file upstream issues for gaps; tracked in <span class="in">`decisions/upstream_issues.md`</span>) from **library-primitive-gaps** to **test-coverage-gaps**. Rather than carving out scripts/ via stratification (option E), the simpler 70% flat threshold is paired with a process commitment: when a coverage gap is identified that would be better addressed upstream, file the gap upstream rather than write a low-value local test.</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>This is structurally cleaner than option E because:</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The floor calculation is a single CLI flag (<span class="in">`--cov-fail-under=70`</span>) — no per-package strata to maintain in <span class="in">`.coveragerc`</span>.</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The escape hatch (upstream filing) is a real process improvement — generates contribution-trail value for the writeup, not just a technical workaround.</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>It's load-bearing in the right direction: the floor is a forcing function for *honest engagement* with each gap (either test locally, file upstream, or document non-applicability), not a license to add anti-tests.</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked threshold and CI command</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>**Coverage floor**: 70% flat across the repo.</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>**CI command**:</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run pytest <span class="at">--cov</span> <span class="at">--cov-fail-under</span><span class="op">=</span>70 <span class="at">--cov-report</span><span class="op">=</span>term-missing</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>**Updated `Makefile` coverage target** (replaces existing ungated form <span class="in">`pytest --cov=. --cov-report=term-missing`</span>):</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="in">```makefile</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="in">coverage:</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="in">    uv run pytest --cov --cov-fail-under=70 --cov-report=term-missing</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Co-locked process commitment — upstream-issue-filing for test-coverage gaps</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>When a local coverage gap is identified during Phase 1+ work, the developer applies this triage:</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Local test is the right home** — write the test locally in <span class="in">`tests/unit/`</span>, <span class="in">`tests/smoke/`</span>, or <span class="in">`tests/integration/`</span> per the Q4 marker taxonomy (ADR-029).</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Upstream library is the right home** — file an issue at the upstream repo (<span class="in">`brandon-behring/eval-toolkit`</span> or <span class="in">`brandon-behring/runpod-deploy`</span>) with:</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>The proposed test pattern (sketch, not implementation).</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>The rationale (why the test logic belongs upstream, not locally).</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Local file:line that depends on the absent test (if any).</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`tracked`</span> label.</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>   Then add a row to <span class="in">`decisions/upstream_issues.md`</span> with the issue URL + <span class="in">`[test-coverage-gap]`</span> tag + local file:line.</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Genuinely not testable, not upstream-applicable** — leave a <span class="in">`# noqa: COV`</span> style code comment with rationale + add a <span class="in">`decisions/upstream_issues.md`</span> row tagged <span class="in">`[not-applicable]`</span> documenting the deferral.</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>A workaround that ignores the gap (lets coverage drop below 70% silently, or worse, adds a no-op test to inflate coverage) is an anti-pattern.</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="fu">### Updated `decisions/upstream_issues.md` ledger conventions</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>The ledger's "How to use this ledger" section gains:</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Test-coverage-gap entries**: when a coverage gap is filed upstream rather than tested locally, add a row with the </span><span class="in">`[test-coverage-gap]`</span><span class="at"> tag in the Title column. When a gap is documented as not-applicable rather than filed, use the </span><span class="in">`[not-applicable]`</span><span class="at"> tag. Both forms preserve the discipline trail without forcing local anti-tests.</span></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>A worked example row (placeholder — populated as actual gaps surface during Phase 1+):</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Date <span class="pp">|</span> Repo <span class="pp">|</span> Issue # <span class="pp">|</span> Title <span class="pp">|</span> Local site (file:line) <span class="pp">|</span> Status <span class="pp">|</span></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[TBD-at-Phase-1-entry]`</span> <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="in">`[TBD]`</span> <span class="pp">|</span> <span class="in">`[test-coverage-gap]`</span> example placeholder for upstream-filing convention <span class="pp">|</span> <span class="in">`[TBD]`</span> <span class="pp">|</span> placeholder <span class="pp">|</span></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### What's explicitly out of scope</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-package coverage strata** (option E) — kept simple at 70% flat; the upstream-filing escape hatch handles the orchestration-glue case structurally rather than via configuration.</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade coverage** (≥85%) — currently out-of-scope per ADR-027 prototype-grade framing; reopen via superseding ADR if scope extends.</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Coverage on `tests/` itself** — pytest-cov's default behavior excludes test files when <span class="in">`--cov`</span> has no path argument; this is preserved.</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single CLI flag** for the floor — no <span class="in">`.coveragerc`</span> per-package configuration to drift.</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Floor as forcing function for honest engagement**: every gap gets one of three responses (local test / upstream issue / documented deferral). No silent coverage decay.</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Contribution trail**: upstream-filed test-coverage gaps generate <span class="in">`decisions/upstream_issues.md`</span> entries that double as evidence of library-first discipline for the writeup.</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-027 prototype-grade framing**: 70% is the right number for debugging-grade testing; 90% would force the layer to do work that belongs upstream.</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**70% is empirically chosen**, not derived. If Phase 1 reveals it's either trivially exceeded everywhere (suggesting we should raise it) or chronically failed on legitimate glue (suggesting we should rethink), reopen via ADR with the actual data.</span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Upstream filing has friction**: writing the issue + the proposed test pattern takes more developer time than writing a local anti-test. This is the *intended* friction — it forces a real "is this our problem or theirs" judgment rather than a reflex anti-test.</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**CI gate fires on coverage drops** even when the absolute level is still above 70%. Acceptable cost — drops are signal worth investigating; the upstream-filing escape hatch handles the legitimate-deferral case.</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>The 70% threshold is a heuristic, not a methodological commitment. It is calibrated for the prototype-grade context locked by ADR-027 (where the math lives upstream). If a Phase 1+ surprise reveals the threshold is mis-calibrated, the data justifies the superseding ADR — not a quiet adjustment.</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-deployment scope extension** lifts floor to 85% with <span class="in">`src/eval/`</span> at 90% (since <span class="in">`src/eval/`</span> is the most math-adjacent package and would carry production-grade calibration / threshold-fitting orchestration logic in that context).</span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**First sustained Phase 1 violation** of the floor with no viable upstream home triggers a re-evaluation — possibly drop to 60% (with explanation), or move to the stratified option E variant.</span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) 90%** — rejected; contradicts prototype-grade framing; forces low-value tests.</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) 80%** — rejected; arbitrary middle ground with same low-value-test pressure delayed.</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) No floor; measure-only** — rejected; loses the forcing-function benefit; coverage decay invisible until writeup.</span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(E) Stratified 70% on src/, no floor on scripts/** — rejected in favor of flat 70% + upstream-filing escape hatch; the escape hatch is structurally cleaner than per-package strata and provides real process value.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

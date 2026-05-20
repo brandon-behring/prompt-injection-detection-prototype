@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -107,6 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -191,20 +157,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -216,19 +186,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -425,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -441,14 +411,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -931,6 +907,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#upstream-issues-filed-during-this-iteration" id="toc-upstream-issues-filed-during-this-iteration" class="nav-link active" data-scroll-target="#upstream-issues-filed-during-this-iteration">Upstream issues filed during this iteration</a>
   <ul class="collapse">
+  <li><a href="#current-interpretation" id="toc-current-interpretation" class="nav-link" data-scroll-target="#current-interpretation">Current interpretation</a></li>
   <li><a href="#how-to-use-this-ledger" id="toc-how-to-use-this-ledger" class="nav-link" data-scroll-target="#how-to-use-this-ledger">How to use this ledger</a>
   <ul class="collapse">
   <li><a href="#test-coverage-gap-entries-per-adr-028" id="toc-test-coverage-gap-entries-per-adr-028" class="nav-link" data-scroll-target="#test-coverage-gap-entries-per-adr-028">Test-coverage-gap entries (per ADR-028)</a></li>
@@ -940,13 +917,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/upstream_issues.html">Upstream issues filed during this iteration</a></li></ol></nav><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/upstream_issues.html">Upstream issues filed during this iteration</a></li></ol></nav></header>
 
 
 
 
 <section id="upstream-issues-filed-during-this-iteration" class="level1">
 <h1>Upstream issues filed during this iteration</h1>
+<blockquote class="blockquote">
+<p><strong>How to read this page.</strong> This is the evidence ledger behind the anti-hand-rolling rule. It is dense by design: each row ties a discovered upstream gap to the project code or documentation that depended on it.</p>
+</blockquote>
 <p>Ledger tying anti-hand-rolling discipline to its evidence. Every discovered library gap, bug, or feature request is filed to the relevant upstream GitHub repo before any local workaround. Local site lists where the dependency or workaround lives in this repo.</p>
 <p>Filed issues go to:</p>
 <ul>
@@ -955,6 +935,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>brandon-behring/research_toolkit</code> — dossier production</li>
 </ul>
 <p>Triage label on filed issues: <code>tracked</code>.</p>
+<section id="current-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="current-interpretation">Current interpretation</h2>
+<ul>
+<li>Many early eval-toolkit gaps are now resolved and consumed; stale local workaround annotations should not be read as active debt unless the status column still says filed or contribution pending.</li>
+<li>The v1.2.8 dependency bump records eval-toolkit #48, #49, and #53 as library-first maintenance only. It does not add a new methodology claim or change the reported results.</li>
+<li>Demo-strategy ideas such as activation-delta analysis stay outside this patch unless a future ADR scopes them into the project.</li>
+</ul>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1153,6 +1140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+</section>
 <section id="how-to-use-this-ledger" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-use-this-ledger">How to use this ledger</h2>
 <p>When you discover a gap during Phase 1+ work:</p>
@@ -1177,8 +1165,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Both forms preserve the discipline trail without forcing local anti-tests under the 70% floor.</p>
 <p>A coverage gap that gets papered over with a no-op test (or with <code># pragma: no cover</code> and no ledger entry) is an anti-pattern.</p>
 
-
-<!-- -->
 
 </section>
 </section>
@@ -1255,57 +1241,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1640,71 +1575,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Upstream issues filed during this iteration</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Ledger tying anti-hand-rolling discipline to its evidence. Every discovered library gap, bug, or feature request is filed to the relevant upstream GitHub repo before any local workaround. Local site lists where the dependency or workaround lives in this repo.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Filed issues go to:</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`brandon-behring/eval-toolkit`</span> — evaluation primitives</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`brandon-behring/runpod-deploy`</span> — cloud orchestration</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`brandon-behring/research_toolkit`</span> — dossier production</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Triage label on filed issues: <span class="in">`tracked`</span>.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Date <span class="pp">|</span> Repo <span class="pp">|</span> Issue # <span class="pp">|</span> Title <span class="pp">|</span> Local site (file:line) <span class="pp">|</span> Status <span class="pp">|</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-15 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#17</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/17)</span> <span class="pp">|</span> Add optional <span class="in">`n_jobs`</span> parameter to <span class="in">`paired_bootstrap_diff`</span> for internal resample-loop parallelization <span class="pp">|</span> <span class="in">`scripts/run_bootstrap_battery.py`</span> (Phase 4 deliverable per ADR-022) <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; ledger status updated at v1.2.2 per ADR-066** — <span class="in">`et.paired_bootstrap_diff(..., n_jobs=N)`</span> available. Project keeps <span class="in">`n_jobs=1`</span> default per #41 worker-copy memory model (shared-state pattern is opt-in for callers). <span class="pp">|</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#14</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/14)</span> <span class="pp">|</span> Add <span class="in">`plot_roc_curve`</span> (sibling to <span class="in">`plot_pr_curve`</span>) <span class="pp">|</span> <span class="in">`src/eval/figures.py`</span> Phase 4 F2 deliverable per ADR-046 <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; consumed at v1.0.x per ADR-066 §B2** — <span class="in">`et.plot_roc_curve`</span> dispatched in <span class="in">`src/eval/figures.py::render_f2_roc_per_rung`</span>; stale annotation removed at v1.2.2 Commits 3-6 consolidated. <span class="pp">|</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#15</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/15)</span> <span class="pp">|</span> Add <span class="in">`plot_pareto_frontier`</span> for cost-vs-performance scatter with frontier overlay <span class="pp">|</span> <span class="in">`src/eval/figures.py`</span> Phase 4 F1 deliverable per ADR-046 <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; consumed at v1.0.x per ADR-066 §B1** — <span class="in">`et.plot_pareto_frontier`</span> dispatched in <span class="in">`src/eval/figures.py::render_f1_pareto`</span>; stale annotation removed at v1.2.2 Commits 3-6 consolidated. <span class="pp">|</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#16</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/16)</span> <span class="pp">|</span> Add <span class="in">`plot_slice_metric_heatmap`</span> for <span class="in">`(group_x × group_y × metric)`</span> grids <span class="pp">|</span> <span class="in">`src/eval/figures.py`</span> Phase 4 F5 deliverable per ADR-046 <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; consumed at v1.0.x per ADR-066 §B3** — <span class="in">`et.plot_slice_metric_heatmap`</span> dispatched in <span class="in">`src/eval/figures.py::render_f5_slice_heatmap`</span>; stale annotation removed at v1.2.2 Commits 3-6 consolidated. <span class="pp">|</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#18</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/18)</span> <span class="pp">|</span> Wire dedup-holdout golden test against this project's 50-pair adversarial dataset <span class="pp">|</span> <span class="in">`data/dedup_holdout.jsonl`</span> + <span class="in">`scripts/calibrate_dedup.py`</span> + <span class="in">`evals/dedup_calibration.json`</span> <span class="pp">|</span> filed at Phase 1 library-first audit (per ADR-047); golden-test contribution candidate <span class="pp">|</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#19</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/19)</span> <span class="pp">|</span> Add cookbook docs: 3 compositional patterns (nested-seed splits + callable-embedder strategy + pairs_across contamination scan) <span class="pp">|</span> <span class="in">`src/data/{splits, dedup, audit}.py`</span> (Phase 1 hand-rolls that motivated this) <span class="pp">|</span> filed at Phase 1 library-first audit (per ADR-047); docs PR candidate <span class="pp">|</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#20</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/20)</span> <span class="pp">|</span> Generalize <span class="in">`mde_from_ci`</span> to accept <span class="in">`BootstrapCI \| PairedBootstrapCI`</span> for marginal-MDE use case <span class="pp">|</span> <span class="in">`scripts/run_mde.py`</span> Phase 4 deliverable per ADR-046 Q4 <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; consumed at v1.0.x per ADR-066 §B5** — <span class="in">`et.mde_from_ci`</span> generalized; <span class="in">`src/eval/mde.py::mde_from_marginal_ci_record`</span> uses the upstream API directly. Stale <span class="in">`schemas.py:336`</span> annotation removed at v1.2.2 Commits 3-6 consolidated. <span class="pp">|</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-16 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#21</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/21)</span> <span class="pp">|</span> Add <span class="in">`block_bootstrap_on_folds`</span> (CV-aware block bootstrap; complement to <span class="in">`cv_clt_ci`</span>) <span class="pp">|</span> <span class="in">`src/eval/cross_fold_ci.py`</span> Phase 4 deliverable per ADR-046 Q3 + ADR-024 + A-008 <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; consumed at v1.0.x per ADR-066 §B6** — <span class="in">`et.block_bootstrap_on_folds`</span> shipped; <span class="in">`src/eval/cross_fold_ci.py::compute_block_bootstrap_on_folds`</span> thin-wraps. Stale <span class="in">`cross_fold_ci.py:202`</span> annotation removed at v1.2.2 Commits 3-6 consolidated. <span class="pp">|</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-17 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#22</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/22)</span> <span class="pp">|</span> Add <span class="in">`ax: Axes \| None`</span> kwarg to <span class="in">`plot_metric_bars`</span> (parity with <span class="in">`plot_pr_curve`</span> / <span class="in">`plot_reliability_diagram`</span> / <span class="in">`plot_lift_ci`</span> / <span class="in">`plot_bootstrap_distribution`</span>) <span class="pp">|</span> <span class="in">`src/eval/figures.py::render_f6_lodo_breakdown`</span> Phase 4 Commit 4 per ADR-046 Q6 <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0; consumed at v1.2.2 per ADR-066 §B4** — <span class="in">`et.plot_metric_bars(ax=...)`</span> shipped; bare-matplotlib bars in <span class="in">`src/eval/figures.py::render_f6_lodo_breakdown`</span> left panel replaced with library-first dispatch in v1.2.2 Commits 3-6 consolidated (the only ACTUAL refactor site in the v1.2.2 series — all others were already-consuming + stale-comment cleanup). <span class="pp">|</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-17 <span class="pp">|</span> <span class="in">`brandon-behring/runpod-deploy`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#88</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/issues/88)</span> <span class="pp">|</span> Make SSH-ready timeout configurable (default 240s too aggressive for cold image pulls) <span class="pp">|</span> <span class="in">`scripts/runpod_deploy_long_ssh.py`</span> (monkey-patch shim with 600s deadline); Makefile <span class="in">`headline-{frozen-probe,lora,full-ft}`</span> use shim for <span class="in">`run --config`</span> <span class="pp">|</span> **RESOLVED in runpod-deploy v0.8.2 (configurable `budget.ssh_ready_timeout_sec`; default 900s)**. Consumed at v1.1.0 per ADR-059: shim DELETED in same commit as pin bump per no-orphaned-code invariant; <span class="in">`budget.ssh_ready_timeout_sec: 600`</span> explicit override added to all 3 headline-*.yaml configs (matches the shim's 600s value; preserves effective behavior). <span class="pp">|</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-17 <span class="pp">|</span> <span class="in">`brandon-behring/runpod-deploy`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#92</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/issues/92)</span> (doc) + <span class="co">[</span><span class="ot">#93</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/pull/93)</span> (PR) + <span class="co">[</span><span class="ot">#94</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/issues/94)</span> (scan-consumer) <span class="pp">|</span> UV_LINK_MODE=copy + UV_CACHE_DIR + UV_PROJECT_ENVIRONMENT off /workspace required on FUSE-mounted /workspace (silent hang under default hardlink mode + git-resolution F_SETLKW hang + HF Trainer atomic-save F_SETLKW hang) <span class="pp">|</span> <span class="in">`configs/runpod/headline-{frozen_probe,lora,full_ft}.yaml`</span> <span class="in">`remote_env.exports`</span> (Phase 4 X7 + X8 commits <span class="in">`13f06b8`</span>/<span class="in">`8af73ae`</span>); memory entry <span class="in">`memory/fuse-workspace-needs-uv-link-mode-copy.md`</span> (3 FUSE failure modes); seed manifest + cost ledger (<span class="in">`artifacts/runpod/manual-20260517T155912Z/runpod_deploy_pull_manifest.json`</span> + <span class="in">`evals/cost_ledger.csv`</span> commit <span class="in">`7c1f36c`</span>) <span class="pp">|</span> **RESOLVED — PR #93 merged + #92/#94 docs/scan-consumer landed in runpod-deploy v0.8.x**. v1.1.0 consumes upstream resolutions via the pin bump (ADR-059); existing <span class="in">`remote_env.exports`</span> UV_LINK_MODE=copy + UV_CACHE_DIR + UV_PROJECT_ENVIRONMENT entries retained as belt-and-suspenders (no upstream code requires removal). External verification: <span class="co">[</span><span class="ot">uv#17801</span><span class="co">](https://github.com/astral-sh/uv/issues/17801)</span>, <span class="co">[</span><span class="ot">MooseFS#380</span><span class="co">](https://github.com/moosefs/moosefs/discussions/380)</span>, <span class="co">[</span><span class="ot">Linux kernel patch 2025-12-23</span><span class="co">](https://lkml.org/lkml/2025/12/23/264)</span>. <span class="pp">|</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-17 <span class="pp">|</span> <span class="in">`brandon-behring/runpod-deploy`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#90</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/issues/90)</span> (feat) <span class="pp">|</span> <span class="in">`lifecycle.on_success: recycle`</span> — resume paused pods on <span class="in">`run`</span> retry (avoid re-provisioning when only config edits changed) <span class="pp">|</span> bypassed orchestrator via manual SSH for <span class="in">`i5p43hfq88zpqt`</span> recovery (Phase 4 re-fire #5); no local code dependency (waiting on upstream feature) <span class="pp">|</span> **RESOLVED — `lifecycle.on_success: recycle` semantics landed in runpod-deploy v0.8.x**. Consumed at v1.1.0 Commit 3 of 3 for the DeBERTa-v3-base medium ablation via new <span class="in">`configs/runpod/headline-deberta.yaml`</span> (per /exploring-options 2026-05-19 Q2 lock — sequential single pod, 2 training fires sharing 1 pod via recycle; saves ~$1-2 + ~3-5 min vs full teardown between truncation strategies). The 3 existing headline configs use <span class="in">`on_success: delete`</span> per ADR-013 pre-teardown checklist; recycle is opt-in. <span class="pp">|</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-17 <span class="pp">|</span> <span class="in">`brandon-behring/runpod-deploy`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#97</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/issues/97)</span> (feat) <span class="pp">|</span> <span class="in">`validate --all`</span> should HTTP HEAD-check <span class="in">`pod.image`</span> against the public registry (catch phantom tags before pod fires) <span class="pp">|</span> no local code dependency (validate-time check; consumer-side fix was image-refresh in <span class="in">`configs/runpod/headline-*.yaml`</span> Phase 4 X5 commit <span class="in">`b629181`</span>) <span class="pp">|</span> **RESOLVED — image-registry HEAD-check landed in v0.8.x; invoked by default within `validate --all`**. Consumed automatically at v1.1.0 (no project-side wiring needed); <span class="in">`make headline-dry-run`</span> now reports <span class="in">`[image-registry] ok: 'runpod/pytorch:...' exists on Docker Hub`</span> line for each of the 3 migrated configs. Catches phantom Docker Hub tags before billing. <span class="pp">|</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-17 <span class="pp">|</span> <span class="in">`brandon-behring/runpod-deploy`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#98</span><span class="co">](https://github.com/brandon-behring/runpod-deploy/issues/98)</span> (docs) <span class="pp">|</span> Makefile-recipe pattern doc when <span class="in">`runpod-deploy`</span> is in <span class="in">`[project.optional-dependencies] dev`</span> (consumers hit cryptic PATH error otherwise) <span class="pp">|</span> <span class="in">`Makefile`</span> recipes use <span class="in">`uv run runpod-deploy ...`</span> (Phase 4 X4 sed-rewrite commit <span class="in">`a04e016`</span>) <span class="pp">|</span> **RESOLVED — Makefile-recipe pattern documented in runpod-deploy v0.8.x docs**. Consumed at v1.1.0 via continued use of the <span class="in">`uv run runpod-deploy ...`</span> pattern in the Makefile (now also covers the 3 callers previously delegating to the deleted <span class="in">`scripts/runpod_deploy_long_ssh.py`</span> shim — they now use <span class="in">`uv run runpod-deploy run ...`</span> directly per #88 closure). <span class="pp">|</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-18 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#39</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/39)</span> <span class="pp">|</span> Add <span class="in">`is_metric_defined_for_slice(slice_name, metric_name) -&gt; bool`</span> primitive (or equivalent <span class="in">`eval_toolkit.metrics.skip_single_class_slices`</span> filter) so consumers don't hand-roll the "AUROC/AUPRC undefined on single-class slices" rule <span class="pp">|</span> <span class="in">`src/eval/slice_analysis.py::is_metric_defined_for_slice`</span> (v1.0.0 Item 4 single-class filter) + <span class="in">`src/eval/marginal_bootstrap.py::compute_marginal_battery`</span> source-level filter + <span class="in">`scripts/run_cv_clt_ci.py`</span> orchestrator filter <span class="pp">|</span> **RESOLVED in eval-toolkit v0.39.0 (closed 2026-05-18 20:13 UTC)**. Consumed at v1.0.6: <span class="in">`src/eval/slice_analysis.py::is_metric_defined_for_slice`</span> now thin-wraps upstream <span class="in">`eval_toolkit.is_metric_defined_for_slice(metric_name, is_single_class=slice_name in SINGLE_CLASS_SLICES)`</span>; local <span class="in">`SINGLE_CLASS_INCOMPATIBLE_METRICS`</span> constant removed (uses upstream <span class="in">`eval_toolkit.SINGLE_CLASS_INCOMPATIBLE_METRICS`</span>). Project-specific knowledge of which slice NAMES are single-class stays local (<span class="in">`SINGLE_CLASS_SLICES`</span> frozen-set kept). <span class="pp">|</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-18 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#40</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/40)</span> <span class="pp">|</span> Relax <span class="in">`LeakageCheck`</span> Protocol <span class="in">`name`</span> member from settable-attr to read-only <span class="in">`@property`</span> (or <span class="in">`Final[str]`</span>) so <span class="in">`@dataclass(frozen=True)`</span> LeakageCheck implementations like <span class="in">`CrossSplitLeakageCheck`</span> are mypy-strict-compatible <span class="pp">|</span> <span class="in">`src/data/audit.py:222`</span> — <span class="in">`cast(LeakageCheck, leakage_check)`</span> workaround at the call site <span class="pp">|</span> **RESOLVED in eval-toolkit v0.39.0 (closed 2026-05-18 20:13 UTC)**. Consumed at v1.0.6: <span class="in">`cast(LeakageCheck, leakage_check)`</span> workaround removed at <span class="in">`src/data/audit.py:222`</span>; unused <span class="in">`LeakageCheck`</span> import removed from line 34. Confirmed <span class="in">`LeakageCheck.name`</span> is now an <span class="in">`@property`</span> via runtime <span class="in">`inspect`</span> check. <span class="pp">|</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-18 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#41</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/41)</span> <span class="pp">|</span> <span class="in">`_parallel.parallel_map`</span> joblib worker copies the entire input spec (including DataFrames passed in the tuple) — OOM-risk on many-core machines when each cell carries a ~30-100 MB predictions DataFrame × N workers <span class="pp">|</span> <span class="in">`src/eval/marginal_bootstrap.py::_compute_one_cell_or_none`</span> worker + <span class="in">`compute_marginal_battery`</span> default <span class="in">`n_jobs=1`</span> (opt-in parallelism) <span class="pp">|</span> **RESOLVED in eval-toolkit v0.39.0 (closed 2026-05-18 20:13 UTC)** — upstream documented the worker-copy memory model in <span class="in">`methodology/parallelism.md`</span>. Our defensive <span class="in">`n_jobs=1`</span> default at <span class="in">`src/eval/marginal_bootstrap.py::compute_marginal_battery`</span> remains correct + now well-documented upstream. No code change required at v1.0.6 (the upstream resolution was docs-only; the worker-copy semantics themselves are joblib-loky design — shared-state pattern remains opt-in for callers). <span class="pp">|</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-18 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#43</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/43)</span> <span class="pp">|</span> Add <span class="in">`fit_platt_binary`</span> + <span class="in">`fit_beta_binary`</span> calibrators (binary-class scalar-prob adapters; siblings of <span class="in">`fit_temperature_binary`</span> shipped in v0.35.0) <span class="pp">|</span> <span class="in">`src/eval/calibration_battery.py`</span> — Platt + Beta deferred per ADR-023 original scope; v1.0.8 wants to consume upstream rather than hand-roll <span class="pp">|</span> **RESOLVED in eval-toolkit v0.40.0 (closed 2026-05-19 00:17 UTC; ~17 min after filing — fastest upstream turnaround of the v1.0.x series)**. Consumed at v1.0.8 per ADR-056: <span class="in">`src/eval/calibration_battery.py`</span> refactored to use <span class="in">`fit_platt_binary`</span> + <span class="in">`fit_beta_binary`</span> (canonical <span class="in">`(params, apply)`</span> shape) + <span class="in">`fit_temperature_binary`</span> (the multi-class <span class="in">`fit_temperature`</span> API we had been using was retired) + local <span class="in">`fit_isotonic_binary_local`</span> adapter pending #44. ADR-023 frontmatter <span class="in">`superseded_by: [056]`</span> in-place. <span class="pp">|</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-19 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#44</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/44)</span> <span class="pp">|</span> Add <span class="in">`fit_isotonic_binary`</span> for shape consistency with <span class="in">`fit_temperature_binary`</span> + <span class="in">`fit_platt_binary`</span> + <span class="in">`fit_beta_binary`</span> (returns <span class="in">`(None, apply)`</span> since isotonic is non-parametric) <span class="pp">|</span> <span class="in">`src/eval/calibration_battery.py::fit_isotonic_binary_local`</span> — thin adapter wrapping <span class="in">`fit_isotonic_calibrator`</span> to return <span class="in">`(None, apply)`</span> shape <span class="pp">|</span> **RESOLVED in eval-toolkit v0.42.0 (closed 2026-05-19 01:20 UTC; release 01:25 UTC — 5 min between closure + PyPI publish)**. Consumed at v1.0.9: <span class="in">`src/eval/calibration_battery.py`</span> refactored to use upstream <span class="in">`fit_isotonic_binary`</span> directly; <span class="in">`fit_isotonic_binary_local`</span> adapter + orphaned <span class="in">`Callable`</span> import deleted in same commit per no-orphaned-code invariant. eval-toolkit pin bumped v0.40.0 → v0.42.0 (v0.41.0 skipped because it predated the #44 close). 4-of-4 binary calibrator family now lands on canonical upstream <span class="in">`_binary`</span> API. <span class="pp">|</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-19 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#48</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/48)</span> <span class="pp">|</span> Add <span class="in">`ood_dataset_from_manifest`</span> helper for manifest-driven OOD dataset assembly <span class="pp">|</span> <span class="in">`pyproject.toml`</span> + <span class="in">`decisions/library_imports.md`</span> dependency pin only in v1.2.8; no current local call site <span class="pp">|</span> **RESOLVED in eval-toolkit v0.43.0; recorded/consumed as dependency maintenance at v1.2.8**. No project methodology, model, data, or artifact output changes; future OOD dataset assembly can use the upstream helper instead of local glue if that work is opened. <span class="pp">|</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-19 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#49</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/49)</span> <span class="pp">|</span> Add <span class="in">`character_injection`</span> core-6 prompt-injection pattern support <span class="pp">|</span> <span class="in">`pyproject.toml`</span> + <span class="in">`decisions/library_imports.md`</span> dependency pin only in v1.2.8; no current local call site <span class="pp">|</span> **RESOLVED in eval-toolkit v0.43.0; recorded/consumed as dependency maintenance at v1.2.8**. No prompt family is added to this project's evaluation slate in v1.2.8; the reviewer-facing v1.0.0 pin and live-site results remain unchanged. <span class="pp">|</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-19 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#53</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/53)</span> <span class="pp">|</span> Add <span class="in">`ActivationDeltaProbe`</span> for activation-delta analysis <span class="pp">|</span> <span class="in">`pyproject.toml`</span> + <span class="in">`decisions/library_imports.md`</span> dependency pin only in v1.2.8; no current local call site <span class="pp">|</span> **RESOLVED in eval-toolkit v0.43.0; recorded/consumed as dependency maintenance at v1.2.8**. Activation-delta demos/strategy remain separate from this patch; no analysis claim is added here. <span class="pp">|</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2026-05-19 <span class="pp">|</span> <span class="in">`brandon-behring/eval-toolkit`</span> <span class="pp">|</span> <span class="co">[</span><span class="ot">#36</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/36)</span> <span class="pp">|</span> Add inline bootstrap CI on every metric (Inspect-AI / lm-eval scorecard pattern; <span class="in">`with_ci=True`</span> kwarg on <span class="in">`pr_auc`</span>/<span class="in">`roc_auc`</span>/<span class="in">`brier_score`</span>/<span class="in">`ece`</span> variants) <span class="pp">|</span> <span class="in">`src/eval/marginal_bootstrap.py:31-32,42-43,110`</span> + <span class="in">`src/eval/calibration_battery.py:47-52`</span> — current explicit <span class="in">`bootstrap_ci(metric_fn, ...)`</span> orchestrator would simplify with inline-CI sugar <span class="pp">|</span> **CONTRIBUTION FILED at v1.2.2** per ADR-066 §B7 / Q2 round-8 lock — <span class="co">[</span><span class="ot">issue-comment + design-sketch</span><span class="co">](https://github.com/brandon-behring/eval-toolkit/issues/36#issuecomment-4490089572)</span> posted with this project's use case + concrete file:line citations + proposed <span class="in">`with_ci=True`</span> kwarg API sketch (additive sugar; preserves existing <span class="in">`bootstrap_ci()`</span> API). P3 upstream priority ("ship if a consumer asks"); this comment is the project asking. No timeline pressure; consume in a future v1.3.x patch if upstream lands the feature. <span class="pp">|</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to use this ledger</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>When you discover a gap during Phase 1+ work:</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>File the upstream issue with <span class="in">`tracked`</span> label (use <span class="in">`gh issue create`</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Add a row to this ledger with the issue URL + the local file:line that depends on it</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>If a workaround is unavoidable, leave a TODO comment in code citing the issue number; remove when upstream lands</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>A workaround that hand-rolls a primitive without first filing the issue is an anti-pattern (see <span class="in">`SPEC_GREENFIELD.md`</span> §7 Anti-patterns).</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Test-coverage-gap entries (per ADR-028)</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>When a coverage gap surfaces under the 70% floor that would be better addressed by an upstream library test (e.g., a test pattern that should live in eval-toolkit's harness coverage, or a runpod-deploy preflight scenario) rather than absorbed as a low-value local test:</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>File the upstream issue with the proposed test pattern (sketch, not implementation), the rationale (why upstream is the right home), the local file:line that depends on the absent test, and the <span class="in">`tracked`</span> label.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Add a row to this ledger with the <span class="in">`[test-coverage-gap]`</span> prefix in the Title column + the issue URL + the local file:line.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>When a gap genuinely cannot be filed upstream (project-specific glue) AND cannot be cheaply tested locally:</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Leave a code comment with the rationale (e.g., <span class="in">`# noqa: COV — Phase 0-06 deferral; project-specific orchestration glue, see decisions/upstream_issues.md`</span>).</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Add a row to this ledger with the <span class="in">`[not-applicable]`</span> prefix in the Title column + the local file:line + the deferral rationale in the Status column.</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>Both forms preserve the discipline trail without forcing local anti-tests under the 70% floor.</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>A coverage gap that gets papered over with a no-op test (or with <span class="in">`# pragma: no cover`</span> and no ledger entry) is an anti-pattern.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

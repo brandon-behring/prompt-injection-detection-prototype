@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -955,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-031-reviewer-reading-paths-quarto-site-entry.html">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</h1>
 </div>
 
 
@@ -1157,8 +1168,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-0-07__submission-deliverables.md</code> for the conversation that led to this decision (Q1 walk + supersession framing).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1233,57 +1242,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1618,168 +1576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "031"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> reviewer-reading-paths-quarto-site-entry</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav (supersedes ADR-004)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-031</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-07 supersedes ADR-004 (PDF-as-hub framing) while preserving its hub-and-spoke structure plus A1+A2 dual-audience reading paths plus B4 open-ended-layered reading-time stance. The hub artefact shifts from PDF to the Quarto-rendered HTML site introduced by ADR-030 — specifically the new index.qmd entry-point file at repo root plus the sidebar nav declared in _quarto.yml. index.qmd plays the role of the PDF cover sheet — it carries reviewer reading-path guidance (A1 skim ~15 minutes; A2 audit ~60 minutes; deep-dive reproduce-numbers path) plus a TOC link list into WRITEUP.md plus WRITEUP/ spokes plus decisions/ ADRs plus configs plus results. Sidebar nav in _quarto.yml provides global navigation across every page so a reviewer never needs to backtrack to index.qmd to jump topics. The spoke list finalized at this lock — eight spokes — WRITEUP/eval-design.md plus WRITEUP/methodology-guarantees.md plus WRITEUP/limitations-and-future-work.md plus WRITEUP/data-decisions.md plus WRITEUP/model-rungs.md plus WRITEUP/threshold-policy.md plus WRITEUP/reference-scorer-audit.md plus WRITEUP/reproducibility.md (new — required by ADR-034 to document the T0+T1+T3 tier ladder). Every spoke is standalone-readable plus closes with a limitations-plus-when-to-extend subsection per ADR-005. Cross-link discipline — relative markdown paths between spokes resolve under Quarto rendering; permalinks from outside the site use stable submission tag per ADR-033. The ADR-004 PDF cover-to-cover constraint is replaced by a single-screen-fit constraint on index.qmd plus the Quarto sidebar must surface all spokes (no link-only depth files hidden from the sidebar). Limitation — Quarto sidebar nav requires reviewers to be in-browser plus comfortable with sidebar UI; the offline-reading degradation noted in ADR-030 applies here too. Extension condition — if a new methodology spoke surfaces during Phase 1+ (e.g., a contamination-scan deep dive that is too long for limitations-and-future-work.md), add the spoke to WRITEUP/ plus update _quarto.yml sidebar plus add an index.qmd link entry; no superseding ADR needed for spoke addition (the spoke list is provisional); spoke removal does require a superseding ADR (audit-trail discipline).</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Brief ledger row 302 (reviewer profile) supersession trigger + ADR-004 supersession trigger + Phase 0-07 walk Q1</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> ADR-004 frontmatter status changes from Accepted to Superseded with superseded_by 031; SPEC_GREENFIELD ledger row 302 (Reviewer profile) carries a supersession note pointing at ADR-031; index.qmd exists at repo root with three reading-path sections (A1 quick-skim plus A2 audit plus deep-dive reproduce-numbers) plus a TOC link list into WRITEUP.md plus all 8 spokes plus decisions/ plus configs/ plus results/; _quarto.yml sidebar block surfaces every spoke under a Methodology section plus every ADR under a Decisions section (Quarto sidebar auto-include glob applied to the decisions/ADR-*.md pattern); WRITEUP/reproducibility.md exists as a placeholder spoke skeleton with at minimum a title plus a tier-ladder table stub (full content populated at Phase 5 per ADR-034); tests/test_invariants.py contains skip-marked stub test_index_qmd_reading_paths_present asserting index.qmd exists and contains the three reading-path section headers; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 7979dc9</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> "004"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://quarto.org/docs/websites/website-navigation.html</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://quarto.org/docs/websites/website-tools.html#sidebar-tools</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-004-reviewer-profile-and-hub-and-spoke-writeup.md</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-project-level-methodology-principles.md</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-030-deliverable-format-quarto-html-site.md</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-034-reproducibility-tier-full-ladder.md</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-07__submission-deliverables.md</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-031: Reviewer reading paths — index.qmd entry-point with Quarto sidebar nav</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). **Supersedes ADR-004** (reviewer profile + hub-and-spoke writeup with PDF as hub). Closes the reading-path companion to ADR-030's deliverable-format pivot. Phase 0-07 Q1 second of two surgical supersession ADRs.</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>ADR-004 (2026-05-15) locked the reviewer profile as dual-audience (A1 hiring manager + A2 ML researcher) with B4 open-ended-layered reading-time stance and hub-and-spoke writeup structure where the *PDF was the hub* (≈ 10-15 pages) and topic markdown files under <span class="in">`WRITEUP/`</span> were the spokes.</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>ADR-030 (2026-05-16) supersedes ADR-002's PDF + repo dual-artifact deliverable with a repo-only deliverable rendered as a Quarto HTML site. The PDF artefact no longer exists — so the "PDF is the hub" claim from ADR-004 needs explicit superseding.</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>What survives from ADR-004:</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Dual-audience A1+A2 profile** (not a mixed-panel A3 framing).</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**B4 reading-time stance** (open-ended, layered): ~15 min skim path for A1, ~60 min audit path for A2, unbounded deep-dive for code+ADR audit.</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hub-and-spoke structure** — focused hub + topic spokes.</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spokes remain markdown files under `WRITEUP/`** — content unchanged.</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>What needs replacement:</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hub artefact**: PDF → Quarto site <span class="in">`index.qmd`</span> entry-point + sidebar nav.</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cross-link discipline**: PDF-to-spoke permalinks at submission tag → Quarto relative-path cross-links within the site + stable-tag URLs for outbound references (still per ADR-033 tag pinning).</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spoke discoverability**: PDF readers had to follow embedded links → Quarto site readers see all spokes in the sidebar nav simultaneously (a strict affordance upgrade).</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>The spoke list from ADR-004 was provisional (7 spokes); Phase 0-07 finalizes the list at 8 spokes — the 7 from ADR-004 plus a new <span class="in">`WRITEUP/reproducibility.md`</span> required by ADR-034 to document the T0+T1+T3 reproducibility tier ladder.</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>**Reviewer profile** (preserved from ADR-004): A1 + A2 dual-audience, B4 open-ended-layered reading-time stance.</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>**Hub artefact**: <span class="in">`index.qmd`</span> at repo root + Quarto sidebar nav declared in <span class="in">`_quarto.yml`</span>. Together these replace the PDF cover sheet + table-of-contents role.</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>**`index.qmd` content** (entry-point structure):</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Title + author + submission tag** (top matter; Quarto renders YAML frontmatter into the page header).</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Reviewer reading paths** section with three sub-paths:</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>**Quick-skim path (A1 — hiring manager, ~15 min)** — links to <span class="in">`WRITEUP.md`</span> §1-2, headline-results section, limitations spoke.</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>**Audit path (A2 — ML researcher, ~60 min)** — links to full <span class="in">`WRITEUP.md`</span> + critical-path spokes (eval-design, methodology-guarantees, limitations, reference-scorer-audit).</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>**Deep-dive (reproduce numbers)** — links to reproducibility spoke + Makefile targets + HF Hub model URLs.</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Repo map** — flat enumeration of <span class="in">`src/`</span>, <span class="in">`scripts/`</span>, <span class="in">`configs/`</span>, <span class="in">`decisions/`</span>, <span class="in">`results/`</span>, <span class="in">`WRITEUP.md`</span> + <span class="in">`WRITEUP/`</span> with one-line descriptions.</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>**Sidebar nav** declared in <span class="in">`_quarto.yml`</span> (Quarto websites sidebar syntax):</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> docked</span></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">search</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading guide"</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">index.qmd</span><span class="kw">]</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Methodology"</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP.md</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/eval-design.md</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/methodology-guarantees.md</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/limitations-and-future-work.md</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/data-decisions.md</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/model-rungs.md</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/threshold-policy.md</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/reference-scorer-audit.md</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span>WRITEUP/reproducibility.md</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Decisions (ADRs)"</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="fu">auto</span><span class="kw">:</span><span class="at"> </span><span class="st">"decisions/ADR-*.md"</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>**Spoke list finalization** (8 spokes; supersedes ADR-004's provisional 7):</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Spoke <span class="pp">|</span> Role <span class="pp">|</span> Phase populated <span class="pp">|</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/data-decisions.md`</span> <span class="pp">|</span> source slate, dedup, splits, leakage scan <span class="pp">|</span> Phase 1 <span class="pp">|</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/model-rungs.md`</span> <span class="pp">|</span> frozen vs LoRA vs full-FT, matched-budget controls <span class="pp">|</span> Phase 2 <span class="pp">|</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/eval-design.md`</span> <span class="pp">|</span> OOD slate, calibration battery, paired-bootstrap protocol <span class="pp">|</span> Phase 3-4 <span class="pp">|</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/reference-scorer-audit.md`</span> <span class="pp">|</span> LLM-judge + kappa findings <span class="pp">|</span> Phase 4 <span class="pp">|</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/threshold-policy.md`</span> <span class="pp">|</span> dual-policy detection + verification operating points <span class="pp">|</span> Phase 4 <span class="pp">|</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/methodology-guarantees.md`</span> <span class="pp">|</span> banned-approaches surfaced as guarantees <span class="pp">|</span> Phase 5 <span class="pp">|</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/limitations-and-future-work.md`</span> <span class="pp">|</span> structured limitations + extension conditions <span class="pp">|</span> Phase 5 <span class="pp">|</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`WRITEUP/reproducibility.md`</span> <span class="pp">|</span> **(NEW per ADR-034)** T0+T1+T3 tier ladder with commands <span class="pp">|</span> Phase 5 <span class="pp">|</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>**Cross-link discipline**:</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Within the Quarto site: relative markdown paths (<span class="in">`[eval-design](WRITEUP/eval-design.md)`</span>); Quarto resolves these at render time.</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>From outside the site (e.g., reviewer email, GH issues, external papers): permalinks via stable submission tag per ADR-033 (<span class="in">`https://github.com/.../tree/v1.0.0/WRITEUP/eval-design.md`</span>).</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>**Sidebar-visibility constraint**: every methodology spoke MUST appear in the sidebar. No link-only-depth spokes (the PDF-era pattern where a spoke was referenced by URL but absent from any nav). Reason: Quarto's sidebar IS the reader's navigation surface; spokes invisible to the sidebar are functionally hidden.</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sidebar nav is a strict affordance upgrade over PDF embedded links** — reader sees all 8 spokes simultaneously; can jump between any pair without backtracking; full-text search across all pages.</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`index.qmd` reading-path guide does the PDF cover-sheet job better** — explicit reader-profile-matched paths (A1 / A2 / deep-dive) instead of leaving the reader to infer reading order.</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spoke list finalized** — removes ADR-004's "provisional 7 spokes; final list in Phase 0-07" footnote; Phase 5 work knows the full spoke surface in advance.</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cross-link discipline simplified** — relative markdown paths within the site (Quarto resolves); stable-tag permalinks only needed for external references.</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A1/A2/B4 framing preserved** — the dual-audience profile and reading-time stance from ADR-004 carry over unchanged; only the hub artefact swap is new.</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`WRITEUP/reproducibility.md` slotted in** — ADR-034's tier-ladder documentation has an explicit home rather than being orphaned in WRITEUP.md proper.</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**8 spokes vs ADR-004's 7** — one additional spoke to populate at Phase 5 (reproducibility.md). Acceptable cost; aligned with ADR-034 acceptance criterion.</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sidebar nav requires in-browser reading** — offline readers see the static <span class="in">`_site/`</span> snapshot but lose the sidebar's live search affordance. Mitigated by <span class="in">`_site.tar.gz`</span> GH release asset per ADR-033.</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`index.qmd` is a new file** — content overlap risk with <span class="in">`WRITEUP.md`</span> §1 motivation (potential duplication). Mitigation: <span class="in">`index.qmd`</span> is reading-paths-only (TOC + reading guides); <span class="in">`WRITEUP.md`</span> is methodology content. Distinct concerns.</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sidebar `auto:` pattern for ADRs** — <span class="in">`auto: "decisions/ADR-*.md"`</span> glob-expands at Quarto build time; all 34+ ADRs auto-list without manual maintenance. New ADRs added later (Phase 0-08+) appear automatically.</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`WRITEUP/reproducibility.md` content fully defined by ADR-034** — this ADR only carves out the slot; ADR-034 owns the content schema.</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No required `WRITEUP.md` content edits** — <span class="in">`WRITEUP.md`</span> itself is unchanged by this ADR; the reading-paths and TOC are in <span class="in">`index.qmd`</span>, not retrofitted into <span class="in">`WRITEUP.md`</span>.</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>The Quarto sidebar nav assumes the reader is comfortable with a docs-site UI. Reviewers expecting a single-document PDF cover-to-cover read get a discovery affordance instead of a linear path. Mitigation: <span class="in">`index.qmd`</span> "Quick-skim path (A1)" section provides explicit linear ordering for readers who prefer that approach.</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spoke addition**: if Phase 1+ surfaces a new methodology spoke (e.g., a contamination-scan deep dive that doesn't fit in <span class="in">`limitations-and-future-work.md`</span>), add the spoke to <span class="in">`WRITEUP/`</span> + update <span class="in">`_quarto.yml`</span> sidebar + add an <span class="in">`index.qmd`</span> link entry. No superseding ADR needed for spoke addition.</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Spoke removal**: requires a superseding ADR (audit-trail discipline; spoke removal is a methodology-coverage claim change, not a presentation choice).</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sidebar structure rework**: if Quarto sidebar limits prove costly (e.g., 30+ ADRs make the Decisions section unwieldy), introduce sub-categorization via superseding ADR.</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`index.qmd` reading-path expansion**: a new reviewer profile (e.g., regulator audit path with compliance-focused links) added via spoke + sidebar updates; no superseding ADR needed for path addition since the profile structure is extensible.</span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Monolithic Quarto page (single `WRITEUP.qmd` with no spokes)** — discards the hub-and-spoke pattern; single-page-with-anchors approach. *Rejected because* ADR-004's dual-audience reasoning (different readers want different depth) still applies and Quarto sidebar nav is the natural fit.</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`README.md` as the hub instead of `index.qmd`** — GitHub renders <span class="in">`README.md`</span> natively at repo root; Quarto can include it too. *Rejected because* Quarto convention treats <span class="in">`index.qmd`</span> as the website landing page; using <span class="in">`README.md`</span> would force a redirect chain or two-entry-point confusion.</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PDF cover sheet retained + sidebar nav supplement** — hybrid PDF-for-A1 + HTML-for-A2 split. *Rejected because* ADR-030 explicitly removed PDF surface; reintroducing for cover-sheet role re-adds the LaTeX dependency the supersession was removing.</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Keep ADR-004's 7-spoke list (skip `WRITEUP/reproducibility.md`)** — defer ADR-034's tier ladder to a section within <span class="in">`WRITEUP.md`</span> proper. *Rejected because* the tier-ladder content is substantial (~1-2 pages with commands + cost notes) and pollutes the methodology narrative; standalone spoke is cleaner.</span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Quarto website navigation — https://quarto.org/docs/websites/website-navigation.html</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Quarto sidebar tools — https://quarto.org/docs/websites/website-tools.html#sidebar-tools</span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-004 (reviewer profile + hub-and-spoke PDF — superseded by this ADR)</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (project-level methodology principles — spokes implement the principles)</span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-030 (Quarto deliverable format — this ADR's reading-path framing is rendered on top of ADR-030's site)</span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-034 (reproducibility tier — owns <span class="in">`WRITEUP/reproducibility.md`</span> content schema)</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-07__submission-deliverables.md`</span> for the conversation that led to this decision (Q1 walk + supersession framing).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

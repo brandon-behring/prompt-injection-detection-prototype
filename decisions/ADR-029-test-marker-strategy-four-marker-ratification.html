@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -959,7 +970,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-029-test-marker-strategy-four-marker-ratification.html">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</h1>
 </div>
 
 
@@ -1140,8 +1151,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1216,57 +1225,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1601,140 +1559,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "029"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> test-marker-strategy-four-marker-ratification</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Test marker strategy — ratify 4-marker stratification (unit / smoke / integration / network)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-029</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-06 locks the §STYLE ledger row 351 (Test marker strategy) by ratifying the existing 4-marker stratification — unit, smoke, integration, network — already declared in pyproject.toml [tool.pytest.ini_options] markers list, mirrored in tests/conftest.py via pytest_configure addinivalue_line calls, and documented in STYLE.md project-deltas section. --strict-markers is enabled in pyproject addopts so unknown markers fail loudly. Marker semantics — unit (fast, deterministic, no IO, no GPU, no network, less than 1 second per test typical); smoke (end-to-end fixture-data pass through real code paths, less than 10 minutes total, no GPU, no network); integration (exercises real external dependencies — GPU, HF Hub, RunPod — may skip via pytest.importorskip or pytest.mark.skipif on laptops without GPU per ADR-027 dual-execution-context pattern); network (strictly requires network access — HF Hub fetch, runpod-deploy GraphQL — skipped in offline CI). property and golden markers are explicitly NOT added — they belong upstream in eval-toolkit per ADR-027 debugging-grade-here-rigorous-upstream split. slow marker explicitly NOT added — smoke already plays this role for end-to-end tests; if a unit test ever creeps over 30 seconds, that is a code-smell the marker should not paper over. gpu sub-marker explicitly NOT added — pytest.importorskip("torch") plus pytest.mark.skipif(not torch.cuda.is_available()) is the standard idiom and handles the local-vs-cloud dual-execution case cleanly without taxonomy proliferation. Limitation — the 4-marker strata do not capture every cross-cutting concern; the discipline relies on conditional-skip idioms within a marker. Extension conditions — add gpu sub-marker if conditional skipif boilerplate exceeds approximately 5 tests; add slow if any unit test crosses 30 seconds; add property only if scope extends to writing project-specific math primitives (currently out-of-scope; math lives upstream). Adding or removing a marker post-lock requires a superseding ADR.</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §STYLE ledger row 351 + STYLE.md "project deltas" + pyproject.toml [tool.pytest.ini_options] + tests/conftest.py + Phase 0-06 walk Q4</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 351 carries locked-to-four-marker-ratification status (see ADR-029); STYLE.md project-deltas section "Test markers" bullet is preserved as-locked (no edit needed — already correct); pyproject.toml [tool.pytest.ini_options] markers list and tests/conftest.py pytest_configure addinivalue_line calls remain in sync (already in sync at ADR-029 entry); tests/test_invariants.py contains skip-marked stub test_pytest_markers_registered_and_in_sync asserting that (1) pyproject.toml [tool.pytest.ini_options] declares exactly the 4 markers (unit, smoke, integration, network) — set equality check; (2) tests/conftest.py pytest_configure registers exactly the same 4 markers via addinivalue_line; (3) --strict-markers is enabled in addopts; (4) no test file uses an unregistered marker (verified via grep of @pytest.mark.* in tests/ + comparison against the registered set); test_marker_semantics_unit_no_io stub asserting that pytest -m unit tests do not perform network requests or GPU calls — verified via socket-blocking + cuda.is_available-mocked pytest run; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> fa1ad33</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.pytest.org/en/stable/how-to/mark.html</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.pytest.org/en/stable/how-to/skipping.html</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit/blob/main/STYLE.md</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-026-module-layout-concern-grouped-subpackages.md</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-028-coverage-floor-70pct-with-upstream-issue-filing.md</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-06__code-test-discipline.md</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-029: Test marker strategy — ratify 4-marker stratification</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the fourth and final <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> row in Phase 0-06 (§5 Code architecture + §STYLE — rows 348-351 of SPEC_GREENFIELD ledger). Companion to ADR-026 (module layout), ADR-027 (smoke vs canonical), and ADR-028 (coverage floor).</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>pytest markers (<span class="in">`@pytest.mark.unit`</span>, <span class="in">`@pytest.mark.smoke`</span>, etc.) let the suite be sliced by intent — <span class="in">`pytest -m unit`</span> runs only fast deterministic tests; <span class="in">`pytest -m integration`</span> runs GPU/network-dependent ones. Markers must be registered (in <span class="in">`conftest.py`</span> or <span class="in">`pyproject.toml`</span>) for <span class="in">`--strict-markers`</span> to allow them; unregistered markers fail loudly.</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>The current state of the marker taxonomy is provisional but consistent across three artefacts:</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pyproject.toml [tool.pytest.ini_options]`</span> registers <span class="in">`unit`</span>, <span class="in">`smoke`</span>, <span class="in">`integration`</span>, <span class="in">`network`</span> (4 markers) with <span class="in">`addopts = "-v --tb=short --strict-markers"`</span>.</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`tests/conftest.py`</span> mirrors the same 4 markers via <span class="in">`pytest_configure`</span> + <span class="in">`addinivalue_line`</span> calls.</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`STYLE.md`</span> "project deltas" section documents the 4-marker stratification.</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>The Q2 reframing (per ADR-027) — "math rigor lives upstream in eval-toolkit; here is debugging-grade" — pre-decides that <span class="in">`golden`</span> and <span class="in">`property`</span> markers should NOT be added here. They belong upstream where the math implementations and their golden contracts live.</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Five options were considered:</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>(A) **Ratify existing 4 markers** — zero churn; honors ADR-027 framing.</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>(B) **4 + slow** (5 markers) — adds <span class="in">`slow`</span> for tests &gt;30s. Redundant with <span class="in">`smoke`</span> (smoke is already "~5min, end-to-end").</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>(C) **3 markers (drop network)** — simplifies by removing currently-unused marker. Wastes an ADR cycle when first network-dependent test lands at Phase 1.</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>(D) **4 + gpu** (5 markers) — separates CUDA from generic integration. Marker proliferation; <span class="in">`pytest.importorskip`</span> + <span class="in">`skipif`</span> idiom handles it without a marker.</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>(E) **5 markers with both gpu and network** — hybrid of A and D. Same proliferation cost as D.</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked marker taxonomy — exactly 4 markers</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Marker <span class="pp">|</span> Registered location <span class="pp">|</span> Semantics <span class="pp">|</span> Wall-clock target <span class="pp">|</span> Allowed external deps <span class="pp">|</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`unit`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> fast, deterministic, no IO <span class="pp">|</span> &lt; 1 sec/test <span class="pp">|</span> none <span class="pp">|</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`smoke`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> end-to-end fixture-data pass <span class="pp">|</span> &lt; 10 min total <span class="pp">|</span> none (no GPU, no network) <span class="pp">|</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`integration`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> exercises real external deps; may skip via importorskip/skipif <span class="pp">|</span> ~5-10 min <span class="pp">|</span> GPU, HF Hub, RunPod (per pre-flight per ADR-027) <span class="pp">|</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`network`</span> <span class="pp">|</span> pyproject + conftest <span class="pp">|</span> strictly requires network access <span class="pp">|</span> varies <span class="pp">|</span> network only (HF Hub fetch, runpod-deploy GraphQL) <span class="pp">|</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### `--strict-markers` enabled</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>Already enabled in <span class="in">`pyproject.toml [tool.pytest.ini_options] addopts = "-v --tb=short --strict-markers"`</span>. Unknown markers fail loudly — prevents typos like <span class="in">`@pytest.mark.itegration`</span> from silently registering as a new marker.</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Two-source registration (pyproject + conftest)</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>Both <span class="in">`pyproject.toml`</span> AND <span class="in">`tests/conftest.py`</span> register the markers. Reasons:</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**pyproject is canonical** (read by pytest at config time; visible to PEP-621-aware tools).</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**conftest mirrors for IDE discoverability** (PyCharm + VS Code pytest integrations introspect <span class="in">`pytest_configure`</span> calls; descriptions surface in the IDE marker dropdown).</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>The two MUST stay in sync — invariant test <span class="in">`test_pytest_markers_registered_and_in_sync`</span> enforces.</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Markers explicitly NOT added (with rationale)</span></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`property`**: Hypothesis property-based tests belong upstream in eval-toolkit (where math kernels live and where the strategy library <span class="in">`eval_toolkit`</span> already uses Hypothesis with <span class="in">`hypothesis.extra.numpy`</span>). Adding <span class="in">`property`</span> here would either duplicate upstream tests or pretend project-specific math exists when it does not.</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`golden`**: golden-output snapshot tests (where the output IS the contract) belong upstream — eval-toolkit uses <span class="in">`golden`</span> for <span class="in">`docs.py`</span> output. This repo has no docs-output contract surface; results.json is structural-but-not-byte-exact (per-row predictions vary by RNG seed).</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`slow`**: redundant with <span class="in">`smoke`</span> for end-to-end tests; if a <span class="in">`unit`</span> test crosses 30s, that's a code-smell the marker should not paper over (the test should be re-classified as smoke or refactored).</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`gpu`**: standard pattern below handles GPU-conditional skipping cleanly without taxonomy proliferation.</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="at">@pytest.mark.integration</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_modernbert_load_on_gpu() <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    pytest.importorskip(<span class="st">"torch"</span>)</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> torch.cuda.is_available():</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>        pytest.skip(<span class="st">"GPU required"</span>)</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... actual test</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>If Phase 1 reveals chronic friction with this pattern (e.g., &gt;5 tests need it), reopen via ADR to add <span class="in">`gpu`</span> sub-marker.</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marker-add or marker-remove protocol</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>Adding or removing a marker post-lock requires a superseding ADR with rationale (e.g., "Phase 1 produced 8 GPU-conditional tests; the importorskip+skipif boilerplate is paying real cost; adding <span class="in">`gpu`</span> sub-marker"). Quietly editing <span class="in">`pyproject.toml`</span> or <span class="in">`conftest.py`</span> is an anti-pattern (the in-sync invariant test would catch it but the supersession-without-ADR pattern is what the SDD discipline forbids).</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Zero churn**: existing artefacts (<span class="in">`pyproject.toml`</span>, <span class="in">`conftest.py`</span>, <span class="in">`STYLE.md`</span>, <span class="in">`Makefile`</span> <span class="in">`test-unit`</span>/<span class="in">`test-smoke`</span>/<span class="in">`test-integration`</span> targets) are already aligned with the locked taxonomy.</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`--strict-markers` catches typos**: any <span class="in">`@pytest.mark.&lt;typo&gt;`</span> fails loudly at test-collection time.</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ADR-027 framing**: math-correctness rigor (<span class="in">`property`</span>, <span class="in">`golden`</span>) explicitly stays upstream; this layer is debugging-grade.</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Two-source registration matches IDE expectations** without sacrificing canonical pyproject declaration.</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`network` marker not currently used** at lock time — risk of dead-letter taxonomy. Mitigated by Phase 1 expectations: HF dataset SHA-pinning tests (per ADR-016) will land marked <span class="in">`network`</span>.</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No `gpu` sub-marker** means GPU-conditional tests carry the <span class="in">`importorskip`</span> + <span class="in">`skipif`</span> boilerplate. Acceptable cost for prototype scope; reopen if boilerplate proliferates.</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`slow` absence** means a <span class="in">`unit`</span> test that grows to 30s+ has nowhere to escape to without re-classification. Treated as a feature, not a bug.</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>The 4-marker strata do not capture every cross-cutting concern (no <span class="in">`slow`</span>, no <span class="in">`gpu`</span>, no <span class="in">`flaky`</span>, no <span class="in">`property`</span>). The discipline relies on <span class="in">`pytest.mark.skipif`</span> + <span class="in">`pytest.importorskip`</span> to handle conditional skipping within a marker. If this pattern produces verbose boilerplate at Phase 1 (~5+ tests), reopen via superseding ADR.</span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`gpu` sub-marker**: if conditional <span class="in">`skipif(not torch.cuda.is_available())`</span> boilerplate appears in 5+ tests.</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`slow`**: if any <span class="in">`unit`</span> test legitimately crosses 30s and cannot be split or re-marked as smoke.</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`property`**: only if scope extends to writing project-specific math primitives (currently out-of-scope per ADR-027 prototype-grade framing; math kernels live upstream).</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`flaky`**: only if Phase 1 reveals genuinely-flaky tests that cannot be made deterministic; preference is to fix the flakiness, not paper over with a marker.</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) 4 + slow** — rejected; redundant with <span class="in">`smoke`</span>; absence is a feature.</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(C) 3 markers (drop network)** — rejected; HF SHA-pin tests will need it at Phase 1; pre-registering avoids ADR-cycle waste.</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) 4 + gpu** — rejected; standard <span class="in">`importorskip + skipif`</span> idiom handles it; reopen if boilerplate proliferates.</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(E) 5 with gpu + network** — rejected; same proliferation cost as D.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

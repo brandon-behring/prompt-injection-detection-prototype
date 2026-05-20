@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -961,7 +972,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-024-cross-fold-ci-methodology.html">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</h1>
 </div>
 
 
@@ -1108,8 +1119,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-15__phase-0-04__eval-framework.md</code> for the conversation that led to this decision.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1184,57 +1193,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1569,158 +1527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 024</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> cross-fold-ci-methodology</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-024</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-04 locks the cross-fold confidence-interval methodology at row 346 as Option F — hybrid library-first headline plus methodology-honest spoke ablation plus a conditional escalation path. (1) Headline CI machinery — eval_toolkit.cv_clt_ci (Bayle, Bayle, Janson and Mackey 2020 Annals of Statistics Theorem 3.1 implementation in eval-toolkit at src/eval_toolkit/bootstrap.py:963) on the 12 (fold, seed) per-rung metric values from ADR-022's compute-per-(fold, seed)-then-aggregate rule. The cv_clt_ci primitive computes normal-approximation CI with sample variance (K-1)-denominator estimator at K=12 entries (4 folds times 3 seeds); BCa-replaced-by-normal-approx is appropriate at this K. (2) Spoke ablation — block bootstrap on (fold) blocks — resample 4 folds with replacement (with seeds inside each block as units); per-resample compute mean-of-fold-metrics; 10K resamples; percentile CI on the resampled fold-mean. Computed via custom orchestrator on top of eval_toolkit.bootstrap_ci primitive (resample-indices construction is project-specific glue; primitive is library-shipped — library-first discipline preserved). The block-bootstrap CI is reported alongside the cv_clt_ci CI in WRITEUP/methodology.md spoke as a sensitivity check addressing the LODO non-exchangeability concern (LODO folds are explicitly not exchangeable per ADR-016 design — each fold holds out a different positive source with different size and attack-style character; cv_clt_ci was derived for exchangeable k-fold). (3) Sensitivity-check threshold — if block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth exceeds 1.5 for any headline rung, flag in the spoke as "LODO non-exchangeability dominates within-fold variance; headline CI may understate uncertainty" — this becomes a named methodology finding rather than a hidden numerical caveat. (4) Conditional escalation — stratified-k-fold-within-LODO (Fomin 2025 + Nadeau-Bengio 2003 variance decomposition; approximately 5x compute relative to plain LODO) is pre-committed as a conditional escalation IF the project's cost ledger at Phase 4 entry shows cumulative spend well below the ADR-020 per-job soft cap of 125 USD (rough threshold — under 75 USD cumulative); ELSE deferred to afterword. (5) Bates 2024 JASA nested-CV and Nadeau-Bengio 2003 standalone correction factor explicitly deferred to afterword — both require custom implementations not in eval-toolkit; their theoretical advantages do not outweigh the library-first plus 2.5-day-timeline cost.</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §3 Eval ledger row 346 + Phase 0-04 walk Q8</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 346 carries locked-to-cv_clt_ci-headline-plus-block-bootstrap-on-folds-spoke-plus-conditional-stratified-k-fold status; SPEC_SHEET §5.2 cross-fold CI methodology replaces [OPEN] with [LOCKED — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke ablation plus conditional stratified-k-fold-within-LODO escalation if Phase 4 compute budget permits per ADR-024]; decisions/library_imports.md eval-toolkit section gains cv_clt_ci primitive entry; WRITEUP/methodology.md gains a "Cross-fold CI methodology and LODO non-exchangeability" subsection containing both CI values per rung plus the sensitivity-check flag; tests/test_invariants.py contains skip-marked stub test_cross_fold_ci_methodology asserting (1) cv_clt_ci primitive invoked on 12 per-(fold, seed) values per rung; (2) block-bootstrap-on-folds orchestrator produces percentile CI on 10K resamples of (fold) blocks; (3) sensitivity-check flag emits when block_bootstrap_halfwidth / cv_clt_halfwidth exceeds 1.5; (4) conditional-stratified-k-fold-within-LODO escalation gated on cost-ledger evals/cost_ledger.csv state at Phase 4 entry; assumptions.md A-008 added (severity medium) documenting LODO-non-exchangeability concern as load-bearing on cross-fold CI validity.</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> b750d1d</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.jstor.org/stable/27033529</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://doi.org/10.1080/01621459.2023.2197686</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://link.springer.com/article/10.1023/A:1024068626366</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://doi.org/10.2307/2290993</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2007.02780</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-016-data-design-bundle.md</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-022-statistical-inference-apparatus.md</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-04__eval-framework.md</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-024: Cross-fold CI methodology — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). New lock at the §3 Eval ledger row 346 level; methodology-load-bearing for headline rung-vs-rung Delta-CI honesty.</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>Per ADR-022's compute-per-(fold, seed)-then-aggregate rule for rank-based metrics, each rung produces 12 metric values (4 LODO folds times 3 seeds). The naive CI approach (sample standard-deviation divided by square-root of K) is anti-conservative because the 12 observations share training data — folds are not independent. The CI choice determines whether the headline rung-vs-rung Delta-CIs are honest or artificially tight.</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>Phase 0-04 walk Q8 surfaced two LODO-specific concerns:</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**eval-toolkit ships cv_clt_ci implementing Bayle, Bayle, Janson and Mackey 2020 Annals of Statistics** Theorem 3.1 at src/eval_toolkit/bootstrap.py:963 — NOT Bates 2024 JASA as the SPEC ledger row 346 originally framed. Bayle 2020 is a CV-CLT precursor result with the same end-purpose (cross-validation-mean CI with correct coverage). Library-first discipline points to cv_clt_ci as the headline machinery.</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**LODO folds are explicitly not exchangeable** per ADR-016 design — each fold holds out a different positive source (deepset / Lakera-gandalf / Lakera-mosscap / hackaprompt) with different size and attack-style character. The 4 sources differ in 1.5x to 6x sample size and in attack style (classical vs CTF vs competition vs Gandalf-CTF). A rung's per-fold metric will systematically differ across folds NOT because of sampling variance but because of source-character variance. This is exactly the OOD generalization signal we WANT to measure — but for CI purposes it inflates between-fold variance beyond what within-fold (iid) sampling implies. cv_clt_ci was derived for exchangeable k-fold; the LODO non-exchangeability is a real assumption violation.</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>The walk weighed five options — cv_clt_ci alone, Nadeau-Bengio 2003 corrected variance, Bates 2024 JASA nested-CV, block bootstrap on (fold) blocks, and bootstrap-per-fold-only. Brandon locked the hybrid Option F with a conditional escalation path for stratified-k-fold-within-LODO.</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### Headline CI machinery (row 346 primary lock)</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>**eval-toolkit cv_clt_ci** (Bayle 2020 implementation at src/eval_toolkit/bootstrap.py:963) on the 12 (fold, seed) per-rung metric values. Operationally:</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>fold_seed_metrics <span class="op">=</span> np.array([</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    compute_metric(rung_predictions[fold, seed])</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fold <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>) <span class="cf">for</span> seed <span class="kw">in</span> [<span class="dv">42</span>, <span class="dv">1337</span>, <span class="dv">2025</span>]</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>])  <span class="co"># shape (12,)</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>ci <span class="op">=</span> cv_clt_ci(fold_seed_metrics, confidence<span class="op">=</span><span class="fl">0.95</span>)</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>For rung-vs-rung Delta-CIs, the same primitive applied to the 12 per-(fold, seed) Delta values:</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>delta_fold_seed <span class="op">=</span> np.array([</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    compute_metric(rung_B_preds[fold, seed]) <span class="op">-</span> compute_metric(rung_A_preds[fold, seed])</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fold <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>) <span class="cf">for</span> seed <span class="kw">in</span> [<span class="dv">42</span>, <span class="dv">1337</span>, <span class="dv">2025</span>]</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>])  <span class="co"># shape (12,)</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>delta_ci <span class="op">=</span> cv_clt_ci(delta_fold_seed, confidence<span class="op">=</span><span class="fl">0.95</span>)</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>K=12 is comfortable for the normal approximation underlying cv_clt_ci; sample variance with (K-1)=11 denominator is well-defined; z-quantile CI is appropriate.</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Spoke ablation (row 346 sensitivity check)</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>**Block bootstrap on (fold) blocks** — resample 4 folds with replacement (treating each fold as a block of 3 seed observations); per-resample compute mean-of-fold-metrics; 10K resamples; percentile CI on the resampled fold-mean.</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> block_bootstrap_on_folds(fold_seed_metrics_2d, n_resamples<span class="op">=</span><span class="dv">10_000</span>, seed<span class="op">=</span><span class="dv">1</span>):</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""fold_seed_metrics_2d: shape (n_folds=4, n_seeds=3)."""</span></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    fold_means <span class="op">=</span> []</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    n_folds <span class="op">=</span> fold_seed_metrics_2d.shape[<span class="dv">0</span>]</span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_resamples):</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> rng.integers(<span class="dv">0</span>, n_folds, size<span class="op">=</span>n_folds)</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>        resampled <span class="op">=</span> fold_seed_metrics_2d[idx]</span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>        fold_means.append(resampled.mean())</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.quantile(fold_means, [<span class="fl">0.025</span>, <span class="fl">0.975</span>])</span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>Block-bootstrap orchestrator is project-specific glue on top of eval_toolkit.bootstrap_ci primitive; library-first discipline preserved (the primitive itself stays as eval-toolkit shipped).</span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sensitivity-check flag</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>For each headline rung, the spoke reports both cv_clt_ci CI and block-bootstrap CI alongside; if the ratio exceeds 1.5:</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="in">block_bootstrap_CI_halfwidth / cv_clt_CI_halfwidth &gt; 1.5</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>then the methodology spoke flags the rung as "LODO non-exchangeability dominates within-fold variance; headline CI may understate uncertainty." This converts the assumption violation into a named methodology finding rather than a hidden numerical caveat per ADR-005 Principle 2.</span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conditional escalation path</span></span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>**Stratified-k-fold-within-LODO** (Fomin 2025 plus Nadeau-Bengio 2003 variance decomposition; approximately 5x compute relative to plain LODO) is pre-committed as a conditional escalation IF the cost ledger at Phase 4 entry shows cumulative spend well below ADR-020's per-job soft cap of 125 USD (rough threshold — under 75 USD cumulative). The escalation would replace the LODO 4-fold structure with stratified-k-fold-within-LODO 5-fold-within-LODO yielding 4 LODO splits times 5 inner folds times 3 seeds = 60 observations per rung (rather than 12), enabling Nadeau-Bengio 2003-style variance decomposition into (LODO-source-character variance) + (within-LODO-source sampling variance). If cost ledger does not permit, this escalation is deferred to afterword.</span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bates 2024 plus Nadeau-Bengio 2003 — explicit deferral</span></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>Both deferred to afterword:</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Nadeau-Bengio 2003 standalone correction factor** — would need hand-rolling (not in eval-toolkit); correction factor calibrated for random k-fold not LODO; theoretical advantage doesn't outweigh implementation cost</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Bates 2024 JASA nested-CV** — would need hand-rolling plus approximately 5x compute relative to plain LODO; provides provable finite-sample coverage but the asymptotic Bayle 2020 baseline is adequate at K=12</span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Library-first headline machinery via eval-toolkit cv_clt_ci — reviewer can re-run with the same toolkit version</span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Block-bootstrap-on-folds spoke ablation directly addresses LODO non-exchangeability without adding a custom CI machinery — methodology-honest</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sensitivity-check flag converts assumption violation into named methodology finding per ADR-005 Principle 2</span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>K=12 (4 folds times 3 seeds) is generous for cv_clt_ci normal approximation</span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Conditional-escalation path keeps stratified-k-fold-within-LODO available without committing 5x compute upfront</span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Custom block-bootstrap orchestrator (~30-50 lines) added to scripts/run_bootstrap_battery.py — modest implementation cost</span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bates 2024 plus Nadeau-Bengio deferred — reviewer might prefer the newest methodology; mitigated by the spoke documenting why those are afterword</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LODO non-exchangeability remains a real concern even after the sensitivity check — if sensitivity-check fires for many rungs, the methodology spoke must own that signal</span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stratified-k-fold-within-LODO is pre-committed as conditional but is unlikely to fire in our 2.5-day budget (per Brandon's "likely not" framing); afterword-deferral path is the expected outcome</span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Option A (cv_clt_ci alone, no ablation)**: simplest library-first; rejected because LODO non-exchangeability is a real concern that needs the sensitivity check</span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Option B (Nadeau-Bengio 2003 corrected variance only)**: historical standard; rejected because not in eval-toolkit; correction factor calibrated for random k-fold not LODO</span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Option C (Bates 2024 JASA nested-CV)**: best theoretical guarantees; rejected because requires nested CV with 5x more compute and mismatches LODO design</span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Option D (Block bootstrap on folds alone, no cv_clt_ci)**: methodology-honest for non-exchangeability but K=4 folds is small for block-bootstrap variance estimation; rejected as headline machinery (preserved as spoke ablation)</span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Option E (Bootstrap-per-fold only, no cross-fold aggregation)**: preserves per-fold honesty; rejected because no headline summary number — reviewer must scan 4 cells per rung</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Naive row-level pooled bootstrap (Option F-equivalent in Q6)**: explicitly excluded by ADR-022's compute-per-(fold, seed)-then-aggregate rule for rank-based metrics</span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 1 deliverables</span></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>scripts/run_bootstrap_battery.py — orchestrates cv_clt_ci headline + block-bootstrap-on-folds spoke ablation via joblib.Parallel(n_jobs=-1)</span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/audit/cross_fold_ci_audit.parquet — per-rung headline-CI plus spoke-ablation-CI plus sensitivity-flag</span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>WRITEUP/methodology.md gains "Cross-fold CI methodology and LODO non-exchangeability" subsection</span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>assumptions.md A-008 added (severity medium) documenting LODO non-exchangeability concern</span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>See frontmatter references list. Primary anchors — Bayle, Bayle, Janson and Mackey 2020 Annals of Statistics (cv_clt_ci primitive); Bates, Hastie and Tibshirani 2024 JASA (nested-CV alternative deferred to afterword); Nadeau and Bengio 2003 Machine Learning journal (corrected-variance t-CI deferred to afterword); Politis and Romano 1994 (block bootstrap foundation for spoke ablation); Fomin 2025 (LODO methodology; stratified-k-fold-within-LODO conditional escalation reference); ADR-016 (LODO 4-fold design plus 3-seed protocol); ADR-022 (compute-per-(fold, seed)-then-aggregate rule for rank-based metrics; the 12 per-rung values that feed cv_clt_ci); ADR-020 (cost-cap dual-layer plus cost-ledger conditional-escalation gating).</span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-15__phase-0-04__eval-framework.md`</span> for the conversation that led to this decision.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

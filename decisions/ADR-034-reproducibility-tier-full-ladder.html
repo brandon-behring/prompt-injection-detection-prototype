@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -955,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</h1>
 </div>
 
 
@@ -1222,8 +1233,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-0-07__submission-deliverables.md</code> for the conversation that led to this decision (Q4 walk + option D selection).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1298,57 +1307,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1683,214 +1641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "034"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> reproducibility-tier-full-ladder</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Reproducibility tier — full ladder T0 (eval-from-hub) plus T1 (smoke) plus T3 (headline-cloud)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-034</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-07 locks SPEC_GREENFIELD ledger row 350 (Reproducibility tier) at a layered three-tier reviewer-facing reproduction ladder (Option D of the Phase 0-07 Q4 walk) — T0 eval-from-hub (laptop; about 10-30 minutes; about zero dollars; downloads a published HF Hub checkpoint per ADR-032 and runs eval-only against fixture or held-out data; verifies headline scores reproduce without re-training) plus T1 smoke (laptop; about 10 minutes; about zero dollars; runs make smoke per ADR-027; verifies pipeline shape on fixture data; does NOT verify headline numbers — code health only) plus T3 headline-cloud (cloud-GPU; about hours; about 125 dollars per ADR-020; runs make headline-cloud; full re-training from scratch; verifies every step including training). T2 (make test-integration) stays a developer-tool tier — not promoted to reviewer-facing because it requires a local GPU the reviewer may not have and adds friction without enabling a new verification dimension (T0 covers eval; T3 covers full retraining; T2 only adds subset eval on local GPU which is strictly weaker than T3). The kit-level SPEC_GREENFIELD §6 line 249 lock — a stranger can clone install and reproduce headline numbers via documented commands — is operationally satisfied at T0 (cheapest highest-coverage for most reviewers) and stronger at T3 (full retraining). The smoke tier T1 is documented but framed as code-health-only not a math-correctness check. T0 is enabled by ADR-032 HF Hub publication; without published checkpoints T0 collapses and the reproducibility ladder reduces to T1 plus T3 only. T0 commands operationalize as make eval-from-hub (Phase 3 work item; about 30-50 lines of glue wrapping huggingface_hub.snapshot_download plus eval-toolkit scoring primitives plus per-row prediction emission) — accepts a rung name argument and downloads the corresponding BBehring/prompt-injection-modernbert-&lt;rung&gt; repo plus runs scoring against the eval data plus emits per-row predictions plus prints a score match table comparing against the committed results.json. The ladder maps approximately onto ACM artifact-review-and-badging conventions — T0 plus T1 supply Functional plus Reusable badge levels; T3 supplies the Reproducible badge level. WRITEUP/reproducibility.md spoke (slotted by ADR-031) documents the ladder with verbatim commands plus cost plus time plus what each tier verifies plus what each tier does NOT verify. Limitation — T0 reproduces headline scores only on the published rungs per ADR-032 Option C — ablation-rung reproduction requires T3; T0 verifies score-match against the published checkpoint not data-pipeline correctness — a reviewer who wants to verify the data preparation pipeline produces the same training tensors needs T3. Extension condition — if Phase 5 reveals T0 has correctness gaps (e.g., HF Hub checkpoint can drift due to model card edits invalidating cached SHAs), pin checkpoint SHAs in WRITEUP/reproducibility.md and make eval-from-hub via huggingface_hub.snapshot_download with the revision argument — the HF dataset SHA-pinning discipline from ADR-016 carries over to HF model SHA-pinning here; if a production-grade reproducibility scope extension lifts requirements (e.g., the writeup expands to include a deployment-grade claim), add T4 Docker-container-with-frozen-environment via superseding ADR (currently out-of-scope per ADR-005 plus ADR-027 prototype-grade framing).</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Submission ledger row 350 + SPEC_GREENFIELD §6 line 249 (kit-level reproducibility claim) + Phase 0-07 walk Q4</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 350 carries locked-to-full-ladder-T0-T1-T3 status (see ADR-034); WRITEUP/reproducibility.md spoke exists with at minimum a title plus a tier-ladder table stub (full content populated at Phase 5 — verbatim commands plus cost plus time plus what-verifies plus what-does-not-verify); Makefile has a make eval-from-hub target placeholder (Phase 3 implementation; can be a stub echo at Phase 0-07 close); tests/test_invariants.py contains skip-marked stub test_reproducibility_tier_documented asserting (1) WRITEUP/reproducibility.md exists; (2) the spoke contains all three tier names (T0 plus T1 plus T3) in section headers; (3) each tier has a verbatim command (make smoke plus make eval-from-hub plus make headline-cloud) in a code block; (4) Makefile contains all three target names (smoke plus eval-from-hub plus headline-cloud) as rules; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 7979dc9</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - ADR-051</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.acm.org/publications/policies/artifact-review-and-badging-current</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/runpod-deploy</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/transformers/installation#offline-mode</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-016-data-design-bundle.md</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-032-hf-hub-publication-headline-rungs-only.md</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-project-level-methodology-principles.md</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-07__submission-deliverables.md</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-034: Reproducibility tier — full ladder T0 + T1 + T3</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the fourth and final <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> row in Phase 0-07 (§Submission — row 350). Companion to ADR-027 (Makefile execution-context stratification — provides T1 + T3 commands), ADR-030 (deliverable format — <span class="in">`WRITEUP/reproducibility.md`</span> is a Quarto-rendered spoke), ADR-031 (reading paths — slots the spoke in the sidebar nav), and ADR-032 (HF Hub publication — enables T0).</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>SPEC_GREENFIELD §6 line 249 carries a kit-level pre-lock:</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`[LOCKED]`</span><span class="at"> Reproducibility: a stranger can clone, install, and reproduce headline numbers via documented commands.</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>The kit-lock fixes the **claim** ("headline numbers reproducible") but not the **tier** at which that claim lives. Ledger row 350 picks the tier — laptop-only smoke / GPU-rental canonical / both.</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>ADR-027 already exposed three Makefile execution-context targets:</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make smoke`</span> (laptop; ~10 min; no GPU; no network; fixture data) — verifies *code structure*, NOT math correctness</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make test-integration`</span> (GPU-aware via <span class="in">`importorskip + skipif`</span>; local OR cloud pre-flight) — verifies real-scorer / real-data paths</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`make headline-cloud`</span> (canonical eval; NOT a test; cost-cap-gated per ADR-020) — produces the headline numbers</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>ADR-032 (Q2 publication = option C) adds a fourth reproduction path that didn't exist when ADR-027 was written:</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Eval-from-HF-Hub** — <span class="in">`make eval-from-hub`</span> (NEW, this ADR) downloads a published Phase-2-trained checkpoint and runs eval-only against fixture or full eval data. No re-training. Laptop-compatible if eval is CPU-feasible.</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>The operational reproducibility ladder has four tiers, not three:</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tier <span class="pp">|</span> Command <span class="pp">|</span> Cost <span class="pp">|</span> Time <span class="pp">|</span> What it verifies <span class="pp">|</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T0 — eval-from-hub <span class="pp">|</span> <span class="in">`make eval-from-hub`</span> <span class="pp">|</span> $0 + HF Hub bandwidth <span class="pp">|</span> ~10-30 min <span class="pp">|</span> Headline scores reproduce on published checkpoint (verifies eval pipeline + checkpoint integrity) <span class="pp">|</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T1 — smoke <span class="pp">|</span> <span class="in">`make smoke`</span> <span class="pp">|</span> $0 <span class="pp">|</span> ~10 min <span class="pp">|</span> Code structure + fixture-pipeline runs end-to-end (verifies code health, NOT math) <span class="pp">|</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T2 — test-integration (local-GPU) <span class="pp">|</span> <span class="in">`make test-integration`</span> <span class="pp">|</span> $0 (own GPU) <span class="pp">|</span> varies <span class="pp">|</span> Real-scorer paths exercise; partial real-data run <span class="pp">|</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T3 — headline-cloud <span class="pp">|</span> <span class="in">`make headline-cloud`</span> <span class="pp">|</span> ~$125+ per ADR-020 <span class="pp">|</span> ~hours <span class="pp">|</span> Full headline-number reproduction from scratch via re-training <span class="pp">|</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>Four options were considered (per Q4 walk):</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(A) Laptop-only smoke (T1 only) — narrows the kit-level claim; reviewer cannot verify scores.</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(B) GPU-rental canonical (T3 only) — gold-standard but $125+ barrier excludes most reviewers.</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(C) Both T1 + T3 — leaves T0 unused despite Q2 enabling it.</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(D) Full ladder T0 + T1 + T3 — maximizes reviewer-tier coverage given Q2's HF Hub publication.</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>User selection at Q4 walk: **D**.</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>**Reproducibility tier ladder**: T0 + T1 + T3 (reviewer-facing). T2 stays a developer-tool tier (not promoted to reviewer-facing).</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>**Tier definitions** (locked):</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tier <span class="pp">|</span> Command <span class="pp">|</span> Verifies <span class="pp">|</span> Does NOT verify <span class="pp">|</span> Cost <span class="pp">|</span> Time <span class="pp">|</span></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|---|---|</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T0** <span class="pp">|</span> <span class="in">`make eval-from-hub RUNG=&lt;name&gt;`</span> <span class="pp">|</span> Headline scores reproduce on the published checkpoint for the named rung. Eval pipeline integrity. Checkpoint download integrity (HF Hub SHA match). <span class="pp">|</span> Data-pipeline correctness (no training); ablation rungs not in published set. <span class="pp">|</span> $0 (HF Hub bandwidth only) <span class="pp">|</span> ~10-30 min (download + eval) <span class="pp">|</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T1** <span class="pp">|</span> <span class="in">`make smoke`</span> <span class="pp">|</span> Code health; fixture-pipeline E2E shape. No imports broken; no schema mismatches. <span class="pp">|</span> Math correctness; real-data scoring; headline numbers. <span class="pp">|</span> $0 <span class="pp">|</span> &lt;10 min <span class="pp">|</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T3** <span class="pp">|</span> <span class="in">`make headline-cloud`</span> <span class="pp">|</span> Full retraining from scratch reproduces headline numbers within seed variance. Data pipeline + training + eval + threshold-fitting + bootstrap. <span class="pp">|</span> (verifies everything in scope) <span class="pp">|</span> ~$125+ per ADR-020 cost cap <span class="pp">|</span> hours <span class="pp">|</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>**T2 (`make test-integration`)** stays a developer-tool tier. Not promoted to reviewer-facing because:</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Requires a local GPU the reviewer may not have.</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Adds friction without enabling a new verification dimension — T0 covers eval; T3 covers full retraining; T2 only adds "subset eval on local GPU" which is strictly weaker than T3.</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>**`make eval-from-hub` implementation** (Phase 3 work item):</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="co"># scripts/eval_from_hub.py — ~30-50 LOC glue</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Accepts: RUNG=&lt;rung-name&gt; (e.g., modernbert-lora)</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Steps:</span></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="co">#   1. snapshot_download(f"BBehring/prompt-injection-{rung}", local_dir=...)</span></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="co">#   2. Load model via AutoModelForSequenceClassification.from_pretrained(local_dir)</span></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="co">#   3. Run scoring against configs/profiles/eval.yaml's data slate</span></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="co">#   4. Emit per-row predictions to results/predictions/eval-from-hub__&lt;rung&gt;.parquet</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="co">#   5. Print score-match table: this run's metrics vs results.json's metrics</span></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="co">#   6. Exit non-zero if any headline metric drifts beyond seed-variance tolerance</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>Tolerance for "score match": per-row prediction equality is too strict (different floating-point ordering can yield bit-level diffs); headline-metric match within ~1e-4 absolute is the practical bar.</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>**`WRITEUP/reproducibility.md`** spoke (slotted by ADR-031; full content at Phase 5) carries the tier-ladder documentation:</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="in">````markdown</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reproducibility</span></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>This submission documents three tiers of reproduction, ordered by cost.</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## T0 — eval-from-hub (laptop, ~$0, ~10-30 min)</span></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>Verifies: headline scores reproduce on the published checkpoint.</span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>Does NOT verify: training pipeline (no re-training).</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=modernbert-lora</span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## T1 — smoke (laptop, ~$0, ~10 min)</span></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>Verifies: code health; fixture pipeline runs.</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>Does NOT verify: headline numbers (uses fixture data).</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> smoke</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## T3 — headline-cloud (cloud-GPU, ~$125+, ~hours)</span></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>Verifies: full retraining from scratch reproduces headline numbers.</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> headline-cloud</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tier coverage matrix</span></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tier <span class="pp">|</span> What you can audit <span class="pp">|</span> Recommended reader <span class="pp">|</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T0 <span class="pp">|</span> "Are the published scores legit?" <span class="pp">|</span> Most reviewers <span class="pp">|</span></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T1 <span class="pp">|</span> "Does the code run?" <span class="pp">|</span> Quick sanity check <span class="pp">|</span></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> T3 <span class="pp">|</span> "Does the training pipeline reproduce?" <span class="pp">|</span> Deep-audit reviewers <span class="pp">|</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="in">````</span></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>**Mapping to ACM artifact badging** (https://www.acm.org/publications/policies/artifact-review-and-badging-current):</span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>T0 + T1 supply *Artifacts Available* + *Functional* + *Reusable* badges.</span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>T3 supplies the *Reproducible* badge (deepest level).</span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>The badge vocabulary is standard in academic artifact-review; a reviewer familiar with ACM artifact policies will recognize the tier structure.</span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>**Cost-cap discipline preserved**: T3 is the only paid tier; reviewer self-funds the RunPod cost per ADR-020 cap discipline. T0 + T1 cost only the reviewer's time.</span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Maximum reviewer-tier coverage** given Q2's HF Hub publication — T0 was implicitly enabled by ADR-032 = C; this ADR makes it load-bearing rather than orphaned.</span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Honest tier ladder** — each tier explicitly verifies a different thing at different cost; reviewer picks the tier matching their interest + budget.</span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`make eval-from-hub` is a small Phase 3 work item** — ~30-50 LOC of glue; well-scoped.</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with ACM artifact-badging convention** — reviewer-recognizable structure.</span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Honors kit-level §6 line 249 claim** — "headline numbers reproducible" satisfied at T0 (cheapest path); stronger guarantee at T3.</span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`WRITEUP/reproducibility.md` slot is justified** — ADR-031 reserved the spoke slot for exactly this content; tier-ladder documentation has a home rather than polluting WRITEUP.md proper.</span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Phase 3 work item added** — <span class="in">`make eval-from-hub`</span> + <span class="in">`scripts/eval_from_hub.py`</span> (~30-50 LOC). Acceptable; well-bounded.</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`WRITEUP/reproducibility.md` content** — Phase 5 work item; tier-ladder table + commands + caveats. ~1-2 pages.</span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Three tiers vs two** — more documentation surface; reviewer must read the spoke to understand which tier suits their audit depth. Mitigation: tier-coverage matrix at top of spoke makes the choice obvious in &lt;30 seconds.</span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HF Hub checkpoint drift risk** — if published model card is later edited, the cached SHA invalidates; T0 reproducibility fails silently. Mitigation: pin checkpoint SHAs in <span class="in">`make eval-from-hub`</span> via <span class="in">`huggingface_hub.snapshot_download(revision=&lt;SHA&gt;)`</span> once SHAs are known at Phase 5; for Phase 0-07 close, the unpinned default is acceptable since publication happens at v0.9.0-rc1 rehearsal.</span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**T2 stays unchanged** — developer-tool tier per ADR-027; not promoted; not removed.</span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cost-cap gating** preserved from ADR-020; no new cost surface introduced.</span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tier renumbering risk** — T0/T1/T3 numbering skips T2 intentionally (T2 = developer-only). Reviewer who reads the spoke sees the skip and the explanation; not a presentation problem.</span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>T0 reproduces headline scores only on the *published* rungs (per ADR-032 = C, the headline rungs only). Ablation-rung reproduction requires T3. This is an acceptable trade-off given Q2's disclosure-surface budget.</span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>T0 verifies score-match against the published checkpoint, not data-pipeline correctness — if a reviewer wants to verify "the data preparation pipeline produces the same training tensors", they need T3. Documented in the spoke.</span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HF Hub checkpoint SHA drift detected**: if Phase 5 (or post-submission) reveals that an HF Hub published checkpoint can drift due to model card edits invalidating cached SHAs, pin checkpoint SHAs in <span class="in">`WRITEUP/reproducibility.md`</span> + <span class="in">`make eval-from-hub`</span> via <span class="in">`huggingface_hub.snapshot_download(revision=&lt;SHA&gt;)`</span>. HF dataset SHA-pinning discipline from ADR-016 carries over.</span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**T4 Docker container**: if scope extends to a deployment-grade claim, add T4 Docker-container-with-frozen-environment via superseding ADR. Currently out-of-scope per ADR-005 + ADR-027 prototype-grade framing.</span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**T0 correctness gap**: if Phase 5 reveals T0 produces scores that drift from results.json beyond seed-variance tolerance (e.g., due to non-deterministic kernels on a CPU eval host vs the GPU host that produced results.json), add a <span class="in">`T0-caveat`</span> section to the reproducibility spoke documenting the gap + the expected drift magnitude.</span>
-<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**T2 promotion**: if reviewer feedback signals "T2 (local-GPU integration) would be useful as a reviewer-facing tier" (e.g., a reviewer who has a local GPU and wants a mid-tier check), promote T2 via Phase 1+ superseding ADR.</span>
-<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) Laptop-only smoke (T1 only)** — narrows the kit-level reproducibility claim from "headline numbers" to "code health"; explicitly does NOT reproduce headline numbers. Rejected per Q4 walk; defeats the purpose of the kit-lock.</span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) GPU-rental canonical (T3 only)** — gold-standard but ~$125+ + RunPod account + secrets barrier; most reviewers will not pay this cost. Rejected per Q4 walk; loses the laptop-tier value entirely.</span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(C) Both T1 + T3** — leaves T0 (enabled by Q2) unused; throws away the highest-value reviewer-tier. Rejected per Q4 walk in favor of D.</span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Promote T2 to reviewer-facing** — adds friction (requires local GPU) without enabling a new verification dimension; strictly weaker than T3. Rejected.</span>
-<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ACM Artifact Review and Badging (v1.1) — https://www.acm.org/publications/policies/artifact-review-and-badging-current</span>
-<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`runpod-deploy`</span> reproduction patterns — https://github.com/brandon-behring/runpod-deploy</span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`eval-toolkit`</span> (scoring primitives) — https://github.com/brandon-behring/eval-toolkit</span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>HF Hub <span class="in">`AutoModel.from_pretrained`</span> offline-eval — https://huggingface.co/docs/transformers/installation#offline-mode</span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-027 (Makefile execution-context stratification — provides T1 + T3 commands)</span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-020 (compute infrastructure + cost cap — T3 paid-tier discipline)</span>
-<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 (HF dataset SHA pinning — checkpoint SHA pinning discipline pattern)</span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-032 (HF Hub publication — enables T0; published rungs are what T0 downloads)</span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (project-level methodology principles — prototype-grade framing rules out T4 currently)</span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-07__submission-deliverables.md`</span> for the conversation that led to this decision (Q4 walk + option D selection).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

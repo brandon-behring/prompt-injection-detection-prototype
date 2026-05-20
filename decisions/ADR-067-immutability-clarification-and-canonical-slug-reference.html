@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,6 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +158,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -968,7 +944,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</h1>
 </div>
 
 
@@ -1192,8 +1168,6 @@ No decision content changed. ADR audit trail preserved.</code></pre>
 <p><code>transcripts/2026-05-19__v1-2-2-library-first-refactor-and-immutability-clarification.md</code> — captures rounds 7 + 8 + the 9-commit execution.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1268,57 +1242,6 @@ No decision content changed. ADR audit trail preserved.</code></pre>
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1653,235 +1576,7 @@ No decision content changed. ADR audit trail preserved.</code></pre>
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "067"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> immutability-clarification-and-canonical-slug-reference</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-19</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-067</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> &gt;-</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  The ADR-immutability rule per CLAUDE.md ("ADRs are immutable; supersede via</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  new ADR") was authored to protect DECISION content (methodology choices,</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  locked numeric values, alternatives considered, prose rationale) from</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  post-hoc revision — the audit-trail discipline that lets reviewers</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  reconstruct what-was-thought-at-each-tag. Applying that same rule to</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  **factual-typo defects in cross-reference slug filenames** (wrong slug</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  pointing at a wrong-but-existing file in `decisions/`) is over-strict:</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  fixing such defects does NOT alter decision content + does NOT break the</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  audit trail. The current state — 14 broken slug-reference patterns</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  documented in `.lycheeignore` + ADR-064 §D as "flagged-not-fixed" —</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  imposes reader friction (404s on in-ADR cross-refs) without protecting</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  anything load-bearing. v1.2.2 ADR-067 codifies a narrow exception:</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">  **factual typos in cross-reference slug filenames MAY be corrected</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">  in-place** in the affected ADR file, with the commit message citing</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">  ADR-067 + listing the per-file corrections. ALL other content (numeric</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">  values, methodology decisions, prose, alternatives considered, table</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">  data, frontmatter fields other than slug refs) remains immutable per</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">  the existing rule. v1.2.2 Commit 2 applies the relaxation to fix the</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">  14 documented broken refs (12 with canonical-correct slug substitutes;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">  2 ADR-029 misattributions handled by removing the broken ref + citing</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">  CLAUDE.md directly). The 14 corresponding `.lycheeignore` patterns are</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">  deleted in the same commit (no longer ignored — actually working).</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> transcripts/2026-05-19__v1-2-2-library-first-refactor-and-immutability-clarification.md (private; emailed at submission)</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> &gt;-</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">  At v1.2.2 close: `decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md`</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">  exists (this file). `CLAUDE.md` §"Phase 0 workflow" immutability-rule</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">  block updated with the narrow-relaxation clarification. `decisions/README.md`</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">  §Lifecycle updated with the same narrow-relaxation language.</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">  `docs/GLOSSARY.md` carries an entry for "Immutability relaxation</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">  (factual-typo class)" cross-referencing this ADR. All 14 broken</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">  slug-reference patterns flagged in `.lycheeignore` + ADR-064 §D</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">  resolve to canonical-correct slugs in the affected immutable ADRs</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">  (ADR-046, ADR-048, ADR-059, ADR-060, ADR-063, and any others</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">  discovered during `grep -rn` audit). The 14 corresponding patterns</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">  in `.lycheeignore` are deleted. The 2 ADR-029 misattributions</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">  (referencing non-existent "immutability ADR-029" slugs) are</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">  corrected by removing the broken ref + citing CLAUDE.md directly.</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">  Lychee CI passes on the v1.2.2 push (the previously-ignored refs</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">  now resolve cleanly without needing ignore patterns). Future PR</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">  reviews flag any in-place ADR edit that goes beyond slug-filename</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">  correction (numeric values + methodology + prose remain immutable</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">  per the existing rule).</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> v1.2.2</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> []</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span><span class="co"> []</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">  - CLAUDE.md  # immutability rule lives here</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/README.md  # ADR lifecycle + frontmatter schema</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md  # §D flagged-not-fixed inventory</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.md  # bundled at same release</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co">  - .lycheeignore  # 14 patterns deleted after Commit 2 applies fixes</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co">  - docs/GLOSSARY.md</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-19__v1-2-2-library-first-refactor-and-immutability-clarification.md</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-067 — Narrow immutability relaxation for factual-typo fixes in cross-reference slug filenames</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-19; narrow clarification of the existing CLAUDE.md immutability rule — does NOT supersede prior ADRs; codifies a narrow exception applicable to factual-typo defects in cross-reference slug filenames only).</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## §A Context — what the immutability rule was protecting + what it wasn't</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>CLAUDE.md §"Phase 0 workflow" states: *"The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior `status: superseded-by-NNN`."* This rule was authored to protect the audit-trail discipline: a reviewer should be able to read any tagged release's ADRs + reconstruct exactly what-was-decided-at-that-tag without worrying that the decision content was edited post-hoc.</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>The rule applies cleanly to **decision content**:</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Methodology choices (e.g., "ADR-016 locks LODO 4-fold × 3 seeds")</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Locked numeric values (e.g., "ADR-019 locks LoRA r=8, alpha=16")</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Alternatives considered + why rejected</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prose rationale + the consequences section</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Frontmatter fields like <span class="in">`claim`</span>, <span class="in">`acceptance_criterion`</span>, <span class="in">`closing_commit`</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>For these, the immutability rule is load-bearing: editing them in-place would silently rewrite history. The supersede-via-new-ADR mechanism preserves the audit trail.</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>The rule was ALSO applied — over-strictly — to **factual-typo defects in cross-reference slug filenames**. Example from ADR-046 line 15: <span class="in">`decisions/ADR-006-headline-metrics-and-statistical-floor.md`</span> is a broken reference (the actual filename is <span class="in">`ADR-006-headline-metrics-and-statistical-apparatus.md`</span>). Fixing this typo:</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Does NOT change any decision content</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Does NOT alter the audit trail (the meaning of ADR-046 line 15's cross-reference is unchanged — it always meant "see ADR-006"; only the slug is typo'd)</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DOES improve reader experience (the in-ADR link resolves correctly)</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>ADR-064 §D documented 9 broken slug references; subsequent audit (.lycheeignore at v1.2.0 close) surfaced 14 total patterns. Treating these as "flagged-not-fixed per ADR-immutability discipline" imposes reader friction (404s on in-ADR cross-refs; lychee CI noise; documentation debt) without protecting any decision content.</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>This ADR codifies a narrow exception.</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## §B Decision — narrow relaxation: factual-typo class only</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>ADRs remain immutable for **decision content** (per CLAUDE.md): methodology choices, locked values, alternatives considered, prose, frontmatter fields other than slug refs, table data, references list (except as covered below).</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>**Narrow exception**: **factual typos in cross-reference slug filenames** MAY be corrected in-place in the affected ADR file, subject to the following constraints:</span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### B1 — In-scope corrections (allowed in-place)</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Broken cross-reference slug filenames** where a slug points at a wrong-but-existing canonical file in <span class="in">`decisions/`</span>. Example: <span class="in">`decisions/ADR-006-headline-metrics-and-statistical-floor.md`</span> → <span class="in">`decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`</span> (the canonical filename for ADR-006).</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Slug filenames in the `references:` frontmatter list** that point at the wrong canonical filename. Same rule.</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Slug filenames in markdown body link syntax** (<span class="in">`[link text](decisions/ADR-NNN-wrong-slug.md)`</span> → <span class="in">`[link text](decisions/ADR-NNN-correct-slug.md)`</span>).</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### B2 — Out-of-scope changes (REQUIRE superseding ADR per existing rule)</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Numeric values** in claim text, acceptance criterion, prose, or tables (e.g., a stale <span class="in">`$9.92`</span> cost figure stays as written; supersession via new ADR + postscript chain, as v1.2.1 ADR-065 §E did for ADR-063's $9.92).</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Methodology decisions** (e.g., "LODO 4-fold" → "LODO 5-fold" is a decision change; requires superseding ADR).</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Prose rationale** in §Context / §Decision / §Consequences (re-writing meaning requires supersession).</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Alternatives considered list** (the alternatives recorded at decision time stay as recorded; supersession via new ADR for revisiting).</span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Frontmatter fields other than slug refs**: <span class="in">`claim_id`</span>, <span class="in">`claim`</span>, <span class="in">`source`</span>, <span class="in">`acceptance_criterion`</span>, <span class="in">`closing_commit`</span>, <span class="in">`supersedes`</span>, <span class="in">`superseded_by`</span>, <span class="in">`transcript`</span> all remain immutable.</span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Table content** (e.g., the per-rung AUPRC table in RESULTS.md is in scope of the writeup, not this ADR; but if a table appears IN an ADR body, the values stay).</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### B3 — Commit message convention</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>In-place factual-typo fixes carry a commit message of the form:</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="in">docs: ADR-NNN factual-typo fixes per ADR-067 (slug filename corrections)</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="in">Per ADR-067 narrow-relaxation rule: factual typos in cross-reference slug</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="in">filenames MAY be corrected in-place. This commit fixes:</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="in">- decisions/ADR-XXX.md:LINE — was `&lt;wrong-slug&gt;` → corrected to `&lt;right-slug&gt;`</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="in">- decisions/ADR-YYY.md:LINE — was `&lt;wrong-slug&gt;` → corrected to `&lt;right-slug&gt;`</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="in">  ...</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="in">No decision content changed. ADR audit trail preserved.</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>The per-file enumeration in the commit message provides the audit trail: future readers running <span class="in">`git log`</span> see exactly which slug refs were corrected when.</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="fu">### B4 — Future PR review discipline</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>In-place ADR edits that go beyond the narrow scope (numeric values; methodology; prose; non-slug frontmatter) should be flagged by PR review + require a new superseding ADR per the existing rule. This ADR-067 narrow relaxation does NOT establish a slippery slope; it codifies a specific narrow class.</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## §C Decision — apply the relaxation at v1.2.2 Commit 2 (consolidated inventory)</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>The full inventory of broken slug-reference patterns (per <span class="in">`.lycheeignore`</span> at v1.2.0 close + post-v1.2.1 audit) is 14 patterns mapping to 12 canonical-correct slug substitutes + 2 ADR-029 misattributions:</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### C1 — Canonical-correct slug substitutions (12 patterns)</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Broken pattern (in <span class="in">`.lycheeignore`</span>) <span class="pp">|</span> Canonical-correct slug <span class="pp">|</span></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-005-methodology-over-metrics.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-005-methodology-principles.md`</span> <span class="pp">|</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-006-single-seed-protocol-for-comparative-claims.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`</span> <span class="pp">|</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-006-headline-metrics-and-statistical-floor.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`</span> <span class="pp">|</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-013-persistence-discipline-before-teardown.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md`</span> <span class="pp">|</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-016-data-design.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-016-data-design-bundle.md`</span> <span class="pp">|</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-019-modernbert-training-recipe.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-019-lora-and-transformer-training-recipe.md`</span> <span class="pp">|</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-020-runpod-orchestration-and-cost-discipline.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-020-compute-infrastructure-and-cost-discipline.md`</span> <span class="pp">|</span></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-023-calibration-battery.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-023-calibration-battery-and-interventions.md`</span> <span class="pp">|</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-030-quarto-html-site-via-github-actions.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-030-deliverable-format-quarto-html-site.md`</span> <span class="pp">|</span></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-032-hf-hub-model-card-schema.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-032-hf-hub-publication-headline-rungs-only.md`</span> <span class="pp">|</span></span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-037-requires-python-floor-3-13.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-037-python-version-pin-3-13.md`</span> <span class="pp">|</span></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decisions/ADR-046-phase-4-walkthrough.md`</span> <span class="pp">|</span> <span class="in">`decisions/ADR-046-phase-4-analysis-implementation-bundle.md`</span> <span class="pp">|</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>Commit 2 applies these substitutions via <span class="in">`grep -rn`</span> audit across <span class="in">`decisions/*.md`</span> + <span class="in">`find / -replace`</span> edits.</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### C2 — ADR-029 immutability misattributions (2 patterns)</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>Two patterns in <span class="in">`.lycheeignore`</span> reference a non-existent "ADR-029 immutability" file:</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-029-immutable-adrs-supersede-dont-edit.md`</span> — no such file exists</span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-029-adr-immutability-and-supersession-discipline.md`</span> — no such file exists</span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>The actual <span class="in">`decisions/ADR-029-test-marker-strategy-four-marker-ratification.md`</span> is about test markers, NOT immutability. The misattribution surfaced because older CHANGELOG entries + ADR cross-refs cited "ADR-029" as the immutability ADR, but the immutability rule actually lives in <span class="in">`CLAUDE.md`</span> (per memory entry <span class="in">`adr-029-immutability-misattribution-historical-drift`</span>).</span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>**Fix at Commit 2**: each occurrence of the broken ADR-029 immutability ref gets removed + replaced with an inline citation to CLAUDE.md (or to ADR-067 itself once it lands, since ADR-067 codifies the discipline). Pattern:</span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`[ADR-029 immutability](decisions/ADR-029-...md)`</span> → <span class="in">`CLAUDE.md immutability rule (clarified at ADR-067)`</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### C3 — `.lycheeignore` cleanup at Commit 2</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>After the in-place corrections land, the 14 corresponding <span class="in">`.lycheeignore`</span> patterns are deleted (since the refs are no longer broken). The .lycheeignore retains the HF Hub patterns + GitHub anchor patterns (those are intentional + unrelated).</span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>Future <span class="in">`.lycheeignore`</span> discipline: prefer fixing over ignoring (per ADR-064 §C2); only add ignore patterns when an external URL is verified-good for humans but 403s bots. Internal ADR cross-refs do NOT go in <span class="in">`.lycheeignore`</span> — they get fixed per this ADR-067 narrow-relaxation rule.</span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## §D Decision — CLAUDE.md + decisions/README.md updates</span></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>Both documents get a one-paragraph addition next to their immutability-rule statement:</span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>**CLAUDE.md §"Phase 0 workflow"** (after the existing immutability line):</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior </span><span class="in">`status: superseded-by-NNN`</span><span class="at">.</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Narrow exception** (per </span><span class="co">[</span><span class="ot">ADR-067</span><span class="co">](./ADR-067-immutability-clarification-and-canonical-slug-reference.md)</span><span class="at">): factual typos in cross-reference slug filenames MAY be corrected in-place with a commit message citing ADR-067 + listing per-file corrections. ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter) remains immutable.</span></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>**`decisions/README.md` §Lifecycle** (similar addition).</span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## §E Consequences</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a><span class="fu">### E1 — Reader experience improved</span></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>After v1.2.2 Commit 2, readers clicking in-ADR cross-references resolve to the correct canonical filenames. No more 404s. No more <span class="in">`.lycheeignore`</span> patterns hiding the brokenness from CI while showing 404s to humans.</span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### E2 — Audit-trail discipline preserved</span></span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>The 12 slug-filename corrections do NOT change decision content; ADR audit trail remains intact (any future <span class="in">`git log decisions/ADR-XXX.md`</span> shows the original commit + the v1.2.2 typo-fix commit; both are recoverable). The narrow scope (§B2 out-of-scope changes) prevents slippery-slope drift to decision-content edits.</span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a><span class="fu">### E3 — Documentation debt paid down</span></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="in">`.lycheeignore`</span> shrinks by 14 patterns (from a v1.2.1 baseline of ~17 patterns to ~3 retained patterns for HF Hub + GitHub anchors). ADR-064 §D's "9 broken refs" inventory + the v1.2.1 post-audit "14 patterns" inventory is closed; future readers consult ADR-067 §C for the historical record.</span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### E4 — Future-proofing</span></span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>If future patches introduce new broken slug refs (e.g., an ADR rename), ADR-067 §B is the canonical rule: fix in-place + commit message cites ADR-067. The <span class="in">`.lycheeignore`</span> is NOT the right venue (per ADR-064 §C2's "prefer fixing over ignoring" discipline).</span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### E5 — ADR-029 misattribution permanently resolved</span></span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>The historical drift (where CHANGELOG entries + cross-refs cited "ADR-029 immutability") is resolved by routing readers to CLAUDE.md (where the rule actually lives) + ADR-067 (which clarifies the narrow relaxation). Future content should cite CLAUDE.md + ADR-067 directly; historical CHANGELOG entries are unchanged (those are immutable per the project's CHANGELOG-as-historical-record convention — also captured in memory <span class="in">`adr-029-immutability-misattribution-historical-drift`</span>).</span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a><span class="fu">### E6 — Cost-trivial</span></span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>$0. CPU-only edits. No methodology change.</span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linked ADRs</span></span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**References**:</span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>CLAUDE.md — the source-of-truth for immutability (clarified by this ADR's narrow exception)</span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>decisions/README.md — the ADR lifecycle + frontmatter schema (also gets the narrow-exception clarification at Commit 1)</span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-064</span><span class="co">](./ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.md)</span> §D — predecessor inventory of broken slug refs (flagged-not-fixed; this ADR enables the fix)</span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">ADR-066</span><span class="co">](./ADR-066-library-first-carryforward-refactor-v1-2-2.md)</span> — bundled at v1.2.2 (independent decision)</span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source**: <span class="in">`/exploring-options`</span> round 8 Q3 (2026-05-19) — user signaled the broken-refs state was "weird, sounds like a mistake to have made that" → recommendation switched from "document the errata" (original Option B) to "fix the errata + codify narrow rule" (Option A).</span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a><span class="in">`transcripts/2026-05-19__v1-2-2-library-first-refactor-and-immutability-clarification.md`</span> — captures rounds 7 + 8 + the 9-commit execution.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

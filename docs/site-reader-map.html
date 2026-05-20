@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-19">
+<meta name="description" content="A routing guide for the public site: what to read first, what is audit evidence, and what is historical.">
 
-<title>Quarto site navigation restructure — landing-page rebuild + navbar consolidation + sidebar hub-spoke nesting (narrow supersession of ADR-053 navigation contract) – Prompt-injection classifier evaluation</title>
+<title>Public site reader map – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -253,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-061-quarto-site-navigation-restructure.html">Quarto site navigation restructure — landing-page rebuild + navbar consolidation + sidebar hub-spoke nesting (narrow supersession of ADR-053 navigation contract)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/site-reader-map.html">Reference</a></li><li class="breadcrumb-item"><a href="../docs/site-reader-map.html">Public site reader map</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -447,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Public site reader map</span></a>
   </div>
 </li>
@@ -500,13 +465,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">Decisions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html" class="sidebar-item-text sidebar-link">
@@ -869,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-061-quarto-site-navigation-restructure.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-061-quarto-site-navigation-restructure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quarto site navigation restructure — landing-page rebuild + navbar consolidation + sidebar hub-spoke nesting (narrow supersession of ADR-053 navigation contract)</span></a>
   </div>
 </li>
@@ -941,45 +906,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-061-quarto-site-navigation-restructure-narrow-supersession-of-adr-053-navigation-contract" id="toc-adr-061-quarto-site-navigation-restructure-narrow-supersession-of-adr-053-navigation-contract" class="nav-link active" data-scroll-target="#adr-061-quarto-site-navigation-restructure-narrow-supersession-of-adr-053-navigation-contract">ADR-061 — Quarto site navigation restructure (narrow supersession of ADR-053 navigation contract)</a>
-  <ul class="collapse">
-  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
-  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
-  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
-  <ul class="collapse">
-  <li><a href="#subsection-a-navbar-simplification-9-items-5" id="toc-subsection-a-navbar-simplification-9-items-5" class="nav-link" data-scroll-target="#subsection-a-navbar-simplification-9-items-5">Subsection A — Navbar simplification (9 items → 5)</a></li>
-  <li><a href="#subsection-b-sidebar-hub-spoke-nesting" id="toc-subsection-b-sidebar-hub-spoke-nesting" class="nav-link" data-scroll-target="#subsection-b-sidebar-hub-spoke-nesting">Subsection B — Sidebar hub-spoke nesting</a></li>
-  <li><a href="#subsection-c-index.qmd-landing-page-rebuild" id="toc-subsection-c-index.qmd-landing-page-rebuild" class="nav-link" data-scroll-target="#subsection-c-index.qmd-landing-page-rebuild">Subsection C — index.qmd landing page rebuild</a></li>
-  <li><a href="#subsection-d-writeup.md-hub-spoke-primer" id="toc-subsection-d-writeup.md-hub-spoke-primer" class="nav-link" data-scroll-target="#subsection-d-writeup.md-hub-spoke-primer">Subsection D — WRITEUP.md hub-spoke primer</a></li>
-  <li><a href="#subsection-e-spokehub-back-link-8-files" id="toc-subsection-e-spokehub-back-link-8-files" class="nav-link" data-scroll-target="#subsection-e-spokehub-back-link-8-files">Subsection E — Spoke→hub back-link (8 files)</a></li>
-  <li><a href="#subsection-f-readme.md-how-to-read-clarified" id="toc-subsection-f-readme.md-how-to-read-clarified" class="nav-link" data-scroll-target="#subsection-f-readme.md-how-to-read-clarified">Subsection F — README.md “How to read” clarified</a></li>
-  </ul></li>
-  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
-  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
-  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
-  </ul></li>
+  <li><a href="#start-here" id="toc-start-here" class="nav-link active" data-scroll-target="#start-here">Start here</a></li>
+  <li><a href="#evidence-and-audit-trail" id="toc-evidence-and-audit-trail" class="nav-link" data-scroll-target="#evidence-and-audit-trail">Evidence and audit trail</a></li>
+  <li><a href="#historical-decisions" id="toc-historical-decisions" class="nav-link" data-scroll-target="#historical-decisions">Historical decisions</a></li>
+  <li><a href="#static-analysis-appendices" id="toc-static-analysis-appendices" class="nav-link" data-scroll-target="#static-analysis-appendices">Static analysis appendices</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-061-quarto-site-navigation-restructure.html">Quarto site navigation restructure — landing-page rebuild + navbar consolidation + sidebar hub-spoke nesting (narrow supersession of ADR-053 navigation contract)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/site-reader-map.html">Reference</a></li><li class="breadcrumb-item"><a href="../docs/site-reader-map.html">Public site reader map</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Quarto site navigation restructure — landing-page rebuild + navbar consolidation + sidebar hub-spoke nesting (narrow supersession of ADR-053 navigation contract)</h1>
+<h1 class="title">Public site reader map</h1>
 </div>
 
+<div>
+  <div class="description">
+    A routing guide for the public site: what to read first, what is audit evidence, and what is historical.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -989,163 +940,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="adr-061-quarto-site-navigation-restructure-narrow-supersession-of-adr-053-navigation-contract" class="level1">
-<h1>ADR-061 — Quarto site navigation restructure (narrow supersession of ADR-053 navigation contract)</h1>
-<section id="status" class="level2">
-<h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Accepted (2026-05-19; lands in v1.1.1 patch release alongside the landing-page rebuild + hub-spoke signposting + README clarification).</p>
-</section>
-<section id="context" class="level2">
-<h2 class="anchored" data-anchor-id="context">Context</h2>
-<p><a href="../decisions/ADR-053-reading-guide-governance-and-newcomer-paths.html">ADR-053</a> locked the v1.0.4 reading-guide architecture across 5 dimensions:</p>
-<ol type="1">
-<li><strong>Navbar/sidebar architecture</strong> — 3 entry artifacts (EXECUTIVE_SUMMARY
+<p>This page explains the site structure. The public site includes both a reader-facing narrative and the audit trail behind it. Do not start with the ledgers unless you are auditing provenance.</p>
+<section id="start-here" class="level2">
+<h2 class="anchored" data-anchor-id="start-here">Start here</h2>
 <ul>
-<li>index.qmd + RESULTS) + Methodology section with hub + 8 spokes + separate Notebooks/Evidence/Reference/Decisions sections.</li>
-</ul></li>
-<li><strong>3-reading-paths</strong> (A1 quick-skim / A2 audit / A3 reproduce).</li>
-<li><strong>Headline-finding-block</strong> required on the landing page.</li>
-<li><strong>Interpretation pedagogy</strong> (5 patterns required on the landing page).</li>
-<li><strong>Pointer convention</strong> (markdown links to deep content; no PDF).</li>
-</ol>
-<p>User feedback 2026-05-19 surfaced a real discoverability issue at dimension 1. The 9-item navbar fragments the entry points; “Methodology (TOC)” + “Spokes” peer items confuse the hub-spoke relationship; <code>index.qmd</code> is too dense (137 lines covering results + 5 interpretations + 3 reading paths + headline ADRs + repo map + submission anchors + status). The 5-pattern interpretation pedagogy is technically prose-heavy and not “plain language” by user expectation.</p>
-<p>Dimensions 2-5 of ADR-053 are unchanged. Dimension 1 needs revision.</p>
-</section>
-<section id="decision" class="level2">
-<h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<p>Narrow supersession of ADR-053 dimension 1 (navbar/sidebar/landing-page architecture). All other dimensions of ADR-053 preserved.</p>
-<section id="subsection-a-navbar-simplification-9-items-5" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-a-navbar-simplification-9-items-5">Subsection A — Navbar simplification (9 items → 5)</h3>
-<p><code>_quarto.yml</code> navbar:left changes:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLD (9 items): EXECUTIVE_SUMMARY / index.qmd / RESULTS / WRITEUP.md /</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Spokes dropdown / Notebooks dropdown / EVIDENCE.md / Reference dropdown</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># / Decisions dropdown.</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NEW (5 items):</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> RESULTS.md</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Results</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Methodology</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">menu</span><span class="kw">:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Cover narrative (hub)"</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP.md</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading guide"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">href</span><span class="kw">:</span><span class="at"> READING_GUIDE.md</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/data-decisions.md</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/model-rungs.md</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/eval-design.md</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/threshold-policy.md</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/reference-scorer-audit.md</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/methodology-guarantees.md</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/limitations-and-future-work.md</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP/reproducibility.md</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Decisions</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> decisions/README.md</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Reference</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">menu</span><span class="kw">:</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> EXECUTIVE_SUMMARY.md</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> EVIDENCE.md</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> SPEC_SHEET.md</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> SUBMISSION_AUDIT.md</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> NEXT_STEPS.md</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> assumptions.md</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> notebooks/01_canonical_results.ipynb</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> notebooks/02_frozen_vs_lora.ipynb</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> notebooks/03_calibration.ipynb</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> notebooks/04_ood_slate.ipynb</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Repo</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://github.com/brandon-behring/behring/prompt-injection-detection-prototype</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">target</span><span class="kw">:</span><span class="at"> _blank</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The single Methodology dropdown becomes the obvious entry to the hub + 8 spokes + the new READING_GUIDE.md page. Notebooks collapse into Reference (they’re auxiliary artifacts, not primary methodology). EVIDENCE.md moves to Reference (it’s an audit-trail artifact, not a methodology entry point). Repo is a direct GitHub link for users who want to browse source.</p>
-</section>
-<section id="subsection-b-sidebar-hub-spoke-nesting" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-b-sidebar-hub-spoke-nesting">Subsection B — Sidebar hub-spoke nesting</h3>
-<p><code>_quarto.yml</code> sidebar.contents Methodology section:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OLD: 9 peer items (WRITEUP.md + 8 spokes at same indent level).</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># NEW: 2-level nesting.</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Methodology"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Cover narrative (hub)"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> WRITEUP.md</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading guide"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> READING_GUIDE.md</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Detailed spokes (8 topics)"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/data-decisions.md</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/model-rungs.md</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/eval-design.md</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/threshold-policy.md</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/reference-scorer-audit.md</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/methodology-guarantees.md</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/limitations-and-future-work.md</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> WRITEUP/reproducibility.md</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The “Detailed spokes (8 topics)” sub-section is visually indented under WRITEUP.md. A reader scanning the sidebar sees the hub-spoke relationship at-a-glance — no longer 9 peer items.</p>
-</section>
-<section id="subsection-c-index.qmd-landing-page-rebuild" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-c-index.qmd-landing-page-rebuild">Subsection C — index.qmd landing page rebuild</h3>
-<p><code>index.qmd</code> (137 lines → ~30 lines):</p>
-<ol type="1">
-<li>1-paragraph thesis.</li>
-<li>Headline finding table (the §1 AUPRC trio from RESULTS — unchanged content).</li>
-<li>5-bullet “What this means in plain language” — 1 sentence per interpretation pattern (distilled from the current ADR-053 dimension-4 5-patterns; the deeper technical version is one click away via a “Full interpretation” link).</li>
-<li>Three obvious drill-down links: “Full results + figures” (RESULTS.md), “Full methodology” (WRITEUP.md), “How to read this site” (READING_GUIDE.md).</li>
-</ol>
-<p>The reading-guide content displaced from <code>index.qmd</code> (3 reading paths + headline ADRs list + repo map + submission anchors + status) moves to the new <code>READING_GUIDE.md</code> page. Per no-orphaned-code invariant: the content is NOT duplicated — <code>index.qmd</code> is rewritten and <code>READING_GUIDE.md</code> is the new home for the moved sections.</p>
-</section>
-<section id="subsection-d-writeup.md-hub-spoke-primer" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-d-writeup.md-hub-spoke-primer">Subsection D — WRITEUP.md hub-spoke primer</h3>
-<p>Insert 2-paragraph primer at WRITEUP.md immediately after the title (before the current “Reading guide” table):</p>
-<blockquote class="blockquote">
-<p><strong>This is the hub of the methodology — a cover narrative + headline results. The detailed methodology lives in 8 spoke pages linked below; each spoke is a focused deep-dive on one topic (data design, rung ladder, evaluation, thresholds, calibration, reference-scorer audit, limitations, reproducibility).</strong></p>
-<p><strong>Reading on the live Quarto site: drill into each spoke from the Methodology dropdown in the navbar or the sidebar. Reading on GitHub: click each spoke link in the table below — the GitHub blob view of this file alone is the cover narrative; the full methodology requires all 8 spokes.</strong></p>
-</blockquote>
-<p>The primer reframes WRITEUP.md as INTENTIONAL — not as an incomplete document.</p>
-</section>
-<section id="subsection-e-spokehub-back-link-8-files" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-e-spokehub-back-link-8-files">Subsection E — Spoke→hub back-link (8 files)</h3>
-<p>Each of <code>WRITEUP/data-decisions.md</code>, <code>model-rungs.md</code>, <code>eval-design.md</code>, <code>threshold-policy.md</code>, <code>reference-scorer-audit.md</code>, <code>methodology-guarantees.md</code>, <code>limitations-and-future-work.md</code>, <code>reproducibility.md</code> gains a 1-line back-link at the very top (before any other content):</p>
-<blockquote class="blockquote">
-<p><em>Part of the <a href="../WRITEUP.html">WRITEUP methodology</a> — see the hub for the cover narrative + reading guide.</em></p>
-</blockquote>
-<p>Signposts the spoke as a child of the hub for any reader who deep-links into a spoke (search, external link, sidebar click) without seeing the hub first.</p>
-</section>
-<section id="subsection-f-readme.md-how-to-read-clarified" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-f-readme.md-how-to-read-clarified">Subsection F — README.md “How to read” clarified</h3>
-<p>README’s reading-path section gains explicit Quarto-vs-GitHub guidance:</p>
-<ul>
-<li><strong>Quick read (5 min)</strong>: live Quarto site → landing page (results + plain-language interpretation).</li>
-<li><strong>Full methodology (60 min)</strong>: live Quarto site → Methodology dropdown → cover narrative + 8 spokes.</li>
-<li><strong>GitHub-only readers</strong>: <code>WRITEUP.md</code> is only the cover narrative; the 8 <code>WRITEUP/*.md</code> spokes carry the detailed methodology — meant to be read together. Reading <code>WRITEUP.md</code> alone is executive-summary depth. Click the spoke links in the table at the top of <code>WRITEUP.md</code> to drill in.</li>
-</ul>
-<p>Removes the user’s mental-model inversion (GitHub-blob feels like the full methodology when it’s actually a subset).</p>
-</section>
-</section>
-<section id="consequences" class="level2">
-<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
-<ul>
-<li><strong>Discoverability</strong>: landing page now satisfies the user’s “immediately clear where to find results + plain-language meaning” bar. Results above the fold; 5-bullet meaning right below; 3 obvious drill-down links.</li>
-<li><strong>Hub-spoke visual hierarchy</strong>: navbar Methodology dropdown + sidebar 2-level nesting + WRITEUP.md primer + spoke back-links reinforce the same mental model from 4 angles.</li>
-<li><strong>ADR-053 narrow supersession</strong>: only navigation dimension changes; 3-reading-paths (now moved to READING_GUIDE.md but unchanged), headline-finding-block (preserved on index.qmd), interpretation pedagogy (5 patterns preserved; landing page gets distilled 1-line bullets + “Full interpretation” link to the technical version), pointer convention (markdown links unchanged) — all preserved.</li>
-<li><strong>No methodology drift</strong>: zero changes to WRITEUP.md hub or 8 spoke contents (text body). Only navigation + signposting.</li>
-<li><strong>Reviewer URL pin unchanged</strong>: per ADR-033, <code>tree/v1.0.0</code> stays; live Quarto site reflects the v1.1.1 restructure.</li>
-<li><strong>CHANGELOG.md <code>[1.1.1]</code> documents the change</strong>; SUBMISSION_AUDIT.md regenerates with 61 CLAIM rows.</li>
+<li><strong>Hiring-manager scan</strong>: <a href="../docs/for-hiring-managers.html"><code>For hiring managers in a hurry</code></a> gives the fastest read on what was built, what worked, and what failed.</li>
+<li><strong>Results-first technical read</strong>: <a href="../RESULTS.html"><code>Results</code></a> gives the direct-detection and OOD-generalization findings before the methodology details.</li>
+<li><strong>Full narrative</strong>: <a href="../WRITEUP.html"><code>WRITEUP</code></a> is the hub for the complete technical story.</li>
+<li><strong>Repository scan</strong>: <a href="../README.html"><code>README</code></a> is the GitHub-front-door version of the same story.</li>
 </ul>
 </section>
-<section id="linked-adrs" class="level2">
-<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
+<section id="evidence-and-audit-trail" class="level2">
+<h2 class="anchored" data-anchor-id="evidence-and-audit-trail">Evidence and audit trail</h2>
 <ul>
-<li><strong>Superseded (narrow, navigation dimension only)</strong>: ADR-053 (the reading-guide governance ADR; dimensions 2-5 preserved).</li>
-<li><strong>Referenced</strong>: ADR-030 (Quarto static-site renderer; rendering recipe unchanged); ADR-054 (RESULTS as 3rd entry artifact; preserved as the default landing-page target); ADR-033 (release strategy; v1.1.1 = patch release per the post-submission patch convention).</li>
-<li><strong>Source</strong>: user feedback 2026-05-19 “the quatro documents they seem really confusing and hard to follow” + Explore-agent audit + plan file at <code>/home/brandon_behring/.claude/plans/let-s-do-1-plan-buzzing-newell.md</code> Phase 2.</li>
+<li><strong>Evidence ledger</strong>: <a href="../EVIDENCE.html"><code>EVIDENCE</code></a> tracks external evidence used in claims.</li>
+<li><strong>Spec lock sheet</strong>: <a href="../SPEC_SHEET.html"><code>SPEC_SHEET</code></a> is the historical Phase-0 fill-in sheet. It is useful for auditing how decisions were locked, not for a first read.</li>
+<li><strong>Submission audit ledger</strong>: <a href="../SUBMISSION_AUDIT.html"><code>SUBMISSION_AUDIT</code></a> is generated from ADR frontmatter. It proves that claims have decision records.</li>
+<li><strong>Assumptions registry</strong>: <a href="../assumptions.html"><code>assumptions</code></a> records load-bearing assumptions and their current interpretation.</li>
+<li><strong>Carryforward log</strong>: <a href="../NEXT_STEPS.html"><code>NEXT_STEPS</code></a> separates completed carryforward work from actual future directions.</li>
 </ul>
 </section>
-<section id="transcript" class="level2">
-<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
-<p>Decisions surfaced during the 2026-05-19 v1.1.1 Quarto-clarity restructure planning session; transcript at <code>transcripts/2026-05-19__v1-1-1-quarto-clarity-restructure.md</code>.</p>
+<section id="historical-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="historical-decisions">Historical decisions</h2>
+<p>The <a href="../decisions/README.html"><code>decisions</code></a> section contains immutable ADRs. Read the index first. Individual ADRs are historical records: later patches clarify the current state around them instead of rewriting their original decision content.</p>
+</section>
+<section id="static-analysis-appendices" class="level2">
+<h2 class="anchored" data-anchor-id="static-analysis-appendices">Static analysis appendices</h2>
+<p>The notebook pages are frozen, rendered HTML appendices. They are there for inspection and reproducibility context; they are not interactive notebooks on the live site.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

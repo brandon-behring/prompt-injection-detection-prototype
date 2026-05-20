@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,6 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +158,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -955,7 +931,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-030-deliverable-format-quarto-html-site.html">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</h1>
 </div>
 
 
@@ -1075,8 +1051,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-0-07__submission-deliverables.md</code> for the conversation that led to this decision (Q1 walk + user Quarto + GH Actions pivot).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1151,57 +1125,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1536,131 +1459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "030"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> deliverable-format-quarto-html-site</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions (supersedes ADR-002)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-030</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-07 supersedes ADR-002 (PDF + repo dual-artifact). The deliverable is a public GitHub repository only — no PDF. The repo's writeup surface is rendered as a static HTML site by Quarto from the existing .md files (WRITEUP.md hub plus WRITEUP/ spokes plus decisions/ ADRs plus a new index.qmd entry-point). The site auto-publishes to GitHub Pages on push to main and on tag push via a .github/workflows/publish.yml workflow using quarto-actions/setup@v2 plus quarto-actions/publish@v2. Output target is HTML only — no PDF auxiliary — to keep the build surface minimal and honor the user's pivot away from PDF. Quarto rendering preserves the hub-and-spoke structure locked by ADR-004 (now superseded by ADR-031) while replacing the PDF hub artefact with the Quarto site's index.qmd plus sidebar navigation. Source format stays .md — Quarto natively renders .md files — so no migration to .qmd is required. Reviewer email at submission carries three URLs — repo tree at submission tag for source pin; live GH Pages site for rendered reading; GH release page for CHANGELOG and asset bundle — plus transcripts as private email attachment per existing convention. The PDF-build pipeline scoped for Phase 5 in ADR-002 is removed; pandoc plus LaTeX dependencies drop out of pyproject.toml plus Makefile. Limitation — Quarto binary dependency adds a build-tool install to the contributor surface; first-time GitHub Pages plus GH Actions setup carries deadline risk that the v0.9.0-rc1 rehearsal tag from ADR-033 explicitly mitigates. Extension condition — if a reviewer requests a PDF post-submission, Quarto can produce one from the same source via format augment in frontmatter; addition requires superseding ADR per the SDD discipline.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Submission ledger row 347 + ADR-002 supersession trigger + Phase 0-07 walk Q1</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> ADR-002 frontmatter status changes from Accepted to Superseded with superseded_by 030; SPEC_GREENFIELD ledger row 300 (Deliverable format) carries a supersession note pointing at ADR-030; SPEC_GREENFIELD ledger row 347 (PDF bundle composition) status changes from open to locked-to-quarto-html-via-gh-actions (see ADR-030, ADR-031); _quarto.yml exists at repo root declaring project type website with output-dir _site and a navbar plus sidebar referencing WRITEUP.md plus the spoke list plus decisions/; .github/workflows/publish.yml exists declaring on push branches main plus tags v* triggers with quarto-actions/setup@v2 plus quarto-actions/publish@v2 target gh-pages and permissions block (contents write plus pages write plus id-token write); GH Pages enablement is configured (Settings then Pages then Source then gh-pages branch); tests/test_invariants.py contains skip-marked stub test_quarto_site_config_present asserting _quarto.yml exists and parses as valid YAML and declares project type website and that .github/workflows/publish.yml exists and references the two quarto-actions steps; SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 7979dc9</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span><span class="co"> "002"</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://quarto.org/docs/websites/</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://quarto.org/docs/publishing/github-pages.html</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/quarto-dev/quarto-actions</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-002-deliverable-format-pdf-and-repo.md</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-001-brief-alignment-tight-calendar-with-fallback-ladder.md</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-027-smoke-vs-canonical-execution-context-stratification.md</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-07__submission-deliverables.md</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-030: Deliverable format — repo-only with Quarto-rendered HTML site via GitHub Actions</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). **Supersedes ADR-002** (PDF + repo dual-artifact). Closes the first of 4 <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> rows in Phase 0-07 (§Submission — rows 347-350 of SPEC_GREENFIELD ledger). Companion to ADR-031 (reviewer reading paths), ADR-032 (HF Hub publication), ADR-033 (GitHub release strategy), and ADR-034 (reproducibility tier).</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>ADR-002 (2026-05-15) locked the deliverable as PDF + public GitHub repo dual-artifact. The PDF was to be rendered from <span class="in">`WRITEUP.md`</span> + selected appendices via pandoc; the repo carried evidence-locker depth.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>During Phase 0-07 walk Q1 (2026-05-16), the user pivoted:</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "I think a pdf is not needed. The repo, can provide the write as a html documentation to hyperlink between the products. But it should have a clear guide/TOC to help someone examine the repo."</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>The pivot is allowed under the brief — ADR-002's own context noted *"The brief is silent on deliverable format; the project must choose"*. The user further clarified they had Quarto specifically in mind for the HTML renderer, conditional on GitHub Actions hosting being available.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>The PDF + repo decision in ADR-002 carried two costs the pivot removes:</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pandoc + LaTeX (<span class="in">`tinytex`</span> or system LaTeX) build pipeline as a Phase 5 work item — non-trivial under ADR-001 tight calendar.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stable-tag PDF→repo cross-link discipline — PDF permalinks need to survive post-submission edits.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Quarto + GH Pages instead provides:</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Native sidebar nav + full-text search + cross-references (<span class="in">`@sec-eval-design`</span>, <span class="in">`@adr-027`</span>) — richer affordance than PDF.</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Single-binary build via <span class="in">`quarto-actions/setup@v2`</span> — no LaTeX surface.</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Auto-publish on push + tag via <span class="in">`quarto-actions/publish@v2`</span> — versioned reviewer URL with <span class="in">`_site/`</span> as build artefact.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All <span class="in">`.md`</span> files render natively — zero migration cost from existing <span class="in">`WRITEUP.md`</span> + <span class="in">`WRITEUP/*.md`</span> + <span class="in">`decisions/ADR-*.md`</span>.</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>The hub-and-spoke pattern locked by ADR-004 (now superseded by ADR-031) survives — the hub artefact shifts from PDF to the Quarto site's <span class="in">`index.qmd`</span> entry-point + sidebar navigation; spokes remain as <span class="in">`WRITEUP/*.md`</span> files reachable from the sidebar.</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>**Deliverable composition**: public GitHub repository **only**. No PDF.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**Rendering**: Quarto static-site renderer. `_quarto.yml` at repo root declares the site configuration. Output target is **HTML only** (<span class="in">`format: html`</span>); no PDF auxiliary.</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>**Source format**: existing <span class="in">`.md`</span> files unchanged. Quarto natively renders <span class="in">`.md`</span> files — no migration to <span class="in">`.qmd`</span> (except <span class="in">`index.qmd`</span> as the new entry-point file).</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>**Hosting**: GitHub Pages via <span class="in">`.github/workflows/publish.yml`</span> workflow using <span class="in">`quarto-actions/setup@v2`</span> + <span class="in">`quarto-actions/publish@v2`</span> with <span class="in">`target: gh-pages`</span>. Triggers on push to <span class="in">`main`</span> (continuous deploy) and on tag push <span class="in">`v*`</span> (per ADR-033 release tags also trigger publish for the canonical-submission build).</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>**Reviewer submission URL plan** (3 URLs + private attachment):</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Source pin — <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0`</span> (canonical submission anchor; never drifts; per ADR-033).</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Live rendered site — <span class="in">`https://brandon-behring.github.io/prompt-injection-detection-prototype/`</span> (reflects latest publish; reviewer reads here).</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>GH release page — <span class="in">`https://github.com/brandon-behring/prompt-injection-detection-prototype/releases/tag/v1.0.0`</span> (carries CHANGELOG.md + <span class="in">`_site.tar.gz`</span> asset for offline readers; per ADR-033).</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Transcripts as private email attachment per existing convention (gitignored, not committed).</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**Removed scope**: PDF build pipeline. <span class="in">`pandoc`</span> and any LaTeX dependencies drop out of <span class="in">`pyproject.toml`</span> and <span class="in">`Makefile`</span>. <span class="in">`make pdf`</span> target (if previously planned) is removed; <span class="in">`make site`</span> target (Quarto render) is added per ADR-027's Makefile pattern.</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Zero pandoc/LaTeX surface** — removes a Phase 5 build-pipeline work item that carried real risk under ADR-001 tight calendar (LaTeX issues on submission day are a classic foot-gun).</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Richer reader affordance** — sidebar nav + full-text search + cross-references that a PDF cannot provide; A2 reviewer can audit specific topics without paging.</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**All artefacts in one browsing surface** — ADRs, transcripts (committed ones), code, configs, writeup spokes all render in the same Quarto site or render natively on GitHub — one click apart.</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Native `.md` rendering** — zero migration cost; <span class="in">`WRITEUP.md`</span> + spokes + ADRs render as-is.</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer URL is a rendered HTML site, not a markdown-source view** — eliminates the "view rendered or view source?" confusion GitHub markdown has.</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Honors the user's explicit pivot** without back-fitting PDF compromises.</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Quarto binary dependency** added to the contributor surface — anyone building the site locally needs Quarto installed (<span class="in">`brew install quarto`</span> or platform equivalent; ~200MB). GH Actions handles this via <span class="in">`quarto-actions/setup@v2`</span> so CI is unaffected.</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**First-time GH Pages + GH Actions setup carries deadline risk** — permissions misconfigs, first-tag-push failures are common foot-guns. ADR-033 explicitly mitigates via the <span class="in">`v0.9.0-rc1`</span> rehearsal tag that fires the publish pipeline before submission day.</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Offline reading is degraded vs PDF** — reviewer reading on a flight needs either <span class="in">`_site.tar.gz`</span> (per ADR-033 release asset) or <span class="in">`git clone + quarto preview`</span> locally. Acceptable trade — most reviewers read online.</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`_site/` build artefact policy** — <span class="in">`_site/`</span> must be <span class="in">`.gitignore`</span>'d (GH Pages serves from <span class="in">`gh-pages`</span> branch; not from <span class="in">`main`</span>). Committing <span class="in">`_site/`</span> to <span class="in">`main`</span> would pollute git history with rendered HTML.</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Quarto version pinning** deferred to Phase 0-08 (library version pinning sub-session). <span class="in">`_quarto.yml`</span> itself doesn't pin Quarto version; the GH Actions <span class="in">`quarto-actions/setup@v2`</span> step pins via the action's input.</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Phase 5 work item shifts** — was "build PDF via pandoc + render WRITEUP.md"; is now "stand up Quarto site + verify GH Pages publish + finalize sidebar nav". Similar order-of-magnitude effort; lower failure surface (Quarto is more predictable than pandoc + LaTeX).</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PDF as future auxiliary remains possible** — Quarto can produce <span class="in">`format: [html, pdf]`</span> from the same source. Addition requires a superseding ADR (per SDD discipline); not scoped here.</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>The Quarto site is rendered HTML. If a reviewer needs paper-form reading or a sealed-PDF audit trail (e.g., for a regulator), the auxiliary-PDF extension is the right answer — but it adds back the LaTeX surface this ADR was explicitly removing. Trade is acceptable for the current reviewer profile (A1 hiring manager + A2 ML researcher per ADR-031).</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reviewer-requested PDF**: if a reviewer asks for a PDF version post-submission, add <span class="in">`format: [html, pdf]`</span> via superseding ADR; Quarto produces both from the same source. The supersession should also re-enable <span class="in">`tinytex`</span> install in CI.</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-grade deployment scope extension**: if the writeup expands to include a deployment-grade artefact, the Quarto site + a deployment-grade companion (Docker container, hosted demo) become joint deliverables via superseding ADR.</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GH Pages publish failure on submission day**: if <span class="in">`quarto publish`</span> fails after <span class="in">`v0.9.0-rc1`</span> rehearsal succeeded, fallback is to commit <span class="in">`_site/`</span> to a <span class="in">`submission-site`</span> branch and point reviewer URL at a raw HTML-Preview URL — fix-forward, not abandon-the-format.</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PDF + repo (the original ADR-002)** — superseded by the user's explicit pivot; build-surface cost was disproportionate to the affordance.</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GitHub-native markdown rendering (no Quarto)** — zero build pipeline; works today via GitHub's native <span class="in">`.md`</span> renderer; user explicitly preferred Quarto's sidebar + search + cross-refs polish over GitHub-native's bare-minimum rendering.</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**MkDocs Material + GH Pages** — similar to Quarto in affordance; user picked Quarto specifically (academic tooling familiarity; cross-ref support).</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Docusaurus / GitBook / Read-the-Docs** — heavier doc-site platforms; overkill for a ~10-15 page methodology writeup; user did not request them.</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Local Quarto render + manual `quarto publish gh-pages`** — no CI; same reviewer URL as the chosen option; user explicitly required GitHub Actions hosting (rules this out).</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HTML + PDF dual-output via Quarto** — adds back the LaTeX surface this ADR removes; user explicitly stated "PDF not needed"; deferred to superseding-ADR extension condition.</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Quarto websites quickstart — https://quarto.org/docs/websites/</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Quarto GitHub Pages publishing — https://quarto.org/docs/publishing/github-pages.html</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`quarto-actions`</span> GitHub Actions — https://github.com/quarto-dev/quarto-actions</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-002 (deliverable format PDF + repo — superseded by this ADR)</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-001 (tight calendar — informs the deadline-risk mitigation via ADR-033 rehearsal tag)</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-027 (Makefile execution-context stratification — <span class="in">`make site`</span> joins the target taxonomy)</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-07__submission-deliverables.md`</span> for the conversation that led to this decision (Q1 walk + user Quarto + GH Actions pivot).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

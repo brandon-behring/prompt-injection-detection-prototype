@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -960,7 +971,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-025-dual-policy-threshold-characterization.html">Dual-policy threshold characterization at symmetric 1% cost weights</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Dual-policy threshold characterization at symmetric 1% cost weights</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Dual-policy threshold characterization at symmetric 1% cost weights</h1>
 </div>
 
 
@@ -1172,8 +1183,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-15__phase-0-05__threshold-policy.md</code> for the Phase 0-05 conversation that led to this decision.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1248,57 +1257,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1633,177 +1591,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 025</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> dual-policy-threshold-characterization</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Dual-policy threshold characterization at symmetric 1% cost weights</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-025</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-05 locks the §4 Threshold ledger row 347 (cost-weight targets) at the per-rung operational level as follows. (1) Numeric cost-weight targets — symmetric 1% on both policy budgets. Detection policy targets FPR ≤ 1% on validation via eval_toolkit.TargetFPRSelector(0.01); Verification policy targets FNR ≤ 1% (equivalently recall ≥ 99%) on validation via eval_toolkit.TargetRecallSelector(0.99). The detection-policy operating point numerically coincides with the recall@FPR=1% headline pinpoint already locked in ADR-021 — the dual-policy framing relabels the existing column with a footnote rather than introducing a new one. (2) Aggregation surface — per-(rung, fold, seed) fitting on the validation split. 4 LODO folds × 3 seeds × 2 policies = 24 thresholds per trained rung; across 4 trained rungs equals 96 threshold-pair instances. Selection variance is propagated via eval_toolkit.paired_bootstrap_op_point_diff (two-level bootstrap — refit threshold on each val resample, apply on test resample, compute paired diff) consistent with ADR-022's per-(seed) threshold protocol. (3) Reporting layout — one new headline column per trained rung — "FPR @ recall ≥ 99%" — for the verification policy; the detection-policy framing is captured by a footnote on the existing recall@FPR=1% column rather than by column duplication; the full dual-policy operating-point grid (4 trained rungs × 2 policies × {pooled-IID + pooled-OOD + 4 per-LODO-fold + 5 per-OOD-slice} aggregation levels — 80 cells per policy) lives in WRITEUP/threshold-policy.md spoke alongside the ≥3 deployment scenarios already mandated by ADR-006. (4) Infeasibility handling — honest reporting plus asterisk flag plus audit JSON. When TargetRecallSelector(0.99) cannot satisfy the recall ≥ 99% constraint on a (rung, fold, seed) val slice, the cell rendering carries an asterisk and the audit emits per-(rung, fold, seed) reachability evidence to evals/audit/verification_reachability.json with target_reachable plus achieved_val_recall plus fallback_threshold plus fallback_test_fpr fields. The methodology spoke gains a "Verification-target reachability across trained rungs" subsection. (5) Persistence pre-commit for post-hoc recall-floor sweeps — ADR-013 per-row val plus test prediction persistence is sufficient for re-fitting at alternative recall floors {95 percent, 99 percent, 99.9 percent} without retraining; pre-bootstrap CIs at the alternative floor regenerate via the existing paired_bootstrap_op_point_diff orchestrator-layer joblib pipeline per ADR-022. The "Recall-floor sensitivity sweep" is a one-commit afterword in WRITEUP/threshold-policy.md if a Phase 5 reviewer requests it. (6) Reference scorers excluded — dual-policy fitting applies only to the 4 trained rungs per SPEC §4 dual-policy applicability lock; the 4 reference rungs report recall@FPR pinpoints only with explicit contamination caveats per ADR-018 plus ADR-006. Cost-weighted thresholding remains rejected per ADR-006 — no CostSensitiveSelector use; the dual-policy framing is two anchor budgets along the ROC curve, not a Bayes-optimal cost-derivation.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §4 Threshold ledger row 347 + Phase 0-05 walk Q1 + Q2 + Q3 + Q4</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 347 carries locked-to-symmetric-1pct-with-honest-feasibility-reporting status (see ADR-025); SPEC_SHEET §5.3 Operating points subsection replaces the locked-pending-numeric-targets phrasing with explicit detection-FPR ≤ 1% plus verification-FNR ≤ 1% (equivalently recall ≥ 99 percent) plus selector-primitive-name plus aggregation-surface-name; SPEC_SHEET §5.1 primary descriptive metrics adds "FPR @ recall ≥ 99 percent" as the verification-policy column on trained rungs only with footnote on the existing recall@FPR=1% column tagging it as the detection-policy operating point; WRITEUP/threshold-policy.md spoke gains "Dual-policy operating-point grid" subsection (per-(rung, fold, seed) cells with paired_bootstrap_op_point_diff CIs at all aggregation levels) plus "Verification-target reachability across trained rungs" subsection plus optional "Recall-floor sensitivity sweep" afterword; decisions/library_imports.md eval-toolkit section gains TargetFPRSelector plus TargetRecallSelector plus paired_bootstrap_op_point_diff plus metrics_at_threshold entries; assumptions.md A-009 added (severity medium) documenting the verification-target reachability assumption with reachability JSON as load-bearing audit surface; tests/test_invariants.py contains skip-marked stub test_dual_policy_threshold_pairing asserting (a) per-(rung, fold, seed) selector fitting on val + test-application + paired_bootstrap_op_point_diff CI propagation; (b) only trained rungs participate (reference rungs excluded); (c) detection threshold equals TargetFPRSelector(0.01) and verification threshold equals TargetRecallSelector(0.99); tests/test_invariants.py contains skip-marked stub test_verification_reachability_audit asserting evals/audit/verification_reachability.json schema (per-(rung, fold, seed) entries with target_reachable plus achieved_val_recall plus fallback_threshold plus fallback_test_fpr fields) and that unreachable cells carry the asterisk flag in headline emit.</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> e335739</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/eval-toolkit#readme  # eval-toolkit README (per ADR-068: original `blob/main/docs/methodology/thresholds.md` ref pointed at aspirational upstream docs that do not exist)</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/1402.1892</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2405.14478</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://arxiv.org/abs/2410.22770</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.cs.iastate.edu/~honavar/elkan.pdf</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-022-statistical-inference-apparatus.md</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-methodology-principles.md</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-05__threshold-policy.md</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-025: Dual-policy threshold characterization at symmetric 1% cost weights</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). Closes the last <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> row in SPEC_GREENFIELD §4 Threshold (row 347 — Cost-weight targets). Anchored on pre-locks from ADR-006 (rejection of cost-weighted thresholding plus scenario-based replacement) plus SPEC §4 dual-policy framing plus SPEC §4 dual-policy applicability lock plus ADR-022 per-(seed) threshold protocol plus ADR-021 recall@FPR pinpoint triad.</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>ADR-006 pre-locked the threshold-handling stance — cost-weighted thresholding rejected as false precision, replaced by qualitative scenario discussion in <span class="in">`WRITEUP/threshold-policy.md`</span> covering ≥3 deployment scenarios. SPEC §4 then locked the *framing* — same scores serve two operational contexts (Detection — catch injections, FN-expensive; Verification — confirm clean text, FP-expensive) under different cost weights, with selection on validation only via eval-toolkit's <span class="in">`ThresholdSelector`</span> protocol.</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>What remained genuinely <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> at row 347 was the numeric values for the two policy budgets (FPR target for detection; FNR target for verification), the aggregation surface for selector fitting, the headline-vs-spoke reporting layout, and the protocol for handling per-rung infeasibility when targets are unreachable on a val slice.</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>eval-toolkit primitives confirmed at decision time (fresh-investigation per CLAUDE.md):</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`TargetFPRSelector(t_fpr).select(y_val, s_val)`</span> — picks smallest threshold s.t. FPR(val) ≤ t_fpr → max recall(val) feasible point (<span class="in">`/home/brandon_behring/Claude/eval-toolkit/src/eval_toolkit/thresholds.py:109`</span>)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`TargetRecallSelector(r_target).select(y_val, s_val)`</span> — picks highest threshold s.t. recall(val) ≥ r_target → min FPR(val) feasible point — Lipton-Elkan 2014 §3 most-precise convention (<span class="in">`/home/brandon_behring/Claude/eval-toolkit/src/eval_toolkit/thresholds.py:71`</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`paired_bootstrap_op_point_diff(val_y, val_score_a, val_score_b, test_y, test_score_a, test_score_b, threshold_fn, metric_fn, n_resamples, seed)`</span> — two-level bootstrap (refit threshold per val resample, apply on test resample, compute paired diff) — purpose-built for the per-(seed) refit-per-resample protocol (<span class="in">`/home/brandon_behring/Claude/eval-toolkit/docs/methodology/thresholds.md:181-218`</span>)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`CostSensitiveSelector`</span> — explicitly *not* used per ADR-006 cost-weighted-thresholding rejection</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1 — Numeric cost-weight targets (ledger row 347)</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>**Symmetric 1% on both policy budgets.**</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Policy <span class="pp">|</span> Budget <span class="pp">|</span> Selector primitive <span class="pp">|</span> Operational reading <span class="pp">|</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Detection** <span class="pp">|</span> FPR ≤ 1% on validation <span class="pp">|</span> <span class="in">`TargetFPRSelector(0.01)`</span> <span class="pp">|</span> "Catch as many injections as possible while keeping false-alarm rate at or below 1%" <span class="pp">|</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Verification** <span class="pp">|</span> FNR ≤ 1% on validation (equivalently recall ≥ 99%) <span class="pp">|</span> <span class="in">`TargetRecallSelector(0.99)`</span> <span class="pp">|</span> "Flag as little clean text as possible while missing at most 1% of injections" <span class="pp">|</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>Symmetry rationale — (a) the detection-policy operating point coincides numerically with the recall@FPR=1% headline pinpoint locked in ADR-021, so headline integration is free (relabel-in-place footnote, not a new column); (b) symmetric framing keeps the WRITEUP narrative readable as "two budget orientations on a shared 1% cost weight" with no asymmetric-rationale paragraph required; (c) matches eval-toolkit <span class="in">`methodology/thresholds.md`</span> documented default and SPEC §4 default-if-unsure; (d) PromptShield 2024-2025 precedent uses FPR=1% as the canonical operating point on the detection side.</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2 — Aggregation surface (per-(rung, fold, seed))</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>**Per-(rung, fold, seed) selector fitting on the validation split.** 4 LODO folds × 3 seeds × 2 policies = 24 thresholds per trained rung; 96 threshold-pair instances total across 4 trained rungs. Selection variance is propagated via <span class="in">`paired_bootstrap_op_point_diff`</span> two-level bootstrap consistent with ADR-022's per-(seed) threshold protocol for recall@FPR pinpoints.</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>eval-toolkit <span class="in">`methodology/thresholds.md`</span> §"When to refit threshold per bootstrap resample" justifies the two-level approach when "threshold-selection rule has meaningful variance (small slices, noisy PR curves) AND you're reporting operating-point metrics." Per-fold val n ≈ 250-1300 rows is exactly that regime.</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>Reference scorers (4 untrained rungs — ProtectAI v1 + v2 + gpt-4o + claude-sonnet-4-6) are excluded from dual-policy fitting per SPEC §4 dual-policy applicability lock; they report recall@FPR pinpoints only with contamination caveats per ADR-018.</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3 — Reporting layout (1 new headline column + relabel + spoke grid)</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>**Headline footprint** per trained rung after Phase 0-05 close:</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="in">| Rung | AUPRC | AUROC | R@FPR=0.1%* | R@FPR=1%† | R@FPR=5% | FPR@R≥99%† | ECE | Brier |</span></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>Where:</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`*`</span> (carried over from ADR-021) — volatility-flagged 0.1% pinpoint at pooled aggregation only</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`†`</span> (new in ADR-025) — dual-policy operating points (detection on R@FPR=1%; verification on FPR@R≥99%)</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>The detection-policy column collapses to the existing recall@FPR=1% pinpoint (no new data, just a footnote labeling it as the detection-policy operating point per ADR-025); the verification-policy column is one *new* column ("FPR @ recall ≥ 99%") per trained rung — total 4 new headline cells (one per trained rung × 1 column). Reference rungs receive blank cells in this column with footnote pointing to the dual-policy applicability lock.</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>**Spoke** at <span class="in">`WRITEUP/threshold-policy.md`</span> carries:</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Dual-policy framing explainer (Detection vs Verification budgets; same scores, two anchor operating points along the ROC curve)</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Dual-policy operating-point grid** — 4 trained rungs × 2 policies × {pooled-IID + pooled-OOD + 4 per-LODO-fold + 5 per-OOD-slice} aggregation levels = 80 cells per policy, with paired_bootstrap_op_point_diff CIs at every cell</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Verification-target reachability across trained rungs** subsection (Q4 surface)</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>≥3 deployment scenarios per ADR-006 (e.g., agentic tool-use with catastrophic-miss cost; user-facing chat with friction-dominant cost; throughput-dominant triage)</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Reference-scorer caveat — dual-policy doesn't apply per SPEC §4 lock; reference rungs report recall@FPR pinpoints only</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**Recall-floor sensitivity sweep** afterword (optional Phase 5 deliverable; pre-committed via Q4 persistence pre-commit; covered in Consequences below)</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4 — Infeasibility handling (honest reporting + audit JSON + spoke subsection + persistence pre-commit)</span></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>When <span class="in">`TargetRecallSelector(0.99)`</span> cannot satisfy recall ≥ 99% on a (rung, fold, seed) val slice (PR-curve too noisy, plateau below 99%, or score quantization gaps), the reporting protocol pre-commits four surfaces:</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Surface <span class="pp">|</span> Implementation <span class="pp">|</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cell rendering <span class="pp">|</span> Asterisk (<span class="in">`*`</span>) on cells where target unreachable <span class="pp">|</span></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Footnote <span class="pp">|</span> "Cells marked * indicate the verification target (recall ≥ 99%) was unreachable on the val slice; threshold falls back to the lowest available; achieved val-recall is reported in evals/audit/verification_reachability.json" <span class="pp">|</span></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Audit JSON <span class="pp">|</span> <span class="in">`evals/audit/verification_reachability.json`</span> with per-(rung, fold, seed) entries containing <span class="in">`target_reachable`</span> (bool), <span class="in">`target_recall`</span> (0.99), <span class="in">`achieved_val_recall`</span> (float), <span class="in">`fallback_threshold`</span> (float), <span class="in">`fallback_test_fpr`</span> (float) <span class="pp">|</span></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Spoke subsection <span class="pp">|</span> "Verification-target reachability across trained rungs" — surfaces per-rung reachability rate as a cross-rung comparison artifact <span class="pp">|</span></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>Audit JSON schema:</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&lt;rung_id&gt;"</span><span class="op">:</span> {</span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;fold_id&gt;"</span><span class="op">:</span> {</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;seed&gt;"</span><span class="op">:</span> {</span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>        <span class="st">"target_reachable"</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>        <span class="st">"target_recall"</span><span class="op">:</span> <span class="fl">0.99</span><span class="op">,</span></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>        <span class="st">"achieved_val_recall"</span><span class="op">:</span> <span class="fl">0.974</span><span class="op">,</span></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fallback_threshold"</span><span class="op">:</span> <span class="fl">0.412</span><span class="op">,</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fallback_test_fpr"</span><span class="op">:</span> <span class="fl">0.083</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>**Persistence pre-commit for post-hoc recall-floor sweeps.** ADR-013 already locks per-row val + test prediction persistence per (rung, fold, seed). Switching from recall ≥ 99% to recall ≥ 95% (or any other floor) is a re-run of <span class="in">`TargetRecallSelector(t').select(y_val, s_val)`</span> on the persisted predictions, with no retraining, no re-fitting calibrators, no new GPU time. Pre-bootstrap CIs at the alternative floor regenerate via the existing <span class="in">`paired_bootstrap_op_point_diff`</span> orchestrator-layer joblib pipeline per ADR-022. The "Recall-floor sensitivity sweep" becomes a one-commit afterword in <span class="in">`WRITEUP/threshold-policy.md`</span> if needed during Phase 5 review — pre-committed sweep grid is recall floors {95%, 99%, 99.9%} (mirror of ADR-021's recall@FPR pinpoint triad in FNR space).</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Closes the last open ledger row in §4 Threshold; SPEC §4 fully locked at row level</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Aligns with ADR-006 cost-weighted-thresholding rejection (no <span class="in">`CostSensitiveSelector`</span>); dual-policy is two anchor budgets along the ROC curve, not a Bayes-optimal cost derivation</span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Detection-policy column reuses the ADR-021 recall@FPR=1% pinpoint — zero new headline data on the detection side; +1 verification column total</span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Symmetric 1% targets keep the WRITEUP narrative readable; no asymmetric-rationale paragraph</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-(rung, fold, seed) aggregation maintains methodology coherence with ADR-022 (same per-(seed) threshold protocol as recall@FPR pinpoints)</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Honest infeasibility reporting via asterisk + audit JSON mirrors ADR-021's recall@FPR=0.1% volatility-surfacing pattern; treats verification reachability rate as a methodology contribution rather than a hidden caveat</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Persistence pre-commit makes recall-floor sensitivity sweeps a free post-hoc artifact; protects against a Phase 5 reviewer asking "what about 95%?" without requiring rework</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Library-first preserved end-to-end: <span class="in">`TargetFPRSelector`</span> + <span class="in">`TargetRecallSelector`</span> + <span class="in">`paired_bootstrap_op_point_diff`</span> + <span class="in">`metrics_at_threshold`</span> all shipped in eval-toolkit; project-specific glue is the per-(rung, fold, seed) orchestration loop and the audit-JSON emission layer</span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Headline table widens by one column on trained rungs (+1 column × 4 trained rungs); spoke gains a new <span class="in">`WRITEUP/threshold-policy.md`</span> deliverable with 80 cells × 2 policies plus reachability subsection plus deployment scenarios</span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reference-scorer rows in headline table carry blank cells under the verification column with footnote — slight asymmetry between trained-rung and reference-rung headline rows</span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>96 paired_bootstrap_op_point_diff invocations during Phase 4 bootstrap battery (4 trained rungs × 24 threshold pairs); orchestrator-layer joblib parallelization on 64-core Threadripper per ADR-022 absorbs the cost</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Verification-target reachability is rung-dependent and not guaranteed (see assumption A-009); some rungs may carry mostly asterisks under the verification column</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>≥3 deployment scenarios from ADR-006 are co-located in <span class="in">`WRITEUP/threshold-policy.md`</span> with the dual-policy operating-point grid — single spoke artifact</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cost-weighted thresholding stays rejected; dual-policy framing operates entirely on the FPR / recall axis, not on a fabricated cost ratio</span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Detection-policy headline column relabel (footnote on existing recall@FPR=1% cell) is reversible — if a reviewer challenges the relabel, splitting it into a duplicated standalone column is one commit with zero data movement</span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Symmetric 5% targets** — looser detection budget; rejected because 5% FNR verifier is operationally weak (misses 1/20 injections) and 5% FPR detector floods alerts beyond the canonical PromptShield precedent</span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Asymmetric (1% / 0.1%)** — verification stricter to mirror "verification is the precision-biased policy" deployment intuition; rejected because asymmetry needs a justification paragraph and 99.9% recall floor is unreachable on most rungs</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Symmetric triad (mirror of recall@FPR triad)** — full ROC-curve characterization at 6 pinpoints; rejected because detection-side triad is already locked in ADR-021 (numerical redundancy) and verification-side triad multiplies headline width without proportional methodology gain — kept as an *afterword* sweep via the Q4 persistence pre-commit</span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No new headline column (full dual-policy table only in spoke)** — minimal headline footprint; rejected because the verification-policy column is genuinely new headline information (FPR @ recall ≥ 99% is not in ADR-021's pinpoints) and hiding it from A1 reviewer defeats the dual-policy framing purpose</span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Step-down sequence on infeasibility (try 99% → 95% → max-achievable)** — apparent flexibility; rejected because cell-by-cell tier labels make paired-Δ comparisons across rungs incoherent (same column carries different operating points)</span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Drop the cell on infeasibility** — apparent simplicity; rejected because aggregating only feasible-rung instances introduces selection bias in pooled aggregations</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-rung pooled-validation fitting (8 thresholds total instead of 96)** — simpler; rejected because mismatches ADR-022's per-(seed) protocol and prevents <span class="in">`paired_bootstrap_op_point_diff`</span> two-level CI propagation</span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 1 deliverables</span></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`WRITEUP/threshold-policy.md`</span> spoke filename pre-committed (already on the spoke list per ADR-006); now extended to carry the dual-policy operating-point grid + verification-reachability subsection + recall-floor sensitivity sweep afterword</span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`evals/audit/verification_reachability.json`</span> schema documented in <span class="in">`evals/audit/README.md`</span></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Verify <span class="in">`TargetRecallSelector`</span> source-level unreachable-target behavior at Phase 4 entry (one library check; if the selector raises rather than falls back to lowest threshold, glue wraps in try/except and emits the audit row from the exception path)</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>See frontmatter references list. Primary anchors — eval-toolkit <span class="in">`methodology/thresholds.md`</span> (selector semantics + two-level bootstrap rationale); Lipton-Elkan-Naryanaswamy 2014 (TargetRecallSelector most-precise convention); PromptShield 2024-2025 (FPR=1% canonical operating point); InjecGuard 2024 (over-defense FPR-floor framing); Elkan 2001 (cost-sensitive learning theory we are *not* applying); ADR-006 cost-weighted-thresholding rejection; ADR-013 per-row prediction persistence; ADR-018 reference-scorer slate plus contamination caveats; ADR-021 recall@FPR pinpoint triad plus volatility-surfacing precedent; ADR-022 per-(seed) threshold protocol plus paired-bootstrap orchestration; ADR-005 Principle 2 (honest evaluation preferred).</span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-15__phase-0-05__threshold-policy.md`</span> for the Phase 0-05 conversation that led to this decision.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

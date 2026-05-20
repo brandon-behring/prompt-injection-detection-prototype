@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -957,7 +968,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.html">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</h1>
 </div>
 
 
@@ -1152,8 +1163,6 @@ else:
 <p>See <code>transcripts/2026-05-16__phase-1-implementation.md</code> for the conversation that led to this decision.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1228,57 +1237,6 @@ else:
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1613,148 +1571,7 @@ else:
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "042"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> llm-prelabel-dedup-holdout-bootstrap</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-042</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> ADR-041 Q5 locks Brandon-hand-labeled 50-pair stratified-cosine-band holdout as the dedup calibration ground truth (option A; option D LLM-judge labels was explicitly rejected because judge prior may contaminate calibration). ADR-042 refines (does not supersede) Q5 with a labeling-workflow bootstrap — gpt-4o-2024-08-06 produces a preliminary llm_judge_label per pair plus llm_judge_reasoning rationale plus llm_judge_model snapshot identifier; Brandon hand-examines each pair and either confirms (sets human_label equals llm_judge_label) or overrides (sets human_label to the corrected truth). The calibration script resolves the effective true_duplicate via priority order — human_label takes precedence when non-null else falls back to llm_judge_label. The calibration JSON discloses label_provenance with human_verified_count plus llm_judge_only_count plus human_verified_pct plus llm_judge_model so reviewers can read off exactly which fraction of labels carry human verification. The ground-truth methodology stays Brandon-hand-labeled-when-possible — the LLM bootstrap only fills in initial values that humans review; this preserves ADR-041 Q5's rejection of pure-LLM-judge labeling while accelerating the labeling workflow. The choice of gpt-4o-2024-08-06 matches the snapshot pinned by ADR-018 for the headline LLM-as-rater (consistency across the LLM-judge usage surface).</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> User request to use OpenAI judge bootstrap on Phase 1 Commit 3 holdout (post-build_dedup_holdout.py run)</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> scripts/llm_prelabel_dedup_holdout.py exists at repo root and accepts OPENAI_API_KEY via environment plus writes llm_judge_label plus llm_judge_reasoning plus llm_judge_model fields per pair to data/dedup_holdout.jsonl; scripts/calibrate_dedup.py resolves true_duplicate via priority order human_label greater-than llm_judge_label plus persists label_provenance disclosure block in evals/dedup_calibration.json; .env.local is gitignored and accepted by the script via os.environ.get(OPENAI_API_KEY); openai&gt;=1.50 added to pyproject.toml dependencies.</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> df72b01</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-041-phase-1-data-implementation-bundle.md</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-018-llm-judge-and-reference-rung-pins.md</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-035-secrets-management-three-store-split.md</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://platform.openai.com/docs/models/gpt-4o</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-1-implementation.md</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-042: LLM-judge pre-label as Q5 holdout-labeling bootstrap with human override</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16).</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>Phase 1 Commit 3 landed the dedup pipeline per ADR-016 Q4 + ADR-041 Q5 — including the 50-pair stratified-cosine-band holdout builder (<span class="in">`scripts/build_dedup_holdout.py`</span>) and the calibration script (<span class="in">`scripts/calibrate_dedup.py`</span>). ADR-041 Q5 locked option A (Brandon hand-labels each of 50 candidate pairs) and explicitly rejected option D (LLM-judge labels 100 pairs plus Brandon spot-checks 20) on the grounds that the judge prior could contaminate the calibration and that near-duplicate judgment quality on LLM judges is unknown.</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>Operationally, however, hand-labeling 50 pairs of prompt-injection texts via cold-start visual inspection imposes approximately 1-2 hours of researcher time. User flagged a pragmatic acceleration — let an LLM judge produce a preliminary label per pair so the researcher's hand-examination becomes an *override* pass rather than a *from-scratch* pass.</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>The methodological tension to resolve: how to accelerate without sacrificing the rigor that ADR-041 Q5 locked. The answer landed on a layered-provenance design — both labels persist; humans win where present; calibration discloses the labeling provenance fraction.</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bootstrap workflow</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="in">build_dedup_holdout.py  -&gt;  llm_prelabel_dedup_holdout.py  -&gt;  Brandon reviews  -&gt;  calibrate_dedup.py</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="in">(generates 50 candidates)   (sets llm_judge_label)            (sets human_label)    (resolves + persists)</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### Per-pair fields persisted to `data/dedup_holdout.jsonl`</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Type <span class="pp">|</span> Set by <span class="pp">|</span> Notes <span class="pp">|</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|---|</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pair_id`</span> <span class="pp">|</span> int <span class="pp">|</span> builder <span class="pp">|</span> unique ID <span class="pp">|</span></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`text_a`</span>, <span class="in">`text_b`</span>, <span class="in">`idx_a`</span>, <span class="in">`idx_b`</span>, <span class="in">`source_a`</span>, <span class="in">`source_b`</span>, <span class="in">`cosine`</span>, <span class="in">`band`</span> <span class="pp">|</span> various <span class="pp">|</span> builder <span class="pp">|</span> candidate-pair payload <span class="pp">|</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`llm_judge_label`</span> <span class="pp">|</span> bool or null <span class="pp">|</span> prelabel script <span class="pp">|</span> gpt-4o-2024-08-06 verdict <span class="pp">|</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`llm_judge_reasoning`</span> <span class="pp">|</span> str <span class="pp">|</span> prelabel script <span class="pp">|</span> one-sentence rationale (max ~250 chars) <span class="pp">|</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`llm_judge_model`</span> <span class="pp">|</span> str <span class="pp">|</span> prelabel script <span class="pp">|</span> snapshot identifier (<span class="in">`gpt-4o-2024-08-06`</span>) <span class="pp">|</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`human_label`</span> <span class="pp">|</span> bool or null <span class="pp">|</span> Brandon (manual) <span class="pp">|</span> null = not yet reviewed <span class="pp">|</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`true_duplicate`</span> <span class="pp">|</span> bool <span class="pp">|</span> calibrate script <span class="pp">|</span> resolved via priority (see below) <span class="pp">|</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Label-resolution rule (calibrate-time)</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">if human_label is not None:</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="in">    true_duplicate = human_label</span></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="in">    provenance = "human"</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="in">elif llm_judge_label is not None:</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="in">    true_duplicate = llm_judge_label</span></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="in">    provenance = "llm_judge"</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="in">else:</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="in">    HoldoutNotLabeledError</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calibration JSON disclosure (`evals/dedup_calibration.json`)</span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>The calibration JSON gains a top-level <span class="in">`label_provenance`</span> block:</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>  <span class="st">"label_provenance"</span><span class="op">:</span> {</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="st">"human_verified_count"</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"llm_judge_only_count"</span><span class="op">:</span> <span class="dv">38</span><span class="op">,</span></span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">"human_verified_pct"</span><span class="op">:</span> <span class="fl">24.0</span><span class="op">,</span></span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"llm_judge_model"</span><span class="op">:</span> <span class="st">"gpt-4o-2024-08-06"</span></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>This block lets reviewers read off exactly which fraction of the 50 labels carries human verification vs LLM-judge only. The eventual goal is <span class="in">`human_verified_pct = 100.0`</span> once Brandon's hand-examination completes; the bootstrap state permits a calibration run at lower verification (preliminary; flagged in the calibration JSON).</span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### Judge model + parameters</span></span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Model — <span class="in">`gpt-4o-2024-08-06`</span> (matches ADR-018 LLM-as-rater snapshot for consistency across the LLM-judge usage surface).</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Temperature — 0.0 (deterministic judgments).</span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Response format — JSON object <span class="in">`{is_duplicate: bool, reasoning: str}`</span>.</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>max_tokens — 300 (typical responses &lt;100 tokens).</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Retry policy — exponential backoff 3 attempts; failures recorded with <span class="in">`llm_judge_label: null`</span> plus <span class="in">`FAILED:`</span> reasoning text.</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cost envelope</span></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>Approximately $0.0025 per pair at 2026-05 OpenAI pricing for gpt-4o-2024-08-06; 50 pairs ~= $0.12 total. Well below the ADR-016 compute envelope ($60-115).</span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Key invariant — methodology is still hand-labeled</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>The ground-truth labeling methodology stays Brandon-hand-labeled — the LLM bootstrap is a UI affordance that fills in initial values for the researcher's review. Brandon's <span class="in">`human_label`</span> is the authoritative ground truth wherever set. The calibration JSON's <span class="in">`human_verified_pct`</span> discloses to the reviewer exactly how much of the calibration is human-verified.</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>**Positive:**</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Acceleration — researcher labeling time approximately halves; LLM-pre-label makes each pair a fast review-and-confirm rather than a from-scratch decision.</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provenance preserved — <span class="in">`llm_judge_label`</span> + <span class="in">`human_label`</span> persist as separate fields; calibration JSON discloses the split.</span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-018 LLM-judge usage gets a small dogfood — same model snapshot used for headline rating gets exercised on the dedup-judgment task; any quality issues surface early.</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Re-runnable — if Brandon overrides many LLM labels, the calibration JSON's <span class="in">`human_verified_pct`</span> rises; calibration regenerates trivially.</span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Compatible with ADR-041 Q5 strict option A — when <span class="in">`human_verified_pct = 100`</span>, the LLM-pre-label is effectively just initial UI state that was always overwritten; no methodology compromise.</span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>**Negative / cost:**</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Additional dep — <span class="in">`openai&gt;=1.50`</span> enters <span class="in">`pyproject.toml`</span>; openai SDK adds approximately 5MB. Acceptable.</span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cost — approximately $0.12 for 50 pairs; trivial vs total budget.</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Risk of researcher confirmation bias — if the LLM's preliminary label biases Brandon's judgment, the hand-examination becomes less independent. Mitigation — <span class="in">`llm_judge_reasoning`</span> is shown alongside the label so Brandon evaluates the reasoning + can spot weak LLM justifications.</span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Risk of low <span class="in">`human_verified_pct`</span> at submission — if Brandon does not hand-examine all 50 before submission, the calibration JSON ships with disclosure <span class="in">`human_verified_pct &lt; 100`</span> and reviewer may flag. Mitigation — submission-readiness gate 1 (zero <span class="in">`[OPEN]`</span> in SPEC_SHEET) is checked at v1.0.0 tag; SPEC_SHEET §3.5 status row tracks Phase 1 Commit 3 close including holdout-labeling completeness.</span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>**Neutral:**</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-041 Q5 remains the authoritative locked methodology; ADR-042 is a tooling refinement that operates within Q5.</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The 0.80 threshold + the MiniLM encoder + the stratified-cosine-band sampling structure are unchanged.</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pure ADR-041 Q5 option A (no LLM bootstrap)**: rejected for this iteration as the user explicitly requested LLM-pre-label acceleration; ADR-041 Q5's methodology is preserved via the human-override + provenance-disclosure design.</span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Pure LLM-judge labeling (no human override) per ADR-041 Q5 option D**: rejected — same rationale ADR-041 Q5 used; pure LLM labels carry judge-prior contamination risk.</span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Human-only labeling with LLM as second opinion (inverse provenance priority)**: rejected — would require Brandon to label from scratch first; defeats the acceleration purpose.</span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Different judge model (gpt-4o-mini-2024-07-18, o1-mini)**: rejected for this iteration — gpt-4o-2024-08-06 matches the ADR-018 snapshot for consistency. Cheaper or smarter alternatives can be explored as a future-work axis if the judge quality surfaces issues.</span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 (data design bundle — dedup encoder + threshold locks)</span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-018 (LLM-judge and reference-rung pins — <span class="in">`gpt-4o-2024-08-06`</span> snapshot)</span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-035 (secrets management — <span class="in">`OPENAI_API_KEY`</span> env-var discovery)</span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-041 (Phase 1 implementation bundle — Q5 stratified-cosine-band holdout)</span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>OpenAI gpt-4o model card — https://platform.openai.com/docs/models/gpt-4o</span>
-<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-1-implementation.md`</span> for the conversation that led to this decision.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

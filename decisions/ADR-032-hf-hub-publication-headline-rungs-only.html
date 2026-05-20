@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -955,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-032-hf-hub-publication-headline-rungs-only.html">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</h1>
 </div>
 
 
@@ -1140,8 +1151,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-0-07__submission-deliverables.md</code> for the conversation that led to this decision (Q2 walk + option C selection).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1216,57 +1225,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1601,170 +1559,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "032"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> hf-hub-publication-headline-rungs-only</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-032</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-07 locks SPEC_GREENFIELD ledger row 348 (HF Hub checkpoint publication) by publishing the primary headline rungs only (Option C of the Phase 0-07 Q2 walk) — typically 2-4 trained checkpoints corresponding to the rungs the writeup leads with, NOT every ablation rung. Reference scorers (per ADR-018 — protectai/deberta-v3-base-prompt-injection plus the rest of the reference slate) are NOT republished since they are already public artefacts authored by others. The proposed publication set at lock time — final composition revisitable at Phase 5 once the rung ladder settles — is BBehring/prompt-injection-modernbert-frozen-probe (frozen-probe baseline) plus BBehring/prompt-injection-modernbert-lora (LoRA-best rung per ADR-019) plus conditionally BBehring/prompt-injection-modernbert-fullft (full-FT-best rung if promoted to headline status per ADR-019 final composition) plus conditionally BBehring/prompt-injection-tfidf-lr-classical-floor (per ADR-017 classical floor rung if included in headline narrative). TF-IDF + LR rung publication is conditional because sklearn-pipeline serialization to HF Hub is less standardized than transformers checkpoints; Phase 5 work item — assess whether joblib pickle plus a model-card-only repo is sufficient or whether the rung stays unpublished. Naming convention — BBehring/prompt-injection-&lt;rung-name&gt; (lowercase, kebab-case after the prompt-injection prefix). Model cards conform to HF Hub model-card YAML frontmatter schema — license (apache-2.0 inherited from ModernBERT-base) plus tags (text-classification, prompt-injection, safety) plus datasets (HF dataset IDs at the pinned SHAs per ADR-016) plus model-index.results (per-rung headline metrics from results.json with the pooled-OOD column per ADR-021) plus intended use (research and methodology characterisation; NOT production deployment per ADR-005) plus limitations (link back to WRITEUP/limitations-and-future-work.md) plus citation (repo URL at submission tag plus author plus date). Each model card README is generated mechanically from the writeup spokes plus results.json at Phase 5 (not hand-written per checkpoint) via a scripts/generate_model_cards.py orchestrator that takes the published-rung list as input. HF Hub authentication for the publication push uses the standard huggingface_hub token discovery mechanism (env var HF_TOKEN plus ~/.cache/huggingface/token) — secrets management discipline deferred to Phase 0-08. The publication step runs once per rung at Phase 5 close (before the v1.0.0 submission tag per ADR-033) and is gated by the v0.9.0-rc1 rehearsal tag — at least one rung must publish successfully to HF Hub before the rehearsal tag is considered passed. Limitation — published checkpoints can be probed offline for adversarial blind-spot discovery (acceptable for a methodology submission scope per ADR-005; would be unacceptable for a deployed defensive classifier). Extension condition — if the Phase 3 rung ladder produces additional ablation rungs that materially shape the writeup narrative (e.g., a specific rung that demonstrates a critical failure mode), promote that rung into the publication set via Phase 5 ADR amendment without superseding this ADR (the discipline is locked; the exact list is provisional).</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Submission ledger row 348 + Phase 0-07 walk Q2</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 348 carries locked-to-publish-headline-rungs-only-with-model-card-discipline status (see ADR-032); decisions/library_imports.md notes huggingface_hub as a runtime dependency for the publication step (already noted upstream from ADR-013 and ADR-016 but the publication-side use is new); a placeholder Phase 5 work item is captured in assumptions.md or a Phase 5 checklist file noting that scripts/generate_model_cards.py and the publication push are required before the v1.0.0 submission tag; tests/test_invariants.py contains skip-marked stub test_hf_hub_publication_naming_convention asserting that any published model repo follows the BBehring/prompt-injection-&lt;rung-name&gt; pattern (verified at Phase 5 close via huggingface_hub.HfApi().list_repos with author BBehring filter) plus skip-marked stub test_model_card_schema_complete asserting that each published rung's model card README YAML frontmatter contains the required keys (license, tags, datasets, model-index, intended use, limitations, citation); SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 7979dc9</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/hub/models-uploading</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/hub/model-cards</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/answerdotai/ModernBERT-base</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-016-data-design-bundle.md</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-lora-and-transformer-training-recipe.md</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-project-level-methodology-principles.md</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-07__submission-deliverables.md</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-032: HF Hub checkpoint publication — publish primary headline rungs only with model card discipline</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Closes the second of 4 <span class="co">[</span><span class="ot">OPEN</span><span class="co">]</span> rows in Phase 0-07 (§Submission — row 348). Companion to ADR-030 (deliverable format), ADR-031 (reading paths), ADR-033 (release strategy), and ADR-034 (reproducibility tier; T0 tier directly depends on this ADR's published checkpoints).</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>ADR-013 (cache location) established HF Hub as the *persistence* sink for trained checkpoints — weights end up on HF Hub regardless of publication choice. Ledger row 348 decides whether those checkpoints are **publicly published** (a `BBehring/&lt;rung&gt;` model repo with a model card, downloadable by anyone) or **kept private** (a <span class="in">`BBehring/private-&lt;rung&gt;`</span> repo, only the maintainer can fetch).</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>Public publication is asymmetric:</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reproducibility unlock**: a reviewer can run <span class="in">`AutoModel.from_pretrained("BBehring/prompt-injection-modernbert-lora")`</span> + an eval pass and verify scores match the per-row predictions in the repo, without re-training. This is the *foundation* of ADR-034's T0 (eval-from-hub) reproducibility tier.</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Disclosure surface**: a publicly downloadable classifier can be probed offline for blind spots — an attacker could craft adversarial inputs against the *exact* model. For a **methodology submission** (per ADR-005 "deployment is not on the roadmap"), this risk is acceptable; for a deployed defensive classifier, it would not be.</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Time cost**: each publication = <span class="in">`huggingface_hub`</span> push + a model card README + license/intended-use/eval-results metadata. ~15-30 min per checkpoint done properly.</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>The rung ladder per ADR-007 + ADR-015 + ADR-017 + ADR-019 includes:</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>1 TF-IDF + LR classical floor rung (ADR-017)</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>3 ModernBERT-base trained rungs: frozen-probe baseline, LoRA, full-FT (ADR-019)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>4 reference scorers per ADR-018 — already public elsewhere, NOT republished</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>Four publication options were considered (per Q2 walk):</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(A) No publication; checkpoints private. Defeats T0 reproducibility tier.</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(B) Publish all trained rungs. 4-6× publication time; ablation rungs add maintenance surface.</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(C) Publish primary headline rungs only. ~2-4 checkpoints; bounded time; narrative-aligned.</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(D) Single canonical "best" checkpoint. Contradicts ADR-005 + characterisation framing — picking a single "best" is a deployment recommendation; the methodology refuses to make one.</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>User selection at Phase 0-07 Q2 walk: **C**.</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>**Publication policy**: publish the primary headline rungs only (2-4 trained checkpoints). Reference scorers per ADR-018 are NOT republished (they are public artefacts authored by others).</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>**Proposed publication set** (final composition revisitable at Phase 5):</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Repo name <span class="pp">|</span> Rung <span class="pp">|</span> Status <span class="pp">|</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`BBehring/prompt-injection-modernbert-frozen-probe`</span> <span class="pp">|</span> Frozen-probe baseline (ADR-019) <span class="pp">|</span> confirmed <span class="pp">|</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`BBehring/prompt-injection-modernbert-lora`</span> <span class="pp">|</span> LoRA-best rung (ADR-019) <span class="pp">|</span> confirmed <span class="pp">|</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`BBehring/prompt-injection-modernbert-fullft`</span> <span class="pp">|</span> Full-FT-best rung (ADR-019) <span class="pp">|</span> conditional on headline status <span class="pp">|</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`BBehring/prompt-injection-tfidf-lr-classical-floor`</span> <span class="pp">|</span> TF-IDF + LR (ADR-017) <span class="pp">|</span> conditional on sklearn-publication feasibility <span class="pp">|</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>**Naming convention**: <span class="in">`BBehring/prompt-injection-&lt;rung-name&gt;`</span> (lowercase kebab-case after the <span class="in">`prompt-injection`</span> prefix). Stable; reviewer can construct the repo URL from the rung name in the writeup.</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>**Model card schema** (HF Hub YAML frontmatter; per https://huggingface.co/docs/hub/model-cards):</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="fu">license</span><span class="kw">:</span><span class="at"> apache-2.0</span><span class="co">  # inherited from ModernBERT-base</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="fu">tags</span><span class="kw">:</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span>text-classification</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span>prompt-injection</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span>safety</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="fu">datasets</span><span class="kw">:</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span>hf-internal-testing/&lt;dataset-id&gt;<span class="co">  # at pinned SHA per ADR-016</span></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="fu">language</span><span class="kw">:</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span>en</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="fu">model-index</span><span class="kw">:</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> &lt;rung-name&gt;</span></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">results</span><span class="kw">:</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">task</span><span class="kw">:</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">type</span><span class="kw">:</span><span class="at"> text-classification</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">dataset</span><span class="kw">:</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> pooled-OOD slate (5 slices per ADR-021)</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">metrics</span><span class="kw">:</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="fu">type</span><span class="kw">:</span><span class="at"> AUPRC</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">value</span><span class="kw">:</span><span class="at"> &lt;from results.json&gt;</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="fu">type</span><span class="kw">:</span><span class="at"> AUROC</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">value</span><span class="kw">:</span><span class="at"> &lt;from results.json&gt;</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="fu">type</span><span class="kw">:</span><span class="at"> recall_at_fpr_1pct</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">value</span><span class="kw">:</span><span class="at"> &lt;from results.json&gt;</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>Plus markdown body covering: intended use ("research and methodology characterisation; NOT production deployment per ADR-005"), limitations (link to <span class="in">`WRITEUP/limitations-and-future-work.md`</span>), citation (repo URL at submission tag + author + date).</span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>**Model card generation**: mechanical, not hand-written. Phase 5 work item — <span class="in">`scripts/generate_model_cards.py`</span> orchestrator takes (published-rung list, results.json, writeup spokes) as input + emits one model card README per published rung. This keeps the cards in sync with the headline numbers; manual maintenance would risk drift.</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>**Authentication**: standard <span class="in">`huggingface_hub`</span> token discovery mechanism (env var <span class="in">`HF_TOKEN`</span> + <span class="in">`~/.cache/huggingface/token`</span>). Secrets management discipline deferred to Phase 0-08 (process + tech-stack sub-session) — the *publication discipline* is locked here; the *auth mechanism* is locked there.</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>**Publication trigger**: publication step runs once per rung at Phase 5 close, **before** the v1.0.0 submission tag per ADR-033. The v0.9.0-rc1 rehearsal tag (per ADR-033) gates submission progression — at least one rung must publish successfully to HF Hub at rehearsal time before the rehearsal tag is considered passed. Catches HF Hub auth + model-card schema issues 24+ hours before the canonical submission tag fires.</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>**TF-IDF + LR rung publication conditionality**: sklearn-pipeline serialization to HF Hub is less standardized than transformers checkpoints. Phase 5 assesses whether joblib pickle + a model-card-only repo is sufficient or whether the classical rung stays unpublished (with reviewer noted of the gap). Decision deferred — discipline locked; specific format choice for the classical rung TBD-Phase-5.</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Enables ADR-034 T0 reproducibility tier** — published checkpoints are the foundation of the eval-from-hub path; without this ADR, T0 collapses to "trust the per-row predictions in the repo".</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Contribution-trail value** — public HF Hub model repos demonstrate engineering rigor + portfolio benefit; aligns with kit-level "show your work" framing.</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Bounded publication time** — ~1-2 hours total for 3 checkpoints (vs ~3-4 hours for option B's 4-6 rungs).</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reference-scorer exclusion is correct** — republishing protectai's model under <span class="in">`BBehring/`</span> would be attribution-confusing + license-cascade risky; the reference slate stays at its canonical authors.</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Mechanical model-card generation** keeps cards in sync with results.json; eliminates hand-edit drift risk.</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Rehearsal-tag gating** catches HF Hub publication issues at v0.9.0-rc1 (per ADR-033) before the canonical v1.0.0 submission tag fires.</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Disclosure surface** — published classifiers can be probed offline for adversarial blind spots. Acceptable for methodology submission per ADR-005; documented limitation in model card under "intended use".</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Maintenance surface post-submission** — public model repos can attract issues / questions; need a maintenance posture statement ("research artefact; not actively maintained for production support").</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Phase 5 work item added** — <span class="in">`scripts/generate_model_cards.py`</span> orchestrator is ~50-100 LOC of glue (load results.json + load spoke YAML frontmatter + emit README per rung). Acceptable cost; smaller than the per-rung hand-written-card alternative.</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**TF-IDF + LR rung publication uncertainty** — sklearn pipeline publication is non-standard. Phase 5 may resolve to "publish via joblib pickle + model card" or "skip this rung's publication". Either is acceptable; the headline rungs (ModernBERT-based) are the load-bearing ones.</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Final published-rung list** is provisional until Phase 5 — the discipline (publish headline rungs with model card) is locked; the exact list depends on which rungs the writeup leads with after Phase 3-4 analysis.</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HF Hub org choice**: published under <span class="in">`BBehring`</span> username (per MCP auth context — already authenticated). Optional alternative — create a <span class="in">`ciphero-take-home`</span> org for org-namespaced repos. Not chosen now; would require account-level admin to create the org.</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>The publication set is small (3-4 rungs) by design. A reviewer who wants to audit an ablation rung that didn't make the headline narrative must re-train via T3 (per ADR-034). This is an explicit trade — the disclosure-surface budget + the publication-time budget caps the published-rung count.</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Headline-rung composition shift**: if Phase 3-4 analysis reveals a non-headline ablation rung carries methodology-interpretation weight (e.g., demonstrates a specific failure mode that's central to the writeup narrative), promote that rung into the publication set via Phase 5 ADR amendment without superseding this ADR. The discipline (publish headline rungs with model card) is locked; the exact list is provisional and revisable.</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Disclosure-surface concern escalation**: if a Phase 1+ surprise reveals that published checkpoints expose a specific class of adversarial attack the writeup didn't anticipate, switch to option A (no publication; private retention with reviewer-on-request escalation) via superseding ADR. The reproducibility tier (per ADR-034) would then collapse to T1 + T3 only.</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Production-deployment scope extension**: if the writeup expands to include a deployment-grade classifier claim, publication discipline tightens to include responsible-disclosure embargo period + safety review per a superseding ADR.</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HF Hub org creation**: if maintaining 3-4 model repos under personal username proves awkward (e.g., conflates with personal hobby projects), migrate to a <span class="in">`ciphero-take-home`</span> org via superseding ADR with URL-migration notes.</span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(A) No publication; checkpoints private** — defeats T0 reproducibility tier; loses contribution-trail value; rejected per Phase 0-07 Q2 walk in favor of option C.</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) Publish all trained rungs** — 4-6× publication time; ablation-rung issues / questions add post-submission maintenance surface; option C captures the reproducibility value with less time + maintenance cost.</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) Single canonical "best" checkpoint** — contradicts ADR-005 (deployment is not on the roadmap) by picking a single "best" rung; methodology refuses to make a single recommendation; option C publishes the headline rungs as a *set* not as a recommendation.</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Publish reference scorers under `BBehring/` namespace** — attribution-confusing (these are not our models); license-cascade risky (each reference scorer has its own license terms); rejected.</span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>HF Hub model upload — https://huggingface.co/docs/hub/models-uploading</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>HF Hub model card schema — https://huggingface.co/docs/hub/model-cards</span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ModernBERT-base license posture (Apache 2.0) — https://huggingface.co/answerdotai/ModernBERT-base</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-013 (cache location — HF Hub as persistence sink; this ADR layers publication on top)</span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 (data design — HF dataset SHA pinning carries over to HF model SHA pinning)</span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-018 (reference scorer slate — explicitly excluded from publication)</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-019 (LoRA + transformer training recipe — defines the headline rungs)</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-005 (project-level methodology principles — "deployment is not on the roadmap" framing)</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-07__submission-deliverables.md`</span> for the conversation that led to this decision (Q2 walk + option C selection).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

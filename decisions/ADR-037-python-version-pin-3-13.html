@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -960,7 +971,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-037-python-version-pin-3-13.html">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</h1>
 </div>
 
 
@@ -1092,8 +1103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md</code> for the conversation that led to this decision (Q1 walk + option A ratification).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1168,57 +1177,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1553,133 +1511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "037"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> python-version-pin-3-13</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Python version pin — ratify requires-python &gt;=3.13 (matches existing .python-version + bc8ce4e commit)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-037</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-08 locks SPEC_GREENFIELD ledger row 310 (Python version pin) at requires-python &gt;=3.13 — ratifying the existing pre-Phase-0-08 state. The .python-version file at repo root reads 3.13 (committed at bc8ce4e). The pyproject.toml requires-python line reads &gt;=3.13 (committed at bc8ce4e — chore plus pin Python to &gt;=3.13 plus add .python-version per the prior session). Phase 0-08 Q1 walk surfaced four options — (A) ratify &gt;=3.13; (B) tighten to ==3.13 dot star; (C) loosen to &gt;=3.12; (D) loosen to &gt;=3.11. Option A chosen — zero churn ratification with documented rationale. Rationale — Python 3.13 in active support through October 2029 per PEP 602 release schedule; uv handles installability transparently (uv sync auto-installs Python 3.13 from the pinned .python-version regardless of reviewer's system Python); the three load-bearing libraries (eval-toolkit at v0.31.0 plus runpod-deploy at v0.7.7 plus research_toolkit at v1.9.1 per ADR-036) are own-authored so per-library requires-python constraints are under Brandon's control; the prior bc8ce4e commit selected &gt;=3.13 with rationale baked in; uv.lock provides byte-level reproducibility on top. Phase 0-08 close runs uv sync to verify all three load-bearing libraries install cleanly under requires-python &gt;=3.13; if any library blocks the &gt;=3.13 floor, fix-forward is either (a) bump the upstream library requires-python to &gt;=3.13 in a same-day patch, or (b) loosen this ADR pin to &gt;=3.12 via superseding ADR. Tightening to ==3.13 dot star (option B) rejected — brittle; refuses 3.14+ which is overly strict; uv.lock already provides byte-level reproducibility so exact-minor pin adds no value. Loosening to &gt;=3.12 (option C) rejected — contradicts the already-committed .python-version equals 3.13; uv handles installability transparently so the wider compatibility option C unlocks is not material. Loosening to &gt;=3.11 (option D) rejected — same as C; bigger gap; loses 3.13 features further. Limitation — 3.13 is recent (Oct 2024 release); some downstream wheels may not have 3.13 builds yet — but uv defaults to building from source for missing wheels so installability is preserved (slower first install; not blocking). Extension condition — 3.13-only feature dependency emerges (e.g., free-threaded build for CPU-bound bootstrap loop) tightens the pin via superseding ADR; 3.13 wheel-availability issue on RunPod base images loosens to &gt;=3.12 via superseding ADR; currently expected to not be an issue.</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §Tech-Stack ledger row 310 + Phase 0-08 walk Q1 + pre-existing commit bc8ce4e</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 310 carries locked-to-requires-python-3-13 status (see ADR-037); pyproject.toml line 7 reads requires-python equals quote &gt;=3.13 quote (unchanged from prior commit bc8ce4e); .python-version file at repo root reads 3.13 (unchanged from prior commit bc8ce4e); uv sync at Phase 0-08 close succeeds without per-library requires-python conflict (verified manually at sub-session close — if any of the three libraries blocks 3.13, this ADR cannot lock until the conflict is resolved via either upstream patch or superseding pin); tests/test_invariants.py contains skip-marked stub test_python_version_pin_at_3_13 asserting (1) pyproject.toml requires-python equals &gt;=3.13; (2) .python-version contains exactly 3.13; (3) sys.version_info major-minor is at least (3, 13) when running pytest (the test fails if invoked on Python &lt;3.13 even though Phase 1 plus implementation defers active enforcement); SUBMISSION_AUDIT.md regenerates from the new ADR.</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 5427b95</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://devguide.python.org/versions/</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.astral.sh/uv/concepts/python-versions/#installing-python</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://peps.python.org/pep-0602/</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.md</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-037: Python version pin — ratify `requires-python &gt;=3.13`</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Ratifies the existing state established by prior commit bc8ce4e (<span class="in">`chore: pin Python to &gt;=3.13; add .python-version`</span>). Closes SPEC_GREENFIELD ledger row 310 (Python version pin). Companion to ADR-036 (library version pins — <span class="in">`uv sync`</span> verification depends on Python 3.13 + library pins being mutually compatible).</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="in">`requires-python`</span> in <span class="in">`pyproject.toml`</span> controls who can install the project. <span class="in">`.python-version`</span> (consumed by <span class="in">`pyenv`</span> / <span class="in">`uv python pin`</span>) controls which Python version is **used** in the dev environment. The two should agree.</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>**Existing state at Phase 0-08 entry** (heavily pre-constraining):</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`.python-version`</span> = <span class="in">`3.13`</span> (committed at bc8ce4e).</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pyproject.toml`</span> line 7: <span class="in">`requires-python = "&gt;=3.13"`</span> (committed at bc8ce4e).</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prior commit bc8ce4e: <span class="in">`chore: pin Python to &gt;=3.13; add .python-version`</span>.</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>So Python <span class="in">`&gt;=3.13`</span> is **already in the repo**. Row 310 is effectively a ratification with rationale, not an open choice. Four options were considered (per Phase 0-08 Q1 walk):</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>(A) Ratify <span class="in">`&gt;=3.13`</span> — existing state; ADR documents the lock.</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>(B) Tighten to <span class="in">`==3.13.*`</span> — brittle.</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>(C) Loosen to <span class="in">`&gt;=3.12`</span> — contradicts the existing pin.</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>(D) Loosen to <span class="in">`&gt;=3.11`</span> — same as C; bigger gap.</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>User selection at Q1 walk: **A**.</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Locked Python version pin</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>**`pyproject.toml`** line 7 (unchanged from bc8ce4e):</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="in">```toml</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="in">requires-python = "&gt;=3.13"</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>**`.python-version`** (unchanged from bc8ce4e):</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="in">3.13</span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Rationale</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Active support** — Python 3.13 in active-support phase through October 2029 per PEP 602 annual release schedule. EOL is well past the submission's audit lifetime.</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`uv` handles installability transparently** — any reviewer running <span class="in">`make smoke`</span> (T1 per ADR-034) or <span class="in">`make eval-from-hub`</span> (T0 per ADR-034) invokes <span class="in">`uv sync`</span> which auto-installs Python 3.13 from the pinned <span class="in">`.python-version`</span> regardless of the reviewer's system Python. Wider-compatibility pins (option C/D) don't materially help reviewer install friction.</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Library compatibility** — the three load-bearing libraries (<span class="in">`eval-toolkit v0.31.0`</span> + <span class="in">`runpod-deploy v0.7.7`</span> + <span class="in">`research_toolkit v1.9.1`</span> per ADR-036) are own-authored; per-library <span class="in">`requires-python`</span> constraints are under Brandon's control. Verified at Phase 0-08 close via <span class="in">`uv sync`</span> — if any library blocks <span class="in">`&gt;=3.13`</span>, this ADR cannot lock until the conflict is resolved via either upstream patch or superseding pin.</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`uv.lock` provides byte-level reproducibility on top** — already committed per kit-level discipline; tag pin (per ADR-036) + Python pin (this ADR) + lockfile = canonical reproducible install.</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Aligns with prior commit bc8ce4e** — ratifies a deliberate prior choice rather than introducing new constraint.</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Phase 0-08 close verification</span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="in">`uv sync`</span> runs at Phase 0-08 close (after both ADR-036 library pins are committed) to verify the full dependency tree resolves cleanly under <span class="in">`requires-python &gt;=3.13`</span>. The check is:</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync <span class="at">--extra</span> dev</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>Success = all three load-bearing libraries + dev dependencies install. Failure = one of the libraries has a <span class="in">`requires-python`</span> constraint below <span class="in">`&gt;=3.13`</span> (would block install); fix-forward per the limitation section below.</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Zero churn** — existing artefacts (<span class="in">`.python-version`</span>, <span class="in">`pyproject.toml`</span>, <span class="in">`uv.lock`</span>) already encode this pin; ADR ratifies what's already true.</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Active-support window through Oct 2029** — pins to a version that won't reach EOL during the submission's audit lifetime.</span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Modern type-system features available** — PEP 695 type parameter syntax + PEP 701 f-string improvements + free-threaded experimental build all available if needed.</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`uv`-driven workflow installability** — reviewer install friction is independent of the pin width; any reviewer running <span class="in">`make smoke`</span> / <span class="in">`make eval-from-hub`</span> gets Python 3.13 auto-installed.</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative / cost</span></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3.13 is recent (Oct 2024 release)** — some downstream wheels may not have 3.13 builds yet. Mitigation: <span class="in">`uv`</span> defaults to building from source for missing wheels; slower first install but not blocking. Mitigation: the three load-bearing libraries are own-authored so version compatibility is under Brandon's control.</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`requires-python &gt;=3.13` blocks reviewers on system Python ≤3.12 from installing directly via `pip install -e .`** — but <span class="in">`uv`</span> is the documented install path (per <span class="in">`Makefile`</span> <span class="in">`install`</span> target = <span class="in">`uv sync --extra dev`</span>); reviewers using <span class="in">`pip`</span> directly fall outside the supported install path.</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Neutral</span></span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`==3.13.*` exact-minor pin not chosen** — <span class="in">`uv.lock`</span> already provides byte-level reproducibility; exact-minor adds no new value.</span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Future Python releases (3.14, 3.15)** automatically allowed by <span class="in">`&gt;=3.13`</span> — bumps are not blocked; only floor is enforced.</span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Limitation</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>3.13 is recent — <span class="in">`uv sync`</span> at Phase 0-08 close is the verification gate. If any of the three load-bearing libraries has a <span class="in">`requires-python`</span> constraint below <span class="in">`&gt;=3.13`</span> that breaks compatibility (rare since 3.13 is back-compatible with most 3.10+ code), fix-forward via:</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(a)** Bump the upstream library <span class="in">`requires-python`</span> to <span class="in">`&gt;=3.13`</span> in a same-day patch (Brandon is the upstream author for all three).</span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(b)** Loosen this ADR's pin to <span class="in">`&gt;=3.12`</span> via superseding ADR; update <span class="in">`.python-version`</span> to <span class="in">`3.12`</span> + <span class="in">`pyproject.toml`</span> to <span class="in">`&gt;=3.12`</span>.</span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extension condition for revisit</span></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3.13-only feature dependency emerges** — e.g., free-threaded build for a CPU-bound bootstrap loop, PEP 695 syntax that 3.12 doesn't support — tighten pin to <span class="in">`&gt;=3.13`</span> (already there) with a note in the writeup; no ADR supersession needed for this case.</span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3.13 wheel-availability problem on RunPod base images** — observed at Phase 1+ entry — loosen pin to <span class="in">`&gt;=3.12`</span> via superseding ADR; update <span class="in">`.python-version`</span> + <span class="in">`pyproject.toml`</span>. Currently expected to not be an issue since RunPod base images target current Python versions.</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Python 3.14 release (Oct 2025) becomes the new active-support floor years later** — currently no action needed; <span class="in">`&gt;=3.13`</span> accommodates 3.14 + 3.15 + future.</span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(B) `==3.13.*` exact-minor pin** — brittle; refuses 3.14+; <span class="in">`uv.lock`</span> already provides byte-level reproducibility. Rejected per Q1 walk.</span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(C) `&gt;=3.12` loosen** — contradicts the existing pin at bc8ce4e; doesn't materially expand reviewer base since <span class="in">`uv`</span> handles installability transparently. Rejected per Q1 walk.</span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(D) `&gt;=3.11` loosen further** — same as C; bigger gap; loses more 3.13 features. Rejected per Q1 walk.</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Python release schedule (PEP 602) — https://devguide.python.org/versions/</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`uv`</span> python pinning docs — https://docs.astral.sh/uv/concepts/python-versions/#installing-python</span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PEP 602 annual release cadence — https://peps.python.org/pep-0602/</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-036 (library version pins — <span class="in">`uv sync`</span> verification depends on this pin)</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-0-08__process-tech-stack-acceptance.md`</span> for the conversation that led to this decision (Q1 walk + option A ratification).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

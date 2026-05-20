@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -961,7 +972,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-020-compute-infrastructure-and-cost-discipline.html">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</h1>
 </div>
 
 
@@ -1139,8 +1150,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See frontmatter references list. Primary anchors — runpod-deploy 0.7.7 source at brandon-behring/runpod-deploy GitHub (locally cloned at /home/brandon_behring/Claude/runpod-deploy); RunPod pricing page; NVIDIA H100 tensor-core whitepaper; OpenAI pricing; Anthropic model card pricing; HuggingFace TrainingArguments docs; ADR-001 deadline-plus-scope-ambition framing; ADR-013 pre-teardown persistence checklist; ADR-019 training recipe for batch-size context.</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1215,57 +1224,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1600,214 +1558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> 020</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> compute-infrastructure-and-cost-discipline</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Compute infrastructure and cost discipline — runpod-deploy 0.7.7 primitives, GPU failover, adaptive batch sizing, dual-layer cost tracking</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-020</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 0-03 locks the compute infrastructure plus cost discipline by adopting runpod-deploy 0.7.7 primitives end-to-end rather than hand-rolling equivalents (per the library-first discipline from CLAUDE.md). GPU class lock (ledger row 338) is an eight-class failover ladder via pod.gpu_order in priority order — NVIDIA H100 80GB HBM3 plus NVIDIA H100 NVL plus NVIDIA H100 SXM plus NVIDIA H100 PCIe plus NVIDIA H200 plus NVIDIA H200 NVL (tier 1 — 80GB plus bf16 native plus flash-attention-2 native) then NVIDIA A100-SXM4-80GB plus NVIDIA A100 80GB PCIe (tier 2 — 80GB plus bf16 native plus flash-attention-2 native plus ~50 percent H100 throughput) then NVIDIA L40S (tier 3 — 48GB plus bf16 native plus flash-attention-2 with fallback) then NVIDIA A100-SXM4-40GB (emergency tier 4 — 40GB plus bf16 OK plus may need flash-attention fallback). Datacenter failover via pod.datacenters set to US-MD-1 plus EU-RO-1 (dual-DC capacity resilience). Adaptive batch sizing preserves the ADR-019 effective batch equals 32 invariant across all GPU classes by scaling per_device_train_batch_size plus gradient_accumulation_steps together through a pre-locked BATCH_TABLE lookup keyed on detected GPU class — H100 plus H200 plus A100-80G use per_device 16 with grad_accum 2 (matches ADR-019 H100 default); A100-40G plus L40S use per_device 8 with grad_accum 4; L40 uses per_device 4 with grad_accum 8. This is NOT hyperparameter tuning (the effective batch — the actual gradient-computation hyperparameter — is held constant at 32 across all GPU classes); per_device plus grad_accum are throughput knobs that do not change the gradient computation; preserves SPEC §2 hyperparameter-immutability invariant. flash_attention_2 fallback per the runpod-deploy flash-attention-fallback recipe — model load wraps AutoModelForSequenceClassification.from_pretrained in try/except (ValueError, ImportError) catching the unsupported case on smaller GPU classes and degrading to stock SDPA without failing; per-run manifest logs which attn_impl was used so the audit trail is preserved (events.emit_event flash_attn_fallback when degraded). Cost cap is dual-layer — runpod-deploy budget.cost_cap_usd equals 125.0 enforced per-job by the orchestrator (matches A-002 upper-bound soft cap; matches A-002 envelope; one bad pod cannot exceed this without orchestrator-level intervention) plus a project-wide hard cap of 200 dollars enforced by scripts/cost_rollup.py CI-gated check aggregating across all per-pod runpod_deploy_pull_manifest.json files plus API call logs (LLM-judge gpt-4o plus claude-sonnet-4-6 spend tracked separately since API costs bypass runpod-deploy). assumed_hourly_rate_usd equals 3.50 set as H100 spot midpoint estimate (per runpod-deploy cost-reconciliation recipe, reconciled after first run by comparing manifest gpu_price_per_hour_usd to assumed rate; if actual differs materially the rate is bumped in subsequent config or split per GPU class). Preflight discipline mandates runpod-deploy validate --all (config schema plus DC reachability plus GPU stock check) plus runpod-deploy run --dry-run (cost preview without provisioning) before any billed run. Cost tracking is dual-layer — per-pod automatic via runpod_deploy_pull_manifest.json (captures wall_time_sec plus gpu_id plus gpu_price_per_hour_usd plus gpu_price_source plus estimated_cost_usd plus pod_final_state automatically; no code required) plus per-Makefile-target rolled up via evals/cost_ledger.csv (scripts/cost_rollup.py walks artifacts/runpod/star/runpod_deploy_pull_manifest.json plus API call logs and emits a timestamped per-target row with est_cost_usd plus actual_cost_usd plus gpu_hours plus api_calls plus notes). Soft-cap trigger threshold equals 80 dollars cumulative spend flags for review before next major run; soft-cap breach equals 125 dollars cumulative requires escalation discussion documented in evals/cost_decisions.md before further spend; hard-cap breach equals 200 dollars cumulative requires a superseding ADR documenting extension rationale before any further GPU or API spend.</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> SPEC_GREENFIELD.md §2 Model ledger row 338 + SPEC_GREENFIELD §Tech-Stack + Phase 0-03 walk Q8</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> SPEC_GREENFIELD ledger row 338 carries locked-to-runpod-deploy-0.7.7-gpu-failover-plus-adaptive-batch-plus-dual-layer-cost-tracking (see ADR-020) status; SPEC_SHEET §4 compute section is populated with the 8-class gpu_order plus dual-DC failover plus the BATCH_TABLE specification plus the flash-attn-2 fallback policy plus the dual-layer cost-cap policy; configs/runpod/headline.yaml is the Phase 1 deliverable carrying the locked pod.gpu_order plus pod.datacenters plus budget.cost_cap_usd plus budget.assumed_hourly_rate_usd plus budget.poll_interval_sec configuration; src/training/batch_table.py is the Phase 1 deliverable implementing the pre-locked BATCH_TABLE keyed on torch.cuda.get_device_name with explicit KeyError handling (fails loudly with add this GPU class to BATCH_TABLE message rather than silently defaulting); src/training/load_modernbert.py implements the flash-attn-2 fallback recipe via try/except (ValueError, ImportError); scripts/cost_rollup.py is the Phase 1 deliverable aggregating per-pod manifests plus API call logs into evals/cost_ledger.csv with CI hard-gate on cumulative spend above 200 dollars hard-cap; tests/test_invariants.py contains skip-marked stubs test_flash_attn_fallback_present and test_effective_batch_constant_across_gpu_classes; decisions/library_imports.md runpod-deploy section is populated with the eight primitives invoked (runpod-deploy validate --all plus runpod-deploy run --dry-run plus runpod-deploy run plus runpod-deploy logs plus runpod-deploy stop plus runpod-deploy manifest-summary plus the pod.gpu_order schema plus the budget.cost_cap_usd schema plus the preflight.check_gpu_availability internal primitive plus the flash-attn-fallback recipe pattern plus the cost-reconciliation recipe pattern); evals/cost_ledger.csv schema documented with the seven columns (timestamp plus target plus est_cost_usd plus actual_cost_usd plus gpu_hours plus api_calls plus notes).</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> cfa7559</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://github.com/brandon-behring/runpod-deploy</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://www.runpod.io/pricing</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://resources.nvidia.com/en-us-tensor-core/nvidia-tensor-core-gpu-datasheet</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://openai.com/api/pricing/</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://docs.anthropic.com/en/docs/about-claude/models</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - https://huggingface.co/docs/transformers/main_classes/trainer</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-001-submission-deadline-and-scope-ambition.md</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-013-kit-ratify-bulk-strictness-intake-notebook-persistence.md</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-lora-and-transformer-training-recipe.md</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-15__phase-0-03__model-scope.md</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-020: Compute infrastructure and cost discipline</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-15). Concretizes A-001 (runpod-deploy infrastructure assumption) and A-002 (compute budget envelope) into specific runpod-deploy 0.7.7 configuration. Complements ADR-013 (pre-teardown persistence checklist) and ADR-019 (training recipe).</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>A-001 originally framed runpod-deploy as the GPU-rental orchestration substrate; A-002 framed the budget at $25-$125 envelope. Phase 0-03 Q8 concretized both into a specific runpod-deploy 0.7.7 configuration.</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>Brandon's Phase 0-03 Q8 surfaced two concerns that the original ADR-001 plus A-002 framing did not address.</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>First, H100 availability fluctuates on RunPod spot — pinning to a single GPU class risks unavailability mid-Phase-2. The runpod-deploy primitive pod.gpu_order is an ordered failover list — runpod-deploy walks the list until it finds an available GPU. The 8-class failover ladder ensures we get a usable GPU even under H100 stockout.</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>Second, batch sizing must adapt to whatever GPU class the failover ladder lands us on. Naive single-batch-config approach risks OOM on smaller-VRAM classes (A100 40GB, L40S 48GB, L40 24GB). The methodology-aligned move is to preserve the ADR-019 effective batch invariant (32) while scaling per_device plus grad_accum together — preserves the gradient-computation hyperparameter (effective batch) while adapting throughput to memory.</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>Brandon also flagged that we should leverage the runpod-deploy primitives rather than hand-rolling equivalents. The Phase 0-03 walk inspected the runpod-deploy 0.7.7 source plus recipes plus reference configs and confirmed — gpu_order failover plus datacenter failover plus budget.cost_cap_usd plus preflight.check_gpu_availability plus flash-attention-fallback recipe plus cost-reconciliation recipe plus per-pod manifest capture all exist as documented primitives. The library-first discipline from CLAUDE.md plus SPEC §Tech-Stack means we invoke these primitives correctly rather than rebuild them.</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### GPU failover ladder (pod.gpu_order)</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>Tier 1 — 80GB, bf16 native, flash-attention-2 native — H100 family plus H200 family.</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA H100 80GB HBM3</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA H100 NVL</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA H100 SXM</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA H100 PCIe</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA H200</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA H200 NVL</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>Tier 2 — 80GB, bf16 native, flash-attention-2 native, ~50% H100 throughput — A100 80GB.</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA A100-SXM4-80GB</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA A100 80GB PCIe</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>Tier 3 — 48GB, bf16 native, flash-attention-2 with fallback — L40S.</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA L40S</span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>Tier 4 (emergency fallback) — 40GB, bf16 OK, may need flash-attn fallback.</span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NVIDIA A100-SXM4-40GB</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>Avoid (no bf16, V100 / Pascal / Turing) plus avoid (too small for max_len=8192 batch — RTX 4000 / A4000 24GB).</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Datacenter failover (pod.datacenters)</span></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">US-MD-1, EU-RO-1</span><span class="co">]</span> — dual-DC capacity resilience matching the prompt-injection-v3 reference config plus the runpod-deploy config-reference.md documented pattern.</span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adaptive batch sizing (BATCH_TABLE)</span></span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>Pre-locked lookup table keyed on detected GPU class (torch.cuda.get_device_name) preserving effective batch equals 32 across all classes.</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>BATCH_TABLE <span class="op">=</span> {</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"H100"</span>:     {<span class="st">"per_device"</span>: <span class="dv">16</span>, <span class="st">"grad_accum"</span>: <span class="dv">2</span>},</span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">"H200"</span>:     {<span class="st">"per_device"</span>: <span class="dv">16</span>, <span class="st">"grad_accum"</span>: <span class="dv">2</span>},</span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A100-80G"</span>: {<span class="st">"per_device"</span>: <span class="dv">16</span>, <span class="st">"grad_accum"</span>: <span class="dv">2</span>},</span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A100-40G"</span>: {<span class="st">"per_device"</span>:  <span class="dv">8</span>, <span class="st">"grad_accum"</span>: <span class="dv">4</span>},</span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>    <span class="st">"L40S"</span>:     {<span class="st">"per_device"</span>:  <span class="dv">8</span>, <span class="st">"grad_accum"</span>: <span class="dv">4</span>},</span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>    <span class="st">"L40"</span>:      {<span class="st">"per_device"</span>:  <span class="dv">4</span>, <span class="st">"grad_accum"</span>: <span class="dv">8</span>},</span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>gpu_name <span class="op">=</span> torch.cuda.get_device_name(<span class="dv">0</span>)</span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>gpu_class <span class="op">=</span> classify_gpu(gpu_name)  <span class="co"># maps device name -&gt; table key</span></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>    cfg <span class="op">=</span> BATCH_TABLE[gpu_class]</span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">KeyError</span>:</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">RuntimeError</span>(</span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"GPU class </span><span class="sc">{</span>gpu_class<span class="sc">!r}</span><span class="ss"> not in BATCH_TABLE; add explicit entry"</span></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f" (gpu_name=</span><span class="sc">{</span>gpu_name<span class="sc">!r}</span><span class="ss">)"</span></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>NOT hyperparameter tuning — effective batch (the actual gradient-computation hyperparameter) is held constant at 32 across all GPU classes; per_device + grad_accum are throughput knobs that do not change the gradient computation. Preserves SPEC §2 hyperparameter-immutability invariant.</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>If runpod-deploy lands us on an unlisted GPU (e.g., a new H300 class), the script fails loudly rather than silently defaulting — add explicit BATCH_TABLE entry plus update this ADR via superseding ADR if needed.</span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### flash_attention_2 fallback (per runpod-deploy recipe)</span></span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModelForSequenceClassification</span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>        <span class="st">"answerdotai/ModernBERT-base"</span>,</span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>        revision<span class="op">=</span>SHA_PIN,  <span class="co"># per ADR-016 + ADR-018 manifest</span></span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>        attn_implementation<span class="op">=</span><span class="st">"flash_attention_2"</span>,</span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>        torch_dtype<span class="op">=</span>torch.bfloat16,</span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>        num_labels<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> (<span class="pp">ValueError</span>, <span class="pp">ImportError</span>):</span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> AutoModelForSequenceClassification.from_pretrained(</span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>        <span class="st">"answerdotai/ModernBERT-base"</span>,</span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>        revision<span class="op">=</span>SHA_PIN,</span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>        torch_dtype<span class="op">=</span>torch.bfloat16,</span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>        num_labels<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Log fallback via runpod-deploy events.emit_event so audit trail captures</span></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>    <span class="co"># which physical config produced each per-row prediction</span></span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>    log_event(<span class="st">"flash_attn_fallback"</span>, gpu<span class="op">=</span>torch.cuda.get_device_name(<span class="dv">0</span>))</span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cost cap (dual-layer)</span></span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>Layer 1 — per-job orchestrator enforcement.</span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="fu">budget</span><span class="kw">:</span></span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_cap_usd</span><span class="kw">:</span><span class="at"> </span><span class="fl">125.0</span><span class="co">                # = A-002 soft cap; one bad pod cannot exceed</span></span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">assumed_hourly_rate_usd</span><span class="kw">:</span><span class="at"> </span><span class="fl">3.50</span><span class="co">      # H100 spot midpoint; reconciled post-first-run</span></span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">poll_interval_sec</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>Layer 2 — project-wide hard cap (CI-gated, ledger-driven).</span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="co"># scripts/cost_rollup.py walks artifacts/runpod/*/runpod_deploy_pull_manifest.json</span></span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a><span class="co"># plus API call logs and emits evals/cost_ledger.csv with cumulative spend</span></span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Fails CI if cumulative &gt; $200</span></span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>Cost ledger schema — evals/cost_ledger.csv columns — timestamp, target, est_cost_usd, actual_cost_usd, gpu_hours, api_calls, notes.</span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>Trigger thresholds — cumulative $80 (~64% of soft cap) flags for review; cumulative $125 (soft cap) escalation discussion documented in evals/cost_decisions.md; cumulative $200 (hard cap) STOP plus superseding ADR required.</span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Preflight discipline</span></span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>Before any billed run:</span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a><span class="ex">runpod-deploy</span> validate <span class="at">--config</span> configs/runpod/headline.yaml <span class="at">--all</span></span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a><span class="ex">runpod-deploy</span> run <span class="at">--config</span> configs/runpod/headline.yaml <span class="at">--dry-run</span></span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="in">`validate --all`</span> runs schema validation plus DC reachability plus GPU stock check. <span class="in">`run --dry-run`</span> hits runpodctl + GraphQL pricing without provisioning anything; tells us "would this find a GPU at this price right now?"</span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### Library imports ledger update</span></span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>decisions/library_imports.md runpod-deploy section populated with eight primitives we invoke.</span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### Positive</span></span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Library-first discipline preserved — runpod-deploy primitives invoked end-to-end; no hand-rolled GPU orchestration or cost tracking</span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GPU availability handled by orchestrator failover; no project code required to handle H100 stockouts</span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adaptive batch sizing preserves the ADR-019 effective-batch invariant across all GPU classes — methodology integrity preserved under GPU substitution</span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>flash_attention_2 fallback handles cross-GPU-class portability without code failure on smaller GPUs</span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dual-layer cost cap — per-job orchestrator enforcement plus project-wide CI-gated rollup — prevents both single-pod runaway cost AND cumulative drift</span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-pod cost reconciliation is automatic via the runpod-deploy manifest schema; no extra code</span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>assumed_hourly_rate_usd reconciliation pattern (per cost-reconciliation recipe) tunes the implicit timeout after first run</span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="fu">### Negative</span></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The 8-class failover ladder means we may land on slower hardware than H100; wall-clock may extend up to ~2x on A100 80GB or L40S; still inside the cost cap because spot pricing is correspondingly lower</span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adaptive batch sizing adds modest code complexity (BATCH_TABLE lookup plus GPU classifier function); manageable</span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-GPU-class throughput varies — for cross-rung wall-clock comparison reporting, the GPU class is captured in per-pod manifest as a confounder to acknowledge in the methodology spoke</span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A new GPU class outside the BATCH_TABLE causes fail-loud (intended); requires a superseding ADR if we want to extend the table without a full Phase 0 cycle</span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>assumed_hourly_rate_usd=$3.50 is an estimate; if actual H100 spot averages much higher (e.g., $4.50), the implicit timeout (cost_cap / assumed_rate) shrinks; reconciliation after first run catches this</span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a><span class="fu">### Phase 1 deliverables</span></span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>configs/runpod/headline.yaml — locked pod.gpu_order + pod.datacenters + budget</span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/training/batch_table.py — BATCH_TABLE + classify_gpu + fail-loud KeyError</span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/training/load_modernbert.py — flash-attn-2 with SDPA fallback</span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>scripts/cost_rollup.py — per-pod manifest aggregation plus CI hard-cap gate</span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>evals/cost_ledger.csv — populated per Makefile-target invocation</span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>decisions/library_imports.md — runpod-deploy section populated with eight primitives</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives considered</span></span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single GPU class (H100 only)** — rejected because H100 spot availability fluctuates; pinning to a single class risks unavailability mid-Phase-2. The 8-class failover is the runpod-deploy idiom and handles stockouts transparently.</span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single datacenter (US-MD-1 only)** — rejected for the same reason; dual-DC failover is the runpod-deploy idiom plus the prompt-injection-v3 reference config pattern.</span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**auto_find_batch_size=True via HF Trainer** — rejected because adds nondeterminism (binary search varies per run) plus ~30 second warmup per run. Pre-locked BATCH_TABLE is deterministic plus auditable.</span>
-<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GPU class as a config parameter (split into per-GPU-class configs)** — rejected because proliferates configs (one per GPU class times one per rung); the runtime-detected approach is simpler and matches runpod-deploy's failover semantics.</span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**flash_attention_2 required (fail-loud on unsupported)** — rejected because the failover ladder may legitimately land us on smaller GPUs without flash-attn-2 support; the recipe's degrade-to-SDPA pattern is the runpod-deploy idiom for this case.</span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single-layer cost cap (orchestrator-only via budget.cost_cap_usd)** — rejected because budget.cost_cap_usd is per-pod enforcement; without the project-wide rollup, cumulative spend across many pods could drift above the A-002 envelope. The dual-layer approach handles both runaway-pod and cumulative-drift cases.</span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hand-rolled GPU orchestration** — rejected per CLAUDE.md library-first discipline; runpod-deploy 0.7.7 has all the primitives we need.</span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>See frontmatter references list. Primary anchors — runpod-deploy 0.7.7 source at brandon-behring/runpod-deploy GitHub (locally cloned at /home/brandon_behring/Claude/runpod-deploy); RunPod pricing page; NVIDIA H100 tensor-core whitepaper; OpenAI pricing; Anthropic model card pricing; HuggingFace TrainingArguments docs; ADR-001 deadline-plus-scope-ambition framing; ADR-013 pre-teardown persistence checklist; ADR-019 training recipe for batch-size context.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

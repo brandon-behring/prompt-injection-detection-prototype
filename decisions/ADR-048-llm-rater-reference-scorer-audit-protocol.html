@@ -108,6 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +193,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +447,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -960,7 +971,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.html">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</h1>
 </div>
 
 
@@ -1154,8 +1165,6 @@ python scripts/audit_reference_scorers.py
 <p>See <code>transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md</code> for the conversation that led to this decision (Phase 4 walkthrough Q1-Q7 + Q5 user override + Phase 4 Commits 2-6 tactical walkthrough Q4 in-depth explanation + Option A1 ratification).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1230,57 +1239,6 @@ python scripts/audit_reference_scorers.py
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1615,214 +1573,7 @@ python scripts/audit_reference_scorers.py
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "048"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> llm-rater-reference-scorer-audit-protocol</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> LLM-rater reference-scorer audit protocol — disagreement-with-LoRA baseline + stratified (5 OOD slices × 3 contamination_states) sampling + fixed 2-axis rubric + inter-rater gpt-4o-plus-claude-sonnet + dry-run-then-single-approval cost UX</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-048</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> ADR-046 Q5 user-overrode the original defer recommendation to include the reference-scorer LLM-rater audit as a real Phase 4 deliverable (citing the value of front-loading the audit rather than waiting for a regex-tagger-conservative-enough trigger that may never fire). ADR-048 extends ADR-046 Q5 with the methodology details that turn that decision into an executable protocol — `scripts/audit_reference_scorers.py` (lands in Phase 4 Commit 5 per ADR-046 Q1 6-commit cadence) samples approximately 50 prediction-pairs per reference rung (R-LLM-OpenAI plus R-LLM-Anthropic plus R-ProtectAI-v1 plus R-ProtectAI-v2 per ADR-018) where the reference scorer's prediction disagrees with the LoRA trained-rung classifier (`sign(reference_proba &gt; 0.5) != sign(lora_proba &gt; 0.5)`); LoRA is the disagreement baseline (rather than full-FT or classical-floor) because LoRA is the cheapest GPU-trained rung per ADR-019 (\$60/pod cap vs full-FT's \$100/pod cap per ADR-020) plus the intermediate-quality matched-budget comparison point per ADR-018, balancing audit-narrative realism (we trained a real model, not just a probe) with operator-cost feasibility (the audit can fire as soon as `make headline-lora` lands, ahead of full-FT). Sampling is stratified across the cross-product of 5 OOD slices per ADR-021 (NotInject plus XSTest plus JBB plus BIPIA plus InjecAgent) and 3 contamination_states per ADR-005 (clean plus suspected_contamination plus vendor_black_box) — approximately 3 pairs per (slice, contamination_state) stratum where feasible, totaling approximately 45-50 pairs per reference rung; stratification is necessary because uniform random sampling would heavily over-sample the largest slices (BIPIA plus InjecAgent dwarf the smaller slices) and miss failure modes in rare strata. Each sampled pair is rated by BOTH gpt-4o-2024-08-06 and claude-sonnet-4-6 (same snapshot pins as ADR-018 LLM-judge slate per ADR-042 dedup-holdout precedent for inter-rater reliability) producing two independent rubric records per pair; per-pair rubric is fixed 2-axis (boolean rater_judgment_correct plus ordinal calibration_assessment with three levels overconfident-well_calibrated-underconfident) plus optional string rater_notes for qualitative observations without burdening the aggregation axes; inter-rater agreement (Cohen's kappa on `rater_judgment_correct` plus weighted-kappa on the ordinal `calibration_assessment`) reported in the audit JSON for methodology transparency. Aggregated statistics that the WRITEUP can cite directly — per-reference-rung percent-judged-correct on disagreement cases (the headline reference-scorer-trustworthiness number); per-reference-rung calibration distribution (overconfident-vs-well-vs-underconfident percentages); per-(slice, contamination_state) breakdown surfaces failure modes; inter-rater agreement number scopes confidence in the audit itself. Cost envelope — 4 reference rungs times approximately 50 pairs times 2 LLM-rater calls per pair equals approximately 400 LLM calls at approximately \$0.005 per call equals approximately \$2 plus prompt-template overhead approximately \$3 totaling approximately \$5 per A-002 envelope (well under \$1 per reference rung); cost UX follows Phase 3 ADR-045 Q4 plus ADR-020 pattern — `python scripts/audit_reference_scorers.py --dry-run` previews exact pair count plus per-rung cost estimate; non-dry-run requires single interactive approval prompt before any LLM calls fire; per-rung approvals are over-gating for a sub-\$5 audit. Output persistence — `evals/audit/reference_scorer_rater_audit.json` (one top-level key per reference rung plus nested per-rater plus inter-rater agreement) validated against `ReferenceScorerRaterAuditModel` per ADR-046 Q2 schema-placement-in-`src/eval/schemas.py` decision; LLM judge cache infrastructure at `evals/audit/llm_judge_cache/&lt;judge&gt;__&lt;sha256-prefix&gt;.json` per A-007 plus A-014 reused so cache survives cross-run plus mid-Phase-deprecation. Phase 4 WRITEUP spoke `WRITEUP/reference-scorer-audit.md` (drafted in Phase 5 per ADR-046 Q7 phase-tailoring) consumes the audit JSON to populate the per-rung trustworthiness headline plus calibration-distribution figure plus methodology narrative. Operator dependency — audit fires after `make headline-lora` lands (operator-gated GPU run per ADR-020); does NOT require full-FT or frozen-probe runs; can fire ahead of full Phase 4 canonical numbers if operator prioritizes the audit-narrative deliverable.</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> Phase 4 Commits 2-6 tactical walkthrough — /exploring-options "Phase 4" Q4 5-question session 2026-05-16 (same conversation as ADR-046 plus ADR-047); user requested in-depth explanation of LLM-rater audit design before ratifying; locked Option A1 (disagreement-with-LoRA + stratified + fixed 2-axis rubric); per CLAUDE.md anti-pattern "Adding a methodology component without an ADR" the methodology decision (sampling protocol plus rubric design) warrants its own ADR</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> decisions/ADR-048-llm-rater-reference-scorer-audit-protocol.md exists at this path with Accepted status; SUBMISSION_AUDIT.md regenerates via scripts/regenerate_audit.py with ADR-048 included; src/eval/schemas.py extended with ReferenceScorerRaterAuditModel pydantic v2 BaseModel at Phase 4 Commit 2 landing per ADR-046 Q2 + this ADR's persistence layout; scripts/audit_reference_scorers.py at Phase 4 Commit 5 landing implements (a) --dry-run cost preview surfacing exact pair count plus per-rung cost estimate before any LLM call fires, (b) sampling protocol per this ADR — disagreement-with-LoRA via `sign(reference_proba &gt; 0.5) != sign(lora_proba &gt; 0.5)` filter applied to predictions parquets at `evals/predictions/` for each reference rung in (R-LLM-OpenAI, R-LLM-Anthropic, R-ProtectAI-v1, R-ProtectAI-v2) per ADR-018, stratified by (slice, contamination_state) cross-product per ADR-021 + ADR-005, targeting approximately 3 pairs per stratum totaling approximately 50 per reference rung, (c) inter-rater protocol — each sampled pair rated by BOTH gpt-4o-2024-08-06 and claude-sonnet-4-6 via the fixed 2-axis rubric (boolean rater_judgment_correct plus ordinal calibration_assessment plus optional string rater_notes), (d) single interactive approval prompt before non-dry-run firing per ADR-020 + ADR-045 Q4, (e) LLM judge cache reused at evals/audit/llm_judge_cache/&lt;judge&gt;__&lt;sha256-prefix&gt;.json per A-007 + A-014, (f) results persisted to evals/audit/reference_scorer_rater_audit.json with one top-level key per reference rung plus per-rater rubric records plus inter-rater Cohen's kappa on rater_judgment_correct plus weighted-kappa on calibration_assessment plus per-(slice, contamination_state) breakdown plus headline percent-judged-correct number; Makefile target `audit-reference-scorers` at Phase 4 Commit 6 landing wraps the script with the cost-cap interactive-approval gate; cost envelope tracked in evals/cost_ledger.csv per ADR-020 ledger discipline plus integration with cost-rollup-check; transcript checkpoint at transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md captures the Q4 in-depth walkthrough where this decision was ratified.</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> 0fad4e1</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="an">supersedes:</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="an">superseded_by:</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-019-trained-rung-ladder-and-lora-config.md</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-020-cost-cap-and-runpod-deploy.md</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-022-statistical-inference-apparatus.md</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-045-phase-3-evaluation-implementation-bundle.md</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-046-phase-4-analysis-implementation-bundle.md</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-048: LLM-rater reference-scorer audit protocol</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16). Does not supersede any prior ADR; extends ADR-046 Q5 user override with the methodology details that turn the decision-to-include into an executable protocol.</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>ADR-046 Q5 captured a user-overridden decision: the original recommendation was to **defer** the reference-scorer LLM-rater audit per ROADMAP Phase 4 line 95's `[TBD-at-Phase-4]` cautionary framing. The user explicitly overrode and locked **include-now** — citing the value of front-loading the audit as a Phase 4 deliverable rather than waiting for a regex-tagger-conservative-enough trigger that may never fire.</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>ADR-046's Q5 lock specified "what" — include the audit as a Phase 4 deliverable — but left "how" open. Specifically:</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**What does "disagreement" mean?** Disagreement with which baseline (trained rung? ground-truth label? other reference rungs?)</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**What does "~50 disagreement-sampled pairs per reference rung" actually sample?** Random? Stratified? Across what dimensions?</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**What's the rubric format?** Open-ended notes? Fixed schema? Multi-axis?</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Inter-rater reliability?** Single rater per pair? Multiple raters?</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cost-cap UX?** Per-rung approval? Single approval? Dry-run first?</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>Per the project CLAUDE.md anti-pattern "Adding a methodology component without an ADR", these are methodology decisions (sampling protocol + rubric design = decisions about HOW we measure reference-scorer trustworthiness; reviewer-visible methodology surface). ADR-048 locks all five sub-decisions so Phase 4 Commit 5's <span class="in">`scripts/audit_reference_scorers.py`</span> executes against a durable methodology contract.</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why the user overrode the defer recommendation</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>The ROADMAP framing was conservative — invest only IF a regex-tagger-conservative-enough trigger fires. The user's reasoning at Q5 override: this trigger may never fire (it requires a regex-tagger pass to first surface conservatism concerns; absent that, the defer-indefinitely posture leaves us without a reference-scorer-trustworthiness number for the WRITEUP). Front-loading the audit at a sub-\$5 cost envelope is a better investment than the open-ended defer.</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>The walkthrough's Q4 in-depth explanation framed the decision more carefully: the reference-scorer audit is the standard methodology in injection-detection literature (Lakera + ProtectAI publish similar audits); having one strengthens the comparison-baseline framing in the WRITEUP.</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### (a) Disagreement baseline — LoRA trained rung</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/audit_reference_scorers.py`</span> samples pairs where the reference scorer's prediction differs from the **LoRA trained rung's** prediction:</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="in">sign(reference_proba &gt; 0.5) != sign(lora_proba &gt; 0.5)</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>**Why LoRA** (not full-FT, classical-floor, or ground-truth label):</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LoRA is the cheapest GPU-trained rung per ADR-019 (\$60/pod cap vs full-FT's \$100/pod cap per ADR-020)</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LoRA is the intermediate-quality matched-budget comparison point per ADR-018</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Disagreement-with-LoRA is the comparison surface the WRITEUP will actually make (audit data directly supports the methodology claim)</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Audit can fire as soon as <span class="in">`make headline-lora`</span> lands, ahead of full-FT (operator-cost feasibility)</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Disagreement-with-ground-truth would conflate label-noise with reference-scorer behavior; LoRA framing avoids this</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Disagreement-with-other-reference-rungs would require all 4 reference rungs to have fired first (more dependencies)</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### (b) Sampling stratification — 5 OOD slices × 3 contamination_states</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>Per reference rung, ~50 pairs are stratified across:</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**5 OOD slices** per ADR-021 (NotInject + XSTest + JBB + BIPIA + InjecAgent)</span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3 contamination_states** per ADR-005 (clean + suspected_contamination + vendor_black_box)</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cross-product = 15 strata**; target ~3 pairs per stratum (where feasible)</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>Without stratification, uniform random sampling would heavily over-sample the largest slices (BIPIA + InjecAgent dwarf the smaller slices) and miss failure modes in rare strata. Stratification is the standard methodology fix.</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### (c) Rubric format — fixed 2-axis JSON</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>Per-pair rubric:</span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  <span class="st">"rater_judgment_correct"</span>: <span class="bu">bool</span>,                  <span class="co"># Was the reference scorer's prediction defensible?</span></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  <span class="st">"calibration_assessment"</span>: Literal[</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    <span class="st">"overconfident"</span>,                                <span class="co"># Reference proba &gt; 0.9 but ground-truth is ambiguous</span></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    <span class="st">"well_calibrated"</span>,                              <span class="co"># Reference proba reflects actual uncertainty</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>    <span class="st">"underconfident"</span>,                               <span class="co"># Reference proba ~ 0.5-0.7 but case is clear-cut</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>  ],</span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>  <span class="st">"rater_notes"</span>: <span class="bu">str</span> <span class="op">|</span> <span class="va">None</span>,                        <span class="co"># Optional qualitative observation</span></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>Two axes are enough for the aggregations the WRITEUP needs (percent-judged-correct + calibration distribution); <span class="in">`rater_notes`</span> captures qualitative observations without burdening the aggregation axes.</span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="fu">### (d) Inter-rater reliability — both gpt-4o + claude-sonnet rate every pair</span></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>Each sampled pair is rated by **BOTH** gpt-4o-2024-08-06 and claude-sonnet-4-6 (same snapshot pins as ADR-018 LLM-judge slate; matches ADR-042 dedup-holdout LLM-pre-label precedent for inter-rater reliability).</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>Reported aggregations:</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cohen's kappa on <span class="in">`rater_judgment_correct`</span> (binary agreement)</span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Weighted kappa on <span class="in">`calibration_assessment`</span> (ordinal agreement)</span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-rater raw distributions (so the WRITEUP can disclose any rater-specific bias)</span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### (e) Cost UX — dry-run preview → single interactive approval</span></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>Per ADR-020 + ADR-045 Q4 pattern:</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="in">python scripts/audit_reference_scorers.py --dry-run</span></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="in"># → "Would sample 4 ref rungs × ~50 pairs × 2 raters = ~400 LLM calls"</span></span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="in"># → "Estimated cost: ~$2 (LLM calls) + ~$3 (prompt overhead) = ~$5 per A-002 envelope"</span></span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="in">python scripts/audit_reference_scorers.py</span></span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="in"># → "Approve paid LLM-rater audit (cost ~$5)? [y/N] "</span></span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="in"># → on 'y', fires the full slate</span></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>Per-rung approvals would be over-gating for a sub-\$5 audit. LLM judge cache at <span class="in">`evals/audit/llm_judge_cache/&lt;judge&gt;__&lt;sha256-prefix&gt;.json`</span> reused per A-007 + A-014 so cache survives cross-run + mid-Phase deprecation.</span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### (f) Output persistence</span></span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="in">`evals/audit/reference_scorer_rater_audit.json`</span> validated against <span class="in">`ReferenceScorerRaterAuditModel`</span> per ADR-046 Q2 schema-placement decision (lives in <span class="in">`src/eval/schemas.py`</span>):</span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>  <span class="st">"schema_version"</span><span class="op">:</span> <span class="st">"1.0"</span><span class="op">,</span></span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>  <span class="st">"generated_at_utc"</span><span class="op">:</span> <span class="st">"..."</span><span class="op">,</span></span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>  <span class="st">"lora_rung_path"</span><span class="op">:</span> <span class="st">"evals/predictions/lora__fold*__seed*.parquet"</span><span class="op">,</span></span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>  <span class="st">"cost_summary"</span><span class="op">:</span> {<span class="st">"total_calls"</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span> <span class="st">"estimated_cost_usd"</span><span class="op">:</span> <span class="fl">5.0</span><span class="op">,</span> <span class="st">"actual_cost_usd"</span><span class="op">:</span> <span class="op">...</span>}<span class="op">,</span></span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>  <span class="st">"per_reference_rung"</span><span class="op">:</span> {</span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>    <span class="st">"R-LLM-OpenAI"</span><span class="op">:</span> {</span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>      <span class="st">"headline_pct_correct"</span><span class="op">:</span> <span class="fl">0.85</span><span class="op">,</span></span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>      <span class="st">"calibration_distribution"</span><span class="op">:</span> {<span class="st">"overconfident"</span><span class="op">:</span> <span class="fl">0.10</span><span class="op">,</span> <span class="st">"well_calibrated"</span><span class="op">:</span> <span class="fl">0.75</span><span class="op">,</span> <span class="st">"underconfident"</span><span class="op">:</span> <span class="fl">0.15</span>}<span class="op">,</span></span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>      <span class="st">"inter_rater_kappa"</span><span class="op">:</span> {<span class="st">"judgment"</span><span class="op">:</span> <span class="fl">0.82</span><span class="op">,</span> <span class="st">"calibration_weighted"</span><span class="op">:</span> <span class="fl">0.71</span>}<span class="op">,</span></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>      <span class="st">"per_stratum_breakdown"</span><span class="op">:</span> [{<span class="st">"slice"</span><span class="op">:</span> <span class="st">"BIPIA"</span><span class="op">,</span> <span class="st">"contamination_state"</span><span class="op">:</span> <span class="st">"clean"</span><span class="op">,</span> <span class="st">"n_sampled"</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="st">"n_correct"</span><span class="op">:</span> <span class="dv">3</span>}<span class="op">,</span> <span class="op">...</span>]<span class="op">,</span></span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>      <span class="st">"raw_records"</span><span class="op">:</span> [{<span class="st">"row_id"</span><span class="op">:</span> <span class="st">"..."</span><span class="op">,</span> <span class="st">"rater"</span><span class="op">:</span> <span class="st">"gpt-4o-2024-08-06"</span><span class="op">,</span> <span class="st">"rubric"</span><span class="op">:</span> {<span class="op">...</span>}}<span class="op">,</span> <span class="op">...</span>]</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>    <span class="st">"R-LLM-Anthropic"</span><span class="op">:</span> {<span class="op">...</span>}<span class="op">,</span></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>    <span class="st">"R-ProtectAI-v1"</span><span class="op">:</span> {<span class="op">...</span>}<span class="op">,</span></span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>    <span class="st">"R-ProtectAI-v2"</span><span class="op">:</span> {<span class="op">...</span>}</span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="fu">### (g) Operator dependency</span></span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>Audit fires after <span class="in">`make headline-lora`</span> lands (operator-gated GPU run per ADR-020). Does NOT require full-FT or frozen-probe runs; can fire ahead of full Phase 4 canonical numbers if operator prioritizes the audit-narrative deliverable.</span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>**Positive:**</span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-046 Q5 user override now has executable methodology behind it; Phase 4 Commit 5 can ship a defensible audit (not a placeholder).</span>
-<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stratified sampling produces audit data that covers all 15 (slice × contamination_state) strata, not just the largest.</span>
-<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Inter-rater protocol surfaces rater-specific biases + makes the audit reproducible (anyone with API keys can re-run + verify).</span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LoRA dependency is no new gating dependency (LoRA is already on the operator critical path for canonical Phase 4 numbers).</span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>WRITEUP/reference-scorer-audit.md spoke has a clear data shape to draft against in Phase 5.</span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sub-\$5 cost envelope keeps the audit well within A-002 budget.</span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>**Negative / cost:**</span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>400 LLM calls (~\$5) is a real cost added to the project envelope.</span>
-<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Audit cannot fire until <span class="in">`make headline-lora`</span> lands (operator-gated; adds a sequencing dependency).</span>
-<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Inter-rater protocol doubles the LLM call count vs single-rater; chosen anyway for reproducibility.</span>
-<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Per-stratum target of ~3 pairs is small; sub-stratum stats will be high-variance + the WRITEUP needs to be careful about claims at the stratum level (headline percent-judged-correct is the load-bearing number; sub-stratum breakdown is qualitative).</span>
-<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>**Neutral:**</span>
-<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LLM judge cache reused — no new cache infrastructure.</span>
-<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cost-cap UX matches Phase 3 + ADR-020 pattern — no new operator muscle memory.</span>
-<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Methodology semantics independent of ADR-046's other Q5-locks; this ADR refines only the LLM-rater protocol.</span>
-<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Disagreement-with-Full-FT-rung baseline**: cleaner "reference disagrees with our BEST model" narrative. *Rejected because*: full-FT 84-parquet output gated on most-expensive operator-approved run per ADR-020 (\$100/pod cap); audit can't fire until full-FT lands, delaying the WRITEUP narrative further than necessary.</span>
-<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Disagreement-with-ground-truth-label baseline**: no trained-rung dependency. *Rejected because*: if labels are noisy at the margin (common in adversarial datasets), the audit becomes about label quality rather than reference-scorer behavior; conflates two distinct concerns.</span>
-<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Disagreement-with-other-reference-rungs baseline**: pure between-reference comparison. *Rejected because*: requires all 4 reference rungs to have fired before audit can sample; more dependencies than needed; doesn't align with the WRITEUP comparison-with-trained-rung narrative.</span>
-<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Open-ended JSON rubric** per pair: maximum flexibility for novel observations. *Rejected because*: hurts aggregation + WRITEUP narrative (per-rater open-ended notes can't be averaged); reviewer can't easily compare across reference rungs.</span>
-<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**3-axis rubric** (correct + calibration + fail_mode taxonomy): more dimensions per pair. *Rejected because*: adds analyst load (fail_mode taxonomy needs upfront design); 2 axes already cover the headline aggregations the WRITEUP needs; the optional <span class="in">`rater_notes`</span> field captures fail-mode observations qualitatively.</span>
-<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Single rater per pair** (only gpt-4o OR only claude-sonnet): halves cost. *Rejected because*: loses inter-rater reliability number; loses ability to surface rater-specific bias; the ~\$2 cost saving doesn't justify the methodology weakening.</span>
-<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Per-rung approval prompts** (4 sequential approvals): finer cost control. *Rejected because*: over-gating for a sub-\$5 audit; single approval matches Phase 3 <span class="in">`make eval-reference-scorers-paid`</span> pattern.</span>
-<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Defer to Phase 5** (write ADR alongside Commit 5 code): tighter ADR-code coupling. *Rejected per user decision in walkthrough*: methodology decision warrants durable capture NOW so Commits 2-4 land knowing the contract (e.g., schema decisions need to accommodate the per-rater + per-stratum shape this ADR locks).</span>
-<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-005-attack-class-scope-and-three-state-contamination-taxonomy.md`</span> — 3 contamination_states stratification axis</span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-006-headline-metrics-and-statistical-apparatus.md`</span> — statistical floor context</span>
-<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md`</span> — 4 reference rungs source</span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-019-trained-rung-ladder-and-lora-config.md`</span> — LoRA rung config (the disagreement baseline)</span>
-<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-020-cost-cap-and-runpod-deploy.md`</span> — cost-cap discipline + dry-run preview pattern</span>
-<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-021-eval-slate-aggregation-and-recall-fpr-pinpoints.md`</span> — 5 OOD slices stratification axis</span>
-<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-022-statistical-inference-apparatus.md`</span> — bootstrap apparatus context</span>
-<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-042-dedup-holdout-llm-judge-pre-labeling-protocol.md`</span> — inter-rater protocol precedent</span>
-<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-045-phase-3-evaluation-implementation-bundle.md`</span> — Q4 cost-UX pattern source (single interactive approval)</span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`decisions/ADR-046-phase-4-analysis-implementation-bundle.md`</span> — Q5 user override (the parent decision this ADR extends)</span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-4-entry-plus-phase-1-library-first-refactor.md`</span> for the conversation that led to this decision (Phase 4 walkthrough Q1-Q7 + Q5 user override + Phase 4 Commits 2-6 tactical walkthrough Q4 in-depth explanation + Option A1 ratification).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

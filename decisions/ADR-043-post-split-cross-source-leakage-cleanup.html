@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,6 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -192,20 +158,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">For hiring managers in a hurry</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../docs/site-reader-map.html">
+ <span class="dropdown-text">Public site reader map</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary: prompt-injection classifier evaluation</span></a>
+ <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
- <span class="dropdown-text">Evidence — audit trail</span></a>
+ <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SPEC_SHEET.html">
- <span class="dropdown-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="dropdown-text">Spec lock sheet</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../SUBMISSION_AUDIT.html">
- <span class="dropdown-text">Submission audit — claim status ledger</span></a>
+ <span class="dropdown-text">Submission audit ledger</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../NEXT_STEPS.html">
@@ -217,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/01_canonical_results.html">
- <span class="dropdown-text">01 — Canonical results</span></a>
+ <span class="dropdown-text">Notebook: canonical results</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/02_frozen_vs_lora.html">
- <span class="dropdown-text">02 — Frozen-probe vs LoRA paired-bootstrap rung-comparison</span></a>
+ <span class="dropdown-text">Notebook: frozen vs LoRA</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/03_calibration.html">
- <span class="dropdown-text">03 — Calibration battery</span></a>
+ <span class="dropdown-text">Notebook: calibration</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../notebooks/04_ood_slate.html">
- <span class="dropdown-text">04 — OOD slate gap visualization</span></a>
+ <span class="dropdown-text">Notebook: OOD slate</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../EVIDENCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evidence — audit trail</span></a>
+ <span class="menu-text">Evidence ledger</span></a>
   </div>
 </li>
       </ul>
@@ -442,14 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/site-reader-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public site reader map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../SPEC_SHEET.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project specification (filled at end of Phase 0)</span></a>
+ <span class="menu-text">Spec lock sheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../SUBMISSION_AUDIT.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submission audit — claim status ledger</span></a>
+ <span class="menu-text">Submission audit ledger</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -948,7 +924,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-043-post-split-cross-source-leakage-cleanup.html">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</h1>
 </div>
 
 
@@ -1081,8 +1057,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See <code>transcripts/2026-05-16__phase-1-implementation.md</code> for the conversation that led to this decision (post-Commit-5 pipeline empirical finding).</p>
 
 
-<!-- -->
-
 </section>
 </section>
 
@@ -1157,57 +1131,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1542,106 +1465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">adr_id:</span><span class="co"> "043"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">slug:</span><span class="co"> post-split-cross-source-leakage-cleanup</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-16</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> Accepted</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">claim_id:</span><span class="co"> CLAIM-043</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">claim:</span><span class="co"> Phase 1 Commit 5 pipeline surfaced an empirical leakage finding — 6 exact-hash plus 165 cosine greater-than-or-equal-0.85 train-plus-val versus test overlaps across 12 (fold, seed) splits despite ADR-016 Q4 within-source dedup running on every source. Root cause — ADR-016 Q5 specified cross-source dedup ONLY for benigns; positives weren't cross-source-deduped because LODO treats each positive source as a unit. But cross-source positive near-paraphrases DO leak across LODO folds when a near-paraphrase of a held-out-source row exists in another source's train data; this gives the model a "seen it before" advantage on the held-out test. ADR-043 closes this methodology gap by adding a post-split leakage-cleanup pass — for each (fold, seed) split, after make_splits runs but before materialize_splits, src/data/dedup.py::drop_train_test_leakage scans the train+val pool against the held-out test pool; rows in train+val that exact-match or cosine-greater-than-or-equal-0.85-match any test row are dropped (test stays intact). The threshold 0.85 matches the leakage scan threshold in src/data/audit.py::compute_leakage_report (per ADR-016 Q3 hard-locked invariant). The cleanup is implemented as a new function in src/data/dedup.py plus wired through src/data/splits.py::apply_leakage_cleanup which re-partitions the cleaned train+val into the same 80/20 ratio. Pipeline orchestrator scripts/run_data_pipeline.py invokes this between make_splits and materialize_splits. Pre-cleanup pipeline run (without ADR-043) recorded 6 exact plus 165 cosine overlaps; post-cleanup pipeline run records zero overlaps (leakage_clean equals True) honoring ADR-016 Q3 hard-locked leakage invariant. Drop cost — approximately 0.08 percent exact plus 0.17 percent cosine of the train+val pool per split (approximately 171 rows total dropped across 12 splits from a 4707-positive base; test pool unchanged). ADR-043 supersedes the implicit "no cross-source positive dedup" stance in ADR-016 Q5 for the leakage-cleanup step specifically — the rest of ADR-016 Q5 (benign cross-source LMSYS-priority dedup) is preserved unchanged.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">source:</span><span class="co"> Phase 1 Commit 5 pipeline run (background task bwgkvoy7z + earlier ble3xg5b2) — leakage_report.json empirical finding</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">acceptance_criterion:</span><span class="co"> src/data/dedup.py::drop_train_test_leakage exists and drops train+val rows with cosine greater-than-or-equal threshold (default 0.85) to any test row; src/data/splits.py::apply_leakage_cleanup applies the function per (fold, seed) split and re-partitions cleaned train+val at 80/20; scripts/run_data_pipeline.py invokes apply_leakage_cleanup between make_splits and materialize_splits; post-cleanup re-run of pipeline records leakage_clean equals True in evals/leakage_report.json (zero exact plus zero cosine overlaps); ADR-043 cleanup_records counts persist in pipeline log for audit; afterword note added to WRITEUP/limitations-and-future-work.md explaining the methodology gap that ADR-043 closes (cross-source positive near-paraphrase leakage was not anticipated by ADR-016 Q5).</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">closing_commit:</span><span class="co"> e4454c0</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">references:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-016-data-design-bundle.md</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-041-phase-1-data-implementation-bundle.md</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - decisions/ADR-042-llm-prelabel-dedup-holdout-bootstrap.md</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="an">transcript:</span><span class="co"> transcripts/2026-05-16__phase-1-implementation.md</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># ADR-043: Post-split cross-source leakage cleanup — drop train+val rows that exact-match or cosine-near-match test</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Accepted (2026-05-16).</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Context</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>ADR-016 §Q3 locked a hard invariant: "no exact-hash and no high-cosine train-test overlap" via the leakage scan deliverable. ADR-016 §Q4 locked within-source dedup at MiniLM cosine 0.80. ADR-016 §Q5 locked cross-source dedup BUT only for benigns (LMSYS + UltraChat) with LMSYS-priority tiebreak. Cross-source dedup for POSITIVES was not specified because the LODO splits inherently treat each positive source as a unit: the held-out source goes entirely to test; the other 3 positive sources go to train+val. The implicit assumption was that source-level disjointness suffices.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Phase 1 Commit 5 pipeline run surfaced the empirical reality:</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LODO held-out source <span class="pp">|</span> Exact-hash overlaps <span class="pp">|</span> Cosine ≥0.85 overlaps <span class="pp">|</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> deepset (fold 0) <span class="pp">|</span> 0 <span class="pp">|</span> 2 per seed × 3 seeds = 6 <span class="pp">|</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> lakera_gandalf (fold 1) <span class="pp">|</span> 0 <span class="pp">|</span> 16 per seed × 3 = 48 <span class="pp">|</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> lakera_mosscap (fold 2) <span class="pp">|</span> 0 <span class="pp">|</span> 30 per seed × 3 = 90 <span class="pp">|</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> hackaprompt (fold 3) <span class="pp">|</span> 2 per seed × 3 = 6 <span class="pp">|</span> 7 per seed × 3 = 21 <span class="pp">|</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Total across 12 splits** | **6** | **165** <span class="pp">|</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>The pattern is structural — cross-source positive near-paraphrases exist (especially between Lakera datasets and HackAPrompt, where successful injection patterns converged). LODO test of, say, mosscap, contains rows whose near-paraphrases sit in HackAPrompt's train data — model has effectively "seen" the test pattern.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>This is a methodology gap that needs closing before Phase 2 training begins (training on leaked data would inflate test scores).</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Add a post-split leakage cleanup pass:</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`src/data/dedup.py::drop_train_test_leakage(train_val_df, test_df, threshold=0.85)`</span> — scans train+val vs test; drops train+val rows that:</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Exact-match any test text, OR</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Have MiniLM cosine ≥ threshold (0.85) to any test row.</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>   Returns cleaned train+val + per-pair drop records (text snippets + cosines + reason).</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="in">`src/data/splits.py::apply_leakage_cleanup(splits, threshold=0.85)`</span> — applies <span class="in">`drop_train_test_leakage`</span> to each FoldSeedSplit; re-partitions cleaned train+val at the same 80/20 ratio that <span class="in">`make_splits`</span> used. Returns cleaned splits + per-split cleanup-record list.</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span><span class="in">`scripts/run_data_pipeline.py`</span> invokes <span class="in">`apply_leakage_cleanup`</span> between <span class="in">`make_splits`</span> and <span class="in">`materialize_splits`</span>. Pipeline log records <span class="in">`n_dropped`</span> per (fold, seed) for audit.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Threshold 0.85 matches <span class="in">`compute_leakage_report`</span> in <span class="in">`src/data/audit.py`</span> (per ADR-016 Q3 hard-locked invariant). Test pool is preserved intact (test = held-out source's full deduped pool).</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>ADR-016 Q5's cross-source BENIGN dedup (LMSYS-priority tiebreak) is preserved unchanged — ADR-043 specifically adds POST-SPLIT cleanup for the train+val vs test text-overlap surface, not before-split cross-source positive dedup. The reason for post-split rather than before-split — LODO splits define the test pool per fold; cross-source positive dedup before splitting would require a notion of "which fold" the dedup applies to (different folds want different rows kept). Post-split per-fold cleanup is clearer.</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Consequences</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>**Positive:**</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 Q3 hard-locked leakage invariant satisfied — post-cleanup <span class="in">`leakage_clean = True`</span> in <span class="in">`evals/leakage_report.json`</span>.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Methodology gap surfaced + closed in same commit; honest about the empirical finding.</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cleanup records persist in pipeline log; reviewer can trace exactly which rows were dropped + why.</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Test pool unchanged — LODO held-out source full pool stays intact; only train+val rows that overlap with test are dropped.</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cost is small — approximately 171 rows out of ~22,000 train+val pool per split (~0.8%).</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>**Negative / cost:**</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Train pool shrinks slightly (~3.6% of positive pool dropped across 12 splits; benigns unaffected because they aren't in test per LODO design).</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Implicit super-session of ADR-016 Q5's silence on cross-source positive overlap; documented here.</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adds one O(N²) scan per split (already required by leakage scan); compute envelope unchanged.</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**Neutral:**</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 Q4 within-source dedup at 0.80 preserved unchanged.</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 Q5 cross-source benign dedup at 0.80 with LMSYS-priority preserved unchanged.</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-041 Q7 per-fold parquet materialization layout preserved unchanged (just fewer rows per train+val parquet).</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternatives Considered</span></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Before-split cross-source positive dedup**: rejected — cross-source positive dedup requires a notion of "which fold" since LODO assigns sources to test differently per fold. Post-split per-fold cleanup is clearer and yields the same end-state with less ambiguity.</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tolerate the leakage with disclosure**: rejected — ADR-016 Q3 says "no exact-hash and no high-cosine train-test overlap" is a HARD-LOCKED invariant. Tolerating ~0.25% per-split leakage would compromise the locked invariant.</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Drop EXACT-hash only; tolerate cosine**: rejected — same hard-lock rationale. The cosine threshold (0.85) is the same as the leakage scan threshold; consistency matters.</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Higher cleanup threshold (0.90)**: rejected — would leave the 0.85-0.90 band of near-paraphrases as leaked. The 0.85 threshold is the locked leakage threshold per ADR-016 Q3.</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Drop test rows instead of train rows**: rejected — test = held-out source's full pool per LODO Q1; dropping test rows would shrink the test set and violate LODO's "test on held-out source" definition. Dropping train rows preserves LODO test integrity.</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-016 (data design bundle — Q3 hard-locked leakage invariant + Q4 within-source dedup + Q5 cross-source benign dedup)</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-041 (Phase 1 implementation bundle — Q7 per-fold parquet materialization)</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ADR-042 (LLM-pre-label dedup-holdout bootstrap)</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transcript</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>See <span class="in">`transcripts/2026-05-16__phase-1-implementation.md`</span> for the conversation that led to this decision (post-Commit-5 pipeline empirical finding).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 
