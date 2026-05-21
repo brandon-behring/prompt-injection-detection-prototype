@@ -31,7 +31,7 @@ evaluation harness and asks the harder question honestly.
 | Detector | Pooled OOD AUPRC | Interpretation |
 |---|---:|---|
 | ModernBERT frozen probe | **0.364** vs random floor **0.374** | best in-house score, still not a success claim |
-| ModernBERT LoRA | 0.293 (AUROC 0.383 below 0.5 floor) | fine-tuning was actively harmful --- lexical overfitting + slate-induced label-relevance inversion |
+| ModernBERT LoRA | 0.293 (AUROC 0.383 below 0.5 floor) | trained adapter is anti-correlated with cross-family attack class --- lexical overfitting + slate-induced label-relevance inversion |
 | TF-IDF + LR | 0.291 (AUROC 0.371 also below 0.5 floor) | classical floor, roughly tied with LoRA; same mechanism |
 
 **The deeper failure** (one sentence): in-pool AUROC 0.99 collapses to 0.38

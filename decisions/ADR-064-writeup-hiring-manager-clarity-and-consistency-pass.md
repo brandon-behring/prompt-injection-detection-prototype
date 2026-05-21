@@ -11,8 +11,7 @@ claim: >-
   plot-interpretation cues, and table-context framing were under-served.
   User expansion: ensure consistency across README and other
   documentation surfaces.
-  [Redacted 2026-05-20 per ADR-074 narrow-relaxation; verbatim user
-  wording preserved in private transcript file.]
+  [Verbatim wording redacted per ADR-074.]
   Three /exploring-options rounds locked: heavy/fresh pass (not light/
   medium); commit doc-agent ADR-062 work as v1.1.3 baseline; DeBERTa
   null-result lives as RESULTS §1B callout (NOT a new F6 figure);
@@ -107,8 +106,7 @@ plot-interpretation cues, table-context framing under-served. Plus
 a documentation-wide consistency review across README, RESULTS,
 EXECUTIVE_SUMMARY, and reference docs.
 
-*[Verbatim user feedback redacted 2026-05-20 per ADR-074
-narrow-relaxation; original preserved in private transcript file.]*
+*[Verbatim wording redacted per ADR-074.]*
 
 Three parallel /exploring-options rounds (2026-05-19 — full transcript
 above) surfaced + locked the v1.2.0 scope: heavy clarity polish

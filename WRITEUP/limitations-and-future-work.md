@@ -2,7 +2,7 @@
 
 *Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
 
-> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
+> **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
 :::{.callout-note}
 ## Summary
@@ -290,6 +290,20 @@ This finding is methodologically richer than "fine-tuning hurt OOD ranking"
 (which implies degradation toward chance); it is "training on this pool
 produced systematically wrong rankings on cross-family slices via the
 lexical-signal-doesn't-match-attack-class mechanism."
+
+**Honest scope caveat: this mechanism is *interpretation*, not direct empirical
+demonstration in this artifact.** The artifact reports the aggregate AUROC
+finding (LoRA + TF-IDF both clear 0.5 on the wrong side; frozen probe holds) +
+the slate composition (NotInject all-negative; BIPIA + InjecAgent all-positive),
+which together *imply* the lexical-overfitting-meets-label-relevance mechanism.
+What the artifact does **not** report (and what would empirically demonstrate
+the mechanism) is the per-row score distribution per detector × per slice:
+e.g., "LoRA's mean score on NotInject vs frozen probe's mean score on NotInject"
+or per-slice score histograms. A sharper next-iteration pressure-test would
+add a per-slice score-distribution table to `evals/` derived from the
+per-row predictions at `evals/predictions/<rung>__fold<F>__seed<S>__<source>.parquet`
+(see [`methodology-guarantees.md` §6.2 Prediction-persistence pattern](./methodology-guarantees.md)).
+Treated as v6 future work, not blocking for the v1.2.x characterisation.
 
 ---
 

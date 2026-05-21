@@ -3349,12 +3349,11 @@ scopes discipline). SUBMISSION_AUDIT.md regenerates with at least 63 CLAIM rows 
 
 Post-v1.1.3 user review (ADR-062 baseline) surfaced that the Quarto writeup needed a hiring-manager
 clarity pass: jargon density, plot-interpretation cues, and table-context framing were under-served.
-User expansion: ensure consistency across README and other documentation surfaces. [Redacted
-2026-05-20 per ADR-074 narrow-relaxation; verbatim user wording preserved in private transcript
-file.] Three /exploring-options rounds locked: heavy/fresh pass (not light/ medium); commit
-doc-agent ADR-062 work as v1.1.3 baseline; DeBERTa null-result lives as RESULTS §1B callout (NOT a
-new F6 figure); hiring-manager landing = new standalone page; spoke density = light signpost +
-Result-bolding; figure refinements = prose + SVG axis-label fixes; sub-commits = logical (6
+User expansion: ensure consistency across README and other documentation surfaces. [Verbatim wording
+redacted per ADR-074.] Three /exploring-options rounds locked: heavy/fresh pass (not light/ medium);
+commit doc-agent ADR-062 work as v1.1.3 baseline; DeBERTa null-result lives as RESULTS §1B callout
+(NOT a new F6 figure); hiring-manager landing = new standalone page; spoke density = light signpost
++ Result-bolding; figure refinements = prose + SVG axis-label fixes; sub-commits = logical (6
 commits); full-repo audit + 3-stage release shape (v1.1.3 baseline + v1.1.4 consistency-only +
 v1.2.0 heavy pass); ADR-063 fact-correction via CHANGELOG postscript + this ADR §D narrative flag
 (lightest ceremony respecting the project ADR-discipline per CLAUDE.md "ADRs are immutable;

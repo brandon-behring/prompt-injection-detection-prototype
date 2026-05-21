@@ -7,7 +7,7 @@ description: "Detector ladder and reference scorer details for the prompt-inject
 
 *Part of the [WRITEUP methodology](../WRITEUP.md); see the hub for the cover narrative and reading guide.*
 
-> **How to read this spoke**: For a hiring-manager-level skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers. Note: the filename retains "rungs" as an architectural artifact (older ADRs use that term); reader-facing prose elsewhere calls these "detectors" — same thing.
+> **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers. Note: the filename retains "rungs" as an architectural artifact (older ADRs use that term); reader-facing prose elsewhere calls these "detectors" — same thing.
 
 :::{.callout-note}
 ## Summary

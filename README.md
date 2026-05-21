@@ -43,7 +43,7 @@ view is the hard failure mode.
 | ModernBERT frozen probe | 0.364 [0.354, 0.375] | best in-house score, still at random floor |
 | ProtectAI v1\* | 0.361 [0.330, 0.391] | reference scorer with verified training-pool overlap; not a clean OOD baseline |
 | ProtectAI v2\* | 0.314 [0.283, 0.345] | reference scorer with verified training-pool overlap; does not dominate v1 |
-| ModernBERT LoRA | 0.293 [0.286, 0.301] | fine-tuning was actively harmful; AUROC 0.383 below 0.5 floor |
+| ModernBERT LoRA | 0.293 [0.286, 0.301] | trained adapter ranks below random; AUROC 0.383 below 0.5 floor |
 | TF-IDF + LR | 0.291 [0.283, 0.298] | classical floor; AUROC 0.371 also below 0.5 floor |
 
 \* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
