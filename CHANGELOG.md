@@ -20,6 +20,86 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.15] — 2026-05-21
+
+**v1.2.14 visual-recheck + supersession-backlink invariant + ADR-077
+backfill.** Closes the v1.2.13/v1.2.14 lesson-noted gap: v1.2.14 added
+the ADR-count-claim invariant; v1.2.15 adds the sibling supersession-
+backlink + closing_commit invariant that catches the OTHER class of
+frontmatter chain-effect (REPO_AUDIT_2026-05-21 §P1-6 class). No
+methodology, model, data, or compute change.
+
+### Added
+
+- `scripts/audit_superseded_by_backlinks.py` — invariant tool: for every
+  ADR with `supersedes: [N]`, asserts target ADR-N has supersedeR in
+  its `superseded_by:` list. Axis-only supersessions (per the v1.2.13/
+  v1.2.14 narrow-relaxation discipline established by ADR-072 +
+  ADR-073 + ADR-076) are EXEMPT and reported as INFO via YAML comment
+  heuristic. Also asserts Accepted ADRs have populated `closing_commit`
+  (small exempt set for governance/backfill ADRs).
+- `.pre-commit-config.yaml` audit-superseded-by-backlinks hook (runs
+  on decisions/ADR-*.md changes).
+- `.github/workflows/audit-writeup.yml` step invoking the new audit
+  (parallel to v1.2.14's audit_adr_count_claims).
+- **ADR-077** — Supersession-backlink + frontmatter octal-quoting
+  backfill. Same Michael Nygard format as ADR-072 + ADR-076; extends
+  the narrow-relaxation frontmatter-backfill class.
+
+### Changed
+
+- **Class 1 frontmatter octal-quoting fixes** (3 fields). YAML 1.1
+  parses bare integer literals with leading zero as OCTAL
+  (`yaml.safe_load("015")` returns decimal 13, not the author's
+  intended ADR-015 reference). Quote-fixed:
+  - `ADR-007.superseded_by: 015` → `"015"`
+  - `ADR-015.supersedes: 007` → `"007"` (defensive; same intent)
+  - `ADR-018.supersedes: 015` → `"015"`
+- **Class 2 supersession back-link gaps** (4 ADRs gained
+  `superseded_by:` entries):
+  - ADR-015 ← ADR-018 (partial supersession on reference-slate axis)
+  - ADR-018 ← ADR-050 (rung-slate narrowing)
+  - ADR-021 ← ADR-050 (eval-slate aggregation narrowing)
+  - ADR-052 ← ADR-075 ("entire scope" per ADR-075 comment, not
+    axis-only)
+- Cascading edits (caught mechanically by v1.2.14's
+  `audit_adr_count_claims.py` invariant — **validates its design
+  intent**):
+  - `README.md:100` + `README.md:114` — 76 ADRs → 77 ADRs
+  - `docs/for-hiring-managers.md:83` — 76 ADRs → 77 ADRs
+  - `WRITEUP/methodology-guarantees.md:12` — 76 ADRs ... ADR-076 →
+    77 ADRs ... ADR-077
+  - `CLAUDE.md:13` — 76 ADRs at v1.2.13 close → 77 ADRs at v1.2.15
+    close; governance parenthetical extended with ADR-077
+- `SUBMISSION_AUDIT.md` regenerated (76 → 77 CLAIM rows).
+
+### Visual recheck on v1.2.14 (no commit; inline summary)
+
+Playwright sweep of all 4 user-visible v1.2.14-changed pages on the
+live gh-pages site: clean. All v1.2.14 changes (D1 README fix,
+Phase-4 marker cleanup, eval-toolkit v0.44.0 row, upstream_issues
+scope-note prose) propagated correctly. Snapshots + screenshots
+gitignored at `transcripts/auto/v1-2-14-visual-recheck-*`.
+
+### Audit-tool development note
+
+The audit_superseded_by_backlinks.py development surfaced and
+discharged 2 distinct frontmatter-debt classes (Class 1 octal-quoting
++ Class 2 backlink gaps; both via ADR-077). The script itself was
+initially bit by the same YAML octal-parsing bug (4 ADRs dropped due
+to adr_id collision); the fix landed via `collect_adrs` using filename
+as source of truth for adr_id rather than the YAML-parsed frontmatter
+field. Lesson noted: any bare-integer ID value with leading zero in
+YAML 1.1 is a source bug; future ADRs should quote all bare-integer
+ID values in supersedes / superseded_by / adr_id fields.
+
+### v1.2.15 sub-commits
+
+- C1 (`c3d1083`) — new audit-tool + pre-commit + CI wiring + ADR-077
+  + frontmatter backfills + reader-facing cascade edits (per v1.2.15
+  plan Q1 "bundled" + Q2 "halt + surface" + path-1 backfill lock)
+- C2 (this commit) — CHANGELOG + tag
+
 ## [1.2.14] — 2026-05-21
 
 **v1.2.13 visual-verification-driven polish patch.** Closes D1 from
