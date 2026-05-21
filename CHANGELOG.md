@@ -20,6 +20,50 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.12] — 2026-05-21
+
+**README hybrid-adoption polish**: restructures the README around a
+compact top-fold + `<details>`-collapsible depth, per the drafted
+replacement that's been sitting in the audit appendix unadopted since
+the original 2026-05-20 audit. Keeps all v1.2.10/v1.2.11 polish
+(asterisks, AUROC framing, "Project at a glance" cross-refs). No
+methodology, model, data, compute, or result change.
+
+### Changed
+
+- **README top-fold compact + `<details>` depth**: top fold drops
+  from ~70 lines (with inline result tables) to ~22 lines (problem
+  + 2-bullet result + 3-depth triage navigation). Recruiter-skim path
+  sees the bottom-line in prose without scrolling past tables; the
+  curious-reader path is one click into `<details>`.
+- **"Read the site, three depths" triage**: replaces the previous
+  4-bullet "How To Read The Site" with sharper 60-second / 45-minute
+  / Reproduce ladder pointing at the live-site URLs.
+- **Reproduce section gains explicit T0/T1/T3 ladder** with cost +
+  time annotations + HF Hub checkpoint direct links + ADR-058 +
+  ADR-020 citations.
+- **"Why trust the result" section added**: 4-bullet covering
+  source-level LODO holdout / bootstrap-CI discipline / single-class
+  slice handling / reference-scorer contamination audit. Surfaces
+  the trust-anchors that were previously implicit.
+- **Direct Detection Check tables removed from README**: they live
+  on RESULTS.md + EXECUTIVE_SUMMARY.md; duplicating them in the
+  README added length without signal. The pooled OOD table stays in
+  the README because it's the headline finding.
+- **ADR count updated to 75** (was 70 in earlier copy; reflects
+  ADR-071 through ADR-075 + new ADRs through the v1.2.11 polish
+  cycle).
+- **Current state pin moved to v1.2.11** in the README's Submission
+  Anchors block (was v1.2.8 in the unadopted draft; current state
+  is now v1.2.11 + this v1.2.12 patch).
+
+### Decisions
+
+- No new ADRs. README restructure is a surface-presentation fix
+  citing the original audit's drafted-replacement plan (in
+  `~/notes/prompt-injection-audit-2026-05-20-readme-draft.md`,
+  hybrid-adoption path).
+
 ## [1.2.11] — 2026-05-20
 
 **Post-remediation polish patch**: a focused polish pass on items the
