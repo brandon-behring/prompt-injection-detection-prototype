@@ -1070,11 +1070,12 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: right;">0.625</td>
 </tr>
 <tr class="odd">
-<td>ModernBERT full fine-tune</td>
+<td>ModernBERT full fine-tune**</td>
 <td style="text-align: right;">0.558</td>
 </tr>
 </tbody>
 </table>
+<p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). Full-FT is absent from the Cross-Family OOD AUPRC table below for that reason.</p>
 <p><strong>Takeaway:</strong> direct-prompt-injection detection was not the failure mode. The failure is transfer: success on direct examples did not produce robust OOD ranking or stable thresholds when the attack family changed. False positives, AUPRC, and AUROC are omitted from the LODO direct-source table because that test is all-positive.</p>
 </section>
 <section id="cross-family-ood-table-auprc" class="level2">
