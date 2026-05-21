@@ -138,8 +138,8 @@ policy.
 ## Submission Anchors
 
 - Current state:
-  [`tree/v1.2.8`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.2.8)
-  (2026-05-19) --- live-site source
+  [`tree/v1.2.13`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.2.13)
+  (2026-05-21) --- live-site source
 - Original submission tag:
   [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
   (2026-05-18) --- preserved as historical reviewer pin per ADR-033

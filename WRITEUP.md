@@ -1,7 +1,7 @@
 # Prompt-Injection Classification: Methodology and Capability Characterization
 
-**Author**: Brandon Behring | **Date**: 2026-05-19 | **Status**:
-live-site current state `tree/v1.2.8`; original submission tag
+**Author**: Brandon Behring | **Date**: 2026-05-21 | **Status**:
+live-site current state `tree/v1.2.13`; original submission tag
 `tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
 ADR-033.
 
@@ -168,7 +168,7 @@ indirect injection, agentic-flow attacks, jailbreak-style questions, and benign
 text that resembles injection text. Direct-injection training does not transfer
 cleanly to those families.
 
-### Finding 3: Fine-tuning was actively harmful on cross-family OOD (lexical overfitting + label-relevance inversion)
+### Finding 3: Trained adapters anti-correlated with cross-family attack class (lexical overfitting + label-relevance inversion)
 
 LoRA scored **0.293** AUPRC on pooled OOD vs **0.364** for the frozen probe
 and **0.291** for TF-IDF + LR. The frozen probe keeps the pretrained backbone

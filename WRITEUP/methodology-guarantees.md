@@ -9,7 +9,7 @@
 
 - **Three-library tooling split**: `eval-toolkit` (methodology-aware harness — bootstrap CIs / calibration / leakage / splits / paired-bootstrap), `runpod-deploy` (cloud orchestration), `research_toolkit` (literature dossier pipeline). Each survives across iterations as a durable knowledge artifact.
 - **Prediction-persistence pattern [LOCKED]**: 282 prediction parquets persisted per ADR-013 + ADR-021 so downstream threshold / calibration analyses run from artifacts without re-running inference.
-- **SDD / ADR process**: 70 ADRs accepted across Phase 0-00 through ADR-070 (immutability-relaxation closures); each significant decision locked before code; `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard-gate per ADR-039).
+- **SDD / ADR process**: 76 ADRs accepted across Phase 0-00 through ADR-076 (frontmatter-backfill governance closures); each significant decision locked before code; `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard-gate per ADR-039).
 - **Library-first invariant** (project-wide per Phase 4 Q6 reaffirmation): audit `eval-toolkit + runpod-deploy + research_toolkit` BEFORE writing project glue. Upstream gaps land in `decisions/upstream_issues.md` before any local workaround. ADR-047 retrofitted 4 hand-rolls in a single carryforward refactor.
 :::
 
@@ -84,8 +84,9 @@ The phase-by-phase process gates in
 tests-passing, not metric thresholds — instantiate the discipline.
 
 **ADR closure trail**:
-- 50 ADRs accepted across Phase 0-00 through Phase 5 close at
-  ADR-050.
+- 50 ADRs accepted across Phase 0-00 through the v1.0.0 submission
+  gate at ADR-050 (the snapshot at submission time; post-v1.0.0
+  patch governance extends the trail to ADR-076 at v1.2.13 close).
 - `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via
   `scripts/regenerate_audit.py` (CI hard gate per ADR-039).
 - Transcripts for multi-turn decision conversations live at
