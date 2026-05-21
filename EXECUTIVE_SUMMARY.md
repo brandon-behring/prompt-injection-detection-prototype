@@ -144,7 +144,7 @@ deployment recommendation.
 
 ## Where To Go Next
 
-- [For hiring managers in a hurry](docs/for-hiring-managers.md): 60-second
+- [Project at a glance](docs/for-hiring-managers.md): 60-second
   reader path from problem to finding to trust basis.
 - [Results](RESULTS.md): exact grids, canonical figures, and artifact links.
 - [Writeup](WRITEUP.md): methodology narrative.

@@ -75,7 +75,7 @@ website:
         href: decisions/README.md
       - text: Reference
         menu:
-          - text: "For hiring managers in a hurry"
+          - text: "Project at a glance"
             href: docs/for-hiring-managers.md
           - text: "Public site reader map"
             href: docs/site-reader-map.md

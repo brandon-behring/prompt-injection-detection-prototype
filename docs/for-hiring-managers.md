@@ -1,16 +1,16 @@
 ---
-title: "For hiring managers in a hurry"
-description: "Four questions, 60 seconds. What problem this project solves, what was found, why to trust it, and what it says about how the candidate thinks."
+title: "Project at a glance"
+description: "Four questions, ~60 seconds: what problem this project solves, what was found, why to trust the finding, and what the work says about how the candidate thinks."
 ---
 
-# For hiring managers in a hurry
+# Project at a glance
 
 Four questions, ~60 seconds.
 
-If you have 5 more minutes after this, jump to the [headline table on the
-landing page](../index.qmd) or the [one-page executive summary](../EXECUTIVE_SUMMARY.md).
-If you're a technical reviewer instead, see the [reading guide](../READING_GUIDE.md)
-for the audit-depth path.
+For a slightly longer read, see the [headline table on the
+landing page](../index.qmd) or the [one-page executive
+summary](../EXECUTIVE_SUMMARY.md). For an audit-depth path, see
+the [reading guide](../READING_GUIDE.md).
 
 ## 1. What problem does this project solve?
 
@@ -34,16 +34,11 @@ evaluation harness and asks the harder question honestly.
 | ModernBERT LoRA | 0.293 (AUROC 0.383 below 0.5 floor) | fine-tuning was actively harmful --- lexical overfitting + slate-induced label-relevance inversion |
 | TF-IDF + LR | 0.291 (AUROC 0.371 also below 0.5 floor) | classical floor, roughly tied with LoRA; same mechanism |
 
-The deeper failure: in-pool 0.99 AUROC -> cross-family 0.38 AUROC for trained
-detectors. CIs on LoRA + TF-IDF clear the 0.5 random floor on the wrong side
-(LoRA [0.374, 0.392], TF-IDF [0.362, 0.381]). The frozen probe (zero
-LODO-pool adaptation) holds at 0.515. The mechanism is **lexical overfitting
-+ a label-relevance shift** on the OOD slate: NotInject (benign text engineered
-to look like injection) flips the negative side; indirect/agentic attacks
-(don't share direct-injection lexical patterns) flip the positive side.
-Direct-injection training produced learned representations whose ordering
-is *systematically inverted* on cross-family slices where lexical signal stops
-tracking attack class.
+**The deeper failure** (one sentence): in-pool AUROC 0.99 collapses to 0.38
+cross-family --- LoRA + TF-IDF both fall below the 0.5 random floor (CIs
+clear the wrong side) while the frozen probe holds at 0.515; the
+direct-injection lexical signal both detectors learned is *anti-correlated*
+with cross-family attack class on this slate.
 
 **Direct detection check**
 

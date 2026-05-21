@@ -9,7 +9,7 @@ ledgers unless you are auditing provenance.
 
 ## Start here
 
-- **Hiring-manager scan**: [`For hiring managers in a hurry`](for-hiring-managers.md) gives the fastest read on what was built, what worked, and what failed.
+- **Fast scan**: [`Project at a glance`](for-hiring-managers.md) gives the fastest read on what was built, what worked, and what failed.
 - **Results-first technical read**: [`Results`](../RESULTS.md) gives the direct-detection and OOD-generalization findings before the methodology details.
 - **Full narrative**: [`WRITEUP`](../WRITEUP.md) is the hub for the complete technical story.
 - **Repository scan**: [`README`](../README.md) is the GitHub-front-door version of the same story.

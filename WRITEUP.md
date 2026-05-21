@@ -10,7 +10,7 @@ headline result, and the limits in one place. The detailed spokes remain linked
 below for readers who want the full audit trail.
 
 First-time readers should start with the [landing page](./index.qmd), then the
-[60-second hiring-manager tour](./docs/for-hiring-managers.md), then
+[60-second project-at-a-glance tour](./docs/for-hiring-managers.md), then
 [Results](./RESULTS.md). This page is the deeper methodology layer.
 
 | Spoke | What It Covers |

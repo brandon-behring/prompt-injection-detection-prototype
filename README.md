@@ -94,7 +94,7 @@ and AUROC are undefined and omitted.
 - **5-minute read**: start at the
   [live landing page](https://brandon-behring.github.io/prompt-injection-detection-prototype/).
   It explains the problem, setup, result, and limits in plain language, then
-  points to the 60-second hiring-manager tour.
+  points to the 60-second project-at-a-glance tour.
 - **Results audit**: read [RESULTS.md](./RESULTS.md). It contains the exact
   tables, five canonical figures, and raw artifact pointers.
 - **Methodology audit**: read [WRITEUP.md](./WRITEUP.md), then the eight spoke

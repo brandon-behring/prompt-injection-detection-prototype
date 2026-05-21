@@ -37,7 +37,7 @@ comparable pooled OOD inference was not run (Phase 5 X11 crash; see
 Goal: understand the problem, the result, and what the project demonstrates.
 
 1. [Landing page](index.qmd): problem, setup, headline result, limits.
-2. [For hiring managers in a hurry](docs/for-hiring-managers.md): 60-second
+2. [Project at a glance](docs/for-hiring-managers.md): 60-second
    version of the problem, finding, trust basis, and candidate signal.
 3. [Results](RESULTS.md): skim Direct Prompt-Injection Performance and the
    Cross-Family OOD table together.
