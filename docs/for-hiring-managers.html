@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Four questions, 60 seconds. What problem this project solves, what was found, why to trust it, and what it says about how the candidate thinks.">
+<meta name="description" content="Four questions, ~60 seconds: what problem this project solves, what was found, why to trust the finding, and what the work says about how the candidate thinks.">
 
-<title>For hiring managers in a hurry – Prompt-injection classifier evaluation</title>
+<title>Project at a glance – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -156,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../docs/for-hiring-managers.html">
- <span class="dropdown-text">For hiring managers in a hurry</span></a>
+ <span class="dropdown-text">Project at a glance</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../docs/site-reader-map.html">
@@ -219,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">For hiring managers in a hurry</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Project at a glance</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -937,7 +937,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#for-hiring-managers-in-a-hurry" id="toc-for-hiring-managers-in-a-hurry" class="nav-link active" data-scroll-target="#for-hiring-managers-in-a-hurry">For hiring managers in a hurry</a>
+  <li><a href="#project-at-a-glance" id="toc-project-at-a-glance" class="nav-link active" data-scroll-target="#project-at-a-glance">Project at a glance</a>
   <ul class="collapse">
   <li><a href="#what-problem-does-this-project-solve" id="toc-what-problem-does-this-project-solve" class="nav-link" data-scroll-target="#what-problem-does-this-project-solve">1. What problem does this project solve?</a></li>
   <li><a href="#what-did-the-candidate-find" id="toc-what-did-the-candidate-find" class="nav-link" data-scroll-target="#what-did-the-candidate-find">2. What did the candidate find?</a></li>
@@ -952,12 +952,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">For hiring managers in a hurry</h1>
+<h1 class="title">Project at a glance</h1>
 </div>
 
 <div>
   <div class="description">
-    Four questions, 60 seconds. What problem this project solves, what was found, why to trust it, and what it says about how the candidate thinks.
+    Four questions, ~60 seconds: what problem this project solves, what was found, why to trust the finding, and what the work says about how the candidate thinks.
   </div>
 </div>
 
@@ -974,10 +974,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="for-hiring-managers-in-a-hurry" class="level1">
-<h1>For hiring managers in a hurry</h1>
+<section id="project-at-a-glance" class="level1">
+<h1>Project at a glance</h1>
 <p>Four questions, ~60 seconds.</p>
-<p>If you have 5 more minutes after this, jump to the <a href="../index.html">headline table on the landing page</a> or the <a href="../EXECUTIVE_SUMMARY.html">one-page executive summary</a>. If you’re a technical reviewer instead, see the <a href="../READING_GUIDE.html">reading guide</a> for the audit-depth path.</p>
+<p>For a slightly longer read, see the <a href="../index.html">headline table on the landing page</a> or the <a href="../EXECUTIVE_SUMMARY.html">one-page executive summary</a>. For an audit-depth path, see the <a href="../READING_GUIDE.html">reading guide</a>.</p>
 <section id="what-problem-does-this-project-solve" class="level2">
 <h2 class="anchored" data-anchor-id="what-problem-does-this-project-solve">1. What problem does this project solve?</h2>
 <p><strong>Prompt injection</strong> is untrusted text trying to override the instructions an LLM system is supposed to follow (“ignore previous instructions and…”).</p>
@@ -1018,7 +1018,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>The deeper failure: in-pool 0.99 AUROC -&gt; cross-family 0.38 AUROC for trained detectors. CIs on LoRA + TF-IDF clear the 0.5 random floor on the wrong side (LoRA [0.374, 0.392], TF-IDF [0.362, 0.381]). The frozen probe (zero LODO-pool adaptation) holds at 0.515. The mechanism is <strong>lexical overfitting + a label-relevance shift</strong> on the OOD slate: NotInject (benign text engineered to look like injection) flips the negative side; indirect/agentic attacks (don’t share direct-injection lexical patterns) flip the positive side. Direct-injection training produced learned representations whose ordering is <em>systematically inverted</em> on cross-family slices where lexical signal stops tracking attack class.</p>
+<p><strong>The deeper failure</strong> (one sentence): in-pool AUROC 0.99 collapses to 0.38 cross-family — LoRA + TF-IDF both fall below the 0.5 random floor (CIs clear the wrong side) while the frozen probe holds at 0.515; the direct-injection lexical signal both detectors learned is <em>anti-correlated</em> with cross-family attack class on this slate.</p>
 <p><strong>Direct detection check</strong></p>
 <table class="caption-top table">
 <colgroup>
