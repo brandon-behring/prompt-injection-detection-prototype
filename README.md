@@ -41,13 +41,22 @@ view is the hard failure mode.
 | Detector | Pooled OOD AUPRC | Read |
 |---|---:|---|
 | ModernBERT frozen probe | 0.364 [0.354, 0.375] | best in-house score, still at random floor |
-| ProtectAI v1 | 0.361 [0.330, 0.391] | diagnostic reference; contamination caveats |
-| ProtectAI v2 | 0.314 [0.283, 0.345] | does not dominate v1 |
-| ModernBERT LoRA | 0.293 [0.286, 0.301] | fine-tuning hurt OOD performance |
-| TF-IDF + LR | 0.291 [0.283, 0.298] | classical floor, roughly tied with LoRA |
+| ProtectAI v1\* | 0.361 [0.330, 0.391] | reference scorer with verified training-pool overlap; not a clean OOD baseline |
+| ProtectAI v2\* | 0.314 [0.283, 0.345] | reference scorer with verified training-pool overlap; does not dominate v1 |
+| ModernBERT LoRA | 0.293 [0.286, 0.301] | fine-tuning was actively harmful; AUROC 0.383 below 0.5 floor |
+| TF-IDF + LR | 0.291 [0.283, 0.298] | classical floor; AUROC 0.371 also below 0.5 floor |
+
+\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
+(`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`) per
+[EVIDENCE](./EVIDENCE.md) §1-2. Pooled OOD scores on slices that overlap with
+that training pool are not clean OOD baselines.
 
 For `pooled_ood`, random AUPRC is **412 / 1101 = 0.374**. That is why the
-0.364 frozen-probe score is not a success claim.
+0.364 frozen-probe score is not a success claim. Under AUROC (random floor
+0.5), LoRA and TF-IDF + LR both land below the floor with CIs that clear 0.5
+on the wrong side --- the mechanism is lexical overfitting + a label-relevance
+shift on the OOD slate; see [EXECUTIVE_SUMMARY](./EXECUTIVE_SUMMARY.md)
+§Mechanism for the full read.
 
 ## Direct Detection Check
 
@@ -69,7 +78,13 @@ to new attack families.
 |---|---:|---|
 | ModernBERT frozen probe | **0.641** | best direct-source holdout recall |
 | ModernBERT LoRA | 0.625 | similar recall, but worse pooled OOD ranking |
-| ModernBERT full fine-tune | 0.558 | lower direct-source recall |
+| ModernBERT full fine-tune\*\* | 0.558 | lower direct-source recall |
+
+\*\* Full-FT shows LODO direct-source data only (24 Phase 2 predictions
+persisted); the comparable pooled OOD inference was **not run** (Phase 5 X11
+crash, see
+[ADR-075](./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
+Full-FT is absent from the Pooled OOD table above for that reason.
 
 The held-out direct-source slice is all-positive, so false positives, AUPRC,
 and AUROC are undefined and omitted.
