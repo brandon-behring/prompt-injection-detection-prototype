@@ -1046,8 +1046,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="anti-patterns-to-avoid" class="level2">
 <h2 class="anchored" data-anchor-id="anti-patterns-to-avoid">Anti-patterns to avoid</h2>
 <ul>
-<li>Hand-rolling functionality already in the three libraries</li>
-<li>Working around a library limitation without filing an upstream issue</li>
+<li>Hand-rolling a primitive that belongs in <code>eval-toolkit</code> / <code>runpod-deploy</code> / <code>research_toolkit</code> (strengthened 2026-05-18: no local workarounds; missing upstream primitives <strong>block</strong> dependent work pending the upstream MR — the older “thin local glue + TODO marker” pattern is retired)</li>
+<li>Continuing dependent work on a TODO-marker local stub after filing the upstream issue, instead of waiting for the upstream MR to land</li>
 <li>Skipping transcript capture for a multi-turn decision conversation</li>
 <li>Mutating a locked decision without writing a superseding ADR</li>
 <li>Tuning on test data — even informally during error analysis</li>

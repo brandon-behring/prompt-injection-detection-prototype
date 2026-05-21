@@ -948,7 +948,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#version-pinning-lock-phase-0-08-per-adr-036" id="toc-version-pinning-lock-phase-0-08-per-adr-036" class="nav-link" data-scroll-target="#version-pinning-lock-phase-0-08-per-adr-036">Version pinning lock (Phase 0-08 per ADR-036)</a></li>
   <li><a href="#secrets-discipline-phase-0-08-per-adr-035" id="toc-secrets-discipline-phase-0-08-per-adr-035" class="nav-link" data-scroll-target="#secrets-discipline-phase-0-08-per-adr-035">Secrets discipline (Phase 0-08 per ADR-035)</a></li>
   <li><a href="#eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit" id="toc-eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit" class="nav-link" data-scroll-target="#eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit">eval-toolkit imports (https://github.com/brandon-behring/eval-toolkit)</a></li>
-  <li><a href="#runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.7.7-pinned" id="toc-runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.7.7-pinned" class="nav-link" data-scroll-target="#runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.7.7-pinned">runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.7.7 pinned]</a></li>
+  <li><a href="#runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned" id="toc-runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned" class="nav-link" data-scroll-target="#runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned">runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.8.4 pinned]</a></li>
   <li><a href="#quarto-github-actions-introduced-by-adr-030-adr-033" id="toc-quarto-github-actions-introduced-by-adr-030-adr-033" class="nav-link" data-scroll-target="#quarto-github-actions-introduced-by-adr-030-adr-033">Quarto + GitHub Actions (introduced by ADR-030 + ADR-033)</a></li>
   <li><a href="#huggingface_hub-publication-side-use-introduced-by-adr-032" id="toc-huggingface_hub-publication-side-use-introduced-by-adr-032" class="nav-link" data-scroll-target="#huggingface_hub-publication-side-use-introduced-by-adr-032">huggingface_hub publication-side use (introduced by ADR-032)</a></li>
   <li><a href="#phase-3-evaluation-deps-introduced-incrementally-per-adr-045-across-commits-16" id="toc-phase-3-evaluation-deps-introduced-incrementally-per-adr-045-across-commits-16" class="nav-link" data-scroll-target="#phase-3-evaluation-deps-introduced-incrementally-per-adr-045-across-commits-16">Phase 3 Evaluation deps (introduced incrementally per ADR-045 across Commits 1–6)</a></li>
@@ -1017,7 +1017,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p><strong>Pinning strategy</strong> (per ADR-036): tag pin + freeze for submission window (Phase 0-08 close → <code>v1.0.0</code> submission tag per ADR-033); <code>uv.lock</code> provides byte-level reproducibility on top.</p>
 <p><strong>Python pin</strong> (per ADR-037): <code>requires-python = "&gt;=3.13"</code> + <code>.python-version = 3.13</code>.</p>
-<p><strong>Bump triggers</strong> — exactly three: 1. Blocking upstream bug that breaks a use-pattern documented below. 2. Critical security fix (CVE-grade) in the upstream. 3. Post-submission reviewer-feedback patch per ADR-033 <code>v1.0.x</code> discipline.</p>
+<p><strong>Bump triggers</strong> — exactly four: 1. Blocking upstream bug that breaks a use-pattern documented below. 2. Critical security fix (CVE-grade) in the upstream. 3. Post-submission reviewer-feedback patch per ADR-033 <code>v1.0.x</code> discipline. 4. Dependency / ledger maintenance bump that records resolved upstream issues without methodology / model / data / compute change (per ADR-066; precedent at v1.2.8: bumped <code>eval-toolkit</code> v0.42→v0.43 to record #48 + #49 + #53 closures as already-resolved-not-consumed; ledger updates only).</p>
 <p>Routine “the upstream has a new release” is NOT a bump trigger. Each bump produces a new commit + an entry in <code>decisions/upstream_issues.md</code> referencing the trigger; bumps do NOT supersede ADR-036 (the discipline is locked; specific versions move). Freeze expires at <code>v2.0.0</code> per ADR-033 major-bump discipline.</p>
 </section>
 <section id="secrets-discipline-phase-0-08-per-adr-035" class="level2">
@@ -1208,8 +1208,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.7.7-pinned" class="level2">
-<h2 class="anchored" data-anchor-id="runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.7.7-pinned">runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.7.7 pinned]</h2>
+<section id="runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned" class="level2">
+<h2 class="anchored" data-anchor-id="runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned">runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.8.4 pinned]</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
