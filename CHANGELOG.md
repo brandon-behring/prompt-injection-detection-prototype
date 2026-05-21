@@ -20,6 +20,41 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.10] — 2026-05-20
+
+**Post-remediation reporting-honesty patch**: the 2026-05-20 post-remediation
+audit on v1.2.9 surfaced that two headline-table caveats (ProtectAI v1+v2
+training-pool contamination + full-FT incomplete OOD experiment) were sitting
+unflagged. A skimming reader could treat ProtectAI scores as peer to in-house
+detectors and the full-FT LODO row as a complete result. No methodology, model,
+data, compute, or result change; the data + caveats were already there in
+EVIDENCE.md §1-2 + ADR-050 R2 / ADR-052 / ADR-075. This release makes them
+visually load-bearing.
+
+### Changed
+
+- **Reporting-honesty asterisks on contamination + incomplete-experiment rows**
+  --- 6 entry-surface pages (landing / EXECUTIVE_SUMMARY / RESULTS §1 /
+  for-hiring-managers / WRITEUP §6 / READING_GUIDE) now show ProtectAI v1+v2
+  with `*` markers + footnote citing EVIDENCE §1-2 training-pool overlap, and
+  full-FT LODO direct-source rows with `**` markers + footnote citing
+  ADR-075 unified-narrative on the dropped pooled OOD inference. Authorization
+  basis: ADR-064 §D flagged-not-fixed inventory + ADR-018 reference-scorer
+  slate (existing caveats made visually load-bearing; no decision content
+  changes).
+- **README framing aligned with v1.2.9 narrative** --- LoRA row "fine-tuning
+  hurt OOD performance" replaced with "fine-tuning was actively harmful;
+  AUROC 0.383 below 0.5 floor" to match landing + EXEC_SUMMARY + WRITEUP §7
+  Finding 3 + for-hiring-managers Q2 + RESULTS §6 + READING_GUIDE "How To
+  Read" callout + model-rungs §4.3 + limitations §9.5. README also picks up
+  the asterisk treatment for consistency with the 6 entry-surface pages.
+
+### Decisions
+
+- No new ADRs in this release. The asterisk additions cite ADR-064 §D + ADR-018
+  as existing authorization bases (per ADR-073 Class A/B narrow-relaxation
+  discipline applied to "flagged-not-fixed" inventory closure).
+
 ## [1.2.9] — 2026-05-20
 
 **Audit-remediation patch release**: 2026-05-20 second-opinion audit cycle
