@@ -33,7 +33,7 @@ Three Quarto callout types are reserved for three specific reader-facing purpose
 
 The Summary callout-note is NOT labeled "TL;DR" — the label "Summary" is used (per ADR-065 §C4 + Q3 round-3 user directive: "TL;DR" carries casual / informal connotation; "Summary" matches the audit-prep tone of the rest of the writeup).
 
-`docs/for-hiring-managers.md` is the only reviewer-facing surface that intentionally adopts first-person voice in the "What does this tell me about how the candidate thinks?" section per ADR-064 §B6's hiring-manager 4-question format; all other callout content uses third-person voice per ADR-065 §D1.
+`docs/for-hiring-managers.md` is the only reviewer-facing surface that intentionally adopts first-person voice in the "What does this say about how the candidate thinks?" section per ADR-064 §B6's hiring-manager 4-question format; all other callout content uses third-person voice per ADR-065 §D1.
 
 ## Ablation
 

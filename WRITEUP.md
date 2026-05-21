@@ -128,8 +128,8 @@ AUPRC, and AUROC are left out of that result table.
 | Detector | Pooled OOD AUPRC | 95% CI | Read |
 |---|---:|---:|---|
 | ModernBERT frozen probe | **0.364** | [0.354, 0.375] | best in-house score, but at the random floor |
-| ProtectAI v1\* | 0.361 | [0.330, 0.391] | reference scorer with verified training-pool overlap |
-| ProtectAI v2\* | 0.314 | [0.283, 0.345] | reference scorer with verified training-pool overlap; does not dominate v1 |
+| ProtectAI v1\* | 0.361 | [0.330, 0.391] | reference scorer with verified training-pool overlap, not a clean OOD baseline |
+| ProtectAI v2\* | 0.314 | [0.283, 0.345] | reference scorer with verified training-pool overlap, not a clean OOD baseline; does not dominate v1 |
 | ModernBERT LoRA | 0.293 | [0.286, 0.301] | fine-tuning hurt OOD ranking |
 | TF-IDF + LR | 0.291 | [0.283, 0.298] | classical floor, roughly tied with LoRA |
 

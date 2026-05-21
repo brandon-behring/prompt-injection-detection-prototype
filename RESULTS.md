@@ -58,7 +58,12 @@ design, so the table reports recall only.
 |---|---:|
 | ModernBERT frozen probe | **0.641** |
 | ModernBERT LoRA | 0.625 |
-| ModernBERT full fine-tune | 0.558 |
+| ModernBERT full fine-tune\*\* | 0.558 |
+
+\*\* Full-FT shows LODO direct-source data only (24 Phase 2 predictions
+persisted); the comparable pooled OOD inference was **not run** (Phase 5 X11
+crash, see [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
+Full-FT is absent from the Cross-Family OOD AUPRC table below for that reason.
 
 **Takeaway:** direct-prompt-injection detection was not the failure mode. The
 failure is transfer: success on direct examples did not produce robust OOD
