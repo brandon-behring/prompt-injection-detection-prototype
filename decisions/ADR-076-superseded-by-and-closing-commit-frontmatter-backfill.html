@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-19">
+<meta name="dcterms.date" content="2026-05-21">
 
-<title>runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy – Prompt-injection classifier evaluation</title>
+<title>Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -219,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html">Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -823,7 +858,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy</span></a>
   </div>
 </li>
@@ -925,7 +960,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</span></a>
   </div>
 </li>
@@ -943,18 +978,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-059-runpod-deploy-installs-from-pypi-narrow-supersession-of-adr-036" id="toc-adr-059-runpod-deploy-installs-from-pypi-narrow-supersession-of-adr-036" class="nav-link active" data-scroll-target="#adr-059-runpod-deploy-installs-from-pypi-narrow-supersession-of-adr-036">ADR-059 — runpod-deploy installs from PyPI (narrow supersession of ADR-036)</a>
+  <li><a href="#adr-076-backfill-superseded_by-closing_commit-frontmatter-for-adr-046-adr-054-adr-061-adr-071-075" id="toc-adr-076-backfill-superseded_by-closing_commit-frontmatter-for-adr-046-adr-054-adr-061-adr-071-075" class="nav-link active" data-scroll-target="#adr-076-backfill-superseded_by-closing_commit-frontmatter-for-adr-046-adr-054-adr-061-adr-071-075">ADR-076: Backfill superseded_by + closing_commit frontmatter for ADR-046 + ADR-054 + ADR-061 + ADR-071-075</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
-  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
-  <ul class="collapse">
-  <li><a href="#subsection-1-pin-format-switch" id="toc-subsection-1-pin-format-switch" class="nav-link" data-scroll-target="#subsection-1-pin-format-switch">Subsection 1 — pin format switch</a></li>
-  <li><a href="#subsection-2-drop-scriptsrunpod_deploy_long_ssh.py-monkey-patch-shim-88-closed" id="toc-subsection-2-drop-scriptsrunpod_deploy_long_ssh.py-monkey-patch-shim-88-closed" class="nav-link" data-scroll-target="#subsection-2-drop-scriptsrunpod_deploy_long_ssh.py-monkey-patch-shim-88-closed">Subsection 2 — Drop scripts/runpod_deploy_long_ssh.py monkey-patch shim (#88 closed)</a></li>
-  <li><a href="#subsection-3-adopt-90-lifecycle.on_success-recycle-for-deberta-commit-3-wiring" id="toc-subsection-3-adopt-90-lifecycle.on_success-recycle-for-deberta-commit-3-wiring" class="nav-link" data-scroll-target="#subsection-3-adopt-90-lifecycle.on_success-recycle-for-deberta-commit-3-wiring">Subsection 3 — Adopt #90 lifecycle.on_success: recycle for DeBERTa (Commit 3 wiring)</a></li>
-  <li><a href="#subsection-4-adopt-97-validate-check-image-registry-consumed-automatically" id="toc-subsection-4-adopt-97-validate-check-image-registry-consumed-automatically" class="nav-link" data-scroll-target="#subsection-4-adopt-97-validate-check-image-registry-consumed-automatically">Subsection 4 — Adopt #97 validate –check-image-registry (consumed automatically)</a></li>
-  </ul></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
   <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
   <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
   <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
@@ -964,9 +994,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.html">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html">Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">runpod-deploy installs from PyPI (not git+https) at v0.8.4+ — narrow supersession of ADR-036 “git URL is the only viable spec format” sub-claim for runpod-deploy</h1>
+<h1 class="title">Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</h1>
 </div>
 
 
@@ -977,7 +1007,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2026</p>
+      <p class="date">May 21, 2026</p>
     </div>
   </div>
   
@@ -989,74 +1019,88 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="adr-059-runpod-deploy-installs-from-pypi-narrow-supersession-of-adr-036" class="level1">
-<h1>ADR-059 — runpod-deploy installs from PyPI (narrow supersession of ADR-036)</h1>
+<section id="adr-076-backfill-superseded_by-closing_commit-frontmatter-for-adr-046-adr-054-adr-061-adr-071-075" class="level1">
+<h1>ADR-076: Backfill superseded_by + closing_commit frontmatter for ADR-046 + ADR-054 + ADR-061 + ADR-071-075</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Accepted (2026-05-19; lands in v1.1.0 Commit 2 of 3 alongside shim deletion + #88 / #90 / #97 consumption + 3-config lifecycle: schema adoption that landed in Commit 1 of 3).</p>
+<p>Accepted.</p>
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p><a href="../decisions/ADR-036-library-version-pins-tag-pin-plus-freeze.html">ADR-036</a> was written at Phase 0-08 (2026-05-16). Its §Context paragraph says:</p>
-<blockquote class="blockquote">
-<p>“All three are own-authored on GitHub (not on PyPI) — git URL is the only viable spec format.”</p>
-</blockquote>
-<p>That premise was true at 2026-05-16. Two PyPI publishes have since falsified it:</p>
-<ol type="1">
-<li><strong>eval-toolkit v0.40.0</strong> went on PyPI 2026-05-18 via Trusted Publishing OIDC. <a href="../decisions/ADR-055-eval-toolkit-pypi-install-narrow-supersession-of-adr-036.html">ADR-055</a> narrowly superseded ADR-036 for eval-toolkit at v1.0.8.</li>
-<li><strong>runpod-deploy v0.7.1+</strong> has been on PyPI since 2026-05-15 via Trusted Publishing OIDC. The submission-window freeze deferred any spec format change until v1.1.0; the v1.1.0 patch is the natural landing site (no submission timing constraint).</li>
-</ol>
-<p>This ADR-059 is the second narrow supersession of ADR-036, scoped <strong>only to runpod-deploy spec format</strong>. The 3rd own-authored library research_toolkit remains git+https; when it eventually publishes to PyPI, a similar narrow ADR will land. ADR-036 is not retired; only the “git URL is the only viable spec format” sub-claim is superseded twice (once narrowly per library).</p>
+<p><code>REPO_AUDIT_2026-05-21.md</code> (the v1.2.12-close audit) surfaced two related frontmatter gaps:</p>
+<p><strong>Gap A — empty <code>superseded_by:</code> on ADR-046 + ADR-054 + ADR-061</strong>. <code>decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.md:29</code> declares <code>supersedes: [ADR-046, ADR-054, ADR-061]</code>. The forward link is correct. But the three superseded ADRs themselves have empty back-links:</p>
+<ul>
+<li><code>ADR-046:13</code> — <code>superseded_by:</code> (empty bare value)</li>
+<li><code>ADR-054:69</code> — <code>superseded_by: []</code> (empty list)</li>
+<li><code>ADR-061:55</code> — <code>superseded_by: []</code> (empty list)</li>
+</ul>
+<p>The convention is that supersession is bidirectional in frontmatter — the precedent at ADR-023 (<code>superseded_by: ["056"]</code>), ADR-036 (<code>superseded_by: ["055", "059"]</code>), and ADR-053 (post-ADR-054 backfill; <code>superseded_by: [ADR-054]</code>) shows the established pattern. ADR-054 §F itself documents this convention: <em>“ADR-053 frontmatter is edited in-place to add <code>superseded_by: [ADR-054]</code> per the established convention (ADR-050 had its frontmatter edited when ADR-052 narrowly superseded R2; same pattern here).”</em> The same pattern should apply to ADR-046 + ADR-054 + ADR-061 → ADR-062.</p>
+<p><strong>Gap B — empty <code>closing_commit:</code> on ADR-071 through ADR-075</strong>. The five 2026-05-20 governance ADRs (cross-ref slug-sweep + frontmatter backfill + immutability re-statement + redaction governance + full-FT OOD narrative unification) all ship with empty <code>closing_commit:</code> frontmatter. The ADR-072 precedent (<code>closing_commit: v1.0.9 ...</code> on ADR-051 and <code>closing_commit: v1.0.3</code> on ADR-052) established that closing_commit population is governance-relevant audit-trail data that should be backfilled when missing. ADR-072 itself has empty <code>closing_commit:</code> — but the file-introduction commit SHAs for the ADR-071..075 set are all verifiable from git log, so the gap is mechanically closable.</p>
+<p>Both gaps fall outside the four narrow-relaxation classes documented in <code>CLAUDE.md</code> §Narrow exceptions (slug typos / broken external refs / publisher-URL canon / render-only markdown) but inside the ADR-072 class (empty-frontmatter-field backfill), which <code>ADR-073</code> consolidates under the immutability-rule re-statement: <em>“frontmatter completeness restoration on the closing_commit + supersession-link axis is in the same narrow-relaxation discipline as ADR-067-070.”</em></p>
 </section>
 <section id="decision" class="level2">
 <h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<p>Switch runpod-deploy pin format from git+https to PyPI install spec. This is one of three coupled changes that land together in Commit 2 of 3 (per /exploring-options 2026-05-19 Q5 lock):</p>
-<section id="subsection-1-pin-format-switch" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-1-pin-format-switch">Subsection 1 — pin format switch</h3>
-<p><code>pyproject.toml [project.optional-dependencies] dev</code>:</p>
-<pre><code># OLD (v1.0.x):
-"runpod-deploy @ git+https://github.com/brandon-behring/runpod-deploy@v0.7.7"
-
-# NEW (v1.1.0):
-"runpod-deploy==0.8.4"</code></pre>
-<p><code>uv.lock</code> regenerated. <code>uv pip show runpod-deploy</code> reports <code>Version: 0.8.4</code> from PyPI registry, not git-clone source.</p>
-</section>
-<section id="subsection-2-drop-scriptsrunpod_deploy_long_ssh.py-monkey-patch-shim-88-closed" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-2-drop-scriptsrunpod_deploy_long_ssh.py-monkey-patch-shim-88-closed">Subsection 2 — Drop scripts/runpod_deploy_long_ssh.py monkey-patch shim (#88 closed)</h3>
-<p>The v1.0.x shim (<code>scripts/runpod_deploy_long_ssh.py</code>) monkey-patched <code>runpod_deploy.provider._wait_for_pod_ready</code> to bump the SSH-ready timeout from 240s to 600s. v0.8.2 closed <a href="https://github.com/brandon-behring/runpod-deploy/issues/88">#88</a> with configurable <code>budget.ssh_ready_timeout_sec</code> (default 900s). v1.1.0 deletes the shim + adds explicit override <code>budget.ssh_ready_timeout_sec: 600</code> to all 3 headline-*.yaml configs (matches the shim’s 600s value; preserves the same effective behavior).</p>
-<p>Per no-orphaned-code invariant + library-first invariant, the shim is DELETED in the same commit as the pin bump. <code>git grep runpod_deploy_long_ssh</code> returns 0 results in the post-commit tree.</p>
-</section>
-<section id="subsection-3-adopt-90-lifecycle.on_success-recycle-for-deberta-commit-3-wiring" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-3-adopt-90-lifecycle.on_success-recycle-for-deberta-commit-3-wiring">Subsection 3 — Adopt #90 lifecycle.on_success: recycle for DeBERTa (Commit 3 wiring)</h3>
-<p><a href="https://github.com/brandon-behring/runpod-deploy/issues/90">#90</a> closed with <code>lifecycle.on_success: recycle</code> semantics: pod stays warm after successful run, available for next-fire re-use. Per /exploring-options 2026-05-19 Q2 lock, the v1.1.0 DeBERTa-v3-base medium ablation uses recycle to share one pod across 2 training fires (chunk-and-average + head-truncation), saving ~$1-2 + ~3-5 min per retry vs full teardown. This is consumed in Commit 3 of 3 (new <code>configs/runpod/headline-deberta.yaml</code>); the consumption is enabled by the v0.8.4 pin bump in this commit.</p>
-</section>
-<section id="subsection-4-adopt-97-validate-check-image-registry-consumed-automatically" class="level3">
-<h3 class="anchored" data-anchor-id="subsection-4-adopt-97-validate-check-image-registry-consumed-automatically">Subsection 4 — Adopt #97 validate –check-image-registry (consumed automatically)</h3>
-<p><a href="https://github.com/brandon-behring/runpod-deploy/issues/97">#97</a> closed with <code>validate --all</code> now invoking an image-registry HEAD-check by default in v0.8.x. Output: <code>[image-registry] ok: 'runpod/pytorch:...' exists on Docker Hub</code>. No explicit flag required (it’s the default in <code>--all</code>); <code>make headline-dry-run</code> automatically gains pre-flight image existence verification. Catches phantom Docker Hub tags before billing. The HEAD-check is library-first consumption (no project-side re-implementation needed).</p>
-</section>
+<p>Treat the missing <code>superseded_by:</code> and <code>closing_commit:</code> fields as the ADR-072 narrow-relaxation class — frontmatter-only edits that restore audit-trail completeness without touching decision content.</p>
+<p><strong>Gap A backfill</strong> (superseded_by → ADR-062):</p>
+<ul>
+<li><p><code>ADR-046:13</code> — <code>superseded_by:</code> → <code>superseded_by:</code> (bullet-list)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">superseded_by</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"062"</span><span class="co">  # Quarto writeup clarity + canonical figures (v1.2.0)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><code>ADR-054:69</code> — <code>superseded_by: []</code> → bullet-list with <code>"062"</code></p></li>
+<li><p><code>ADR-061:55</code> — <code>superseded_by: []</code> → bullet-list with <code>"062"</code></p></li>
+</ul>
+<p><strong>Gap B backfill</strong> (closing_commit ← verified SHAs):</p>
+<p>The SHAs are verified by <code>git log --oneline --diff-filter=A -- "decisions/ADR-&lt;NNN&gt;-*.md"</code> which reports the commit that first added each file:</p>
+<ul>
+<li><code>ADR-071:37</code> — <code>closing_commit:</code> → <code>closing_commit: 37c2b32</code> (commit <code>feat(adr): ADR-071 cross-reference slug-sweep closure</code>)</li>
+<li><code>ADR-072:32</code> — <code>closing_commit:</code> → <code>closing_commit: 8105f37</code> (commit <code>feat(adr): ADR-072 backfill ADR-051+052 frontmatter and structural debt</code>)</li>
+<li><code>ADR-073:25</code> — <code>closing_commit:</code> → <code>closing_commit: ba342c7</code> (commit <code>feat(adr): ADR-073 immutability rule consolidated re-statement</code>)</li>
+<li><code>ADR-074:27</code> — <code>closing_commit:</code> → <code>closing_commit: 14f0c05</code> (commit <code>feat(adr): ADR-074 redact verbatim self-criticism quote in ADR-064</code>)</li>
+<li><code>ADR-075:27</code> — <code>closing_commit:</code> → <code>closing_commit: 428971c</code> (commit <code>feat(adr): ADR-075 unify full-FT OOD drop rationale (ADR-050+052)</code>)</li>
+</ul>
+<p>ADR-076’s own <code>closing_commit:</code> stays empty per the same precedent ADR-072 set (a future ADR can backfill it; this is the well-known recursive gap that terminates because each backfill ADR only backfills the PRIOR ones).</p>
+<p><code>transcript:</code> fields on ADR-071-075 (and ADR-076 itself) stay empty per the project’s “transcripts gitignored except <code>transcripts/README.md</code>” discipline; the field is reserved for future-session continuations and need not be populated retroactively.</p>
+<p><code>SUBMISSION_AUDIT.md</code> regenerates via <code>scripts/regenerate_audit.py</code>; CLAIM count goes 75 → 76 (this ADR added).</p>
 </section>
 <section id="consequences" class="level2">
 <h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
 <ul>
-<li><strong>Reproducibility</strong>: uv.lock continues to record SHA-256 of the installed wheel; PyPI install matches git+https tag pin for byte-level reproducibility purposes. Source-provenance backstop is the v0.8.4 PyPI artifact tagged to GitHub commit SHA (verifiable via <code>pip index versions runpod-deploy</code> + GitHub release SHA cross-check, mirroring the ADR-055 verification path).</li>
-<li><strong>Install speed</strong>: PyPI install avoids git clone overhead (~3-5s per <code>uv sync</code> invocation); same advantage as ADR-055.</li>
-<li><strong>ADR-036 narrow supersession scope</strong>: this ADR adds runpod-deploy to the existing eval-toolkit narrow-supersession scope of ADR-055. ADR-036’s frontmatter gains <code>superseded_by: ["055", "059"]</code> per ADR-029 in-place convention. The substantive content of ADR-036 (tag-pin discipline + freeze + bump triggers + uv.lock backstop) is unchanged.</li>
-<li><strong>Future research_toolkit publish</strong>: when research_toolkit eventually publishes to PyPI, a 3rd narrow ADR (ADR-NNN) will mirror this pattern. ADR-036 is not “retired” — its substantive guidance applies to research_toolkit (the only remaining git+https pin), and the spec-format sub-claim has been narrowly superseded twice (once per PyPI-published library).</li>
-<li><strong>Schema migration prerequisite</strong>: Commit 1 of 3 (<code>stop:</code> → <code>lifecycle:</code>) was MANDATORY before this Commit 2; v0.8.3+ raises <code>KeyError: 'unknown root keys: [lifecycle]'</code> against legacy <code>stop:</code> configs. The 3-sub-commit Q5 lock sequence makes the dependency explicit; each sub-commit is independently revertible.</li>
-<li><strong>GPU spend posture unchanged</strong>: ADR-020 cost-cap discipline ($200 hard cap; $125 per-job soft) unaffected. v0.8.4 budget block semantics identical to v0.7.x; the new <code>ssh_ready_timeout_sec</code> is pure pre-flight timing, not a spend dimension.</li>
+<li>ADR-062’s forward-link supersession is now mirrored by ADR-046 + ADR-054 + ADR-061’s back-links; supersession-chain integrity is restored on this v1.2.0 cluster</li>
+<li>ADR-071-075 carry verifiable closing_commit SHAs; a future reviewer can trace each ADR to its landing commit without needing CHANGELOG triangulation</li>
+<li>The “ADR-NNN frontmatter completeness” sweep that REPO_AUDIT_2026-05-21 flagged is closed for the v1.2.0-v1.2.9 cluster</li>
+<li>Future ADRs in the v1.2.x trail (ADR-076 onward) start with the same empty-closing_commit pattern by design; the recursive backfill cycle is documented as a known governance pattern in this ADR</li>
+<li>All 8 target ADRs’ decision content is unchanged; only frontmatter audit-trail metadata is restored</li>
+<li>v1.2.13 patch’s subsequent commits (C2 reader-facing accuracy sweep through C7 audit-trail close) can safely claim “76 ADRs” because this commit lands first</li>
 </ul>
+</section>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ol type="1">
+<li><strong>Leave the gaps unfilled.</strong> Rejected — REPO_AUDIT_2026-05-21 surfaced both as P1 (gap A) and P2 (gap B). The audit’s “lessons noted” section explicitly flagged that the ADR-072 backfill pattern is now load-bearing for this class of debt; ignoring it means the next audit re-surfaces the same finding.</li>
+<li><strong>Two separate ADRs</strong> (ADR-076 = superseded_by; ADR-077 = closing_commit). Rejected — same narrow-relaxation class, same precedent (ADR-072), same authorization. Single ADR is cleaner; the audit trail isn’t materially improved by splitting. (The v1.2.13 planning session’s /exploring-options Q3 split-vs-unified question for CLAUDE.md/AGENTS.md edits considered the same question and locked split-by-semantic-concern; this case differs because both gaps share the same narrow-relaxation class and ADR precedent.)</li>
+<li><strong>Backfill via direct edit, no ADR-076.</strong> Rejected — same reasoning ADR-072 documented: the immutability rule (consolidated in ADR-073) means even narrow editorial frontmatter edits need an authorizing ADR. ADR-072 set the precedent; ADR-076 extends it to the back-link + closing_commit axis.</li>
+<li><strong>Populate ADR-076’s own closing_commit immediately.</strong> Rejected — chicken-and-egg. The closing_commit value would be this commit’s SHA, which doesn’t exist until the commit lands. ADR-072 chose to leave its own closing_commit empty for a future ADR; ADR-076 follows the same convention.</li>
+<li><strong>Treat the closing_commit gap as a fifth narrow-relaxation class</strong> (alongside ADR-067-070), rather than as an ADR-072-class extension. Rejected — the four classes ADR-067-070 + ADR-073’s consolidated re-statement are about textual fixes (slugs / external refs / publisher URLs / markdown). Frontmatter backfill is a structural-completeness class; ADR-072 is its precedent ADR. Keeping the same class taxonomy preserves the ADR-067-070-073 chain’s clarity.</li>
+<li><strong>Auto-detect future supersession-backlink gaps via tooling</strong> (e.g., a script that inverts every <code>supersedes:</code> declaration to check <code>superseded_by:</code> reciprocity). Rejected as v1.2.13 scope — the audit’s “lessons noted” section recommends this for the portfolio repo; out-of-scope here because it requires designing a project-wide invariant + lint hook + regression-test contract.</li>
+</ol>
 </section>
 <section id="linked-adrs" class="level2">
 <h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><strong>Superseded (narrow, runpod-deploy spec format only)</strong>: ADR-036 (the “git URL is the only viable spec format” sub-claim).</li>
-<li><strong>Referenced</strong>: ADR-055 (the eval-toolkit precedent; this ADR mirrors the pattern); ADR-020 (RunPod orchestration cost discipline, unchanged); ADR-013 (pre-teardown checklist, now enforced via <code>lifecycle.on_success: delete</code> for the 3 migrated headline configs).</li>
-<li><strong>Source</strong>: /exploring-options 2026-05-19 Q3 lock (narrow ADR-059 mirroring ADR-055 pattern); /exploring-options preliminary-analysis lock (mandatory config migration before bump).</li>
+<li><strong>ADR-046</strong> (Phase 4 analysis implementation bundle): <code>superseded_by</code> backfilled to <code>["062"]</code>. Decision content unchanged. ADR-062’s §C documents the canonical-figures supersession that closes ADR-046’s open implementation surface.</li>
+<li><strong>ADR-054</strong> (Results page as third entry artifact extending ADR-053): <code>superseded_by</code> backfilled to <code>["062"]</code>. ADR-062 supersedes both ADR-053 (reading-guide governance) + ADR-054 (results-page artifact) on the navigation-clarity axis.</li>
+<li><strong>ADR-061</strong> (Quarto site navigation restructure): <code>superseded_by</code> backfilled to <code>["062"]</code>. ADR-062 supersedes the navigation restructure with a clarity-focused sequel.</li>
+<li><strong>ADR-062</strong> (Quarto writeup clarity + canonical figures): the forward-declaring superseder. Its frontmatter is unchanged by this ADR.</li>
+<li><strong>ADR-071</strong> (Cross-reference slug-sweep closure): <code>closing_commit</code> backfilled to <code>37c2b32</code>. Decision content unchanged.</li>
+<li><strong>ADR-072</strong> (Backfill ADR-051+052 frontmatter): precedent ADR. <code>closing_commit</code> backfilled to <code>8105f37</code>. Decision content unchanged.</li>
+<li><strong>ADR-073</strong> (Immutability rule consolidated re-statement): <code>closing_commit</code> backfilled to <code>ba342c7</code>. ADR-076 invokes ADR-073’s narrow-relaxation framework for authorization.</li>
+<li><strong>ADR-074</strong> (ADR-064 self-criticism quote redaction): <code>closing_commit</code> backfilled to <code>14f0c05</code>. Decision content unchanged.</li>
+<li><strong>ADR-075</strong> (Full-FT OOD drop rationale unified narrative): <code>closing_commit</code> backfilled to <code>428971c</code>. Decision content unchanged.</li>
 </ul>
 </section>
 <section id="transcript" class="level2">
 <h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
-<p>Decisions surfaced during the 2026-05-19 v1.1.0 planning session (<code>/exploring-options</code> 6-question execution-lock; transcript at <code>transcripts/2026-05-19__v1-1-0-runpod-deploy-and-deberta.md</code>).</p>
+<p>Transcript file (gitignored per AGENTS.md): <code>transcripts/2026-05-21__v1-2-13-remediation.md</code> (the v1.2.13 multi-round /exploring-options session that ratified the remediation plan + this ADR’s scope). <code>/save-transcript</code> will land this file post-v1.2.13 close.</p>
 
 
 </section>

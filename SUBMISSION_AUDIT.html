@@ -922,6 +922,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1016,6 +1022,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#claim-073---adr-073-collapse-the-four-adr-narrow-relaxation-chain-adr-067068069070-into-a-single-consolidated-immutability-rule-with-four-named-exception-classes" id="toc-claim-073---adr-073-collapse-the-four-adr-narrow-relaxation-chain-adr-067068069070-into-a-single-consolidated-immutability-rule-with-four-named-exception-classes" class="nav-link" data-scroll-target="#claim-073---adr-073-collapse-the-four-adr-narrow-relaxation-chain-adr-067068069070-into-a-single-consolidated-immutability-rule-with-four-named-exception-classes">CLAIM-073 - ADR-073: Collapse the four-ADR narrow-relaxation chain (ADR-067/068/069/070) into a single consolidated immutability rule with four named exception classes</a></li>
   <li><a href="#claim-074---adr-074-replace-verbatim-self-criticism-quote-in-adr-064-frontmatter-claim-body-context-with-a-neutral-paraphrase-preserving-the-decision" id="toc-claim-074---adr-074-replace-verbatim-self-criticism-quote-in-adr-064-frontmatter-claim-body-context-with-a-neutral-paraphrase-preserving-the-decision" class="nav-link" data-scroll-target="#claim-074---adr-074-replace-verbatim-self-criticism-quote-in-adr-064-frontmatter-claim-body-context-with-a-neutral-paraphrase-preserving-the-decision">CLAIM-074 - ADR-074: Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision</a></li>
   <li><a href="#claim-075---adr-075-unify-the-adr-050-revision-2-fuse-crash-forced-drop-and-adr-052-methodology-load-bearing-with-crash-as-trigger-framings-into-a-single-account" id="toc-claim-075---adr-075-unify-the-adr-050-revision-2-fuse-crash-forced-drop-and-adr-052-methodology-load-bearing-with-crash-as-trigger-framings-into-a-single-account" class="nav-link" data-scroll-target="#claim-075---adr-075-unify-the-adr-050-revision-2-fuse-crash-forced-drop-and-adr-052-methodology-load-bearing-with-crash-as-trigger-framings-into-a-single-account">CLAIM-075 - ADR-075: Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</a></li>
+  <li><a href="#claim-076---adr-076-backfill-superseded_by-on-adr-046-adr-054-adr-061-adr-062-closing_commit-on-adr-071-075-per-adr-072-frontmatter-backfill-discipline" id="toc-claim-076---adr-076-backfill-superseded_by-on-adr-046-adr-054-adr-061-adr-062-closing_commit-on-adr-071-075-per-adr-072-frontmatter-backfill-discipline" class="nav-link" data-scroll-target="#claim-076---adr-076-backfill-superseded_by-on-adr-046-adr-054-adr-061-adr-062-closing_commit-on-adr-071-075-per-adr-072-frontmatter-backfill-discipline">CLAIM-076 - ADR-076: Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -1469,29 +1476,35 @@ ul.task-list li input[type="checkbox"] {
 <td>CLAIM-071</td>
 <td><a href="./decisions/ADR-071-adr-cross-reference-slug-sweep-closure.html">ADR-071</a></td>
 <td>Accepted</td>
-<td></td>
+<td>37c2b32</td>
 </tr>
 <tr class="even">
 <td>CLAIM-072</td>
 <td><a href="./decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html">ADR-072</a></td>
 <td>Accepted</td>
-<td></td>
+<td>8105f37</td>
 </tr>
 <tr class="odd">
 <td>CLAIM-073</td>
 <td><a href="./decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.html">ADR-073</a></td>
 <td>Accepted</td>
-<td></td>
+<td>ba342c7</td>
 </tr>
 <tr class="even">
 <td>CLAIM-074</td>
 <td><a href="./decisions/ADR-074-adr-064-self-criticism-quote-redaction.html">ADR-074</a></td>
 <td>Accepted</td>
-<td></td>
+<td>14f0c05</td>
 </tr>
 <tr class="odd">
 <td>CLAIM-075</td>
 <td><a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a></td>
+<td>Accepted</td>
+<td>428971c</td>
+</tr>
+<tr class="even">
+<td>CLAIM-076</td>
+<td><a href="./decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html">ADR-076</a></td>
 <td>Accepted</td>
 <td></td>
 </tr>
@@ -2204,7 +2217,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="claim-071---adr-071-execute-the-slug-sweep-authorized-by-adr-067-adr-068-adr-069-that-was-never-actually-completed-in-any-prior-commit">CLAIM-071 - <a href="./decisions/ADR-071-adr-cross-reference-slug-sweep-closure.html">ADR-071</a>: Execute the slug-sweep authorized by ADR-067 + ADR-068 + ADR-069 that was never actually completed in any prior commit</h3>
 <p><strong>Status</strong>: Accepted</p>
 <p><strong>Source</strong>: 2026-05-20 audit re-verification; ADR-067 §C1 canonical mapping table + post-2026-05-20 audit extension; user request to close the documented-but-unexecuted authorization loop.</p>
-<p><strong>Closing commit/ADR</strong>: <em>Not recorded.</em></p>
+<p><strong>Closing commit/ADR</strong>: 37c2b32</p>
 <p><strong>Claim</strong></p>
 <p>ADR-067 + ADR-068 + ADR-069 + ADR-070 (2026-05-19, the four-ADR immutability-relaxation chain) authorized four narrow classes of in-place editorial fixes to immutable ADRs: slug typos (Class A), broken external references (Class B), publisher-URL to DOI canonicalization (Class C), render-only markdown corrections (Class D). The Class A authorization specifically said the slug substitutions would land in v1.2.2 and v1.2.6 commits, with corresponding patterns deleted from <code>.lycheeignore</code>. The substitution commits never landed. As of 2026-05-20 audit re-verification, 59 broken <code>decisions/ADR-NNN-&lt;wrong-slug&gt;.md</code> references still ship across 21 ADR files; ADR-067’s own §C1 substitution table contains 14 live broken markdown links in its wrong-slug column; the <code>.lycheeignore</code> patterns ADR-067 §C3 said would be removed at v1.2.2 are still present. This ADR closes the loop: applies the full slug-mapping table derived from ADR-067 §C1 + the post-2026-05-20 audit extension (33 patterns total mapping to ~15 canonical files) across all 22 affected ADRs; strips the local-fs path leak in ADR-040 (<code>/home/brandon_behring/.claude/plans/twinkly-weaving-puppy.md</code>, 3 occurrences); removes the corresponding <code>.lycheeignore</code> patterns; and removes the 2 ADR-029 misattribution references (which cited a non-existent “immutability ADR-029” slug — actual ADR-029 is <code>test-marker-strategy-four-marker-ratification</code>) per ADR-067 §C2.5 “remove without replacement” rule.</p>
 <p><strong>Acceptance criterion</strong></p>
@@ -2214,7 +2227,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="claim-072---adr-072-backfill-missing-frontmatter-fields-alternatives-sections-status-headings-for-adr-051-adr-052-per-adr-067-style-narrow-relaxation-discipline">CLAIM-072 - <a href="./decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.html">ADR-072</a>: Backfill missing frontmatter fields + Alternatives sections + Status headings for ADR-051 + ADR-052 per ADR-067-style narrow-relaxation discipline</h3>
 <p><strong>Status</strong>: Accepted</p>
 <p><strong>Source</strong>: 2026-05-20 audit re-verification (grep on v1.2.8 head confirmed empty closing_commit/transcript + missing sections); ADR-067-070 narrow-relaxation methodology applied to the frontmatter-backfill class.</p>
-<p><strong>Closing commit/ADR</strong>: <em>Not recorded.</em></p>
+<p><strong>Closing commit/ADR</strong>: 8105f37</p>
 <p><strong>Claim</strong></p>
 <p>ADR-051 + ADR-052 (both 2026-05-18 governance ADRs) ship with empty <code>closing_commit:</code> and <code>transcript:</code> frontmatter fields and no <code>## Alternatives Considered</code> body section. ADR-051 also lacks a <code>## Status</code> body section heading and opens with <code># ADR-051 —</code> instead of <code># ADR-051:</code> (template convention). The user’s 2026-05-18 self-audit (REPO_AUDIT_2026-05-18.md §P1.4) flagged ADR-049 + ADR-050 for the same class of gap, but those have since been populated (closing_commit <code>423c2c8</code> and <code>3b16036</code> respectively); the actual structural debt is in ADR-051 + ADR-052. This ADR treats the empty-frontmatter-fields gap as a fourth narrow-relaxation class adjacent to ADR-067-070 (slug typos / broken external refs / publisher-URL canon / render markdown fixes): populates the missing closing_commit values from observable tag history (ADR-051 Block A closed at v1.0.9 via ADR-058; ADR-052 introduced + closed at v1.0.3), adds the retrospective <code>## Alternatives Considered</code> sections documenting the decision space at lock time, restores the <code>## Status</code> body heading on ADR-051, and fixes ADR-051’s opening line per template convention.</p>
 <p><strong>Acceptance criterion</strong></p>
@@ -2224,7 +2237,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="claim-073---adr-073-collapse-the-four-adr-narrow-relaxation-chain-adr-067068069070-into-a-single-consolidated-immutability-rule-with-four-named-exception-classes">CLAIM-073 - <a href="./decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.html">ADR-073</a>: Collapse the four-ADR narrow-relaxation chain (ADR-067/068/069/070) into a single consolidated immutability rule with four named exception classes</h3>
 <p><strong>Status</strong>: Accepted</p>
 <p><strong>Source</strong>: 2026-05-20 audit hiring-manager-curious risk finding — 4-ADR chain in 1 day reads as process-fragility for a 5-day artifact. Consolidation reduces the optic without changing the underlying authorization.</p>
-<p><strong>Closing commit/ADR</strong>: <em>Not recorded.</em></p>
+<p><strong>Closing commit/ADR</strong>: ba342c7</p>
 <p><strong>Claim</strong></p>
 <p>The 2026-05-19 four-ADR immutability-relaxation chain (ADR-067/068/069/070) authorized four narrow classes of in-place editorial fixes to immutable ADRs. Each ADR in the chain insists it is “not a slippery slope”; the existence of four sequential relaxations in a single day undercuts that insistence from a reader-perception standpoint. This ADR consolidates the four narrow-relaxation classes into a single canonical immutability rule with named exception classes (A through D), reducing the visible “immutability is loose” surface from four signals to one rule + four named exceptions. ADRs 067/068/069/070 remain in decisions/ as historical artifacts documenting <em>when</em> each class was added; the prospective rule citation moves to ADR-073.</p>
 <p><strong>Acceptance criterion</strong></p>
@@ -2234,7 +2247,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="claim-074---adr-074-replace-verbatim-self-criticism-quote-in-adr-064-frontmatter-claim-body-context-with-a-neutral-paraphrase-preserving-the-decision">CLAIM-074 - <a href="./decisions/ADR-074-adr-064-self-criticism-quote-redaction.html">ADR-074</a>: Replace verbatim self-criticism quote in ADR-064 frontmatter claim + body context with a neutral paraphrase preserving the decision</h3>
 <p><strong>Status</strong>: Accepted</p>
 <p><strong>Source</strong>: 2026-05-20 audit hiring-manager-curious risk finding — the single most embarrassing string in decisions/ sits in a publicly rendered ADR. Verbatim quote preserved privately in the transcript file (gitignored, emailed separately at submission).</p>
-<p><strong>Closing commit/ADR</strong>: <em>Not recorded.</em></p>
+<p><strong>Closing commit/ADR</strong>: 14f0c05</p>
 <p><strong>Claim</strong></p>
 <p>ADR-064 (“writeup-hiring-manager-clarity-and-consistency-pass”) has a title slug that explicitly contains “hiring-manager-clarity” — a curious reviewer who searches the candidate’s profile + the keyword “hiring-manager” lands on this ADR. The frontmatter <code>claim:</code> field (lines 9-16) and body §A Context (lines 105-110) contain a verbatim user-feedback quote that includes the phrase “doesn’t demonstrate clear thought” — an embarrassing self-assessment string surviving in an immutable record that any hiring manager wandering into decisions/ will see. The decision context (what changed and why) survives intact without the verbatim quote. This ADR replaces the verbatim quote with a neutral paraphrase per ADR-073 Class A / Class B-adjacent narrow-relaxation discipline (no decision content changes; reader experience strictly improved).</p>
 <p><strong>Acceptance criterion</strong></p>
@@ -2244,11 +2257,21 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="claim-075---adr-075-unify-the-adr-050-revision-2-fuse-crash-forced-drop-and-adr-052-methodology-load-bearing-with-crash-as-trigger-framings-into-a-single-account">CLAIM-075 - <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>: Unify the ADR-050 Revision 2 (FUSE-crash-forced-drop) and ADR-052 (methodology-load-bearing-with-crash-as-trigger) framings into a single account</h3>
 <p><strong>Status</strong>: Accepted</p>
 <p><strong>Source</strong>: 2026-05-20 audit hiring-manager-curious finding — the ADR-050 → ADR-052 same-day reason-swap erodes reader trust in the rest of the ADR corpus. Unification removes the retcon optic while preserving both historical ADRs as artifacts.</p>
-<p><strong>Closing commit/ADR</strong>: <em>Not recorded.</em></p>
+<p><strong>Closing commit/ADR</strong>: 428971c</p>
 <p><strong>Claim</strong></p>
 <p>ADR-050 Revision 2 (2026-05-18 morning) attributed the Phase 5 full-FT OOD inference drop to an X11 FUSE EIO crash on /workspace MooseFS storage (operational forced-drop framing). ADR-052 (2026- 05-18 hours later) narrowly superseded ADR-050 R2 to reframe the drop as methodologically load-bearing with the FUSE crash as proximate trigger. A skeptical reader reading both in sequence sees a same-day retcon of the load-bearing reason for cutting a planned experiment. This ADR consolidates the two framings into one prospective narrative that names both the methodological reasoning and the operational trigger together, removing the same-day retcon optic without changing the underlying outcome (full-FT OOD inference remains dropped; LODO comparison ships 3-rung; OOD ships 2 trained rungs + 1 classical floor + 2 reference scorers per ADR-050 R1 + R2 + ADR-052).</p>
 <p><strong>Acceptance criterion</strong></p>
 <p>WRITEUP.md §8.1 + WRITEUP/limitations-and-future-work.md §8.1 + WRITEUP/model-rungs.md §4.x cite ADR-075 (or ADR-050 R1 for the LLM-judge axis) as the single source of truth on the full-FT OOD drop rationale. Future reviewers see one coherent narrative rather than the ADR-050 R2 + ADR-052 sequence framed as competing rationales. ADR-050 R2 + ADR-052 remain in decisions/ as historical artifacts.</p>
+</section>
+<section id="claim-076---adr-076-backfill-superseded_by-on-adr-046-adr-054-adr-061-adr-062-closing_commit-on-adr-071-075-per-adr-072-frontmatter-backfill-discipline" class="level3 ledger-detail">
+<h3 class="anchored" data-anchor-id="claim-076---adr-076-backfill-superseded_by-on-adr-046-adr-054-adr-061-adr-062-closing_commit-on-adr-071-075-per-adr-072-frontmatter-backfill-discipline">CLAIM-076 - <a href="./decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.html">ADR-076</a>: Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline</h3>
+<p><strong>Status</strong>: Accepted</p>
+<p><strong>Source</strong>: REPO_AUDIT_2026-05-21.md §P1-6 (ADR-062 missing superseded_by back-links) + §P2 (ADR-071-075 empty closing_commit). SHAs verified via <code>git log --oneline --diff-filter=A -- "decisions/ADR-&lt;NNN&gt;-*.md"</code> for the file-introduction commit of each ADR. ADR-072 precedent applied to the back-link + closing_commit-backfill axis.</p>
+<p><strong>Closing commit/ADR</strong>: <em>Not recorded.</em></p>
+<p><strong>Claim</strong></p>
+<p>ADR-062 (Quarto writeup clarity + canonical figures, v1.2.0) declares <code>supersedes: [ADR-046, ADR-054, ADR-061]</code> in its frontmatter (line 29) but the inverse links are missing — ADR-046 has empty <code>superseded_by:</code>, ADR-054 has <code>superseded_by: []</code>, ADR-061 has <code>superseded_by: []</code>. The supersession-chain forward links are correct; the back-links are stale. Separately, ADR-071 through ADR-075 (all 2026-05-20 governance ADRs) ship with empty <code>closing_commit:</code> frontmatter fields though the ADR-072 precedent (closing_commit <code>8105f37</code>) establishes that closing_commit population is governance-relevant audit-trail data. REPO_AUDIT_2026-05-21.md §P1-6 + §P2 (ADR-071-075 empty closing_commit) surface both gaps. This ADR treats the empty-back-link + empty-closing_commit gaps as the same frontmatter-backfill narrow-relaxation class established by ADR-072 (extending the ADR-067-070 chain). Populates: (a) ADR-046 + ADR-054 + ADR-061 <code>superseded_by: ["062"]</code> to mirror ADR-062’s forward declaration; (b) ADR-071-075 <code>closing_commit:</code> with the verified SHAs from git log (ADR-071 = <code>37c2b32</code>, ADR-072 = <code>8105f37</code>, ADR-073 = <code>ba342c7</code>, ADR-074 = <code>14f0c05</code>, ADR-075 = <code>428971c</code>). No decision content changes; only audit-trail completeness is restored.</p>
+<p><strong>Acceptance criterion</strong></p>
+<p><code>grep '^superseded_by' decisions/ADR-046-*.md decisions/ADR-054-*.md decisions/ADR-061-*.md</code> shows three <code>["062"]</code> values (was empty/[]). <code>grep '^closing_commit' decisions/ADR-071-*.md decisions/ADR-072-*.md decisions/ADR-073-*.md decisions/ADR-074-*.md decisions/ADR-075-*.md</code> shows five populated SHAs (was empty). <code>scripts/regenerate_audit.py --check</code> passes after the backfill with 76 CLAIM rows (ADR-076 added).</p>
 </section>
 
 
