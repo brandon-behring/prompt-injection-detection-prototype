@@ -47,6 +47,7 @@ execute:
 website:
   title: "Prompt-injection classifier evaluation"
   description: "Methodology and capability characterization of prompt-injection detectors under honest OOD evaluation."
+  favicon: favicon.svg
   # Navbar restructured v1.1.1 per ADR-061: 9 items → 5. Single Methodology
   # dropdown carries hub + reading guide + 8 spokes; Reference dropdown
   # collapses Executive summary + Evidence + auxiliary artifacts + Notebooks;
@@ -162,7 +163,6 @@ format:
   html:
     theme: cosmo
     css: styles.css
-    favicon: favicon.svg
     toc: true
     toc-depth: 3
     toc-location: right
