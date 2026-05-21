@@ -285,8 +285,8 @@ full methodology when it's actually a subset).
   v1.1.1 = patch release per the post-submission patch convention).
 - **Source**: user feedback 2026-05-19 "the quatro documents they seem
   really confusing and hard to follow" + Explore-agent audit + plan
-  file at `/home/brandon_behring/.claude/plans/let-s-do-1-plan-buzzing-newell.md`
-  Phase 2.
+  file [PLAN_REF redacted; per ADR-068 Class B aspirational-upstream
+  path] Phase 2.
 
 ## Transcript
 

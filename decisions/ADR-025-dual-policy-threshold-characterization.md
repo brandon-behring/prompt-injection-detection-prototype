@@ -38,9 +38,9 @@ What remained genuinely [OPEN] at row 347 was the numeric values for the two pol
 
 eval-toolkit primitives confirmed at decision time (fresh-investigation per CLAUDE.md):
 
-- `TargetFPRSelector(t_fpr).select(y_val, s_val)` — picks smallest threshold s.t. FPR(val) ≤ t_fpr → max recall(val) feasible point (`/home/brandon_behring/Claude/eval-toolkit/src/eval_toolkit/thresholds.py:109`)
-- `TargetRecallSelector(r_target).select(y_val, s_val)` — picks highest threshold s.t. recall(val) ≥ r_target → min FPR(val) feasible point — Lipton-Elkan 2014 §3 most-precise convention (`/home/brandon_behring/Claude/eval-toolkit/src/eval_toolkit/thresholds.py:71`)
-- `paired_bootstrap_op_point_diff(val_y, val_score_a, val_score_b, test_y, test_score_a, test_score_b, threshold_fn, metric_fn, n_resamples, seed)` — two-level bootstrap (refit threshold per val resample, apply on test resample, compute paired diff) — purpose-built for the per-(seed) refit-per-resample protocol (`/home/brandon_behring/Claude/eval-toolkit/docs/methodology/thresholds.md:181-218`)
+- `TargetFPRSelector(t_fpr).select(y_val, s_val)` — picks smallest threshold s.t. FPR(val) ≤ t_fpr → max recall(val) feasible point ([`eval_toolkit/thresholds.py#L109`](https://github.com/brandon-behring/eval-toolkit/blob/main/src/eval_toolkit/thresholds.py#L109))
+- `TargetRecallSelector(r_target).select(y_val, s_val)` — picks highest threshold s.t. recall(val) ≥ r_target → min FPR(val) feasible point — Lipton-Elkan 2014 §3 most-precise convention ([`eval_toolkit/thresholds.py#L71`](https://github.com/brandon-behring/eval-toolkit/blob/main/src/eval_toolkit/thresholds.py#L71))
+- `paired_bootstrap_op_point_diff(val_y, val_score_a, val_score_b, test_y, test_score_a, test_score_b, threshold_fn, metric_fn, n_resamples, seed)` — two-level bootstrap (refit threshold per val resample, apply on test resample, compute paired diff) — purpose-built for the per-(seed) refit-per-resample protocol ([`docs/methodology/thresholds.md#L181-L218`](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md#L181-L218))
 - `CostSensitiveSelector` — explicitly *not* used per ADR-006 cost-weighted-thresholding rejection
 
 ## Decision

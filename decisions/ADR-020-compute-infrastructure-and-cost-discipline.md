@@ -203,4 +203,4 @@ decisions/library_imports.md runpod-deploy section populated with eight primitiv
 
 ## References
 
-See frontmatter references list. Primary anchors — runpod-deploy 0.7.7 source at brandon-behring/runpod-deploy GitHub (locally cloned at /home/brandon_behring/Claude/runpod-deploy); RunPod pricing page; NVIDIA H100 tensor-core whitepaper; OpenAI pricing; Anthropic model card pricing; HuggingFace TrainingArguments docs; ADR-001 deadline-plus-scope-ambition framing; ADR-013 pre-teardown persistence checklist; ADR-019 training recipe for batch-size context.
+See frontmatter references list. Primary anchors — runpod-deploy 0.7.7 source at https://github.com/brandon-behring/runpod-deploy (per ADR-068 narrow-relaxation: local-fs author-machine path canonicalized to upstream URL); RunPod pricing page; NVIDIA H100 tensor-core whitepaper; OpenAI pricing; Anthropic model card pricing; HuggingFace TrainingArguments docs; ADR-001 deadline-plus-scope-ambition framing; ADR-013 pre-teardown persistence checklist; ADR-019 training recipe for batch-size context.

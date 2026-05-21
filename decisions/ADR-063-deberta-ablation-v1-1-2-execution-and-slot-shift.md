@@ -85,9 +85,10 @@ happen at v1.1.1 because that release-tag slot was consumed by
 user-feedback-driven Quarto site navigation restructure that took
 priority on calendar-day 2026-05-19).
 
-The v1.1.2 handoff doc at
-`/home/brandon_behring/.claude/plans/v1-1-2-deberta-execution-handoff.md`
-sequenced the execution as Phase A (generic loader refactor) -> Phase B
+The v1.1.2 handoff doc [PLAN_REF redacted; per ADR-068 Class B
+aspirational-upstream path; original at author's local
+`~/.claude/plans/` which is gitignored] sequenced the execution as
+Phase A (generic loader refactor) -> Phase B
 (windowed-inference module) -> Phase C (training dispatch + Makefile)
 -> Phase D (GPU fires) -> Phase E (governance close) -> Phase F
 (transcript). The full v1.1.2 session executed Phases A-D end-to-end
