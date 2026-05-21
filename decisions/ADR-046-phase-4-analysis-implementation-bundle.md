@@ -11,6 +11,7 @@ acceptance_criterion: decisions/ADR-046-phase-4-analysis-implementation-bundle.m
 closing_commit: 70e34fd
 supersedes:
 superseded_by:
+  - "062"  # back-link added per ADR-076 frontmatter-backfill discipline; ADR-062 §C supersedes on canonical-figures axis
 references:
   - decisions/ADR-006-headline-metrics-and-statistical-apparatus.md
   - decisions/ADR-018-reference-scorer-slate-and-contamination-stratification.md

@@ -34,7 +34,7 @@ claim: >-
 source: 2026-05-20 audit re-verification; ADR-067 §C1 canonical
   mapping table + post-2026-05-20 audit extension; user request
   to close the documented-but-unexecuted authorization loop.
-closing_commit:
+closing_commit: 37c2b32
 transcript:
 supersedes:
   - "067"  # on the "the sweep has been applied" claim only — narrow-relaxation methodology unchanged

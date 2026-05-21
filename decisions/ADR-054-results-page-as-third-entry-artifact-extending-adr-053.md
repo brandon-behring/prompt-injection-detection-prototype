@@ -66,7 +66,8 @@ acceptance_criterion: >-
   + WRITEUP §Results all carry pointers to RESULTS.md.
 closing_commit: v1.0.5
 supersedes: [ADR-053]
-superseded_by: []
+superseded_by:
+  - "062"  # back-link added per ADR-076 frontmatter-backfill discipline; ADR-062 supersedes on navigation-clarity axis
 references:
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/RESULTS.md
   - https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md

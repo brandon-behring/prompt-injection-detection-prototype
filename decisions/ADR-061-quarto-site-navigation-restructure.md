@@ -52,7 +52,8 @@ acceptance_criterion: >-
   releases/v1.1.1 newly resolvable; live Quarto site reflects v1.1.1).
 closing_commit: v1.1.1
 supersedes: [ADR-053]
-superseded_by: []
+superseded_by:
+  - "062"  # back-link added per ADR-076 frontmatter-backfill discipline; ADR-062 supersedes navigation restructure with clarity-focused sequel
 references:
   - decisions/ADR-030-deliverable-format-quarto-html-site.md
   - decisions/ADR-053-reading-guide-governance-and-newcomer-paths.md

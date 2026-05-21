@@ -24,7 +24,7 @@ source: 2026-05-20 audit hiring-manager-curious finding — the
   ADR-050 → ADR-052 same-day reason-swap erodes reader trust in
   the rest of the ADR corpus. Unification removes the retcon optic
   while preserving both historical ADRs as artifacts.
-closing_commit:
+closing_commit: 428971c
 transcript:
 supersedes:
   - "050"  # Revision 2 axis only; LLM-judge cost-drop (Revision 1) untouched

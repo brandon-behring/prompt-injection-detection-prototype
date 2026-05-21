@@ -78,11 +78,12 @@
 | CLAIM-068 | [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) | Accepted | v1.2.6 |
 | CLAIM-069 | [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) | Accepted | v1.2.6 |
 | CLAIM-070 | [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md) | Accepted | v1.2.8 |
-| CLAIM-071 | [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md) | Accepted |  |
-| CLAIM-072 | [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) | Accepted |  |
-| CLAIM-073 | [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md) | Accepted |  |
-| CLAIM-074 | [ADR-074](decisions/ADR-074-adr-064-self-criticism-quote-redaction.md) | Accepted |  |
-| CLAIM-075 | [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md) | Accepted |  |
+| CLAIM-071 | [ADR-071](decisions/ADR-071-adr-cross-reference-slug-sweep-closure.md) | Accepted | 37c2b32 |
+| CLAIM-072 | [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) | Accepted | 8105f37 |
+| CLAIM-073 | [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md) | Accepted | ba342c7 |
+| CLAIM-074 | [ADR-074](decisions/ADR-074-adr-064-self-criticism-quote-redaction.md) | Accepted | 14f0c05 |
+| CLAIM-075 | [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md) | Accepted | 428971c |
+| CLAIM-076 | [ADR-076](decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.md) | Accepted |  |
 
 ## Claim details
 
@@ -3685,7 +3686,7 @@ after regenerating SUBMISSION_AUDIT.md.
 
 **Source**: 2026-05-20 audit re-verification; ADR-067 §C1 canonical mapping table + post-2026-05-20 audit extension; user request to close the documented-but-unexecuted authorization loop.
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: 37c2b32
 
 **Claim**
 
@@ -3726,7 +3727,7 @@ passes on `decisions/` with the smaller ignore set.
 
 **Source**: 2026-05-20 audit re-verification (grep on v1.2.8 head confirmed empty closing_commit/transcript + missing sections); ADR-067-070 narrow-relaxation methodology applied to the frontmatter-backfill class.
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: 8105f37
 
 **Claim**
 
@@ -3762,7 +3763,7 @@ populated `closing_commit:` (value: `v1.0.3`) and the body has `## Alternatives 
 
 **Source**: 2026-05-20 audit hiring-manager-curious risk finding — 4-ADR chain in 1 day reads as process-fragility for a 5-day artifact. Consolidation reduces the optic without changing the underlying authorization.
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: ba342c7
 
 **Claim**
 
@@ -3793,7 +3794,7 @@ immutability section simplified to cite ADR-073.
 
 **Source**: 2026-05-20 audit hiring-manager-curious risk finding — the single most embarrassing string in decisions/ sits in a publicly rendered ADR. Verbatim quote preserved privately in the transcript file (gitignored, emailed separately at submission).
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: 14f0c05
 
 **Claim**
 
@@ -3825,7 +3826,7 @@ the original verbatim user feedback for audit-trail completeness.
 
 **Source**: 2026-05-20 audit hiring-manager-curious finding — the ADR-050 → ADR-052 same-day reason-swap erodes reader trust in the rest of the ADR corpus. Unification removes the retcon optic while preserving both historical ADRs as artifacts.
 
-**Closing commit/ADR**: _Not recorded._
+**Closing commit/ADR**: 428971c
 
 **Claim**
 
@@ -3845,5 +3846,42 @@ WRITEUP.md §8.1 + WRITEUP/limitations-and-future-work.md §8.1 + WRITEUP/model-
 ADR-075 (or ADR-050 R1 for the LLM-judge axis) as the single source of truth on the full-FT OOD drop
 rationale. Future reviewers see one coherent narrative rather than the ADR-050 R2 + ADR-052 sequence
 framed as competing rationales. ADR-050 R2 + ADR-052 remain in decisions/ as historical artifacts.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-076 - [ADR-076](decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.md): Backfill superseded_by on ADR-046 + ADR-054 + ADR-061 (→ ADR-062) + closing_commit on ADR-071-075 per ADR-072 frontmatter-backfill discipline
+
+**Status**: Accepted
+
+**Source**: REPO_AUDIT_2026-05-21.md §P1-6 (ADR-062 missing superseded_by back-links) + §P2 (ADR-071-075 empty closing_commit). SHAs verified via `git log --oneline --diff-filter=A -- "decisions/ADR-<NNN>-*.md"` for the file-introduction commit of each ADR. ADR-072 precedent applied to the back-link + closing_commit-backfill axis.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+ADR-062 (Quarto writeup clarity + canonical figures, v1.2.0) declares `supersedes: [ADR-046,
+ADR-054, ADR-061]` in its frontmatter (line 29) but the inverse links are missing — ADR-046 has
+empty `superseded_by:`, ADR-054 has `superseded_by: []`, ADR-061 has `superseded_by: []`. The
+supersession-chain forward links are correct; the back-links are stale. Separately, ADR-071 through
+ADR-075 (all 2026-05-20 governance ADRs) ship with empty `closing_commit:` frontmatter fields though
+the ADR-072 precedent (closing_commit `8105f37`) establishes that closing_commit population is
+governance-relevant audit-trail data. REPO_AUDIT_2026-05-21.md §P1-6 + §P2 (ADR-071-075 empty
+closing_commit) surface both gaps. This ADR treats the empty-back-link + empty-closing_commit gaps
+as the same frontmatter-backfill narrow-relaxation class established by ADR-072 (extending the
+ADR-067-070 chain). Populates: (a) ADR-046 + ADR-054 + ADR-061 `superseded_by: ["062"]` to mirror
+ADR-062's forward declaration; (b) ADR-071-075 `closing_commit:` with the verified SHAs from git log
+(ADR-071 = `37c2b32`, ADR-072 = `8105f37`, ADR-073 = `ba342c7`, ADR-074 = `14f0c05`, ADR-075 =
+`428971c`). No decision content changes; only audit-trail completeness is restored.
+
+**Acceptance criterion**
+
+`grep '^superseded_by' decisions/ADR-046-*.md decisions/ADR-054-*.md decisions/ADR-061-*.md` shows
+three `["062"]` values (was empty/[]). `grep '^closing_commit' decisions/ADR-071-*.md
+decisions/ADR-072-*.md decisions/ADR-073-*.md decisions/ADR-074-*.md decisions/ADR-075-*.md` shows
+five populated SHAs (was empty). `scripts/regenerate_audit.py --check` passes after the backfill
+with 76 CLAIM rows (ADR-076 added).
 
 </div>

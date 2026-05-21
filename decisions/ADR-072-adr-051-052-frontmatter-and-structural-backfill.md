@@ -29,7 +29,7 @@ source: 2026-05-20 audit re-verification (grep on v1.2.8 head
   confirmed empty closing_commit/transcript + missing sections);
   ADR-067-070 narrow-relaxation methodology applied to the
   frontmatter-backfill class.
-closing_commit:
+closing_commit: 8105f37
 transcript:
 supersedes:
   - "051"  # on the empty-frontmatter axis only; decision content unchanged

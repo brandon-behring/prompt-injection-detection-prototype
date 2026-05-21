@@ -24,7 +24,7 @@ source: 2026-05-20 audit hiring-manager-curious risk finding — the
   single most embarrassing string in decisions/ sits in a publicly
   rendered ADR. Verbatim quote preserved privately in the
   transcript file (gitignored, emailed separately at submission).
-closing_commit:
+closing_commit: 14f0c05
 transcript:
 supersedes:
   - "064"  # on the embedded-quote axis only; decisions B1–B6, C1–C2, D1, E1–E5 all unchanged

@@ -22,7 +22,7 @@ source: 2026-05-20 audit hiring-manager-curious risk finding —
   4-ADR chain in 1 day reads as process-fragility for a 5-day
   artifact. Consolidation reduces the optic without changing the
   underlying authorization.
-closing_commit:
+closing_commit: ba342c7
 transcript:
 supersedes:
   - "067"  # consolidated; decision content retained as Class A
