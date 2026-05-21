@@ -10,11 +10,13 @@ Before any work, read `SPEC_GREENFIELD.md` (the binding spec).
 
 Phase 0 runs the spec lock-in interview via the `/exploring-options` skill
 against `SPEC_GREENFIELD.md`'s decision ledger (~50 Phase-0 decisions across
-~9 topic-focused sub-sessions; 70 ADRs at v1.2.8 close including post-v1.0.0
+~9 topic-focused sub-sessions; 76 ADRs at v1.2.13 close including post-v1.0.0
 patch governance: ADR-051 carryforward + ADR-052 full-FT reframing + ADR-053
 reading-guide governance + ADR-061 nav restructure + ADR-067-070
-immutability-relaxation chain). See `SPEC_GREENFIELD.md` §Phase 0 for the
-recommended sub-session sequence.
+immutability-relaxation chain consolidated in ADR-073 + ADR-074 redaction
+governance + ADR-075 full-FT OOD narrative unification + ADR-076 frontmatter
+backfill). See `SPEC_GREENFIELD.md` §Phase 0 for the recommended sub-session
+sequence.
 
 **For each `[OPEN]` decision walked, Claude must surface:**
 
@@ -84,6 +86,11 @@ with a commit message citing the relevant ADR + listing per-file corrections:
 
 ALL other content (numeric values, methodology, prose, alternatives,
 non-slug frontmatter, table data) remains immutable per the rule above.
+(Rule consolidated and re-stated in [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md);
+read that ADR for the consolidated narrative. Frontmatter-completeness
+backfills — `closing_commit:` + `superseded_by:` — are governed by the
+ADR-072/ADR-076 frontmatter-backfill precedent, a fifth narrow-relaxation
+class adjacent to A-D.)
 
 ### Phase 0 shorthand
 
@@ -163,6 +170,13 @@ frontmatter field.
 - Skipping transcript capture for a multi-turn decision conversation
 - Mutating a locked decision without writing a superseding ADR
 - Tuning on test data — even informally during error analysis
+- **For design-doc audits / cross-file consistency checks / open-ended
+  polish reviews**: using the Explore subagent — Explore's own docs
+  explicitly forbid this use class ("Do NOT use it for code review,
+  design-doc auditing, cross-file consistency checks, or open-ended
+  analysis — it reads excerpts rather than whole files and will miss
+  content past its read window"). Use general-purpose agents for
+  audit-class tasks instead.
 - Rewriting git history (amend, squash, force-push)
 - Adding a methodology component without an ADR
 - Adding an evaluation dataset without a leakage scan

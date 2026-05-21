@@ -31,6 +31,17 @@ Each locked decision produces:
 
 ADRs are the source of truth. ADRs are immutable; supersede via new ADR.
 
+**Narrow exceptions** (per [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) + [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) + [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md) + [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md), consolidated in [ADR-073](decisions/ADR-073-adr-immutability-rule-consolidated-re-statement.md)): FOUR factual-defect / render-defect classes MAY be corrected in-place with a commit message citing the relevant ADR:
+
+1. **Cross-reference slug filename typos** (per ADR-067) — a slug pointing at a wrong-but-existing canonical file in `decisions/`.
+2. **Broken external references** (per ADR-068) — markdown links pointing at local-filesystem paths or aspirational upstream resources (404 URLs).
+3. **Publisher-URL → DOI canonicalization** (per ADR-069) — `journals.sagepub.com/doi/<DOI>`, `tandfonline.com/doi/<DOI>`, `jstor.org/stable/<ID>`, `dl.acm.org/doi/<DOI>` MAY be canonicalized to `doi.org/<DOI>`.
+4. **Render-only Markdown syntax corrections** (per ADR-070) — delimiter fixes required for faithful Quarto rendering, visible decision content unchanged.
+
+Frontmatter-completeness backfills (`closing_commit:` + `superseded_by:`) are governed separately by the [ADR-072](decisions/ADR-072-adr-051-052-frontmatter-and-structural-backfill.md) + [ADR-076](decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.md) frontmatter-backfill precedent.
+
+ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the rule above.
+
 ## Library-first discipline
 
 Three load-bearing libraries (never hand-roll equivalents):
@@ -63,6 +74,7 @@ Track every import / skill invocation in `decisions/library_imports.md`. File up
 - Adding an evaluation dataset without a leakage scan
 - Persisting only summary metrics without per-row predictions
 - Introducing a project-specific term without adding it to `docs/GLOSSARY.md`
+- For design-doc audits / cross-file consistency checks / open-ended polish reviews: using a fast-search subagent (e.g., Claude Code's Explore) — those agents' own docs forbid this use class (read excerpts, miss content past their read window). Use a general-purpose subagent for audit-class tasks instead.
 
 ## More
 
