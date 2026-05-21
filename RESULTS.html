@@ -1104,13 +1104,13 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: right;"><strong>0.364 [0.354, 0.375]</strong></td>
 </tr>
 <tr class="even">
-<td>ProtectAI v1</td>
+<td>ProtectAI v1*</td>
 <td style="text-align: right;">0.519 [0.437, 0.597]</td>
 <td style="text-align: right;">0.469 [0.415, 0.523]</td>
 <td style="text-align: right;">0.361 [0.330, 0.391]</td>
 </tr>
 <tr class="odd">
-<td>ProtectAI v2</td>
+<td>ProtectAI v2*</td>
 <td style="text-align: right;">0.556 [0.453, 0.648]</td>
 <td style="text-align: right;">0.382 [0.333, 0.429]</td>
 <td style="text-align: right;">0.314 [0.283, 0.345]</td>
@@ -1135,6 +1135,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources (<code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code>) per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Pooled OOD scores on slices that overlap with that training pool are not clean OOD baselines; ProtectAI rows are diagnostic references, not peer to in-house detectors.</p>
 <p><strong>Takeaway:</strong> this is where the direct-trained detectors break. The best pooled OOD AUPRC is the frozen probe at 0.364, but the random floor is 0.374. The honest reading is that none of these detectors clearly learned the cross-family OOD ranking problem.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

@@ -1030,16 +1030,16 @@ ul.task-list li input[type="checkbox"] {
 <td>Best in-house score, still at the random floor</td>
 </tr>
 <tr class="even">
-<td>ProtectAI v1</td>
+<td>ProtectAI v1*</td>
 <td style="text-align: right;">0.361</td>
 <td style="text-align: right;">[0.330, 0.391]</td>
-<td>Similar, but reference scorer has training-overlap caveats</td>
+<td>Reference scorer with verified training-pool overlap; not a clean OOD baseline</td>
 </tr>
 <tr class="odd">
-<td>ProtectAI v2</td>
+<td>ProtectAI v2*</td>
 <td style="text-align: right;">0.314</td>
 <td style="text-align: right;">[0.283, 0.345]</td>
-<td>Worse than v1 on this slate</td>
+<td>Reference scorer with verified training-pool overlap; not a clean OOD baseline</td>
 </tr>
 <tr class="even">
 <td>ModernBERT LoRA</td>
@@ -1055,6 +1055,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources (<code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code>) per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Pooled OOD scores on slices that overlap with that training pool are not clean OOD baselines; treat the rows as diagnostic references, not peer to in-house detectors.</p>
 <p><strong>Reading the table:</strong></p>
 <ul>
 <li><strong>Pooled OOD AUPRC</strong> is the area under the precision-recall curve on the combined held-out attack-family slate.</li>
@@ -1134,12 +1135,13 @@ ul.task-list li input[type="checkbox"] {
 <td>similar recall, despite worse pooled OOD ranking</td>
 </tr>
 <tr class="odd">
-<td>ModernBERT full fine-tune</td>
+<td>ModernBERT full fine-tune**</td>
 <td style="text-align: right;">0.558</td>
 <td>lower direct-source recall</td>
 </tr>
 </tbody>
 </table>
+<p>** Full-FT is shown for LODO direct-source completeness (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). The full-FT row is absent from the Pooled OOD table for that reason.</p>
 <p>False positives, AUPRC, and AUROC are omitted from the held-out direct-source table because that slice has no negatives. Direct-task success makes the OOD failure more informative, not less: the detectors learned one family and did not transfer cleanly to others.</p>
 </section>
 <section id="what-this-means" class="level2">

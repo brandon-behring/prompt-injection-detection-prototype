@@ -1190,16 +1190,16 @@ ul.task-list li input[type="checkbox"] {
 <td>best in-house score, but at the random floor</td>
 </tr>
 <tr class="even">
-<td>ProtectAI v1</td>
+<td>ProtectAI v1*</td>
 <td style="text-align: right;">0.361</td>
 <td style="text-align: right;">[0.330, 0.391]</td>
-<td>similar, but diagnostic only</td>
+<td>reference scorer with verified training-pool overlap</td>
 </tr>
 <tr class="odd">
-<td>ProtectAI v2</td>
+<td>ProtectAI v2*</td>
 <td style="text-align: right;">0.314</td>
 <td style="text-align: right;">[0.283, 0.345]</td>
-<td>does not dominate v1</td>
+<td>reference scorer with verified training-pool overlap; does not dominate v1</td>
 </tr>
 <tr class="even">
 <td>ModernBERT LoRA</td>
@@ -1215,6 +1215,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<p>* ProtectAI v1 + v2 carry <code>suspected_contamination</code> per ADR-005 — verified training-pool overlap with at least 2 of 4 LODO sources (<code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code>) per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Pooled OOD scores on overlapping slices are not clean OOD baselines. <strong>Full-FT</strong> is intentionally absent from this table: the Phase 5 OOD inference was not run (FUSE EIO crash; see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>).</p>
 <p>The negative result is not “nothing worked.” The trained detectors learned direct-injection-style examples and still failed when the attack family changed.</p>
 <p>For exact grids, figures, and artifact links, see <a href="./RESULTS.html">Results</a>.</p>
 </section>

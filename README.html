@@ -1064,28 +1064,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>best in-house score, still at random floor</td>
 </tr>
 <tr class="even">
-<td>ProtectAI v1</td>
+<td>ProtectAI v1*</td>
 <td style="text-align: right;">0.361 [0.330, 0.391]</td>
-<td>diagnostic reference; contamination caveats</td>
+<td>reference scorer with verified training-pool overlap; not a clean OOD baseline</td>
 </tr>
 <tr class="odd">
-<td>ProtectAI v2</td>
+<td>ProtectAI v2*</td>
 <td style="text-align: right;">0.314 [0.283, 0.345]</td>
-<td>does not dominate v1</td>
+<td>reference scorer with verified training-pool overlap; does not dominate v1</td>
 </tr>
 <tr class="even">
 <td>ModernBERT LoRA</td>
 <td style="text-align: right;">0.293 [0.286, 0.301]</td>
-<td>fine-tuning hurt OOD performance</td>
+<td>fine-tuning was actively harmful; AUROC 0.383 below 0.5 floor</td>
 </tr>
 <tr class="odd">
 <td>TF-IDF + LR</td>
 <td style="text-align: right;">0.291 [0.283, 0.298]</td>
-<td>classical floor, roughly tied with LoRA</td>
+<td>classical floor; AUROC 0.371 also below 0.5 floor</td>
 </tr>
 </tbody>
 </table>
-<p>For <code>pooled_ood</code>, random AUPRC is <strong>412 / 1101 = 0.374</strong>. That is why the 0.364 frozen-probe score is not a success claim.</p>
+<p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources (<code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code>) per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Pooled OOD scores on slices that overlap with that training pool are not clean OOD baselines.</p>
+<p>For <code>pooled_ood</code>, random AUPRC is <strong>412 / 1101 = 0.374</strong>. That is why the 0.364 frozen-probe score is not a success claim. Under AUROC (random floor 0.5), LoRA and TF-IDF + LR both land below the floor with CIs that clear 0.5 on the wrong side — the mechanism is lexical overfitting + a label-relevance shift on the OOD slate; see <a href="./EXECUTIVE_SUMMARY.html">EXECUTIVE_SUMMARY</a> §Mechanism for the full read.</p>
 </section>
 <section id="direct-detection-check" class="level2">
 <h2 class="anchored" data-anchor-id="direct-detection-check">Direct Detection Check</h2>
@@ -1158,12 +1159,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>similar recall, but worse pooled OOD ranking</td>
 </tr>
 <tr class="odd">
-<td>ModernBERT full fine-tune</td>
+<td>ModernBERT full fine-tune**</td>
 <td style="text-align: right;">0.558</td>
 <td>lower direct-source recall</td>
 </tr>
 </tbody>
 </table>
+<p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). Full-FT is absent from the Pooled OOD table above for that reason.</p>
 <p>The held-out direct-source slice is all-positive, so false positives, AUPRC, and AUROC are undefined and omitted.</p>
 </section>
 <section id="how-to-read-the-site" class="level2">

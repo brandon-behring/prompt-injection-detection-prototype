@@ -1038,7 +1038,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td>Held-out direct-source recall</td>
 <td><a href="./RESULTS.html#direct-prompt-injection-performance">Results: Direct Prompt-Injection Performance</a></td>
-<td>frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune is 0.558</td>
+<td>frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune** is 0.558</td>
 <td>stricter direct-source holdout, but recall-only because the slice is all-positive</td>
 </tr>
 <tr class="odd">
@@ -1074,11 +1074,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td>ProtectAI/reference-detector caveats</td>
 <td><a href="./RESULTS.html#1-cross-family-ood-table-auprc">Results: §1 Cross-Family OOD Table</a> and <a href="./WRITEUP/reference-scorer-audit.html">reference-scorer audit</a></td>
-<td>ProtectAI v1 is near frozen probe on pooled OOD; v2 regresses on this slate</td>
+<td>ProtectAI v1* is near frozen probe on pooled OOD; v2* regresses on this slate</td>
 <td>useful diagnostic references, but training-overlap disclosure limits clean baseline claims</td>
 </tr>
 </tbody>
 </table>
+<p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Their pooled OOD scores on overlapping slices are not clean OOD baselines.</p>
+<p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions); the comparable pooled OOD inference was not run (Phase 5 X11 crash; see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>).</p>
 </section>
 <section id="path-a-hiring-manager-10-15-minutes" class="level2">
 <h2 class="anchored" data-anchor-id="path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</h2>
