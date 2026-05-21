@@ -165,8 +165,13 @@ frontmatter field.
 
 ## Anti-patterns to avoid
 
-- Hand-rolling functionality already in the three libraries
-- Working around a library limitation without filing an upstream issue
+- Hand-rolling a primitive that belongs in `eval-toolkit` /
+  `runpod-deploy` / `research_toolkit` (strengthened 2026-05-18: no
+  local workarounds; missing upstream primitives **block** dependent
+  work pending the upstream MR — the older "thin local glue + TODO
+  marker" pattern is retired)
+- Continuing dependent work on a TODO-marker local stub after filing
+  the upstream issue, instead of waiting for the upstream MR to land
 - Skipping transcript capture for a multi-turn decision conversation
 - Mutating a locked decision without writing a superseding ADR
 - Tuning on test data — even informally during error analysis

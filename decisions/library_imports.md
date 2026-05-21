@@ -33,10 +33,15 @@ The ledger is **positive evidence**: not just "we don't hand-roll" but "here is 
 
 **Python pin** (per ADR-037): `requires-python = ">=3.13"` + `.python-version = 3.13`.
 
-**Bump triggers** — exactly three:
+**Bump triggers** — exactly four:
 1. Blocking upstream bug that breaks a use-pattern documented below.
 2. Critical security fix (CVE-grade) in the upstream.
 3. Post-submission reviewer-feedback patch per ADR-033 `v1.0.x` discipline.
+4. Dependency / ledger maintenance bump that records resolved upstream issues
+   without methodology / model / data / compute change (per ADR-066;
+   precedent at v1.2.8: bumped `eval-toolkit` v0.42→v0.43 to record #48 +
+   #49 + #53 closures as already-resolved-not-consumed; ledger updates
+   only).
 
 Routine "the upstream has a new release" is NOT a bump trigger. Each bump produces a new commit + an entry in `decisions/upstream_issues.md` referencing the trigger; bumps do NOT supersede ADR-036 (the discipline is locked; specific versions move). Freeze expires at `v2.0.0` per ADR-033 major-bump discipline.
 
@@ -82,7 +87,7 @@ All consumer libraries (`huggingface_hub`, `openai`, `anthropic`, `runpod-deploy
 | `eval_toolkit.metrics.metrics_at_threshold` | `scripts/fit_dual_policy_thresholds.py` + `src/eval/operating_points.py` (Phase 3 deliverable) | Compute (precision, recall, FPR, F1) at fitted threshold; per ADR-025 dual-policy reporting layout |
 | Glue: `joblib.Parallel(n_jobs=-1)` (NOT eval-toolkit; project-specific orchestrator-layer parallelization) | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable) | Parallelize ~10000 independent CI computations across 64-core Threadripper; library-first discipline preserves primitives as single-threaded shipped, parallelism is at call-site (per ADR-022) |
 
-## runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.7.7 pinned]
+## runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.8.4 pinned]
 
 | CLI / module | Invoked in | Purpose |
 |---|---|---|

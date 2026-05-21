@@ -25,6 +25,30 @@ Triage label on filed issues: `tracked`.
 - Demo-strategy ideas such as activation-delta analysis stay outside this
   patch unless a future ADR scopes them into the project.
 
+### Ledger scope (clarified at v1.2.13)
+
+This ledger tracks issues filed **as a consequence of this project's
+library-first audits** (Phase 1 carryforward refactor, Phase 4 figures,
+v1.0.x post-submission patches, v1.1.x DeBERTa ablation, v1.2.x library
+maintenance). Upstream issues filed independently of this project's
+audit path are **not** tracked here. Specifically:
+
+- **eval-toolkit #50** (`feat(losses): RecallAtLowFPR — Meta Prompt
+  Guard 2 recipe`; CLOSED 2026-05-19): demo-strategy / recipe addition;
+  no methodology dependency for this project's evaluation slate.
+- **eval-toolkit #51** (`feat(preprocessing): spotlighting`; OPEN):
+  preprocessing pattern; out of v1.0.0/v1.2.x evaluation slate scope per
+  ADR-039 + the portfolio-repo plan ([[portfolio_plan_approved]]
+  memory).
+- **eval-toolkit #52** (`feat(stacking): MetaLearner Protocol +
+  LogisticStacker`; OPEN): stacking primitive; out of v1.0.0/v1.2.x
+  scope per ADR-007 (single-rung detectors only at submission tier).
+
+If any of these later become consumption candidates (e.g., a v1.3.x
+methodology decision opens preprocessing or stacking), a new ledger
+row will be added at consumption time with the full local file:line +
+status.
+
 | Date | Repo | Issue # | Title | Local site (file:line) | Status |
 |---|---|---|---|---|---|
 | 2026-05-15 | `brandon-behring/eval-toolkit` | [#17](https://github.com/brandon-behring/eval-toolkit/issues/17) | Add optional `n_jobs` parameter to `paired_bootstrap_diff` for internal resample-loop parallelization | `scripts/run_bootstrap_battery.py` (Phase 4 deliverable per ADR-022) | **RESOLVED in eval-toolkit v0.42.0; ledger status updated at v1.2.2 per ADR-066** — `et.paired_bootstrap_diff(..., n_jobs=N)` available. Project keeps `n_jobs=1` default per #41 worker-copy memory model (shared-state pattern is opt-in for callers). |
