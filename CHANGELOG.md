@@ -20,6 +20,65 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.11] — 2026-05-20
+
+**Post-remediation polish patch**: a focused polish pass on items the
+post-remediation audit flagged as P2/P3 (originally deferred). User
+push: "polish is important." 2 commits + this tag close the loop;
+no methodology, model, data, compute, or result change.
+
+### Changed
+
+- **Persona-explicit naming softened**: "For hiring managers in a hurry"
+  renamed to "Project at a glance" everywhere it appears (page title,
+  h1, sidebar label, cross-references in WRITEUP, index.qmd,
+  README, READING_GUIDE, EXECUTIVE_SUMMARY, docs/site-reader-map).
+  File path unchanged to preserve external links. Reads naturally
+  for any reviewer regardless of role.
+- **"Hiring-manager-level skim" softened**: across 8 WRITEUP spokes'
+  "How to read this spoke" callouts (data-decisions, eval-design,
+  threshold-policy, reproducibility, methodology-guarantees,
+  reference-scorer-audit, model-rungs, limitations) the phrasing
+  "hiring-manager-level skim" became "fast skim". Consistent with
+  the "Project at a glance" rename.
+- **AUROC phrasing variety on table-row interpretations**: the
+  phrase "fine-tuning was actively harmful" appeared in 5 reader-
+  surface tables (landing, EXEC_SUMMARY, WRITEUP §7, for-hiring-
+  managers, RESULTS, README). Varied the table-row interpretations
+  in EXEC_SUMMARY + README + for-hiring-managers to "trained adapter
+  ranks below random" / "anti-correlated with cross-family attack
+  class". Canonical narrative phrasings (landing point #3,
+  WRITEUP §7 Finding 3 heading) preserved as headline.
+- **For-hiring-managers Q2 mechanism paragraph tightened**: was
+  ~110 words after C9; now ~50 words. The full mechanism lives on
+  the landing page + WRITEUP + EXEC_SUMMARY Mechanism section;
+  Project-at-a-glance needs the one-sentence version, not the
+  expanded one.
+- **Landing page "Models" bullet internal inconsistency fixed**:
+  bullet previously listed 5 detectors but the LODO direct-source
+  table on the same page showed 6 (full-FT row at 0.558). Bullet
+  now mentions full-FT with the "LODO direct-source only" caveat +
+  ADR-075 citation.
+- **ADR-064 redaction marker tightened**: "[Verbatim user feedback
+  redacted 2026-05-20 per ADR-074 narrow-relaxation; verbatim user
+  wording preserved in private transcript file.]" became "[Verbatim
+  wording redacted per ADR-074.]". Reduces curiosity invitation.
+- **§9.5 Anti-correlation finding: honest empirical-scope caveat
+  added**. The "lexical overfitting + label-relevance shift"
+  mechanism in WRITEUP/limitations §9.5 is *interpretation* from
+  aggregate AUROC + slate composition, NOT direct empirical
+  demonstration in this artifact. Per-slice score-distribution
+  analysis from `evals/predictions/` is named as v6 future-work +
+  cited to the prediction-persistence pattern in
+  methodology-guarantees §6.2. Closes the methodology pushback
+  class the v1.2.10 reporting-honesty asterisks didn't.
+
+### Decisions
+
+- No new ADRs. ADR-064 redaction marker tightening + AUROC table-row
+  phrasing variety land under ADR-073 Class A/B narrow-relaxation
+  discipline (no decision content changes; surface polish only).
+
 ## [1.2.10] — 2026-05-20
 
 **Post-remediation reporting-honesty patch**: the 2026-05-20 post-remediation
