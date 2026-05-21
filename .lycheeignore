@@ -62,3 +62,11 @@
 ^https://www\.cs\.iastate\.edu/~honavar/elkan\.pdf$
 ^https://github\.com/Microsoft/calibration/Kull-2017-Beta-calibration$
 ^https://www\.jstor\.org/stable/27033529$
+
+# v1.2.13 tag URL referenced from reader-facing surfaces (README, WRITEUP,
+# READING_GUIDE) before the tag itself lands at C7 of the v1.2.13 patch
+# sequence. Chicken-and-egg from auto-continue-on-CI-green discipline: C2
+# updates the "Current state" URLs but the tag is created at C7. The pattern
+# resolves to a real URL after v1.2.13 is tagged; safe to keep here (or
+# remove on next housekeeping commit).
+^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.2\.13$
