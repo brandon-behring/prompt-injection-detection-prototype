@@ -1000,8 +1000,8 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>eval-toolkit</code></td>
-<td><code>v0.43.0</code></td>
-<td><code>eval-toolkit==0.43.0</code> <strong>(PyPI install per ADR-055 narrow supersession of ADR-036)</strong>; bumped v0.31→v0.34 mid-Phase-4 X8 commit <code>8af73ae</code>; v0.34→v0.39 at v1.0.6 (consumed #39 <code>is_metric_defined_for_slice</code> + #40 <code>LeakageCheck.name</code> + #41 <code>parallel_map</code>); v0.39→v0.40 + git+https→PyPI at v1.0.8 (consumed #43 <code>fit_platt_binary</code> + <code>fit_beta_binary</code>; refactored to <code>_binary</code> calibrator family per ADR-056; filed #44 <code>fit_isotonic_binary</code> for shape consistency); v0.40→v0.42 at v1.0.9 (consumed #44 <code>fit_isotonic_binary</code> + removed <code>fit_isotonic_binary_local</code> adapter; v0.41 skipped as predated #44 close); v0.42→v0.43 at v1.2.8 (closes #48 <code>ood_dataset_from_manifest</code>, #49 <code>character_injection</code> core-6, #53 <code>ActivationDeltaProbe</code>; dependency/ledger maintenance only, no methodology/model/data change)</td>
+<td><code>v0.44.0</code></td>
+<td><code>eval-toolkit==0.44.0</code> <strong>(PyPI install per ADR-055 narrow supersession of ADR-036)</strong>; bumped v0.31→v0.34 mid-Phase-4 X8 commit <code>8af73ae</code>; v0.34→v0.39 at v1.0.6 (consumed #39 <code>is_metric_defined_for_slice</code> + #40 <code>LeakageCheck.name</code> + #41 <code>parallel_map</code>); v0.39→v0.40 + git+https→PyPI at v1.0.8 (consumed #43 <code>fit_platt_binary</code> + <code>fit_beta_binary</code>; refactored to <code>_binary</code> calibrator family per ADR-056; filed #44 <code>fit_isotonic_binary</code> for shape consistency); v0.40→v0.42 at v1.0.9 (consumed #44 <code>fit_isotonic_binary</code> + removed <code>fit_isotonic_binary_local</code> adapter; v0.41 skipped as predated #44 close); v0.42→v0.43 at v1.2.8 (closes #48 <code>ood_dataset_from_manifest</code>, #49 <code>character_injection</code> core-6, #53 <code>ActivationDeltaProbe</code>; dependency/ledger maintenance only, no methodology/model/data change); v0.43→v0.44 at v1.2.14 (closes #50 <code>RecallAtLowFPR</code> Meta Prompt Guard 2 loss recipe + #51 <code>spotlighting</code> defense — delimit/datamark/encode + sweep helpers; new <code>[losses]</code> extra with optional <code>torch&gt;=2.0</code> dep; spotlighting is base-install safe — pure stdlib. Dependency/ledger maintenance bump per ADR-066 trigger #4; no consumer-side code change in this project’s evaluation slate.)</td>
 </tr>
 <tr class="even">
 <td><code>runpod-deploy</code></td>
@@ -1072,7 +1072,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.bootstrap.bootstrap_ci</code></td>
-<td><code>src/eval/marginal_bootstrap.py::compute_marginal_bootstrap_cell</code> (Phase 4 Commit 2 per ADR-046 Q1); <code>scripts/run_marginal_bootstrap.py</code> (Phase 4 Commit 5 orchestrator)</td>
+<td><code>src/eval/marginal_bootstrap.py::compute_marginal_bootstrap_cell</code> (landed at Phase 4 Commit 2 per ADR-046 Q1); <code>scripts/run_marginal_bootstrap.py</code> (landed at Phase 4 Commit 5 orchestrator)</td>
 <td>Per-rung marginal BCa-bootstrap CI; 10K iterations @ seed=1 headline + 10K @ seed=2 stability check (per ADR-022); validated through MarginalBootstrapCellModel</td>
 </tr>
 <tr class="even">
@@ -1082,12 +1082,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.bootstrap.paired_bootstrap_ece_diff</code></td>
-<td><code>scripts/run_bootstrap_battery.py</code> (Phase 4 deliverable)</td>
+<td><code>scripts/run_bootstrap_battery.py</code> (landed; Phase 4)</td>
 <td>Paired-bootstrap Δ-CI specifically for ECE (per ADR-023 calibration battery + ADR-022 paired-across-rungs)</td>
 </tr>
 <tr class="even">
 <td><code>eval_toolkit.bootstrap.cv_clt_ci</code></td>
-<td><code>src/eval/cross_fold_ci.py::compute_cross_fold_ci_cell</code> (Phase 4 Commit 2 headline + Commit 3 spoke); <code>scripts/run_cv_clt_ci.py</code> (Phase 4 Commit 5 orchestrator)</td>
+<td><code>src/eval/cross_fold_ci.py::compute_cross_fold_ci_cell</code> (landed at Phase 4 Commit 2 headline + Commit 3 spoke); <code>scripts/run_cv_clt_ci.py</code> (landed at Phase 4 Commit 5 orchestrator)</td>
 <td>Cross-fold CI via Bayle 2020 Theorem 3.1 on per-fold metric vector (K folds x S seeds-per-fold reduced to K fold means per ADR-022 multi-seed protocol); headline cross-fold CI machinery per ADR-024; validated through CrossFoldCIModel. Each headline cv_clt CI is paired with the upstream <code>block_bootstrap_on_folds</code> spoke consumed at v1.2.2 after #21 closed + auto-flag column per A-008</td>
 </tr>
 <tr class="odd">
@@ -1132,27 +1132,27 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.bootstrap.mde_from_ci</code></td>
-<td><code>src/eval/mde.py::mde_from_paired_ci_record</code> + <code>src/eval/mde.py::mde_from_marginal_ci_record</code>; <code>scripts/run_mde.py</code> (Phase 4 Commit 5 orchestrator sweeping ~100 cells)</td>
+<td><code>src/eval/mde.py::mde_from_paired_ci_record</code> + <code>src/eval/mde.py::mde_from_marginal_ci_record</code>; <code>scripts/run_mde.py</code> (landed at Phase 4 Commit 5 orchestrator sweeping ~100 cells)</td>
 <td>MDE on every reported CI per ADR-006. The generalized upstream API handles paired and marginal CI records after #20 closed in eval-toolkit v0.42.0 and was consumed at v1.2.2.</td>
 </tr>
 <tr class="even">
 <td><code>eval_toolkit.plotting.plot_pr_curve</code></td>
-<td><code>src/eval/figures.py::render_f3_pr_per_rung</code> (Phase 4 Commit 4 per ADR-046 Q6)</td>
+<td><code>src/eval/figures.py::render_f3_pr_per_rung</code> (landed at Phase 4 Commit 4 per ADR-046 Q6)</td>
 <td>F3 precision-recall overlay per rung; library-first direct dispatch onto a shared axes via the <code>ax=</code> kwarg</td>
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.plotting.plot_reliability_diagram</code></td>
-<td><code>src/eval/figures.py::render_f4_reliability_triptych</code> (Phase 4 Commit 4 per ADR-046 Q6)</td>
+<td><code>src/eval/figures.py::render_f4_reliability_triptych</code> (landed at Phase 4 Commit 4 per ADR-046 Q6)</td>
 <td>F4 reliability triptych — invoked 3x for raw + temperature + isotonic interventions on a 1x3 subplot grid</td>
 </tr>
 <tr class="even">
 <td><code>eval_toolkit.plotting.plot_bootstrap_distribution</code></td>
-<td><code>src/eval/figures.py::render_f7_dual_policy_grid</code> (Phase 4 Commit 4 per ADR-046 Q6)</td>
+<td><code>src/eval/figures.py::render_f7_dual_policy_grid</code> (landed at Phase 4 Commit 4 per ADR-046 Q6)</td>
 <td>F7 dual-policy operating-point grid sub-panels; one panel per (rung, policy) cell with reachability asterisks per ADR-025 + A-009</td>
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.plotting.plot_lift_ci</code></td>
-<td><code>src/eval/figures.py::render_f6_lodo_breakdown</code> (Phase 4 Commit 4 per ADR-046 Q6); <code>scripts/render_figures.py::render_f2_frozen_vs_lora_paired_delta</code> (ADR-062)</td>
+<td><code>src/eval/figures.py::render_f6_lodo_breakdown</code> (landed at Phase 4 Commit 4 per ADR-046 Q6); <code>scripts/render_figures.py::render_f2_frozen_vs_lora_paired_delta</code> (ADR-062)</td>
 <td>CI visualization via library primitive. ADR-062 reuses it for the reviewer-facing paired delta figure rather than hand-rolling CI whiskers</td>
 </tr>
 <tr class="even">
@@ -1162,12 +1162,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.plotting.save_figure</code></td>
-<td><code>src/eval/figures.py</code> (Phase 4 Commit 4 export contract); <code>scripts/render_figures.py</code> (Phase 4 Commit 5 orchestrator + ADR-062 canonical figure rewrite)</td>
+<td><code>src/eval/figures.py</code> (landed at Phase 4 Commit 4 export contract); <code>scripts/render_figures.py</code> (landed at Phase 4 Commit 5 orchestrator + ADR-062 canonical figure rewrite)</td>
 <td>Provenance-aware figure persistence per ADR-030 / ADR-062 — writes <code>{stem}.meta.json</code> sidecar carrying figure_id + adr + data_mode + source_artifacts + git commit + timestamp + matplotlib_version for every SVG/PDF/PNG output</td>
 </tr>
 <tr class="even">
 <td><code>eval_toolkit.plotting.set_plot_style</code> + <code>PALETTE</code></td>
-<td><code>src/eval/figures.py</code> (every renderer; Phase 4 Commit 4); <code>scripts/render_figures.py</code> (ADR-062 canonical F1-F5 slate)</td>
+<td><code>src/eval/figures.py</code> (every renderer; landed at Phase 4 Commit 4); <code>scripts/render_figures.py</code> (ADR-062 canonical F1-F5 slate)</td>
 <td>Consistent styling across reviewer-facing figures; PALETTE’s positive/baseline/accent colors used for canonical bars, target lines, and grouped metric panels</td>
 </tr>
 <tr class="odd">
@@ -1192,7 +1192,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>eval_toolkit.bootstrap.paired_bootstrap_op_point_diff</code></td>
-<td><code>scripts/run_bootstrap_battery.py</code> (Phase 4 deliverable)</td>
+<td><code>scripts/run_bootstrap_battery.py</code> (landed; Phase 4)</td>
 <td>Two-level bootstrap CI for dual-policy operating-point metrics (refit threshold per val resample, apply on test resample, paired diff); per ADR-025 + ADR-022 per-(seed) threshold protocol</td>
 </tr>
 <tr class="even">
@@ -1202,7 +1202,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td>Glue: <code>joblib.Parallel(n_jobs=-1)</code> (NOT eval-toolkit; project-specific orchestrator-layer parallelization)</td>
-<td><code>scripts/run_bootstrap_battery.py</code> (Phase 4 deliverable)</td>
+<td><code>scripts/run_bootstrap_battery.py</code> (landed; Phase 4)</td>
 <td>Parallelize ~10000 independent CI computations across 64-core Threadripper; library-first discipline preserves primitives as single-threaded shipped, parallelism is at call-site (per ADR-022)</td>
 </tr>
 </tbody>

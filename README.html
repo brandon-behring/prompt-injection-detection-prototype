@@ -1124,7 +1124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-this-project-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="how-this-project-thinks">How this project thinks</h2>
 <ul>
-<li><strong>Spec-driven development</strong> — 75 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
+<li><strong>Spec-driven development</strong> — 76 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
 <li><strong>Library-first invariant</strong> — shared evaluation primitives live in upstream libraries (<a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a>, <a href="https://github.com/brandon-behring/runpod-deploy">runpod-deploy</a>, <a href="https://github.com/brandon-behring/research_toolkit">research_toolkit</a>); local code is project-specific glue. Upstream gaps land in <a href="./decisions/upstream_issues.html"><code>decisions/upstream_issues.md</code></a> before any local workaround.</li>
 <li><strong>Confound-control discipline</strong> — when the headline result raised the natural follow-up (“does a longer context window fix the OOD gap?”), a controlled DeBERTa-v3-base ablation was designed (chunk-and-average vs head-truncation). Result: a publishable null. See <a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a>.</li>
 </ul>
@@ -1165,7 +1165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><a href="./decisions/"><code>decisions/</code></a></td>
-<td>75 ADRs documenting methodology + governance</td>
+<td>76 ADRs documenting methodology + governance</td>
 </tr>
 <tr class="even">
 <td><a href="./evals/"><code>evals/</code></a></td>

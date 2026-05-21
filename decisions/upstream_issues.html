@@ -946,7 +946,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#current-interpretation" id="toc-current-interpretation" class="nav-link" data-scroll-target="#current-interpretation">Current interpretation</a>
   <ul class="collapse">
-  <li><a href="#ledger-scope-clarified-at-v1.2.13" id="toc-ledger-scope-clarified-at-v1.2.13" class="nav-link" data-scroll-target="#ledger-scope-clarified-at-v1.2.13">Ledger scope (clarified at v1.2.13)</a></li>
+  <li><a href="#ledger-scope-clarified-at-v1.2.13-updated-at-v1.2.14" id="toc-ledger-scope-clarified-at-v1.2.13-updated-at-v1.2.14" class="nav-link" data-scroll-target="#ledger-scope-clarified-at-v1.2.13-updated-at-v1.2.14">Ledger scope (clarified at v1.2.13; updated at v1.2.14)</a></li>
   </ul></li>
   <li><a href="#how-to-use-this-ledger" id="toc-how-to-use-this-ledger" class="nav-link" data-scroll-target="#how-to-use-this-ledger">How to use this ledger</a>
   <ul class="collapse">
@@ -982,13 +982,13 @@ ul.task-list li input[type="checkbox"] {
 <li>The v1.2.8 dependency bump records eval-toolkit #48, #49, and #53 as library-first maintenance only. It does not add a new methodology claim or change the reported results.</li>
 <li>Demo-strategy ideas such as activation-delta analysis stay outside this patch unless a future ADR scopes them into the project.</li>
 </ul>
-<section id="ledger-scope-clarified-at-v1.2.13" class="level3">
-<h3 class="anchored" data-anchor-id="ledger-scope-clarified-at-v1.2.13">Ledger scope (clarified at v1.2.13)</h3>
-<p>This ledger tracks issues filed <strong>as a consequence of this project’s library-first audits</strong> (Phase 1 carryforward refactor, Phase 4 figures, v1.0.x post-submission patches, v1.1.x DeBERTa ablation, v1.2.x library maintenance). Upstream issues filed independently of this project’s audit path are <strong>not</strong> tracked here. Specifically:</p>
+<section id="ledger-scope-clarified-at-v1.2.13-updated-at-v1.2.14" class="level3">
+<h3 class="anchored" data-anchor-id="ledger-scope-clarified-at-v1.2.13-updated-at-v1.2.14">Ledger scope (clarified at v1.2.13; updated at v1.2.14)</h3>
+<p>This ledger tracks issues filed <strong>as a consequence of this project’s library-first audits</strong> (Phase 1 carryforward refactor, Phase 4 figures, v1.0.x post-submission patches, v1.1.x DeBERTa ablation, v1.2.x library maintenance). Upstream issues filed independently of this project’s audit path are recorded here when a dependency bump references them (dependency/ledger maintenance per ADR-066 trigger #4), or noted as out-of-scope when no consumption is planned.</p>
 <ul>
-<li><strong>eval-toolkit #50</strong> (<code>feat(losses): RecallAtLowFPR — Meta Prompt Guard 2 recipe</code>; CLOSED 2026-05-19): demo-strategy / recipe addition; no methodology dependency for this project’s evaluation slate.</li>
-<li><strong>eval-toolkit #51</strong> (<code>feat(preprocessing): spotlighting</code>; OPEN): preprocessing pattern; out of v1.0.0/v1.2.x evaluation slate scope per ADR-039 + the portfolio-repo plan ([[portfolio_plan_approved]] memory).</li>
-<li><strong>eval-toolkit #52</strong> (<code>feat(stacking): MetaLearner Protocol + LogisticStacker</code>; OPEN): stacking primitive; out of v1.0.0/v1.2.x scope per ADR-007 (single-rung detectors only at submission tier).</li>
+<li><strong>eval-toolkit #50</strong> (<code>feat(losses): RecallAtLowFPR — Meta Prompt Guard 2 recipe</code>; CLOSED 2026-05-19; <strong>shipped in eval-toolkit v0.44.0; recorded/consumed as dependency maintenance at v1.2.14</strong>): loss-recipe addition. No methodology dependency for this project’s evaluation slate at v1.2.14; the pin bump records the upstream resolution without changing this project’s reported metrics.</li>
+<li><strong>eval-toolkit #51</strong> (<code>feat(preprocessing): spotlighting</code>; CLOSED 2026-05-21; <strong>shipped in eval-toolkit v0.44.0; recorded/consumed as dependency maintenance at v1.2.14</strong>): defense-side preprocessing pattern (delimit/datamark/encode + sweep). Out of v1.0.0/v1.2.x evaluation slate scope per ADR-039 + the portfolio-repo plan ([[portfolio_plan_approved]] memory); recorded here because the v0.44.0 bump references its closure.</li>
+<li><strong>eval-toolkit #52</strong> (<code>feat(stacking): MetaLearner Protocol + LogisticStacker</code>; OPEN): stacking primitive; out of v1.0.0/v1.2.x scope per ADR-007 (single-rung detectors only at submission tier). Not bundled with the v0.44.0 close set.</li>
 </ul>
 <p>If any of these later become consumption candidates (e.g., a v1.3.x methodology decision opens preprocessing or stacking), a new ledger row will be added at consumption time with the full local file:line + status.</p>
 <table class="caption-top table">
