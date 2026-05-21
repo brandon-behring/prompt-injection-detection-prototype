@@ -84,6 +84,7 @@
 | CLAIM-074 | [ADR-074](decisions/ADR-074-adr-064-self-criticism-quote-redaction.md) | Accepted | 14f0c05 |
 | CLAIM-075 | [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md) | Accepted | 428971c |
 | CLAIM-076 | [ADR-076](decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.md) | Accepted |  |
+| CLAIM-077 | [ADR-077](decisions/ADR-077-supersession-backlink-and-frontmatter-octal-quoting-backfill.md) | Accepted |  |
 
 ## Claim details
 
@@ -3883,5 +3884,53 @@ three `["062"]` values (was empty/[]). `grep '^closing_commit' decisions/ADR-071
 decisions/ADR-072-*.md decisions/ADR-073-*.md decisions/ADR-074-*.md decisions/ADR-075-*.md` shows
 five populated SHAs (was empty). `scripts/regenerate_audit.py --check` passes after the backfill
 with 76 CLAIM rows (ADR-076 added).
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-077 - [ADR-077](decisions/ADR-077-supersession-backlink-and-frontmatter-octal-quoting-backfill.md): Backfill supersession back-links + quote octal-risk YAML integer fields in ADR-007 + ADR-015 + ADR-018 + ADR-021 + ADR-052 frontmatter per ADR-076 frontmatter-backfill discipline
+
+**Status**: Accepted
+
+**Source**: v1.2.15 audit-tool development surfaced 5 backlink violations after axis-only comment heuristic filtering. Per v1.2.15 plan Q2 lock (halt + surface) → user lock (path 1 + backfill-in-v1.2.15). Octal-quoting subclass surfaced during root-cause investigation (yaml.safe_load parses bare `015` as decimal 13 per YAML 1.1 octal rules; same bug bit `collect_adrs` in the new audit script).
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+The v1.2.15 supersession-backlink invariant (new `scripts/audit_superseded_by_backlinks.py`)
+surfaced two classes of frontmatter debt beyond what ADR-076 covered: Class 1 — YAML octal-parsing
+source bugs. Three ADR frontmatter fields contain bare integer values that YAML 1.1 parses as OCTAL
+rather than the author's intended string. `ADR-007.superseded_by: 015` and `ADR-018.supersedes: 015`
+both round-trip to decimal 13 (interpreted as ADR-013, not ADR-015 as the author intended).
+`ADR-015.supersedes: 007` coincidentally round-trips correctly (octal 7 == decimal 7) but is
+octal-risk for the same reason. The fix: quote each ("015" / "007"); identical intent, parser-safe.
+Class 2 — supersession back-link gaps. Four ADRs lack `superseded_by:` entries for declared
+full-axis (not axis-only per ADR-076 convention) supersession edges: - ADR-015 declares `supersedes:
+ADR-007` (post-quote) but ADR-015 itself is then superseded by ADR-018 (post-quote) — ADR-015's
+`superseded_by:` was empty; backfill to `["018"]`. - ADR-018 declares `supersedes: ADR-015`
+(post-quote) and is itself superseded by ADR-050 — ADR-018's `superseded_by:` was empty; backfill to
+`["050"]`. - ADR-050 declares `supersedes: ADR-021` but ADR-021's `superseded_by:` was empty;
+backfill to `["050"]`. - ADR-075 declares `supersedes: ADR-052` ("entire scope" per the explicit
+ADR-075 comment, not axis-only) but ADR-052's `superseded_by:` was empty; backfill to `["075"]`.
+Both classes are extensions of the ADR-076 frontmatter-backfill pattern (extended from ADR-072
+precedent): no decision content changes; only frontmatter audit-trail metadata is restored. The
+v1.2.15 audit-tool now exits 0 with these fixes in place. Cascades from this ADR's creation: -
+SUBMISSION_AUDIT.md CLAIM row count: 76 → 77. - README + docs/for-hiring-managers +
+WRITEUP/methodology-guarantees + CLAUDE.md ADR-count claims: 76 → 77 (caught mechanically by
+v1.2.14's `audit_adr_count_claims.py` invariant — proving its design intent).
+
+**Acceptance criterion**
+
+`scripts/audit_superseded_by_backlinks.py` exits 0 (no FAIL entries; INFO entries for axis-only
+edges + closing_commit exempt set are unchanged). `grep '^superseded_by' decisions/ADR-015-*.md
+decisions/ADR-018-*.md decisions/ADR-021-*.md decisions/ADR-052-*.md` shows populated values. `grep
+'superseded_by:\s*"015"' decisions/ADR-007-*.md` shows quoted form. `grep 'supersedes:\s*"015"'
+decisions/ADR-018-*.md` + `grep 'supersedes:\s*"007"' decisions/ADR-015-*.md` show quoted forms.
+`scripts/audit_adr_count_claims.py` exits 0 (the v1.2.14 invariant catches reader-facing surfaces'
+"76 ADRs" → "77 ADRs" requirement; this ADR's creation cascades through).
+`scripts/regenerate_audit.py --check` passes after the backfill with 77 CLAIM rows.
 
 </div>

@@ -9,6 +9,9 @@ claim: Phase 0-04 locks the per-rung reporting layout for the §3 Eval framework
 source: SPEC_GREENFIELD.md §3 Eval ledger rows 339 and 342 + Phase 0-04 walk Q1 + Q4
 acceptance_criterion: SPEC_GREENFIELD ledger row 339 carries locked-to-pooled-headline-plus-per-slice-spoke status; ledger row 342 carries locked-to-0.1pct-pooled-only-plus-volatility-surfacing status; SPEC_SHEET §3.4 OOD slate adds an aggregation-layout subsection naming pooled-headline + per-slice-spoke; SPEC_SHEET §5.1 primary descriptive metrics replaces [OPEN] on recall@FPR pinpoints with [LOCKED — {0.1pct pooled-only, 1pct, 5pct} per ADR-021]; WRITEUP/ood-analysis.md spoke filename pre-committed; WRITEUP/methodology.md gains a "Volatility surfacing at low-FPR pinpoints" subsection; tests/test_invariants.py contains skip-marked stub test_ood_aggregation_layout asserting the 5-slice configuration plus pooled-concatenation pipeline plus per-slice bootstrap CI computation pattern; tests/test_invariants.py contains skip-marked stub test_recall_at_fpr_pinpoint_volatility asserting the bootstrap-volatility-flag pipeline emits half-width + degeneracy-fraction columns for the 0.1 percent pinpoint at pooled level.
 closing_commit: b750d1d
+supersedes:
+superseded_by:
+  - "050"  # back-link added per ADR-077 frontmatter-backfill discipline; ADR-050 narrows the rung slate that ADR-021 aggregates
 references:
   - https://www.jmlr.org/papers/v7/demsar06a.html
   - https://arxiv.org/abs/2405.14478

@@ -87,6 +87,7 @@ closing_commit: v1.0.3
 supersedes:
   - ADR-050
 superseded_by:
+  - "075"  # back-link added per ADR-077 frontmatter-backfill discipline; ADR-075 supersedes ADR-052 entire scope (per ADR-075 comment "entire scope")
 references:
   - decisions/ADR-019-lora-and-transformer-training-recipe.md
   - decisions/ADR-022-statistical-inference-apparatus.md

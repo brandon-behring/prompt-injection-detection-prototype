@@ -57,3 +57,13 @@ jobs:
         # snapshots (with "Phase X close" / "submission gate" / etc.
         # qualifiers in their ±3-line context) are flagged INFO not FAIL.
         run: uv run python scripts/audit_adr_count_claims.py
+
+      - name: Run supersession-backlink + closing_commit audit (v1.2.15)
+        # Per v1.2.15 (audit_superseded_by_backlinks.py): every ADR with
+        # `supersedes: [N]` must have `superseded_by: [self]` on target.
+        # Edges marked axis-only via YAML comment (per ADR-076 / ADR-077
+        # narrow-relaxation discipline) are EXEMPT and reported as INFO.
+        # Also asserts Accepted ADRs have populated closing_commit
+        # (with a small exempt set for governance/backfill ADRs).
+        # Catches REPO_AUDIT_2026-05-21 §P1-6 class mechanically.
+        run: uv run python scripts/audit_superseded_by_backlinks.py

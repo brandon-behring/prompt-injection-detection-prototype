@@ -66,3 +66,9 @@ repos:
         language: system
         pass_filenames: false
         files: '^(decisions/ADR-.*\.md|.*\.(md|qmd))$'
+      - id: audit-superseded-by-backlinks
+        name: ADR supersession back-links + closing_commit invariants
+        entry: python scripts/audit_superseded_by_backlinks.py
+        language: system
+        pass_filenames: false
+        files: '^decisions/ADR-.*\.md$'

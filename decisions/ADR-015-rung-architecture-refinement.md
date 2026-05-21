@@ -9,7 +9,9 @@ claim: The trained-rung slate is narrowed from the original two-backbones-by-thr
 source: SPEC_GREENFIELD.md §2 Model row 330 (Backbone choice) + ADR-014 Q3/Q4 walk
 acceptance_criterion: ADR-007 carries status Superseded with superseded_by 015; SPEC_GREENFIELD ledger row 330 reads locked-to-ModernBERT-base (see ADR-015); SPEC_SHEET context paragraph and §4 model recipe reflect the 1x3 trained slate with three trained rungs plus four reference rungs; assumptions.md A-002 budget revised; tests/test_invariants.py has skip-marked stub test_trained_backbone_modernbert_only_invariant asserting the trained-rung slate contains exactly ModernBERT-base across three conditions; the Phase 2 training pipeline produces three trained rungs times three seeds times five LODO folds equals 45 per-row prediction parquet files at evals/predictions/.
 closing_commit: 727767c
-supersedes: 007
+supersedes: "007"
+superseded_by:
+  - "018"  # back-link added per ADR-077 frontmatter-backfill discipline; ADR-018 partially supersedes ADR-015 reference-slate enumeration
 references:
   - https://arxiv.org/abs/2412.13663
   - https://arxiv.org/abs/2111.09543

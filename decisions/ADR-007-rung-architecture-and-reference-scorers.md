@@ -4,7 +4,7 @@ slug: rung-architecture-and-reference-scorers
 title: Methodology rung architecture — trained backbones, LLM-judge reference rungs, Cohen's kappa
 date: 2026-05-15
 status: Superseded
-superseded_by: 015
+superseded_by: "015"
 claim_id: CLAIM-007
 claim: The rung slate comprises six trained rungs (DeBERTa-v3 + ModernBERT × {frozen-probe, LoRA, full-FT}) plus two LLM-judge reference rungs (one OpenAI model, one Anthropic model — specific model IDs finalized in Phase 0-03), plus optional existing-classifier baselines (Lakera Guard, ProtectAI LLM-Guard) as reference scorers. Cohen's kappa is computed pairwise across all rungs with bootstrap CIs on each kappa. Library stack — HuggingFace Transformers + PEFT + sentence-transformers; dependencies pinned via uv.lock.
 source: SPEC_GREENFIELD.md §Brief row 308 (Q5-C4) + §2 Model rows 330-338
