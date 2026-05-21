@@ -20,6 +20,101 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.13] — 2026-05-21
+
+**REPO_AUDIT_2026-05-21 discharge polish patch.** Closes the
+v1.2.12-close internal audit (`decisions/audits/REPO_AUDIT_2026-05-21.md`):
+2 P0 + 7 P1 + ~14 P2 + ~7 P3 findings, all prose-propagation debt from
+the v1.2.9-v1.2.12 polish arc. No methodology, model, data, or compute
+change.
+
+### Added
+
+- ADR-076 — superseded_by + closing_commit frontmatter backfill
+  (extends ADR-072 pattern; closes audit P1-6 + part of P2).
+- `decisions/audits/REPO_AUDIT_2026-05-21.md` — full-package quality +
+  polish audit at v1.2.12 close (committed at C0 = `ed3ad2a`, before
+  the discharge sequence).
+
+### Changed
+
+- README + WRITEUP + READING_GUIDE "Current state" pin propagated
+  v1.2.11/v1.2.8 → v1.2.13 (P0-1); historical v1.0.0 reviewer pin
+  unchanged (per ADR-033).
+- docs/for-hiring-managers.md + WRITEUP/methodology-guarantees.md ADR
+  counts 70 → 76 (P0-2 + P1-1); methodology-guarantees Phase 5 prose
+  qualifier clarified ("at Phase 5 close" → "at v1.0.0 submission gate").
+- WRITEUP.md + index.qmd Finding 3 reframe: "actively harmful" →
+  "anti-correlated with cross-family attack class" (P1-5; propagates
+  the v1.2.11 reframe already at for-hiring-managers.md:34).
+- CLAUDE.md ADR count 70 → 76; expand governance parenthetical with
+  ADR-073/074/075/076; append ADR-073 pointer after narrow-exceptions
+  block; note frontmatter-completeness backfill is a fifth class
+  governed by ADR-072/076 precedent (P1-2 + P1-3).
+- AGENTS.md — backport §Narrow exceptions from CLAUDE.md so
+  non-Claude agents see the in-place factual-defect rule (P1-4).
+- CLAUDE.md + AGENTS.md anti-patterns — strengthen library-first
+  phrasing per `[[library_first_is_project_wide_invariant]]`
+  (2026-05-18 strengthened form); old "thin local glue + TODO marker"
+  pattern explicitly retired (P2 ledger).
+- ADR-076 supersedes ADR-046 + ADR-054 + ADR-061 on frontmatter axis
+  only (`superseded_by: ["062"]` backfill); ADR-071-075 closing_commit
+  populated with verified SHAs.
+- ADR-024:13 references — `jstor.org/stable/27033529` reverted to
+  original after C4 attempted ADR-069 canonicalization (DOI
+  `10.2307/27033529` 404s; not every JSTOR stable ID has a valid DOI);
+  `.lycheeignore` re-adds the JSTOR pattern.
+- ADR-020:206 + ADR-025:41-43 — local-fs paths canonicalized to
+  github.com URLs per ADR-068 (where upstream paths resolve; 1 docs
+  reference reverted to non-URL form for a path that doesn't exist
+  upstream).
+- ADR-061:287 + ADR-063:89 — `.claude/plans/` paths → `[PLAN_REF
+  redacted]` marker per ADR-068 Class B.
+- library_imports.md:85 — section header `[v0.7.7 pinned]` →
+  `[v0.8.4 pinned]` matching pyproject.toml (P1-7).
+- library_imports.md bump-triggers list — "exactly three" → "exactly
+  four"; add ADR-066 dependency/ledger-maintenance trigger.
+- upstream_issues.md — add "Ledger scope (clarified at v1.2.13)"
+  subsection explaining eval-toolkit #50/#51/#52 are outside ledger
+  scope.
+- RESULTS.md LODO direct-source recall table — full-FT row gains
+  honesty asterisk + ADR-075 footnote (P2 parity with
+  EXECUTIVE_SUMMARY:92 + for-hiring-managers:55 + index.qmd:94).
+- WRITEUP.md:129-130 ProtectAI rows — Read column gains "not a clean
+  OOD baseline" tail caveat (P2 parity with README:39-40 +
+  EXECUTIVE_SUMMARY:35-36 + index.qmd:52-53).
+- docs/GLOSSARY.md:36 — question wording sync with
+  docs/for-hiring-managers.md:81.
+- `.github/workflows/ci.yml` + `publish.yml` — setup-uv unification:
+  `pip install uv` (8 sites) → `astral-sh/setup-uv@v8.1.0` matching
+  audit-writeup.yml (P3 hygiene).
+
+### Deferred (out of v1.2.13 scope)
+
+- mypy bump (`mirrors-mypy v1.8.0` → latest) — R3 risk: bump may
+  surface new strict-mode errors. Defer to next dev-tool sweep.
+- library_imports.md stale "Phase 4 deliverable" / "Phase 4 Commit N"
+  markers — would require per-line consumption-status verification;
+  cosmetic only (reads-as-stale, not factually wrong). Defer.
+- Tooling automation for future supersession-backlink + closing_commit
+  detection (audit "lessons noted" item) — portfolio-repo scope.
+
+### Sequence
+
+- C0 (`ed3ad2a`) — audit file standalone
+- C1 (`b97b70d`) — ADR-076 + frontmatter backfill
+- C2 (`9ef7993`) + C2.1 (`f1a54cb`) — reader-facing accuracy +
+  lycheeignore tree/v1.2.13 forward-ref fix
+- C3 (`43569a1`) — CLAUDE.md + AGENTS.md governance refresh
+- C4 (`6752e4b`) + C4.1 (`bd89362`) — ADR cross-ref sweep + JSTOR/eval-toolkit
+  docs URL fix-forward
+- C5 (`2d2569e`) — library-first ledger refresh
+- C6 (`4b63237`) — RESULTS + WRITEUP + GLOSSARY polish
+- C7 (this commit) — CI hygiene + CHANGELOG + audit-trail close + tag
+
+All 8 commits gated locally + on GitHub Actions CI green before
+proceeding to the next per `[[auto-continue-on-green-ci-preferred-for-bundled-patches]]`.
+
 ## [1.2.12] — 2026-05-21
 
 **README hybrid-adoption polish**: restructures the README around a

@@ -1,5 +1,22 @@
 # Repo audit - 2026-05-21 (v1.2.12 close)
 
+> **Status (resolved 2026-05-21).** Internal audit conducted 2026-05-21
+> at v1.2.12 close. All 2 P0 + 7 P1 + ~14 P2 + ~7 P3 findings discharged
+> via the v1.2.13 polish patch sequence (C0 audit-publish + C1 ADR-076
+> frontmatter backfill + C2 reader-facing accuracy sweep + C3
+> CLAUDE.md/AGENTS.md governance refresh + C4 ADR cross-ref sweep per
+> ADR-068/ADR-069 + C5 library-first ledger refresh + C6 RESULTS/WRITEUP/
+> GLOSSARY polish + C7 CI hygiene + CHANGELOG close + tag). All 8
+> v1.2.13 sub-commits gated CI-green per
+> `[[auto-continue-on-green-ci-preferred-for-bundled-patches]]`. Two
+> fix-forward commits landed mid-sequence: C2.1 lycheeignore for the
+> tree/v1.2.13 forward-reference; C4.1 lycheeignore re-add + DOI
+> revert when the proposed JSTOR canonicalization 404'd.
+>
+> Preserved here under `decisions/audits/` as part of the SDD audit
+> trail per ADR-040; parallel to `REPO_AUDIT_2026-05-18.md`'s
+> resolution-arc precedent (which closed via v1.2.9-v1.2.12).
+>
 > **Posture.** Polish + consistency audit at v1.2.12 close. Not a
 > submission-readiness audit — the v1.0.0 submission shipped 2026-05-18
 > and the prior `REPO_AUDIT_2026-05-18.md` is resolved. This audit asks:

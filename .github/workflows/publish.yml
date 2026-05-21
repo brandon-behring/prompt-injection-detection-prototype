@@ -34,8 +34,10 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: install uv
-        run: pip install uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          version: 'latest'
 
       - name: install deps
         run: uv sync --extra dev --extra notebook
