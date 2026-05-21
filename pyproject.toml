@@ -40,7 +40,32 @@ dependencies = [
     # Decision R6-E: scope is R6-F1 (ECE strategy raises ValueError) + R6-F2 (all 5
     # ECE deprecation warnings carry correct snippets w/ pre-v0.46 n_bins=10 default
     # per R6-F + submodule-path template for non-first-party variants per R6-G).
-    "eval-toolkit==0.46.1",
+    # v1.2.x bump → v0.47.0 (2026-05-21) Sweep unification + TextTransform +
+    # advanced-6 + cleanup + Round 6 follow-on. SECOND BREAKING minor of the
+    # staggered v0.45 → v0.46 → v0.46.1 → v0.47 → v0.48 → v1.0 sequence per
+    # ~/.claude/plans/evaluate-all-the-work-twinkly-kite.md §Step 3. BREAKING
+    # REMOVALS (must be cleaned up at consumer side BEFORE pin bump; see
+    # docs/source/migration/v0.47.md for the full recipes):
+    #   1. Top-level scalar metric imports (pr_auc, roc_auc, brier_score, all 5
+    #      expected_calibration_* variants) — the v0.46 __getattr__ shim is
+    #      DELETED at v0.47. Submodule path
+    #      `from eval_toolkit.metrics import pr_auc` still works (internal API
+    #      per ADR 0002, stable across v1.x).
+    #   2. Module-level adversarial.sweep + preprocessing.sweep — consolidated
+    #      into top-level `eval_toolkit.sweep(strategies, texts, *,
+    #      scorer=None, attack_threshold=None)`.
+    #   3. character_injection + spotlighting SimpleNamespace shortcuts — use
+    #      the concrete dataclass or functional API.
+    #   4. CharacterInjectionStrategy per-module Protocol — replaced by
+    #      top-level TextTransform (9th strict Tier-2 Protocol).
+    # ADDITIONS: 6 advanced character-injection techniques (BidiRTLInjection,
+    # TagStrippingInjection, SynonymSubstitution, TokenSplitting,
+    # UnicodeNormalization, InvisibleCharsInjection) → ALL_TECHNIQUES is the
+    # 12-tuple. metric_specs.make_spec_name() helper. Round 6 follow-on:
+    # duplicate-name guard in scorecard(), to_pandas n_resamples+method cols,
+    # Protocol method-shape drift guard. Round 7 audit STOP-GATE per Decision
+    # Y.2 opens against this state.
+    "eval-toolkit==0.47.0",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
