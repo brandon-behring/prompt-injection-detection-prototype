@@ -22,7 +22,25 @@ dependencies = [
     # available but not pulled in by default; spotlighting is base-install safe (pure stdlib).
     # Per the staggered v1.0 plan (~/.claude/plans/evaluate-all-the-work-twinkly-kite.md,
     # Step 0 #5): rolling-bump observation closes the v0.44 leg of Gate 1.
-    "eval-toolkit==0.44.0",
+    # v1.2.x bump → v0.45.0 (2026-05-21) stacking: closes #52 (MetaLearner Protocol +
+    # LogisticStacker). First minor of the staggered v0.45 → v0.46 → v0.47 → v0.48 → v1.0
+    # sequence. Non-breaking; purely additive. No new dependencies — sklearn already core.
+    # Gate 2 streak continues (6/6 consecutive minors without Tier-2 Protocol-shape edits).
+    # v1.2.x bump → v0.46.0 (2026-05-21) scorecard: closes #36 (primary v1.0 metric
+    # surface). SOFT-BREAKING — top-level scalar metric imports (pr_auc, roc_auc,
+    # brier_score, 5 ECE variants) emit DeprecationWarning. They remain reachable via
+    # the __getattr__ shim until v0.47 hard-removal. Plan to migrate every callsite
+    # of `from eval_toolkit import pr_auc` etc. to either `scorecard(...)["pr_auc"].value`
+    # OR `from eval_toolkit.metrics import pr_auc` (internal API; no warning) BEFORE
+    # bumping to v0.47. See docs/source/migration/v0.46.md for the migration recipes.
+    # MetricSpec is the new Tier-2 Protocol added at v0.46 (frozen at v1.0 per ADR 0002).
+    # v1.2.x bump → v0.46.1 (2026-05-21) Round 6 hotfix: ECE strategy validation +
+    # deprecation warning content correctness. Closes Round 6 audit STOP-GATE per
+    # Decision Y.2 — release/v0.47.0 can open after this bump observes 1 cycle.
+    # Decision R6-E: scope is R6-F1 (ECE strategy raises ValueError) + R6-F2 (all 5
+    # ECE deprecation warnings carry correct snippets w/ pre-v0.46 n_bins=10 default
+    # per R6-F + submodule-path template for non-first-party variants per R6-G).
+    "eval-toolkit==0.46.1",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
