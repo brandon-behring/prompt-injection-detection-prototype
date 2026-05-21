@@ -10,7 +10,7 @@ source: SPEC_GREENFIELD.md §3 Eval ledger row 346 + Phase 0-04 walk Q8
 acceptance_criterion: SPEC_GREENFIELD ledger row 346 carries locked-to-cv_clt_ci-headline-plus-block-bootstrap-on-folds-spoke-plus-conditional-stratified-k-fold status; SPEC_SHEET §5.2 cross-fold CI methodology replaces [OPEN] with [LOCKED — cv_clt_ci (Bayle 2020) headline plus block-bootstrap-on-folds spoke ablation plus conditional stratified-k-fold-within-LODO escalation if Phase 4 compute budget permits per ADR-024]; decisions/library_imports.md eval-toolkit section gains cv_clt_ci primitive entry; WRITEUP/methodology.md gains a "Cross-fold CI methodology and LODO non-exchangeability" subsection containing both CI values per rung plus the sensitivity-check flag; tests/test_invariants.py contains skip-marked stub test_cross_fold_ci_methodology asserting (1) cv_clt_ci primitive invoked on 12 per-(fold, seed) values per rung; (2) block-bootstrap-on-folds orchestrator produces percentile CI on 10K resamples of (fold) blocks; (3) sensitivity-check flag emits when block_bootstrap_halfwidth / cv_clt_halfwidth exceeds 1.5; (4) conditional-stratified-k-fold-within-LODO escalation gated on cost-ledger evals/cost_ledger.csv state at Phase 4 entry; assumptions.md A-008 added (severity medium) documenting LODO-non-exchangeability concern as load-bearing on cross-fold CI validity.
 closing_commit: b750d1d
 references:
-  - https://doi.org/10.2307/27033529
+  - https://www.jstor.org/stable/27033529
   - https://doi.org/10.1080/01621459.2023.2197686
   - https://link.springer.com/article/10.1023/A:1024068626366
   - https://doi.org/10.2307/2290993
