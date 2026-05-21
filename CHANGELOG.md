@@ -20,6 +20,66 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.14] — 2026-05-21
+
+**v1.2.13 visual-verification-driven polish patch.** Closes D1 from
+the post-ship Playwright + curl-grep sweep of v1.2.13's rendered
+site (`transcripts/2026-05-21__v1-2-13-visual-verification.md`;
+gitignored) + folds in 4 deferred items from v1.2.13's out-of-scope
+list. No methodology, model, data, or compute change.
+
+### Added
+
+- `scripts/audit_adr_count_claims.py` — invariant tool that greps
+  "NN immutable Architecture Decision Records" / "NN ADRs" claims
+  across reader-facing surfaces and asserts NN matches
+  `ls decisions/ADR-*.md | wc -l`. Historical snapshots (claims
+  near "Phase X close" / "submission gate" / "snapshot" / "through
+  ADR-NNN" qualifiers within ±3-line context) are flagged INFO,
+  not FAIL. Prevents future chain-effect misses where a patch adds
+  an ADR but count claims on reader-facing prose go stale.
+- `.pre-commit-config.yaml` audit-adr-count-claims hook (runs on
+  .md / .qmd changes).
+- `.github/workflows/audit-writeup.yml` step invoking the new
+  audit (parallel to existing audit_writeup_numbers).
+
+### Changed
+
+- `README.md:100` + `README.md:114` — 75 → 76 ADRs (D1 from the
+  v1.2.13 visual verification; the v1.2.13 C2 reader-facing sweep
+  updated for-hiring-managers + methodology-guarantees but missed
+  README because its "75" was correct at v1.2.12 — the chain effect
+  of ADR-076 → README-count-bump was missed).
+- `.pre-commit-config.yaml` — `mirrors-mypy` bumped v1.8.0 → v2.1.0
+  (deferred from v1.2.13 C7; verified no new strict errors via
+  `pre-commit run mypy --all-files` before commit).
+- `pyproject.toml` + `uv.lock` — `eval-toolkit==0.43.0` → `==0.44.0`
+  (dependency/ledger maintenance per ADR-066 trigger #4). Closes
+  upstream #50 (RecallAtLowFPR Meta Prompt Guard 2 loss recipe) +
+  #51 (spotlighting defense — delimit/datamark/encode + sweep).
+  No methodology/model/data/compute change.
+- `decisions/library_imports.md` — eval-toolkit row updated for
+  v0.44.0; Phase-4 markers normalized ("Phase 4 deliverable" →
+  "(landed; Phase 4)"; "Phase 4 Commit N" → "landed at Phase 4
+  Commit N") per REPO_AUDIT_2026-05-21 P2.
+- `decisions/upstream_issues.md` — v1.2.13 §"Ledger scope" updated
+  to record #50/#51 as RESOLVED-and-consumed-as-dependency-maintenance
+  (previously listed as out-of-scope when CLOSED-upstream-unconsumed
+  at v1.2.13 close).
+
+### v1.2.14 sub-commits
+
+- C1 (`4c1e657`) — D1 + audit-tool + mypy bump + eval-toolkit v0.44.0
+  + Phase-4 marker cleanup (bundled per v1.2.14 plan locked
+  decisions Q1/Q2: "Everything" scope, 2-commit cadence)
+- C2 (this commit) — CHANGELOG + tag
+
+Parallel-agent collision noted: the eval-toolkit v0.44.0 bump's
+`pyproject.toml` + `uv.lock` changes were initiated by a paused
+parallel-agent session (plan file
+`evaluate-all-the-work-twinkly-kite.md`); incorporated into v1.2.14
+per user-locked decision after discovery.
+
 ## [1.2.13] — 2026-05-21
 
 **REPO_AUDIT_2026-05-21 discharge polish patch.** Closes the
