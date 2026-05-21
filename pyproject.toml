@@ -17,7 +17,12 @@ dependencies = [
     # #49 (character_injection core-6), #53 (ActivationDeltaProbe). Per Gate-1 rolling-bump
     # decision in eval-toolkit v0.43→v1.0 plan §Decision 9. Consumer-side ledger entries
     # tracking these resolutions live at decisions/upstream_issues.md.
-    "eval-toolkit==0.43.0",
+    # v1.2.x bump → v0.44.0 (2026-05-19) defenses + losses: closes #50 (RecallAtLowFPR),
+    # #51 (spotlighting — delimit/datamark/encode + sweep). New [losses] extra (torch>=2.0)
+    # available but not pulled in by default; spotlighting is base-install safe (pure stdlib).
+    # Per the staggered v1.0 plan (~/.claude/plans/evaluate-all-the-work-twinkly-kite.md,
+    # Step 0 #5): rolling-bump observation closes the v0.44 leg of Gate 1.
+    "eval-toolkit==0.44.0",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding

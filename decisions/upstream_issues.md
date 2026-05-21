@@ -25,24 +25,33 @@ Triage label on filed issues: `tracked`.
 - Demo-strategy ideas such as activation-delta analysis stay outside this
   patch unless a future ADR scopes them into the project.
 
-### Ledger scope (clarified at v1.2.13)
+### Ledger scope (clarified at v1.2.13; updated at v1.2.14)
 
 This ledger tracks issues filed **as a consequence of this project's
 library-first audits** (Phase 1 carryforward refactor, Phase 4 figures,
 v1.0.x post-submission patches, v1.1.x DeBERTa ablation, v1.2.x library
 maintenance). Upstream issues filed independently of this project's
-audit path are **not** tracked here. Specifically:
+audit path are recorded here when a dependency bump references them
+(dependency/ledger maintenance per ADR-066 trigger #4), or noted as
+out-of-scope when no consumption is planned.
 
 - **eval-toolkit #50** (`feat(losses): RecallAtLowFPR — Meta Prompt
-  Guard 2 recipe`; CLOSED 2026-05-19): demo-strategy / recipe addition;
-  no methodology dependency for this project's evaluation slate.
-- **eval-toolkit #51** (`feat(preprocessing): spotlighting`; OPEN):
-  preprocessing pattern; out of v1.0.0/v1.2.x evaluation slate scope per
-  ADR-039 + the portfolio-repo plan ([[portfolio_plan_approved]]
-  memory).
+  Guard 2 recipe`; CLOSED 2026-05-19; **shipped in eval-toolkit
+  v0.44.0; recorded/consumed as dependency maintenance at v1.2.14**):
+  loss-recipe addition. No methodology dependency for this project's
+  evaluation slate at v1.2.14; the pin bump records the upstream
+  resolution without changing this project's reported metrics.
+- **eval-toolkit #51** (`feat(preprocessing): spotlighting`; CLOSED
+  2026-05-21; **shipped in eval-toolkit v0.44.0; recorded/consumed as
+  dependency maintenance at v1.2.14**): defense-side preprocessing
+  pattern (delimit/datamark/encode + sweep). Out of v1.0.0/v1.2.x
+  evaluation slate scope per ADR-039 + the portfolio-repo plan
+  ([[portfolio_plan_approved]] memory); recorded here because the
+  v0.44.0 bump references its closure.
 - **eval-toolkit #52** (`feat(stacking): MetaLearner Protocol +
   LogisticStacker`; OPEN): stacking primitive; out of v1.0.0/v1.2.x
   scope per ADR-007 (single-rung detectors only at submission tier).
+  Not bundled with the v0.44.0 close set.
 
 If any of these later become consumption candidates (e.g., a v1.3.x
 methodology decision opens preprocessing or stacking), a new ledger

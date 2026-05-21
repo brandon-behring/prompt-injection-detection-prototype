@@ -12,7 +12,7 @@ repos:
       - id: ruff-format
         exclude: ^notebooks/
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v2.1.0
     hooks:
       - id: mypy
         additional_dependencies:
@@ -60,3 +60,9 @@ repos:
         language: system
         pass_filenames: false
         files: '^(decisions/ADR-.*\.md|SUBMISSION_AUDIT\.md|scripts/regenerate_audit\.py)$'
+      - id: audit-adr-count-claims
+        name: ADR count claims match decisions/ADR-*.md
+        entry: python scripts/audit_adr_count_claims.py
+        language: system
+        pass_filenames: false
+        files: '^(decisions/ADR-.*\.md|.*\.(md|qmd))$'

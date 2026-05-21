@@ -45,3 +45,15 @@ jobs:
 
       - name: Run writeup numerical-claim audit (--strict)
         run: uv run python scripts/audit_writeup_numbers.py
+
+      - name: Run ADR-count-claim audit (chain-effect invariant)
+        # Per REPO_AUDIT_2026-05-21 visual-verification finding D1: the
+        # v1.2.13 patch added ADR-076 but README's "75 ADRs" claim went
+        # stale because the source audit only flagged audit-time-stale
+        # counts on other surfaces. This invariant catches the chain
+        # effect mechanically: "NN immutable Architecture Decision
+        # Records" / "NN ADRs" claims across reader-facing surfaces
+        # must match `ls decisions/ADR-*.md | wc -l`. Historical
+        # snapshots (with "Phase X close" / "submission gate" / etc.
+        # qualifiers in their ±3-line context) are flagged INFO not FAIL.
+        run: uv run python scripts/audit_adr_count_claims.py
