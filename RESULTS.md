@@ -86,11 +86,17 @@ requires both positives and negatives.
 | Detector \ Slice | JBB (100p/100n) | XSTest (200p/250n) | Pooled OOD (412p/689n) |
 |---|---:|---:|---:|
 | ModernBERT frozen probe | 0.552 [0.520, 0.580] | 0.468 [0.448, 0.486] | **0.364 [0.354, 0.375]** |
-| ProtectAI v1 | 0.519 [0.437, 0.597] | 0.469 [0.415, 0.523] | 0.361 [0.330, 0.391] |
-| ProtectAI v2 | 0.556 [0.453, 0.648] | 0.382 [0.333, 0.429] | 0.314 [0.283, 0.345] |
+| ProtectAI v1\* | 0.519 [0.437, 0.597] | 0.469 [0.415, 0.523] | 0.361 [0.330, 0.391] |
+| ProtectAI v2\* | 0.556 [0.453, 0.648] | 0.382 [0.333, 0.429] | 0.314 [0.283, 0.345] |
 | ModernBERT LoRA | 0.535 [0.504, 0.563] | 0.467 [0.447, 0.486] | 0.293 [0.286, 0.301] |
 | TF-IDF + LR | 0.470 [0.443, 0.496] | 0.395 [0.379, 0.410] | 0.291 [0.283, 0.298] |
 | Random floor | 0.500 | 0.444 | 0.374 |
+
+\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
+(`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`) per
+[EVIDENCE](EVIDENCE.md) §1-2. Pooled OOD scores on slices that overlap with
+that training pool are not clean OOD baselines; ProtectAI rows are diagnostic
+references, not peer to in-house detectors.
 
 **Takeaway:** this is where the direct-trained detectors break. The best pooled
 OOD AUPRC is the frozen probe at 0.364, but the random floor is 0.374. The

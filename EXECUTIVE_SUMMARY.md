@@ -32,10 +32,15 @@ false positives, AUPRC, and AUROC are left out of that table.
 | Detector | Pooled OOD AUPRC | Interpretation |
 |---|---:|---|
 | ModernBERT frozen probe | 0.364 [0.354, 0.375] | Best in-house score, but still at the random floor |
-| ProtectAI v1 | 0.361 [0.330, 0.391] | Similar result; diagnostic only because of contamination caveats |
-| ProtectAI v2 | 0.314 [0.283, 0.345] | Does not dominate v1 on this evaluation |
+| ProtectAI v1\* | 0.361 [0.330, 0.391] | Reference scorer with verified training-pool overlap; not a clean OOD baseline |
+| ProtectAI v2\* | 0.314 [0.283, 0.345] | Reference scorer with verified training-pool overlap; does not dominate v1 |
 | ModernBERT LoRA | 0.293 [0.286, 0.301] | Fine-tuning was actively harmful --- AUROC 0.383 below 0.5 floor (lexical overfitting + slate-induced label-relevance inversion; see §Mechanism below) |
 | TF-IDF + LR | 0.291 [0.283, 0.298] | Classical baseline, roughly tied with LoRA --- AUROC 0.371 also below 0.5 floor (same mechanism as LoRA) |
+
+\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
+(`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`) per
+[EVIDENCE](EVIDENCE.md) §1-2. Pooled OOD scores on slices that overlap with
+that training pool are not clean OOD baselines.
 
 ## Mechanism: lexical overfitting + slate-induced label-relevance inversion
 
@@ -84,7 +89,12 @@ failed to generalize cleanly across attack families.
 |---|---:|---|
 | ModernBERT frozen probe | **0.641** | best direct-source holdout recall |
 | ModernBERT LoRA | 0.625 | similar recall, despite worse pooled OOD ranking |
-| ModernBERT full fine-tune | 0.558 | lower direct-source recall |
+| ModernBERT full fine-tune\*\* | 0.558 | lower direct-source recall |
+
+\*\* Full-FT shows LODO direct-source data only (24 Phase 2 predictions
+persisted); the comparable pooled OOD inference was **not run** (Phase 5 X11
+crash, see [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
+Full-FT is absent from the Pooled OOD table above for that reason.
 
 False positives, AUPRC, and AUROC are omitted from the held-out direct-source
 table because that slice is all-positive.

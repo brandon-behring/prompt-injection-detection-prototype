@@ -46,10 +46,16 @@ needs to beat that floor to show useful ranking signal.
 | Detector | Pooled OOD AUPRC | 95% CI | Read |
 |---|---:|---:|---|
 | ModernBERT frozen probe | **0.364** | [0.354, 0.375] | Best in-house score, still at the random floor |
-| ProtectAI v1 | 0.361 | [0.330, 0.391] | Similar, but reference scorer has training-overlap caveats |
-| ProtectAI v2 | 0.314 | [0.283, 0.345] | Worse than v1 on this slate |
+| ProtectAI v1\* | 0.361 | [0.330, 0.391] | Reference scorer with verified training-pool overlap; not a clean OOD baseline |
+| ProtectAI v2\* | 0.314 | [0.283, 0.345] | Reference scorer with verified training-pool overlap; not a clean OOD baseline |
 | ModernBERT LoRA | 0.293 | [0.286, 0.301] | Fine-tuning hurt OOD ranking |
 | TF-IDF + LR | 0.291 | [0.283, 0.298] | Classical floor, roughly tied with LoRA |
+
+\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
+(`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`) per
+[EVIDENCE](EVIDENCE.md) §1-2. Pooled OOD scores on slices that overlap with
+that training pool are not clean OOD baselines; treat the rows as diagnostic
+references, not peer to in-house detectors.
 
 **Reading the table:**
 
@@ -82,7 +88,13 @@ test is all-positive, so the table reports recall only.
 |---|---:|---|
 | ModernBERT frozen probe | **0.641** | best held-out direct-source recall |
 | ModernBERT LoRA | 0.625 | similar recall, despite worse pooled OOD ranking |
-| ModernBERT full fine-tune | 0.558 | lower direct-source recall |
+| ModernBERT full fine-tune\*\* | 0.558 | lower direct-source recall |
+
+\*\* Full-FT is shown for LODO direct-source completeness (24 Phase 2 predictions
+persisted); the comparable pooled OOD inference was **not run** (Phase 5 X11
+crash, see
+[ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
+The full-FT row is absent from the Pooled OOD table for that reason.
 
 False positives, AUPRC, and AUROC are omitted from the held-out direct-source
 table because that slice has no negatives. Direct-task success makes the OOD

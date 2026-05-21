@@ -128,10 +128,18 @@ AUPRC, and AUROC are left out of that result table.
 | Detector | Pooled OOD AUPRC | 95% CI | Read |
 |---|---:|---:|---|
 | ModernBERT frozen probe | **0.364** | [0.354, 0.375] | best in-house score, but at the random floor |
-| ProtectAI v1 | 0.361 | [0.330, 0.391] | similar, but diagnostic only |
-| ProtectAI v2 | 0.314 | [0.283, 0.345] | does not dominate v1 |
+| ProtectAI v1\* | 0.361 | [0.330, 0.391] | reference scorer with verified training-pool overlap |
+| ProtectAI v2\* | 0.314 | [0.283, 0.345] | reference scorer with verified training-pool overlap; does not dominate v1 |
 | ModernBERT LoRA | 0.293 | [0.286, 0.301] | fine-tuning hurt OOD ranking |
 | TF-IDF + LR | 0.291 | [0.283, 0.298] | classical floor, roughly tied with LoRA |
+
+\* ProtectAI v1 + v2 carry `suspected_contamination` per ADR-005 --- verified
+training-pool overlap with at least 2 of 4 LODO sources
+(`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`) per
+[EVIDENCE](EVIDENCE.md) §1-2. Pooled OOD scores on overlapping slices are not
+clean OOD baselines. **Full-FT** is intentionally absent from this table:
+the Phase 5 OOD inference was not run (FUSE EIO crash; see
+[ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
 
 The negative result is not "nothing worked." The trained detectors learned
 direct-injection-style examples and still failed when the attack family changed.

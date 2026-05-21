@@ -57,7 +57,12 @@ tracking attack class.
 |---|---:|---|
 | ModernBERT frozen probe | **0.641** | best direct-source holdout recall |
 | ModernBERT LoRA | 0.625 | similar direct-source recall, but worse pooled OOD ranking |
-| ModernBERT full fine-tune | 0.558 | lower direct-source holdout recall |
+| ModernBERT full fine-tune\*\* | 0.558 | lower direct-source holdout recall |
+
+\*\* Full-FT shows LODO direct-source data only (24 Phase 2 predictions); the
+comparable pooled OOD inference was **not run** (Phase 5 X11 crash, see
+[ADR-075](../decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
+Full-FT is absent from the OOD contrast table above for that reason.
 
 The held-out direct-source test is all-positive, so false positives, AUPRC,
 and AUROC are omitted there. The context-window follow-up was also a null
