@@ -968,6 +968,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1030,7 +1036,7 @@ ul.task-list li input[type="checkbox"] {
 <li><code>[LOCKED]</code> Honest OOD assessment: IID-vs-OOD gap quantified, with CIs, across multiple OOD slices.</li>
 <li><code>[LOCKED]</code> Every headline claim has a confidence interval; effect sizes reported alongside.</li>
 <li><code>[LOCKED]</code> Reproducible from a fresh clone via documented commands.</li>
-<li><code>[OPEN]</code> Project-specific metric targets.</li>
+<li><code>[LOCKED]</code> <strong>Primary headline metric</strong>: AUPRC with bootstrap CIs (per ADR-006 + ADR-022). The pooled-OOD random AUPRC floor is <code>412 / 1101 = 0.374</code> and is reported as the comparison baseline for every detector. Secondary metrics: AUROC (random floor 0.5), recall@FPR pinpoints (1%, 5%), ECE / Brier calibration. No SOTA target is committed; the project characterises the ladder honestly rather than chasing a number.</li>
 </ul>
 </section>
 <section id="non-goals" class="level2">
@@ -1039,7 +1045,7 @@ ul.task-list li input[type="checkbox"] {
 <li><code>[LOCKED]</code> <strong>Deployment is out of scope.</strong> The work is <em>characterisation</em>, not a deployable service. Score-behaviour is reported under two threshold policies (§4) as characterisation, not as deployment recommendation.</li>
 <li><code>[LOCKED]</code> No SOTA-chasing. The rigor lives in the evaluation methodology.</li>
 <li><code>[LOCKED]</code> No leader rung crowned. Trade-offs across rungs are characterised; the implementer does not pick a winner.</li>
-<li><code>[OPEN]</code> Project-specific non-goals.</li>
+<li><code>[LOCKED]</code> <strong>Out-of-scope items</strong> are enumerated at <a href="../README.html#what-it-does-not-claim">README “What it does not claim”</a> and <a href="../WRITEUP/reference-scorer-audit.html">WRITEUP/reference-scorer-audit.md §5.6</a>. Specifically deferred: multilingual attacks, encoded payloads (base64 / leetspeak / Unicode confusables), paraphrase robustness, adversarial perturbations, full multi-turn system behaviour, deployment threshold recommendations.</li>
 </ul>
 </section>
 <section id="scope-authority" class="level2">

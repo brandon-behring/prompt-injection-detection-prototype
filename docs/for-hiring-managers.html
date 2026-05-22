@@ -969,6 +969,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1144,11 +1150,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-does-this-say-about-how-the-candidate-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-this-say-about-how-the-candidate-thinks">4. What does this say about how the candidate thinks?</h2>
 <ul>
-<li><strong>Spec-Driven Development</strong>: 80 immutable Architecture Decision Records (ADRs) lock methodology choices <em>before</em> code is written. Browse <a href="../decisions/">decisions/</a> for the justification trail.</li>
+<li><strong>Spec-Driven Development</strong>: 81 immutable Architecture Decision Records (ADRs) lock methodology choices <em>before</em> code is written. Browse <a href="../decisions/">decisions/</a> for the justification trail.</li>
 <li><strong>Confound-control discipline</strong>: when the headline result raised the natural follow-up question (<em>does a bigger context window fix the OOD gap?</em>), the candidate designed a controlled ablation. The result was a publishable null. See <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> and <a href="../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</li>
 <li><strong>Library-first invariant</strong>: shared evaluation primitives live in upstream libraries (<code>eval-toolkit</code>, <code>runpod-deploy</code>, <code>research_toolkit</code>); local code is project-specific glue. See <a href="../decisions/library_imports.html"><code>decisions/library_imports.md</code></a>.</li>
 </ul>
-<p>If you want the deeper read, pick a guide: <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic IMRAD; ~45 min) or <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (5-act narrative; ~30 min) — both cover the same content + cite the 8 topic spokes (<a href="../WRITEUP/">WRITEUP/</a>) for deep dives on data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations + future work, and reproducibility. The full reading-guide is at <a href="../READING_GUIDE.html"><code>READING_GUIDE.md</code></a>.</p>
+<p>If you want the deeper read, pick a guide: <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic IMRAD; ~20–25 min) or <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (5-act narrative; ~15–20 min) — both cover the same content + cite the 8 topic spokes (<a href="../WRITEUP/">WRITEUP/</a>) for deep dives on data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations + future work, and reproducibility. The full reading-guide is at <a href="../READING_GUIDE.html"><code>READING_GUIDE.md</code></a>.</p>
 <p>If you want the supporting analysis, the <strong>Notebooks</strong> sidebar section provides 4 static rendered appendices with frozen output cells: per-cell results, calibration diagrams, and held-out slice breakdowns. Operators regenerate those appendix outputs via <code>make notebooks</code> against the committed evaluation parquets.</p>
 
 

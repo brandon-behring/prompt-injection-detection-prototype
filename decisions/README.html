@@ -1003,6 +1003,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1069,19 +1075,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">slug</span><span class="kw">:</span><span class="at"> brief-alignment</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Brief alignment with Ciphero take-home requirements</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2026-MM-DD</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span><span class="kw">:</span><span class="at"> Accepted | Proposed | Superseded | Deprecated</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">claim_id</span><span class="kw">:</span><span class="at"> CLAIM-NNN</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">claim</span><span class="kw">:</span><span class="at"> &lt;one-line claim summary&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span><span class="kw">:</span><span class="at"> &lt;doc/section where claim appears&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">acceptance_criterion</span><span class="kw">:</span><span class="at"> &lt;how this claim becomes verified&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">closing_commit</span><span class="kw">:</span><span class="at"> &lt;SHA or PR link, filled when accepted&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">supersedes</span><span class="kw">:</span><span class="at"> NNN (if applicable)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">superseded_by</span><span class="kw">:</span><span class="at"> NNN (if applicable)</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">references</span><span class="kw">:</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> https://...</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> docs/research/&lt;topic&gt;/&lt;file&gt;.md</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">transcript</span><span class="kw">:</span><span class="at"> transcripts/YYYY-MM-DD__phase-0-NN__topic.md</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span><span class="kw">:</span><span class="at"> Accepted | Proposed | Superseded | Deprecated | Rejected</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lifecycle-note</span><span class="kw">:</span><span class="at"> &lt;OPTIONAL — verbose lifecycle context that doesn't fit pure-Nygard `status:` per ADR-081 narrow-relaxation discipline; e.g. "methodology lock — execution deferred to vX.Y.Z per ..." for ADRs that are Accepted-but-pending-execution&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">claim_id</span><span class="kw">:</span><span class="at"> CLAIM-NNN</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">claim</span><span class="kw">:</span><span class="at"> &lt;one-line claim summary&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span><span class="kw">:</span><span class="at"> &lt;doc/section where claim appears&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">acceptance_criterion</span><span class="kw">:</span><span class="at"> &lt;how this claim becomes verified&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">closing_commit</span><span class="kw">:</span><span class="at"> &lt;SHA or PR link, filled when accepted&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">supersedes</span><span class="kw">:</span><span class="at"> NNN (if applicable)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">superseded_by</span><span class="kw">:</span><span class="at"> NNN (if applicable)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">references</span><span class="kw">:</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> https://...</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> docs/research/&lt;topic&gt;/&lt;file&gt;.md</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">transcript</span><span class="kw">:</span><span class="at"> transcripts/YYYY-MM-DD__phase-0-NN__topic.md</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Required</strong>: <code>adr_id</code>, <code>slug</code>, <code>title</code>, <code>date</code>, <code>status</code>, <code>claim_id</code>, <code>claim</code>. <strong>OPTIONAL</strong>: <code>lifecycle-note</code> (per <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html">ADR-081</a>), <code>closing_commit</code> (populated when accepted), <code>supersedes</code> / <code>superseded_by</code> (supersession edges; see ADR-076 + ADR-077 for axis-only-supersession conventions), <code>references</code>, <code>transcript</code>.</p>
 </section>
 <section id="index" class="level2">
 <h2 class="anchored" data-anchor-id="index">Index</h2>

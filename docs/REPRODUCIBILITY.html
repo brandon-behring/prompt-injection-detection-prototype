@@ -1003,6 +1003,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1105,12 +1111,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reviewer-reproduction-tier" class="level2">
 <h2 class="anchored" data-anchor-id="reviewer-reproduction-tier">Reviewer reproduction tier</h2>
-<p>Two-tier reproduction (locked at Phase 0-07 via ADR-029):</p>
+<p>Three-tier reproduction ladder (locked at Phase 0-07 via <a href="../decisions/ADR-034-reproducibility-tier-full-ladder.html">ADR-034</a>; implementation wired at v1.0.9 via <a href="../decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.html">ADR-058</a>). Matches the contract documented in <a href="../WRITEUP/reproducibility.html"><code>WRITEUP/reproducibility.md</code></a>, the <code>README</code> “Reproduce — three tiers” section, and <code>READING_GUIDE.md</code> Path D.</p>
 <ul>
-<li><strong>Tier 0 (T0) — HF Hub score match</strong> (no GPU): <code>make eval-from-hub RUNG=frozen-probe</code> and <code>make eval-from-hub RUNG=lora</code> pull the canonical fold0/seed42 checkpoint from <code>BBehring/prompt-injection-&lt;rung&gt;</code>, run CPU inference against the local val slate, and score-match against <code>evals/results.json</code> within 1e-4 absolute (ADR-034 tolerance). ~10-30 min per rung. Verifies eval-pipeline integrity + checkpoint-download integrity.</li>
-<li><strong>Tier 1 (T1) — full canonical re-eval</strong> (GPU; A100 80GB): <code>make headline-cloud</code> re-runs frozen-probe + LoRA + full-FT through the full LODO matrix via <code>runpod-deploy</code>. ~7h wall-clock; ~$28 GPU spend (per ADR-039 cost envelope). Verifies the full training-through-eval pipeline.</li>
+<li><strong>Tier 0 (T0) — HF Hub score match</strong> (laptop; ~$0; ~10–30 min): <code>make eval-from-hub RUNG=frozen-probe</code> and <code>make eval-from-hub RUNG=lora</code> pull the canonical fold0/seed42 checkpoint from <code>BBehring/prompt-injection-&lt;rung&gt;</code>, run CPU inference against the local val slate, and score-match against <code>evals/results.json</code> within 1e-4 absolute (ADR-034 tolerance). Verifies eval-pipeline integrity
+<ul>
+<li>checkpoint-download integrity without retraining.</li>
+</ul></li>
+<li><strong>Tier 1 (T1) — laptop smoke</strong> (laptop; ~$0; &lt;10 min): <code>make smoke</code> runs <code>pytest -m smoke</code> + a fixture-data end-to-end pass through <code>scripts/run_metrics_battery.py</code>. Verifies code health (every import resolves; every entry-point runs; no schema mismatches). Does <strong>NOT</strong> verify math correctness — uses fixture data, not real data.</li>
+<li><strong>Tier 3 (T3) — headline cloud</strong> (cloud-GPU; ~$125+; ~hours): <code>make headline-cloud</code> runs the full retrain-and-eval pass through <code>runpod-deploy</code> per the <a href="../decisions/ADR-020-compute-infrastructure-and-cost-discipline.html">ADR-020</a> cost cap (<code>budget.cost_cap_usd = 125.0</code>). Verifies the entire training-through-eval pipeline, including data preparation. The only tier that re-derives headline numbers from scratch.</li>
 </ul>
-<p>T0 is the recommended reviewer path. T1 is offered for the reviewer who wants to independently verify training-side numerics; T0 alone covers the methodology-and-eval-side reproducibility claim.</p>
+<p>T2 (<code>make test-integration</code>) is a developer-tool tier (requires a local GPU); not part of the reviewer-facing ladder because T0 covers eval and T3 covers full retraining (per ADR-034).</p>
+<p>T0 is the recommended reviewer path — cheapest + highest coverage for most readers. T3 is the deepest verification level for reviewers who want to independently re-derive every headline number. The ladder maps onto <a href="https://www.acm.org/publications/policies/artifact-review-and-badging-current">ACM Artifact Review and Badging</a> conventions: T0 + T1 supply <em>Available</em> + <em>Functional</em> + <em>Reusable</em>; T3 supplies <em>Reproducible</em>.</p>
 </section>
 <section id="cross-references" class="level2">
 <h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>

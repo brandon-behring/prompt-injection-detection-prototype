@@ -968,6 +968,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1107,7 +1113,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Why</strong>: WRITEUP / EVIDENCE will accumulate citations to <code>docs/research/&lt;topic&gt;/&lt;file&gt;.md:&lt;line&gt;</code> and external URLs. A machine-enforced auditor (CI hard-gate) prevents broken citations as the writeup grows.</li>
 <li><strong>Scope</strong>: <code>scripts/audit_citations.py</code> — scans <code>.md</code> files for citation patterns (<code>docs/research/&lt;path&gt;</code> + <code>&lt;file&gt;:&lt;line&gt;</code> + external URLs); verifies cited files exist + lines exist + URLs respond. Add as CI hard-gate alongside <code>regenerate_audit.py</code>.</li>
 <li><strong>Effort</strong>: ~3 hours.</li>
-<li><strong>Status (v1.0.6)</strong>: <strong>closed as not-adopted</strong> per /exploring-options batch 8 Q2 lock. WRITEUP + spokes use standard markdown link syntax (<code>[text](path)</code>) + EVIDENCE.md as the external-citation audit surface; the <code>&lt;file&gt;:&lt;line&gt;</code> citation pattern was never load-bearing for the project’s documentation discipline. No auditor needed; CI gate not added.</li>
+<li><strong>Status (v1.0.6)</strong>: <strong>closed as not-adopted</strong> per /exploring-options batch 8 Q2 lock. WRITEUP + spokes use the standard markdown link syntax with bracketed text + parenthesized target + EVIDENCE.md as the external-citation audit surface; the <code>&lt;file&gt;:&lt;line&gt;</code> citation pattern was never load-bearing for the project’s documentation discipline. No auditor needed; CI gate not added.</li>
 </ul>
 </section>
 <section id="manifest-backfill-pipeline-phase-4" class="level3">

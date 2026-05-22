@@ -969,6 +969,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -987,10 +993,10 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#persona-specific-paths" id="toc-persona-specific-paths" class="nav-link" data-scroll-target="#persona-specific-paths">Persona-specific paths</a>
   <ul class="collapse">
-  <li><a href="#path-a-academic-reviewer-45-min" id="toc-path-a-academic-reviewer-45-min" class="nav-link" data-scroll-target="#path-a-academic-reviewer-45-min">Path A — Academic reviewer (~45 min)</a></li>
-  <li><a href="#path-b-story-reader-30-min" id="toc-path-b-story-reader-30-min" class="nav-link" data-scroll-target="#path-b-story-reader-30-min">Path B — Story reader (~30 min)</a></li>
+  <li><a href="#path-a-academic-reviewer-2025-min" id="toc-path-a-academic-reviewer-2025-min" class="nav-link" data-scroll-target="#path-a-academic-reviewer-2025-min">Path A — Academic reviewer (~20–25 min)</a></li>
+  <li><a href="#path-b-story-reader-1520-min" id="toc-path-b-story-reader-1520-min" class="nav-link" data-scroll-target="#path-b-story-reader-1520-min">Path B — Story reader (~15–20 min)</a></li>
   <li><a href="#path-c-hiring-manager-60-seconds" id="toc-path-c-hiring-manager-60-seconds" class="nav-link" data-scroll-target="#path-c-hiring-manager-60-seconds">Path C — Hiring manager (60 seconds)</a></li>
-  <li><a href="#path-d-reproducer-30-min-setup-0-to-125-compute" id="toc-path-d-reproducer-30-min-setup-0-to-125-compute" class="nav-link" data-scroll-target="#path-d-reproducer-30-min-setup-0-to-125-compute">Path D — Reproducer (~30 min setup + ~$0 to ~$125 compute)</a></li>
+  <li><a href="#path-d-reproducer-1520-min-setup-0-to-125-compute" id="toc-path-d-reproducer-1520-min-setup-0-to-125-compute" class="nav-link" data-scroll-target="#path-d-reproducer-1520-min-setup-0-to-125-compute">Path D — Reproducer (~15–20 min setup + ~$0 to ~$125 compute)</a></li>
   <li><a href="#path-e-just-the-numbers" id="toc-path-e-just-the-numbers" class="nav-link" data-scroll-target="#path-e-just-the-numbers">Path E — Just the numbers</a></li>
   </ul></li>
   <li><a href="#result-map" id="toc-result-map" class="nav-link" data-scroll-target="#result-map">Result map</a></li>
@@ -1045,13 +1051,13 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a></td>
 <td>Academic IMRAD (Abstract / Methods / Results / Discussion / Limits / Refs)</td>
-<td>~45 min</td>
+<td>~20–25 min</td>
 <td>Reviewers expecting journal-paper discipline</td>
 </tr>
 <tr class="even">
 <td><a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a></td>
 <td>Story arc (Hook / Setup / Investigation / Revelation / Implications)</td>
-<td>~30 min</td>
+<td>~15–20 min</td>
 <td>Readers preferring plain-English first-person prose</td>
 </tr>
 </tbody>
@@ -1059,13 +1065,13 @@ ul.task-list li input[type="checkbox"] {
 <p>Both guides cover the same content. Pick the register that fits.</p>
 <section id="persona-specific-paths" class="level2">
 <h2 class="anchored" data-anchor-id="persona-specific-paths">Persona-specific paths</h2>
-<section id="path-a-academic-reviewer-45-min" class="level3">
-<h3 class="anchored" data-anchor-id="path-a-academic-reviewer-45-min">Path A — Academic reviewer (~45 min)</h3>
+<section id="path-a-academic-reviewer-2025-min" class="level3">
+<h3 class="anchored" data-anchor-id="path-a-academic-reviewer-2025-min">Path A — Academic reviewer (~20–25 min)</h3>
 <p>Read <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> end-to-end. It is structured as a journal paper (Abstract, Introduction, Background, Methods, Results, Discussion, Limitations, Conclusion, References). Cross- references to ADRs at every methodology decision. Bibliography includes external papers, project artifacts, and ADR citations.</p>
 <p>If you want depth on a specific subsection, the methodology spokes are at <a href="./WRITEUP/">WRITEUP/</a> — 8 files covering data decisions, evaluation design, model details, threshold policy, reference-scorer audit, methodology guarantees, reproducibility, and limitations + future work.</p>
 </section>
-<section id="path-b-story-reader-30-min" class="level3">
-<h3 class="anchored" data-anchor-id="path-b-story-reader-30-min">Path B — Story reader (~30 min)</h3>
+<section id="path-b-story-reader-1520-min" class="level3">
+<h3 class="anchored" data-anchor-id="path-b-story-reader-1520-min">Path B — Story reader (~15–20 min)</h3>
 <p>Read <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> end-to-end. It is structured as a 5-act story arc with an epilogue. Plain-English voice; defines technical terms on first use.</p>
 <p>The story’s third act surfaces the headline finding dramatically (the anti-correlation result). The fourth act covers the 6 supporting findings as equal-weight enumeration so the headline doesn’t drown out the rest.</p>
 </section>
@@ -1073,8 +1079,8 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="path-c-hiring-manager-60-seconds">Path C — Hiring manager (60 seconds)</h3>
 <p>Read <a href="./docs/for-hiring-managers.html">Project at a glance</a>. Four questions: what problem, what found, why trust, how the candidate thinks. This is the shortest reader path.</p>
 </section>
-<section id="path-d-reproducer-30-min-setup-0-to-125-compute" class="level3">
-<h3 class="anchored" data-anchor-id="path-d-reproducer-30-min-setup-0-to-125-compute">Path D — Reproducer (~30 min setup + ~$0 to ~$125 compute)</h3>
+<section id="path-d-reproducer-1520-min-setup-0-to-125-compute" class="level3">
+<h3 class="anchored" data-anchor-id="path-d-reproducer-1520-min-setup-0-to-125-compute">Path D — Reproducer (~15–20 min setup + ~$0 to ~$125 compute)</h3>
 <p>Three tiers per <a href="./WRITEUP/reproducibility.html">WRITEUP/reproducibility.md</a>:</p>
 <ul>
 <li><strong>T0</strong> — score-match against published HF Hub checkpoints (~$0, ~20 min)</li>
@@ -1133,14 +1139,14 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="glossary-decisions">Glossary + decisions</h2>
 <ul>
 <li><strong>Glossary</strong>: <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a> — all technical terms used in either guide, with cross-references.</li>
-<li><strong>Decisions</strong>: 80 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices. Both guides cite specific ADRs at every methodology decision point.</li>
+<li><strong>Decisions</strong>: 81 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices. Both guides cite specific ADRs at every methodology decision point.</li>
 <li><strong>Evidence trail</strong>: <a href="./EVIDENCE.html">EVIDENCE.md</a> for external-evidence audit (training corpus contamination, reference scorer training pools, etc.).</li>
 </ul>
 </section>
 <section id="submission-anchors" class="level2">
 <h2 class="anchored" data-anchor-id="submission-anchors">Submission anchors</h2>
 <ul>
-<li><strong>Current state</strong>: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0"><code>tree/v1.3.0</code></a> (2026-05-21) — live-site source.</li>
+<li><strong>Current state</strong>: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.2"><code>tree/v1.3.2</code></a> (2026-05-21) — live-site source.</li>
 <li><strong>Original submission tag</strong>: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a> (2026-05-18) — preserved as historical reviewer pin per ADR-033.</li>
 <li><strong>Live rendered site</strong>: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a>.</li>
 </ul>

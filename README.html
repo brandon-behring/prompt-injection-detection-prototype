@@ -1003,6 +1003,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1050,7 +1056,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><img src="https://img.shields.io/badge/docs-live-blue.png" class="img-fluid" alt="Documentation"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg" class="img-fluid" alt="CI"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg" class="img-fluid" alt="Publish"></a> <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.13-blue.svg" class="img-fluid" alt="Python 3.13"></a></p>
 <p><strong>A methodology-focused evaluation of prompt-injection detectors under cross-family distribution shift.</strong> Asks one question: when detectors trained on direct prompt-injection examples meet attack families they didn’t see, do they still work?</p>
 <blockquote class="blockquote">
-<p><strong>Pick a guide for the full methodology</strong> — both cover the same content: <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic IMRAD, ~45 min) or <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative arc, ~30 min). The executive summary below is the 1-page distillation; pick a guide for the full read.</p>
+<p><strong>Pick a guide for the full methodology</strong> — both cover the same content: <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic IMRAD, ~20–25 min) or <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative arc, ~15–20 min). The executive summary below is the 1-page distillation; pick a guide for the full read.</p>
 </blockquote>
 <hr>
 <section id="executive-summary" class="level2">
@@ -1175,7 +1181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). Full-FT is absent from the Pooled OOD table above for that reason.</p>
 <p>This is a capability characterization, not a deployment recommendation. The artifact’s contribution is the honest evaluation harness plus the negative result on cross-family transfer.</p>
-<p>→ Continue with the <a href="./WRITEUP_PAPER.html">academic paper</a> (~45 min) or the <a href="./WRITEUP_NARRATIVE.html">narrative</a> (~30 min). Both cover the same methodology, findings, and limitations in different reading styles.</p>
+<p>→ Continue with the <a href="./WRITEUP_PAPER.html">academic paper</a> (~20–25 min) or the <a href="./WRITEUP_NARRATIVE.html">narrative</a> (~15–20 min). Both cover the same methodology, findings, and limitations in different reading styles.</p>
 <hr>
 </section>
 </section>
@@ -1183,8 +1189,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="pick-a-guide-for-the-full-methodology">Pick a guide for the full methodology</h2>
 <p>Pick the format that fits how you want to read this:</p>
 <ul>
-<li><strong>Academic paper format (IMRAD)</strong> → <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~45 min)</li>
-<li><strong>Narrative format (story)</strong> → <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> — plain-English first-person 5-act story arc (~30 min)</li>
+<li><strong>Academic paper format (IMRAD)</strong> → <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~20–25 min)</li>
+<li><strong>Narrative format (story)</strong> → <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> — plain-English first-person 5-act story arc (~15–20 min)</li>
 <li><strong>60-second tour</strong> → <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/docs/for-hiring-managers.html">Project at a glance</a></li>
 <li><strong>Just the data</strong> → <a href="./RESULTS.html">RESULTS.md</a> — exact tables + 5 canonical figures + raw artifact pointers</li>
 <li><strong>Reproduce</strong> → <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/reproducibility.html">T0 laptop / T1 smoke / T3 cloud tier ladder</a> (~$0 / ~$0 / ~$125)</li>
@@ -1250,7 +1256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-this-project-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="how-this-project-thinks">How this project thinks</h2>
 <ul>
-<li><strong>Spec-driven development</strong> — 80 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
+<li><strong>Spec-driven development</strong> — 81 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
 <li><strong>Library-first invariant</strong> — shared evaluation primitives live in upstream libraries (<a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a>, <a href="https://github.com/brandon-behring/runpod-deploy">runpod-deploy</a>, <a href="https://github.com/brandon-behring/research_toolkit">research_toolkit</a>); local code is project-specific glue. Upstream gaps land in <a href="./decisions/upstream_issues.html"><code>decisions/upstream_issues.md</code></a> before any local workaround.</li>
 <li><strong>Confound-control discipline</strong> — when the headline result raised the natural follow-up (“does a longer context window fix the OOD gap?”), a controlled DeBERTa-v3-base ablation was designed (chunk-and-average vs head-truncation). Result: a publishable null. See <a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a>.</li>
 </ul>
@@ -1271,11 +1277,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><a href="./WRITEUP_PAPER.html"><code>WRITEUP_PAPER.md</code></a></td>
-<td>academic IMRAD article (45 min)</td>
+<td>academic IMRAD article (~20–25 min)</td>
 </tr>
 <tr class="odd">
 <td><a href="./WRITEUP_NARRATIVE.html"><code>WRITEUP_NARRATIVE.md</code></a></td>
-<td>narrative story-arc article (30 min)</td>
+<td>narrative story-arc article (~15–20 min)</td>
 </tr>
 <tr class="even">
 <td><a href="./RESULTS.html"><code>RESULTS.md</code></a></td>
@@ -1299,7 +1305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><a href="./decisions/"><code>decisions/</code></a></td>
-<td>80 ADRs documenting methodology + governance</td>
+<td>81 ADRs documenting methodology + governance</td>
 </tr>
 <tr class="even">
 <td><a href="./evals/"><code>evals/</code></a></td>
@@ -1342,7 +1348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="submission-anchors" class="level2">
 <h2 class="anchored" data-anchor-id="submission-anchors">Submission anchors</h2>
 <ul>
-<li><strong>Current state:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0"><code>tree/v1.3.0</code></a> (2026-05-21) — live-site source</li>
+<li><strong>Current state:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.2"><code>tree/v1.3.2</code></a> (2026-05-22) — live-site source</li>
 <li><strong>Original submission tag:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a> (2026-05-18) — preserved as historical reviewer pin per ADR-033</li>
 <li><strong>Live rendered site:</strong> <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a></li>
 <li><strong>HF Hub checkpoints:</strong> <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">frozen probe</a>, <a href="https://huggingface.co/BBehring/prompt-injection-lora">LoRA</a></li>

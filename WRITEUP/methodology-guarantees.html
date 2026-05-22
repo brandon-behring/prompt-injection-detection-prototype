@@ -969,6 +969,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1040,7 +1046,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Three-library tooling split</strong>: <code>eval-toolkit</code> (methodology-aware harness — bootstrap CIs / calibration / leakage / splits / paired-bootstrap), <code>runpod-deploy</code> (cloud orchestration), <code>research_toolkit</code> (literature dossier pipeline). Each survives across iterations as a durable knowledge artifact.</li>
 <li><strong>Prediction-persistence pattern [LOCKED]</strong>: 282 prediction parquets persisted per ADR-013 + ADR-021 so downstream threshold / calibration analyses run from artifacts without re-running inference.</li>
-<li><strong>SDD / ADR process</strong>: 80 ADRs accepted across Phase 0-00 through ADR-080 (ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture + ADR-080 reviewer-URL-pin numeric correction; v1.3.0 + v1.3.1 governance closures); each significant decision locked before code; <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard-gate per ADR-039).</li>
+<li><strong>SDD / ADR process</strong>: 81 ADRs accepted across Phase 0-00 through ADR-081 (ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture + ADR-080 reviewer-URL-pin numeric correction + ADR-081 frontmatter <code>status:</code> field-split narrow-relaxation; v1.3.0 + v1.3.1 + v1.3.2 governance closures); each significant decision locked before code; <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard-gate per ADR-039).</li>
 <li><strong>Library-first invariant</strong> (project-wide per Phase 4 Q6 reaffirmation): audit <code>eval-toolkit + runpod-deploy + research_toolkit</code> BEFORE writing project glue. Upstream gaps land in <code>decisions/upstream_issues.md</code> before any local workaround. ADR-047 retrofitted 4 hand-rolls in a single carryforward refactor.</li>
 </ul>
 </div>

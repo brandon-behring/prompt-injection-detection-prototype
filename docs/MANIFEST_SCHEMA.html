@@ -968,6 +968,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1010,7 +1016,7 @@ ul.task-list li input[type="checkbox"] {
 <li><code>manifest.v3.json</code> — <strong>current default as of eval-toolkit v0.23.0</strong>; adds <strong>required</strong> <code>contamination_flags</code> field (per-scorer three-state taxonomy), <code>captured_at</code> ISO-8601 timestamp, <code>data_revisions</code> (HuggingFace dataset + model commit SHAs), and <code>metadata</code></li>
 </ul>
 <p>This file documents the <strong>expected fields</strong> so a reviewer inspecting <code>evals/&lt;run&gt;/manifest.json</code> knows what’s there and why each field exists.</p>
-<p><code>[OPEN]</code> Exact schema version is locked at Phase 0-08 (library version pinning). The default is v3 unless Phase 0 locks otherwise.</p>
+<p><code>[LOCKED]</code> <strong>Schema version</strong>: <code>manifest.v3.json</code> per <a href="../decisions/ADR-057-manifest-schema-v3-backfill-conventions.html">ADR-057</a>. v3 is the current <code>eval-toolkit</code> upstream default (v0.23.0+). Project consumes the upstream schema unchanged; no project-local extension fields.</p>
 <section id="required-fields" class="level2">
 <h2 class="anchored" data-anchor-id="required-fields">Required fields</h2>
 <table class="caption-top table">

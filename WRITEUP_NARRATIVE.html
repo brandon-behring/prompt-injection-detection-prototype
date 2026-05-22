@@ -1004,6 +1004,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Authorize frontmatter <code>status:</code> field split (verbose-context → pure-Nygard <code>status:</code> + new <code>lifecycle-note:</code>) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1094,7 +1100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="prompt-injection-classification-methodology-and-capability-characterization" class="level1">
 <h1>Prompt-Injection Classification: Methodology and Capability Characterization</h1>
-<p><strong>Author</strong>: Brandon Behring | <strong>Date</strong>: 2026-05-21 | <strong>Status</strong>: live-site current state <code>tree/v1.3.0</code>; original submission tag <code>tree/v1.0.0</code> (2026-05-18) preserved as historical reviewer pin per ADR-033.</p>
+<p><strong>Author</strong>: Brandon Behring | <strong>Date</strong>: 2026-05-21 | <strong>Status</strong>: live-site current state <code>tree/v1.3.2</code>; original submission tag <code>tree/v1.0.0</code> (2026-05-18) preserved as historical reviewer pin per ADR-033.</p>
 <blockquote class="blockquote">
 <p><strong>Reader note.</strong> This is the narrative format of the project writeup — a story rather than a paper. For the same content in academic IMRAD format (Abstract, Methods, Results, Discussion, etc.), see <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a>. Both guides cover the same evaluation, methodology, findings, and limitations; the register and structure differ. Technical terms are defined on first use and linked to <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a>.</p>
 </blockquote>
@@ -1103,7 +1109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="act-0-hook">Act 0 — Hook</h2>
 <p>A prompt-injection detector that has clearly learned to recognize the direct attack pattern, with strong validation numbers, can also be worse than chance on a <em>different family</em> of attacks. Not slightly worse. Anti-correlated: the more the detector “looks like it works” on familiar attacks, the more its rankings can be inverted on unfamiliar ones.</p>
 <p>That is the headline of this project. We built a detector ladder, evaluated it honestly under leave-one-dataset-out splits, and got a result that looks neat at first glance and uncomfortable on second read.</p>
-<p>Direct prompt-injection detection works well. The TF-IDF + logistic regression baseline reaches 0.974 AUPRC on balanced direct-versus- benign validation. The LoRA-fine-tuned ModernBERT classifier ties at 0.974. By any standard in-distribution metric, the detectors learned the task.</p>
+<p>Direct prompt-injection detection works well. The TF-IDF + logistic regression baseline reaches 0.971 AUPRC on balanced direct-versus- benign validation. The LoRA-fine-tuned ModernBERT classifier edges it out at 0.974. By any standard in-distribution metric, the detectors learned the task.</p>
 <p>Then we tested them on attack families they had not seen during training. The best detector landed at 0.364 AUPRC against a random floor of 0.374. Two of the four classifiers fell <em>below</em> the AUROC random floor of 0.5, with confidence intervals that cleared 0.5 on the wrong side. The frozen ModernBERT probe alone stayed above the floor.</p>
 <p>This story is about why that happened, what it tells us about direct-trained detectors as a class, and what we would do differently next time.</p>
 <hr>
@@ -1364,7 +1370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Numbers</strong>: <a href="./RESULTS.html">RESULTS.md</a> for all canonical tables and the 5 figures.</li>
 <li><strong>Methodology depth</strong>: 8 detailed spokes under <a href="./WRITEUP/">WRITEUP/</a> — data decisions, evaluation design, model details, threshold policy, reference-scorer audit, methodology guarantees, reproducibility, limitations and future work.</li>
-<li><strong>Decision rationale</strong>: 80 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices.</li>
+<li><strong>Decision rationale</strong>: 81 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices.</li>
 <li><strong>Cost ledger</strong>: <a href="./evals/cost_ledger.csv">evals/cost_ledger.csv</a> for full GPU and API spend accounting.</li>
 <li><strong>Glossary</strong>: <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a> for all technical terms used here.</li>
 </ul>
