@@ -85,6 +85,7 @@
 | CLAIM-075 | [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md) | Accepted | 428971c |
 | CLAIM-076 | [ADR-076](decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.md) | Accepted |  |
 | CLAIM-077 | [ADR-077](decisions/ADR-077-supersession-backlink-and-frontmatter-octal-quoting-backfill.md) | Accepted |  |
+| CLAIM-078 | [ADR-078](decisions/ADR-078-executive-summary-absorbed-into-readme.md) | Accepted |  |
 
 ## Claim details
 
@@ -3932,5 +3933,44 @@ decisions/ADR-018-*.md` + `grep 'supersedes:\s*"007"' decisions/ADR-015-*.md` sh
 `scripts/audit_adr_count_claims.py` exits 0 (the v1.2.14 invariant catches reader-facing surfaces'
 "76 ADRs" → "77 ADRs" requirement; this ADR's creation cascades through).
 `scripts/regenerate_audit.py --check` passes after the backfill with 77 CLAIM rows.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-078 - [ADR-078](decisions/ADR-078-executive-summary-absorbed-into-readme.md): Absorb EXECUTIVE_SUMMARY content into README; retire EXECUTIVE_SUMMARY.md as standalone file
+
+**Status**: Accepted
+
+**Source**: User feedback 2026-05-21 surfacing the "neither narrative nor academic structure — random parts of results all over the place" diagnosis; subsequent /exploring-options Q1.1 lock ("the executive summary can be on the readme?") + Q1 main scope reduction from 3 guides to 2 guides + README absorption.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+The reading-guide architecture before v1.3.0 has 4 reader-facing distillation surfaces — index.qmd
+(60-sec landing) + README.md (repo-level orientation) + EXECUTIVE_SUMMARY.md (1-page summary) +
+WRITEUP.md (methodology hub) — with same content rendered in 3-4 framings on EXECUTIVE_SUMMARY +
+index + WRITEUP. The v1.3.0 restructure (see ADR-079) introduces 2 reader-style guides
+(WRITEUP_PAPER.md + WRITEUP_NARRATIVE.md) which require a clear separation between the depth-0 entry
+(README + index) and the depth-1 reading guides. To avoid maintaining 3+ overlapping distillation
+surfaces, EXECUTIVE_SUMMARY.md is retired and its content absorbed into README.md as the README's
+top-fold §"Executive summary" section. Behavior changes: (a) README.md becomes the canonical 1-page
+distillation reachable both from the repo root + via direct link on the live site; (b)
+EXECUTIVE_SUMMARY.md is removed from `_quarto.yml` render allowlist + sidebar + navbar +
+cross-references; (c) the historical reviewer URL pin (`tree/v1.0.0` per ADR-033) preserves the
+EXECUTIVE_SUMMARY.md file at submission time so external academic citations of EXECUTIVE_SUMMARY
+remain resolvable. Decision affects presentation surfaces only; no methodology / model / data /
+compute change.
+
+**Acceptance criterion**
+
+`ls EXECUTIVE_SUMMARY.md 2>&1` returns "No such file or directory" on the v1.3.0 tip. `grep '^##
+Executive summary' README.md` returns 1+ match. `_quarto.yml` render allowlist has no
+`EXECUTIVE_SUMMARY.md` entry; navbar Reference dropdown has no "Executive summary" entry; sidebar
+Entry section has no `EXECUTIVE_SUMMARY.md` entry. `decisions/audits/REPO_AUDIT_2026-05-21.md` does
+NOT cite the retirement as a delta (it precedes v1.3.0). Audit scripts all exit 0 (incl. v1.2.14
+audit_adr_count_claims after 77→78 cascade per ADR-078's creation).
 
 </div>

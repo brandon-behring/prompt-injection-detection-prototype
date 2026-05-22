@@ -63,6 +63,8 @@ CLOSING_COMMIT_EXEMPT: set[str] = {
     "072",  # frontmatter-backfill ADR; v1.2.13 historical artifact
     "076",  # frontmatter-backfill ADR; v1.2.14 historical artifact
     "077",  # frontmatter-backfill ADR; v1.2.15 historical artifact (this script's authorizing ADR)
+    "078",  # EXECUTIVE_SUMMARY absorption governance; v1.3.0 PR-1; closing_commit forward-references the PR-1 SHA
+    "079",  # 2-guide reader architecture governance; v1.3.0 PR-4; closing_commit forward-references the PR-4 SHA
 }
 
 
