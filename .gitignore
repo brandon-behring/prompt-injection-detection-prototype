@@ -80,3 +80,9 @@ artifacts/runpod/2026*/
 
 # Playwright MCP session artifacts (snapshots + console logs) — operational noise
 .playwright-mcp/
+
+# Derived audit output from scripts/audit_numbers.py — regenerated on every
+# pre-commit / CI run; not source-of-truth (the script + the evals/*.parquet
+# inputs are the source-of-truth). Differs in content across environments
+# (CI runs skip per-row-prediction checks; local fires run all 23).
+evals/audit/numeric_audit.json
