@@ -1,6 +1,6 @@
 # Limitations and future work
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -19,7 +19,7 @@ caveats, §9 negative results (tried + abandoned), and §11 lessons.
 The distinction matters: §8 = scope decisions defensible at submission; §9 =
 experimental work that did not pan out; §11 = process-level
 lessons. For headline characterisation that exposes these
-limitations see [`../WRITEUP.md`](../WRITEUP.md) §Results.
+limitations see [WRITEUP_PAPER §6 Limitations](../WRITEUP_PAPER.md#6-limitations) (academic) or [WRITEUP_NARRATIVE Epilogue](../WRITEUP_NARRATIVE.md#epilogue--limits--reproduction) (narrative).
 
 ## 8.1 Scope deferrals
 
@@ -244,7 +244,7 @@ suggestions for a successor iteration:
 
 ## 9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary
 
-The headline AUPRC tables (WRITEUP §6 + RESULTS §1) show LoRA + TF-IDF + LR
+The headline AUPRC tables ([WRITEUP_PAPER §4.3](../WRITEUP_PAPER.md#43-trained-adapters-anti-correlated-with-cross-family-attack-class) + [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc)) show LoRA + TF-IDF + LR
 clustering at the pooled OOD random floor (0.374). The AUROC view says
 something stronger: both detectors score **below** the 0.5 random floor with
 CIs that clearly clear 0.5 on the wrong side:
@@ -374,7 +374,8 @@ data-distribution or capacity-bounded.
 
 ## Cross-references
 
-- **Headline characterisation that exposes these limitations** → [`../WRITEUP.md`](../WRITEUP.md) §Results
+- **Headline characterisation that exposes these limitations**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#4-results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
+- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc)
 - **Adversarial robustness scope (§5.6)** → [`reference-scorer-audit.md`](./reference-scorer-audit.md)
 - **NEXT_STEPS forward-looking work** → [`../NEXT_STEPS.md`](../NEXT_STEPS.md)
 - **Upstream issues ledger** → [`../decisions/upstream_issues.md`](../decisions/upstream_issues.md)

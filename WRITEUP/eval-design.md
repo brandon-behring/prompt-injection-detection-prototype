@@ -1,6 +1,6 @@
 # Evaluation design
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -214,9 +214,10 @@ for the source-disjoint discipline this project applies.
 all-positive; NotInject is all-negative. AUROC and AUPRC are
 mathematically undefined on single-class slices. The metrics pipeline
 filters these slices out of AUROC / AUPRC artifacts at source
-(per Item 4 of the v1.0.0 closure sweep — see WRITEUP §Methodology
-caveats); per-slice recall-at-threshold is reported on single-class
-slices instead.
+(per Item 4 of the v1.0.0 closure sweep — see
+[WRITEUP_PAPER §6.2 Reference scorer contamination](../WRITEUP_PAPER.md#62-reference-scorer-contamination)
+and [WRITEUP/limitations-and-future-work §8.2](./limitations-and-future-work.md#82-methodology-caveats));
+per-slice recall-at-threshold is reported on single-class slices instead.
 
 ## Cross-references
 
@@ -224,7 +225,8 @@ slices instead.
 - **Reference-scorer contamination audit + adversarial robustness scope** → [`reference-scorer-audit.md`](./reference-scorer-audit.md)
 - **Data splits + LODO + leakage discipline** → [`data-decisions.md`](./data-decisions.md)
 - **Methodology guarantees + library tooling** → [`methodology-guarantees.md`](./methodology-guarantees.md)
-- **Headline results** → [`../WRITEUP.md`](../WRITEUP.md) §Results
+- **Headline results (interpretation)**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#4-results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
+- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc)
 
 **Linked ADRs**: ADR-006 (headline metrics + statistical apparatus),
 ADR-021 (slice aggregation + recall@FPR pinpoints), ADR-022 (paired-

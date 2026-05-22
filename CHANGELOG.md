@@ -20,6 +20,47 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+### v1.3.1 sub-PR-3 — Class-B stale "WRITEUP-as-hub" retargeting (3-tier rule per Q4 lock)
+
+**Defect**: 22+ references across 8 `WRITEUP/*.md` spokes + 3 non-spoke
+surfaces described WRITEUP.md as "the hub" with "cover narrative" and
+linked to `WRITEUP.md §Results` — but post-v1.3.0 (per ADR-079)
+WRITEUP.md is a 1-page router with no §Results, no §6, no cover
+narrative. Live-verified that `WRITEUP.html#results` is a dead anchor
+(`document.getElementById('results') === null`); every spoke click on
+"see WRITEUP §Results" was landing on a router page with nothing to
+read.
+
+**Fix** (3-tier mixed-by-purpose retargeting per Q4 lock):
+
+- **Tier 1 — Spoke headers (8 of 8)**: Replaced "*Part of the WRITEUP
+  methodology — see the hub for the cover narrative + reading guide.*"
+  with "*Deep-dive reference for the methodology in WRITEUP_PAPER.md
+  (academic) and WRITEUP_NARRATIVE.md (narrative). Pick a guide for
+  the cover narrative; this spoke goes deeper.*"
+- **Tier 2 — Body inline "WRITEUP §X" references**: retargeted per
+  reader-intent — "headline finding" → WRITEUP_PAPER §4.3 + NARRATIVE
+  Act 3; "headline results" tables → RESULTS §1; "WRITEUP §6 +
+  Methodology caveats" → WRITEUP_PAPER §6 Limitations; "WRITEUP §7.5
+  val→test transfer" (legacy hybrid-section numbering) → RESULTS §4
+  + WRITEUP_PAPER §4.6 / NARRATIVE Finding 6; "WRITEUP §Results
+  §Frozen probe vs adapter fine-tuned" → RESULTS §2.
+- **Tier 3 — Spoke Cross-References sections (8 of 8)**: each
+  "Headline results → WRITEUP §Results" line became a two-link
+  pattern: "**Headline results (interpretation)**: WRITEUP_PAPER §4
+  (academic) or WRITEUP_NARRATIVE Act 3 (narrative); **Headline
+  tables (data)**: RESULTS §1".
+- **Non-spoke surfaces**: `RESULTS.md` line 310, `docs/site-reader-map.md`
+  line 14, `docs/for-hiring-managers.md` line 96 all updated to point
+  at WRITEUP_PAPER + WRITEUP_NARRATIVE instead of describing WRITEUP.md
+  as the hub.
+
+**Net effect**: every click lands at the right depth; register-matched
+(academic spoke → PAPER for prose; data link → RESULTS); both-guide
+chooser preserved at spoke top + bottom only (not redundantly inline).
+The only remaining `WRITEUP.md` references are intentional router-page
+labels ("1-page router", "Writeup chooser").
+
 ### v1.3.1 sub-PR-2 — Class-A factual + numeric fixes + scripts/audit_numbers.py invariant
 
 **Defects** (surfaced by 2026-05-22 fresh-eyes audit; verified by

@@ -307,7 +307,7 @@ canonical`, ADR-062, the source artifact path, commit SHA, and generation time.
 ## Cross-References
 
 - [Executive summary](README.md#executive-summary): one-page version (absorbed into README per ADR-078).
-- [Writeup](WRITEUP.md): methodology narrative.
+- [Writeup chooser](WRITEUP.md): 1-page router that points at the academic ([WRITEUP_PAPER.md](WRITEUP_PAPER.md)) or narrative ([WRITEUP_NARRATIVE.md](WRITEUP_NARRATIVE.md)) methodology guide.
 - [Evaluation design](WRITEUP/eval-design.md): detailed metric rationale.
 - [Threshold policy](WRITEUP/threshold-policy.md): detection and verification
   operating-point methodology.
