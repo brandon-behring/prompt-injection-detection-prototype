@@ -167,6 +167,13 @@ website:
           - decisions/upstream_issues.md
           - auto: "decisions/ADR-*.md"
 
+filters:
+  # v1.3.2 P2-1: inject a callout-warning at the top of any ADR whose
+  # frontmatter `superseded_by:` is non-empty, so a direct-link reader sees
+  # the supersession context. Source ADR bodies remain immutable per ADR-073.
+  # Per ADR-081 narrow-relaxation chain.
+  - superseded-banner
+
 format:
   html:
     theme: cosmo
