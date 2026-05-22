@@ -3,8 +3,6 @@ title: "Reference-scorer audit"
 description: "Three-state contamination taxonomy (verified_disjoint / suspected_contamination / vendor_black_box) applied to the reference-scorer slate (ProtectAI v1 + v2 + TF-IDF + LR)."
 ---
 
-# Reference-scorer audit
-
 *Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
