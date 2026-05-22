@@ -86,3 +86,16 @@ artifacts/runpod/2026*/
 # inputs are the source-of-truth). Differs in content across environments
 # (CI runs skip per-row-prediction checks; local fires run all 23).
 evals/audit/numeric_audit.json
+
+# Out-of-band external audits (Claude reviewer audits, etc.) — personal-review
+# drafts; not part of the submission narrative. Kept gitignored so they don't
+# pollute git status or accidentally render onto the live site.
+/AUDIT_CLAUDE_*.md
+
+# Private review audits (e.g. REPO_AUDIT_*.md from earlier audit cycles).
+# Pre-v1.3.1 audits were tracked here; from v1.3.2 onwards the convention
+# follows transcripts/ — private-by-default, emailed-to-reviewer separately,
+# only the README stays tracked for documentation. Per v1.3.2 P3-4 fix
+# from AUDIT_CLAUDE_2026-05-22.
+decisions/audits/*.md
+!decisions/audits/README.md
