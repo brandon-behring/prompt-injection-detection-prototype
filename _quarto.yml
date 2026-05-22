@@ -13,10 +13,11 @@ project:
   render:
     - index.qmd
     - README.md
-    - EXECUTIVE_SUMMARY.md
     - RESULTS.md
     - CHANGELOG.md
     - WRITEUP.md
+    - WRITEUP_PAPER.md
+    - WRITEUP_NARRATIVE.md
     - WRITEUP/*.md
     - READING_GUIDE.md
     - EVIDENCE.md
@@ -58,7 +59,11 @@ website:
         text: Results
       - text: Methodology
         menu:
-          - text: "Cover narrative (hub)"
+          - text: "Academic paper (IMRAD)"
+            href: WRITEUP_PAPER.md
+          - text: "Narrative arc (story)"
+            href: WRITEUP_NARRATIVE.md
+          - text: "Router (pick a guide)"
             href: WRITEUP.md
           - text: "Reading guide"
             href: READING_GUIDE.md
@@ -79,8 +84,6 @@ website:
             href: docs/for-hiring-managers.md
           - text: "Public site reader map"
             href: docs/site-reader-map.md
-          - text: "Executive summary"
-            href: EXECUTIVE_SUMMARY.md
           - text: "Evidence ledger"
             href: EVIDENCE.md
           - text: "Spec lock sheet"
@@ -112,11 +115,16 @@ website:
         contents:
           - text: "Landing page (results + meaning)"
             href: index.qmd
+          - text: "README + executive summary"
+            href: README.md
           - RESULTS.md
-          - EXECUTIVE_SUMMARY.md
-      - section: "Methodology"
+      - section: "Methodology guides (pick a style)"
         contents:
-          - text: "Cover narrative (hub)"
+          - text: "Academic paper (IMRAD)"
+            href: WRITEUP_PAPER.md
+          - text: "Narrative arc (story)"
+            href: WRITEUP_NARRATIVE.md
+          - text: "Router (1-page chooser)"
             href: WRITEUP.md
           - text: "Reading guide"
             href: READING_GUIDE.md

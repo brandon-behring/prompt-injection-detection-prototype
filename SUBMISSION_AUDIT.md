@@ -85,6 +85,8 @@
 | CLAIM-075 | [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md) | Accepted | 428971c |
 | CLAIM-076 | [ADR-076](decisions/ADR-076-superseded-by-and-closing-commit-frontmatter-backfill.md) | Accepted |  |
 | CLAIM-077 | [ADR-077](decisions/ADR-077-supersession-backlink-and-frontmatter-octal-quoting-backfill.md) | Accepted |  |
+| CLAIM-078 | [ADR-078](decisions/ADR-078-executive-summary-absorbed-into-readme.md) | Accepted |  |
+| CLAIM-079 | [ADR-079](decisions/ADR-079-two-guide-reader-architecture.md) | Accepted |  |
 
 ## Claim details
 
@@ -3932,5 +3934,92 @@ decisions/ADR-018-*.md` + `grep 'supersedes:\s*"007"' decisions/ADR-015-*.md` sh
 `scripts/audit_adr_count_claims.py` exits 0 (the v1.2.14 invariant catches reader-facing surfaces'
 "76 ADRs" → "77 ADRs" requirement; this ADR's creation cascades through).
 `scripts/regenerate_audit.py --check` passes after the backfill with 77 CLAIM rows.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-078 - [ADR-078](decisions/ADR-078-executive-summary-absorbed-into-readme.md): Absorb EXECUTIVE_SUMMARY content into README; retire EXECUTIVE_SUMMARY.md as standalone file
+
+**Status**: Accepted
+
+**Source**: User feedback 2026-05-21 surfacing the "neither narrative nor academic structure — random parts of results all over the place" diagnosis; subsequent /exploring-options Q1.1 lock ("the executive summary can be on the readme?") + Q1 main scope reduction from 3 guides to 2 guides + README absorption.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+The reading-guide architecture before v1.3.0 has 4 reader-facing distillation surfaces — index.qmd
+(60-sec landing) + README.md (repo-level orientation) + EXECUTIVE_SUMMARY.md (1-page summary) +
+WRITEUP.md (methodology hub) — with same content rendered in 3-4 framings on EXECUTIVE_SUMMARY +
+index + WRITEUP. The v1.3.0 restructure (see ADR-079) introduces 2 reader-style guides
+(WRITEUP_PAPER.md + WRITEUP_NARRATIVE.md) which require a clear separation between the depth-0 entry
+(README + index) and the depth-1 reading guides. To avoid maintaining 3+ overlapping distillation
+surfaces, EXECUTIVE_SUMMARY.md is retired and its content absorbed into README.md as the README's
+top-fold §"Executive summary" section. Behavior changes: (a) README.md becomes the canonical 1-page
+distillation reachable both from the repo root + via direct link on the live site; (b)
+EXECUTIVE_SUMMARY.md is removed from `_quarto.yml` render allowlist + sidebar + navbar +
+cross-references; (c) the historical reviewer URL pin (`tree/v1.0.0` per ADR-033) preserves the
+EXECUTIVE_SUMMARY.md file at submission time so external academic citations of EXECUTIVE_SUMMARY
+remain resolvable. Decision affects presentation surfaces only; no methodology / model / data /
+compute change.
+
+**Acceptance criterion**
+
+`ls EXECUTIVE_SUMMARY.md 2>&1` returns "No such file or directory" on the v1.3.0 tip. `grep '^##
+Executive summary' README.md` returns 1+ match. `_quarto.yml` render allowlist has no
+`EXECUTIVE_SUMMARY.md` entry; navbar Reference dropdown has no "Executive summary" entry; sidebar
+Entry section has no `EXECUTIVE_SUMMARY.md` entry. `decisions/audits/REPO_AUDIT_2026-05-21.md` does
+NOT cite the retirement as a delta (it precedes v1.3.0). Audit scripts all exit 0 (incl. v1.2.14
+audit_adr_count_claims after 77→78 cascade per ADR-078's creation).
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-079 - [ADR-079](decisions/ADR-079-two-guide-reader-architecture.md): Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0
+
+**Status**: Accepted
+
+**Source**: User feedback 2026-05-21 "lets do one narrative one academic and the readme which has the executive summary. The academic and narrative should still cover everything, but the style can be different. Does that make any sense?" — locked via /exploring- options Q1 (3-guide initial scope) + Q1-revisit (reduced to 2 guides + "lets think for a second" deliberation) + 4-question follow-on slate (file naming + sub-PR strategy + authorship + voice register).
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+User feedback 2026-05-21 diagnosed the existing single-guide architecture as "neither a narrative
+structure nor an academic structure like in a journal paper" with "random parts of results all over
+the place with no story" — the existing WRITEUP.md was a loose-narrative-with-numbered-sections
+hybrid, methodology placed AFTER findings (WRITEUP §9 vs §7), with the same content rendered 3-4
+times across index.qmd + EXECUTIVE_SUMMARY.md + WRITEUP.md + RESULTS.md in different framings. The
+v1.3.0 architectural response introduces **two reader-style guides**: WRITEUP_PAPER.md (academic
+IMRAD: Abstract / Introduction / Background / Methods / Results / Discussion / Limitations /
+Conclusion / References; formal academic register; passive voice; technical terminology with
+on-first-use definitions cross-referenced to docs/GLOSSARY.md) + WRITEUP_NARRATIVE.md (story arc:
+Hook / Setup / Investigation / Revelation / Other findings / Implications / Epilogue; plain- English
+first-person plural 'we' register; active voice; minimal jargon, defined on first use +
+cross-referenced to docs/GLOSSARY.md). Both guides cover the same content (problem, methodology, all
+7 findings, mechanism, limitations); the register and structure differ. Each guide treats the
+headline finding natively per its style (academic = Finding 3 of 7 equal-weight; narrative = Act-3
+dramatic revelation). Companion: ADR-078 absorbs EXECUTIVE_SUMMARY content into README. The current
+WRITEUP.md becomes a 1-page router stub directing readers to either guide; preserves backward
+references from 8 WRITEUP/ spokes + ADRs without breaking links. index.qmd rebuilt as 60-sec hook +
+chooser. READING_GUIDE.md rebuilt as 2-path router. Decision affects presentation surfaces only; no
+methodology / model / data / compute change.
+
+**Acceptance criterion**
+
+`ls WRITEUP_PAPER.md WRITEUP_NARRATIVE.md` returns both files. `head -3 WRITEUP_PAPER.md` shows the
+academic IMRAD title + reader-note pointing at WRITEUP_NARRATIVE.md as the alternative. `head -3
+WRITEUP_NARRATIVE.md` shows the narrative title + reader- note pointing at WRITEUP_PAPER.md. `head
+-5 WRITEUP.md` shows the stub-redirect router language ("Pick how you want to read this"). `head -5
+index.qmd` shows the 60-sec hook with chooser between the two guides. `head -5 READING_GUIDE.md`
+shows the 2-path router. `_quarto.yml` navbar Methodology dropdown lists "Academic paper (IMRAD)" +
+"Narrative arc (story)" + "Router (pick a guide)". `_quarto.yml` sidebar "Methodology guides (pick a
+style)" section lists the same. `scripts/audit_adr_count_claims.py` exits 0 (catches the 78→79
+cascade across reader-facing surfaces). `scripts/audit_superseded_by_backlinks.py` exits 0 (ADR-079
+→ ADR-053+054+061 supersession edges correctly classified as axis- only via comment heuristic).
 
 </div>

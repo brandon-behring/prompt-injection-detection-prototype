@@ -20,6 +20,115 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.0] — 2026-05-22
+
+**Two-guide reader architecture: WRITEUP_PAPER (academic IMRAD) +
+WRITEUP_NARRATIVE (story arc) replacing the single-hybrid WRITEUP.md.**
+First minor bump since v1.0.0. Substantial structural change; pure
+presentation restructure (no methodology / model / data / compute
+change). Governance: ADR-078 (EXECUTIVE_SUMMARY absorbed into README)
++ ADR-079 (two-guide architecture). Reviewer URL pin `tree/v1.0.0`
+unchanged per ADR-033.
+
+### Root cause for restructure
+
+User feedback diagnosed the prior single-guide architecture as
+"neither a narrative structure to quarto nor an academic structure
+like in a journal paper — random parts of results all over the place
+with no story". Two distinct failures: cross-page redundancy (same
+content rendered 3-4 times across `index.qmd` + `EXECUTIVE_SUMMARY` +
+`WRITEUP` + `RESULTS` with incidental drift); within-page register
+inconsistency (`WRITEUP.md` mixed summary-style and detail-style;
+methodology §9 placed AFTER findings §7; findings enumerated
+academically but framed narratively). The diagnosis: enthusiastic-
+explainer wearing an ill-fitting academic suit — coherent as neither.
+
+### Added (4 sub-PRs into release/v1.3.0)
+
+- **PR-1 (`76a0872`) — Foundation: README absorbs EXECUTIVE_SUMMARY + ADR-078.**
+  - `README.md` restructured: top-fold §Executive summary section
+    absorbs the 1-page distillation.
+  - `EXECUTIVE_SUMMARY.md` DELETED (v1.0.0 reviewer-pin preserves
+    historical access per ADR-033).
+  - `_quarto.yml` navbar + sidebar updated.
+  - `decisions/ADR-078-executive-summary-absorbed-into-readme.md`
+    (NEW; ~200 lines) — supersedes ADR-053 dimension 2 on exec-
+    summary axis only.
+
+- **PR-2 (`97c179b`) — WRITEUP_PAPER.md (academic IMRAD; NEW; 656 lines).**
+  Full IMRAD article: §0 Abstract / §1 Introduction / §2 Background /
+  §3 Methods (4 subsections) / §4 Results (all 7 findings as equal-
+  weight numbered subsections; Finding 3 = headline) / §5 Discussion
+  (mechanism: lexical overfitting + label-relevance shift) / §6
+  Limitations / §7 Conclusion / §8 References + in-paper Glossary.
+  Formal academic voice.
+
+- **PR-3 (`30de502`) — WRITEUP_NARRATIVE.md (narrative arc; NEW; 577 lines).**
+  5-act story + epilogue: Act 0 Hook / Act 1 Setup / Act 2
+  Investigation / Act 3 Revelation (headline as dramatic third-act
+  reveal) / Act 4 The other findings (6 supporting findings as
+  equal-weight enumeration) / Act 5 Implications / Epilogue.
+  Plain-English first-person plural ('we') voice.
+
+- **PR-4 (`c094218`) — WRITEUP stub + index chooser + READING_GUIDE 2-path router + ADR-079.**
+  - `WRITEUP.md` rebuilt as 1-page stub-redirect router pointing at
+    the two guides; preserves backward refs from 8 spokes + ADRs.
+  - `index.qmd` rebuilt as 60-sec hook + 2-guide chooser.
+  - `READING_GUIDE.md` rebuilt as 2-path router (5 reader paths).
+  - `decisions/ADR-079-two-guide-reader-architecture.md` (NEW) —
+    supersedes ADR-053 dim 1 + ADR-054 + ADR-061 on reading-guide
+    axis only per narrow-relaxation discipline.
+
+### Changed
+
+- `scripts/audit_writeup_numbers.py` REVIEWER_FACING_FILES list:
+  drops `EXECUTIVE_SUMMARY.md`; adds `WRITEUP_PAPER.md` +
+  `WRITEUP_NARRATIVE.md`.
+- ADR count cascade 78 → 79 across 5 reader-facing surfaces (5th
+  correct firing of v1.2.14 `audit_adr_count_claims` invariant).
+- `SUBMISSION_AUDIT.md` regenerated; CLAIM row count 78 → 79.
+
+### Removed
+
+- `EXECUTIVE_SUMMARY.md` (content absorbed into README per ADR-078).
+
+### Governance
+
+- **ADR-078**: EXECUTIVE_SUMMARY absorbed into README. Axis-only
+  supersession of ADR-053 dimension 2.
+- **ADR-079**: Two-guide reader architecture. Axis-only supersession
+  of ADR-053 dim 1 + ADR-054 + ADR-061 on reading-guide axis.
+- Both use axis-only narrow-relaxation pattern established in
+  ADR-076/077 + v1.2.15 frontmatter-backfill precedent; supersession-
+  backlink audit invariant correctly classifies as INFO not FAIL via
+  axis-only comment heuristic.
+
+### Audit-tool family fired correctly
+
+- `audit_adr_count_claims.py` caught the 78→79 cascade — 5th correct
+  firing across v1.2.13→14→15→16→1.3.0 trail.
+- `audit_superseded_by_backlinks.py` caught initial axis-only-comment-
+  regex mismatch on ADR-079; fix-during-development corrected pre-commit.
+- `audit_writeup_numbers.py` caught EXECUTIVE_SUMMARY-removal cascade.
+
+### Out of scope (deferred)
+
+- 8 WRITEUP/ spokes unchanged; serve as deep-dive references for both
+  new guides.
+- Methodology / model / data / compute — pure presentation restructure.
+- RESULTS.md deep tables-only restructure deferred to v1.3.1 polish
+  if needed (current state already table-heavy).
+- Reviewer URL pin (`tree/v1.0.0`) unchanged per ADR-033.
+
+### Verification
+
+- Audit suite green: `audit_writeup_numbers` + `audit_rendered_site` +
+  `audit_leakage` + `audit_adr_count_claims` (79 ADRs) +
+  `audit_superseded_by_backlinks` + `check_no_emoji`.
+- pre-commit suite green.
+- 4 sub-PRs CI-greenable independently; merged sequentially to
+  release/v1.3.0; final merge to main + v1.3.0 tag.
+
 ## [1.2.16] — 2026-05-21
 
 **eval-toolkit v0.44.0 → v0.47.0 consumer-side bump (skip 3 minors).**

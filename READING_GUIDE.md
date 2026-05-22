@@ -1,150 +1,100 @@
 ---
 title: "Reading guide"
-description: "How to read the prompt-injection classifier evaluation at different depths."
+description: "Navigation router for the prompt-injection classifier evaluation. Two reading-style guides + persona-specific paths."
 ---
 
-# Reading Guide
+# Reading guide
 
-The site is organized from least to most technical. Start with the result, then
-drill into evidence and methodology only as needed.
+This page routes you to the part of the writeup that fits your purpose.
 
-## Result Map
+The project ships with **two reading-style guides** covering the same
+content (per [ADR-079](./decisions/ADR-079-two-guide-reader-architecture.md)):
 
-Use this map when scanning the project for what was actually accomplished. Each
-row points to the deeper table and states why the result matters.
-
-| Finding | Where to read | What the result says | Why it matters or is limited |
+| Guide | Style | Length | Best for |
 |---|---|---|---|
-| Direct validation | [Results: Direct Prompt-Injection Performance](RESULTS.md#direct-prompt-injection-performance) | LoRA reaches 0.974 AUPRC / 0.993 AUROC / 0.934 recall@0.5 on balanced direct+benign validation; TF-IDF + LR is similar | confirms the detector stack learned direct prompt-injection patterns |
-| Held-out direct-source recall | [Results: Direct Prompt-Injection Performance](RESULTS.md#direct-prompt-injection-performance) | frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune\*\* is 0.558 | stricter direct-source holdout, but recall-only because the slice is all-positive |
-| Pooled OOD failure | [Results: §1 Cross-Family OOD Table](RESULTS.md#1-cross-family-ood-table-auprc) | best pooled OOD AUPRC is 0.364 against a random floor of 0.374 | main scientific finding: direct-trained detectors do not beat guessing under family shift |
-| LoRA vs frozen-probe OOD degradation | [Results: §2 Frozen Probe vs LoRA](RESULTS.md#2-frozen-probe-vs-lora) + [§6 AUROC](RESULTS.md#6-secondary-table-auroc) | LoRA pooled OOD AUROC **0.383 below 0.5 floor**; -0.071 AUPRC vs frozen probe | lexical overfitting + slate-induced label-relevance inversion; CIs clear 0.5 on the wrong side |
-| DeBERTa context-window null result | [Results: §1B Ablation](RESULTS.md#1b-ablation-does-a-longer-context-backbone-fix-the-ood-gap) | chunk-and-average scores 0.291 pooled OOD AUPRC; head-truncation scores 0.290 | longer context access did not explain the OOD gap; backbone effects remain |
-| Threshold transfer failure | [Results: §4 Threshold Transfer](RESULTS.md#4-threshold-transfer) | LoRA catches more positives but jumps to 11.5% test FPR under a 1% validation-FPR policy | validation thresholds are characterization, not deployment recommendations |
-| Calibration ranking | [Results: §5 Calibration](RESULTS.md#5-calibration) | frozen probe has the lowest mean ECE (0.144) and Brier (0.265) | score quality and direct-pattern accuracy diverge under OOD shift |
-| ProtectAI/reference-detector caveats | [Results: §1 Cross-Family OOD Table](RESULTS.md#1-cross-family-ood-table-auprc) and [reference-scorer audit](WRITEUP/reference-scorer-audit.md) | ProtectAI v1\* is near frozen probe on pooled OOD; v2\* regresses on this slate | useful diagnostic references, but training-overlap disclosure limits clean baseline claims |
+| [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) | Academic IMRAD (Abstract / Methods / Results / Discussion / Limits / Refs) | ~45 min | Reviewers expecting journal-paper discipline |
+| [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) | Story arc (Hook / Setup / Investigation / Revelation / Implications) | ~30 min | Readers preferring plain-English first-person prose |
 
-\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
-per [EVIDENCE](EVIDENCE.md) §1-2. Their pooled OOD scores on overlapping slices
-are not clean OOD baselines.
+Both guides cover the same content. Pick the register that fits.
 
-\*\* Full-FT shows LODO direct-source data only (24 Phase 2 predictions); the
-comparable pooled OOD inference was not run (Phase 5 X11 crash; see
-[ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
+## Persona-specific paths
 
-## Path A: Hiring Manager, 10-15 Minutes
+### Path A — Academic reviewer (~45 min)
 
-Goal: understand the problem, the result, and what the project demonstrates.
+Read [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) end-to-end. It is structured
+as a journal paper (Abstract, Introduction, Background, Methods,
+Results, Discussion, Limitations, Conclusion, References). Cross-
+references to ADRs at every methodology decision. Bibliography includes
+external papers, project artifacts, and ADR citations.
 
-1. [Landing page](index.qmd): problem, setup, headline result, limits.
-2. [Project at a glance](docs/for-hiring-managers.md): 60-second
-   version of the problem, finding, trust basis, and candidate signal.
-3. [Results](RESULTS.md): skim Direct Prompt-Injection Performance and the
-   Cross-Family OOD table together.
-4. [Executive summary](EXECUTIVE_SUMMARY.md): one-page version if you want a
-   slightly fuller decision-maker view.
+If you want depth on a specific subsection, the methodology spokes are
+at [WRITEUP/](./WRITEUP/) — 8 files covering data decisions, evaluation
+design, model details, threshold policy, reference-scorer audit,
+methodology guarantees, reproducibility, and limitations + future work.
 
-What to take away: this is an honest two-sided result. Direct prompt-injection
-detection works on balanced validation, but that learned signal does not
-clearly transfer to different attack families.
+### Path B — Story reader (~30 min)
 
-## Path B: Technical Reviewer, 45-60 Minutes
+Read [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) end-to-end. It is
+structured as a 5-act story arc with an epilogue. Plain-English voice;
+defines technical terms on first use.
 
-Goal: decide whether the result is methodologically credible.
+The story's third act surfaces the headline finding dramatically (the
+anti-correlation result). The fourth act covers the 6 supporting
+findings as equal-weight enumeration so the headline doesn't drown out
+the rest.
 
-1. [Results](RESULTS.md): exact tables and canonical figures.
-2. [Writeup](WRITEUP.md): methodology hub.
-3. [Evaluation design](WRITEUP/eval-design.md): metric and CI rationale.
-4. [Data decisions](WRITEUP/data-decisions.md): source slate, dedup, leakage.
-5. [Reference-scorer audit](WRITEUP/reference-scorer-audit.md): ProtectAI
-   contamination caveats.
-6. [Decisions](decisions/README.md): ADR trail, especially ADR-016, ADR-022,
-   ADR-050, ADR-052, and ADR-062.
+### Path C — Hiring manager (60 seconds)
 
-## Path C: Reproduce, 30+ Minutes
+Read [Project at a glance](./docs/for-hiring-managers.md). Four
+questions: what problem, what found, why trust, how the candidate
+thinks. This is the shortest reader path.
 
-Goal: check that the numbers can be regenerated.
+### Path D — Reproducer (~30 min setup + ~$0 to ~$125 compute)
 
-```bash
-make install
-make test-smoke
-make eval-from-hub RUNG=frozen-probe
-make eval-from-hub RUNG=lora
-make site
-```
+Three tiers per [WRITEUP/reproducibility.md](./WRITEUP/reproducibility.md):
 
-For the full cloud path, see [reproducibility](WRITEUP/reproducibility.md).
+- **T0** — score-match against published HF Hub checkpoints (~$0, ~20 min)
+- **T1** — laptop smoke test (~$0, <10 min)
+- **T3** — full retraining on cloud GPU (~$125, hours; cost-capped per ADR-020)
 
-## Path D: Static Analysis Appendices, 20-30 Minutes
+Commands in [README §Reproduce — three tiers](./README.md#reproduce-three-tiers).
+Cost ledger at [evals/cost_ledger.csv](./evals/cost_ledger.csv).
 
-Goal: inspect the rendered per-cell results, calibration, and OOD slice breakdowns.
+### Path E — Just the numbers
 
-Four Jupytext-paired notebooks ship as static rendered HTML appendices with frozen output cells (per ADR-053 reading-guide governance + v1.0.7). Each is reachable from the sidebar **Notebooks** section on the rendered Quarto site:
+Read [RESULTS.md](./RESULTS.md). Tables-only appendix; no narrative
+prose. 5 canonical figures + raw artifact pointers.
 
-1. [`01_canonical_results`](notebooks/01_canonical_results.ipynb) — headline AUPRC + AUROC per trained detector, with bootstrap CIs and the random-floor reference line.
-2. [`02_frozen_vs_lora`](notebooks/02_frozen_vs_lora.ipynb) — 3-method cross-check (paired bootstrap deltas + DeLong + BH-FDR) on the frozen-probe vs LoRA gap.
-3. [`03_calibration`](notebooks/03_calibration.ipynb) — temperature + isotonic + Platt + Beta calibration on per-detector scores; reliability diagrams.
-4. [`04_ood_slate`](notebooks/04_ood_slate.ipynb) — per-OOD-slice AUPRC breakdown; identifies which sources drive the pooled-OOD gap.
+## Result map
 
-The notebooks render to static HTML on the Quarto site without re-execution.
-Operators regenerate the frozen outputs via `make notebooks` after pulling new
-evaluation parquets.
-
-## How To Read The Headline Numbers
-
-**AUPRC is not measured against 0.5.** For the pooled out-of-distribution slice
-(`pooled_ood`), random AUPRC is the positive rate: 412 positives / 1101 rows =
-0.374. The frozen probe scores 0.364, so it is at the random floor, not clearly
-above it.
-
-**Out-of-distribution (OOD) means cross-family here.** The training data is
-direct-injection-heavy. The OOD slate includes indirect injection,
-agentic-flow injection, jailbreak-style questions, and benign text that
-resembles attacks.
-
-**LoRA being below the floor matters.** Fine-tuning on the direct-injection
-training pool reduced pooled OOD AUPRC from 0.364 to 0.293. The sharper finding
-is under AUROC: LoRA scores 0.383 [0.374, 0.392], below the 0.5 random floor.
-TF-IDF + LR shows the same pattern at 0.371. CIs on both clear 0.5 on the
-wrong side; only the frozen probe stays above floor at 0.515. The mechanism
-is **lexical overfitting + a label-relevance shift** on the OOD slate ---
-NotInject (benign text engineered to look like direct injection) inverts the
-negative class; indirect/agentic attacks (no direct-injection lexical signal)
-invert the positive class. The lexical signal is internally consistent; it
-just stops tracking attack class on cross-family slices.
-
-**Reference scorers are diagnostic.** ProtectAI v1/v2 are useful comparison
-points, but their training-data disclosure creates contamination caveats.
-
-**Thresholds are not deployment recommendations.** The threshold analysis shows
-how scores behave under two cost regimes. It does not select a production
-policy.
-
-## Repo Map
-
-| Path | Contents |
+| Result section | Where it lives |
 |---|---|
-| `index.qmd` | first-reader landing page |
-| `EXECUTIVE_SUMMARY.md` | one-page summary |
-| `RESULTS.md` | exact tables, figures, artifacts |
-| `NEXT_STEPS.md` | completed carryforward log plus live future-work questions |
-| `WRITEUP.md` | methodology hub |
-| `WRITEUP/` | detailed methodology spokes |
-| `docs/plots/` | canonical F1-F5 figures with metadata sidecars |
-| `evals/` | metrics, bootstrap, operating points, predictions |
-| `decisions/` | ADRs and decision provenance |
-| `src/`, `scripts/`, `tests/` | implementation and tests |
+| Headline pooled OOD AUPRC | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §4.3](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3](./WRITEUP_NARRATIVE.md), [RESULTS §1](./RESULTS.md) |
+| Direct detection check | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §4.1](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3](./WRITEUP_NARRATIVE.md), [RESULTS §Direct Prompt-Injection Performance](./RESULTS.md) |
+| Mechanism (lexical overfitting + label-relevance shift) | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §5.1](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3](./WRITEUP_NARRATIVE.md) |
+| Context-window ablation | [WRITEUP_PAPER §4.4](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Finding 4](./WRITEUP_NARRATIVE.md), [RESULTS §1B](./RESULTS.md) |
+| Calibration | [WRITEUP_PAPER §4.7](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Finding 7](./WRITEUP_NARRATIVE.md), [RESULTS §5](./RESULTS.md) |
+| Threshold fragility | [WRITEUP_PAPER §4.6](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Finding 6](./WRITEUP_NARRATIVE.md), [RESULTS §4](./RESULTS.md) |
 
-## Submission Anchors
+## Glossary + decisions
 
-- Current state:
-  [`tree/v1.2.13`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.2.13)
-  (2026-05-21) --- live-site source
-- Original submission tag:
-  [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
-  (2026-05-18) --- preserved as historical reviewer pin per ADR-033
-- Live rendered site:
-  <https://brandon-behring.github.io/prompt-injection-detection-prototype/>
-- HF Hub checkpoints:
-  [frozen probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe)
-  and [LoRA](https://huggingface.co/BBehring/prompt-injection-lora)
+- **Glossary**: [docs/GLOSSARY.md](./docs/GLOSSARY.md) — all technical
+  terms used in either guide, with cross-references.
+- **Decisions**: 79 ADRs at [decisions/](./decisions/) lock the
+  methodology choices. Both guides cite specific ADRs at every
+  methodology decision point.
+- **Evidence trail**: [EVIDENCE.md](./EVIDENCE.md) for external-evidence
+  audit (training corpus contamination, reference scorer training
+  pools, etc.).
+
+## Submission anchors
+
+- **Current state**: [`tree/v1.3.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0)
+  (2026-05-21) — live-site source.
+- **Original submission tag**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
+  (2026-05-18) — preserved as historical reviewer pin per ADR-033.
+- **Live rendered site**: <https://brandon-behring.github.io/prompt-injection-detection-prototype/>.
+
+## Repo map
+
+See [README §Repository map](./README.md#repository-map).
