@@ -1,6 +1,11 @@
+---
+title: "Limitations and future work"
+description: "Scope deferrals, methodology caveats, architectures evaluated-and-dropped, and process lessons for the prompt-injection evaluation."
+---
+
 # Limitations and future work
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -19,7 +24,7 @@ caveats, §9 negative results (tried + abandoned), and §11 lessons.
 The distinction matters: §8 = scope decisions defensible at submission; §9 =
 experimental work that did not pan out; §11 = process-level
 lessons. For headline characterisation that exposes these
-limitations see [`../WRITEUP.md`](../WRITEUP.md) §Results.
+limitations see [WRITEUP_PAPER §6 Limitations](../WRITEUP_PAPER.md#limitations) (academic) or [WRITEUP_NARRATIVE Epilogue](../WRITEUP_NARRATIVE.md#epilogue--limits--reproduction) (narrative).
 
 ## 8.1 Scope deferrals
 
@@ -219,7 +224,7 @@ canonical fires that ARE worth documenting:
   data-augmentation research. Tracked as out-of-scope per Phase 0
   lock.
 
-## 9.4 What the negatives imply for v6
+## 9.4 What the negatives imply for a successor iteration
 
 The OOD generalization wall is the dominant signal. Three concrete
 suggestions for a successor iteration:
@@ -232,7 +237,7 @@ suggestions for a successor iteration:
    scope* or *fundamental classifier inadequacy*.
 2. **Pretrained backbone scaling** — frozen ModernBERT-base
    embeddings provide more OOD generalization than LoRA fine-tuning
-   does. A v6 ablation along backbone scale (ModernBERT-base 150M
+   does. A successor-iteration ablation along backbone scale (ModernBERT-base 150M
    → ModernBERT-large 400M; or a different backbone family) would
    test whether the OOD ceiling is backbone-capacity-limited.
 3. **OOD-aware threshold selection** — dual-policy thresholds fit
@@ -244,7 +249,7 @@ suggestions for a successor iteration:
 
 ## 9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary
 
-The headline AUPRC tables (WRITEUP §6 + RESULTS §1) show LoRA + TF-IDF + LR
+The headline AUPRC tables ([WRITEUP_PAPER §4.3](../WRITEUP_PAPER.md#trained-adapters-anti-correlated-with-cross-family-attack-class) + [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc)) show LoRA + TF-IDF + LR
 clustering at the pooled OOD random floor (0.374). The AUROC view says
 something stronger: both detectors score **below** the 0.5 random floor with
 CIs that clearly clear 0.5 on the wrong side:
@@ -280,7 +285,7 @@ floor because no LODO-pool adaptation aligned it with direct-injection
 lexical features.
 
 The §9.4 prescriptions (OOD-aware training data + backbone scaling +
-OOD-aware threshold selection) all bear on this finding. A v6 ablation
+OOD-aware threshold selection) all bear on this finding. A successor-iteration ablation
 that retains direct-injection training but adds cross-family signal would
 test whether the anti-correlation under AUROC is a function of
 training-distribution scope (fixable by widening the pool) or a deeper
@@ -303,7 +308,7 @@ or per-slice score histograms. A sharper next-iteration pressure-test would
 add a per-slice score-distribution table to `evals/` derived from the
 per-row predictions at `evals/predictions/<rung>__fold<F>__seed<S>__<source>.parquet`
 (see [`methodology-guarantees.md` §6.2 Prediction-persistence pattern](./methodology-guarantees.md)).
-Treated as v6 future work, not blocking for the v1.2.x characterisation.
+Treated as successor-iteration future work, not blocking for the v1.x characterisation.
 
 ---
 
@@ -312,7 +317,7 @@ Treated as v6 future work, not blocking for the v1.2.x characterisation.
 LODO + bootstrap-CI discipline cost vs delivered, and what going-in
 expectations proved wrong.*
 
-## §11 Lessons & reflections
+## §10 Lessons & reflections
 
 - **OOD generalization is genuinely hard, and the honest finding
   is methodologically richer than the "look at this great
@@ -367,14 +372,15 @@ expectations proved wrong.*
 **What surprised**: the OOD wall. The rung ladder had been expected
 to be a positive story (each rung adds something over the floor); the
 LoRA-fine-tuning regression on `pooled_ood` turned out to be the
-methodologically richest finding. Going forward (v6): the §9.4
+methodologically richest finding. Going forward (successor iteration): the §9.4
 prescriptions — OOD-aware training data, backbone scaling, OOD-
 aware threshold selection — would test whether the wall is
 data-distribution or capacity-bounded.
 
 ## Cross-references
 
-- **Headline characterisation that exposes these limitations** → [`../WRITEUP.md`](../WRITEUP.md) §Results
+- **Headline characterisation that exposes these limitations**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
+- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc)
 - **Adversarial robustness scope (§5.6)** → [`reference-scorer-audit.md`](./reference-scorer-audit.md)
 - **NEXT_STEPS forward-looking work** → [`../NEXT_STEPS.md`](../NEXT_STEPS.md)
 - **Upstream issues ledger** → [`../decisions/upstream_issues.md`](../decisions/upstream_issues.md)

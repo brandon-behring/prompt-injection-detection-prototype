@@ -20,6 +20,279 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.1] — 2026-05-22
+
+**Audit fix-forward**: post-v1.3.0 fresh-eyes audit of the live
+GH-Pages deployment surfaced 7+ factual / stale-reference / polish
+defects. Each fix verified via independent re-derivation from
+`evals/*.parquet` source-of-truth (Q2 lock: "go back to the original
+resources and redo any calculation that can be independently
+re-examined; do not take any written record for granted"). Plus a
+new release-gate invariant (`scripts/audit_numbers.py`) to catch the
+cross-guide numeric-divergence class going forward.
+
+**Summary of the 5 sub-PRs landed into `release/v1.3.1`** (each
+sub-PR section below documents its detailed fix list):
+
+- **PR-1**: ADR-080 axis-only supersession of ADR-078 + ADR-079 on
+  reviewer-URL-pin numeric axis (`tree/v1.2.8` → `tree/v1.0.0` per
+  ADR-033). ADR count cascade 79 → 80 across 7 reader-facing
+  surfaces.
+- **PR-2**: Class-A factual + numeric fixes (PAPER §4.6 frozen-probe
+  FPR 0.6% → 1.0%; PAPER §3.3 BIPIA n=56 → n=50, InjecAgent n=56 →
+  n=62; F4 → F5 figure-label fix in PAPER §4.7 + NARRATIVE Finding 7;
+  NARRATIVE Act 4 "Six more findings" → "Four more findings" + Act 3
+  explicit Findings 1-3; NARRATIVE Finding 4 §-numbering leak fix;
+  GLOSSARY rung/detector clarifier overcount + drop LLM judges;
+  READING_GUIDE result-map Finding 2 row added). Includes
+  `scripts/audit_numbers.py` invariant + pre-commit hook.
+- **PR-3**: Class-B 3-tier mixed-by-purpose retargeting of 22+ stale
+  "WRITEUP-as-hub" references across 8 WRITEUP/ spokes + 3 non-spoke
+  surfaces (RESULTS.md, site-reader-map.md, for-hiring-managers.md).
+- **PR-4**: Class-C/D polish (limitations §11 → §10 numbering gap
+  closure; "v6" → "successor iteration"; Quarto frontmatter added to
+  6 spokes missing it). Plus `scripts/audit_internal_anchors.py`
+  intra-site dead-anchor detector (manual-run; Q8 lychee-in-pre-commit
+  deferred to v1.3.2 candidate).
+- **PR-5**: Q6 README chooser clarity (above-fold pointer + H2
+  rename "Read the site" → "Pick a guide for the full methodology" +
+  end-of-Executive-Summary chooser transition).
+
+**Governance**: ADR-080 (NEW; axis-only supersession of ADR-078 +
+ADR-079 on the reviewer-URL-pin numeric axis). 80 ADRs total at
+v1.3.1 close. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+**Preventive guardrails**: `scripts/audit_numbers.py` (release-gate
+invariant; pre-commit hook; 23 numeric checks against `evals/*.parquet`)
++ `scripts/audit_internal_anchors.py` (manual-run intra-site anchor
+resolver).
+
+**Decision trail**: see `~/.claude/plans/i-want-to-audit-abundant-meerkat.md`
+for the 9-question /exploring-options walk-through (Q1 ADR-fix path;
+Q2 re-derivation discipline; Q3 NARRATIVE findings-count alignment;
+Q4 3-tier retargeting; Q5 frontmatter polish scope; Q6 README chooser
+clarity; Q7 sub-PR strategy; Q8 preventive guardrails; Q9 numbering +
+v6 polish). Transcript: `transcripts/2026-05-22__v1-3-1-audit-fix.md`
+(gitignored; `/save-transcript` will land post-tag).
+
+---
+
+### v1.3.1 sub-PR-5 — README chooser clarity (Q6 A+B+C)
+
+**Defect**: Live README chooser was present but discoverability was
+poor. A GitHub-arriving reader (who doesn't see the Quarto sidebar)
+sees: title → 1-sentence framing → Executive Summary (multi-screen:
+OOD table + mechanism + direct-detection tables) → "Read the site"
+header. The chooser was several scrolls below the fold; the label
+"Read the site" didn't telegraph that this is where you pick between
+PAPER and NARRATIVE. By the time many readers reached the chooser,
+they'd decided they'd gotten what they came for.
+
+**Fix (Q6 lock A+B+C)**:
+
+- **A. Above-the-fold pointer**: inserted a 1-line pointer immediately
+  after the badges + 1-sentence framing, before `## Executive
+  summary`. Names both guides with their length estimates:
+  > Pick a guide for the full methodology — both cover the same
+  > content: WRITEUP_PAPER.md (academic IMRAD, ~45 min) or
+  > WRITEUP_NARRATIVE.md (narrative arc, ~30 min). The executive
+  > summary below is the 1-page distillation; pick a guide for the
+  > full read.
+- **B. Renamed H2 "Read the site" → "Pick a guide for the full
+  methodology"**: telegraphs reader-intent + matches `index.qmd`'s
+  "Pick your reading style" H2 label. Aligns the two entry surfaces
+  (README + index) on chooser-prominence framing.
+- **C. End-of-Executive-Summary chooser transition**: added an inline
+  transition at the close of the Executive Summary section:
+  > → Continue with the academic paper (~45 min) or the narrative
+  > (~30 min). Both cover the same methodology, findings, and
+  > limitations in different reading styles.
+  Provides a second discovery point for readers who scrolled through
+  the exec-summary.
+
+(D considered but rejected): Reorder chooser items to put the 60-sec
+tour first. Rejected because current depth-first ordering matches the
+academic-reviewer-first prioritization per ADR-004, and the 60-second
+tour is already discoverable from the navbar Reference dropdown +
+index.qmd's chooser.
+
+### v1.3.1 sub-PR-4 — Class-C/D polish + scripts/audit_internal_anchors.py + anchor-link cleanup
+
+**Polish (Q5 + Q9 locks)**:
+
+- **Quarto frontmatter added to 6 spokes** that were missing it: data-decisions,
+  eval-design, limitations-and-future-work, methodology-guarantees,
+  reference-scorer-audit, threshold-policy. Pattern from `model-rungs.md` +
+  `reproducibility.md` (the 2 spokes that had it already). Pre-fix: browser
+  tab titles rendered as slug (`data-decisions – ...`); post-fix: proper
+  title (`Data decisions – ...`). SEO + tab labels + bookmark titles improve.
+- **`WRITEUP/limitations-and-future-work.md §11 → §10 renumber** closes the
+  §10 gap (8.1, 8.2, 9.1-9.5, then jumped to §11; now flows 8.1 → 8.2 →
+  9.1-9.5 → §10).
+- **`WRITEUP/limitations-and-future-work.md` "v6" → "a successor iteration"**
+  (4 occurrences): §9.4 header + 3 body references. "v6" was anomalous in a
+  v1.x project (likely stale early-draft language); replaced with
+  style-neutral wording that doesn't bind to a specific version.
+
+**Anchor-link cleanup (post-PR-3 follow-up)**:
+
+PR-3's spoke-retargeting introduced anchors of the form `#43-trained-...`
++ `#46-validation-...` + `#1-cross-family-ood-table-auprc` etc. (carrying
+the leading section-number prefix). Quarto's auto-identifier algorithm
+strips numeric prefixes — actual anchors are `#trained-...`,
+`#validation-...`, `#cross-family-ood-table-auprc`. Batched all
+PR-3-introduced anchors to the prefix-stripped form. Verified via the
+new `scripts/audit_internal_anchors.py` (re-runs clean after the fix).
+
+**Preventive guardrail (partial Q8 — see follow-up)**:
+
+- `scripts/audit_internal_anchors.py` — markdown-only intra-site anchor
+  resolver. Catches dead anchors of the form `[link](./WRITEUP.md#results)`
+  where the target file has no `results` anchor. The exact failure class
+  Lane-3 surfaced (`WRITEUP.html#results` dead anchor). Manual-run for now.
+- **Q8 lychee-in-pre-commit deferred**: lychee binary not installed
+  locally + audit_internal_anchors surfaces 9 pre-existing dead anchors
+  (CHANGELOG self-references to numbered headings + GLOSSARY self-references
+  with em-dash slug-mismatch). These pre-date this audit. Fix-up patch
+  v1.3.2 candidate; deferred to keep v1.3.1 scope tight to "audit
+  fix-forward". CI lychee continues to catch these post-tag.
+
+### v1.3.1 sub-PR-3 — Class-B stale "WRITEUP-as-hub" retargeting (3-tier rule per Q4 lock)
+
+**Defect**: 22+ references across 8 `WRITEUP/*.md` spokes + 3 non-spoke
+surfaces described WRITEUP.md as "the hub" with "cover narrative" and
+linked to `WRITEUP.md §Results` — but post-v1.3.0 (per ADR-079)
+WRITEUP.md is a 1-page router with no §Results, no §6, no cover
+narrative. Live-verified that `WRITEUP.html#results` is a dead anchor
+(`document.getElementById('results') === null`); every spoke click on
+"see WRITEUP §Results" was landing on a router page with nothing to
+read.
+
+**Fix** (3-tier mixed-by-purpose retargeting per Q4 lock):
+
+- **Tier 1 — Spoke headers (8 of 8)**: Replaced "*Part of the WRITEUP
+  methodology — see the hub for the cover narrative + reading guide.*"
+  with "*Deep-dive reference for the methodology in WRITEUP_PAPER.md
+  (academic) and WRITEUP_NARRATIVE.md (narrative). Pick a guide for
+  the cover narrative; this spoke goes deeper.*"
+- **Tier 2 — Body inline "WRITEUP §X" references**: retargeted per
+  reader-intent — "headline finding" → WRITEUP_PAPER §4.3 + NARRATIVE
+  Act 3; "headline results" tables → RESULTS §1; "WRITEUP §6 +
+  Methodology caveats" → WRITEUP_PAPER §6 Limitations; "WRITEUP §7.5
+  val→test transfer" (legacy hybrid-section numbering) → RESULTS §4
+  + WRITEUP_PAPER §4.6 / NARRATIVE Finding 6; "WRITEUP §Results
+  §Frozen probe vs adapter fine-tuned" → RESULTS §2.
+- **Tier 3 — Spoke Cross-References sections (8 of 8)**: each
+  "Headline results → WRITEUP §Results" line became a two-link
+  pattern: "**Headline results (interpretation)**: WRITEUP_PAPER §4
+  (academic) or WRITEUP_NARRATIVE Act 3 (narrative); **Headline
+  tables (data)**: RESULTS §1".
+- **Non-spoke surfaces**: `RESULTS.md` line 310, `docs/site-reader-map.md`
+  line 14, `docs/for-hiring-managers.md` line 96 all updated to point
+  at WRITEUP_PAPER + WRITEUP_NARRATIVE instead of describing WRITEUP.md
+  as the hub.
+
+**Net effect**: every click lands at the right depth; register-matched
+(academic spoke → PAPER for prose; data link → RESULTS); both-guide
+chooser preserved at spoke top + bottom only (not redundantly inline).
+The only remaining `WRITEUP.md` references are intentional router-page
+labels ("1-page router", "Writeup chooser").
+
+### v1.3.1 sub-PR-2 — Class-A factual + numeric fixes + scripts/audit_numbers.py invariant
+
+**Defects** (surfaced by 2026-05-22 fresh-eyes audit; verified by
+independent re-derivation from `evals/*.parquet` per `/exploring-options`
+Q2 lock — "go back to the original resources and redo any calculation
+that can be independently re-examined; do not take any written record
+for granted"):
+
+1. **`WRITEUP_PAPER.md` §4.6 frozen-probe Mean test FPR cited as 0.6%.**
+   Actual value: 1.0% (re-derived as 1.028% mean across 12 (fold, seed)
+   cells from `evals/operating_points/dual_policy.parquet`, rung
+   `frozen_probe`, policy `detection`). Fixed to **1.0%**.
+   Cross-checked: `WRITEUP_NARRATIVE.md` Finding 6 said "Frozen probe
+   holds the 1% target" (correct); `RESULTS.md` §4 says Test FPR 0.010
+   (correct). Only PAPER §4.6 was wrong; cross-guide consistency
+   restored.
+2. **`WRITEUP_PAPER.md` §3.3 evaluation slate table cited BIPIA n=56 +
+   InjecAgent n=56.** Actual per-slice positive counts (from
+   `evals/predictions/*__bipia.parquet` + `*__injecagent.parquet` row
+   counts): BIPIA n=**50**, InjecAgent n=**62**. Total 112 (unchanged;
+   matches pooled OOD positive arithmetic). Cross-checked:
+   `WRITEUP/limitations-and-future-work.md` §8.1 said `BIPIA n=50,
+   InjecAgent n=62` (correct). Only PAPER §3.3 was wrong; fixed.
+3. **F4/F5 figure-label inversion.** PAPER §4.7 + NARRATIVE Finding 7
+   both linked `Figure F4` for reliability diagrams. Per
+   `docs/plots/F4.meta.json` source = `dual_policy.parquet`, F4 is the
+   **threshold-transfer** figure; per `docs/plots/F5.meta.json` source
+   = `per_cell.parquet`, F5 is the **calibration** figure. RESULTS.md
+   uses both correctly (F4 caption: "Detection-threshold transfer"; F5
+   caption: "Calibration comparison"). Fixed PAPER + NARRATIVE links
+   to F5.
+4. **`WRITEUP_NARRATIVE.md` Act 4 intro asserted "Six more findings"**
+   but enumerated only Finding 4..7 (4 findings). Cross-guide finding
+   parity with PAPER's 7 equal-weight findings (§4.1-4.7) restored by
+   the Q3 hybrid lock: NARRATIVE Act 3 now names Findings 1 (direct
+   detection learned), 2 (OOD wall is cross-family), 3 (anti-correlation
+   headline) explicitly via short anchored sub-section headers; Act 4
+   intro reworded to "Four more findings". 7-finding parity preserved.
+5. **`WRITEUP_NARRATIVE.md` Finding 4 referenced "§4.1"** — PAPER's
+   §-numbered anchor convention leaking into a narrative-arc document
+   with no §4.1. Rephrased to NARRATIVE-native: "the ModernBERT advantage
+   we saw on the in-pool direct-detection task (Act 3's strong
+   validation numbers)".
+6. **`docs/GLOSSARY.md` rung/detector clarifier overcounted** by
+   listing "5 evaluated approaches" then enumerating 7 items including
+   the dropped LLM-judge tier (dropped at ADR-050; never in the
+   headline ladder). Rewritten to 5 ladder rungs explicitly + a note
+   on the dropped LLM-judge tier.
+7. **`READING_GUIDE.md` result map silently omitted PAPER §4.2** (the
+   OOD wall is cross-family, not source-level — Finding 2). Added an
+   explicit row mapping Finding 2 → PAPER §4.2 / NARRATIVE Act 3
+   Finding 2 / WRITEUP/eval-design §5.5.
+
+**Preventive guardrail**: `scripts/audit_numbers.py` lands as a
+release-gate invariant (per Q8 lock). Re-derives every reader-visible
+number from `evals/*.parquet` source-of-truth + diffs against extracted
+writeup numbers; exits non-zero on drift. Hooked into pre-commit;
+output to `evals/audit/numeric_audit.json`. 23 checks pass on this
+commit (catches the exact defect-class that surfaced this audit).
+
+### v1.3.1 sub-PR-1 — ADR-080 reviewer-URL-pin numeric correction (axis-only supersession of ADR-078 + ADR-079)
+
+**Defect**: ADR-078 + ADR-079 + WRITEUP.md cited `tree/v1.2.8` as the
+reviewer URL pin "per ADR-033", but ADR-033 canonically pins
+`tree/v1.0.0` (never-drift discipline; CHANGELOG v1.3.0 confirmed).
+ADR-078 even self-contradicted within a single paragraph
+(line 163 `tree/v1.0.0`; line 164 `tree/v1.2.8`). Surfaced by the
+2026-05-22 fresh-eyes audit of the live GH-Pages deployment.
+
+**Fix**:
+
+- **ADR-080** (`decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md`)
+  — NEW; axis-only supersession of ADR-078 + ADR-079 on the
+  reviewer-URL-pin numeric axis only. Bodies of ADR-078 + ADR-079
+  unchanged per CLAUDE.md immutability; their `superseded_by:`
+  frontmatter backfilled to `["080"]` per ADR-076 / ADR-077
+  frontmatter-backfill narrow-relaxation discipline.
+- **WRITEUP.md** — `tree/v1.2.8` → `tree/v1.0.0` (mutable file edit;
+  cites ADR-080 for the correction trail).
+- **ADR count cascade 79 → 80** across 7 reader-facing surfaces:
+  README + WRITEUP + WRITEUP_NARRATIVE + READING_GUIDE +
+  for-hiring-managers + WRITEUP/methodology-guarantees + CLAUDE.md.
+  `scripts/audit_adr_count_claims.py` fires correctly for the 6th
+  time across the v1.2.13 → v1.2.14 → v1.2.15 → v1.2.16 → v1.3.0 →
+  v1.3.1 trail.
+- **SUBMISSION_AUDIT.md** regenerated; CLAIM row count 79 → 80.
+
+**Why axis-only supersession (not in-place narrow-relaxation)**:
+the four CLAUDE.md narrow-relaxation classes (slug typo / broken
+external ref / publisher-URL canonicalization / render-only Markdown)
+cover surface defects only; the v1.2.8 claim IS the prose intent of
+ADR-078 + ADR-079's Consequences sections (a factual claim about a
+tag commitment). Correcting it is a meaningful claim change that
+warrants supersession discipline, not in-place rewriting.
+
 ## [1.3.0] — 2026-05-22
 
 **Two-guide reader architecture: WRITEUP_PAPER (academic IMRAD) +

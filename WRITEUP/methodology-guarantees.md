@@ -1,6 +1,11 @@
+---
+title: "Methodology guarantees"
+description: "Three-library tooling split, prediction-persistence pattern, SDD discipline, and library-first invariant for the prompt-injection evaluation."
+---
+
 # Methodology guarantees
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -9,7 +14,7 @@
 
 - **Three-library tooling split**: `eval-toolkit` (methodology-aware harness — bootstrap CIs / calibration / leakage / splits / paired-bootstrap), `runpod-deploy` (cloud orchestration), `research_toolkit` (literature dossier pipeline). Each survives across iterations as a durable knowledge artifact.
 - **Prediction-persistence pattern [LOCKED]**: 282 prediction parquets persisted per ADR-013 + ADR-021 so downstream threshold / calibration analyses run from artifacts without re-running inference.
-- **SDD / ADR process**: 79 ADRs accepted across Phase 0-00 through ADR-079 (ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture governance closures); each significant decision locked before code; `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard-gate per ADR-039).
+- **SDD / ADR process**: 80 ADRs accepted across Phase 0-00 through ADR-080 (ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture + ADR-080 reviewer-URL-pin numeric correction; v1.3.0 + v1.3.1 governance closures); each significant decision locked before code; `SUBMISSION_AUDIT.md` regenerates from ADR frontmatter via `scripts/regenerate_audit.py` (CI hard-gate per ADR-039).
 - **Library-first invariant** (project-wide per Phase 4 Q6 reaffirmation): audit `eval-toolkit + runpod-deploy + research_toolkit` BEFORE writing project glue. Upstream gaps land in `decisions/upstream_issues.md` before any local workaround. ADR-047 retrofitted 4 hand-rolls in a single carryforward refactor.
 :::
 
@@ -17,7 +22,7 @@ This spoke covers §6 — the three-library tooling split + SDD / ADR
 process discipline that backs every methodology claim in the
 writeup. For the statistical apparatus that consumes these
 guarantees see [`eval-design.md`](./eval-design.md); for headline
-results see [`../WRITEUP.md`](../WRITEUP.md) §Results.
+results see [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative); for the data tables alone see [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc).
 
 ## 6.1 [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) — methodology-aware evaluation harness
 

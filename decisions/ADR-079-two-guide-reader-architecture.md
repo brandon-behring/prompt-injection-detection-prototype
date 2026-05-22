@@ -49,6 +49,7 @@ supersedes:
   - "054"  # same axis as ADR-053 supersession above — on the "RESULTS.md as third entry artifact" framing axis only; RESULTS becomes an appendix/tables-only reference in v1.3.0, not an entry artifact. Decision-axis only.
   - "061"  # same axis — on the "Quarto site navigation restructure" axis only; navbar gains 'Academic paper' + 'Narrative arc' entries; sidebar 'Entry' section drops EXECUTIVE_SUMMARY; 'Methodology guides (pick a style)' section introduces the two guides. Decision-axis only.
 superseded_by:
+  - "080"  # on the reviewer-URL-pin numeric axis only (line 228 + line 291 "tree/v1.2.8 per ADR-033" corrected to tree/v1.0.0 per ADR-033); two-guide-reader-architecture decision content unchanged
 acceptance_criterion: >-
   `ls WRITEUP_PAPER.md WRITEUP_NARRATIVE.md` returns both files.
   `head -3 WRITEUP_PAPER.md` shows the academic IMRAD title +

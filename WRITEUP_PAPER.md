@@ -202,8 +202,8 @@ Each LODO fold's test slate aggregates five OOD slices:
 
 | Slice | Source | Composition | Attack class |
 |---|---|---|---|
-| BIPIA | Bochum-NLP/bipia | n=56 positive (all-positive slice) | indirect injection |
-| InjecAgent | uiuc-kang-lab/InjecAgent | n=56 positive (all-positive slice) | agentic-flow injection |
+| BIPIA | Bochum-NLP/bipia | n=50 positive (all-positive slice) | indirect injection |
+| InjecAgent | uiuc-kang-lab/InjecAgent | n=62 positive (all-positive slice) | agentic-flow injection |
 | JBB-Behaviors | JailbreakBench/JBB-Behaviors | n=100 positive + 100 negative | jailbreak-style questions |
 | XSTest | natolambert/xstest | n=200 positive + 250 negative | jailbreak/safe-question discrimination |
 | NotInject | dattaroh/NotInject | n=339 negative (all-negative slice) | benign-but-injection-shaped (false-positive test) |
@@ -298,7 +298,7 @@ direct-injection-heavy and includes none of these families.
 The result is that direct-injection training does not transfer
 cleanly to these cross-family slices. Per-slice AUPRC (where defined,
 i.e., the both-class slices JBB and XSTest) is reported in
-[RESULTS.md §3 Per-Slice View](./RESULTS.md#3-per-slice-view).
+[RESULTS.md §3 Per-Slice View](./RESULTS.md#per-slice-view).
 
 ### §4.3 Trained adapters anti-correlated with cross-family attack class
 
@@ -346,7 +346,7 @@ Practical implication: detector updates should be evaluated against
 the actual slice mix that matters for the deployment, not on a single
 aggregate metric.
 
-Cross-version comparisons in [RESULTS.md §6 Secondary Table: AUROC](./RESULTS.md#6-secondary-table-auroc).
+Cross-version comparisons in [RESULTS.md §6 Secondary Table: AUROC](./RESULTS.md#secondary-table-auroc).
 
 ### §4.6 Validation thresholds are fragile under cross-family shift
 
@@ -356,14 +356,18 @@ data. Mean test FPR by detector:
 
 | Detector | Mean test FPR | Mean test recall |
 |---|---:|---:|
-| TF-IDF + LR | 6.7% | (see RESULTS §4) |
-| ModernBERT LoRA | 11.5% | (see RESULTS §4) |
-| ModernBERT frozen probe | 0.6% | ~6% recall |
+| TF-IDF + LR | 6.7% | 33.3% |
+| ModernBERT LoRA | 11.5% | 42.4% |
+| ModernBERT frozen probe | 1.0% | 6.3% |
 
-The 1% FPR validation target does not hold on held-out test sources
-for the trained detectors. The frozen probe holds the FPR target but
-catches only about 6% of positives, indicating a non-deployable
-operating point under this policy framing.
+The 1% FPR validation target holds only for the frozen probe (1.0%
+on test, within sampling noise of the 1% target). The trained
+detectors significantly exceed it (LoRA 11.5%, TF-IDF + LR 6.7%
+against a 1% target). The frozen probe holds the FPR target but
+catches only 6.3% of positives, indicating a non-deployable
+operating point under this policy framing. All numbers verified by
+re-derivation from `evals/operating_points/dual_policy.parquet` via
+`scripts/audit_numbers.py`.
 
 Threshold-transfer behavior in [WRITEUP/threshold-policy.md](./WRITEUP/threshold-policy.md).
 
@@ -379,8 +383,8 @@ simultaneously fitting the direct training pool, reinforcing the
 §4.1-§4.3 conclusion that direct-pattern learning and cross-family
 score behavior are distinct capabilities.
 
-Full calibration battery in [RESULTS.md §5 Calibration](./RESULTS.md#5-calibration)
-and [Figure F4 reliability diagrams](./docs/plots/F4.svg).
+Full calibration battery in [RESULTS.md §5 Calibration](./RESULTS.md#calibration)
+and [Figure F5 calibration comparison](./docs/plots/F5.svg).
 
 ---
 

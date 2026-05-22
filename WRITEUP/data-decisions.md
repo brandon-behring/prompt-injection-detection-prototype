@@ -1,6 +1,11 @@
+---
+title: "Data decisions"
+description: "Source slate, deduplication discipline, leakage handling, and LODO split structure for the prompt-injection evaluation."
+---
+
 # Data decisions
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -13,10 +18,13 @@
 - **Splits structure**: source-disjoint LODO (4-fold; 3 seeds = 12 cells per rung) per ADR-016. Field-standard choice when ≥3 positive sources are available (Fomin 2025, "When Benchmarks Lie").
 :::
 
-This spoke covers §3 of the methodology narrative — source slate
-selection, dedup discipline, leakage handling, and split structure.
-For the headline characterisation that consumes these decisions, see
-[`../WRITEUP.md`](../WRITEUP.md) §Results.
+This spoke covers data-slate decisions — source selection, dedup
+discipline, leakage handling, and split structure. For the headline
+characterisation that consumes these decisions, see
+[WRITEUP_PAPER §4 Results](../WRITEUP_PAPER.md#results) (academic)
+or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation)
+(narrative); for the numbers + figures alone see
+[RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc).
 
 ## 3.1 Why these sources
 

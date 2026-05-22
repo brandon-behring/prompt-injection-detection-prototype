@@ -81,7 +81,7 @@ See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
 
 ## 4. What does this say about how the candidate thinks?
 
-- **Spec-Driven Development**: 79 immutable Architecture Decision Records
+- **Spec-Driven Development**: 80 immutable Architecture Decision Records
   (ADRs) lock methodology choices *before* code is written. Browse
   [decisions/](../decisions/) for the justification trail.
 - **Confound-control discipline**: when the headline result raised the natural
@@ -93,11 +93,14 @@ See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
   libraries (`eval-toolkit`, `runpod-deploy`, `research_toolkit`); local code
   is project-specific glue. See [`decisions/library_imports.md`](../decisions/library_imports.md).
 
-If you want the deeper read, the [WRITEUP hub](../WRITEUP.md) carries the cover
-narrative and links to 8 topic spokes: data decisions, model details,
-evaluation design, threshold policy, reference-scorer audit, methodology
-guarantees, limitations and future work, and reproducibility. The full
-reading-guide is at [`READING_GUIDE.md`](../READING_GUIDE.md).
+If you want the deeper read, pick a guide:
+[WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic IMRAD; ~45 min) or
+[WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (5-act narrative; ~30 min)
+— both cover the same content + cite the 8 topic spokes
+([WRITEUP/](../WRITEUP/)) for deep dives on data decisions, model
+details, evaluation design, threshold policy, reference-scorer audit,
+methodology guarantees, limitations + future work, and reproducibility.
+The full reading-guide is at [`READING_GUIDE.md`](../READING_GUIDE.md).
 
 If you want the supporting analysis, the **Notebooks** sidebar section provides
 4 static rendered appendices with frozen output cells: per-cell results,

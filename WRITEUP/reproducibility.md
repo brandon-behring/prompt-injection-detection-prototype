@@ -5,7 +5,7 @@ description: "Documents the T0 + T1 + T3 reproducibility tier ladder per ADR-034
 
 # Reproducibility
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -156,7 +156,8 @@ The tier ladder maps approximately onto [ACM Artifact Review and Badging (v1.1)]
 ## Cross-references
 
 - **Methodology guarantees** (eval-toolkit + runpod-deploy + SDD discipline that backs T0/T1/T3) → [`methodology-guarantees.md`](./methodology-guarantees.md)
-- **Headline results consumed by T0 score-match** → [`../WRITEUP.md`](../WRITEUP.md) §Results
+- **Headline results consumed by T0 score-match (interpretation)**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
+- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc)
 - **Evaluation primitives + statistical apparatus** → [`eval-design.md`](./eval-design.md)
 - **Model-rung publication scope** (canonical fold0/seed42 per ADR-032) → [`model-rungs.md`](./model-rungs.md)
 - **Aggregator docs (Makefile targets + manifest schema)** → [`../docs/REPRODUCIBILITY.md`](../docs/REPRODUCIBILITY.md)

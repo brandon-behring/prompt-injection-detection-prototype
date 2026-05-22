@@ -29,6 +29,10 @@ repos:
             "accelerate>=1.0",
             "pydantic>=2.5",
             "anthropic>=0.40",
+            # v1.3.1 PR-2: scripts/audit_numbers.py reads parquets via pyarrow + computes
+            # via scikit-learn. Required for mypy --strict to resolve imports.
+            "pyarrow>=17",
+            "scikit-learn>=1.5",
           ]
         args: [--strict]
         # v1.2.8: notebooks/ are folder-paired Jupytext exploratory code with
@@ -72,3 +76,25 @@ repos:
         language: system
         pass_filenames: false
         files: '^decisions/ADR-.*\.md$'
+      - id: audit-numbers
+        # v1.3.1 Q8 lock: re-derive every reader-visible number from
+        # evals/*.parquet source-of-truth (frozen-probe FPR + BIPIA +
+        # InjecAgent slice n + headline AUPRC / AUROC / direct-detection
+        # validation + LODO recall + random AUPRC floor). Catches the
+        # cross-guide numeric-divergence class of error surfaced by the
+        # 2026-05-22 fresh-eyes audit. Triggers on any change to a writeup,
+        # an eval parquet, or the audit script itself.
+        #
+        # language: python (not system) — CI's pre-commit job runs in a
+        # bare Python env without project deps; we list pandas/pyarrow/
+        # scikit-learn as additional_dependencies so the hook has what
+        # it needs to re-derive metrics.
+        name: Reader-visible numbers match evals/*.parquet re-derivation
+        entry: python scripts/audit_numbers.py --quiet
+        language: python
+        additional_dependencies:
+          - "pandas>=2.2"
+          - "pyarrow>=17"
+          - "scikit-learn>=1.5"
+        pass_filenames: false
+        files: '^(README\.md|WRITEUP_PAPER\.md|WRITEUP_NARRATIVE\.md|RESULTS\.md|docs/for-hiring-managers\.md|docs/GLOSSARY\.md|WRITEUP/model-rungs\.md|WRITEUP/limitations-and-future-work\.md|evals/.*\.parquet|scripts/audit_numbers\.py)$'

@@ -11,7 +11,7 @@ ledgers unless you are auditing provenance.
 
 - **Fast scan**: [`Project at a glance`](for-hiring-managers.md) gives the fastest read on what was built, what worked, and what failed.
 - **Results-first technical read**: [`Results`](../RESULTS.md) gives the direct-detection and OOD-generalization findings before the methodology details.
-- **Full narrative**: [`WRITEUP`](../WRITEUP.md) is the hub for the complete technical story.
+- **Full methodology read** (pick a register): [`WRITEUP_PAPER`](../WRITEUP_PAPER.md) is the academic IMRAD version (~45 min); [`WRITEUP_NARRATIVE`](../WRITEUP_NARRATIVE.md) is the narrative-arc version (~30 min); [`WRITEUP`](../WRITEUP.md) is a 1-page router that points at the two guides.
 - **Repository scan**: [`README`](../README.md) is the GitHub-front-door version of the same story.
 
 ## Evidence and audit trail

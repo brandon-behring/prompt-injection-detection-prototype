@@ -1,6 +1,11 @@
+---
+title: "Threshold policy"
+description: "Dual-policy detection (FPR <= 1%) + verification (recall >= 99%) operating-point characterisation for the prompt-injection evaluation."
+---
+
 # Threshold policy
 
-*Part of the [WRITEUP methodology](../WRITEUP.md) — see the hub for the cover narrative + reading guide.*
+*Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.
 
@@ -9,7 +14,7 @@
 
 - **Dual-policy framing**: the same classifier scores are configured at two cost-weight thresholds — **detection** (FPR ≤ 1 %) for low-flag-rate triage, **verification** (recall ≥ 99 %) for must-catch-all-attacks queueing. Both reported side by side per ADR-025.
 - **Scope bound**: dual-policy operating-point characterisation applies only to **in-house rungs**. Reference scorers carry training-overlap caveats that make operating-point characterisation misleading; only recall@FPR pinpoints are reported for those.
-- **Key val→test transfer finding**: all 72 op-points are reachable on val; transfer to LODO held-out test is partial-to-poor. The val→LODO gap is the dominant calibration story per WRITEUP §Results §7.5.
+- **Key val→test transfer finding**: all 72 op-points are reachable on val; transfer to LODO held-out test is partial-to-poor. The val→LODO gap is the dominant calibration story per [WRITEUP_PAPER §4.6](../WRITEUP_PAPER.md#validation-thresholds-are-fragile-under-cross-family-shift) / [WRITEUP_NARRATIVE Finding 6](../WRITEUP_NARRATIVE.md#finding-6-validation-thresholds-are-fragile) and [RESULTS §4](../RESULTS.md#threshold-transfer).
 - **LoRA detection on test**: mean FPR creeps to 0.115 (11.5×) vs 1 % target. Recall trades favorably (0.42) for the higher FPR.
 - **Frozen-probe verification on test**: mean recall lands at 0.957 (close to 0.99 target) BUT at mean FPR 0.891 — almost everything is flagged positive. Verification regime over-floods at the cost of selectivity on LODO.
 :::
@@ -20,7 +25,7 @@ scores are configured to two different cost-weight thresholds; what
 those thresholds deliver on validation and how they transfer to LODO
 held-out test is the story. For headline metrics + statistical
 apparatus see [`eval-design.md`](./eval-design.md); for the §7.5 val-
-to-test transfer findings see [`../WRITEUP.md`](../WRITEUP.md) §Results.
+to-test transfer findings see [WRITEUP_PAPER §4.6](../WRITEUP_PAPER.md#validation-thresholds-are-fragile-under-cross-family-shift) (academic) / [WRITEUP_NARRATIVE Finding 6](../WRITEUP_NARRATIVE.md#finding-6-validation-thresholds-are-fragile) (narrative); for the threshold table see [RESULTS §4](../RESULTS.md#threshold-transfer).
 
 ## Context
 
@@ -143,7 +148,8 @@ compute.
 ## Cross-references
 
 - **Headline metrics + statistical apparatus that consume thresholds** → [`eval-design.md`](./eval-design.md)
-- **§7.5 val→test transfer findings (full narrative)** → [`../WRITEUP.md`](../WRITEUP.md) §Results
+- **Val→test transfer findings (full narrative)** → [WRITEUP_PAPER §4.6](../WRITEUP_PAPER.md#validation-thresholds-are-fragile-under-cross-family-shift) (academic) or [WRITEUP_NARRATIVE Finding 6](../WRITEUP_NARRATIVE.md#finding-6-validation-thresholds-are-fragile) (narrative)
+- **Threshold-transfer table** → [RESULTS §4](../RESULTS.md#threshold-transfer)
 - **Per-row predictions schema (where thresholds are applied)** → [`reproducibility.md`](./reproducibility.md)
 
 **Linked ADRs**: ADR-006 (headline metrics + rejection of cost-

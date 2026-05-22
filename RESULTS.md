@@ -160,7 +160,7 @@ OOD generalization gap on this slate — it is the architecture (and/or
 pre-training pretext) that matters. The DeBERTa-vs-ModernBERT residual gap
 that *remains* (~0.29 vs 0.36) has its own confounds (backbone size,
 pre-training data, tokenizer family) that this ablation does not separate;
-see [WRITEUP/limitations-and-future-work.md §9.2](WRITEUP/limitations-and-future-work.md#92-architectures-evaluated-and-dropped)
+see [WRITEUP/limitations-and-future-work.md §9.2](WRITEUP/limitations-and-future-work.md#architectures-evaluated-and-dropped)
 for the residual-confound discussion. See [ADR-063](decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md)
 for the execution record + actual GPU spend ($1.34 of the $5-7 envelope).
 
@@ -307,7 +307,7 @@ canonical`, ADR-062, the source artifact path, commit SHA, and generation time.
 ## Cross-References
 
 - [Executive summary](README.md#executive-summary): one-page version (absorbed into README per ADR-078).
-- [Writeup](WRITEUP.md): methodology narrative.
+- [Writeup chooser](WRITEUP.md): 1-page router that points at the academic ([WRITEUP_PAPER.md](WRITEUP_PAPER.md)) or narrative ([WRITEUP_NARRATIVE.md](WRITEUP_NARRATIVE.md)) methodology guide.
 - [Evaluation design](WRITEUP/eval-design.md): detailed metric rationale.
 - [Threshold policy](WRITEUP/threshold-policy.md): detection and verification
   operating-point methodology.
