@@ -213,13 +213,14 @@ forms of "the result looked good but it was contaminated" criticism.
 
 ## Act 3 — Revelation
 
-### The headline finding
+### Finding 1 — Direct detection was learned
 
 Direct detection works. On balanced direct+benign validation data,
 LoRA reaches 0.974 AUPRC and TF-IDF + LR reaches 0.971. The frozen
 probe is weaker at 0.653 but still discriminative. The pipeline can
 train detectors that recognize the direct instruction-override
-pattern.
+pattern. **That is the first finding: direct prompt-injection
+detection is a learnable task at this compute budget.**
 
 On the LODO held-out direct-source test (all-positive by design),
 recall-at-0.5 is 0.641 for the frozen probe, 0.625 for LoRA, and
@@ -227,6 +228,21 @@ recall-at-0.5 is 0.641 for the frozen probe, 0.625 for LoRA, and
 
 So far, this looks like a project that built some prompt-injection
 detectors that work.
+
+### Finding 2 — The OOD wall is cross-family, not source-level
+
+The next question is whether they generalize. We deliberately built
+the OOD test slate to vary attack *family* rather than just attack
+*source*. The training pool is direct-injection-heavy across four
+sources; the held-out OOD slate covers four families that don't
+appear in training (indirect injection via document context;
+agentic-flow injection across tool-use turns; jailbreak-as-question;
+benign-but-injection-shaped). **That is the second finding: the
+relevant axis of generalization difficulty is cross-family, not
+source-level.** A different source of the same family wouldn't be a
+fair test; we built the harder one.
+
+### Finding 3 — The headline anti-correlation
 
 Then we ran the cross-family test.
 
@@ -249,10 +265,10 @@ contamination taxonomy — they were trained on at least 2 of our 4
 LODO training-pool sources, so their pooled OOD scores on overlapping
 slices are not clean OOD baselines.
 
-That is the headline result for AUPRC. But the sharper finding
-emerges under AUROC.
+That is the headline result for AUPRC. But Finding 3 has a sharper
+form under AUROC.
 
-### The sharper finding: anti-correlation
+### Finding 3 (sharper form) — Anti-correlation under AUROC
 
 AUROC has a 0.5 random floor regardless of class balance. Random
 guessing gets 0.5. Worse than random — below 0.5 — means the
@@ -325,9 +341,14 @@ running it is portfolio-repo scope.
 
 ## Act 4 — The other findings
 
-The headline finding (Act 3) is the load-bearing claim. Six more
-findings support and contextualize it. Listed in equal-weight
-order so they are not lost in the headline's shadow.
+The headline finding (Finding 3, Act 3) is the load-bearing claim. Three
+more findings appear inside Act 3 already — **Finding 1** (direct
+detection was learned) at the start of Act 3, **Finding 2** (the OOD
+wall is cross-family, not source-level) as the cross-family framing
+that sets up the contrast, and **Finding 3** (the anti-correlation
+headline) as the dramatic reveal. The remaining **four findings**
+support and contextualize the headline. Listed in equal-weight order
+so they are not lost in the headline's shadow.
 
 ### Finding 4 — The context-window ablation was a null result
 
@@ -345,10 +366,11 @@ evaluated on the same pooled OOD slate.
 Result: chunk-and-average scored 0.291 AUPRC; head-truncation scored
 0.290. Neither significantly differs from each other or from the
 ModernBERT-LoRA 0.293. **The context window is not the explanation.**
-The ModernBERT advantage from §4.1 should be read as backbone-
-dominant, not context-window-dominant. The cross-family failure
-mode appears to be backbone-agnostic among the configurations we
-tested.
+The ModernBERT advantage we saw on the in-pool direct-detection task
+(Act 3's strong validation numbers) is therefore best read as
+backbone-dominant, not context-window-dominant. The cross-family
+failure mode appears to be backbone-agnostic among the configurations
+we tested.
 
 This is a publishable null result, which is itself a contribution.
 Most evaluations stop short of asking the follow-up question.
@@ -409,7 +431,7 @@ score behavior are different capabilities, and they trade off
 against each other.
 
 The full reliability diagrams (raw + temperature-scaled + isotonic-
-calibrated) are in [Figure F4](./docs/plots/F4.svg). Recalibration
+calibrated) are in [Figure F5](./docs/plots/F5.svg). Recalibration
 helps but does not fix the underlying ranking inversion.
 
 ---

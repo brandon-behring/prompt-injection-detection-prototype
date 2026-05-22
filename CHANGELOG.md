@@ -20,6 +20,66 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+### v1.3.1 sub-PR-2 — Class-A factual + numeric fixes + scripts/audit_numbers.py invariant
+
+**Defects** (surfaced by 2026-05-22 fresh-eyes audit; verified by
+independent re-derivation from `evals/*.parquet` per `/exploring-options`
+Q2 lock — "go back to the original resources and redo any calculation
+that can be independently re-examined; do not take any written record
+for granted"):
+
+1. **`WRITEUP_PAPER.md` §4.6 frozen-probe Mean test FPR cited as 0.6%.**
+   Actual value: 1.0% (re-derived as 1.028% mean across 12 (fold, seed)
+   cells from `evals/operating_points/dual_policy.parquet`, rung
+   `frozen_probe`, policy `detection`). Fixed to **1.0%**.
+   Cross-checked: `WRITEUP_NARRATIVE.md` Finding 6 said "Frozen probe
+   holds the 1% target" (correct); `RESULTS.md` §4 says Test FPR 0.010
+   (correct). Only PAPER §4.6 was wrong; cross-guide consistency
+   restored.
+2. **`WRITEUP_PAPER.md` §3.3 evaluation slate table cited BIPIA n=56 +
+   InjecAgent n=56.** Actual per-slice positive counts (from
+   `evals/predictions/*__bipia.parquet` + `*__injecagent.parquet` row
+   counts): BIPIA n=**50**, InjecAgent n=**62**. Total 112 (unchanged;
+   matches pooled OOD positive arithmetic). Cross-checked:
+   `WRITEUP/limitations-and-future-work.md` §8.1 said `BIPIA n=50,
+   InjecAgent n=62` (correct). Only PAPER §3.3 was wrong; fixed.
+3. **F4/F5 figure-label inversion.** PAPER §4.7 + NARRATIVE Finding 7
+   both linked `Figure F4` for reliability diagrams. Per
+   `docs/plots/F4.meta.json` source = `dual_policy.parquet`, F4 is the
+   **threshold-transfer** figure; per `docs/plots/F5.meta.json` source
+   = `per_cell.parquet`, F5 is the **calibration** figure. RESULTS.md
+   uses both correctly (F4 caption: "Detection-threshold transfer"; F5
+   caption: "Calibration comparison"). Fixed PAPER + NARRATIVE links
+   to F5.
+4. **`WRITEUP_NARRATIVE.md` Act 4 intro asserted "Six more findings"**
+   but enumerated only Finding 4..7 (4 findings). Cross-guide finding
+   parity with PAPER's 7 equal-weight findings (§4.1-4.7) restored by
+   the Q3 hybrid lock: NARRATIVE Act 3 now names Findings 1 (direct
+   detection learned), 2 (OOD wall is cross-family), 3 (anti-correlation
+   headline) explicitly via short anchored sub-section headers; Act 4
+   intro reworded to "Four more findings". 7-finding parity preserved.
+5. **`WRITEUP_NARRATIVE.md` Finding 4 referenced "§4.1"** — PAPER's
+   §-numbered anchor convention leaking into a narrative-arc document
+   with no §4.1. Rephrased to NARRATIVE-native: "the ModernBERT advantage
+   we saw on the in-pool direct-detection task (Act 3's strong
+   validation numbers)".
+6. **`docs/GLOSSARY.md` rung/detector clarifier overcounted** by
+   listing "5 evaluated approaches" then enumerating 7 items including
+   the dropped LLM-judge tier (dropped at ADR-050; never in the
+   headline ladder). Rewritten to 5 ladder rungs explicitly + a note
+   on the dropped LLM-judge tier.
+7. **`READING_GUIDE.md` result map silently omitted PAPER §4.2** (the
+   OOD wall is cross-family, not source-level — Finding 2). Added an
+   explicit row mapping Finding 2 → PAPER §4.2 / NARRATIVE Act 3
+   Finding 2 / WRITEUP/eval-design §5.5.
+
+**Preventive guardrail**: `scripts/audit_numbers.py` lands as a
+release-gate invariant (per Q8 lock). Re-derives every reader-visible
+number from `evals/*.parquet` source-of-truth + diffs against extracted
+writeup numbers; exits non-zero on drift. Hooked into pre-commit;
+output to `evals/audit/numeric_audit.json`. 23 checks pass on this
+commit (catches the exact defect-class that surfaced this audit).
+
 ### v1.3.1 sub-PR-1 — ADR-080 reviewer-URL-pin numeric correction (axis-only supersession of ADR-078 + ADR-079)
 
 **Defect**: ADR-078 + ADR-079 + WRITEUP.md cited `tree/v1.2.8` as the

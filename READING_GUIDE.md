@@ -69,8 +69,9 @@ prose. 5 canonical figures + raw artifact pointers.
 
 | Result section | Where it lives |
 |---|---|
-| Headline pooled OOD AUPRC | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §4.3](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3](./WRITEUP_NARRATIVE.md), [RESULTS §1](./RESULTS.md) |
-| Direct detection check | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §4.1](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3](./WRITEUP_NARRATIVE.md), [RESULTS §Direct Prompt-Injection Performance](./RESULTS.md) |
+| Headline pooled OOD AUPRC (Finding 3) | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §4.3](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3 Finding 3](./WRITEUP_NARRATIVE.md), [RESULTS §1](./RESULTS.md) |
+| Direct detection check (Finding 1) | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §4.1](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3 Finding 1](./WRITEUP_NARRATIVE.md), [RESULTS §Direct Prompt-Injection Performance](./RESULTS.md) |
+| OOD wall is cross-family, not source-level (Finding 2) | [WRITEUP_PAPER §4.2](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3 Finding 2](./WRITEUP_NARRATIVE.md), [WRITEUP/eval-design §5.5](./WRITEUP/eval-design.md) |
 | Mechanism (lexical overfitting + label-relevance shift) | [README §Executive summary](./README.md#executive-summary), [WRITEUP_PAPER §5.1](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Act 3](./WRITEUP_NARRATIVE.md) |
 | Context-window ablation | [WRITEUP_PAPER §4.4](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Finding 4](./WRITEUP_NARRATIVE.md), [RESULTS §1B](./RESULTS.md) |
 | Calibration | [WRITEUP_PAPER §4.7](./WRITEUP_PAPER.md), [WRITEUP_NARRATIVE Finding 7](./WRITEUP_NARRATIVE.md), [RESULTS §5](./RESULTS.md) |
