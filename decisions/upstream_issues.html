@@ -994,7 +994,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>eval-toolkit #50</strong> (<code>feat(losses): RecallAtLowFPR — Meta Prompt Guard 2 recipe</code>; CLOSED 2026-05-19; <strong>shipped in eval-toolkit v0.44.0; recorded/consumed as dependency maintenance at v1.2.14</strong>): loss-recipe addition. No methodology dependency for this project’s evaluation slate at v1.2.14; the pin bump records the upstream resolution without changing this project’s reported metrics.</li>
 <li><strong>eval-toolkit #51</strong> (<code>feat(preprocessing): spotlighting</code>; CLOSED 2026-05-21; <strong>shipped in eval-toolkit v0.44.0; recorded/consumed as dependency maintenance at v1.2.14</strong>): defense-side preprocessing pattern (delimit/datamark/encode + sweep). Out of v1.0.0/v1.2.x evaluation slate scope per ADR-039 + the portfolio-repo plan ([[portfolio_plan_approved]] memory); recorded here because the v0.44.0 bump references its closure.</li>
-<li><strong>eval-toolkit #52</strong> (<code>feat(stacking): MetaLearner Protocol + LogisticStacker</code>; OPEN): stacking primitive; out of v1.0.0/v1.2.x scope per ADR-007 (single-rung detectors only at submission tier). Not bundled with the v0.44.0 close set.</li>
+<li><strong>eval-toolkit #52</strong> (<code>feat(stacking): MetaLearner Protocol + LogisticStacker</code>; CLOSED 2026-05-21; <strong>shipped in eval-toolkit v0.45.0; recorded/consumed as dependency maintenance at v1.2.16</strong>): stacking primitive; out of v1.0.0/v1.2.x evaluation slate scope per ADR-007 (single-rung detectors only at submission tier); recorded here because the v0.45.0 leg of the v0.44→v0.47 bump at v1.2.16 references its closure.</li>
 </ul>
 <p>If any of these later become consumption candidates (e.g., a v1.3.x methodology decision opens preprocessing or stacking), a new ledger row will be added at consumption time with the full local file:line + status.</p>
 <table class="caption-top table">
@@ -1173,9 +1173,9 @@ ul.task-list li input[type="checkbox"] {
 <td>2026-05-19</td>
 <td><code>brandon-behring/eval-toolkit</code></td>
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/49">#49</a></td>
-<td>Add <code>character_injection</code> core-6 prompt-injection pattern support</td>
-<td><code>pyproject.toml</code> + <code>decisions/library_imports.md</code> dependency pin only in v1.2.8; no current local call site</td>
-<td><strong>RESOLVED in eval-toolkit v0.43.0; recorded/consumed as dependency maintenance at v1.2.8</strong>. No prompt family is added to this project’s evaluation slate in v1.2.8; the reviewer-facing v1.0.0 pin and live-site results remain unchanged.</td>
+<td>Add <code>character_injection</code> core-6 prompt-injection pattern support (+ advanced-6 extension shipped in v0.47.0)</td>
+<td><code>pyproject.toml</code> + <code>decisions/library_imports.md</code> dependency pin only in v1.2.8 + v1.2.16; no current local call site</td>
+<td><strong>RESOLVED in eval-toolkit v0.43.0 (core-6) + v0.47.0 (advanced-6 + sweep unification); recorded/consumed as dependency maintenance at v1.2.8 + v1.2.16</strong>. No prompt family is added to this project’s evaluation slate; the reviewer-facing v1.0.0 pin and live-site results remain unchanged.</td>
 </tr>
 <tr class="even">
 <td>2026-05-19</td>
@@ -1191,7 +1191,7 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/36">#36</a></td>
 <td>Add inline bootstrap CI on every metric (Inspect-AI / lm-eval scorecard pattern; <code>with_ci=True</code> kwarg on <code>pr_auc</code>/<code>roc_auc</code>/<code>brier_score</code>/<code>ece</code> variants)</td>
 <td><code>src/eval/marginal_bootstrap.py:31-32,42-43,110</code> + <code>src/eval/calibration_battery.py:47-52</code> — current explicit <code>bootstrap_ci(metric_fn, ...)</code> orchestrator would simplify with inline-CI sugar</td>
-<td><strong>CONTRIBUTION FILED at v1.2.2</strong> per ADR-066 §B7 / Q2 round-8 lock — <a href="https://github.com/brandon-behring/eval-toolkit/issues/36#issuecomment-4490089572">issue-comment + design-sketch</a> posted with this project’s use case + concrete file:line citations + proposed <code>with_ci=True</code> kwarg API sketch (additive sugar; preserves existing <code>bootstrap_ci()</code> API). P3 upstream priority (“ship if a consumer asks”); this comment is the project asking. No timeline pressure; consume in a future v1.3.x patch if upstream lands the feature.</td>
+<td><strong>RESOLVED in eval-toolkit v0.46.0 (different API shape than originally proposed); recorded as dependency maintenance at v1.2.16</strong>. Upstream chose <code>scorecard(metric_specs, ..., bootstrap=True)</code> + <code>Scorecard</code> (read-only <code>Mapping[str, MetricResult]</code>) + <code>metric_specs</code> (type-safe metric spec objects) over the original <code>with_ci=True</code> per-function kwarg — addresses the same use case (one-call multi-metric bootstrap CIs) with type-safe contracts. Our project’s contribution comment at <a href="https://github.com/brandon-behring/eval-toolkit/issues/36#issuecomment-4490089572">#36 issue-comment</a> was the request. Consumer-side migration deferred to a future v1.3.x cycle if the <code>bootstrap_ci(metric_fn, ...)</code> orchestrator pattern is replaced with <code>scorecard(...)</code>.</td>
 </tr>
 </tbody>
 </table>
