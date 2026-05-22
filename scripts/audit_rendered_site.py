@@ -15,10 +15,11 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 RAW_SUFFIXES = {".md", ".ipynb"}
 ROOT_MARKDOWN_INPUTS = [
     "README.md",
-    "EXECUTIVE_SUMMARY.md",
     "RESULTS.md",
     "CHANGELOG.md",
     "WRITEUP.md",
+    "WRITEUP_PAPER.md",
+    "WRITEUP_NARRATIVE.md",
     "READING_GUIDE.md",
     "EVIDENCE.md",
     "SPEC_SHEET.md",
