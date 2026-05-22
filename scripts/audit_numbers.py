@@ -94,11 +94,16 @@ def re_derive_test_fpr_mean(rung: str) -> float:
     return float(rows["achieved_test_fpr"].mean())
 
 
-def re_derive_slice_n_positive(slice_name: str) -> int:
-    """Row count for an all-positive OOD slice from any prediction parquet."""
+def re_derive_slice_n_positive(slice_name: str) -> int | None:
+    """Row count for an all-positive OOD slice from any prediction parquet.
+
+    Returns None if prediction parquets are not available in this environment
+    (they are gitignored — present locally + on RunPod fires, absent on CI
+    checkout). Caller treats None as "skip this check".
+    """
     candidates = sorted((REPO_ROOT / "evals/predictions").glob(f"*__{slice_name}.parquet"))
     if not candidates:
-        raise ValueError(f"No prediction parquets found for slice {slice_name!r}")
+        return None
     df = pq.read_table(candidates[0]).to_pandas()
     return int((df["label"] == 1).sum())
 
@@ -114,11 +119,15 @@ def re_derive_random_auprc_floor() -> tuple[int, int, float]:
     return n_pos, n_total, n_pos / n_total
 
 
-def re_derive_validation_metric(rung: str, metric: str) -> float:
-    """Mean per-(fold, seed) AUPRC/AUROC/recall@0.5 from predictions_val/*.parquet."""
+def re_derive_validation_metric(rung: str, metric: str) -> float | None:
+    """Mean per-(fold, seed) AUPRC/AUROC/recall@0.5 from predictions_val/*.parquet.
+
+    Returns None if val predictions are not available (gitignored — absent on
+    CI checkout). Caller treats None as "skip this check".
+    """
     files = sorted((REPO_ROOT / "evals/predictions_val").glob(f"{rung}__*.parquet"))
     if not files:
-        raise ValueError(f"No val parquets found for rung {rung!r}")
+        return None
     vals = []
     for f in files:
         df = pq.read_table(f).to_pandas()
@@ -138,12 +147,15 @@ def re_derive_validation_metric(rung: str, metric: str) -> float:
     return float(pd.Series(vals).mean())
 
 
-def re_derive_lodo_direct_recall(rung: str) -> float:
+def re_derive_lodo_direct_recall(rung: str) -> float | None:
     """Pooled-row recall@0.5 across all (fold, seed) epoch2 prediction parquets.
 
     Uses pooled-row aggregation (concat all rows then compute one recall) per the
     canonical writeup convention. Per-cell-then-mean gives a different (~0.04
     higher) value due to non-equivariance under cell-size variation.
+
+    Returns None if prediction parquets are not available (gitignored — absent
+    on CI checkout). Caller treats None as "skip this check".
     """
     rung_aliases = {
         "frozen_probe": ("frozen_probe", "frozen-probe"),
@@ -153,7 +165,7 @@ def re_derive_lodo_direct_recall(rung: str) -> float:
     for alias in rung_aliases.get(rung, (rung,)):
         files.extend(sorted((REPO_ROOT / "evals/predictions").glob(f"{alias}__*__epoch2.parquet")))
     if not files:
-        raise ValueError(f"No epoch2 prediction parquets found for rung {rung!r}")
+        return None
     pieces = [pq.read_table(f).to_pandas() for f in files]
     big = pd.concat(pieces, ignore_index=True)
     n_pos = int((big["label"] == 1).sum())
@@ -218,10 +230,18 @@ def run_audit() -> tuple[list[Check], list[str]]:
 
     # === Class-A item 5: BIPIA + InjecAgent per-slice n ===
     for slice_name, expected_n in [("bipia", 50), ("injecagent", 62)]:
+        n = re_derive_slice_n_positive(slice_name)
+        if n is None:
+            warnings.append(
+                f"PAPER §3.3 + limitations §8.1 {slice_name} n: SKIPPED "
+                f"(evals/predictions/*__{slice_name}.parquet not present in this "
+                f"environment — gitignored; available locally + on RunPod fires)"
+            )
+            continue
         checks.append(
             Check(
                 name=f"PAPER §3.3 + limitations §8.1 {slice_name} n",
-                computed=re_derive_slice_n_positive(slice_name),
+                computed=n,
                 expected=expected_n,
                 tol=0,  # exact match
                 metadata={"source": f"evals/predictions/*__{slice_name}.parquet"},
@@ -271,10 +291,18 @@ def run_audit() -> tuple[list[Check], list[str]]:
         ("frozen_probe", "auroc", 0.907),
         ("frozen_probe", "recall_at_0_5", 0.849),
     ]:
+        v = re_derive_validation_metric(rung, metric)
+        if v is None:
+            warnings.append(
+                f"Direct+benign validation {rung} {metric}: SKIPPED "
+                f"(evals/predictions_val/ not present in this environment — "
+                f"gitignored; available locally + on RunPod fires)"
+            )
+            continue
         checks.append(
             Check(
                 name=f"Direct+benign validation {rung} {metric}",
-                computed=re_derive_validation_metric(rung, metric),
+                computed=v,
                 expected=expected,
                 tol=0.003,
                 metadata={"source": "evals/predictions_val/"},
@@ -283,10 +311,18 @@ def run_audit() -> tuple[list[Check], list[str]]:
 
     # === LODO direct-source recall@0.5 (pooled-row aggregation) ===
     for rung, expected in [("frozen_probe", 0.641), ("lora", 0.625), ("full_ft", 0.558)]:
+        r = re_derive_lodo_direct_recall(rung)
+        if r is None:
+            warnings.append(
+                f"LODO direct-source recall@0.5 {rung}: SKIPPED "
+                f"(evals/predictions/*__epoch2.parquet not present in this "
+                f"environment — gitignored; available locally + on RunPod fires)"
+            )
+            continue
         checks.append(
             Check(
                 name=f"LODO direct-source recall@0.5 {rung}",
-                computed=re_derive_lodo_direct_recall(rung),
+                computed=r,
                 expected=expected,
                 tol=0.002,
                 metadata={
@@ -340,7 +376,16 @@ def main() -> int:
             print(
                 f"  [{mark}] {c.name:55s}  computed={c.computed:8.4f}  expected={c.expected:8.4f}  diff={c.diff:+.4f}"
             )
+        if warnings:
+            print(f"\n{'-' * 80}\nSkipped checks ({len(warnings)}):\n{'-' * 80}")
+            for w in warnings:
+                print(f"  [SKIP] {w}")
         print()
+    elif warnings:
+        # In quiet mode, still surface skipped checks (1-line each) so they're
+        # visible in CI logs.
+        for w in warnings:
+            print(f"INFO  [SKIP] {w}")
 
     if failed:
         print(f"audit_numbers: FAILED {len(failed)}/{len(checks)} checks")
