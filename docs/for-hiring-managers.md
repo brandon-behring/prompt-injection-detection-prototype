@@ -9,8 +9,9 @@ Four questions, ~60 seconds.
 
 For a slightly longer read, see the [headline table on the
 landing page](../index.qmd) or the [one-page executive
-summary](../EXECUTIVE_SUMMARY.md). For an audit-depth path, see
-the [reading guide](../READING_GUIDE.md).
+summary](../README.md#executive-summary) (absorbed into README per
+ADR-078). For an audit-depth path, see the [reading
+guide](../READING_GUIDE.md).
 
 ## 1. What problem does this project solve?
 

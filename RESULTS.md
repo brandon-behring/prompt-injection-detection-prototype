@@ -306,7 +306,7 @@ canonical`, ADR-062, the source artifact path, commit SHA, and generation time.
 
 ## Cross-References
 
-- [Executive summary](EXECUTIVE_SUMMARY.md): one-page version.
+- [Executive summary](README.md#executive-summary): one-page version (absorbed into README per ADR-078).
 - [Writeup](WRITEUP.md): methodology narrative.
 - [Evaluation design](WRITEUP/eval-design.md): detailed metric rationale.
 - [Threshold policy](WRITEUP/threshold-policy.md): detection and verification

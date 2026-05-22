@@ -221,8 +221,8 @@ the glossary."
 ### WRITEUP.md retired as stub-redirect
 
 The current WRITEUP.md (the jumbled hybrid) becomes a 1-page stub:
-"Pick how you'd like to read this: [academic](WRITEUP_PAPER.md) or
-[narrative](WRITEUP_NARRATIVE.md)". This preserves backward references
+"Pick how you'd like to read this: `[academic](../WRITEUP_PAPER.md)`
+or `[narrative](../WRITEUP_NARRATIVE.md)`". This preserves backward references
 from the 8 WRITEUP/ spokes + ADRs without breaking links. The
 historical WRITEUP.md content is accessible at the reviewer URL pin
 (`tree/v1.2.8`) per ADR-033.
