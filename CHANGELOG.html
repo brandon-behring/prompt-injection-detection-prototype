@@ -962,6 +962,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -980,7 +986,15 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#versioning-convention" id="toc-versioning-convention" class="nav-link" data-scroll-target="#versioning-convention">Versioning convention</a></li>
   <li><a href="#unreleased" id="toc-unreleased" class="nav-link" data-scroll-target="#unreleased">[Unreleased]</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">[1.3.0] — 2026-05-22</a>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">[1.3.1] — 2026-05-22</a>
+  <ul class="collapse">
+  <li><a href="#v1.3.1-sub-pr-5-readme-chooser-clarity-q6-abc" id="toc-v1.3.1-sub-pr-5-readme-chooser-clarity-q6-abc" class="nav-link" data-scroll-target="#v1.3.1-sub-pr-5-readme-chooser-clarity-q6-abc">v1.3.1 sub-PR-5 — README chooser clarity (Q6 A+B+C)</a></li>
+  <li><a href="#v1.3.1-sub-pr-4-class-cd-polish-scriptsaudit_internal_anchors.py-anchor-link-cleanup" id="toc-v1.3.1-sub-pr-4-class-cd-polish-scriptsaudit_internal_anchors.py-anchor-link-cleanup" class="nav-link" data-scroll-target="#v1.3.1-sub-pr-4-class-cd-polish-scriptsaudit_internal_anchors.py-anchor-link-cleanup">v1.3.1 sub-PR-4 — Class-C/D polish + scripts/audit_internal_anchors.py + anchor-link cleanup</a></li>
+  <li><a href="#v1.3.1-sub-pr-3-class-b-stale-writeup-as-hub-retargeting-3-tier-rule-per-q4-lock" id="toc-v1.3.1-sub-pr-3-class-b-stale-writeup-as-hub-retargeting-3-tier-rule-per-q4-lock" class="nav-link" data-scroll-target="#v1.3.1-sub-pr-3-class-b-stale-writeup-as-hub-retargeting-3-tier-rule-per-q4-lock">v1.3.1 sub-PR-3 — Class-B stale “WRITEUP-as-hub” retargeting (3-tier rule per Q4 lock)</a></li>
+  <li><a href="#v1.3.1-sub-pr-2-class-a-factual-numeric-fixes-scriptsaudit_numbers.py-invariant" id="toc-v1.3.1-sub-pr-2-class-a-factual-numeric-fixes-scriptsaudit_numbers.py-invariant" class="nav-link" data-scroll-target="#v1.3.1-sub-pr-2-class-a-factual-numeric-fixes-scriptsaudit_numbers.py-invariant">v1.3.1 sub-PR-2 — Class-A factual + numeric fixes + scripts/audit_numbers.py invariant</a></li>
+  <li><a href="#v1.3.1-sub-pr-1-adr-080-reviewer-url-pin-numeric-correction-axis-only-supersession-of-adr-078-adr-079" id="toc-v1.3.1-sub-pr-1-adr-080-reviewer-url-pin-numeric-correction-axis-only-supersession-of-adr-078-adr-079" class="nav-link" data-scroll-target="#v1.3.1-sub-pr-1-adr-080-reviewer-url-pin-numeric-correction-axis-only-supersession-of-adr-078-adr-079">v1.3.1 sub-PR-1 — ADR-080 reviewer-URL-pin numeric correction (axis-only supersession of ADR-078 + ADR-079)</a></li>
+  </ul></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">[1.3.0] — 2026-05-22</a>
   <ul class="collapse">
   <li><a href="#root-cause-for-restructure" id="toc-root-cause-for-restructure" class="nav-link" data-scroll-target="#root-cause-for-restructure">Root cause for restructure</a></li>
   <li><a href="#added-4-sub-prs-into-releasev1.3.0" id="toc-added-4-sub-prs-into-releasev1.3.0" class="nav-link" data-scroll-target="#added-4-sub-prs-into-releasev1.3.0">Added (4 sub-PRs into release/v1.3.0)</a></li>
@@ -991,12 +1005,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#out-of-scope-deferred" id="toc-out-of-scope-deferred" class="nav-link" data-scroll-target="#out-of-scope-deferred">Out of scope (deferred)</a></li>
   <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
   </ul></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">[1.2.16] — 2026-05-21</a>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">[1.2.16] — 2026-05-21</a>
   <ul class="collapse">
   <li><a href="#changed-1" id="toc-changed-1" class="nav-link" data-scroll-target="#changed-1">Changed</a></li>
   <li><a href="#sub-commits" id="toc-sub-commits" class="nav-link" data-scroll-target="#sub-commits">Sub-commits</a></li>
   </ul></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">[1.2.15] — 2026-05-21</a>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">[1.2.15] — 2026-05-21</a>
   <ul class="collapse">
   <li><a href="#added" id="toc-added" class="nav-link" data-scroll-target="#added">Added</a></li>
   <li><a href="#changed-2" id="toc-changed-2" class="nav-link" data-scroll-target="#changed-2">Changed</a></li>
@@ -1004,82 +1018,82 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#audit-tool-development-note" id="toc-audit-tool-development-note" class="nav-link" data-scroll-target="#audit-tool-development-note">Audit-tool development note</a></li>
   <li><a href="#v1.2.15-sub-commits" id="toc-v1.2.15-sub-commits" class="nav-link" data-scroll-target="#v1.2.15-sub-commits">v1.2.15 sub-commits</a></li>
   </ul></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">[1.2.14] — 2026-05-21</a>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">[1.2.14] — 2026-05-21</a>
   <ul class="collapse">
   <li><a href="#added-1" id="toc-added-1" class="nav-link" data-scroll-target="#added-1">Added</a></li>
   <li><a href="#changed-3" id="toc-changed-3" class="nav-link" data-scroll-target="#changed-3">Changed</a></li>
   <li><a href="#v1.2.14-sub-commits" id="toc-v1.2.14-sub-commits" class="nav-link" data-scroll-target="#v1.2.14-sub-commits">v1.2.14 sub-commits</a></li>
   </ul></li>
-  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">[1.2.13] — 2026-05-21</a>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">[1.2.13] — 2026-05-21</a>
   <ul class="collapse">
   <li><a href="#added-2" id="toc-added-2" class="nav-link" data-scroll-target="#added-2">Added</a></li>
   <li><a href="#changed-4" id="toc-changed-4" class="nav-link" data-scroll-target="#changed-4">Changed</a></li>
   <li><a href="#deferred-out-of-v1.2.13-scope" id="toc-deferred-out-of-v1.2.13-scope" class="nav-link" data-scroll-target="#deferred-out-of-v1.2.13-scope">Deferred (out of v1.2.13 scope)</a></li>
   <li><a href="#sequence" id="toc-sequence" class="nav-link" data-scroll-target="#sequence">Sequence</a></li>
   </ul></li>
-  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">[1.2.12] — 2026-05-21</a>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">[1.2.12] — 2026-05-21</a>
   <ul class="collapse">
   <li><a href="#changed-5" id="toc-changed-5" class="nav-link" data-scroll-target="#changed-5">Changed</a></li>
   <li><a href="#decisions" id="toc-decisions" class="nav-link" data-scroll-target="#decisions">Decisions</a></li>
   </ul></li>
-  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">[1.2.11] — 2026-05-20</a>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">[1.2.11] — 2026-05-20</a>
   <ul class="collapse">
   <li><a href="#changed-6" id="toc-changed-6" class="nav-link" data-scroll-target="#changed-6">Changed</a></li>
   <li><a href="#decisions-1" id="toc-decisions-1" class="nav-link" data-scroll-target="#decisions-1">Decisions</a></li>
   </ul></li>
-  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">[1.2.10] — 2026-05-20</a>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">[1.2.10] — 2026-05-20</a>
   <ul class="collapse">
   <li><a href="#changed-7" id="toc-changed-7" class="nav-link" data-scroll-target="#changed-7">Changed</a></li>
   <li><a href="#decisions-2" id="toc-decisions-2" class="nav-link" data-scroll-target="#decisions-2">Decisions</a></li>
   </ul></li>
-  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">[1.2.9] — 2026-05-20</a>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">[1.2.9] — 2026-05-20</a>
   <ul class="collapse">
   <li><a href="#changed-now-packaged-from-unreleased-pre-2026-05-20-work" id="toc-changed-now-packaged-from-unreleased-pre-2026-05-20-work" class="nav-link" data-scroll-target="#changed-now-packaged-from-unreleased-pre-2026-05-20-work">Changed (now packaged from [Unreleased] pre-2026-05-20 work)</a></li>
   <li><a href="#changed-2026-05-20-audit-remediation" id="toc-changed-2026-05-20-audit-remediation" class="nav-link" data-scroll-target="#changed-2026-05-20-audit-remediation">Changed (2026-05-20 audit remediation)</a></li>
   <li><a href="#added-2026-05-20-audit-remediation-new-adrs" id="toc-added-2026-05-20-audit-remediation-new-adrs" class="nav-link" data-scroll-target="#added-2026-05-20-audit-remediation-new-adrs">Added (2026-05-20 audit remediation — new ADRs)</a></li>
   <li><a href="#removed-2026-05-20-audit-remediation" id="toc-removed-2026-05-20-audit-remediation" class="nav-link" data-scroll-target="#removed-2026-05-20-audit-remediation">Removed (2026-05-20 audit remediation)</a></li>
   </ul></li>
-  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">[1.2.8] — 2026-05-19</a>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">[1.2.8] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
   <li><a href="#changed-8" id="toc-changed-8" class="nav-link" data-scroll-target="#changed-8">Changed</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
-  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">[1.2.7] — 2026-05-19</a>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">[1.2.7] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#fixed-1" id="toc-fixed-1" class="nav-link" data-scroll-target="#fixed-1">Fixed</a></li>
   <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
   </ul></li>
-  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">[1.2.6] — 2026-05-19</a>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">[1.2.6] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#fixed-2" id="toc-fixed-2" class="nav-link" data-scroll-target="#fixed-2">Fixed</a></li>
   <li><a href="#references-2" id="toc-references-2" class="nav-link" data-scroll-target="#references-2">References</a></li>
   </ul></li>
-  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">[1.2.5] — 2026-05-19</a>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">[1.2.5] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#changed-9" id="toc-changed-9" class="nav-link" data-scroll-target="#changed-9">Changed</a></li>
   <li><a href="#references-3" id="toc-references-3" class="nav-link" data-scroll-target="#references-3">References</a></li>
   </ul></li>
-  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">[1.2.4] — 2026-05-19</a>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">[1.2.4] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#fixed-3" id="toc-fixed-3" class="nav-link" data-scroll-target="#fixed-3">Fixed</a></li>
   <li><a href="#lesson-noted" id="toc-lesson-noted" class="nav-link" data-scroll-target="#lesson-noted">Lesson noted</a></li>
   <li><a href="#references-4" id="toc-references-4" class="nav-link" data-scroll-target="#references-4">References</a></li>
   </ul></li>
-  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">[1.2.3] — 2026-05-19</a>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">[1.2.3] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#fixed-4" id="toc-fixed-4" class="nav-link" data-scroll-target="#fixed-4">Fixed</a></li>
   <li><a href="#why-ci-was-red-for-5-patches-post-mortem-note" id="toc-why-ci-was-red-for-5-patches-post-mortem-note" class="nav-link" data-scroll-target="#why-ci-was-red-for-5-patches-post-mortem-note">Why CI was red for 5 patches (post-mortem note)</a></li>
   <li><a href="#references-5" id="toc-references-5" class="nav-link" data-scroll-target="#references-5">References</a></li>
   </ul></li>
-  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">[1.2.2] — 2026-05-19</a>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">[1.2.2] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-3" id="toc-added-3" class="nav-link" data-scroll-target="#added-3">Added</a></li>
   <li><a href="#changed-10" id="toc-changed-10" class="nav-link" data-scroll-target="#changed-10">Changed</a></li>
   <li><a href="#stretch-eval-toolkit-36-upstream-contribution-filed" id="toc-stretch-eval-toolkit-36-upstream-contribution-filed" class="nav-link" data-scroll-target="#stretch-eval-toolkit-36-upstream-contribution-filed">STRETCH — eval-toolkit #36 upstream contribution filed</a></li>
   <li><a href="#references-6" id="toc-references-6" class="nav-link" data-scroll-target="#references-6">References</a></li>
   </ul></li>
-  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">[1.2.1] — 2026-05-19</a>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">[1.2.1] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-4" id="toc-added-4" class="nav-link" data-scroll-target="#added-4">Added</a></li>
   <li><a href="#changed-11" id="toc-changed-11" class="nav-link" data-scroll-target="#changed-11">Changed</a></li>
@@ -1087,14 +1101,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#out-of-scope-still-deferred" id="toc-out-of-scope-still-deferred" class="nav-link" data-scroll-target="#out-of-scope-still-deferred">Out of scope (still deferred)</a></li>
   <li><a href="#references-7" id="toc-references-7" class="nav-link" data-scroll-target="#references-7">References</a></li>
   </ul></li>
-  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">[1.2.0] — 2026-05-19</a>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">[1.2.0] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-5" id="toc-added-5" class="nav-link" data-scroll-target="#added-5">Added</a></li>
   <li><a href="#changed-12" id="toc-changed-12" class="nav-link" data-scroll-target="#changed-12">Changed</a></li>
   <li><a href="#coordination" id="toc-coordination" class="nav-link" data-scroll-target="#coordination">Coordination</a></li>
   <li><a href="#references-8" id="toc-references-8" class="nav-link" data-scroll-target="#references-8">References</a></li>
   </ul></li>
-  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">[1.1.4] — 2026-05-19</a>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">[1.1.4] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#fixed-5" id="toc-fixed-5" class="nav-link" data-scroll-target="#fixed-5">Fixed</a></li>
   <li><a href="#added-6" id="toc-added-6" class="nav-link" data-scroll-target="#added-6">Added</a></li>
@@ -1102,7 +1116,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#coordination-1" id="toc-coordination-1" class="nav-link" data-scroll-target="#coordination-1">Coordination</a></li>
   <li><a href="#references-9" id="toc-references-9" class="nav-link" data-scroll-target="#references-9">References</a></li>
   </ul></li>
-  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">[1.1.3] — 2026-05-19</a>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">[1.1.3] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-7" id="toc-added-7" class="nav-link" data-scroll-target="#added-7">Added</a></li>
   <li><a href="#changed-13" id="toc-changed-13" class="nav-link" data-scroll-target="#changed-13">Changed</a></li>
@@ -1110,7 +1124,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#coordination-2" id="toc-coordination-2" class="nav-link" data-scroll-target="#coordination-2">Coordination</a></li>
   <li><a href="#references-10" id="toc-references-10" class="nav-link" data-scroll-target="#references-10">References</a></li>
   </ul></li>
-  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20">[1.1.2] — 2026-05-19</a>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">[1.1.2] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#headline-result" id="toc-headline-result" class="nav-link" data-scroll-target="#headline-result">Headline result</a></li>
   <li><a href="#added-8" id="toc-added-8" class="nav-link" data-scroll-target="#added-8">Added</a></li>
@@ -1120,80 +1134,80 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#postscript-added-in-v1.1.4" id="toc-postscript-added-in-v1.1.4" class="nav-link" data-scroll-target="#postscript-added-in-v1.1.4">Postscript (added in v1.1.4)</a></li>
   <li><a href="#postscript-added-in-v1.2.1-canonical-cumulative-cost-figure" id="toc-postscript-added-in-v1.2.1-canonical-cumulative-cost-figure" class="nav-link" data-scroll-target="#postscript-added-in-v1.2.1-canonical-cumulative-cost-figure">Postscript (added in v1.2.1; canonical cumulative-cost figure)</a></li>
   </ul></li>
-  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21">[1.1.1] — 2026-05-19</a>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">[1.1.1] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-9" id="toc-added-9" class="nav-link" data-scroll-target="#added-9">Added</a></li>
   <li><a href="#changed-15" id="toc-changed-15" class="nav-link" data-scroll-target="#changed-15">Changed</a></li>
   <li><a href="#references-12" id="toc-references-12" class="nav-link" data-scroll-target="#references-12">References</a></li>
   </ul></li>
-  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22">[1.1.0] — 2026-05-19</a>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">[1.1.0] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-10" id="toc-added-10" class="nav-link" data-scroll-target="#added-10">Added</a></li>
   <li><a href="#changed-16" id="toc-changed-16" class="nav-link" data-scroll-target="#changed-16">Changed</a></li>
   <li><a href="#removed-2" id="toc-removed-2" class="nav-link" data-scroll-target="#removed-2">Removed</a></li>
   <li><a href="#references-13" id="toc-references-13" class="nav-link" data-scroll-target="#references-13">References</a></li>
   </ul></li>
-  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23">[1.0.9] — 2026-05-19</a>
+  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">[1.0.9] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-11" id="toc-added-11" class="nav-link" data-scroll-target="#added-11">Added</a></li>
   <li><a href="#changed-17" id="toc-changed-17" class="nav-link" data-scroll-target="#changed-17">Changed</a></li>
   <li><a href="#tests" id="toc-tests" class="nav-link" data-scroll-target="#tests">Tests</a></li>
   <li><a href="#references-14" id="toc-references-14" class="nav-link" data-scroll-target="#references-14">References</a></li>
   </ul></li>
-  <li><a href="#section-24" id="toc-section-24" class="nav-link" data-scroll-target="#section-24">[1.0.8] — 2026-05-19</a>
+  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">[1.0.8] — 2026-05-19</a>
   <ul class="collapse">
   <li><a href="#added-12" id="toc-added-12" class="nav-link" data-scroll-target="#added-12">Added</a></li>
   <li><a href="#changed-18" id="toc-changed-18" class="nav-link" data-scroll-target="#changed-18">Changed</a></li>
   <li><a href="#governance-notes" id="toc-governance-notes" class="nav-link" data-scroll-target="#governance-notes">Governance notes</a></li>
   <li><a href="#files-modified-16-file-touches" id="toc-files-modified-16-file-touches" class="nav-link" data-scroll-target="#files-modified-16-file-touches">Files modified (16 file touches)</a></li>
   </ul></li>
-  <li><a href="#section-25" id="toc-section-25" class="nav-link" data-scroll-target="#section-25">[1.0.7] — 2026-05-18</a>
+  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">[1.0.7] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-13" id="toc-added-13" class="nav-link" data-scroll-target="#added-13">Added</a></li>
   <li><a href="#changed-19" id="toc-changed-19" class="nav-link" data-scroll-target="#changed-19">Changed</a></li>
   <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   <li><a href="#files-modified-15-file-touches" id="toc-files-modified-15-file-touches" class="nav-link" data-scroll-target="#files-modified-15-file-touches">Files modified (15 file touches)</a></li>
   </ul></li>
-  <li><a href="#section-26" id="toc-section-26" class="nav-link" data-scroll-target="#section-26">[1.0.6] — 2026-05-18</a>
+  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">[1.0.6] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-14" id="toc-added-14" class="nav-link" data-scroll-target="#added-14">Added</a></li>
   <li><a href="#changed-20" id="toc-changed-20" class="nav-link" data-scroll-target="#changed-20">Changed</a></li>
   <li><a href="#notes-1" id="toc-notes-1" class="nav-link" data-scroll-target="#notes-1">Notes</a></li>
   <li><a href="#files-modified-10-file-touches" id="toc-files-modified-10-file-touches" class="nav-link" data-scroll-target="#files-modified-10-file-touches">Files modified (10 file touches)</a></li>
   </ul></li>
-  <li><a href="#section-27" id="toc-section-27" class="nav-link" data-scroll-target="#section-27">[1.0.5] — 2026-05-18</a>
+  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">[1.0.5] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-15" id="toc-added-15" class="nav-link" data-scroll-target="#added-15">Added</a></li>
   <li><a href="#changed-21" id="toc-changed-21" class="nav-link" data-scroll-target="#changed-21">Changed</a></li>
   <li><a href="#governance-notes-1" id="toc-governance-notes-1" class="nav-link" data-scroll-target="#governance-notes-1">Governance notes</a></li>
   <li><a href="#files-modified-10-file-touches-1" id="toc-files-modified-10-file-touches-1" class="nav-link" data-scroll-target="#files-modified-10-file-touches-1">Files modified (10 file touches)</a></li>
   </ul></li>
-  <li><a href="#section-28" id="toc-section-28" class="nav-link" data-scroll-target="#section-28">[1.0.4] — 2026-05-18</a>
+  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">[1.0.4] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-16" id="toc-added-16" class="nav-link" data-scroll-target="#added-16">Added</a></li>
   <li><a href="#changed-22" id="toc-changed-22" class="nav-link" data-scroll-target="#changed-22">Changed</a></li>
   <li><a href="#governance-notes-2" id="toc-governance-notes-2" class="nav-link" data-scroll-target="#governance-notes-2">Governance notes</a></li>
   <li><a href="#files-modified" id="toc-files-modified" class="nav-link" data-scroll-target="#files-modified">Files modified</a></li>
   </ul></li>
-  <li><a href="#section-29" id="toc-section-29" class="nav-link" data-scroll-target="#section-29">[1.0.3] — 2026-05-18</a>
+  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">[1.0.3] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-17" id="toc-added-17" class="nav-link" data-scroll-target="#added-17">Added</a></li>
   <li><a href="#changed-23" id="toc-changed-23" class="nav-link" data-scroll-target="#changed-23">Changed</a></li>
   <li><a href="#decisions-3" id="toc-decisions-3" class="nav-link" data-scroll-target="#decisions-3">Decisions</a></li>
   </ul></li>
-  <li><a href="#section-30" id="toc-section-30" class="nav-link" data-scroll-target="#section-30">[1.0.2] — 2026-05-18</a>
+  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">[1.0.2] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-18" id="toc-added-18" class="nav-link" data-scroll-target="#added-18">Added</a></li>
   <li><a href="#changed-24" id="toc-changed-24" class="nav-link" data-scroll-target="#changed-24">Changed</a></li>
   <li><a href="#decisions-4" id="toc-decisions-4" class="nav-link" data-scroll-target="#decisions-4">Decisions</a></li>
   </ul></li>
-  <li><a href="#section-31" id="toc-section-31" class="nav-link" data-scroll-target="#section-31">[1.0.1] — 2026-05-18</a>
+  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">[1.0.1] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-19" id="toc-added-19" class="nav-link" data-scroll-target="#added-19">Added</a></li>
   <li><a href="#changed-25" id="toc-changed-25" class="nav-link" data-scroll-target="#changed-25">Changed</a></li>
   <li><a href="#closing" id="toc-closing" class="nav-link" data-scroll-target="#closing">Closing</a></li>
   </ul></li>
-  <li><a href="#section-32" id="toc-section-32" class="nav-link" data-scroll-target="#section-32">[1.0.0] — 2026-05-18</a>
+  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">[1.0.0] — 2026-05-18</a>
   <ul class="collapse">
   <li><a href="#added-20" id="toc-added-20" class="nav-link" data-scroll-target="#added-20">Added</a></li>
   <li><a href="#changed-26" id="toc-changed-26" class="nav-link" data-scroll-target="#changed-26">Changed</a></li>
@@ -1202,7 +1216,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#rc3-2026-05-18" id="toc-rc3-2026-05-18" class="nav-link" data-scroll-target="#rc3-2026-05-18">[0.9.0-rc3] — 2026-05-18</a></li>
   <li><a href="#rc2-2026-05-18" id="toc-rc2-2026-05-18" class="nav-link" data-scroll-target="#rc2-2026-05-18">[0.9.0-rc2] — 2026-05-18</a></li>
   <li><a href="#rc1-2026-05-17" id="toc-rc1-2026-05-17" class="nav-link" data-scroll-target="#rc1-2026-05-17">[0.9.0-rc1] — 2026-05-17</a></li>
-  <li><a href="#section-33" id="toc-section-33" class="nav-link" data-scroll-target="#section-33">[0.0.0] — 2026-05-15</a>
+  <li><a href="#section-34" id="toc-section-34" class="nav-link" data-scroll-target="#section-34">[0.0.0] — 2026-05-15</a>
   <ul class="collapse">
   <li><a href="#added-21" id="toc-added-21" class="nav-link" data-scroll-target="#added-21">Added</a></li>
   <li><a href="#decisions-6" id="toc-decisions-6" class="nav-link" data-scroll-target="#decisions-6">Decisions</a></li>
@@ -1238,7 +1252,91 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="unreleased">[Unreleased]</h2>
 </section>
 <section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">[1.3.0] — 2026-05-22</h2>
+<h2 class="anchored" data-anchor-id="section">[1.3.1] — 2026-05-22</h2>
+<p><strong>Audit fix-forward</strong>: post-v1.3.0 fresh-eyes audit of the live GH-Pages deployment surfaced 7+ factual / stale-reference / polish defects. Each fix verified via independent re-derivation from <code>evals/*.parquet</code> source-of-truth (Q2 lock: “go back to the original resources and redo any calculation that can be independently re-examined; do not take any written record for granted”). Plus a new release-gate invariant (<code>scripts/audit_numbers.py</code>) to catch the cross-guide numeric-divergence class going forward.</p>
+<p><strong>Summary of the 5 sub-PRs landed into <code>release/v1.3.1</code></strong> (each sub-PR section below documents its detailed fix list):</p>
+<ul>
+<li><strong>PR-1</strong>: ADR-080 axis-only supersession of ADR-078 + ADR-079 on reviewer-URL-pin numeric axis (<code>tree/v1.2.8</code> → <code>tree/v1.0.0</code> per ADR-033). ADR count cascade 79 → 80 across 7 reader-facing surfaces.</li>
+<li><strong>PR-2</strong>: Class-A factual + numeric fixes (PAPER §4.6 frozen-probe FPR 0.6% → 1.0%; PAPER §3.3 BIPIA n=56 → n=50, InjecAgent n=56 → n=62; F4 → F5 figure-label fix in PAPER §4.7 + NARRATIVE Finding 7; NARRATIVE Act 4 “Six more findings” → “Four more findings” + Act 3 explicit Findings 1-3; NARRATIVE Finding 4 §-numbering leak fix; GLOSSARY rung/detector clarifier overcount + drop LLM judges; READING_GUIDE result-map Finding 2 row added). Includes <code>scripts/audit_numbers.py</code> invariant + pre-commit hook.</li>
+<li><strong>PR-3</strong>: Class-B 3-tier mixed-by-purpose retargeting of 22+ stale “WRITEUP-as-hub” references across 8 WRITEUP/ spokes + 3 non-spoke surfaces (RESULTS.md, site-reader-map.md, for-hiring-managers.md).</li>
+<li><strong>PR-4</strong>: Class-C/D polish (limitations §11 → §10 numbering gap closure; “v6” → “successor iteration”; Quarto frontmatter added to 6 spokes missing it). Plus <code>scripts/audit_internal_anchors.py</code> intra-site dead-anchor detector (manual-run; Q8 lychee-in-pre-commit deferred to v1.3.2 candidate).</li>
+<li><strong>PR-5</strong>: Q6 README chooser clarity (above-fold pointer + H2 rename “Read the site” → “Pick a guide for the full methodology” + end-of-Executive-Summary chooser transition).</li>
+</ul>
+<p><strong>Governance</strong>: ADR-080 (NEW; axis-only supersession of ADR-078 + ADR-079 on the reviewer-URL-pin numeric axis). 80 ADRs total at v1.3.1 close. Reviewer URL pin <code>tree/v1.0.0</code> unchanged per ADR-033.</p>
+<p><strong>Preventive guardrails</strong>: <code>scripts/audit_numbers.py</code> (release-gate invariant; pre-commit hook; 23 numeric checks against <code>evals/*.parquet</code>) + <code>scripts/audit_internal_anchors.py</code> (manual-run intra-site anchor resolver).</p>
+<p><strong>Decision trail</strong>: see <code>~/.claude/plans/i-want-to-audit-abundant-meerkat.md</code> for the 9-question /exploring-options walk-through (Q1 ADR-fix path; Q2 re-derivation discipline; Q3 NARRATIVE findings-count alignment; Q4 3-tier retargeting; Q5 frontmatter polish scope; Q6 README chooser clarity; Q7 sub-PR strategy; Q8 preventive guardrails; Q9 numbering + v6 polish). Transcript: <code>transcripts/2026-05-22__v1-3-1-audit-fix.md</code> (gitignored; <code>/save-transcript</code> will land post-tag).</p>
+<hr>
+<section id="v1.3.1-sub-pr-5-readme-chooser-clarity-q6-abc" class="level3">
+<h3 class="anchored" data-anchor-id="v1.3.1-sub-pr-5-readme-chooser-clarity-q6-abc">v1.3.1 sub-PR-5 — README chooser clarity (Q6 A+B+C)</h3>
+<p><strong>Defect</strong>: Live README chooser was present but discoverability was poor. A GitHub-arriving reader (who doesn’t see the Quarto sidebar) sees: title → 1-sentence framing → Executive Summary (multi-screen: OOD table + mechanism + direct-detection tables) → “Read the site” header. The chooser was several scrolls below the fold; the label “Read the site” didn’t telegraph that this is where you pick between PAPER and NARRATIVE. By the time many readers reached the chooser, they’d decided they’d gotten what they came for.</p>
+<p><strong>Fix (Q6 lock A+B+C)</strong>:</p>
+<ul>
+<li><strong>A. Above-the-fold pointer</strong>: inserted a 1-line pointer immediately after the badges + 1-sentence framing, before <code>## Executive summary</code>. Names both guides with their length estimates: &gt; Pick a guide for the full methodology — both cover the same &gt; content: WRITEUP_PAPER.md (academic IMRAD, ~45 min) or &gt; WRITEUP_NARRATIVE.md (narrative arc, ~30 min). The executive &gt; summary below is the 1-page distillation; pick a guide for the &gt; full read.</li>
+<li><strong>B. Renamed H2 “Read the site” → “Pick a guide for the full methodology”</strong>: telegraphs reader-intent + matches <code>index.qmd</code>’s “Pick your reading style” H2 label. Aligns the two entry surfaces (README + index) on chooser-prominence framing.</li>
+<li><strong>C. End-of-Executive-Summary chooser transition</strong>: added an inline transition at the close of the Executive Summary section: &gt; → Continue with the academic paper (~45 min) or the narrative &gt; (~30 min). Both cover the same methodology, findings, and &gt; limitations in different reading styles. Provides a second discovery point for readers who scrolled through the exec-summary.</li>
+</ul>
+<p>(D considered but rejected): Reorder chooser items to put the 60-sec tour first. Rejected because current depth-first ordering matches the academic-reviewer-first prioritization per ADR-004, and the 60-second tour is already discoverable from the navbar Reference dropdown + index.qmd’s chooser.</p>
+</section>
+<section id="v1.3.1-sub-pr-4-class-cd-polish-scriptsaudit_internal_anchors.py-anchor-link-cleanup" class="level3">
+<h3 class="anchored" data-anchor-id="v1.3.1-sub-pr-4-class-cd-polish-scriptsaudit_internal_anchors.py-anchor-link-cleanup">v1.3.1 sub-PR-4 — Class-C/D polish + scripts/audit_internal_anchors.py + anchor-link cleanup</h3>
+<p><strong>Polish (Q5 + Q9 locks)</strong>:</p>
+<ul>
+<li><strong>Quarto frontmatter added to 6 spokes</strong> that were missing it: data-decisions, eval-design, limitations-and-future-work, methodology-guarantees, reference-scorer-audit, threshold-policy. Pattern from <code>model-rungs.md</code> + <code>reproducibility.md</code> (the 2 spokes that had it already). Pre-fix: browser tab titles rendered as slug (<code>data-decisions – ...</code>); post-fix: proper title (<code>Data decisions – ...</code>). SEO + tab labels + bookmark titles improve.</li>
+<li><strong>`WRITEUP/limitations-and-future-work.md §11 → §10 renumber</strong> closes the §10 gap (8.1, 8.2, 9.1-9.5, then jumped to §11; now flows 8.1 → 8.2 → 9.1-9.5 → §10).</li>
+<li><strong><code>WRITEUP/limitations-and-future-work.md</code> “v6” → “a successor iteration”</strong> (4 occurrences): §9.4 header + 3 body references. “v6” was anomalous in a v1.x project (likely stale early-draft language); replaced with style-neutral wording that doesn’t bind to a specific version.</li>
+</ul>
+<p><strong>Anchor-link cleanup (post-PR-3 follow-up)</strong>:</p>
+<p>PR-3’s spoke-retargeting introduced anchors of the form <code>#43-trained-...</code> + <code>#46-validation-...</code> + <code>#1-cross-family-ood-table-auprc</code> etc. (carrying the leading section-number prefix). Quarto’s auto-identifier algorithm strips numeric prefixes — actual anchors are <code>#trained-...</code>, <code>#validation-...</code>, <code>#cross-family-ood-table-auprc</code>. Batched all PR-3-introduced anchors to the prefix-stripped form. Verified via the new <code>scripts/audit_internal_anchors.py</code> (re-runs clean after the fix).</p>
+<p><strong>Preventive guardrail (partial Q8 — see follow-up)</strong>:</p>
+<ul>
+<li><code>scripts/audit_internal_anchors.py</code> — markdown-only intra-site anchor resolver. Catches dead anchors of the form <code>[link](./WRITEUP.md#results)</code> where the target file has no <code>results</code> anchor. The exact failure class Lane-3 surfaced (<code>WRITEUP.html#results</code> dead anchor). Manual-run for now.</li>
+<li><strong>Q8 lychee-in-pre-commit deferred</strong>: lychee binary not installed locally + audit_internal_anchors surfaces 9 pre-existing dead anchors (CHANGELOG self-references to numbered headings + GLOSSARY self-references with em-dash slug-mismatch). These pre-date this audit. Fix-up patch v1.3.2 candidate; deferred to keep v1.3.1 scope tight to “audit fix-forward”. CI lychee continues to catch these post-tag.</li>
+</ul>
+</section>
+<section id="v1.3.1-sub-pr-3-class-b-stale-writeup-as-hub-retargeting-3-tier-rule-per-q4-lock" class="level3">
+<h3 class="anchored" data-anchor-id="v1.3.1-sub-pr-3-class-b-stale-writeup-as-hub-retargeting-3-tier-rule-per-q4-lock">v1.3.1 sub-PR-3 — Class-B stale “WRITEUP-as-hub” retargeting (3-tier rule per Q4 lock)</h3>
+<p><strong>Defect</strong>: 22+ references across 8 <code>WRITEUP/*.md</code> spokes + 3 non-spoke surfaces described WRITEUP.md as “the hub” with “cover narrative” and linked to <code>WRITEUP.md §Results</code> — but post-v1.3.0 (per ADR-079) WRITEUP.md is a 1-page router with no §Results, no §6, no cover narrative. Live-verified that <code>WRITEUP.html#results</code> is a dead anchor (<code>document.getElementById('results') === null</code>); every spoke click on “see WRITEUP §Results” was landing on a router page with nothing to read.</p>
+<p><strong>Fix</strong> (3-tier mixed-by-purpose retargeting per Q4 lock):</p>
+<ul>
+<li><strong>Tier 1 — Spoke headers (8 of 8)</strong>: Replaced “<em>Part of the WRITEUP methodology — see the hub for the cover narrative + reading guide.</em>” with “<em>Deep-dive reference for the methodology in WRITEUP_PAPER.md (academic) and WRITEUP_NARRATIVE.md (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em>”</li>
+<li><strong>Tier 2 — Body inline “WRITEUP §X” references</strong>: retargeted per reader-intent — “headline finding” → WRITEUP_PAPER §4.3 + NARRATIVE Act 3; “headline results” tables → RESULTS §1; “WRITEUP §6 + Methodology caveats” → WRITEUP_PAPER §6 Limitations; “WRITEUP §7.5 val→test transfer” (legacy hybrid-section numbering) → RESULTS §4
+<ul>
+<li>WRITEUP_PAPER §4.6 / NARRATIVE Finding 6; “WRITEUP §Results §Frozen probe vs adapter fine-tuned” → RESULTS §2.</li>
+</ul></li>
+<li><strong>Tier 3 — Spoke Cross-References sections (8 of 8)</strong>: each “Headline results → WRITEUP §Results” line became a two-link pattern: “<strong>Headline results (interpretation)</strong>: WRITEUP_PAPER §4 (academic) or WRITEUP_NARRATIVE Act 3 (narrative); <strong>Headline tables (data)</strong>: RESULTS §1”.</li>
+<li><strong>Non-spoke surfaces</strong>: <code>RESULTS.md</code> line 310, <code>docs/site-reader-map.md</code> line 14, <code>docs/for-hiring-managers.md</code> line 96 all updated to point at WRITEUP_PAPER + WRITEUP_NARRATIVE instead of describing WRITEUP.md as the hub.</li>
+</ul>
+<p><strong>Net effect</strong>: every click lands at the right depth; register-matched (academic spoke → PAPER for prose; data link → RESULTS); both-guide chooser preserved at spoke top + bottom only (not redundantly inline). The only remaining <code>WRITEUP.md</code> references are intentional router-page labels (“1-page router”, “Writeup chooser”).</p>
+</section>
+<section id="v1.3.1-sub-pr-2-class-a-factual-numeric-fixes-scriptsaudit_numbers.py-invariant" class="level3">
+<h3 class="anchored" data-anchor-id="v1.3.1-sub-pr-2-class-a-factual-numeric-fixes-scriptsaudit_numbers.py-invariant">v1.3.1 sub-PR-2 — Class-A factual + numeric fixes + scripts/audit_numbers.py invariant</h3>
+<p><strong>Defects</strong> (surfaced by 2026-05-22 fresh-eyes audit; verified by independent re-derivation from <code>evals/*.parquet</code> per <code>/exploring-options</code> Q2 lock — “go back to the original resources and redo any calculation that can be independently re-examined; do not take any written record for granted”):</p>
+<ol type="1">
+<li><strong><code>WRITEUP_PAPER.md</code> §4.6 frozen-probe Mean test FPR cited as 0.6%.</strong> Actual value: 1.0% (re-derived as 1.028% mean across 12 (fold, seed) cells from <code>evals/operating_points/dual_policy.parquet</code>, rung <code>frozen_probe</code>, policy <code>detection</code>). Fixed to <strong>1.0%</strong>. Cross-checked: <code>WRITEUP_NARRATIVE.md</code> Finding 6 said “Frozen probe holds the 1% target” (correct); <code>RESULTS.md</code> §4 says Test FPR 0.010 (correct). Only PAPER §4.6 was wrong; cross-guide consistency restored.</li>
+<li><strong><code>WRITEUP_PAPER.md</code> §3.3 evaluation slate table cited BIPIA n=56 + InjecAgent n=56.</strong> Actual per-slice positive counts (from <code>evals/predictions/*__bipia.parquet</code> + <code>*__injecagent.parquet</code> row counts): BIPIA n=<strong>50</strong>, InjecAgent n=<strong>62</strong>. Total 112 (unchanged; matches pooled OOD positive arithmetic). Cross-checked: <code>WRITEUP/limitations-and-future-work.md</code> §8.1 said <code>BIPIA n=50, InjecAgent n=62</code> (correct). Only PAPER §3.3 was wrong; fixed.</li>
+<li><strong>F4/F5 figure-label inversion.</strong> PAPER §4.7 + NARRATIVE Finding 7 both linked <code>Figure F4</code> for reliability diagrams. Per <code>docs/plots/F4.meta.json</code> source = <code>dual_policy.parquet</code>, F4 is the <strong>threshold-transfer</strong> figure; per <code>docs/plots/F5.meta.json</code> source = <code>per_cell.parquet</code>, F5 is the <strong>calibration</strong> figure. RESULTS.md uses both correctly (F4 caption: “Detection-threshold transfer”; F5 caption: “Calibration comparison”). Fixed PAPER + NARRATIVE links to F5.</li>
+<li><strong><code>WRITEUP_NARRATIVE.md</code> Act 4 intro asserted “Six more findings”</strong> but enumerated only Finding 4..7 (4 findings). Cross-guide finding parity with PAPER’s 7 equal-weight findings (§4.1-4.7) restored by the Q3 hybrid lock: NARRATIVE Act 3 now names Findings 1 (direct detection learned), 2 (OOD wall is cross-family), 3 (anti-correlation headline) explicitly via short anchored sub-section headers; Act 4 intro reworded to “Four more findings”. 7-finding parity preserved.</li>
+<li><strong><code>WRITEUP_NARRATIVE.md</code> Finding 4 referenced “§4.1”</strong> — PAPER’s §-numbered anchor convention leaking into a narrative-arc document with no §4.1. Rephrased to NARRATIVE-native: “the ModernBERT advantage we saw on the in-pool direct-detection task (Act 3’s strong validation numbers)”.</li>
+<li><strong><code>docs/GLOSSARY.md</code> rung/detector clarifier overcounted</strong> by listing “5 evaluated approaches” then enumerating 7 items including the dropped LLM-judge tier (dropped at ADR-050; never in the headline ladder). Rewritten to 5 ladder rungs explicitly + a note on the dropped LLM-judge tier.</li>
+<li><strong><code>READING_GUIDE.md</code> result map silently omitted PAPER §4.2</strong> (the OOD wall is cross-family, not source-level — Finding 2). Added an explicit row mapping Finding 2 → PAPER §4.2 / NARRATIVE Act 3 Finding 2 / WRITEUP/eval-design §5.5.</li>
+</ol>
+<p><strong>Preventive guardrail</strong>: <code>scripts/audit_numbers.py</code> lands as a release-gate invariant (per Q8 lock). Re-derives every reader-visible number from <code>evals/*.parquet</code> source-of-truth + diffs against extracted writeup numbers; exits non-zero on drift. Hooked into pre-commit; output to <code>evals/audit/numeric_audit.json</code>. 23 checks pass on this commit (catches the exact defect-class that surfaced this audit).</p>
+</section>
+<section id="v1.3.1-sub-pr-1-adr-080-reviewer-url-pin-numeric-correction-axis-only-supersession-of-adr-078-adr-079" class="level3">
+<h3 class="anchored" data-anchor-id="v1.3.1-sub-pr-1-adr-080-reviewer-url-pin-numeric-correction-axis-only-supersession-of-adr-078-adr-079">v1.3.1 sub-PR-1 — ADR-080 reviewer-URL-pin numeric correction (axis-only supersession of ADR-078 + ADR-079)</h3>
+<p><strong>Defect</strong>: ADR-078 + ADR-079 + WRITEUP.md cited <code>tree/v1.2.8</code> as the reviewer URL pin “per ADR-033”, but ADR-033 canonically pins <code>tree/v1.0.0</code> (never-drift discipline; CHANGELOG v1.3.0 confirmed). ADR-078 even self-contradicted within a single paragraph (line 163 <code>tree/v1.0.0</code>; line 164 <code>tree/v1.2.8</code>). Surfaced by the 2026-05-22 fresh-eyes audit of the live GH-Pages deployment.</p>
+<p><strong>Fix</strong>:</p>
+<ul>
+<li><strong>ADR-080</strong> (<code>decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md</code>) — NEW; axis-only supersession of ADR-078 + ADR-079 on the reviewer-URL-pin numeric axis only. Bodies of ADR-078 + ADR-079 unchanged per CLAUDE.md immutability; their <code>superseded_by:</code> frontmatter backfilled to <code>["080"]</code> per ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline.</li>
+<li><strong>WRITEUP.md</strong> — <code>tree/v1.2.8</code> → <code>tree/v1.0.0</code> (mutable file edit; cites ADR-080 for the correction trail).</li>
+<li><strong>ADR count cascade 79 → 80</strong> across 7 reader-facing surfaces: README + WRITEUP + WRITEUP_NARRATIVE + READING_GUIDE + for-hiring-managers + WRITEUP/methodology-guarantees + CLAUDE.md. <code>scripts/audit_adr_count_claims.py</code> fires correctly for the 6th time across the v1.2.13 → v1.2.14 → v1.2.15 → v1.2.16 → v1.3.0 → v1.3.1 trail.</li>
+<li><strong>SUBMISSION_AUDIT.md</strong> regenerated; CLAIM row count 79 → 80.</li>
+</ul>
+<p><strong>Why axis-only supersession (not in-place narrow-relaxation)</strong>: the four CLAUDE.md narrow-relaxation classes (slug typo / broken external ref / publisher-URL canonicalization / render-only Markdown) cover surface defects only; the v1.2.8 claim IS the prose intent of ADR-078 + ADR-079’s Consequences sections (a factual claim about a tag commitment). Correcting it is a meaningful claim change that warrants supersession discipline, not in-place rewriting.</p>
+</section>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">[1.3.0] — 2026-05-22</h2>
 <p><strong>Two-guide reader architecture: WRITEUP_PAPER (academic IMRAD) + WRITEUP_NARRATIVE (story arc) replacing the single-hybrid WRITEUP.md.</strong> First minor bump since v1.0.0. Substantial structural change; pure presentation restructure (no methodology / model / data / compute change). Governance: ADR-078 (EXECUTIVE_SUMMARY absorbed into README) + ADR-079 (two-guide architecture). Reviewer URL pin <code>tree/v1.0.0</code> unchanged per ADR-033.</p>
 <section id="root-cause-for-restructure" class="level3">
 <h3 class="anchored" data-anchor-id="root-cause-for-restructure">Root cause for restructure</h3>
@@ -1313,8 +1411,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">[1.2.16] — 2026-05-21</h2>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">[1.2.16] — 2026-05-21</h2>
 <p><strong>eval-toolkit v0.44.0 → v0.47.0 consumer-side bump (skip 3 minors).</strong> Dependency/ledger maintenance per ADR-066 trigger #4; no methodology / model / data / compute change.</p>
 <section id="changed-1" class="level3">
 <h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
@@ -1350,8 +1448,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Third parallel-agent collision incident this session (after the v1.2.6+v1.2.7 codex-handoff incident + the v1.2.14 eval-toolkit v0.44.0 collision). Same detect → ask → incorporate → cite pattern.</p>
 </section>
 </section>
-<section id="section-2" class="level2">
-<h2 class="anchored" data-anchor-id="section-2">[1.2.15] — 2026-05-21</h2>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">[1.2.15] — 2026-05-21</h2>
 <p><strong>v1.2.14 visual-recheck + supersession-backlink invariant + ADR-077 backfill.</strong> Closes the v1.2.13/v1.2.14 lesson-noted gap: v1.2.14 added the ADR-count-claim invariant; v1.2.15 adds the sibling supersession- backlink + closing_commit invariant that catches the OTHER class of frontmatter chain-effect (REPO_AUDIT_2026-05-21 §P1-6 class). No methodology, model, data, or compute change.</p>
 <section id="added" class="level3">
 <h3 class="anchored" data-anchor-id="added">Added</h3>
@@ -1407,8 +1505,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-3" class="level2">
-<h2 class="anchored" data-anchor-id="section-3">[1.2.14] — 2026-05-21</h2>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4">[1.2.14] — 2026-05-21</h2>
 <p><strong>v1.2.13 visual-verification-driven polish patch.</strong> Closes D1 from the post-ship Playwright + curl-grep sweep of v1.2.13’s rendered site (<code>transcripts/2026-05-21__v1-2-13-visual-verification.md</code>; gitignored) + folds in 4 deferred items from v1.2.13’s out-of-scope list. No methodology, model, data, or compute change.</p>
 <section id="added-1" class="level3">
 <h3 class="anchored" data-anchor-id="added-1">Added</h3>
@@ -1440,8 +1538,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Parallel-agent collision noted: the eval-toolkit v0.44.0 bump’s <code>pyproject.toml</code> + <code>uv.lock</code> changes were initiated by a paused parallel-agent session (plan file <code>evaluate-all-the-work-twinkly-kite.md</code>); incorporated into v1.2.14 per user-locked decision after discovery.</p>
 </section>
 </section>
-<section id="section-4" class="level2">
-<h2 class="anchored" data-anchor-id="section-4">[1.2.13] — 2026-05-21</h2>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">[1.2.13] — 2026-05-21</h2>
 <p><strong>REPO_AUDIT_2026-05-21 discharge polish patch.</strong> Closes the v1.2.12-close internal audit (<code>decisions/audits/REPO_AUDIT_2026-05-21.md</code>): 2 P0 + 7 P1 + ~14 P2 + ~7 P3 findings, all prose-propagation debt from the v1.2.9-v1.2.12 polish arc. No methodology, model, data, or compute change.</p>
 <section id="added-2" class="level3">
 <h3 class="anchored" data-anchor-id="added-2">Added</h3>
@@ -1495,8 +1593,8 @@ ul.task-list li input[type="checkbox"] {
 <p>All 8 commits gated locally + on GitHub Actions CI green before proceeding to the next per <code>[[auto-continue-on-green-ci-preferred-for-bundled-patches]]</code>.</p>
 </section>
 </section>
-<section id="section-5" class="level2">
-<h2 class="anchored" data-anchor-id="section-5">[1.2.12] — 2026-05-21</h2>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">[1.2.12] — 2026-05-21</h2>
 <p><strong>README hybrid-adoption polish</strong>: restructures the README around a compact top-fold + <code>&lt;details&gt;</code>-collapsible depth, per the drafted replacement that’s been sitting in the audit appendix unadopted since the original 2026-05-20 audit. Keeps all v1.2.10/v1.2.11 polish (asterisks, AUROC framing, “Project at a glance” cross-refs). No methodology, model, data, compute, or result change.</p>
 <section id="changed-5" class="level3">
 <h3 class="anchored" data-anchor-id="changed-5">Changed</h3>
@@ -1520,8 +1618,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-6" class="level2">
-<h2 class="anchored" data-anchor-id="section-6">[1.2.11] — 2026-05-20</h2>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">[1.2.11] — 2026-05-20</h2>
 <p><strong>Post-remediation polish patch</strong>: a focused polish pass on items the post-remediation audit flagged as P2/P3 (originally deferred). User push: “polish is important.” 2 commits + this tag close the loop; no methodology, model, data, compute, or result change.</p>
 <section id="changed-6" class="level3">
 <h3 class="anchored" data-anchor-id="changed-6">Changed</h3>
@@ -1542,8 +1640,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-7" class="level2">
-<h2 class="anchored" data-anchor-id="section-7">[1.2.10] — 2026-05-20</h2>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8">[1.2.10] — 2026-05-20</h2>
 <p><strong>Post-remediation reporting-honesty patch</strong>: the 2026-05-20 post-remediation audit on v1.2.9 surfaced that two headline-table caveats (ProtectAI v1+v2 training-pool contamination + full-FT incomplete OOD experiment) were sitting unflagged. A skimming reader could treat ProtectAI scores as peer to in-house detectors and the full-FT LODO row as a complete result. No methodology, model, data, compute, or result change; the data + caveats were already there in EVIDENCE.md §1-2 + ADR-050 R2 / ADR-052 / ADR-075. This release makes them visually load-bearing.</p>
 <section id="changed-7" class="level3">
 <h3 class="anchored" data-anchor-id="changed-7">Changed</h3>
@@ -1559,8 +1657,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-8" class="level2">
-<h2 class="anchored" data-anchor-id="section-8">[1.2.9] — 2026-05-20</h2>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9">[1.2.9] — 2026-05-20</h2>
 <p><strong>Audit-remediation patch release</strong>: 2026-05-20 second-opinion audit cycle surfaced + closed P0/P1 governance + presentation + narrative findings. 12 commits; no methodology, model, data, compute, or result change. The new canonical source pin moves to <code>v1.2.9</code>; v1.0.0 preserved as the original submission reviewer pin per ADR-033.</p>
 <section id="changed-now-packaged-from-unreleased-pre-2026-05-20-work" class="level3">
 <h3 class="anchored" data-anchor-id="changed-now-packaged-from-unreleased-pre-2026-05-20-work">Changed (now packaged from [Unreleased] pre-2026-05-20 work)</h3>
@@ -1600,8 +1698,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-9" class="level2">
-<h2 class="anchored" data-anchor-id="section-9">[1.2.8] — 2026-05-19</h2>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10">[1.2.8] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: rendered-site hardening plus dependency/ledger maintenance. No compute spend; no methodology, model, data, or result change; reviewer URL pin remains <code>v1.0.0</code>.</p>
 <section id="fixed" class="level3">
 <h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
@@ -1629,8 +1727,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-10" class="level2">
-<h2 class="anchored" data-anchor-id="section-10">[1.2.7] — 2026-05-19</h2>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11">[1.2.7] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: fix-forward for the single CI-only lychee residue after <code>v1.2.6</code>. Docs-only; no compute spend; reviewer URL pin remains <code>v1.0.0</code>.</p>
 <section id="fixed-1" class="level3">
 <h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
@@ -1646,8 +1744,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-11" class="level2">
-<h2 class="anchored" data-anchor-id="section-11">[1.2.6] — 2026-05-19</h2>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12">[1.2.6] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: fix-forward for inherited Markdown link-check content debt surfaced after the <code>v1.2.5</code> presentation patch was already tagged. Docs-only; no compute spend; reviewer URL pin remains <code>v1.0.0</code>.</p>
 <section id="fixed-2" class="level3">
 <h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
@@ -1667,8 +1765,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-12" class="level2">
-<h2 class="anchored" data-anchor-id="section-12">[1.2.5] — 2026-05-19</h2>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13">[1.2.5] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: docs-only presentation + status-drift remediation for the live/main site. No ADR (readability/status cleanup, not methodology). Layered additively on v1.2.4.</p>
 <section id="changed-9" class="level3">
 <h3 class="anchored" data-anchor-id="changed-9">Changed</h3>
@@ -1689,8 +1787,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-13" class="level2">
-<h2 class="anchored" data-anchor-id="section-13">[1.2.4] — 2026-05-19</h2>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14">[1.2.4] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: fix-forward for v1.2.3 — residual lychee v0.23.0 incompat (<code>--base .</code> rejected). No ADR (bug fix, not methodology). Layered additively on v1.2.3.</p>
 <p>After v1.2.3 dropped <code>--exclude-mail</code>, the v1.2.3 push surfaced a second lychee v0.23.0 incompat: <code>error: invalid value '.' for '--base &lt;BASE&gt;': Base must either be a URL (with scheme) or an absolute local path</code>. v0.23.0 tightened <code>--base</code> validation to require URL or absolute path; the relative <code>.</code> that worked in v0.22.x is now rejected.</p>
 <section id="fixed-3" class="level3">
@@ -1714,8 +1812,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-14" class="level2">
-<h2 class="anchored" data-anchor-id="section-14">[1.2.3] — 2026-05-19</h2>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15">[1.2.3] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: CI hygiene — fix 3 inherited CI failures across mypy hard gate, smoke-test soft gate, and lychee link-check workflow. No ADR (bug fixes, not methodology). Layered additively on v1.2.2 — no supersession of any prior ADR. Reviewer URL pin <code>tree/v1.0.0</code> unchanged per ADR-033; live Quarto site reflects v1.2.3.</p>
 <p>CI red across these jobs since v1.1.3 (<code>ca43512</code>) / v1.1.4 (<code>d3f63d8</code>) / v1.1.2 (<code>a34128b</code>) — 5 patches; failures were masked because the Publish Quarto + Writeup numerical-claim audit gates stayed green on every push. Closes the inherited debt before any further patch work. CI now green end-to-end on <code>main</code>.</p>
 <section id="fixed-4" class="level3">
@@ -1747,8 +1845,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-15" class="level2">
-<h2 class="anchored" data-anchor-id="section-15">[1.2.2] — 2026-05-19</h2>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16">[1.2.2] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: library-first carryforward refactor + narrow immutability relaxation. Per <a href="./decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.html">ADR-066</a> (library-first refactor) + <a href="./decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a> (narrow immutability relaxation for factual-typo fixes). Layered additively on v1.2.1 — no supersession of any prior ADR. Reviewer URL pin <code>tree/v1.0.0</code> unchanged per ADR-033; live Quarto site reflects v1.2.2.</p>
 <p>Discovery during execution: 5 of 6 refactor sites listed in ADR-066 §B were ALREADY consuming upstream primitives in prior v1.0.x carryforward sessions (per ADR-047 / ADR-056 / ADR-058). The remaining work was stale-annotation cleanup + ONE actual refactor (F6 left panel). Planned 4 source-refactor commits (3/9-6/9) consolidated into a single commit reflecting the actual scope.</p>
 <section id="added-3" class="level3">
@@ -1799,8 +1897,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-16" class="level2">
-<h2 class="anchored" data-anchor-id="section-16">[1.2.1] — 2026-05-19</h2>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17">[1.2.1] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: narrative consistency + clarity + accuracy closing-polish pass on top of v1.2.0. Per <a href="./decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.html">ADR-065</a> (layered additively on top of ADR-064 — no supersession). Reviewer URL pin <code>tree/v1.0.0</code> unchanged per ADR-033; live Quarto site reflects v1.2.1.</p>
 <p>Locked through 3 sequential <code>/exploring-options</code> rounds:</p>
 <ul>
@@ -1850,8 +1948,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-17" class="level2">
-<h2 class="anchored" data-anchor-id="section-17">[1.2.0] — 2026-05-19</h2>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18">[1.2.0] — 2026-05-19</h2>
 <p><strong>Minor release</strong>: heavy writeup-clarity pass + dedicated hiring-manager landing page. Third (and final) stage of the v1.1.3 → v1.1.4 → v1.2.0 clarity-and- consistency series. Per <a href="./decisions/ADR-064-writeup-hiring-manager-clarity-and-consistency-pass.html">ADR-064</a> (layered additively on top of ADR-062 — no supersession).</p>
 <p>Triggered by 2026-05-19 user feedback that the v1.1.1 navigation pass left the writeup <em>“jargon heavy and dense and pretty unreadable to a hiring manager — doesn’t demonstrate clear thought.”</em> Then expanded: <em>“take a broad look over everything … to make sure we are consistent throughout the guide.”</em></p>
 <section id="added-5" class="level3">
@@ -1902,8 +2000,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-18" class="level2">
-<h2 class="anchored" data-anchor-id="section-18">[1.1.4] — 2026-05-19</h2>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19">[1.1.4] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: documentation-wide consistency fix-pack + markdown-link-checker CI prophylaxis. Second of a three-stage clarity-and-consistency series (v1.1.3 baseline → v1.1.4 consistency → v1.2.0 heavy clarity pass + hiring-manager landing).</p>
 <p>Triggered by 2026-05-19 full-repo markdown audit (Stage 2 Commit 1 of the v1.1.3→v1.2.0 plan at <code>/home/brandon_behring/.claude/plans/i-find-that-the-toasty-puppy.md</code>). The audit scanned every reviewer-facing markdown surface plus previously-unscanned areas (SPEC_SHEET, SPEC_GREENFIELD, docs/research/, notebooks/*.py, .github/workflows/, HF Hub model card output). Findings: 7 broken ADR slug references in immutable ADR files + 2 broken ADR slug refs in CHANGELOG (fixable) + 1 stale ADR-count claim in SPEC_SHEET + 2 stale version references in NEXT_STEPS + 1 stale <code>v1.0.x submission</code> comment in <code>notebooks/01_canonical_results.py</code>. The 7 immutable broken refs are recorded in the CHANGELOG <code>[1.1.2]</code> Postscript for reader-visibility; the others are patched here.</p>
 <section id="fixed-5" class="level3">
@@ -1941,8 +2039,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-19" class="level2">
-<h2 class="anchored" data-anchor-id="section-19">[1.1.3] — 2026-05-19</h2>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20">[1.1.3] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: ADR-062 Quarto writeup clarity rewrite — the first of a three-stage clarity-and-consistency series (v1.1.3 baseline → v1.1.4 consistency-only fix-pack → v1.2.0 heavy clarity pass + hiring-manager landing). Triggered by 2026-05-19 user feedback that the v1.1.1 navigation pass left the writeup <em>“jargon heavy and dense and pretty unreadable to a hiring manager. Doesn’t demonstrate clear thought.”</em></p>
 <p>This release is a bundled commit of the parallel doc-rewrite work authored per <a href="./decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.html">ADR-062</a>. The doc-agent had ~85% of the rewrite landed in working tree at v1.1.2 close; v1.1.3 packages that progress as a single coherent release so the subsequent v1.1.4 (consistency fixes) and v1.2.0 (heavy pass) layers can build on a clean baseline.</p>
 <section id="added-7" class="level3">
@@ -1988,8 +2086,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-20" class="level2">
-<h2 class="anchored" data-anchor-id="section-20">[1.1.2] — 2026-05-19</h2>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21">[1.1.2] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: closes the <a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> DeBERTa-v3-base medium-ablation execution landing condition. The methodology lock landed at v1.1.0 with <code>[v1.1.1 execution]</code> body wording, but that slot was consumed by <a href="./decisions/ADR-061-quarto-site-navigation-restructure.html">ADR-061</a> (Quarto navigation restructure) so execution carried forward to v1.1.2. ADR-060 stays immutable; commit messages document the slot shift.</p>
 <section id="headline-result" class="level3">
 <h3 class="anchored" data-anchor-id="headline-result">Headline result</h3>
@@ -2096,8 +2194,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-21" class="level2">
-<h2 class="anchored" data-anchor-id="section-21">[1.1.1] — 2026-05-19</h2>
+<section id="section-22" class="level2">
+<h2 class="anchored" data-anchor-id="section-22">[1.1.1] — 2026-05-19</h2>
 <p><strong>Patch release</strong>: Quarto site navigation restructure — landing-page rebuild + navbar consolidation + sidebar hub-spoke nesting + hub-spoke signposting. <strong>No methodology content changed</strong> — pure navigation + discoverability fix per <a href="./decisions/ADR-061-quarto-site-navigation-restructure.html">ADR-061</a> (narrow supersession of <a href="./decisions/ADR-053-reading-guide-governance-and-newcomer-paths.html">ADR-053</a> navigation dimension 1; dimensions 2-5 preserved).</p>
 <p>Triggered by 2026-05-19 user feedback: <em>“the quatro documents they seem really confusing and hard to follow, the whole points was them to be a cleaner version. … it isn’t immdiately clear to me where to find the results and explanations in clear language about wha they mean.”</em></p>
 <p>The reading-guide content displaced from <code>index.qmd</code> (3 reading paths + 14 headline ADRs + repo map + submission anchors + 5 technical-interpretation patterns) moves to a new <code>READING_GUIDE.md</code> page accessible from the Methodology dropdown but no longer crowding the landing page.</p>
@@ -2133,8 +2231,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-22" class="level2">
-<h2 class="anchored" data-anchor-id="section-22">[1.1.0] — 2026-05-19</h2>
+<section id="section-23" class="level2">
+<h2 class="anchored" data-anchor-id="section-23">[1.1.0] — 2026-05-19</h2>
 <p><strong>Minor release</strong>: closes the runpod-deploy modernization track (config schema migration + v0.7.7→v0.8.4 PyPI switch + shim drop + 7 upstream issues consumed) <strong>and</strong> lands the DeBERTa-v3-base medium ablation <strong>methodology lock</strong> (ADR-060) with infrastructure scaffolds. Execution of the DeBERTa GPU fire is deferred to v1.1.1 per the /exploring-options 2026-05-19 <strong>Path B</strong> scope-mismatch resolution (existing training pipeline is ModernBERT-specific; loader refactor + windowed-inference module + eval-pipeline integration must precede any GPU fire).</p>
 <p>v1.1.0 ships as 3 sequenced commits per /exploring-options 2026-05-19 Q5 lock (each independently CI-green-able + revertible):</p>
 <ol type="1">
@@ -2190,8 +2288,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-23" class="level2">
-<h2 class="anchored" data-anchor-id="section-23">[1.0.9] — 2026-05-19</h2>
+<section id="section-24" class="level2">
+<h2 class="anchored" data-anchor-id="section-24">[1.0.9] — 2026-05-19</h2>
 <p><code>scripts/eval_from_hub.py</code> non-dry-run body <strong>wired end-to-end</strong> — closes ADR-051 Block A (T0 score-match carryforward) per ADR-058 narrow supersession + opportunistic eval-toolkit v0.40.0 → v0.42.0 bump consuming upstream <strong><code>fit_isotonic_binary</code></strong> (eval-toolkit#44 closed; ~5 min between issue close + PyPI publish). The v1.0.8 <code>fit_isotonic_binary_local</code> adapter is removed in the same commit per library-first + no-orphaned-code invariants. 4-of-4 binary calibrator family (temperature + isotonic + Platt + Beta) now lands on the canonical upstream <code>_binary</code> API.</p>
 <p>Closes ADR-051 Block A landing condition: <code>make eval-from-hub RUNG=frozen-probe</code> + <code>RUNG=lora</code> exit 0 with score-match summary within 1e-4 absolute tolerance per ADR-034 §Tier T0. Strict-mode exit code per /exploring-options 2026-05-19 Q1 lock: exit 1 on any row exceeding tolerance (no silent failures). ADR-051 Block B (38 invariant scaffolds) remains v1.1.x carryforward.</p>
 <section id="added-11" class="level3">
@@ -2235,8 +2333,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-24" class="level2">
-<h2 class="anchored" data-anchor-id="section-24">[1.0.8] — 2026-05-19</h2>
+<section id="section-25" class="level2">
+<h2 class="anchored" data-anchor-id="section-25">[1.0.8] — 2026-05-19</h2>
 <p>eval-toolkit v0.39.0 → v0.40.0 + <strong>PyPI install switch</strong> (out of git+https) + <strong>binary calibrator refactor</strong> to upstream <code>_binary</code> API family + <strong>Platt + Beta calibrators landed</strong> + <strong>per-prediction provenance manifest backfill</strong> (282 manifests) + <strong>3 new ADRs</strong> (055/056/057) + 2 in-place superseded_by edits on ADR-036 + ADR-023.</p>
 <p>Closes NEXT_STEPS §1.4 (Platt + Beta deferral via upstream consume) and §1.9 (manifest backfill pipeline) per Path 3 / /exploring-options batches 10-11 locks.</p>
 <section id="added-12" class="level3">
@@ -2306,8 +2404,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-25" class="level2">
-<h2 class="anchored" data-anchor-id="section-25">[1.0.7] — 2026-05-18</h2>
+<section id="section-26" class="level2">
+<h2 class="anchored" data-anchor-id="section-26">[1.0.7] — 2026-05-18</h2>
 <p>4 demo notebooks (jupytext-paired; pre-rendered + frozen output cells) + DeLong + BH-FDR primitives wired + CSV analysis exports. Closes NEXT_STEPS §1.1 + §1.2 + §1.3 per Path 3 / /exploring-options batches 7-9 locks.</p>
 <section id="added-13" class="level3">
 <h3 class="anchored" data-anchor-id="added-13">Added</h3>
@@ -2371,8 +2469,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-26" class="level2">
-<h2 class="anchored" data-anchor-id="section-26">[1.0.6] — 2026-05-18</h2>
+<section id="section-27" class="level2">
+<h2 class="anchored" data-anchor-id="section-27">[1.0.6] — 2026-05-18</h2>
 <p>eval-toolkit pin v0.34.0 → v0.39.0 bump consuming 3 upstream resolutions (filed v1.0.3) + library-first refactor of hand-rolled glue + leakage CI hard-gate + NEXT_STEPS §1 honest accounting + upstream issue #43 filed for v1.0.8 prep. First patch of the Path-3 NEXT_STEPS §1 closure sweep per /exploring-options batches 7-9 locks.</p>
 <section id="added-14" class="level3">
 <h3 class="anchored" data-anchor-id="added-14">Added</h3>
@@ -2437,8 +2535,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-27" class="level2">
-<h2 class="anchored" data-anchor-id="section-27">[1.0.5] — 2026-05-18</h2>
+<section id="section-28" class="level2">
+<h2 class="anchored" data-anchor-id="section-28">[1.0.5] — 2026-05-18</h2>
 <p>README badges + <code>RESULTS.md</code> rendered page + ADR-054 reading-guide governance extension. Closes two post-v1.0.4 polish gaps surfaced in the same session:</p>
 <ol type="1">
 <li><strong>Badges</strong>: user — <em>“can the documentation be a badge on the top? any other badges?”</em> — README had 0 badges. 9 text-only shields.io badges added under H1.</li>
@@ -2497,8 +2595,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-28" class="level2">
-<h2 class="anchored" data-anchor-id="section-28">[1.0.4] — 2026-05-18</h2>
+<section id="section-29" class="level2">
+<h2 class="anchored" data-anchor-id="section-29">[1.0.4] — 2026-05-18</h2>
 <p>Reading-guide refresh + repo-wide stale-content sweep + ADR-053 reading-guide governance. Driver: user question <em>“does the reading guide clearly say what the final results were? is it organized in a way that makes sense to someone coming to the project. Does it conform to our initial guidance and/or does our ADRs need to be enriched?”</em> — answered NO + YES (ADR enrichment needed). v1.0.4 fixes the staleness across 9 files + lands ADR-053 in a single atomic patch. Reviewer URL stays pinned at <code>tree/v1.0.0</code>; live Quarto site reflects this patch.</p>
 <section id="added-16" class="level3">
 <h3 class="anchored" data-anchor-id="added-16">Added</h3>
@@ -2580,8 +2678,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 </section>
 </section>
-<section id="section-29" class="level2">
-<h2 class="anchored" data-anchor-id="section-29">[1.0.3] — 2026-05-18</h2>
+<section id="section-30" class="level2">
+<h2 class="anchored" data-anchor-id="section-30">[1.0.3] — 2026-05-18</h2>
 <p>Narrative-import + housekeeping patch. Reframes the full-FT OOD drop as methodological judgment + operational trigger (ADR-052 narrow supersession of ADR-050 R2); imports the cover-letter draft’s load-bearing phrasings into README + WRITEUP; adds the 1-page EXECUTIVE_SUMMARY public artifact + the SUBMISSION.md cover-letter (gitignored); files 3 long-standing upstream eval-toolkit issues with real URLs. Reviewer URL stays pinned at <code>tree/v1.0.0</code>; live Quarto site reflects this patch.</p>
 <section id="added-17" class="level3">
 <h3 class="anchored" data-anchor-id="added-17">Added</h3>
@@ -2613,8 +2711,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-30" class="level2">
-<h2 class="anchored" data-anchor-id="section-30">[1.0.2] — 2026-05-18</h2>
+<section id="section-31" class="level2">
+<h2 class="anchored" data-anchor-id="section-31">[1.0.2] — 2026-05-18</h2>
 <p>Governance patch — closes the two <code>REPO_AUDIT_2026-05-18</code> findings that v1.0.0 + v1.0.1 documented as carryforwards but did not formally supersede via ADR. Zero code changes; ADR + ledger update only. Reviewer URL stays pinned at <code>tree/v1.0.0</code>; live Quarto site reflects this patch.</p>
 <section id="added-18" class="level3">
 <h3 class="anchored" data-anchor-id="added-18">Added</h3>
@@ -2638,8 +2736,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="section-31" class="level2">
-<h2 class="anchored" data-anchor-id="section-31">[1.0.1] — 2026-05-18</h2>
+<section id="section-32" class="level2">
+<h2 class="anchored" data-anchor-id="section-32">[1.0.1] — 2026-05-18</h2>
 <p>Post-submission polish patch (per ADR-033 v1.0.x patch convention). Reviewer URL stays pinned at <code>tree/v1.0.0</code>; live Quarto site reflects this patch.</p>
 <section id="added-19" class="level3">
 <h3 class="anchored" data-anchor-id="added-19">Added</h3>
@@ -2670,8 +2768,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Audit-driven patch (3 parallel Explore agents at v1.0.0 close surfaced these polish items). All gates green; live Quarto site + HF Hub repos resolve.</p>
 </section>
 </section>
-<section id="section-32" class="level2">
-<h2 class="anchored" data-anchor-id="section-32">[1.0.0] — 2026-05-18</h2>
+<section id="section-33" class="level2">
+<h2 class="anchored" data-anchor-id="section-33">[1.0.0] — 2026-05-18</h2>
 <p>Submission tag. Closes the <code>REPO_AUDIT_2026-05-18</code> 8-item remediation queue with 12 commits + 2 rehearsal tags + green CI/Publish on the v1.0.0 head. Per ADR-033, this is the reviewer URL pin (<code>tree/v1.0.0</code>); post-submission patches land as <code>v1.0.1</code>+ and the live Quarto site reflects the latest patch.</p>
 <section id="added-20" class="level3">
 <h3 class="anchored" data-anchor-id="added-20">Added</h3>
@@ -2734,8 +2832,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="rc1-2026-05-17">[0.9.0-rc1] — 2026-05-17</h2>
 <p>First rehearsal tag (per ADR-033). Catches first-time-CI / auth / schema issues before the canonical submission. Resulted in the <code>REPO_AUDIT_2026-05-18.md</code> 8-item remediation queue.</p>
 </section>
-<section id="section-33" class="level2">
-<h2 class="anchored" data-anchor-id="section-33">[0.0.0] — 2026-05-15</h2>
+<section id="section-34" class="level2">
+<h2 class="anchored" data-anchor-id="section-34">[0.0.0] — 2026-05-15</h2>
 <section id="added-21" class="level3">
 <h3 class="anchored" data-anchor-id="added-21">Added</h3>
 <ul>

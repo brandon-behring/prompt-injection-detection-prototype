@@ -997,6 +997,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1019,7 +1025,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mechanism-lexical-overfitting-label-relevance-shift" id="toc-mechanism-lexical-overfitting-label-relevance-shift" class="nav-link" data-scroll-target="#mechanism-lexical-overfitting-label-relevance-shift">Mechanism: lexical overfitting + label-relevance shift</a></li>
   <li><a href="#direct-detection-check" id="toc-direct-detection-check" class="nav-link" data-scroll-target="#direct-detection-check">Direct detection check</a></li>
   </ul></li>
-  <li><a href="#read-the-site" id="toc-read-the-site" class="nav-link" data-scroll-target="#read-the-site">Read the site</a></li>
+  <li><a href="#pick-a-guide-for-the-full-methodology" id="toc-pick-a-guide-for-the-full-methodology" class="nav-link" data-scroll-target="#pick-a-guide-for-the-full-methodology">Pick a guide for the full methodology</a></li>
   <li><a href="#what-this-project-is" id="toc-what-this-project-is" class="nav-link" data-scroll-target="#what-this-project-is">What this project is</a></li>
   <li><a href="#what-ood-means-here" id="toc-what-ood-means-here" class="nav-link" data-scroll-target="#what-ood-means-here">What “OOD” means here</a></li>
   <li><a href="#why-trust-the-result" id="toc-why-trust-the-result" class="nav-link" data-scroll-target="#why-trust-the-result">Why trust the result</a></li>
@@ -1043,6 +1049,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>prompt-injection-detection-prototype</h1>
 <p><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><img src="https://img.shields.io/badge/docs-live-blue.png" class="img-fluid" alt="Documentation"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg" class="img-fluid" alt="CI"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg" class="img-fluid" alt="Publish"></a> <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.13-blue.svg" class="img-fluid" alt="Python 3.13"></a></p>
 <p><strong>A methodology-focused evaluation of prompt-injection detectors under cross-family distribution shift.</strong> Asks one question: when detectors trained on direct prompt-injection examples meet attack families they didn’t see, do they still work?</p>
+<blockquote class="blockquote">
+<p><strong>Pick a guide for the full methodology</strong> — both cover the same content: <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic IMRAD, ~45 min) or <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative arc, ~30 min). The executive summary below is the 1-page distillation; pick a guide for the full read.</p>
+</blockquote>
 <hr>
 <section id="executive-summary" class="level2">
 <h2 class="anchored" data-anchor-id="executive-summary">Executive summary</h2>
@@ -1166,11 +1175,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). Full-FT is absent from the Pooled OOD table above for that reason.</p>
 <p>This is a capability characterization, not a deployment recommendation. The artifact’s contribution is the honest evaluation harness plus the negative result on cross-family transfer.</p>
+<p>→ Continue with the <a href="./WRITEUP_PAPER.html">academic paper</a> (~45 min) or the <a href="./WRITEUP_NARRATIVE.html">narrative</a> (~30 min). Both cover the same methodology, findings, and limitations in different reading styles.</p>
 <hr>
 </section>
 </section>
-<section id="read-the-site" class="level2">
-<h2 class="anchored" data-anchor-id="read-the-site">Read the site</h2>
+<section id="pick-a-guide-for-the-full-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="pick-a-guide-for-the-full-methodology">Pick a guide for the full methodology</h2>
 <p>Pick the format that fits how you want to read this:</p>
 <ul>
 <li><strong>Academic paper format (IMRAD)</strong> → <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~45 min)</li>
@@ -1240,7 +1250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-this-project-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="how-this-project-thinks">How this project thinks</h2>
 <ul>
-<li><strong>Spec-driven development</strong> — 79 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
+<li><strong>Spec-driven development</strong> — 80 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
 <li><strong>Library-first invariant</strong> — shared evaluation primitives live in upstream libraries (<a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a>, <a href="https://github.com/brandon-behring/runpod-deploy">runpod-deploy</a>, <a href="https://github.com/brandon-behring/research_toolkit">research_toolkit</a>); local code is project-specific glue. Upstream gaps land in <a href="./decisions/upstream_issues.html"><code>decisions/upstream_issues.md</code></a> before any local workaround.</li>
 <li><strong>Confound-control discipline</strong> — when the headline result raised the natural follow-up (“does a longer context window fix the OOD gap?”), a controlled DeBERTa-v3-base ablation was designed (chunk-and-average vs head-truncation). Result: a publishable null. See <a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a>.</li>
 </ul>
@@ -1289,7 +1299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><a href="./decisions/"><code>decisions/</code></a></td>
-<td>79 ADRs documenting methodology + governance</td>
+<td>80 ADRs documenting methodology + governance</td>
 </tr>
 <tr class="even">
 <td><a href="./evals/"><code>evals/</code></a></td>

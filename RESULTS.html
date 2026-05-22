@@ -963,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1228,7 +1234,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p><strong>What §1B shows:</strong> the two truncation strategies produce essentially identical per-slice metrics across the 5-slice OOD slate. Long context (the chunk-and-average path) provides no measurable benefit over head-truncation on this slate.</p>
 <p><strong>What §1B does not show:</strong> DeBERTa-v3-base does not beat ModernBERT’s frozen-probe (0.364 pooled OOD AUPRC) — both DeBERTa strategies score ~20% lower. The headline ladder ordering at §1 is preserved.</p>
-<p><strong>Interpretation:</strong> by the ADR-060 confound-control reading, the ModernBERT advantage on the headline ladder is <strong>backbone-dominant</strong>, not context-window-dominant. A bigger context window alone does not close the OOD generalization gap on this slate — it is the architecture (and/or pre-training pretext) that matters. The DeBERTa-vs-ModernBERT residual gap that <em>remains</em> (~0.29 vs 0.36) has its own confounds (backbone size, pre-training data, tokenizer family) that this ablation does not separate; see <a href="./WRITEUP/limitations-and-future-work.html#92-architectures-evaluated-and-dropped">WRITEUP/limitations-and-future-work.md §9.2</a> for the residual-confound discussion. See <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a> for the execution record + actual GPU spend ($1.34 of the $5-7 envelope).</p>
+<p><strong>Interpretation:</strong> by the ADR-060 confound-control reading, the ModernBERT advantage on the headline ladder is <strong>backbone-dominant</strong>, not context-window-dominant. A bigger context window alone does not close the OOD generalization gap on this slate — it is the architecture (and/or pre-training pretext) that matters. The DeBERTa-vs-ModernBERT residual gap that <em>remains</em> (~0.29 vs 0.36) has its own confounds (backbone size, pre-training data, tokenizer family) that this ablation does not separate; see <a href="./WRITEUP/limitations-and-future-work.html#architectures-evaluated-and-dropped">WRITEUP/limitations-and-future-work.md §9.2</a> for the residual-confound discussion. See <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a> for the execution record + actual GPU spend ($1.34 of the $5-7 envelope).</p>
 </section>
 <section id="frozen-probe-vs-lora" class="level2">
 <h2 class="anchored" data-anchor-id="frozen-probe-vs-lora">2. Frozen Probe vs LoRA</h2>
@@ -1522,7 +1528,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="cross-references">Cross-References</h2>
 <ul>
 <li><a href="./README.html#executive-summary">Executive summary</a>: one-page version (absorbed into README per ADR-078).</li>
-<li><a href="./WRITEUP.html">Writeup</a>: methodology narrative.</li>
+<li><a href="./WRITEUP.html">Writeup chooser</a>: 1-page router that points at the academic (<a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a>) or narrative (<a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a>) methodology guide.</li>
 <li><a href="./WRITEUP/eval-design.html">Evaluation design</a>: detailed metric rationale.</li>
 <li><a href="./WRITEUP/threshold-policy.html">Threshold policy</a>: detection and verification operating-point methodology.</li>
 <li><a href="./WRITEUP/reference-scorer-audit.html">Reference-scorer audit</a>: ProtectAI contamination caveats.</li>

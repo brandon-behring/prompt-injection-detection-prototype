@@ -998,6 +998,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1055,7 +1061,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="reproducibility" class="level1">
 <h1>Reproducibility</h1>
-<p><em>Part of the <a href="../WRITEUP.html">WRITEUP methodology</a> — see the hub for the cover narrative + reading guide.</em></p>
+<p><em>Deep-dive reference for the methodology in <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic) and <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em></p>
 <blockquote class="blockquote">
 <p><strong>How to read this spoke</strong>: For a fast skim, focus on the bolded <strong>Result</strong> subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.</p>
 </blockquote>
@@ -1193,7 +1199,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>
 <ul>
 <li><strong>Methodology guarantees</strong> (eval-toolkit + runpod-deploy + SDD discipline that backs T0/T1/T3) → <a href="../WRITEUP/methodology-guarantees.html"><code>methodology-guarantees.md</code></a></li>
-<li><strong>Headline results consumed by T0 score-match</strong> → <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results</li>
+<li><strong>Headline results consumed by T0 score-match (interpretation)</strong>: <a href="../WRITEUP_PAPER.html#results">WRITEUP_PAPER §4</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#act-3-revelation">WRITEUP_NARRATIVE Act 3</a> (narrative)</li>
+<li><strong>Headline tables (data)</strong>: <a href="../RESULTS.html#cross-family-ood-table-auprc">RESULTS §1</a></li>
 <li><strong>Evaluation primitives + statistical apparatus</strong> → <a href="../WRITEUP/eval-design.html"><code>eval-design.md</code></a></li>
 <li><strong>Model-rung publication scope</strong> (canonical fold0/seed42 per ADR-032) → <a href="../WRITEUP/model-rungs.html"><code>model-rungs.md</code></a></li>
 <li><strong>Aggregator docs (Makefile targets + manifest schema)</strong> → <a href="../docs/REPRODUCIBILITY.html"><code>../docs/REPRODUCIBILITY.md</code></a></li>

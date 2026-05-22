@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-15">
+<meta name="dcterms.date" content="2026-05-22">
 
-<title>Deliverable format — focused PDF plus public GitHub repo as evidence locker – Prompt-injection classifier evaluation</title>
+<title>Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -223,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html">Deliverable format — focused PDF plus public GitHub repo as evidence locker</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -497,7 +497,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deliverable format — focused PDF plus public GitHub repo as evidence locker</span></a>
   </div>
 </li>
@@ -965,7 +965,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
   </div>
 </li>
@@ -983,14 +983,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker" id="toc-adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker" class="nav-link active" data-scroll-target="#adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker">ADR-002: Deliverable format — focused PDF plus public GitHub repo as evidence locker</a>
+  <li><a href="#adr-080-correct-reviewer-url-pin-numeric-defect-in-adr-078-adr-079-treev1.2.8-treev1.0.0-axis-only-supersession-on-the-reviewer-url-pin-axis" id="toc-adr-080-correct-reviewer-url-pin-numeric-defect-in-adr-078-adr-079-treev1.2.8-treev1.0.0-axis-only-supersession-on-the-reviewer-url-pin-axis" class="nav-link active" data-scroll-target="#adr-080-correct-reviewer-url-pin-numeric-defect-in-adr-078-adr-079-treev1.2.8-treev1.0.0-axis-only-supersession-on-the-reviewer-url-pin-axis">ADR-080: Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
-  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
+  <ul class="collapse">
+  <li><a href="#part-a-adr-080-axis-only-supersession-of-adr-078-adr-079" id="toc-part-a-adr-080-axis-only-supersession-of-adr-078-adr-079" class="nav-link" data-scroll-target="#part-a-adr-080-axis-only-supersession-of-adr-078-adr-079">Part A — ADR-080 axis-only supersession of ADR-078 + ADR-079</a></li>
+  <li><a href="#part-b-writeup.md-in-place-correction" id="toc-part-b-writeup.md-in-place-correction" class="nav-link" data-scroll-target="#part-b-writeup.md-in-place-correction">Part B — WRITEUP.md in-place correction</a></li>
+  <li><a href="#cascade-79-80-adr-count-claims-across-reader-facing-surfaces" id="toc-cascade-79-80-adr-count-claims-across-reader-facing-surfaces" class="nav-link" data-scroll-target="#cascade-79-80-adr-count-claims-across-reader-facing-surfaces">Cascade — 79 → 80 ADR-count claims across reader-facing surfaces</a></li>
+  </ul></li>
   <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
   <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
+  <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -998,9 +1004,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-002-deliverable-format-pdf-and-repo.html">Deliverable format — focused PDF plus public GitHub repo as evidence locker</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Deliverable format — focused PDF plus public GitHub repo as evidence locker</h1>
+<h1 class="title">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</h1>
 </div>
 
 
@@ -1011,7 +1017,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 15, 2026</p>
+      <p class="date">May 22, 2026</p>
     </div>
   </div>
   
@@ -1023,60 +1029,118 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="adr-002-deliverable-format-focused-pdf-plus-public-github-repo-as-evidence-locker" class="level1">
-<h1>ADR-002: Deliverable format — focused PDF plus public GitHub repo as evidence locker</h1>
+<section id="adr-080-correct-reviewer-url-pin-numeric-defect-in-adr-078-adr-079-treev1.2.8-treev1.0.0-axis-only-supersession-on-the-reviewer-url-pin-axis" class="level1">
+<h1>ADR-080: Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Superseded by ADR-030 (2026-05-16). Originally Accepted (2026-05-15).</p>
-<p><strong>Supersession context</strong>: Phase 0-07 Q1 walk surfaced a user pivot away from PDF — “I think a pdf is not needed. The repo, can provide the write as a html documentation to hyperlink between the products. But it should have a clear guide/TOC to help someone examine the repo.” ADR-030 replaces the PDF + repo dual-artifact decision with a repo-only deliverable rendered as a Quarto HTML site via GitHub Actions. See <code>decisions/ADR-030-deliverable-format-quarto-html-site.md</code> for the superseding decision.</p>
+<p>Accepted.</p>
 </section>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
-<p>The brief is silent on deliverable format; the project must choose. The five candidate formats are PDF-only, repo-only, both, tarball, and hosted-demo. The Tight calendar (ADR-001) rules out hosted-demo on cost. Repo-only inflates reader time and lowers presentation polish. PDF-only severs reproducibility from the narrative.</p>
-<p>The hybrid “PDF + repo link” pattern is the lowest-friction option for a dual-audience reviewer (A1 hiring manager + A2 ML researcher; see ADR-004). The PDF carries the 15-minute skim path; the repo carries the deep-audit path. The two artifacts stay in sync because the PDF is mechanically rendered from the repo’s WRITEUP.md via pandoc.</p>
+<p>A fresh-eyes audit performed 2026-05-22 against the live GH-Pages deployment at <code>https://brandon-behring.github.io/prompt-injection-detection-prototype/</code> surfaced a factual numeric error propagated across three reader-facing surfaces. Each surface claims the historical reviewer URL pin is <code>tree/v1.2.8</code> and cites ADR-033 as the authorizing decision. ADR-033 does no such thing.</p>
+<p><strong>Source-of-truth verification</strong> (live + source):</p>
+<ul>
+<li><code>decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md:113</code> artifact-pin table: <code>https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0</code> is listed as “Canonical source pin | Never drifts”.</li>
+<li><code>CHANGELOG.md</code> v1.3.0 entry confirms: “Reviewer URL pin <code>tree/v1.0.0</code> unchanged per ADR-033.”</li>
+<li><code>index.qmd:82</code>, <code>README.md:213</code>, <code>READING_GUIDE.md:94-95</code>, <code>WRITEUP_PAPER.md:10</code>, <code>WRITEUP_NARRATIVE.md:11</code>, ADR-079 frontmatter comment line 71 + Linked-ADRs section line 336, and ADR-078 frontmatter line 24 + Consequences line 131 + line 163 + line 183 + line 197 all cite <code>tree/v1.0.0</code> correctly per ADR-033.</li>
+</ul>
+<p><strong>The three defective surfaces</strong>:</p>
+<ul>
+<li><code>WRITEUP.md:48</code> — “the historical content remains accessible at the reviewer URL pin (<code>tree/v1.2.8</code>) per ADR-033.”</li>
+<li><code>decisions/ADR-078:164</code> — inside the Consequences section: “Reviewer URL pin is now <code>tree/v1.2.8</code>; reviewers navigating to EXECUTIVE_SUMMARY through current-state links would hit a 404 — mitigated by the README anchor + the redirect that could be added at v1.3.x if needed.” Note: the SAME paragraph at line 163 says “the <code>tree/v1.0.0</code> pin (per ADR-033)” — the two sentences contradict each other.</li>
+<li><code>decisions/ADR-079:228</code> — inside the Stub-redirect §: “The historical WRITEUP.md content is accessible at the reviewer URL pin (<code>tree/v1.2.8</code>) per ADR-033.”</li>
+<li><code>decisions/ADR-079:291</code> — inside the Consequences section: “Historical reviewer link to WRITEUP.md remains stable via the <code>tree/v1.2.8</code> pin (per ADR-033). Current-state WRITEUP.md is a redirect stub; readers following links land on the chooser and pick a guide.”</li>
+</ul>
+<p><strong>Why this matters</strong>: ADR-033’s purpose is to give an external academic reviewer a stable URL pinned to the submission state, never to drift. Citing <code>tree/v1.2.8</code> as that pin tells a reader to fetch a tree state that was the v1.2.8 Quarto-navigation-restructure intermediate state (per ADR-061), not the original submission state. A reviewer following the incorrect link sees the navigation-restructure state, not the submission-original. The semantic claim “per ADR-033” is also false: ADR-033 makes no v1.2.8 commitment.</p>
+<p><strong>Why this falls into a supersession (not a narrow-relaxation) case</strong>: The four CLAUDE.md narrow-relaxation classes (slug typo / broken external ref / publisher-URL canonicalization / render-only Markdown) all cover surface defects that don’t change the prose intent of the ADR. The v1.2.8 claim in ADR-078 + ADR-079 IS the prose intent — both ADRs explicitly assert a specific reviewer-URL-pin commitment in their body text. Correcting that commitment is a meaningful change to the ADRs’ stated claims (even though it harmonizes them with ADR-033 + the other reader-facing surfaces). Therefore axis-only supersession, not in-place edit, is the correct discipline.</p>
+<p>The ADR-076-class frontmatter-backfill narrow-relaxation (per ADR-073 consolidated re-statement) DOES authorize editing the <code>superseded_by:</code> frontmatter on ADR-078 + ADR-079 to point to ADR-080 — that’s audit-trail completeness, not decision-content alteration.</p>
 </section>
 <section id="decision" class="level2">
 <h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<p><strong>Deliverable composition</strong>: PDF + public GitHub repository.</p>
-<p><strong>PDF role</strong>: focused hub document (≈ 10-15 pages). Rendered from <code>WRITEUP.md</code> + selected appendices via pandoc. Cross-links to repo markdown spokes via stable GitHub URLs pinned to the submission git tag.</p>
-<p><strong>Repo role</strong>: evidence locker. Contains code, ADRs, training manifests, per-row predictions, notebooks (jupytext-paired per ADR-004 hub-and-spoke + future Q9 lock), and topic-focused markdown spokes (<code>WRITEUP/&lt;topic&gt;.md</code>) that the PDF references for depth.</p>
-<p><strong>Submission delivery</strong>: PDF emailed to reviewer + repo URL with stable tag. Tag-at-submission strategy is finalized in Phase 0-07 §Submission.</p>
+<p>Adopt the following two-part discipline for correcting the reviewer-URL-pin numeric defect:</p>
+<section id="part-a-adr-080-axis-only-supersession-of-adr-078-adr-079" class="level3">
+<h3 class="anchored" data-anchor-id="part-a-adr-080-axis-only-supersession-of-adr-078-adr-079">Part A — ADR-080 axis-only supersession of ADR-078 + ADR-079</h3>
+<p>This ADR (ADR-080) supersedes ADR-078 + ADR-079 <strong>on the reviewer-URL-pin numeric axis only</strong>. The corrected position is:</p>
+<blockquote class="blockquote">
+<p>The historical reviewer URL pin is <code>tree/v1.0.0</code> per ADR-033. No other tag is the historical reviewer URL pin. Any reader following a “historical reviewer URL pin per ADR-033” link should go to <code>tree/v1.0.0</code>.</p>
+</blockquote>
+<p>The historical content that ADR-078 + ADR-079 describe as accessible at the reviewer-URL pin (the pre-v1.3.0 EXECUTIVE_SUMMARY.md content + the pre-v1.3.0 jumbled-hybrid WRITEUP.md content) IS preserved at <code>tree/v1.0.0</code> — the never-drift submission state contains both files unchanged. The historical-content-preservation claim that ADR-078 + ADR-079 make is correct; only the tag they cite was wrong.</p>
+<p>ADR-078 + ADR-079 bodies are unchanged per CLAUDE.md immutability. Their <code>superseded_by:</code> frontmatter is backfilled to <code>["080"]</code> per the ADR-076 / ADR-077 narrow-relaxation discipline (extended from ADR-072 frontmatter-backfill precedent).</p>
+</section>
+<section id="part-b-writeup.md-in-place-correction" class="level3">
+<h3 class="anchored" data-anchor-id="part-b-writeup.md-in-place-correction">Part B — WRITEUP.md in-place correction</h3>
+<p><code>WRITEUP.md</code> is a mutable Markdown file (not under CLAUDE.md ADR-immutability). The single-line correction is:</p>
+<ul>
+<li><code>WRITEUP.md:48</code> — <code>tree/v1.2.8</code> → <code>tree/v1.0.0</code> (and remove the parenthetical-citation confusion; clarify that the historical pre-v1.3.0 content is preserved at the ADR-033 reviewer pin per ADR-080).</li>
+</ul>
+</section>
+<section id="cascade-79-80-adr-count-claims-across-reader-facing-surfaces" class="level3">
+<h3 class="anchored" data-anchor-id="cascade-79-80-adr-count-claims-across-reader-facing-surfaces">Cascade — 79 → 80 ADR-count claims across reader-facing surfaces</h3>
+<p>This ADR’s creation moves the ADR count from 79 → 80. The <code>scripts/audit_adr_count_claims.py</code> invariant (added at v1.2.14) catches reader-facing ADR-count claims that would otherwise go stale. Cascade hit-set:</p>
+<ul>
+<li><code>README.md</code> (2 hits: line 173 + line 189): <code>79 → 80</code></li>
+<li><code>CLAUDE.md</code> (line 13): <code>79 ADRs at v1.3.0 close</code> → keep as historical v1.3.0 statement (the count was 79 AT v1.3.0; ADR-080 lands at v1.3.1). The /exploring-options Q1 lock decision is to update CLAUDE.md’s v1.3.0-close clause to “79 ADRs at v1.3.0 close (80 at v1.3.1 including ADR-080)” to reflect both points-in-time.</li>
+<li><code>WRITEUP.md</code> (line 33): <code>79 → 80</code>.</li>
+<li><code>WRITEUP_NARRATIVE.md</code> (line 553): <code>79 → 80</code>.</li>
+<li><code>READING_GUIDE.md</code> (line 83): <code>79 → 80</code>.</li>
+<li><code>WRITEUP/methodology-guarantees.md</code> (line 12): <code>79 ADRs accepted across Phase 0-00 through ADR-079</code> → <code>80 ADRs accepted across Phase 0-00 through ADR-080</code>.</li>
+<li><code>docs/for-hiring-managers.md</code> (line 84): <code>79 → 80</code>.</li>
+<li><code>CHANGELOG.md</code> (line 126): the historical v1.3.0 release-note reference to “79 ADRs” is left unchanged (it documents a past state).</li>
+</ul>
+<p><code>SUBMISSION_AUDIT.md</code> regenerates via <code>scripts/regenerate_audit.py</code>; CLAIM row count goes 79 → 80.</p>
+</section>
 </section>
 <section id="consequences" class="level2">
 <h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
 <p><strong>Positive:</strong></p>
 <ul>
-<li>A1 (hiring manager) reads only the PDF; bounded reading time honored. A2 (ML researcher) skims the PDF, follows spoke links for the 2-3 decisions they want to scrutinize.</li>
-<li>Mechanical PDF-from-repo build keeps the two artifacts in sync — no separate maintenance burden.</li>
-<li>Public repo gives portfolio benefit and “show your work” optics. Aligns with kit’s <code>[LOCKED]</code> default for visibility (ADR-003).</li>
+<li>The factual reviewer-URL-pin claim is internally consistent across all three previously-defective surfaces + ADR-033 source-of-truth + every other reader-facing surface.</li>
+<li>A reviewer following any “historical reviewer URL pin per ADR-033” link now lands at the correct tag (<code>tree/v1.0.0</code>) — the original submission state ADR-033 designed the never-drift discipline to preserve.</li>
+<li>The SDD discipline is preserved: ADR-078 + ADR-079 bodies stay immutable; the correction is recorded as a new ADR with full audit trail rather than via an in-place rewrite that would erase the defect from history.</li>
+<li>The <code>audit_adr_count_claims.py</code> invariant fires its 6th correct time across the v1.2.13 → v1.2.14 → v1.2.15 → v1.2.16 → v1.3.0 → v1.3.1 trail — validating the v1.2.14 design intent.</li>
 </ul>
 <p><strong>Negative / cost:</strong></p>
 <ul>
-<li>Two artifacts to polish under Tight calendar; PDF build pipeline must be tested before submission day.</li>
-<li>Stable-tag discipline required — broken links from PDF to repo undermine the whole structure.</li>
+<li>ADR count cascade across 7 reader-facing surfaces (vs the 5-surface cascade in v1.3.0); the cascade is mechanically caught by the invariant + applied in a single commit.</li>
+<li>ADR-078 + ADR-079 bodies retain their v1.2.8 prose; a reader reading those ADRs in isolation will see the wrong claim, then must follow the <code>superseded_by: ["080"]</code> frontmatter pointer to ADR-080 for the correction. This is the standard cost of the axis-only supersession pattern (same trade-off ADR-076 + ADR-077
+<ul>
+<li>ADR-079 inherited).</li>
+</ul></li>
 </ul>
 <p><strong>Neutral:</strong></p>
 <ul>
-<li>Phase 0-07 decides exact PDF bundle composition (which appendices concat into the PDF) and exact spoke file list. This ADR fixes the <em>structure</em>, not the <em>contents</em>.</li>
+<li>The v1.2.8 tag itself is unaffected; it remains a valid repo tag pointing at the Quarto-navigation-restructure intermediate state per ADR-061 (which is not the reviewer URL pin).</li>
+<li>ADR-078 + ADR-079 decision content (EXECUTIVE_SUMMARY absorption
+<ul>
+<li>two-guide reader architecture) stands as locked. ADR-080 does not revisit those decisions.</li>
+</ul></li>
 </ul>
 </section>
 <section id="alternatives-considered" class="level2">
 <h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ol type="1">
+<li><strong>Extend the narrow-relaxation set to a fifth class (“numeric tag-reference defect”)</strong> and correct ADR-078 + ADR-079 bodies in place. <em>Rejected</em>: the v1.2.8 claim IS the prose intent of those ADRs’ Consequences + Stub-redirect sections (not a typo / broken ref / publisher canonicalization / render-only delimiter). Editing those in place would erase the defect from history. The four existing narrow-relaxation classes are all surface defects; this one is a factual claim about a tag commitment.</li>
+<li><strong>Don’t fix the ADRs; only fix WRITEUP.md</strong> and leave ADR-078 + ADR-079 with their incorrect v1.2.8 claims. <em>Rejected</em>: a reader following any “tree/v1.2.8 per ADR-033” link from ADR-078 + ADR-079 would land at the wrong tree state + see the false ADR-033 citation. The defect is reader-visible on the live site (both ADRs render to live HTML); fixing only one of three surfaces leaves the other two misleading.</li>
+<li><strong>Bigger fix: rewrite ADR-078 + ADR-079 entirely</strong> to reflect the correct pin + all other minor v1.3.0 polish. <em>Rejected</em>: scope creep + violates the axis-only supersession pattern that has served the v1.2.x → v1.3.0 trail (ADR-076 / ADR-077 / ADR-078 / ADR-079 all axis-only-supersession). The single numeric defect warrants a single axis-only supersession.</li>
+<li><strong>Treat as a CLAUDE.md amendment</strong> (extend the narrow-relaxation set to authorize this specific class). <em>Rejected</em>: same reasoning as Option 1 + amendments to CLAUDE.md are themselves load-bearing governance changes that warrant their own ADR + transcript trail. Single ADR-080 is the cleanest option.</li>
+</ol>
+</section>
+<section id="linked-adrs" class="level2">
+<h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><strong>PDF only</strong>: Reviewer reads top-to-bottom; reproducibility lives in a footnote. <em>Rejected because</em> it severs methodology from evidence; A2 reviewer cannot audit without leaving the artifact.</li>
-<li><strong>Repo only (no PDF)</strong>: Maximum transparency. <em>Rejected because</em> reading time inflates; A1 reviewer is starved of a narrative entry point.</li>
-<li><strong>Tarball</strong>: Self-contained bundle. <em>Rejected because</em> ADRs and transcripts are harder to navigate without unpacking; no inline rendering on GitHub.</li>
-<li><strong>Hosted demo + above</strong>: Interactive Gradio/HF Space demo. <em>Rejected because</em> Tight calendar (ADR-001) cannot absorb 4+ hours of demo build.</li>
+<li><strong>ADR-033</strong> (GitHub release strategy + reviewer URL pin): the source-of-truth ADR pinning <code>tree/v1.0.0</code> as the canonical reviewer URL. ADR-080 cites this as the authority being correctly applied by the post-fix state.</li>
+<li><strong>ADR-067 / ADR-068 / ADR-069 / ADR-070</strong> (the four narrow-relaxation classes consolidated in ADR-073): cited to clarify that ADR-080’s axis-only-supersession discipline is distinct from the in-place narrow-relaxation classes.</li>
+<li><strong>ADR-072</strong> (ADR-051 + ADR-052 frontmatter + structural backfill): the frontmatter-backfill narrow-relaxation precedent that authorizes editing <code>superseded_by:</code> on ADR-078 + ADR-079.</li>
+<li><strong>ADR-073</strong> (immutability rule consolidated re-statement): the canonical immutability framework ADR-080 invokes for the body-vs- frontmatter distinction.</li>
+<li><strong>ADR-076</strong> (superseded_by + closing_commit frontmatter backfill): direct precedent for the frontmatter-backfill pattern applied here.</li>
+<li><strong>ADR-077</strong> (supersession-backlink + frontmatter octal-quoting backfill): the audit-tool ADR (<code>scripts/audit_superseded_by_backlinks.py</code>) that catches missing backlinks — will correctly classify ADR-080 → ADR-078/079 as axis-only via comment heuristic.</li>
+<li><strong>ADR-078</strong> (EXECUTIVE_SUMMARY absorbed into README): superseded on reviewer-URL-pin numeric axis only. EXECUTIVE_SUMMARY-absorption decision content unchanged.</li>
+<li><strong>ADR-079</strong> (two-guide reader architecture): superseded on reviewer-URL-pin numeric axis only. Two-guide-architecture decision content unchanged.</li>
 </ul>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Pandoc PDF docs — https://pandoc.org/MANUAL.html#creating-a-pdf</li>
-<li><code>SUBMISSION_TEMPLATE.md</code> — kit-provided scaffold</li>
-<li>ADR-003 (repo visibility)</li>
-<li>ADR-004 (reviewer profile + hub-and-spoke structure)</li>
-</ul>
+<section id="transcript" class="level2">
+<h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
+<p>Audit + decision trail captured in the v1.3.1 audit-fix session (2026-05-22), driven by <code>/exploring-options</code> walk-through of 9 decision-shaping questions (Q1-Q9). Plan file: <code>~/.claude/plans/i-want-to-audit-abundant-meerkat.md</code>. Per the gitignore-by-default transcript discipline, the transcript stays private; <code>/save-transcript 2026-05-22__v1-3-1-audit-fix</code> will land the file post-v1.3.1 close.</p>
 
 
 </section>

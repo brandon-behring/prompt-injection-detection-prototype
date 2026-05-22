@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Scope deferrals, methodology caveats, architectures evaluated-and-dropped, and process lessons for the prompt-injection evaluation.">
 
-<title>limitations-and-future-work – Prompt-injection classifier evaluation</title>
+<title>Limitations and future work – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -962,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -983,23 +990,44 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#hyperparameter-training-dead-ends" id="toc-hyperparameter-training-dead-ends" class="nav-link" data-scroll-target="#hyperparameter-training-dead-ends">9.1 Hyperparameter / training dead-ends</a></li>
   <li><a href="#architectures-evaluated-and-dropped" id="toc-architectures-evaluated-and-dropped" class="nav-link" data-scroll-target="#architectures-evaluated-and-dropped">9.2 Architectures evaluated and dropped</a></li>
   <li><a href="#data-pipeline-experiments-that-didnt-matter" id="toc-data-pipeline-experiments-that-didnt-matter" class="nav-link" data-scroll-target="#data-pipeline-experiments-that-didnt-matter">9.3 Data-pipeline experiments that didn’t matter</a></li>
-  <li><a href="#what-the-negatives-imply-for-v6" id="toc-what-the-negatives-imply-for-v6" class="nav-link" data-scroll-target="#what-the-negatives-imply-for-v6">9.4 What the negatives imply for v6</a></li>
+  <li><a href="#what-the-negatives-imply-for-a-successor-iteration" id="toc-what-the-negatives-imply-for-a-successor-iteration" class="nav-link" data-scroll-target="#what-the-negatives-imply-for-a-successor-iteration">9.4 What the negatives imply for a successor iteration</a></li>
   <li><a href="#anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary" id="toc-anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary" class="nav-link" data-scroll-target="#anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary">9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary</a></li>
-  <li><a href="#lessons-reflections" id="toc-lessons-reflections" class="nav-link" data-scroll-target="#lessons-reflections">§11 Lessons &amp; reflections</a></li>
+  <li><a href="#lessons-reflections" id="toc-lessons-reflections" class="nav-link" data-scroll-target="#lessons-reflections">§10 Lessons &amp; reflections</a></li>
   <li><a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references">Cross-references</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/data-decisions.html">Detailed spokes (8 topics)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/limitations-and-future-work.html">Limitations and future work</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/data-decisions.html">Detailed spokes (8 topics)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/limitations-and-future-work.html">Limitations and future work</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Limitations and future work</h1>
+</div>
+
+<div>
+  <div class="description">
+    Scope deferrals, methodology caveats, architectures evaluated-and-dropped, and process lessons for the prompt-injection evaluation.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="limitations-and-future-work" class="level1">
 <h1>Limitations and future work</h1>
-<p><em>Part of the <a href="../WRITEUP.html">WRITEUP methodology</a> — see the hub for the cover narrative + reading guide.</em></p>
+<p><em>Deep-dive reference for the methodology in <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic) and <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em></p>
 <blockquote class="blockquote">
 <p><strong>How to read this spoke</strong>: For a fast skim, focus on the bolded <strong>Result</strong> subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.</p>
 </blockquote>
@@ -1022,7 +1050,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </div>
 </div>
-<p>This spoke consolidates §8 scope deferrals, §8.2 methodology caveats, §9 negative results (tried + abandoned), and §11 lessons. The distinction matters: §8 = scope decisions defensible at submission; §9 = experimental work that did not pan out; §11 = process-level lessons. For headline characterisation that exposes these limitations see <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results.</p>
+<p>This spoke consolidates §8 scope deferrals, §8.2 methodology caveats, §9 negative results (tried + abandoned), and §11 lessons. The distinction matters: §8 = scope decisions defensible at submission; §9 = experimental work that did not pan out; §11 = process-level lessons. For headline characterisation that exposes these limitations see <a href="../WRITEUP_PAPER.html#limitations">WRITEUP_PAPER §6 Limitations</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#epilogue--limits--reproduction">WRITEUP_NARRATIVE Epilogue</a> (narrative).</p>
 <section id="scope-deferrals" class="level2">
 <h2 class="anchored" data-anchor-id="scope-deferrals">8.1 Scope deferrals</h2>
 <p>These are not failures — they are scope decisions defensible at submission.</p>
@@ -1075,18 +1103,18 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Augmentation strategies</strong> — no synthetic augmentation was tried (no paraphrase generation, no back-translation, no character- noise injection). The case-study scope is <em>characterisation of an honest classifier slate against a fixed data slate</em>, not data-augmentation research. Tracked as out-of-scope per Phase 0 lock.</li>
 </ul>
 </section>
-<section id="what-the-negatives-imply-for-v6" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-negatives-imply-for-v6">9.4 What the negatives imply for v6</h2>
+<section id="what-the-negatives-imply-for-a-successor-iteration" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-negatives-imply-for-a-successor-iteration">9.4 What the negatives imply for a successor iteration</h2>
 <p>The OOD generalization wall is the dominant signal. Three concrete suggestions for a successor iteration:</p>
 <ol type="1">
 <li><strong>OOD-aware training data</strong> — the current pool is dominated by 4 LODO sources (prompt-injection-style attacks) that share a stylistic core. Adding cross-style attacks (BIPIA-style indirect injection in training; jailbreaks-as-questions in training) would test whether the OOD wall is <em>training-distribution scope</em> or <em>fundamental classifier inadequacy</em>.</li>
-<li><strong>Pretrained backbone scaling</strong> — frozen ModernBERT-base embeddings provide more OOD generalization than LoRA fine-tuning does. A v6 ablation along backbone scale (ModernBERT-base 150M → ModernBERT-large 400M; or a different backbone family) would test whether the OOD ceiling is backbone-capacity-limited.</li>
+<li><strong>Pretrained backbone scaling</strong> — frozen ModernBERT-base embeddings provide more OOD generalization than LoRA fine-tuning does. A successor-iteration ablation along backbone scale (ModernBERT-base 150M → ModernBERT-large 400M; or a different backbone family) would test whether the OOD ceiling is backbone-capacity-limited.</li>
 <li><strong>OOD-aware threshold selection</strong> — dual-policy thresholds fit on val do not transfer to LODO test (see <a href="../WRITEUP/threshold-policy.html"><code>threshold-policy.md</code></a>). Per-source temperature scaling or conformal calibration with a held-out OOD calibration set (currently impossible by LODO design) would close the val→LODO gap.</li>
 </ol>
 </section>
 <section id="anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary" class="level2">
 <h2 class="anchored" data-anchor-id="anti-correlation-under-auroc-a-sharper-finding-than-the-auprc-summary">9.5 Anti-correlation under AUROC: a sharper finding than the AUPRC summary</h2>
-<p>The headline AUPRC tables (WRITEUP §6 + RESULTS §1) show LoRA + TF-IDF + LR clustering at the pooled OOD random floor (0.374). The AUROC view says something stronger: both detectors score <strong>below</strong> the 0.5 random floor with CIs that clearly clear 0.5 on the wrong side:</p>
+<p>The headline AUPRC tables (<a href="../WRITEUP_PAPER.html#trained-adapters-anti-correlated-with-cross-family-attack-class">WRITEUP_PAPER §4.3</a> + <a href="../RESULTS.html#cross-family-ood-table-auprc">RESULTS §1</a>) show LoRA + TF-IDF + LR clustering at the pooled OOD random floor (0.374). The AUROC view says something stronger: both detectors score <strong>below</strong> the 0.5 random floor with CIs that clearly clear 0.5 on the wrong side:</p>
 <ul>
 <li><strong>LoRA pooled OOD AUROC</strong>: 0.383 [0.374, 0.392]</li>
 <li><strong>TF-IDF + LR pooled OOD AUROC</strong>: 0.371 [0.362, 0.381]</li>
@@ -1100,14 +1128,14 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>BIPIA + InjecAgent</strong> (indirect + agentic, n=112): real attacks that <em>don’t</em> use direct-injection lexical patterns. The detectors score these LOW (false negatives) — inverting the positive class.</li>
 </ul>
 <p>The lexical signal is internally consistent. It just stops tracking attack class on cross-family slices where lexical similarity to direct injection and actual attack class point opposite ways. The frozen probe stays above floor because no LODO-pool adaptation aligned it with direct-injection lexical features.</p>
-<p>The §9.4 prescriptions (OOD-aware training data + backbone scaling + OOD-aware threshold selection) all bear on this finding. A v6 ablation that retains direct-injection training but adds cross-family signal would test whether the anti-correlation under AUROC is a function of training-distribution scope (fixable by widening the pool) or a deeper representation problem (requires backbone or objective changes).</p>
+<p>The §9.4 prescriptions (OOD-aware training data + backbone scaling + OOD-aware threshold selection) all bear on this finding. A successor-iteration ablation that retains direct-injection training but adds cross-family signal would test whether the anti-correlation under AUROC is a function of training-distribution scope (fixable by widening the pool) or a deeper representation problem (requires backbone or objective changes).</p>
 <p>This finding is methodologically richer than “fine-tuning hurt OOD ranking” (which implies degradation toward chance); it is “training on this pool produced systematically wrong rankings on cross-family slices via the lexical-signal-doesn’t-match-attack-class mechanism.”</p>
-<p><strong>Honest scope caveat: this mechanism is <em>interpretation</em>, not direct empirical demonstration in this artifact.</strong> The artifact reports the aggregate AUROC finding (LoRA + TF-IDF both clear 0.5 on the wrong side; frozen probe holds) + the slate composition (NotInject all-negative; BIPIA + InjecAgent all-positive), which together <em>imply</em> the lexical-overfitting-meets-label-relevance mechanism. What the artifact does <strong>not</strong> report (and what would empirically demonstrate the mechanism) is the per-row score distribution per detector × per slice: e.g., “LoRA’s mean score on NotInject vs frozen probe’s mean score on NotInject” or per-slice score histograms. A sharper next-iteration pressure-test would add a per-slice score-distribution table to <code>evals/</code> derived from the per-row predictions at <code>evals/predictions/&lt;rung&gt;__fold&lt;F&gt;__seed&lt;S&gt;__&lt;source&gt;.parquet</code> (see <a href="../WRITEUP/methodology-guarantees.html"><code>methodology-guarantees.md</code> §6.2 Prediction-persistence pattern</a>). Treated as v6 future work, not blocking for the v1.2.x characterisation.</p>
+<p><strong>Honest scope caveat: this mechanism is <em>interpretation</em>, not direct empirical demonstration in this artifact.</strong> The artifact reports the aggregate AUROC finding (LoRA + TF-IDF both clear 0.5 on the wrong side; frozen probe holds) + the slate composition (NotInject all-negative; BIPIA + InjecAgent all-positive), which together <em>imply</em> the lexical-overfitting-meets-label-relevance mechanism. What the artifact does <strong>not</strong> report (and what would empirically demonstrate the mechanism) is the per-row score distribution per detector × per slice: e.g., “LoRA’s mean score on NotInject vs frozen probe’s mean score on NotInject” or per-slice score histograms. A sharper next-iteration pressure-test would add a per-slice score-distribution table to <code>evals/</code> derived from the per-row predictions at <code>evals/predictions/&lt;rung&gt;__fold&lt;F&gt;__seed&lt;S&gt;__&lt;source&gt;.parquet</code> (see <a href="../WRITEUP/methodology-guarantees.html"><code>methodology-guarantees.md</code> §6.2 Prediction-persistence pattern</a>). Treated as successor-iteration future work, not blocking for the v1.x characterisation.</p>
 <hr>
 <p><em>The final section steps back from specific dead-ends to surface the <strong>process-level lessons</strong> that fell out of the work — what the SDD + LODO + bootstrap-CI discipline cost vs delivered, and what going-in expectations proved wrong.</em></p>
 </section>
 <section id="lessons-reflections" class="level2">
-<h2 class="anchored" data-anchor-id="lessons-reflections">§11 Lessons &amp; reflections</h2>
+<h2 class="anchored" data-anchor-id="lessons-reflections">§10 Lessons &amp; reflections</h2>
 <ul>
 <li><strong>OOD generalization is genuinely hard, and the honest finding is methodologically richer than the “look at this great classifier” version</strong>. The trained transformer rungs hover near chance on the OOD slate; LoRA fine-tuning is a <em>negative</em> result vs the frozen probe on <code>pooled_ood</code> (-0.132 AUROC; CI clears zero). A submission framed as “we built a great classifier” would have HIDDEN this finding; a submission framed as “we characterised the honest performance ladder” SURFACES it. The Phase 0-locked methodology (LODO + bootstrap CIs + paired- bootstrap rung-vs-rung + dual-policy threshold characterisation) forced the honest story to land.</li>
 <li><strong>The SDD process bought reproducibility + audit trail at the cost of a 9-decision-per-sub-session interview flow at Phase 0</strong>. ~50 decisions across ~9 topic-focused sub-sessions per <code>SPEC_GREENFIELD.md</code>. Each open-decision lock produced an ADR; <code>SUBMISSION_AUDIT.md</code> regenerates from ADRs as a single source of truth. The cost was the time investment up front; the benefit was zero methodology drift later — every Phase 1-7 commit traced cleanly back to an ADR claim. ADR-050 (rung-slate narrowing) is itself the supersession-on-supersession proof point: when reality forced a methodology drift, the SDD discipline ate it cleanly via a narrow ADR-018 / ADR-021 partial supersession rather than a silent code change.</li>
@@ -1116,12 +1144,13 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>FUSE-on-RunPod is a non-deterministic bug class</strong>. The X1-X11 fix-forward chain documents four distinct FUSE failure modes; each cost a real fraction of the $15.74 cumulative spend (~50 % of cost is FUSE-recovery overhead). Filed upstream issues + PRs at brandon-behring/runpod-deploy so future consumers don’t re-discover them. The library-first invariant cuts both ways: when an upstream gap surfaces, file an upstream issue BEFORE local workaround.</li>
 <li><strong>Per-step commits + a 2-checkpoint push cadence survived context auto-compaction</strong>. The session spanned multiple Claude context windows + ran for many hours; commit per work-unit + intermediate pushes meant no work was lost when context boundaries hit. The discipline overhead was small; the resilience benefit was large.</li>
 </ul>
-<p><strong>What surprised</strong>: the OOD wall. The rung ladder had been expected to be a positive story (each rung adds something over the floor); the LoRA-fine-tuning regression on <code>pooled_ood</code> turned out to be the methodologically richest finding. Going forward (v6): the §9.4 prescriptions — OOD-aware training data, backbone scaling, OOD- aware threshold selection — would test whether the wall is data-distribution or capacity-bounded.</p>
+<p><strong>What surprised</strong>: the OOD wall. The rung ladder had been expected to be a positive story (each rung adds something over the floor); the LoRA-fine-tuning regression on <code>pooled_ood</code> turned out to be the methodologically richest finding. Going forward (successor iteration): the §9.4 prescriptions — OOD-aware training data, backbone scaling, OOD- aware threshold selection — would test whether the wall is data-distribution or capacity-bounded.</p>
 </section>
 <section id="cross-references" class="level2">
 <h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>
 <ul>
-<li><strong>Headline characterisation that exposes these limitations</strong> → <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results</li>
+<li><strong>Headline characterisation that exposes these limitations</strong>: <a href="../WRITEUP_PAPER.html#results">WRITEUP_PAPER §4</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#act-3-revelation">WRITEUP_NARRATIVE Act 3</a> (narrative)</li>
+<li><strong>Headline tables (data)</strong>: <a href="../RESULTS.html#cross-family-ood-table-auprc">RESULTS §1</a></li>
 <li><strong>Adversarial robustness scope (§5.6)</strong> → <a href="../WRITEUP/reference-scorer-audit.html"><code>reference-scorer-audit.md</code></a></li>
 <li><strong>NEXT_STEPS forward-looking work</strong> → <a href="../NEXT_STEPS.html"><code>../NEXT_STEPS.md</code></a></li>
 <li><strong>Upstream issues ledger</strong> → <a href="../decisions/upstream_issues.html"><code>../decisions/upstream_issues.md</code></a></li>

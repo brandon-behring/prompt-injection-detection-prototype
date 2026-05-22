@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Dual-policy detection (FPR <= 1%) + verification (recall >= 99%) operating-point characterisation for the prompt-injection evaluation.">
 
-<title>threshold-policy – Prompt-injection classifier evaluation</title>
+<title>Threshold policy – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -962,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -988,14 +995,35 @@ ul.task-list li input[type="checkbox"] {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/data-decisions.html">Detailed spokes (8 topics)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/threshold-policy.html">Threshold policy</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/data-decisions.html">Detailed spokes (8 topics)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/threshold-policy.html">Threshold policy</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Threshold policy</h1>
+</div>
+
+<div>
+  <div class="description">
+    Dual-policy detection (FPR &lt;= 1%) + verification (recall &gt;= 99%) operating-point characterisation for the prompt-injection evaluation.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="threshold-policy" class="level1">
 <h1>Threshold policy</h1>
-<p><em>Part of the <a href="../WRITEUP.html">WRITEUP methodology</a> — see the hub for the cover narrative + reading guide.</em></p>
+<p><em>Deep-dive reference for the methodology in <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic) and <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em></p>
 <blockquote class="blockquote">
 <p><strong>How to read this spoke</strong>: For a fast skim, focus on the bolded <strong>Result</strong> subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.</p>
 </blockquote>
@@ -1012,13 +1040,13 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Dual-policy framing</strong>: the same classifier scores are configured at two cost-weight thresholds — <strong>detection</strong> (FPR ≤ 1 %) for low-flag-rate triage, <strong>verification</strong> (recall ≥ 99 %) for must-catch-all-attacks queueing. Both reported side by side per ADR-025.</li>
 <li><strong>Scope bound</strong>: dual-policy operating-point characterisation applies only to <strong>in-house rungs</strong>. Reference scorers carry training-overlap caveats that make operating-point characterisation misleading; only recall@FPR pinpoints are reported for those.</li>
-<li><strong>Key val→test transfer finding</strong>: all 72 op-points are reachable on val; transfer to LODO held-out test is partial-to-poor. The val→LODO gap is the dominant calibration story per WRITEUP §Results §7.5.</li>
+<li><strong>Key val→test transfer finding</strong>: all 72 op-points are reachable on val; transfer to LODO held-out test is partial-to-poor. The val→LODO gap is the dominant calibration story per <a href="../WRITEUP_PAPER.html#validation-thresholds-are-fragile-under-cross-family-shift">WRITEUP_PAPER §4.6</a> / <a href="../WRITEUP_NARRATIVE.html#finding-6-validation-thresholds-are-fragile">WRITEUP_NARRATIVE Finding 6</a> and <a href="../RESULTS.html#threshold-transfer">RESULTS §4</a>.</li>
 <li><strong>LoRA detection on test</strong>: mean FPR creeps to 0.115 (11.5×) vs 1 % target. Recall trades favorably (0.42) for the higher FPR.</li>
 <li><strong>Frozen-probe verification on test</strong>: mean recall lands at 0.957 (close to 0.99 target) BUT at mean FPR 0.891 — almost everything is flagged positive. Verification regime over-floods at the cost of selectivity on LODO.</li>
 </ul>
 </div>
 </div>
-<p>This spoke covers §5.3 — the dual-policy detection / verification operating-point characterisation per ADR-025. The same classifier scores are configured to two different cost-weight thresholds; what those thresholds deliver on validation and how they transfer to LODO held-out test is the story. For headline metrics + statistical apparatus see <a href="../WRITEUP/eval-design.html"><code>eval-design.md</code></a>; for the §7.5 val- to-test transfer findings see <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results.</p>
+<p>This spoke covers §5.3 — the dual-policy detection / verification operating-point characterisation per ADR-025. The same classifier scores are configured to two different cost-weight thresholds; what those thresholds deliver on validation and how they transfer to LODO held-out test is the story. For headline metrics + statistical apparatus see <a href="../WRITEUP/eval-design.html"><code>eval-design.md</code></a>; for the §7.5 val- to-test transfer findings see <a href="../WRITEUP_PAPER.html#validation-thresholds-are-fragile-under-cross-family-shift">WRITEUP_PAPER §4.6</a> (academic) / <a href="../WRITEUP_NARRATIVE.html#finding-6-validation-thresholds-are-fragile">WRITEUP_NARRATIVE Finding 6</a> (narrative); for the threshold table see <a href="../RESULTS.html#threshold-transfer">RESULTS §4</a>.</p>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
 <p>The same classifier serves two different operational contexts. <strong>Detection</strong> wants to <em>catch injections</em> — false negatives are the high-cost error; tolerate false positives up to an alerting-budget. <strong>Verification</strong> wants to <em>confirm clean</em> — false positives (calling clean text injection) are the high-cost error; tolerate some missed injections at the verification boundary.</p>
@@ -1132,7 +1160,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>
 <ul>
 <li><strong>Headline metrics + statistical apparatus that consume thresholds</strong> → <a href="../WRITEUP/eval-design.html"><code>eval-design.md</code></a></li>
-<li><strong>§7.5 val→test transfer findings (full narrative)</strong> → <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results</li>
+<li><strong>Val→test transfer findings (full narrative)</strong> → <a href="../WRITEUP_PAPER.html#validation-thresholds-are-fragile-under-cross-family-shift">WRITEUP_PAPER §4.6</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#finding-6-validation-thresholds-are-fragile">WRITEUP_NARRATIVE Finding 6</a> (narrative)</li>
+<li><strong>Threshold-transfer table</strong> → <a href="../RESULTS.html#threshold-transfer">RESULTS §4</a></li>
 <li><strong>Per-row predictions schema (where thresholds are applied)</strong> → <a href="../WRITEUP/reproducibility.html"><code>reproducibility.md</code></a></li>
 </ul>
 <p><strong>Linked ADRs</strong>: ADR-006 (headline metrics + rejection of cost- sensitive selectors), ADR-013 (per-row predictions persistence), ADR-025 (dual-policy threshold characterisation), ADR-050 (rung-slate narrowing — full-FT OOD dropped). Assumption A-009 (verification reachability).</p>

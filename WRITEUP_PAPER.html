@@ -963,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1150,13 +1156,13 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>BIPIA</td>
 <td>Bochum-NLP/bipia</td>
-<td>n=56 positive (all-positive slice)</td>
+<td>n=50 positive (all-positive slice)</td>
 <td>indirect injection</td>
 </tr>
 <tr class="even">
 <td>InjecAgent</td>
 <td>uiuc-kang-lab/InjecAgent</td>
-<td>n=56 positive (all-positive slice)</td>
+<td>n=62 positive (all-positive slice)</td>
 <td>agentic-flow injection</td>
 </tr>
 <tr class="odd">
@@ -1207,7 +1213,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="the-ood-wall-is-cross-family-not-source-level" class="level3">
 <h3 class="anchored" data-anchor-id="the-ood-wall-is-cross-family-not-source-level">§4.2 The OOD wall is cross-family, not source-level</h3>
 <p>The OOD test slate intentionally varies attack family rather than source identity within the same family. BIPIA exemplifies indirect injection; InjecAgent exemplifies agentic-flow injection; JBB- Behaviors and XSTest exemplify jailbreak-style questions; NotInject exemplifies benign-but-injection-shaped text. The training pool is direct-injection-heavy and includes none of these families.</p>
-<p>The result is that direct-injection training does not transfer cleanly to these cross-family slices. Per-slice AUPRC (where defined, i.e., the both-class slices JBB and XSTest) is reported in <a href="./RESULTS.html#3-per-slice-view">RESULTS.md §3 Per-Slice View</a>.</p>
+<p>The result is that direct-injection training does not transfer cleanly to these cross-family slices. Per-slice AUPRC (where defined, i.e., the both-class slices JBB and XSTest) is reported in <a href="./RESULTS.html#per-slice-view">RESULTS.md §3 Per-Slice View</a>.</p>
 </section>
 <section id="trained-adapters-anti-correlated-with-cross-family-attack-class" class="level3">
 <h3 class="anchored" data-anchor-id="trained-adapters-anti-correlated-with-cross-family-attack-class">§4.3 Trained adapters anti-correlated with cross-family attack class</h3>
@@ -1225,7 +1231,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="published-detector-versions-are-slice-dependent">§4.5 Published detector versions are slice-dependent</h3>
 <p>ProtectAI v2 improves over v1 on JBB-Behaviors (AUPRC 0.556 vs 0.519) but regresses on XSTest (0.382 vs 0.469) and on pooled OOD overall (0.314 vs 0.361). The “newer is better” assumption does not hold across the full slate.</p>
 <p>Practical implication: detector updates should be evaluated against the actual slice mix that matters for the deployment, not on a single aggregate metric.</p>
-<p>Cross-version comparisons in <a href="./RESULTS.html#6-secondary-table-auroc">RESULTS.md §6 Secondary Table: AUROC</a>.</p>
+<p>Cross-version comparisons in <a href="./RESULTS.html#secondary-table-auroc">RESULTS.md §6 Secondary Table: AUROC</a>.</p>
 </section>
 <section id="validation-thresholds-are-fragile-under-cross-family-shift" class="level3">
 <h3 class="anchored" data-anchor-id="validation-thresholds-are-fragile-under-cross-family-shift">§4.6 Validation thresholds are fragile under cross-family shift</h3>
@@ -1242,28 +1248,28 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>TF-IDF + LR</td>
 <td style="text-align: right;">6.7%</td>
-<td style="text-align: right;">(see RESULTS §4)</td>
+<td style="text-align: right;">33.3%</td>
 </tr>
 <tr class="even">
 <td>ModernBERT LoRA</td>
 <td style="text-align: right;">11.5%</td>
-<td style="text-align: right;">(see RESULTS §4)</td>
+<td style="text-align: right;">42.4%</td>
 </tr>
 <tr class="odd">
 <td>ModernBERT frozen probe</td>
-<td style="text-align: right;">0.6%</td>
-<td style="text-align: right;">~6% recall</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">6.3%</td>
 </tr>
 </tbody>
 </table>
-<p>The 1% FPR validation target does not hold on held-out test sources for the trained detectors. The frozen probe holds the FPR target but catches only about 6% of positives, indicating a non-deployable operating point under this policy framing.</p>
+<p>The 1% FPR validation target holds only for the frozen probe (1.0% on test, within sampling noise of the 1% target). The trained detectors significantly exceed it (LoRA 11.5%, TF-IDF + LR 6.7% against a 1% target). The frozen probe holds the FPR target but catches only 6.3% of positives, indicating a non-deployable operating point under this policy framing. All numbers verified by re-derivation from <code>evals/operating_points/dual_policy.parquet</code> via <code>scripts/audit_numbers.py</code>.</p>
 <p>Threshold-transfer behavior in <a href="./WRITEUP/threshold-policy.html">WRITEUP/threshold-policy.md</a>.</p>
 </section>
 <section id="calibration-favors-the-frozen-probe" class="level3">
 <h3 class="anchored" data-anchor-id="calibration-favors-the-frozen-probe">§4.7 Calibration favors the frozen probe</h3>
 <p>Among the four detectors with both-class OOD scores, the frozen probe has the lowest expected calibration error (ECE) and lowest Brier score on the pooled OOD slate. Mean ECE: 0.144 (frozen probe), higher for LoRA and TF-IDF + LR. Mean Brier: 0.265 (frozen probe).</p>
 <p>LoRA worsens calibration relative to the frozen probe while simultaneously fitting the direct training pool, reinforcing the §4.1-§4.3 conclusion that direct-pattern learning and cross-family score behavior are distinct capabilities.</p>
-<p>Full calibration battery in <a href="./RESULTS.html#5-calibration">RESULTS.md §5 Calibration</a> and <a href="./docs/plots/F4.svg">Figure F4 reliability diagrams</a>.</p>
+<p>Full calibration battery in <a href="./RESULTS.html#calibration">RESULTS.md §5 Calibration</a> and <a href="./docs/plots/F5.svg">Figure F5 calibration comparison</a>.</p>
 <hr>
 </section>
 </section>

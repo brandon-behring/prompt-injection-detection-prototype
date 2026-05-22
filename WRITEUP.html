@@ -963,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1044,13 +1050,13 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>60-second tour</strong> → <a href="./docs/for-hiring-managers.html">Project at a glance</a>.</li>
 <li><strong>README + executive summary</strong> → <a href="./README.html">README.md</a> — 1-page distillation including the headline + mechanism + direct-detection check tables.</li>
 <li><strong>Methodology spokes</strong> (deep-dive references) → 8 files under <a href="./WRITEUP/">WRITEUP/</a> covering data decisions, evaluation design, model details, threshold policy, reference-scorer audit, methodology guarantees, reproducibility, limitations + future work.</li>
-<li><strong>Decision trail</strong> → 79 ADRs at <a href="./decisions/">decisions/</a>.</li>
+<li><strong>Decision trail</strong> → 80 ADRs at <a href="./decisions/">decisions/</a>.</li>
 </ul>
 </section>
 <section id="why-two-guides" class="level2">
 <h2 class="anchored" data-anchor-id="why-two-guides">Why two guides?</h2>
 <p>The previous single-guide structure was diagnosed in the v1.3.0 restructure as “neither narrative nor academic” — informal headings plus academic numbering, methodology after results, same content rendered with different prose across multiple pages. The two-guide architecture (per <a href="./decisions/ADR-078-executive-summary-absorbed-into-readme.html">ADR-078</a> + <a href="./decisions/ADR-079-two-guide-reader-architecture.html">ADR-079</a>) gives each reader-type a self-contained article in its native register, with no cross-page redundancy.</p>
-<p>Old WRITEUP.md (the jumbled hybrid) content is now distributed across the two guides; the historical content remains accessible at the reviewer URL pin (<code>tree/v1.2.8</code>) per ADR-033.</p>
+<p>Old WRITEUP.md (the jumbled hybrid) content is now distributed across the two guides; the historical content remains accessible at the reviewer URL pin (<code>tree/v1.0.0</code>) per ADR-033 (corrected from a prior <code>tree/v1.2.8</code> mis-citation per <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html">ADR-080</a>).</p>
 
 
 </section>

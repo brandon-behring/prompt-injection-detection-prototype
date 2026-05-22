@@ -963,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1093,26 +1099,30 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Headline pooled OOD AUPRC</td>
-<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.3</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3</a>, <a href="./RESULTS.html">RESULTS §1</a></td>
+<td>Headline pooled OOD AUPRC (Finding 3)</td>
+<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.3</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3 Finding 3</a>, <a href="./RESULTS.html">RESULTS §1</a></td>
 </tr>
 <tr class="even">
-<td>Direct detection check</td>
-<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.1</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3</a>, <a href="./RESULTS.html">RESULTS §Direct Prompt-Injection Performance</a></td>
+<td>Direct detection check (Finding 1)</td>
+<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.1</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3 Finding 1</a>, <a href="./RESULTS.html">RESULTS §Direct Prompt-Injection Performance</a></td>
 </tr>
 <tr class="odd">
+<td>OOD wall is cross-family, not source-level (Finding 2)</td>
+<td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.2</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3 Finding 2</a>, <a href="./WRITEUP/eval-design.html">WRITEUP/eval-design §5.5</a></td>
+</tr>
+<tr class="even">
 <td>Mechanism (lexical overfitting + label-relevance shift)</td>
 <td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §5.1</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Context-window ablation</td>
 <td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.4</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Finding 4</a>, <a href="./RESULTS.html">RESULTS §1B</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Calibration</td>
 <td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.7</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Finding 7</a>, <a href="./RESULTS.html">RESULTS §5</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Threshold fragility</td>
 <td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.6</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Finding 6</a>, <a href="./RESULTS.html">RESULTS §4</a></td>
 </tr>
@@ -1123,7 +1133,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="glossary-decisions">Glossary + decisions</h2>
 <ul>
 <li><strong>Glossary</strong>: <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a> — all technical terms used in either guide, with cross-references.</li>
-<li><strong>Decisions</strong>: 79 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices. Both guides cite specific ADRs at every methodology decision point.</li>
+<li><strong>Decisions</strong>: 80 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices. Both guides cite specific ADRs at every methodology decision point.</li>
 <li><strong>Evidence trail</strong>: <a href="./EVIDENCE.html">EVIDENCE.md</a> for external-evidence audit (training corpus contamination, reference scorer training pools, etc.).</li>
 </ul>
 </section>

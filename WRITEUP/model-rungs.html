@@ -963,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -1019,7 +1025,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="model-details" class="level1">
 <h1>Model Details</h1>
-<p><em>Part of the <a href="../WRITEUP.html">WRITEUP methodology</a>; see the hub for the cover narrative and reading guide.</em></p>
+<p><em>Deep-dive reference for the methodology in <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic) and <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em></p>
 <blockquote class="blockquote">
 <p><strong>How to read this spoke</strong>: For a fast skim, focus on the bolded <strong>Result</strong> subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers. Note: the filename retains “rungs” as an architectural artifact (older ADRs use that term); reader-facing prose elsewhere calls these “detectors” — same thing.</p>
 </blockquote>
@@ -1042,7 +1048,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </div>
 </div>
-<p>This spoke covers section 4 of the methodology narrative: the detector ladder. The evaluated detectors are the classical floor, three trained transformer variants, and two published reference scorers per ADR-015, ADR-017, ADR-018, and ADR-050. Older ADRs call these “rungs”; in the reader-facing writeup, “detector” means one evaluated scoring approach. Hyperparameters are locked before training begins; no val-set gridsearch. For the locked recipe in tabular form see <a href="../docs/HYPERPARAMETER_DISCLOSURE.html"><code>../docs/HYPERPARAMETER_DISCLOSURE.md</code></a>; for headline results using these detectors see <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results.</p>
+<p>This spoke covers section 4 of the methodology narrative: the detector ladder. The evaluated detectors are the classical floor, three trained transformer variants, and two published reference scorers per ADR-015, ADR-017, ADR-018, and ADR-050. Older ADRs call these “rungs”; in the reader-facing writeup, “detector” means one evaluated scoring approach. Hyperparameters are locked before training begins; no val-set gridsearch. For the locked recipe in tabular form see <a href="../docs/HYPERPARAMETER_DISCLOSURE.html"><code>../docs/HYPERPARAMETER_DISCLOSURE.md</code></a>; for headline results using these detectors see <a href="../WRITEUP_PAPER.html#results">WRITEUP_PAPER §4</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#act-3-revelation">WRITEUP_NARRATIVE Act 3</a> (narrative); for the data tables alone see <a href="../RESULTS.html#cross-family-ood-table-auprc">RESULTS §1</a>.</p>
 <p>Training compute target locked at A100-SXM4-80GB across 12 cells and 2 epochs per ADR-019 + ADR-049 (per-pod cap $40/$60/$100 per ADR-020).</p>
 <section id="detector-1-the-linear-floor" class="level2">
 <h2 class="anchored" data-anchor-id="detector-1-the-linear-floor">4.1 Detector 1: <em>the linear floor</em></h2>
@@ -1094,7 +1100,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p><em>Why this detector exists</em>: separates <em>pretraining alone</em> from <em>fine-tuning</em>. If the frozen probe matches or beats the linear floor but the fine-tuned detector does not lift further, fine-tuning is not adding capability — it’s overfitting.</p>
-<p><strong>Result</strong>: frozen-probe’s <code>pooled_ood</code> AUPRC is 0.364 [0.354, 0.375] — the best <code>pooled_ood</code> AUPRC in the slate, but still ~0.01 <em>below</em> the <code>pooled_ood</code> positive-class prevalence baseline of 0.374. Net OOD lift over tfidf-lr is +0.073 AUPRC. The pretrained ModernBERT embeddings carry what little OOD generalization budget exists — but the absolute number does not clear the prevalence baseline. By AUROC (chance baseline 0.5), frozen-probe lands at 0.515 [0.505, 0.525] — <em>the only detector whose AUROC CI clears 0.50 with margin</em>. This is the headline finding of WRITEUP §Results.</p>
+<p><strong>Result</strong>: frozen-probe’s <code>pooled_ood</code> AUPRC is 0.364 [0.354, 0.375] — the best <code>pooled_ood</code> AUPRC in the slate, but still ~0.01 <em>below</em> the <code>pooled_ood</code> positive-class prevalence baseline of 0.374. Net OOD lift over tfidf-lr is +0.073 AUPRC. The pretrained ModernBERT embeddings carry what little OOD generalization budget exists — but the absolute number does not clear the prevalence baseline. By AUROC (chance baseline 0.5), frozen-probe lands at 0.515 [0.505, 0.525] — <em>the only detector whose AUROC CI clears 0.50 with margin</em>. This is the headline finding of <a href="../WRITEUP_PAPER.html#trained-adapters-anti-correlated-with-cross-family-attack-class">WRITEUP_PAPER §4.3</a> (academic; “Finding 3 — anti-correlation”) / <a href="../WRITEUP_NARRATIVE.html#finding-3-the-headline-anti-correlation">WRITEUP_NARRATIVE Act 3</a> (narrative).</p>
 </section>
 <section id="detector-3-the-fine-tuning-ceiling-at-the-projects-compute-budget" class="level2">
 <h2 class="anchored" data-anchor-id="detector-3-the-fine-tuning-ceiling-at-the-projects-compute-budget">4.3 Detector 3: <em>the fine-tuning ceiling at the project’s compute budget</em></h2>
@@ -1122,7 +1128,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p><em>Why this detector exists</em>: it is the maximally-adapted model in the project compute budget. If anything above the frozen probe is worth doing, this detector is where it shows.</p>
-<p><strong>Result</strong>: LoRA’s <code>pooled_ood</code> AUPRC is 0.293 [0.286, 0.301] — below the frozen-probe baseline by -0.071 AUPRC using marginal point estimates, and essentially tied with the classical floor (0.291). The persisted paired-bootstrap artifact covers JBB and XSTest, but not the pooled comparison. The adapter weights specialise to the training distribution; on the OOD slate they degrade generalization vs the bare backbone embeddings. LoRA fine-tuning on this task at this compute budget is a negative result: it is close to frozen-probe on XSTest, worse on JBB, and worse on the pooled OOD slice. By AUROC, LoRA lands at 0.383 [0.374, 0.392], -0.132 below frozen-probe. See WRITEUP §Results §Frozen probe vs adapter fine-tuned for the paired-bootstrap detail.</p>
+<p><strong>Result</strong>: LoRA’s <code>pooled_ood</code> AUPRC is 0.293 [0.286, 0.301] — below the frozen-probe baseline by -0.071 AUPRC using marginal point estimates, and essentially tied with the classical floor (0.291). The persisted paired-bootstrap artifact covers JBB and XSTest, but not the pooled comparison. The adapter weights specialise to the training distribution; on the OOD slate they degrade generalization vs the bare backbone embeddings. LoRA fine-tuning on this task at this compute budget is a negative result: it is close to frozen-probe on XSTest, worse on JBB, and worse on the pooled OOD slice. By AUROC, LoRA lands at 0.383 [0.374, 0.392], -0.132 below frozen-probe. See <a href="../RESULTS.html#frozen-probe-vs-lora">RESULTS §2 Frozen Probe vs LoRA</a> for the paired-bootstrap detail.</p>
 <p>The sharper interpretation: LoRA’s pooled OOD AUROC is <em>below</em> the 0.5 random floor (CI [0.374, 0.392] clears 0.5 on the wrong side). This isn’t pure overfitting (which would land at chance, not below it); it’s lexical overfitting + a slate-induced label-relevance shift. The LoRA adapter learns direct-injection lexical signatures from the LODO training pool; on the cross-family OOD slate, NotInject (benign text engineered to look like direct injection) inverts the negative side, and indirect/agentic attacks (no direct-injection lexical patterns) invert the positive side. The learned signal is real and internally consistent; it just stops tracking attack class on cross-family slices. The frozen probe stays above floor at 0.515 because no LODO-pool adaptation happened — generic ModernBERT embeddings are less aligned with the direct-injection lexical distribution and therefore less inverted. The tfidf-lr classical floor shows the same sub-floor pattern under AUROC (0.371 [0.362, 0.381]; see §4.1 above and §6 of RESULTS) for the same mechanism, confirming this isn’t a LoRA- specific artifact but a LODO-direct-injection-training artifact across detector capacities.</p>
 <p><strong>Note on full-FT</strong>: full-FT was the planned full-backbone detector (full backbone trainable) per ADR-019 and was trained for LODO at Phase 2 (24 prediction parquets retained); OOD inference was dropped at Phase 5 X11 per ADR-052 (narrow supersession of ADR-050 R2). Load-bearing reason: LoRA’s pooled-OOD point estimate vs frozen-probe already showed fine-tuning on the LODO direct-injection pool was HURTING OOD generalization; full-FT is a larger version of the same mechanism (~149M params vs LoRA’s ~1.5M trainable), so the expected marginal benefit on OOD was low. The FUSE EIO crash on /workspace MooseFS storage was the operational trigger that exposed the decision. OOD comparison ships 2 trained detectors (frozen-probe + LoRA); LODO 3-detector ladder narrative survives via the 24 Phase 2 LODO predictions. See ADR-052 + <a href="../WRITEUP/limitations-and-future-work.html"><code>limitations-and-future-work.md</code></a> §8.1 for the full methodological + retrospective framing.</p>
 </section>
@@ -1145,7 +1151,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="cross-references">Cross-references</h2>
 <ul>
 <li><strong>Hyperparameter disclosure (locked recipe + axes-not-searched)</strong> → <a href="../docs/HYPERPARAMETER_DISCLOSURE.html"><code>../docs/HYPERPARAMETER_DISCLOSURE.md</code></a></li>
-<li><strong>Headline results using the detector ladder</strong> → <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results</li>
+<li><strong>Headline results (interpretation)</strong>: <a href="../WRITEUP_PAPER.html#results">WRITEUP_PAPER §4</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#act-3-revelation">WRITEUP_NARRATIVE Act 3</a> (narrative)</li>
+<li><strong>Headline tables (data)</strong>: <a href="../RESULTS.html#cross-family-ood-table-auprc">RESULTS §1</a></li>
 <li><strong>Reference-scorer contamination audit detail</strong> → <a href="../WRITEUP/reference-scorer-audit.html"><code>reference-scorer-audit.md</code></a></li>
 </ul>
 <p><strong>Linked ADRs</strong>: ADR-015 (single-backbone slate), ADR-017 (classical floor + trained-rung slate), ADR-018 (reference slate), ADR-019 (transformer training recipe), ADR-044 (Phase 2 implementation), ADR-049 (GPU order priority refresh), ADR-050 (rung-slate narrowing).</p>

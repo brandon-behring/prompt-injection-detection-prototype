@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Three-library tooling split, prediction-persistence pattern, SDD discipline, and library-first invariant for the prompt-injection evaluation.">
 
-<title>methodology-guarantees – Prompt-injection classifier evaluation</title>
+<title>Methodology guarantees – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -962,6 +963,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -988,14 +995,35 @@ ul.task-list li input[type="checkbox"] {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/data-decisions.html">Detailed spokes (8 topics)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/methodology-guarantees.html">Methodology guarantees</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/data-decisions.html">Detailed spokes (8 topics)</a></li><li class="breadcrumb-item"><a href="../WRITEUP/methodology-guarantees.html">Methodology guarantees</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Methodology guarantees</h1>
+</div>
+
+<div>
+  <div class="description">
+    Three-library tooling split, prediction-persistence pattern, SDD discipline, and library-first invariant for the prompt-injection evaluation.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="methodology-guarantees" class="level1">
 <h1>Methodology guarantees</h1>
-<p><em>Part of the <a href="../WRITEUP.html">WRITEUP methodology</a> — see the hub for the cover narrative + reading guide.</em></p>
+<p><em>Deep-dive reference for the methodology in <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic) and <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em></p>
 <blockquote class="blockquote">
 <p><strong>How to read this spoke</strong>: For a fast skim, focus on the bolded <strong>Result</strong> subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.</p>
 </blockquote>
@@ -1012,12 +1040,12 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Three-library tooling split</strong>: <code>eval-toolkit</code> (methodology-aware harness — bootstrap CIs / calibration / leakage / splits / paired-bootstrap), <code>runpod-deploy</code> (cloud orchestration), <code>research_toolkit</code> (literature dossier pipeline). Each survives across iterations as a durable knowledge artifact.</li>
 <li><strong>Prediction-persistence pattern [LOCKED]</strong>: 282 prediction parquets persisted per ADR-013 + ADR-021 so downstream threshold / calibration analyses run from artifacts without re-running inference.</li>
-<li><strong>SDD / ADR process</strong>: 79 ADRs accepted across Phase 0-00 through ADR-079 (ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture governance closures); each significant decision locked before code; <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard-gate per ADR-039).</li>
+<li><strong>SDD / ADR process</strong>: 80 ADRs accepted across Phase 0-00 through ADR-080 (ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture + ADR-080 reviewer-URL-pin numeric correction; v1.3.0 + v1.3.1 governance closures); each significant decision locked before code; <code>SUBMISSION_AUDIT.md</code> regenerates from ADR frontmatter via <code>scripts/regenerate_audit.py</code> (CI hard-gate per ADR-039).</li>
 <li><strong>Library-first invariant</strong> (project-wide per Phase 4 Q6 reaffirmation): audit <code>eval-toolkit + runpod-deploy + research_toolkit</code> BEFORE writing project glue. Upstream gaps land in <code>decisions/upstream_issues.md</code> before any local workaround. ADR-047 retrofitted 4 hand-rolls in a single carryforward refactor.</li>
 </ul>
 </div>
 </div>
-<p>This spoke covers §6 — the three-library tooling split + SDD / ADR process discipline that backs every methodology claim in the writeup. For the statistical apparatus that consumes these guarantees see <a href="../WRITEUP/eval-design.html"><code>eval-design.md</code></a>; for headline results see <a href="../WRITEUP.html"><code>../WRITEUP.md</code></a> §Results.</p>
+<p>This spoke covers §6 — the three-library tooling split + SDD / ADR process discipline that backs every methodology claim in the writeup. For the statistical apparatus that consumes these guarantees see <a href="../WRITEUP/eval-design.html"><code>eval-design.md</code></a>; for headline results see <a href="../WRITEUP_PAPER.html#results">WRITEUP_PAPER §4</a> (academic) or <a href="../WRITEUP_NARRATIVE.html#act-3-revelation">WRITEUP_NARRATIVE Act 3</a> (narrative); for the data tables alone see <a href="../RESULTS.html#cross-family-ood-table-auprc">RESULTS §1</a>.</p>
 <section id="eval-toolkit-methodology-aware-evaluation-harness" class="level2">
 <h2 class="anchored" data-anchor-id="eval-toolkit-methodology-aware-evaluation-harness">6.1 <a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a> — methodology-aware evaluation harness</h2>
 <p>A library-grade harness for binary classification with three tiers:</p>
