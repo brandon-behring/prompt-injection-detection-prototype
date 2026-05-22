@@ -20,6 +20,56 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.2.16] — 2026-05-21
+
+**eval-toolkit v0.44.0 → v0.47.0 consumer-side bump (skip 3 minors).**
+Dependency/ledger maintenance per ADR-066 trigger #4; no methodology /
+model / data / compute change.
+
+### Changed
+
+- `pyproject.toml` + `uv.lock` — `eval-toolkit==0.44.0` → `==0.47.0`.
+  Skip-bumps through v0.45 + v0.46 + v0.46.1 intermediate pin states
+  (all are dependency/ledger maintenance per the upstream rolling
+  release plan).
+- Upstream closures bundled at v1.2.16:
+  - **v0.45.0** closes `#52` LogisticStacker + MetaLearner Protocol
+  - **v0.46.0** closes `#36` inline CI via `scorecard()` + `Scorecard`
+    + `metric_specs` (different API shape than originally proposed in
+    this project's #36 contribution comment; same underlying capability)
+  - **v0.46.1** Round 6 hotfix (no API surface change)
+  - **v0.47.0** closes `#49` advanced-6 `character_injection` + sweep
+    unification (`TextTransform` Protocol; per-module strategy Protocols
+    + `character_injection`/`spotlighting` SimpleNamespaces removed
+    from public API)
+- v0.47.0 BREAKING removals do NOT hit our project — we use only
+  submodule imports (`from eval_toolkit.metrics import pr_auc`, etc.)
+  which are preserved through v0.46's `__getattr__` soft-deprecation
+  shim + v0.47's hard-removal cycle.
+- `decisions/library_imports.md` eval-toolkit row updated (v0.44→v0.47
+  history; concise per 1200-char per-cell hard gate).
+- `decisions/upstream_issues.md` updated: #36 RESOLVED-in-v0.46.0;
+  #49 advanced-6 RESOLVED-in-v0.47.0; #52 RESOLVED-in-v0.45.0; scope-
+  note paragraph + ledger row updates.
+
+### Sub-commits
+
+- `939e9cc` — chore: bump eval-toolkit pin v0.44.0 → v0.46.1 (parallel
+  agent; misleading commit message says v0.46.0 → v0.46.1 but actual
+  diff is v0.44.0 → v0.46.1)
+- `b5402d2` — chore: bump eval-toolkit pin v0.46.1 → v0.47.0 (parallel
+  agent)
+- `a838f41` — chore: ledger updates for v0.44→v0.47 (library_imports +
+  upstream_issues; this session)
+- `52e258c` — fix: trim library_imports eval-toolkit cell under
+  1200-char limit (fix-forward after CI surfaced rendered-site audit
+  failure on first push; this session)
+- (this commit) — CHANGELOG [1.2.16] + tag
+
+Third parallel-agent collision incident this session (after the
+v1.2.6+v1.2.7 codex-handoff incident + the v1.2.14 eval-toolkit
+v0.44.0 collision). Same detect → ask → incorporate → cite pattern.
+
 ## [1.2.15] — 2026-05-21
 
 **v1.2.14 visual-recheck + supersession-backlink invariant + ADR-077
