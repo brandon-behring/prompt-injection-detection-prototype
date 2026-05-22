@@ -77,3 +77,6 @@ artifacts/runpod/2026*/
 /draft.md
 /draft_review.md
 .scratch/
+
+# Playwright MCP session artifacts (snapshots + console logs) — operational noise
+.playwright-mcp/
