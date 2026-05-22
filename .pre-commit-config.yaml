@@ -84,8 +84,17 @@ repos:
         # cross-guide numeric-divergence class of error surfaced by the
         # 2026-05-22 fresh-eyes audit. Triggers on any change to a writeup,
         # an eval parquet, or the audit script itself.
+        #
+        # language: python (not system) — CI's pre-commit job runs in a
+        # bare Python env without project deps; we list pandas/pyarrow/
+        # scikit-learn as additional_dependencies so the hook has what
+        # it needs to re-derive metrics.
         name: Reader-visible numbers match evals/*.parquet re-derivation
         entry: python scripts/audit_numbers.py --quiet
-        language: system
+        language: python
+        additional_dependencies:
+          - "pandas>=2.2"
+          - "pyarrow>=17"
+          - "scikit-learn>=1.5"
         pass_filenames: false
         files: '^(README\.md|WRITEUP_PAPER\.md|WRITEUP_NARRATIVE\.md|RESULTS\.md|docs/for-hiring-managers\.md|docs/GLOSSARY\.md|WRITEUP/model-rungs\.md|WRITEUP/limitations-and-future-work\.md|evals/.*\.parquet|scripts/audit_numbers\.py)$'
