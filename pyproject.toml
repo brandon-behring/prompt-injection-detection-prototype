@@ -65,7 +65,36 @@ dependencies = [
     # duplicate-name guard in scorecard(), to_pandas n_resamples+method cols,
     # Protocol method-shape drift guard. Round 7 audit STOP-GATE per Decision
     # Y.2 opens against this state.
-    "eval-toolkit==0.47.0",
+    # v1.2.x bump → v0.48.0 (2026-05-22) Polish + audit-driven tightening
+    # before v1.0. THIRD + FINAL BREAKING minor of the staggered sequence.
+    # BREAKING (must audit consumer callsites BEFORE pin bump; see
+    # docs/source/migration/v0.48.md):
+    #   1. BootstrapCI.to_dict() schema rewrite: "point_estimate" → "point";
+    #      "ci_95: [l, h]" → "low" + "high" separate scalars. Self-describing
+    #      schema — key names no longer contradict the `confidence` field.
+    #   2. PairedBootstrapCI.to_dict() — same rewrite.
+    #   3. sweep() schema grows by 1 column (strategy_id between text_id +
+    #      variant). Callers indexing by column position must re-check
+    #      offsets; callers indexing by name unaffected.
+    #   4. sweep() rejects duplicate strategy_id at boundary (mirrors R6-B's
+    #      duplicate MetricSpec.name rejection in scorecard).
+    #   5. sweep() validates Scorer.predict_proba output shape; wrong-shape
+    #      returns raise contextual ValueError instead of leaking IndexError /
+    #      TypeError / silent truncation.
+    #   6. paired_bootstrap_op_point_diff() rejects val_y is test_y (the two-
+    #      level bootstrap assumes disjoint val + test partitions; passing
+    #      the same array caused ~63.2% silent overlap per Round 5 R5-F6e).
+    # ADDITIONS: make pre-push Makefile target running all 3 doc-execution
+    # surfaces; nb_execution_raise_on_error in docs/source/conf.py;
+    # .doctest-modules expanded 11 → 21 modules; cross-API shape-validation
+    # consistency tightening across metrics_at_threshold, metrics.py scalars,
+    # fit_*_binary calibrator family; standardized ImportError messages
+    # across lazy-extras; pin-exact-key-set regression-guards for every
+    # dict-returning metrics function; ADR 0001 + ADR 0003 finalized.
+    # Round 8 audit STOP-GATE per Decision Y.2 opens against this state
+    # before v1.0.0 tag. v1.0.0 will be content-identical to v0.48.0 modulo
+    # the version bump.
+    "eval-toolkit==0.48.0",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
