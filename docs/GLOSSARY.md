@@ -10,7 +10,7 @@ Some terms have a prose-form vs identifier-form split (e.g., `chunk-and-average`
 
 | Term cluster | Prose form (reviewer-facing) | Identifier form (code / YAML / file path) |
 |---|---|---|
-| Detector ladder | **detector** (reviewer-facing prose; the noun for what we evaluate) | `frozen_probe` / `lora` / `full_ft` / `tfidf_lr` (rung-config-file basenames in `configs/rungs/`). Older ADRs (ADR-007 onwards) use "rung" — see the [Rung / detector clarifier](#rung--detector-clarifier) below. |
+| Detector ladder | **detector** (reviewer-facing prose; the noun for what we evaluate) | `frozen_probe` / `lora` / `full_ft` / `tfidf_lr` (rung-config-file basenames in `configs/rungs/`). Older ADRs (ADR-007 onwards) use "rung" — see the [Rung / detector clarifier](#rung-detector-clarifier) below. |
 | Truncation strategy | **chunk-and-average** / **head-truncation** (hyphenated prose) | `chunk_and_average` / `head_truncation` (snake_case Python identifier) |
 | Full fine-tune | **full-FT** (capitalized acronym; matches "LoRA"-style capitalization) | `full_ft` (snake_case) |
 | Frozen probe | **frozen-probe** (hyphenated prose; matches the prose triad "frozen-probe / LoRA / full-FT") | `frozen_probe` (snake_case) |
@@ -41,7 +41,7 @@ A controlled experiment that removes or varies one factor while holding everythi
 
 ## ADR (Architecture Decision Record)
 
-A single locked decision in Michael Nygard format: Status / Context / Decision / Consequences / Alternatives Considered. **Immutable**, with four narrow exceptions (see [Immutability relaxation — four narrow exception classes](#immutability-relaxation--four-narrow-exception-classes) below). See `decisions/README.md` for the lifecycle + `decisions/ADR_TEMPLATE.md` for the schema.
+A single locked decision in Michael Nygard format: Status / Context / Decision / Consequences / Alternatives Considered. **Immutable**, with four narrow exceptions (see [Immutability relaxation — four narrow exception classes](#immutability-relaxation-four-narrow-exception-classes) below). See `decisions/README.md` for the lifecycle + `decisions/ADR_TEMPLATE.md` for the schema.
 
 ## Immutability relaxation — four narrow exception classes
 

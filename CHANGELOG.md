@@ -20,7 +20,7 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
-## [1.3.1] — 2026-05-22
+## [1.3.1] — 2026-05-22 {#v1-3-1}
 
 **Audit fix-forward**: post-v1.3.0 fresh-eyes audit of the live
 GH-Pages deployment surfaced 7+ factual / stale-reference / polish
@@ -147,7 +147,7 @@ new `scripts/audit_internal_anchors.py` (re-runs clean after the fix).
 **Preventive guardrail (partial Q8 — see follow-up)**:
 
 - `scripts/audit_internal_anchors.py` — markdown-only intra-site anchor
-  resolver. Catches dead anchors of the form `[link](./WRITEUP.md#results)`
+  resolver. Catches dead anchors of the form `[link](./RESULTS.md)`
   where the target file has no `results` anchor. The exact failure class
   Lane-3 surfaced (`WRITEUP.html#results` dead anchor). Manual-run for now.
 - **Q8 lychee-in-pre-commit deferred**: lychee binary not installed
@@ -293,7 +293,7 @@ ADR-078 + ADR-079's Consequences sections (a factual claim about a
 tag commitment). Correcting it is a meaningful claim change that
 warrants supersession discipline, not in-place rewriting.
 
-## [1.3.0] — 2026-05-22
+## [1.3.0] — 2026-05-22 {#v1-3-0}
 
 **Two-guide reader architecture: WRITEUP_PAPER (academic IMRAD) +
 WRITEUP_NARRATIVE (story arc) replacing the single-hybrid WRITEUP.md.**
@@ -402,7 +402,7 @@ explainer wearing an ill-fitting academic suit — coherent as neither.
 - 4 sub-PRs CI-greenable independently; merged sequentially to
   release/v1.3.0; final merge to main + v1.3.0 tag.
 
-## [1.2.16] — 2026-05-21
+## [1.2.16] — 2026-05-21 {#v1-2-16}
 
 **eval-toolkit v0.44.0 → v0.47.0 consumer-side bump (skip 3 minors).**
 Dependency/ledger maintenance per ADR-066 trigger #4; no methodology /
@@ -452,7 +452,7 @@ Third parallel-agent collision incident this session (after the
 v1.2.6+v1.2.7 codex-handoff incident + the v1.2.14 eval-toolkit
 v0.44.0 collision). Same detect → ask → incorporate → cite pattern.
 
-## [1.2.15] — 2026-05-21
+## [1.2.15] — 2026-05-21 {#v1-2-15}
 
 **v1.2.14 visual-recheck + supersession-backlink invariant + ADR-077
 backfill.** Closes the v1.2.13/v1.2.14 lesson-noted gap: v1.2.14 added
@@ -532,7 +532,7 @@ ID values in supersedes / superseded_by / adr_id fields.
   plan Q1 "bundled" + Q2 "halt + surface" + path-1 backfill lock)
 - C2 (this commit) — CHANGELOG + tag
 
-## [1.2.14] — 2026-05-21
+## [1.2.14] — 2026-05-21 {#v1-2-14}
 
 **v1.2.13 visual-verification-driven polish patch.** Closes D1 from
 the post-ship Playwright + curl-grep sweep of v1.2.13's rendered
@@ -592,7 +592,7 @@ parallel-agent session (plan file
 `evaluate-all-the-work-twinkly-kite.md`); incorporated into v1.2.14
 per user-locked decision after discovery.
 
-## [1.2.13] — 2026-05-21
+## [1.2.13] — 2026-05-21 {#v1-2-13}
 
 **REPO_AUDIT_2026-05-21 discharge polish patch.** Closes the
 v1.2.12-close internal audit (`decisions/audits/REPO_AUDIT_2026-05-21.md`):
@@ -687,7 +687,7 @@ change.
 All 8 commits gated locally + on GitHub Actions CI green before
 proceeding to the next per `[[auto-continue-on-green-ci-preferred-for-bundled-patches]]`.
 
-## [1.2.12] — 2026-05-21
+## [1.2.12] — 2026-05-21 {#v1-2-12}
 
 **README hybrid-adoption polish**: restructures the README around a
 compact top-fold + `<details>`-collapsible depth, per the drafted
@@ -731,7 +731,7 @@ methodology, model, data, compute, or result change.
   `~/notes/prompt-injection-audit-2026-05-20-readme-draft.md`,
   hybrid-adoption path).
 
-## [1.2.11] — 2026-05-20
+## [1.2.11] — 2026-05-20 {#v1-2-11}
 
 **Post-remediation polish patch**: a focused polish pass on items the
 post-remediation audit flagged as P2/P3 (originally deferred). User
@@ -790,7 +790,7 @@ no methodology, model, data, compute, or result change.
   phrasing variety land under ADR-073 Class A/B narrow-relaxation
   discipline (no decision content changes; surface polish only).
 
-## [1.2.10] — 2026-05-20
+## [1.2.10] — 2026-05-20 {#v1-2-10}
 
 **Post-remediation reporting-honesty patch**: the 2026-05-20 post-remediation
 audit on v1.2.9 surfaced that two headline-table caveats (ProtectAI v1+v2
@@ -825,7 +825,7 @@ visually load-bearing.
   as existing authorization bases (per ADR-073 Class A/B narrow-relaxation
   discipline applied to "flagged-not-fixed" inventory closure).
 
-## [1.2.9] — 2026-05-20
+## [1.2.9] — 2026-05-20 {#v1-2-9}
 
 **Audit-remediation patch release**: 2026-05-20 second-opinion audit cycle
 surfaced + closed P0/P1 governance + presentation + narrative findings.
@@ -930,7 +930,7 @@ original submission reviewer pin per ADR-033.
   by the keyword rename. eval-toolkit dependency is at v0.43.0 as of
   v1.2.8.
 
-## [1.2.8] — 2026-05-19
+## [1.2.8] — 2026-05-19 {#v1-2-8}
 
 **Patch release**: rendered-site hardening plus dependency/ledger maintenance.
 No compute spend; no methodology, model, data, or result change; reviewer URL
@@ -968,10 +968,10 @@ pin remains `v1.0.0`.
 ### References
 
 - Closing ADR: [ADR-070](decisions/ADR-070-quarto-render-only-markdown-corrections.md)
-- Predecessor: [v1.2.7](#127---2026-05-19)
+- Predecessor: [v1.2.7](#v1-2-7)
 - Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
 
-## [1.2.7] — 2026-05-19
+## [1.2.7] — 2026-05-19 {#v1-2-7}
 
 **Patch release**: fix-forward for the single CI-only lychee residue after
 `v1.2.6`. Docs-only; no compute spend; reviewer URL pin remains `v1.0.0`.
@@ -985,9 +985,9 @@ pin remains `v1.0.0`.
 ### References
 
 - No new ADR (CI/link-check transport exception only).
-- Predecessor: [v1.2.6](#126---2026-05-19) (Markdown link-check content debt close)
+- Predecessor: [v1.2.6](#v1-2-6) (Markdown link-check content debt close)
 
-## [1.2.6] — 2026-05-19
+## [1.2.6] — 2026-05-19 {#v1-2-6}
 
 **Patch release**: fix-forward for inherited Markdown link-check content debt
 surfaced after the `v1.2.5` presentation patch was already tagged. Docs-only;
@@ -1013,10 +1013,10 @@ no compute spend; reviewer URL pin remains `v1.0.0`.
 ### References
 
 - Closing ADRs: [ADR-068](decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.md) + [ADR-069](decisions/ADR-069-immutability-narrow-relaxation-for-publisher-url-to-doi-canonicalization.md)
-- Predecessor: [v1.2.5](#125---2026-05-19) (presentation path and NEXT_STEPS remediation)
+- Predecessor: [v1.2.5](#v1-2-5) (presentation path and NEXT_STEPS remediation)
 - Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
 
-## [1.2.5] — 2026-05-19
+## [1.2.5] — 2026-05-19 {#v1-2-5}
 
 **Patch release**: docs-only presentation + status-drift remediation for the
 live/main site. No ADR (readability/status cleanup, not methodology). Layered
@@ -1046,7 +1046,7 @@ additively on v1.2.4.
 - Cost discipline (unchanged): cumulative project compute spend stays $17.08 (within ADR-020 $200 hard cap; $0 GPU at v1.2.5)
 - Live Quarto site: reflects latest patch after GitHub Pages publish
 
-## [1.2.4] — 2026-05-19
+## [1.2.4] — 2026-05-19 {#v1-2-4}
 
 **Patch release**: fix-forward for v1.2.3 — residual lychee v0.23.0 incompat (`--base .` rejected). No ADR (bug fix, not methodology). Layered additively on v1.2.3.
 
@@ -1063,12 +1063,12 @@ The v1.2.3 patch only checked the SPECIFIC error (`--exclude-mail`) from the CI 
 ### References
 
 - No new ADR (bug fix, not methodology change). Same precedent as v1.2.3.
-- Predecessor: [v1.2.3](#123---2026-05-19) (3-fix CI hygiene patch)
+- Predecessor: [v1.2.3](#v1-2-3) (3-fix CI hygiene patch)
 - Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
 - Cost discipline (unchanged): cumulative project compute spend stays $17.08 (within ADR-020 $200 hard cap; $0 GPU at v1.2.4)
 - Live Quarto site: reflects v1.2.4 within ~2 min of push
 
-## [1.2.3] — 2026-05-19
+## [1.2.3] — 2026-05-19 {#v1-2-3}
 
 **Patch release**: CI hygiene — fix 3 inherited CI failures across mypy hard gate, smoke-test soft gate, and lychee link-check workflow. No ADR (bug fixes, not methodology). Layered additively on v1.2.2 — no supersession of any prior ADR. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.3.
 
@@ -1095,12 +1095,12 @@ Two compounding factors masked the red state: (a) the two visible reviewer-facin
 ### References
 
 - No new ADR (bug fixes, not methodology change). Precedent: v1.2.1 hygiene patch `74e7762` (gitignore patches) shipped without ADR; same pattern applied here.
-- Predecessor: [v1.2.2](#122---2026-05-19) (ADR-066 + ADR-067 close)
+- Predecessor: [v1.2.2](#v1-2-2) (ADR-066 + ADR-067 close)
 - Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md)
 - Cost discipline (unchanged): cumulative project compute spend stays $17.08 per ADR-065 §E (within ADR-020 $200 hard cap; $0 GPU at v1.2.3)
 - Live Quarto site: reflects v1.2.3 within ~2 min of push
 
-## [1.2.2] — 2026-05-19
+## [1.2.2] — 2026-05-19 {#v1-2-2}
 
 **Patch release**: library-first carryforward refactor + narrow immutability relaxation. Per [ADR-066](decisions/ADR-066-library-first-carryforward-refactor-v1-2-2.md) (library-first refactor) + [ADR-067](decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.md) (narrow immutability relaxation for factual-typo fixes). Layered additively on v1.2.1 — no supersession of any prior ADR. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033; live Quarto site reflects v1.2.2.
 
@@ -1154,7 +1154,7 @@ Per Q2 round-8 Option B (issue-comment + design-sketch) + ADR-066 §B7: filed an
 - Cost discipline (unchanged): cumulative project compute spend stays $17.08 per ADR-065 §E (within ADR-020 $200 hard cap; $0 GPU at v1.2.2)
 - Live Quarto site: reflects v1.2.2 within ~2 min of push
 
-## [1.2.1] — 2026-05-19
+## [1.2.1] — 2026-05-19 {#v1-2-1}
 
 **Patch release**: narrative consistency + clarity + accuracy closing-polish
 pass on top of v1.2.0. Per [ADR-065](decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md)
@@ -1208,7 +1208,7 @@ The CHANGELOG `[1.1.2]` v1.1.4 postscript already flagged the stale `$9.92` cumu
 - Reviewer URL pin (unchanged): `tree/v1.0.0` per [ADR-033](decisions/ADR-033-github-release-strategy-rehearsal-plus-submission.md).
 - Live Quarto site: reflects v1.2.1 within ~2 min of push.
 
-## [1.2.0] — 2026-05-19
+## [1.2.0] — 2026-05-19 {#v1-2-0}
 
 **Minor release**: heavy writeup-clarity pass + dedicated hiring-manager landing
 page. Third (and final) stage of the v1.1.3 → v1.1.4 → v1.2.0 clarity-and-
@@ -1298,7 +1298,7 @@ site reflects v1.2.0.
 
 ---
 
-## [1.1.4] — 2026-05-19
+## [1.1.4] — 2026-05-19 {#v1-1-4}
 
 **Patch release**: documentation-wide consistency fix-pack +
 markdown-link-checker CI prophylaxis. Second of a three-stage
@@ -1390,7 +1390,7 @@ landing page).
 
 ---
 
-## [1.1.3] — 2026-05-19
+## [1.1.3] — 2026-05-19 {#v1-1-3}
 
 **Patch release**: ADR-062 Quarto writeup clarity rewrite — the first
 of a three-stage clarity-and-consistency series (v1.1.3 baseline →
@@ -1482,7 +1482,7 @@ ablation callout, dedicated hiring-manager landing page).
 
 ---
 
-## [1.1.2] — 2026-05-19
+## [1.1.2] — 2026-05-19 {#v1-1-2}
 
 **Patch release**: closes the
 [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md)
@@ -1693,7 +1693,7 @@ stale-figure class of drift going forward.
 
 ---
 
-## [1.1.1] — 2026-05-19
+## [1.1.1] — 2026-05-19 {#v1-1-1}
 
 **Patch release**: Quarto site navigation restructure — landing-page
 rebuild + navbar consolidation + sidebar hub-spoke nesting + hub-spoke
@@ -1789,7 +1789,7 @@ crowding the landing page.
 
 ---
 
-## [1.1.0] — 2026-05-19
+## [1.1.0] — 2026-05-19 {#v1-1-0}
 
 **Minor release**: closes the runpod-deploy modernization track (config
 schema migration + v0.7.7→v0.8.4 PyPI switch + shim drop + 7 upstream
@@ -1924,7 +1924,7 @@ Q5 lock (each independently CI-green-able + revertible):
 
 ---
 
-## [1.0.9] — 2026-05-19
+## [1.0.9] — 2026-05-19 {#v1-0-9}
 
 `scripts/eval_from_hub.py` non-dry-run body **wired end-to-end** —
 closes ADR-051 Block A (T0 score-match carryforward) per ADR-058
@@ -2034,7 +2034,7 @@ row exceeding tolerance (no silent failures). ADR-051 Block B
 
 ---
 
-## [1.0.8] — 2026-05-19
+## [1.0.8] — 2026-05-19 {#v1-0-8}
 
 eval-toolkit v0.39.0 → v0.40.0 + **PyPI install switch** (out of
 git+https) + **binary calibrator refactor** to upstream `_binary` API
@@ -2177,7 +2177,7 @@ batches 10-11 locks.
 
 ---
 
-## [1.0.7] — 2026-05-18
+## [1.0.7] — 2026-05-18 {#v1-0-7}
 
 4 demo notebooks (jupytext-paired; pre-rendered + frozen output
 cells) + DeLong + BH-FDR primitives wired + CSV analysis exports.
@@ -2289,7 +2289,7 @@ batches 7-9 locks.
 
 ---
 
-## [1.0.6] — 2026-05-18
+## [1.0.6] — 2026-05-18 {#v1-0-6}
 
 eval-toolkit pin v0.34.0 → v0.39.0 bump consuming 3 upstream
 resolutions (filed v1.0.3) + library-first refactor of hand-rolled
@@ -2423,7 +2423,7 @@ Path-3 NEXT_STEPS §1 closure sweep per /exploring-options batches
 
 ---
 
-## [1.0.5] — 2026-05-18
+## [1.0.5] — 2026-05-18 {#v1-0-5}
 
 README badges + `RESULTS.md` rendered page + ADR-054 reading-guide
 governance extension. Closes two post-v1.0.4 polish gaps surfaced in
@@ -2554,7 +2554,7 @@ the same session:
 
 ---
 
-## [1.0.4] — 2026-05-18
+## [1.0.4] — 2026-05-18 {#v1-0-4}
 
 Reading-guide refresh + repo-wide stale-content sweep + ADR-053
 reading-guide governance. Driver: user question *"does the reading
@@ -2707,7 +2707,7 @@ Quarto site reflects this patch.
 
 ---
 
-## [1.0.3] — 2026-05-18
+## [1.0.3] — 2026-05-18 {#v1-0-3}
 
 Narrative-import + housekeeping patch. Reframes the full-FT OOD
 drop as methodological judgment + operational trigger (ADR-052
@@ -2799,7 +2799,7 @@ eval-toolkit issues with real URLs. Reviewer URL stays pinned at
   `brandon-behring.github.io/prompt-injection-detection-prototype/`
   reflects v1.0.3 (and all subsequent v1.0.x patches).
 
-## [1.0.2] — 2026-05-18
+## [1.0.2] — 2026-05-18 {#v1-0-2}
 
 Governance patch — closes the two `REPO_AUDIT_2026-05-18` findings
 that v1.0.0 + v1.0.1 documented as carryforwards but did not formally
@@ -2835,7 +2835,7 @@ this patch.
   `brandon-behring.github.io/prompt-injection-detection-prototype/`
   reflects v1.0.2 (and all subsequent v1.0.x patches).
 
-## [1.0.1] — 2026-05-18
+## [1.0.1] — 2026-05-18 {#v1-0-1}
 
 Post-submission polish patch (per ADR-033 v1.0.x patch convention).
 Reviewer URL stays pinned at `tree/v1.0.0`; live Quarto site reflects
@@ -2904,7 +2904,7 @@ Audit-driven patch (3 parallel Explore agents at v1.0.0 close
 surfaced these polish items). All gates green; live Quarto site
 + HF Hub repos resolve.
 
-## [1.0.0] — 2026-05-18
+## [1.0.0] — 2026-05-18 {#v1-0-0}
 
 Submission tag. Closes the `REPO_AUDIT_2026-05-18` 8-item remediation
 queue with 12 commits + 2 rehearsal tags + green CI/Publish on the
@@ -3014,13 +3014,13 @@ live Quarto site reflects the latest patch.
   `brandon-behring.github.io/prompt-injection-detection-prototype/`
   reflects the latest patch.
 
-## [0.9.0-rc3] — 2026-05-18
+## [0.9.0-rc3] — 2026-05-18 {#v0-9-0-rc3}
 
 Third rehearsal — `a2fc4d9`. CI + Publish workflows green; reviewer
 URLs return 200. Same content as v1.0.0; the rc3 tag is preserved
 as the rehearsal-pass landmark per ADR-033 fix-forward discipline.
 
-## [0.9.0-rc2] — 2026-05-18
+## [0.9.0-rc2] — 2026-05-18 {#v0-9-0-rc2}
 
 Second rehearsal — `d66e3d0`. CI red on the lint hard gate (3
 remaining ruff-format diffs from a pre-commit stash-restore loop) +
@@ -3028,13 +3028,13 @@ one data-gated invariant; Publish workflow needed an orphan `gh-pages`
 branch on origin. Fix-forwarded via `0bedc80` (data-gated skipif) +
 `a2fc4d9` (ruff-pre-commit v0.4.0 → v0.15.13 + format leftover).
 
-## [0.9.0-rc1] — 2026-05-17
+## [0.9.0-rc1] — 2026-05-17 {#v0-9-0-rc1}
 
 First rehearsal tag (per ADR-033). Catches first-time-CI / auth /
 schema issues before the canonical submission. Resulted in the
 `REPO_AUDIT_2026-05-18.md` 8-item remediation queue.
 
-## [0.0.0] — 2026-05-15
+## [0.0.0] — 2026-05-15 {#v0-0-0}
 
 ### Added
 

@@ -80,7 +80,7 @@ state appears first.
 - **Why**: WRITEUP / EVIDENCE will accumulate citations to `docs/research/<topic>/<file>.md:<line>` and external URLs. A machine-enforced auditor (CI hard-gate) prevents broken citations as the writeup grows.
 - **Scope**: `scripts/audit_citations.py` — scans `.md` files for citation patterns (`docs/research/<path>` + `<file>:<line>` + external URLs); verifies cited files exist + lines exist + URLs respond. Add as CI hard-gate alongside `regenerate_audit.py`.
 - **Effort**: ~3 hours.
-- **Status (v1.0.6)**: **closed as not-adopted** per /exploring-options batch 8 Q2 lock. WRITEUP + spokes use standard markdown link syntax (`[text](path)`) + EVIDENCE.md as the external-citation audit surface; the `<file>:<line>` citation pattern was never load-bearing for the project's documentation discipline. No auditor needed; CI gate not added.
+- **Status (v1.0.6)**: **closed as not-adopted** per /exploring-options batch 8 Q2 lock. WRITEUP + spokes use the standard markdown link syntax with bracketed text + parenthesized target + EVIDENCE.md as the external-citation audit surface; the `<file>:<line>` citation pattern was never load-bearing for the project's documentation discipline. No auditor needed; CI gate not added.
 
 ### 1.9 Manifest backfill pipeline (Phase 4+)
 
