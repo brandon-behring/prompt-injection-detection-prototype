@@ -20,6 +20,41 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+### v1.3.1 sub-PR-1 — ADR-080 reviewer-URL-pin numeric correction (axis-only supersession of ADR-078 + ADR-079)
+
+**Defect**: ADR-078 + ADR-079 + WRITEUP.md cited `tree/v1.2.8` as the
+reviewer URL pin "per ADR-033", but ADR-033 canonically pins
+`tree/v1.0.0` (never-drift discipline; CHANGELOG v1.3.0 confirmed).
+ADR-078 even self-contradicted within a single paragraph
+(line 163 `tree/v1.0.0`; line 164 `tree/v1.2.8`). Surfaced by the
+2026-05-22 fresh-eyes audit of the live GH-Pages deployment.
+
+**Fix**:
+
+- **ADR-080** (`decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md`)
+  — NEW; axis-only supersession of ADR-078 + ADR-079 on the
+  reviewer-URL-pin numeric axis only. Bodies of ADR-078 + ADR-079
+  unchanged per CLAUDE.md immutability; their `superseded_by:`
+  frontmatter backfilled to `["080"]` per ADR-076 / ADR-077
+  frontmatter-backfill narrow-relaxation discipline.
+- **WRITEUP.md** — `tree/v1.2.8` → `tree/v1.0.0` (mutable file edit;
+  cites ADR-080 for the correction trail).
+- **ADR count cascade 79 → 80** across 7 reader-facing surfaces:
+  README + WRITEUP + WRITEUP_NARRATIVE + READING_GUIDE +
+  for-hiring-managers + WRITEUP/methodology-guarantees + CLAUDE.md.
+  `scripts/audit_adr_count_claims.py` fires correctly for the 6th
+  time across the v1.2.13 → v1.2.14 → v1.2.15 → v1.2.16 → v1.3.0 →
+  v1.3.1 trail.
+- **SUBMISSION_AUDIT.md** regenerated; CLAIM row count 79 → 80.
+
+**Why axis-only supersession (not in-place narrow-relaxation)**:
+the four CLAUDE.md narrow-relaxation classes (slug typo / broken
+external ref / publisher-URL canonicalization / render-only Markdown)
+cover surface defects only; the v1.2.8 claim IS the prose intent of
+ADR-078 + ADR-079's Consequences sections (a factual claim about a
+tag commitment). Correcting it is a meaningful claim change that
+warrants supersession discipline, not in-place rewriting.
+
 ## [1.3.0] — 2026-05-22
 
 **Two-guide reader architecture: WRITEUP_PAPER (academic IMRAD) +

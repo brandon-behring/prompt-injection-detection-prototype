@@ -36,6 +36,7 @@ transcript:
 supersedes:
   - "053"  # on the "two-entry-artifacts" reading-guide-architecture axis only; ADR-053 dimensions 2 + 3 + 4 + 5 (hub-spoke / 3-reading-paths / headline-finding-block / interpretation-pedagogy / pointer-convention) unchanged
 superseded_by:
+  - "080"  # on the reviewer-URL-pin numeric axis only (line 164 "Reviewer URL pin is now tree/v1.2.8" corrected to tree/v1.0.0 per ADR-033); EXECUTIVE_SUMMARY-absorption decision content unchanged
 acceptance_criterion: >-
   `ls EXECUTIVE_SUMMARY.md 2>&1` returns "No such file or directory"
   on the v1.3.0 tip. `grep '^## Executive summary' README.md` returns

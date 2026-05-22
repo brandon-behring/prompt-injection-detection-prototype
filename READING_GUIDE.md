@@ -80,7 +80,7 @@ prose. 5 canonical figures + raw artifact pointers.
 
 - **Glossary**: [docs/GLOSSARY.md](./docs/GLOSSARY.md) — all technical
   terms used in either guide, with cross-references.
-- **Decisions**: 79 ADRs at [decisions/](./decisions/) lock the
+- **Decisions**: 80 ADRs at [decisions/](./decisions/) lock the
   methodology choices. Both guides cite specific ADRs at every
   methodology decision point.
 - **Evidence trail**: [EVIDENCE.md](./EVIDENCE.md) for external-evidence

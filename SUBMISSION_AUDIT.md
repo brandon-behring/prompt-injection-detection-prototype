@@ -87,6 +87,7 @@
 | CLAIM-077 | [ADR-077](decisions/ADR-077-supersession-backlink-and-frontmatter-octal-quoting-backfill.md) | Accepted |  |
 | CLAIM-078 | [ADR-078](decisions/ADR-078-executive-summary-absorbed-into-readme.md) | Accepted |  |
 | CLAIM-079 | [ADR-079](decisions/ADR-079-two-guide-reader-architecture.md) | Accepted |  |
+| CLAIM-080 | [ADR-080](decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md) | Accepted |  |
 
 ## Claim details
 
@@ -4021,5 +4022,53 @@ shows the 2-path router. `_quarto.yml` navbar Methodology dropdown lists "Academ
 style)" section lists the same. `scripts/audit_adr_count_claims.py` exits 0 (catches the 78→79
 cascade across reader-facing surfaces). `scripts/audit_superseded_by_backlinks.py` exits 0 (ADR-079
 → ADR-053+054+061 supersession edges correctly classified as axis- only via comment heuristic).
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-080 - [ADR-080](decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md): Correct reviewer URL pin numeric defect in ADR-078 + ADR-079 (tree/v1.2.8 → tree/v1.0.0); axis-only supersession on the reviewer-URL-pin axis
+
+**Status**: Accepted
+
+**Source**: Audit performed 2026-05-22 against the live GH-Pages deployment + repo source. Live verification confirmed all three surfaces render the wrong `tree/v1.2.8` claim. ADR-033 §C + CHANGELOG v1.3.0 entry confirm `tree/v1.0.0` as the source-of-truth pin. Audit lock via /exploring-options Q1 (audit-fix + ADR-080 axis-only supersession). Per-commit fix-forward at release/v1.3.1 PR-1.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+ADR-033 (GitHub release strategy + reviewer URL pin) canonically pins the historical reviewer URL at
+`tree/v1.0.0` (ADR-033 §C artifact-pin table line 113: "Canonical source pin | Never drifts").
+CHANGELOG v1.3.0 confirms ("Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033"). Three
+reader-facing surfaces contradict that pin by asserting `tree/v1.2.8` as the historical reviewer URL
+pin "per ADR-033": `WRITEUP.md:48`, `decisions/ADR-078:164`, and `decisions/ADR-079:228` +
+`decisions/ADR-079:291`. ADR-078 even self-contradicts within one paragraph (line 163: "the
+`tree/v1.0.0` pin (per ADR-033)" vs line 164: "Reviewer URL pin is now `tree/v1.2.8`"). The v1.2.8
+references are factually wrong — ADR-033 does not pin v1.2.8 anywhere; the historical content the
+cited links intend to surface (the old single-hybrid WRITEUP.md jumbled-state + the retired
+EXECUTIVE_SUMMARY.md file) IS preserved at `tree/v1.0.0` per ADR-033's never-drift discipline. The
+v1.2.8 tag exists in repo history (it shipped the Quarto navigation restructure per ADR-061) but it
+is not the ADR-033 reviewer pin, and citing it as such misleads any reader following the link. This
+ADR corrects the numeric defect on the reviewer-URL-pin axis only: WRITEUP.md (mutable) is edited in
+place; ADR-078 + ADR-079 bodies remain unchanged per CLAUDE.md immutability; their `superseded_by:`
+frontmatter is backfilled to `["080"]` per the ADR-076 / ADR-077 frontmatter-backfill
+narrow-relaxation discipline (extended from ADR-072 precedent). All other content in ADR-078 +
+ADR-079 (the EXECUTIVE_SUMMARY absorption decision + the two-guide reader architecture decision;
+their alternatives considered, consequences, linked ADRs) stands as locked. This is the FIRST
+axis-only supersession on a factual numeric-correction axis distinct from the prior axis-only
+supersessions on reading-guide-architecture axes (ADR-076 through ADR-079).
+
+**Acceptance criterion**
+
+`grep -n 'tree/v1.2.8' WRITEUP.md` returns zero hits (after the WRITEUP.md edit in this PR). `grep
+'^superseded_by' decisions/ADR-078-*.md` + `... ADR-079-*.md` both show `["080"]`.
+`decisions/ADR-080-*.md` exists with `supersedes: ["078", "079"]` (axis-only comments).
+`scripts/regenerate_audit.py --check` passes after the ADR-080 landing (CLAIM count 79 → 80).
+`scripts/audit_adr_count_claims.py` exits 0 (catches 79→80 cascade across reader-facing surfaces;
+6th correct firing of the v1.2.14 invariant; the same hit-set as the v1.3.0 cascade plus the
+surfaces v1.3.0 missed: CLAUDE.md + CHANGELOG header narrative + WRITEUP.md +
+WRITEUP/methodology-guarantees.md). ADR-078 + ADR-079 body content (numeric claims, alternatives,
+decision rationale, prose) unchanged.
 
 </div>

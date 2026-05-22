@@ -30,7 +30,7 @@ are defined on first use in either guide and cross-referenced to
   [WRITEUP/](./WRITEUP/) covering data decisions, evaluation design,
   model details, threshold policy, reference-scorer audit, methodology
   guarantees, reproducibility, limitations + future work.
-- **Decision trail** → 79 ADRs at [decisions/](./decisions/).
+- **Decision trail** → 80 ADRs at [decisions/](./decisions/).
 
 ## Why two guides?
 
@@ -45,4 +45,5 @@ register, with no cross-page redundancy.
 
 Old WRITEUP.md (the jumbled hybrid) content is now distributed across
 the two guides; the historical content remains accessible at the
-reviewer URL pin (`tree/v1.2.8`) per ADR-033.
+reviewer URL pin (`tree/v1.0.0`) per ADR-033 (corrected from a prior
+`tree/v1.2.8` mis-citation per [ADR-080](./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md)).
