@@ -20,6 +20,63 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.1] — 2026-05-22
+
+**Audit fix-forward**: post-v1.3.0 fresh-eyes audit of the live
+GH-Pages deployment surfaced 7+ factual / stale-reference / polish
+defects. Each fix verified via independent re-derivation from
+`evals/*.parquet` source-of-truth (Q2 lock: "go back to the original
+resources and redo any calculation that can be independently
+re-examined; do not take any written record for granted"). Plus a
+new release-gate invariant (`scripts/audit_numbers.py`) to catch the
+cross-guide numeric-divergence class going forward.
+
+**Summary of the 5 sub-PRs landed into `release/v1.3.1`** (each
+sub-PR section below documents its detailed fix list):
+
+- **PR-1**: ADR-080 axis-only supersession of ADR-078 + ADR-079 on
+  reviewer-URL-pin numeric axis (`tree/v1.2.8` → `tree/v1.0.0` per
+  ADR-033). ADR count cascade 79 → 80 across 7 reader-facing
+  surfaces.
+- **PR-2**: Class-A factual + numeric fixes (PAPER §4.6 frozen-probe
+  FPR 0.6% → 1.0%; PAPER §3.3 BIPIA n=56 → n=50, InjecAgent n=56 →
+  n=62; F4 → F5 figure-label fix in PAPER §4.7 + NARRATIVE Finding 7;
+  NARRATIVE Act 4 "Six more findings" → "Four more findings" + Act 3
+  explicit Findings 1-3; NARRATIVE Finding 4 §-numbering leak fix;
+  GLOSSARY rung/detector clarifier overcount + drop LLM judges;
+  READING_GUIDE result-map Finding 2 row added). Includes
+  `scripts/audit_numbers.py` invariant + pre-commit hook.
+- **PR-3**: Class-B 3-tier mixed-by-purpose retargeting of 22+ stale
+  "WRITEUP-as-hub" references across 8 WRITEUP/ spokes + 3 non-spoke
+  surfaces (RESULTS.md, site-reader-map.md, for-hiring-managers.md).
+- **PR-4**: Class-C/D polish (limitations §11 → §10 numbering gap
+  closure; "v6" → "successor iteration"; Quarto frontmatter added to
+  6 spokes missing it). Plus `scripts/audit_internal_anchors.py`
+  intra-site dead-anchor detector (manual-run; Q8 lychee-in-pre-commit
+  deferred to v1.3.2 candidate).
+- **PR-5**: Q6 README chooser clarity (above-fold pointer + H2
+  rename "Read the site" → "Pick a guide for the full methodology" +
+  end-of-Executive-Summary chooser transition).
+
+**Governance**: ADR-080 (NEW; axis-only supersession of ADR-078 +
+ADR-079 on the reviewer-URL-pin numeric axis). 80 ADRs total at
+v1.3.1 close. Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+**Preventive guardrails**: `scripts/audit_numbers.py` (release-gate
+invariant; pre-commit hook; 23 numeric checks against `evals/*.parquet`)
++ `scripts/audit_internal_anchors.py` (manual-run intra-site anchor
+resolver).
+
+**Decision trail**: see `~/.claude/plans/i-want-to-audit-abundant-meerkat.md`
+for the 9-question /exploring-options walk-through (Q1 ADR-fix path;
+Q2 re-derivation discipline; Q3 NARRATIVE findings-count alignment;
+Q4 3-tier retargeting; Q5 frontmatter polish scope; Q6 README chooser
+clarity; Q7 sub-PR strategy; Q8 preventive guardrails; Q9 numbering +
+v6 polish). Transcript: `transcripts/2026-05-22__v1-3-1-audit-fix.md`
+(gitignored; `/save-transcript` will land post-tag).
+
+---
+
 ### v1.3.1 sub-PR-5 — README chooser clarity (Q6 A+B+C)
 
 **Defect**: Live README chooser was present but discoverability was
