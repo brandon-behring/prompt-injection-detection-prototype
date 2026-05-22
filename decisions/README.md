@@ -37,7 +37,8 @@ adr_id: NNN
 slug: brief-alignment
 title: Brief alignment with Ciphero take-home requirements
 date: 2026-MM-DD
-status: Accepted | Proposed | Superseded | Deprecated
+status: Accepted | Proposed | Superseded | Deprecated | Rejected
+lifecycle-note: <OPTIONAL — verbose lifecycle context that doesn't fit pure-Nygard `status:` per ADR-081 narrow-relaxation discipline; e.g. "methodology lock — execution deferred to vX.Y.Z per ..." for ADRs that are Accepted-but-pending-execution>
 claim_id: CLAIM-NNN
 claim: <one-line claim summary>
 source: <doc/section where claim appears>
@@ -51,6 +52,12 @@ references:
 transcript: transcripts/YYYY-MM-DD__phase-0-NN__topic.md
 ---
 ```
+
+**Required**: `adr_id`, `slug`, `title`, `date`, `status`, `claim_id`, `claim`.
+**OPTIONAL**: `lifecycle-note` (per [ADR-081](./ADR-081-frontmatter-status-field-split-narrow-relaxation.md)),
+`closing_commit` (populated when accepted), `supersedes` / `superseded_by`
+(supersession edges; see ADR-076 + ADR-077 for axis-only-supersession
+conventions), `references`, `transcript`.
 
 ## Index
 

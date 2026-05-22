@@ -30,7 +30,7 @@ are defined on first use in either guide and cross-referenced to
   [WRITEUP/](./WRITEUP/) covering data decisions, evaluation design,
   model details, threshold policy, reference-scorer audit, methodology
   guarantees, reproducibility, limitations + future work.
-- **Decision trail** → 80 ADRs at [decisions/](./decisions/).
+- **Decision trail** → 81 ADRs at [decisions/](./decisions/).
 
 ## Why two guides?
 

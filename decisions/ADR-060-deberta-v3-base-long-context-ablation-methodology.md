@@ -3,7 +3,8 @@ adr_id: "060"
 slug: deberta-v3-base-long-context-ablation-methodology
 title: DeBERTa-v3-base medium ablation methodology — chunk-and-average vs head-truncation × 5-slice OOD; infrastructure-only at v1.1.0; execution deferred to v1.1.1
 date: 2026-05-19
-status: Accepted (methodology lock — infrastructure landed; execution deferred to v1.1.1 per /exploring-options 2026-05-19 Path B lock)
+status: Accepted
+lifecycle-note: methodology lock — infrastructure landed; execution deferred to v1.1.1 per /exploring-options 2026-05-19 Path B lock (executed at v1.1.2 per ADR-063; split into pure-Nygard `status:` + `lifecycle-note:` at v1.3.2 per ADR-081 narrow-relaxation)
 claim_id: CLAIM-060
 claim: >-
   NEXT_STEPS §1.10 (DeBERTa-v3-base long-context ablation) was explicitly
@@ -58,7 +59,8 @@ acceptance_criterion: >-
   recorded in `evals/cost_ledger.csv` (within ADR-020 envelope).
 closing_commit: v1.1.0 (methodology); v1.1.1 (execution carryforward)
 supersedes: []
-superseded_by: []
+superseded_by:
+  - "081"  # frontmatter-axis only (status-field-split: verbose `status:` → pure-Nygard `status:` + new `lifecycle-note:` field per ADR-081 narrow-relaxation); decision-content body (Context / Decision / Consequences / Alternatives) unchanged
 references:
   - decisions/ADR-015-rung-architecture-refinement.md
   - decisions/ADR-020-compute-infrastructure-and-cost-discipline.md

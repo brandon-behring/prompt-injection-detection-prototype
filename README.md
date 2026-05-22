@@ -180,7 +180,7 @@ make render-figures   # render canonical F1-F5 figures from evals/
 
 ## How this project thinks
 
-- **Spec-driven development** — 80 immutable Architecture Decision Records under [`decisions/`](./decisions/) lock methodology choices before code lands.
+- **Spec-driven development** — 81 immutable Architecture Decision Records under [`decisions/`](./decisions/) lock methodology choices before code lands.
 - **Library-first invariant** — shared evaluation primitives live in upstream libraries ([eval-toolkit](https://github.com/brandon-behring/eval-toolkit), [runpod-deploy](https://github.com/brandon-behring/runpod-deploy), [research_toolkit](https://github.com/brandon-behring/research_toolkit)); local code is project-specific glue. Upstream gaps land in [`decisions/upstream_issues.md`](./decisions/upstream_issues.md) before any local workaround.
 - **Confound-control discipline** — when the headline result raised the natural follow-up ("does a longer context window fix the OOD gap?"), a controlled DeBERTa-v3-base ablation was designed (chunk-and-average vs head-truncation). Result: a publishable null. See [ADR-060](./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md).
 
@@ -196,7 +196,7 @@ make render-figures   # render canonical F1-F5 figures from evals/
 | [`WRITEUP/`](./WRITEUP/) | 8 detailed methodology spokes (deep-dive references) |
 | [`EVIDENCE.md`](./EVIDENCE.md) | external-evidence audit trail |
 | [`NEXT_STEPS.md`](./NEXT_STEPS.md) | future-work surface |
-| [`decisions/`](./decisions/) | 80 ADRs documenting methodology + governance |
+| [`decisions/`](./decisions/) | 81 ADRs documenting methodology + governance |
 | [`evals/`](./evals/) | metrics, bootstrap CIs, operating points, per-row predictions |
 | [`docs/plots/`](./docs/plots/) | F1-F5 figures + metadata sidecars (provenance trail) |
 | [`docs/GLOSSARY.md`](./docs/GLOSSARY.md) | term definitions referenced by both guides |
