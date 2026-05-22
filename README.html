@@ -138,8 +138,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-methodology">    
         <li>
+    <a class="dropdown-item" href="./WRITEUP_PAPER.html">
+ <span class="dropdown-text">Academic paper (IMRAD)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP_NARRATIVE.html">
+ <span class="dropdown-text">Narrative arc (story)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./WRITEUP.html">
- <span class="dropdown-text">Cover narrative (hub)</span></a>
+ <span class="dropdown-text">Router (pick a guide)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./READING_GUIDE.html">
@@ -197,10 +205,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Public site reader map</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="./EVIDENCE.html">
  <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
@@ -253,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./README.html">README + executive summary</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -290,14 +294,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
+  <a href="./README.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">README + executive summary</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
+  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
       </ul>
@@ -305,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Methodology</span></a>
+ <span class="menu-text">Methodology guides (pick a style)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -313,8 +317,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./WRITEUP_PAPER.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Academic paper (IMRAD)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP_NARRATIVE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrative arc (story)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./WRITEUP.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cover narrative (hub)</span></a>
+ <span class="menu-text">Router (1-page chooser)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -969,6 +985,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Backfill supersession back-links + quote octal-risk YAML integer fields in ADR-007 + ADR-015 + ADR-018 + ADR-021 + ADR-052 frontmatter per ADR-076 frontmatter-backfill discipline</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-078-executive-summary-absorbed-into-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Absorb EXECUTIVE_SUMMARY content into README; retire EXECUTIVE_SUMMARY.md as standalone file</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-079-two-guide-reader-architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -985,15 +1013,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#prompt-injection-detection-prototype" id="toc-prompt-injection-detection-prototype" class="nav-link active" data-scroll-target="#prompt-injection-detection-prototype">prompt-injection-detection-prototype</a>
   <ul class="collapse">
-  <li><a href="#read-the-site-three-depths" id="toc-read-the-site-three-depths" class="nav-link" data-scroll-target="#read-the-site-three-depths">Read the site, three depths</a></li>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link" data-scroll-target="#executive-summary">Executive summary</a>
+  <ul class="collapse">
+  <li><a href="#pooled-ood-auprc-table" id="toc-pooled-ood-auprc-table" class="nav-link" data-scroll-target="#pooled-ood-auprc-table">Pooled OOD AUPRC table</a></li>
+  <li><a href="#mechanism-lexical-overfitting-label-relevance-shift" id="toc-mechanism-lexical-overfitting-label-relevance-shift" class="nav-link" data-scroll-target="#mechanism-lexical-overfitting-label-relevance-shift">Mechanism: lexical overfitting + label-relevance shift</a></li>
+  <li><a href="#direct-detection-check" id="toc-direct-detection-check" class="nav-link" data-scroll-target="#direct-detection-check">Direct detection check</a></li>
+  </ul></li>
+  <li><a href="#read-the-site" id="toc-read-the-site" class="nav-link" data-scroll-target="#read-the-site">Read the site</a></li>
   <li><a href="#what-this-project-is" id="toc-what-this-project-is" class="nav-link" data-scroll-target="#what-this-project-is">What this project is</a></li>
-  <li><a href="#pooled-ood-table" id="toc-pooled-ood-table" class="nav-link" data-scroll-target="#pooled-ood-table">Pooled OOD table</a></li>
   <li><a href="#what-ood-means-here" id="toc-what-ood-means-here" class="nav-link" data-scroll-target="#what-ood-means-here">What “OOD” means here</a></li>
   <li><a href="#why-trust-the-result" id="toc-why-trust-the-result" class="nav-link" data-scroll-target="#why-trust-the-result">Why trust the result</a></li>
   <li><a href="#reproduce-three-tiers" id="toc-reproduce-three-tiers" class="nav-link" data-scroll-target="#reproduce-three-tiers">Reproduce — three tiers</a></li>
   <li><a href="#how-this-project-thinks" id="toc-how-this-project-thinks" class="nav-link" data-scroll-target="#how-this-project-thinks">How this project thinks</a></li>
   <li><a href="#repository-map" id="toc-repository-map" class="nav-link" data-scroll-target="#repository-map">Repository map</a></li>
-  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">Key terms</a></li>
+  <li><a href="#key-terms-quick-reference" id="toc-key-terms-quick-reference" class="nav-link" data-scroll-target="#key-terms-quick-reference">Key terms (quick reference)</a></li>
   <li><a href="#what-it-does-not-claim" id="toc-what-it-does-not-claim" class="nav-link" data-scroll-target="#what-it-does-not-claim">What it does not claim</a></li>
   <li><a href="#submission-anchors" id="toc-submission-anchors" class="nav-link" data-scroll-target="#submission-anchors">Submission anchors</a></li>
   </ul></li>
@@ -1001,7 +1034,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./README.html">README + executive summary</a></li></ol></nav></header>
 
 
 
@@ -1010,37 +1043,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>prompt-injection-detection-prototype</h1>
 <p><a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/"><img src="https://img.shields.io/badge/docs-live-blue.png" class="img-fluid" alt="Documentation"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/ci.yml/badge.svg" class="img-fluid" alt="CI"></a> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml"><img src="https://github.com/brandon-behring/prompt-injection-detection-prototype/actions/workflows/publish.yml/badge.svg" class="img-fluid" alt="Publish"></a> <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.13-blue.svg" class="img-fluid" alt="Python 3.13"></a></p>
 <p><strong>A methodology-focused evaluation of prompt-injection detectors under cross-family distribution shift.</strong> Asks one question: when detectors trained on direct prompt-injection examples meet attack families they didn’t see, do they still work?</p>
-<p><strong>Result, two-sided:</strong></p>
+<hr>
+<section id="executive-summary" class="level2">
+<h2 class="anchored" data-anchor-id="executive-summary">Executive summary</h2>
+<p>This project evaluates prompt-injection detectors under out-of-distribution (OOD) shift. Prompt injection means untrusted text trying to override an LLM system’s instructions. The project is not trying to ship a production detector; it is trying to show what a fairer evaluation says about several detector designs.</p>
+<p><strong>Bottom line, two-sided:</strong></p>
 <ul>
-<li><strong>Direct detection is learned</strong>, and learnable cheaply — TF-IDF + LR reaches <strong>0.971 AUPRC</strong> on balanced direct+benign validation; LoRA matches at <strong>0.974</strong>. The neural lift over the lexical baseline is small.</li>
+<li><strong>Direct detection is learned</strong>, and learnable cheaply. TF-IDF + LR reaches <strong>0.971 AUPRC</strong> on balanced direct+benign validation; LoRA matches at <strong>0.974</strong>. The neural lift over the lexical baseline is small.</li>
 <li><strong>Cross-family generalization fails.</strong> On pooled OOD, the best detector lands at AUPRC <strong>0.364</strong> against a random floor of <strong>0.374</strong> — at the floor, not above. Under AUROC, LoRA (0.383) and TF-IDF (0.371) both clear the 0.5 floor <strong>on the wrong side</strong>: their rankings are anti-correlated with truth on cross-family attacks. The frozen ModernBERT probe alone stays above floor (AUROC 0.515).</li>
 </ul>
-<p>This is a capability characterization, not a deployment recommendation. The artifact’s contribution is the honest evaluation harness plus the negative result on cross-family transfer.</p>
-<section id="read-the-site-three-depths" class="level2">
-<h2 class="anchored" data-anchor-id="read-the-site-three-depths">Read the site, three depths</h2>
-<ul>
-<li><strong>~60 seconds →</strong> <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/docs/for-hiring-managers.html">Project at a glance</a>: what problem, what found, why trust, how I think</li>
-<li><strong>~45 minutes →</strong> <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/RESULTS.html">Results</a> (canonical tables + 5 figures) → <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP.html">Writeup</a> (methodology hub + 8 spokes)</li>
-<li><strong>Reproduce →</strong> <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/reproducibility.html">T0 laptop / T1 smoke / T3 cloud tier ladder</a> (~$0 / ~$0 / ~$125)</li>
-</ul>
-<p>License: <a href="./LICENSE">MIT</a> · Author: Brandon Behring · Reproducibility: T0 score-matches against published HF Hub checkpoints within 1e-4 tolerance</p>
-<hr>
-<details>
-<summary>
-<strong>Below the fold — headline tables, repo orientation, reproduction quickstart</strong>
-</summary>
-</details></section>
-<section id="what-this-project-is" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-project-is">What this project is</h2>
-<ul>
-<li><strong>A capability characterization</strong>, not a deployment recommendation.</li>
-<li><strong>A detector-ladder evaluation</strong>: TF-IDF + LR, ModernBERT frozen probe, ModernBERT LoRA, and ProtectAI v1/v2 references. (Full fine-tune ran for LODO direct-source only; pooled OOD inference crashed — see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>.)</li>
-<li><strong>A held-out family evaluation</strong>: indirect injection, agentic-flow injection, jailbreak-style questions, and benign-but-injection-shaped text.</li>
-<li><strong>A reproducible artifact</strong>: source-disjoint splits, leakage checks, persisted predictions, confidence intervals, calibration metrics, and Quarto-rendered documentation.</li>
-</ul>
-</section>
-<section id="pooled-ood-table" class="level2">
-<h2 class="anchored" data-anchor-id="pooled-ood-table">Pooled OOD table</h2>
+<section id="pooled-ood-auprc-table" class="level3">
+<h3 class="anchored" data-anchor-id="pooled-ood-auprc-table">Pooled OOD AUPRC table</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 30%">
@@ -1083,7 +1096,104 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources (<code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code>) per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Pooled OOD scores on slices that overlap with that training pool are not clean OOD baselines.</p>
-<p>For <code>pooled_ood</code>, random AUPRC is <strong>412 / 1101 = 0.374</strong>. That is why the 0.364 frozen-probe score is not a success claim. Under AUROC (random floor 0.5), LoRA and TF-IDF + LR both land below the floor with CIs that clear 0.5 on the wrong side — the mechanism is lexical overfitting + a label-relevance shift on the OOD slate; see <a href="./EXECUTIVE_SUMMARY.html">EXECUTIVE_SUMMARY</a> §Mechanism for the full read. Direct-detection tables (balanced validation + LODO held-out direct-source recall) live in <a href="./RESULTS.html">RESULTS</a> §Direct Prompt-Injection Performance.</p>
+<p>For <code>pooled_ood</code>, random AUPRC is <strong>412 / 1101 = 0.374</strong>. The 0.364 frozen-probe score is therefore not a success claim. Under AUROC (random floor 0.5), LoRA and TF-IDF + LR both land below the floor with CIs that clear 0.5 on the wrong side — the mechanism is lexical overfitting + a label-relevance shift on the OOD slate (see §Mechanism below).</p>
+</section>
+<section id="mechanism-lexical-overfitting-label-relevance-shift" class="level3">
+<h3 class="anchored" data-anchor-id="mechanism-lexical-overfitting-label-relevance-shift">Mechanism: lexical overfitting + label-relevance shift</h3>
+<p>Two detectors land below the 0.5 AUROC random floor on pooled OOD with CIs that clear 0.5 on the wrong side: LoRA at 0.383 [0.374, 0.392] and TF-IDF + LR at 0.371 [0.362, 0.381]. A score below 0.5 AUROC is not pure overfitting (which predicts collapse <em>toward</em> random, not past it); it is lexical overfitting combined with a label-relevance shift on this specific slate:</p>
+<ul>
+<li>LoRA + TF-IDF both learn lexical signatures of direct injection (“ignore previous instructions”, “you are now”, etc.).</li>
+<li><strong>NotInject</strong> (n=339, all negative): benign text engineered to <em>look like</em> direct injection. Both detectors score these HIGH (false positives).</li>
+<li><strong>BIPIA + InjecAgent</strong> (indirect + agentic, n=112): real attacks that <em>do not</em> use direct-injection lexical patterns. Both detectors score these LOW (false negatives).</li>
+</ul>
+<p>The lexical signal is real and consistent within itself — it just stops tracking attack class on cross-family slices where the lexical and semantic labels diverge. The frozen ModernBERT probe (zero LODO-pool adaptation) stays at 0.515 AUROC; generic linguistic features are less aligned with the direct-injection lexical distribution and therefore less inverted on the cross-family slate.</p>
+<p>Generalization gap: in-pool 0.99 AUROC → cross-family 0.38 AUROC, ~0.6 drop for the trained detectors; frozen probe’s gap is 0.91 → 0.515, ~0.4 drop. The more training adapted to the LODO pool, the harder the cross-family fall.</p>
+</section>
+<section id="direct-detection-check" class="level3">
+<h3 class="anchored" data-anchor-id="direct-detection-check">Direct detection check</h3>
+<p>The OOD result should not be read as “nothing worked.” The detectors learned the direct prompt-injection task; they then failed to generalize cleanly across attack families.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">Direct+benign validation AUPRC</th>
+<th style="text-align: right;">AUROC</th>
+<th style="text-align: right;">Recall@0.5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;"><strong>0.974</strong></td>
+<td style="text-align: right;"><strong>0.993</strong></td>
+<td style="text-align: right;"><strong>0.934</strong></td>
+</tr>
+<tr class="even">
+<td>TF-IDF + LR</td>
+<td style="text-align: right;">0.971</td>
+<td style="text-align: right;">0.992</td>
+<td style="text-align: right;">0.930</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">0.653</td>
+<td style="text-align: right;">0.907</td>
+<td style="text-align: right;">0.849</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Detector</th>
+<th style="text-align: right;">LODO held-out direct-source recall@0.5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;"><strong>0.641</strong></td>
+</tr>
+<tr class="even">
+<td>ModernBERT LoRA</td>
+<td style="text-align: right;">0.625</td>
+</tr>
+<tr class="odd">
+<td>ModernBERT full fine-tune**</td>
+<td style="text-align: right;">0.558</td>
+</tr>
+</tbody>
+</table>
+<p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). Full-FT is absent from the Pooled OOD table above for that reason.</p>
+<p>This is a capability characterization, not a deployment recommendation. The artifact’s contribution is the honest evaluation harness plus the negative result on cross-family transfer.</p>
+<hr>
+</section>
+</section>
+<section id="read-the-site" class="level2">
+<h2 class="anchored" data-anchor-id="read-the-site">Read the site</h2>
+<p>Pick the format that fits how you want to read this:</p>
+<ul>
+<li><strong>Academic paper format (IMRAD)</strong> → <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~45 min)</li>
+<li><strong>Narrative format (story)</strong> → <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> — plain-English first-person 5-act story arc (~30 min)</li>
+<li><strong>60-second tour</strong> → <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/docs/for-hiring-managers.html">Project at a glance</a></li>
+<li><strong>Just the data</strong> → <a href="./RESULTS.html">RESULTS.md</a> — exact tables + 5 canonical figures + raw artifact pointers</li>
+<li><strong>Reproduce</strong> → <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/reproducibility.html">T0 laptop / T1 smoke / T3 cloud tier ladder</a> (~$0 / ~$0 / ~$125)</li>
+</ul>
+<p>Both guides cover the same content; the style is the difference. Jargon is defined on first use in either guide and cross-referenced to <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a>.</p>
+<hr>
+<details>
+<summary>
+<strong>Below the fold — what was tested, why trust the result, reproduction quickstart, repo map</strong>
+</summary>
+</details></section>
+<section id="what-this-project-is" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-project-is">What this project is</h2>
+<ul>
+<li><strong>A capability characterization</strong>, not a deployment recommendation.</li>
+<li><strong>A detector-ladder evaluation</strong>: TF-IDF + LR, ModernBERT frozen probe, ModernBERT LoRA, and ProtectAI v1/v2 references. (Full fine-tune ran for LODO direct-source only; pooled OOD inference crashed — see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>.)</li>
+<li><strong>A held-out family evaluation</strong>: indirect injection, agentic-flow injection, jailbreak-style questions, and benign-but-injection-shaped text.</li>
+<li><strong>A reproducible artifact</strong>: source-disjoint splits, leakage checks, persisted predictions, confidence intervals, calibration metrics, and Quarto-rendered documentation.</li>
+</ul>
 </section>
 <section id="what-ood-means-here" class="level2">
 <h2 class="anchored" data-anchor-id="what-ood-means-here">What “OOD” means here</h2>
@@ -1130,7 +1240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-this-project-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="how-this-project-thinks">How this project thinks</h2>
 <ul>
-<li><strong>Spec-driven development</strong> — 77 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
+<li><strong>Spec-driven development</strong> — 79 immutable Architecture Decision Records under <a href="./decisions/"><code>decisions/</code></a> lock methodology choices before code lands.</li>
 <li><strong>Library-first invariant</strong> — shared evaluation primitives live in upstream libraries (<a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a>, <a href="https://github.com/brandon-behring/runpod-deploy">runpod-deploy</a>, <a href="https://github.com/brandon-behring/research_toolkit">research_toolkit</a>); local code is project-specific glue. Upstream gaps land in <a href="./decisions/upstream_issues.html"><code>decisions/upstream_issues.md</code></a> before any local workaround.</li>
 <li><strong>Confound-control discipline</strong> — when the headline result raised the natural follow-up (“does a longer context window fix the OOD gap?”), a controlled DeBERTa-v3-base ablation was designed (chunk-and-average vs head-truncation). Result: a publishable null. See <a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a>.</li>
 </ul>
@@ -1150,16 +1260,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>first-reader landing page</td>
 </tr>
 <tr class="even">
+<td><a href="./WRITEUP_PAPER.html"><code>WRITEUP_PAPER.md</code></a></td>
+<td>academic IMRAD article (45 min)</td>
+</tr>
+<tr class="odd">
+<td><a href="./WRITEUP_NARRATIVE.html"><code>WRITEUP_NARRATIVE.md</code></a></td>
+<td>narrative story-arc article (30 min)</td>
+</tr>
+<tr class="even">
 <td><a href="./RESULTS.html"><code>RESULTS.md</code></a></td>
 <td>exact tables, 5 canonical figures, raw artifact pointers</td>
 </tr>
 <tr class="odd">
 <td><a href="./WRITEUP.html"><code>WRITEUP.md</code></a></td>
-<td>methodology hub</td>
+<td>1-page router pointing at the two guides</td>
 </tr>
 <tr class="even">
 <td><a href="./WRITEUP/"><code>WRITEUP/</code></a></td>
-<td>8 detailed methodology spokes</td>
+<td>8 detailed methodology spokes (deep-dive references)</td>
 </tr>
 <tr class="odd">
 <td><a href="./EVIDENCE.html"><code>EVIDENCE.md</code></a></td>
@@ -1171,7 +1289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><a href="./decisions/"><code>decisions/</code></a></td>
-<td>77 ADRs documenting methodology + governance</td>
+<td>79 ADRs documenting methodology + governance</td>
 </tr>
 <tr class="even">
 <td><a href="./evals/"><code>evals/</code></a></td>
@@ -1182,18 +1300,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>F1-F5 figures + metadata sidecars (provenance trail)</td>
 </tr>
 <tr class="even">
+<td><a href="./docs/GLOSSARY.html"><code>docs/GLOSSARY.md</code></a></td>
+<td>term definitions referenced by both guides</td>
+</tr>
+<tr class="odd">
 <td><a href="./notebooks/"><code>notebooks/</code></a></td>
 <td>static-rendered Jupytext appendices</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="./src/"><code>src/</code></a>, <a href="./scripts/"><code>scripts/</code></a>, <a href="./tests/"><code>tests/</code></a></td>
 <td>implementation + verification</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="key-terms" class="level2">
-<h2 class="anchored" data-anchor-id="key-terms">Key terms</h2>
+<section id="key-terms-quick-reference" class="level2">
+<h2 class="anchored" data-anchor-id="key-terms-quick-reference">Key terms (quick reference)</h2>
 <ul>
 <li><strong>AUPRC</strong> — primary ranking metric; random floor equals the positive rate.</li>
 <li><strong>OOD</strong> — out-of-distribution. Here the important shift is cross-family, not just a different source name.</li>
@@ -1210,7 +1332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="submission-anchors" class="level2">
 <h2 class="anchored" data-anchor-id="submission-anchors">Submission anchors</h2>
 <ul>
-<li><strong>Current state:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.2.13"><code>tree/v1.2.13</code></a> (2026-05-21) — live-site source</li>
+<li><strong>Current state:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0"><code>tree/v1.3.0</code></a> (2026-05-21) — live-site source</li>
 <li><strong>Original submission tag:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a> (2026-05-18) — preserved as historical reviewer pin per ADR-033</li>
 <li><strong>Live rendered site:</strong> <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a></li>
 <li><strong>HF Hub checkpoints:</strong> <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">frozen probe</a>, <a href="https://huggingface.co/BBehring/prompt-injection-lora">LoRA</a></li>

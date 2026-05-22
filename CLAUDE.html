@@ -103,8 +103,16 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-methodology">    
         <li>
+    <a class="dropdown-item" href="./WRITEUP_PAPER.html">
+ <span class="dropdown-text">Academic paper (IMRAD)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP_NARRATIVE.html">
+ <span class="dropdown-text">Narrative arc (story)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./WRITEUP.html">
- <span class="dropdown-text">Cover narrative (hub)</span></a>
+ <span class="dropdown-text">Router (pick a guide)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./READING_GUIDE.html">
@@ -160,10 +168,6 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./docs/site-reader-map.html">
  <span class="dropdown-text">Public site reader map</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./EVIDENCE.html">
@@ -255,14 +259,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
+  <a href="./README.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">README + executive summary</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
+  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
       </ul>
@@ -270,7 +274,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Methodology</span></a>
+ <span class="menu-text">Methodology guides (pick a style)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -278,8 +282,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./WRITEUP_PAPER.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Academic paper (IMRAD)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP_NARRATIVE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrative arc (story)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./WRITEUP.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cover narrative (hub)</span></a>
+ <span class="menu-text">Router (1-page chooser)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -934,6 +950,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Backfill supersession back-links + quote octal-risk YAML integer fields in ADR-007 + ADR-015 + ADR-018 + ADR-021 + ADR-052 frontmatter per ADR-076 frontmatter-backfill discipline</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-078-executive-summary-absorbed-into-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Absorb EXECUTIVE_SUMMARY content into README; retire EXECUTIVE_SUMMARY.md as standalone file</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-079-two-guide-reader-architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -976,7 +1004,7 @@ ul.task-list li input[type="checkbox"] {
 <p>This is a case-study submission repo using SDD (spec-driven development). Before any work, read <code>SPEC_GREENFIELD.md</code> (the binding spec).</p>
 <section id="phase-0-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="phase-0-workflow">Phase 0 workflow</h2>
-<p>Phase 0 runs the spec lock-in interview via the <code>/exploring-options</code> skill against <code>SPEC_GREENFIELD.md</code>’s decision ledger (~50 Phase-0 decisions across ~9 topic-focused sub-sessions; 77 ADRs at v1.2.15 close including post-v1.0.0 patch governance: ADR-051 carryforward + ADR-052 full-FT reframing + ADR-053 reading-guide governance + ADR-061 nav restructure + ADR-067-070 immutability-relaxation chain consolidated in ADR-073 + ADR-074 redaction governance + ADR-075 full-FT OOD narrative unification + ADR-076 supersession + closing_commit frontmatter backfill + ADR-077 supersession-backlink and octal-quoting frontmatter backfill). See <code>SPEC_GREENFIELD.md</code> §Phase 0 for the recommended sub-session sequence.</p>
+<p>Phase 0 runs the spec lock-in interview via the <code>/exploring-options</code> skill against <code>SPEC_GREENFIELD.md</code>’s decision ledger (~50 Phase-0 decisions across ~9 topic-focused sub-sessions; 79 ADRs at v1.3.0 close including post-v1.0.0 patch governance: ADR-051 carryforward + ADR-052 full-FT reframing + ADR-053 reading-guide governance + ADR-061 nav restructure + ADR-067-070 immutability-relaxation chain consolidated in ADR-073 + ADR-074 redaction governance + ADR-075 full-FT OOD narrative unification + ADR-076 supersession + closing_commit frontmatter backfill + ADR-077 supersession-backlink and octal-quoting frontmatter backfill + ADR-078 EXECUTIVE_SUMMARY absorption + ADR-079 two-guide reader architecture). See <code>SPEC_GREENFIELD.md</code> §Phase 0 for the recommended sub-session sequence.</p>
 <p><strong>For each <code>[OPEN]</code> decision walked, Claude must surface:</strong></p>
 <ol type="1">
 <li>Concrete explanation of what the decision means</li>

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Canonical results page for the prompt-injection classifier evaluation.">
+<meta name="description" content="Academic IMRAD article presenting the project’s methodology and findings.">
 
-<title>Results: tables, figures, and source artifacts – Prompt-injection classifier evaluation</title>
+<title>Prompt-Injection Classification: Methodology and Capability Characterization (Academic Paper Format) – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -223,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./RESULTS.html">Results: tables, figures, and source artifacts</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="./WRITEUP_PAPER.html">Academic paper (IMRAD)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -266,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link active">
+  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
@@ -283,7 +283,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./WRITEUP_PAPER.html" class="sidebar-item-text sidebar-link">
+  <a href="./WRITEUP_PAPER.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Academic paper (IMRAD)</span></a>
   </div>
 </li>
@@ -977,19 +977,56 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#results" id="toc-results" class="nav-link active" data-scroll-target="#results">Results</a>
+  <li><a href="#prompt-injection-classification-methodology-and-capability-characterization" id="toc-prompt-injection-classification-methodology-and-capability-characterization" class="nav-link active" data-scroll-target="#prompt-injection-classification-methodology-and-capability-characterization">Prompt-Injection Classification: Methodology and Capability Characterization</a>
   <ul class="collapse">
-  <li><a href="#metric-primer" id="toc-metric-primer" class="nav-link" data-scroll-target="#metric-primer">Metric Primer</a></li>
-  <li><a href="#direct-prompt-injection-performance" id="toc-direct-prompt-injection-performance" class="nav-link" data-scroll-target="#direct-prompt-injection-performance">Direct Prompt-Injection Performance</a></li>
-  <li><a href="#cross-family-ood-table-auprc" id="toc-cross-family-ood-table-auprc" class="nav-link" data-scroll-target="#cross-family-ood-table-auprc">1. Cross-Family OOD Table: AUPRC</a></li>
-  <li><a href="#b-ablation-does-a-longer-context-backbone-fix-the-ood-gap" id="toc-b-ablation-does-a-longer-context-backbone-fix-the-ood-gap" class="nav-link" data-scroll-target="#b-ablation-does-a-longer-context-backbone-fix-the-ood-gap">§1B Ablation: does a longer-context backbone fix the OOD gap?</a></li>
-  <li><a href="#frozen-probe-vs-lora" id="toc-frozen-probe-vs-lora" class="nav-link" data-scroll-target="#frozen-probe-vs-lora">2. Frozen Probe vs LoRA</a></li>
-  <li><a href="#per-slice-view" id="toc-per-slice-view" class="nav-link" data-scroll-target="#per-slice-view">3. Per-Slice View</a></li>
-  <li><a href="#threshold-transfer" id="toc-threshold-transfer" class="nav-link" data-scroll-target="#threshold-transfer">4. Threshold Transfer</a></li>
-  <li><a href="#calibration" id="toc-calibration" class="nav-link" data-scroll-target="#calibration">5. Calibration</a></li>
-  <li><a href="#secondary-table-auroc" id="toc-secondary-table-auroc" class="nav-link" data-scroll-target="#secondary-table-auroc">6. Secondary Table: AUROC</a></li>
-  <li><a href="#raw-artifacts" id="toc-raw-artifacts" class="nav-link" data-scroll-target="#raw-artifacts">7. Raw Artifacts</a></li>
-  <li><a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references">Cross-References</a></li>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">§0. Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">§1. Introduction</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">§2. Background</a>
+  <ul class="collapse">
+  <li><a href="#prompt-injection-landscape" id="toc-prompt-injection-landscape" class="nav-link" data-scroll-target="#prompt-injection-landscape">§2.1 Prompt-injection landscape</a></li>
+  <li><a href="#existing-detectors" id="toc-existing-detectors" class="nav-link" data-scroll-target="#existing-detectors">§2.2 Existing detectors</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">§2.3 Data sources</a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">§3. Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-sources-and-lodo-splits" id="toc-data-sources-and-lodo-splits" class="nav-link" data-scroll-target="#data-sources-and-lodo-splits">§3.1 Data sources and LODO splits</a></li>
+  <li><a href="#model-rungs" id="toc-model-rungs" class="nav-link" data-scroll-target="#model-rungs">§3.2 Model rungs</a></li>
+  <li><a href="#evaluation-slate" id="toc-evaluation-slate" class="nav-link" data-scroll-target="#evaluation-slate">§3.3 Evaluation slate</a></li>
+  <li><a href="#statistical-apparatus" id="toc-statistical-apparatus" class="nav-link" data-scroll-target="#statistical-apparatus">§3.4 Statistical apparatus</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">§4. Results</a>
+  <ul class="collapse">
+  <li><a href="#direct-prompt-injection-detection-was-learned" id="toc-direct-prompt-injection-detection-was-learned" class="nav-link" data-scroll-target="#direct-prompt-injection-detection-was-learned">§4.1 Direct prompt-injection detection was learned</a></li>
+  <li><a href="#the-ood-wall-is-cross-family-not-source-level" id="toc-the-ood-wall-is-cross-family-not-source-level" class="nav-link" data-scroll-target="#the-ood-wall-is-cross-family-not-source-level">§4.2 The OOD wall is cross-family, not source-level</a></li>
+  <li><a href="#trained-adapters-anti-correlated-with-cross-family-attack-class" id="toc-trained-adapters-anti-correlated-with-cross-family-attack-class" class="nav-link" data-scroll-target="#trained-adapters-anti-correlated-with-cross-family-attack-class">§4.3 Trained adapters anti-correlated with cross-family attack class</a></li>
+  <li><a href="#context-window-ablation-produced-a-null-result" id="toc-context-window-ablation-produced-a-null-result" class="nav-link" data-scroll-target="#context-window-ablation-produced-a-null-result">§4.4 Context-window ablation produced a null result</a></li>
+  <li><a href="#published-detector-versions-are-slice-dependent" id="toc-published-detector-versions-are-slice-dependent" class="nav-link" data-scroll-target="#published-detector-versions-are-slice-dependent">§4.5 Published detector versions are slice-dependent</a></li>
+  <li><a href="#validation-thresholds-are-fragile-under-cross-family-shift" id="toc-validation-thresholds-are-fragile-under-cross-family-shift" class="nav-link" data-scroll-target="#validation-thresholds-are-fragile-under-cross-family-shift">§4.6 Validation thresholds are fragile under cross-family shift</a></li>
+  <li><a href="#calibration-favors-the-frozen-probe" id="toc-calibration-favors-the-frozen-probe" class="nav-link" data-scroll-target="#calibration-favors-the-frozen-probe">§4.7 Calibration favors the frozen probe</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">§5. Discussion</a>
+  <ul class="collapse">
+  <li><a href="#mechanism-lexical-overfitting-plus-label-relevance-shift" id="toc-mechanism-lexical-overfitting-plus-label-relevance-shift" class="nav-link" data-scroll-target="#mechanism-lexical-overfitting-plus-label-relevance-shift">§5.1 Mechanism: lexical overfitting plus label-relevance shift</a></li>
+  <li><a href="#implications-for-direct-detection-deployments" id="toc-implications-for-direct-detection-deployments" class="nav-link" data-scroll-target="#implications-for-direct-detection-deployments">§5.2 Implications for direct-detection deployments</a></li>
+  <li><a href="#what-this-study-does-not-establish" id="toc-what-this-study-does-not-establish" class="nav-link" data-scroll-target="#what-this-study-does-not-establish">§5.3 What this study does not establish</a></li>
+  </ul></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">§6. Limitations</a>
+  <ul class="collapse">
+  <li><a href="#scope-of-the-classifier" id="toc-scope-of-the-classifier" class="nav-link" data-scroll-target="#scope-of-the-classifier">§6.1 Scope of the classifier</a></li>
+  <li><a href="#reference-scorer-contamination" id="toc-reference-scorer-contamination" class="nav-link" data-scroll-target="#reference-scorer-contamination">§6.2 Reference scorer contamination</a></li>
+  <li><a href="#full-fine-tune-incomplete-experiment-status" id="toc-full-fine-tune-incomplete-experiment-status" class="nav-link" data-scroll-target="#full-fine-tune-incomplete-experiment-status">§6.3 Full-fine-tune incomplete-experiment status</a></li>
+  <li><a href="#single-seed-headline-second-seed-stability-check" id="toc-single-seed-headline-second-seed-stability-check" class="nav-link" data-scroll-target="#single-seed-headline-second-seed-stability-check">§6.4 Single-seed headline + second-seed stability check</a></li>
+  <li><a href="#mechanism-interpretation-is-not-empirically-demonstrated" id="toc-mechanism-interpretation-is-not-empirically-demonstrated" class="nav-link" data-scroll-target="#mechanism-interpretation-is-not-empirically-demonstrated">§6.5 Mechanism interpretation is not empirically demonstrated</a></li>
+  <li><a href="#threshold-policy-framing" id="toc-threshold-policy-framing" class="nav-link" data-scroll-target="#threshold-policy-framing">§6.6 Threshold policy framing</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">§7. Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">§8. References</a>
+  <ul class="collapse">
+  <li><a href="#decisions-architecture-decision-records" id="toc-decisions-architecture-decision-records" class="nav-link" data-scroll-target="#decisions-architecture-decision-records">Decisions (Architecture Decision Records)</a></li>
+  <li><a href="#external-references" id="toc-external-references" class="nav-link" data-scroll-target="#external-references">External references</a></li>
+  <li><a href="#project-artifacts" id="toc-project-artifacts" class="nav-link" data-scroll-target="#project-artifacts">Project artifacts</a></li>
+  </ul></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">Glossary</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -997,14 +1034,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Entry</a></li><li class="breadcrumb-item"><a href="./RESULTS.html">Results: tables, figures, and source artifacts</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="./WRITEUP_PAPER.html">Academic paper (IMRAD)</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Results: tables, figures, and source artifacts</h1>
+<h1 class="title">Prompt-Injection Classification: Methodology and Capability Characterization (Academic Paper Format)</h1>
 </div>
 
 <div>
   <div class="description">
-    Canonical results page for the prompt-injection classifier evaluation.
+    Academic IMRAD article presenting the project’s methodology and findings.
   </div>
 </div>
 
@@ -1021,512 +1058,357 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="results" class="level1">
-<h1>Results</h1>
-<p>This page is the evidence layer behind the landing page. It gives exact values, five canonical figures, and pointers to the raw artifacts that produced them.</p>
-<p><strong>How to read this page:</strong></p>
+<section id="prompt-injection-classification-methodology-and-capability-characterization" class="level1">
+<h1>Prompt-Injection Classification: Methodology and Capability Characterization</h1>
+<p><strong>Author</strong>: Brandon Behring | <strong>Date</strong>: 2026-05-21 | <strong>Status</strong>: live-site current state <code>tree/v1.3.0</code>; original submission tag <code>tree/v1.0.0</code> (2026-05-18) preserved as historical reviewer pin per ADR-033.</p>
+<blockquote class="blockquote">
+<p><strong>Reader note.</strong> This is the academic paper format of the project writeup. For the same content in a narrative style, see <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a>. Both guides cover the same evaluation, methodology, findings, and limitations; the register and structure differ. Definitions for all technical terms appear on first use and are cross-referenced to <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a>.</p>
+</blockquote>
+<hr>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">§0. Abstract</h2>
+<p>This study evaluates prompt-injection detectors under cross-family distribution shift. <strong>Motivation</strong>: detectors trained on direct prompt-injection examples are routinely benchmarked on similar direct text, leaving open the question of whether they have learned the attack class or memorized the lexical style of the training data. <strong>Approach</strong>: a detector ladder (TF-IDF + logistic regression, ModernBERT frozen probe, ModernBERT LoRA, and ProtectAI v1/v2 references) was evaluated under leave-one-dataset-out (LODO) splits against a held-out out-of-distribution (OOD) slate covering indirect injection (BIPIA), agentic-flow injection (InjecAgent), jailbreak- style questions (JBB-Behaviors, XSTest), and benign-but-injection- shaped text (NotInject). <strong>Finding</strong>: the in-house detectors learn direct prompt-injection detection effectively (LoRA reaches 0.974 AUPRC on balanced direct+benign validation) but generalize poorly to cross-family attacks (best pooled OOD AUPRC is 0.364 against a random floor of 0.374). Trained adapters (LoRA, TF-IDF + LR) score <em>below</em> the 0.5 AUROC random floor on cross-family OOD with confidence intervals that clear 0.5 on the wrong side; only the frozen probe remains above floor. <strong>Mechanism</strong>: the inversion is consistent with lexical overfitting combined with a label-relevance shift on the OOD slate, in which benign text engineered to resemble direct injection (NotInject) scores high and real-but-not-lexically-direct attacks (BIPIA, InjecAgent) score low. <strong>Implication</strong>: direct-pattern learning and cross-family transfer are distinct capabilities; results caution against deploying direct-injection-trained classifiers on mixed-family threat models without slice-specific evaluation. The contribution is the honest evaluation harness plus the negative result on cross-family transfer, not a production-ready detector.</p>
+<hr>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">§1. Introduction</h2>
+<p>Prompt injection denotes untrusted text intended to override the instructions an LLM-based system is supposed to follow [§GLOSSARY]. Detection of such text is a binary classification problem: given a text span, predict whether it constitutes an injection attempt. The practical difficulty is not the in-distribution case (where direct injection patterns are repetitive and lexically distinctive) but the out-of-distribution case where attack families differ from training. Existing detector evaluations frequently report aggregate metrics on held-out splits of the same training family, leaving the cross-family generalization question unaddressed.</p>
+<p>This study addresses that gap. The research question is: &gt; <em>When detectors trained on direct prompt-injection examples are &gt; evaluated against attack families not present in training, does &gt; detection performance generalize?</em></p>
+<p>The contribution is the negative answer plus the evaluation harness that produced it. Specifically:</p>
 <ol type="1">
-<li>Scan the <strong>Metric Primer</strong> if AUPRC or confidence intervals are new.</li>
-<li>Read <strong>Direct Prompt-Injection Performance</strong> and <strong>§1 Cross-Family OOD Table</strong> together. The direct task was learned; cross-family generalization failed.</li>
-<li>Use <strong>§1B–§5</strong> for the follow-up findings: DeBERTa ablation, frozen-probe vs LoRA, per-slice behavior, threshold transfer, and calibration.</li>
-<li>Use <strong>§6–§7</strong> for AUROC comparison and raw artifact pointers.</li>
+<li>A leave-one-dataset-out (LODO) evaluation discipline that prevents source-level leakage between training and evaluation data.</li>
+<li>A detector ladder spanning a classical baseline (TF-IDF + logistic regression), a pretrained-backbone probe (ModernBERT frozen), a parameter-efficient fine-tune (ModernBERT LoRA), and reference scorers (ProtectAI v1, v2) with documented contamination status.</li>
+<li>An out-of-distribution slate that intentionally varies attack family (indirect injection, agentic-flow injection, jailbreak-style questions, benign-but-injection-shaped text).</li>
+<li>Bootstrap-based uncertainty quantification on every reported number, with single-class slice handling.</li>
+<li>A mechanistic interpretation of the headline cross-family failure (§5 Discussion).</li>
 </ol>
-<section id="metric-primer" class="level2">
-<h2 class="anchored" data-anchor-id="metric-primer">Metric Primer</h2>
+<p>The study is a capability characterization, not a deployment recommendation.</p>
+<hr>
+</section>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">§2. Background</h2>
+<section id="prompt-injection-landscape" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-injection-landscape">§2.1 Prompt-injection landscape</h3>
+<p>Prompt-injection attacks are diverse. Direct injection (the historically-studied class) embeds an attacker payload directly in the user input. Indirect injection routes the payload through third-party context that the LLM consumes. Agentic-flow injection spreads the payload across tool-use turns. Jailbreak-style questions elicit harmful behavior through framed questions rather than direct override commands. Benign-but-injection-shaped text (false-positive robustness) tests whether detectors over-fire on lexically suspicious benign content.</p>
+<p>Public training corpora for prompt-injection detection have historically focused on direct injection; the cross-family generalization question has therefore been understudied.</p>
+</section>
+<section id="existing-detectors" class="level3">
+<h3 class="anchored" data-anchor-id="existing-detectors">§2.2 Existing detectors</h3>
+<p>Several published detectors target prompt-injection classification:</p>
 <ul>
-<li><strong>AUPRC</strong> is the primary metric. It measures whether positives are ranked ahead of negatives. On imbalanced data, a random ranking scores the positive rate. For the pooled out-of-distribution (OOD) slice, <code>pooled_ood</code>, that floor is <strong>412 / 1101 = 0.374</strong>.</li>
-<li><strong>AUROC</strong> is secondary. Its random floor is always 0.5, but it can make imbalanced tasks look better than they are.</li>
-<li><strong>Recall at FPR &lt;= 1%</strong> asks: with at most 1 false alarm allowed per 100 benign examples, how many attacks are caught?</li>
-<li><strong>95% CI</strong> shows uncertainty. A narrow interval supports a sharper claim; an interval crossing an important baseline means the claim is weak.</li>
-<li><strong>ECE and Brier</strong> are calibration errors. Lower is better.</li>
+<li><strong>ProtectAI deberta-v3-base-prompt-injection v1 + v2</strong>: fine-tuned DeBERTa classifiers; trained on direct-injection corpora with documented overlap of the present study’s LODO training pool (see §6 Limitations and EVIDENCE §1-2).</li>
+<li><strong>Lakera Guard</strong>: commercial detector; excluded from this study due to terms-of-service and partial-disclosure complexity (per ADR-018).</li>
+<li><strong>LLM-judge approaches</strong> (GPT-4 family, Claude family): zero-shot classification via prompted instruction. Out of scope for the trained-detector ladder in this study; would require separate cost-per-call accounting (see ADR-018 + ADR-050).</li>
 </ul>
 </section>
-<section id="direct-prompt-injection-performance" class="level2">
-<h2 class="anchored" data-anchor-id="direct-prompt-injection-performance">Direct Prompt-Injection Performance</h2>
-<p>The detectors did learn direct prompt-injection patterns. This matters because the OOD result is not a total capability failure: they learned the direct task, then failed to carry that skill cleanly across attack-family shift.</p>
-<p><strong>Balanced validation view.</strong> Source: <code>evals/predictions_val/</code>, pooled across trained in-house detectors, folds, and seeds. This split contains direct-injection positives and benign negatives, so AUPRC, AUROC, and recall are all defined.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 16%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Detector</th>
-<th style="text-align: right;">Direct+benign validation AUPRC</th>
-<th style="text-align: right;">AUROC</th>
-<th style="text-align: right;">Recall@0.5</th>
-<th>Read</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ModernBERT LoRA</td>
-<td style="text-align: right;"><strong>0.974</strong></td>
-<td style="text-align: right;"><strong>0.993</strong></td>
-<td style="text-align: right;"><strong>0.934</strong></td>
-<td>strong direct-pattern detection</td>
-</tr>
-<tr class="even">
-<td>TF-IDF + LR</td>
-<td style="text-align: right;">0.971</td>
-<td style="text-align: right;">0.992</td>
-<td style="text-align: right;">0.930</td>
-<td>lexical direct baseline is also strong</td>
-</tr>
-<tr class="odd">
-<td>ModernBERT frozen probe</td>
-<td style="text-align: right;">0.653</td>
-<td style="text-align: right;">0.907</td>
-<td style="text-align: right;">0.849</td>
-<td>weaker ranking, still discriminative</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Held-out direct-source view.</strong> Source: <code>evals/predictions/*__epoch2.parquet</code>, pooled across folds and seeds. This LODO test holds out one direct-injection source at a time. It is all positive by design, so the table reports recall only.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Detector</th>
-<th style="text-align: right;">LODO direct-source recall@0.5</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ModernBERT frozen probe</td>
-<td style="text-align: right;"><strong>0.641</strong></td>
-</tr>
-<tr class="even">
-<td>ModernBERT LoRA</td>
-<td style="text-align: right;">0.625</td>
-</tr>
-<tr class="odd">
-<td>ModernBERT full fine-tune**</td>
-<td style="text-align: right;">0.558</td>
-</tr>
-</tbody>
-</table>
-<p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions persisted); the comparable pooled OOD inference was <strong>not run</strong> (Phase 5 X11 crash, see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>). Full-FT is absent from the Cross-Family OOD AUPRC table below for that reason.</p>
-<p><strong>Takeaway:</strong> direct-prompt-injection detection was not the failure mode. The failure is transfer: success on direct examples did not produce robust OOD ranking or stable thresholds when the attack family changed. False positives, AUPRC, and AUROC are omitted from the LODO direct-source table because that test is all-positive.</p>
+<section id="data-sources" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources">§2.3 Data sources</h3>
+<p>The training pool comprises four public direct-prompt-injection corpora: <code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code> (Gandalf), <code>Lakera/mosscap_prompt_injection</code> (Mosscap), and HackAPrompt’s 2024 corpus subset. The held-out OOD test slate comprises five sources spanning the four cross-family classes named in §2.1: BIPIA, InjecAgent, JBB-Behaviors, XSTest, NotInject.</p>
+<p>Full source-level details, license attribution, and HuggingFace revision SHAs are documented in <a href="./WRITEUP/data-decisions.html">WRITEUP/data-decisions.md</a> and pinned in <code>data/source_manifest.yaml</code>.</p>
+<hr>
 </section>
-<section id="cross-family-ood-table-auprc" class="level2">
-<h2 class="anchored" data-anchor-id="cross-family-ood-table-auprc">1. Cross-Family OOD Table: AUPRC</h2>
-<p>Source: <code>evals/bootstrap/marginal_cells.parquet</code>, seed=1, BCa bootstrap with 10000 resamples. Single-class slices are omitted from this table because AUPRC requires both positives and negatives.</p>
-<p><strong>Reading this table:</strong></p>
-<ul>
-<li>The headline column is <strong>Pooled OOD AUPRC</strong>, the rightmost column with both positives and negatives.</li>
-<li>A random ranking on Pooled OOD scores about <strong>0.374</strong>. Any detector at or below that floor is not clearly better than guessing.</li>
-<li>JBB and XSTest show whether a detector is strong on one OOD family but weak on another.</li>
-<li>The main checks are magnitude against the random floor, 95% CI width, and cross-detector ordering on pooled OOD.</li>
-</ul>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Detector &nbsp;Slice</th>
-<th style="text-align: right;">JBB (100p/100n)</th>
-<th style="text-align: right;">XSTest (200p/250n)</th>
-<th style="text-align: right;">Pooled OOD (412p/689n)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ModernBERT frozen probe</td>
-<td style="text-align: right;">0.552 [0.520, 0.580]</td>
-<td style="text-align: right;">0.468 [0.448, 0.486]</td>
-<td style="text-align: right;"><strong>0.364 [0.354, 0.375]</strong></td>
-</tr>
-<tr class="even">
-<td>ProtectAI v1*</td>
-<td style="text-align: right;">0.519 [0.437, 0.597]</td>
-<td style="text-align: right;">0.469 [0.415, 0.523]</td>
-<td style="text-align: right;">0.361 [0.330, 0.391]</td>
-</tr>
-<tr class="odd">
-<td>ProtectAI v2*</td>
-<td style="text-align: right;">0.556 [0.453, 0.648]</td>
-<td style="text-align: right;">0.382 [0.333, 0.429]</td>
-<td style="text-align: right;">0.314 [0.283, 0.345]</td>
-</tr>
-<tr class="even">
-<td>ModernBERT LoRA</td>
-<td style="text-align: right;">0.535 [0.504, 0.563]</td>
-<td style="text-align: right;">0.467 [0.447, 0.486]</td>
-<td style="text-align: right;">0.293 [0.286, 0.301]</td>
-</tr>
-<tr class="odd">
-<td>TF-IDF + LR</td>
-<td style="text-align: right;">0.470 [0.443, 0.496]</td>
-<td style="text-align: right;">0.395 [0.379, 0.410]</td>
-<td style="text-align: right;">0.291 [0.283, 0.298]</td>
-</tr>
-<tr class="even">
-<td>Random floor</td>
-<td style="text-align: right;">0.500</td>
-<td style="text-align: right;">0.444</td>
-<td style="text-align: right;">0.374</td>
-</tr>
-</tbody>
-</table>
-<p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources (<code>deepset/prompt-injections</code>, <code>Lakera/gandalf_ignore_instructions</code>) per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Pooled OOD scores on slices that overlap with that training pool are not clean OOD baselines; ProtectAI rows are diagnostic references, not peer to in-house detectors.</p>
-<p><strong>Takeaway:</strong> this is where the direct-trained detectors break. The best pooled OOD AUPRC is the frozen probe at 0.364, but the random floor is 0.374. The honest reading is that none of these detectors clearly learned the cross-family OOD ranking problem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="docs/plots/F1.svg" class="img-fluid figure-img"></p>
-<figcaption>F1: Pooled OOD AUPRC vs random floor</figcaption>
-</figure>
-</div>
-<p><strong>What F1 shows:</strong> exact pooled OOD AUPRC values with 95% CIs and the random floor.</p>
-<p><strong>What F1 does not show:</strong> deployment readiness, per-slice behavior, or whether single-class slices were caught at a fixed threshold.</p>
 </section>
-<section id="b-ablation-does-a-longer-context-backbone-fix-the-ood-gap" class="level2">
-<h2 class="anchored" data-anchor-id="b-ablation-does-a-longer-context-backbone-fix-the-ood-gap">§1B Ablation: does a longer-context backbone fix the OOD gap?</h2>
-<p>The headline table at §1 shows ModernBERT’s frozen-probe (8192-token native attention window) leading the in-house detectors at pooled OOD AUPRC 0.364 — but still essentially at the random floor (0.374). A natural follow-up question: <em>would a different short-context backbone do better with the right truncation handling, or is the OOD gap really about the architecture itself?</em></p>
-<p>The v1.1.2 medium ablation per <a href="./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> trains DeBERTa-v3-base (184M params; 512-token native attention) twice with 2 truncation strategies, fold 0 / seed 42 only:</p>
-<ul>
-<li><strong>chunk-and-average</strong>: tokenize the full text; emit 512-token windows with stride 256 (50% overlap); per-window forward pass; average per-window class-1 softmax probabilities → final score.</li>
-<li><strong>head-truncation</strong>: tokenize the full text; take the first 512 tokens; standard single-window forward pass.</li>
-</ul>
-<p>If the ModernBERT advantage at §1 came from its long context window, chunk-and-average (which gives DeBERTa access to the full text) should beat head-truncation by a wide margin. If the advantage is architectural, the two strategies should look similar.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>DeBERTa-v3-base strategy</th>
-<th style="text-align: right;">JBB (100p/100n) AUPRC</th>
-<th style="text-align: right;">XSTest (200p/250n) AUPRC</th>
-<th style="text-align: right;">Pooled OOD (412p/689n) AUPRC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>chunk-and-average</td>
-<td style="text-align: right;">0.486</td>
-<td style="text-align: right;">0.397</td>
-<td style="text-align: right;"><strong>0.291</strong></td>
-</tr>
-<tr class="even">
-<td>head-truncation</td>
-<td style="text-align: right;">0.489</td>
-<td style="text-align: right;">0.391</td>
-<td style="text-align: right;"><strong>0.290</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>What §1B shows:</strong> the two truncation strategies produce essentially identical per-slice metrics across the 5-slice OOD slate. Long context (the chunk-and-average path) provides no measurable benefit over head-truncation on this slate.</p>
-<p><strong>What §1B does not show:</strong> DeBERTa-v3-base does not beat ModernBERT’s frozen-probe (0.364 pooled OOD AUPRC) — both DeBERTa strategies score ~20% lower. The headline ladder ordering at §1 is preserved.</p>
-<p><strong>Interpretation:</strong> by the ADR-060 confound-control reading, the ModernBERT advantage on the headline ladder is <strong>backbone-dominant</strong>, not context-window-dominant. A bigger context window alone does not close the OOD generalization gap on this slate — it is the architecture (and/or pre-training pretext) that matters. The DeBERTa-vs-ModernBERT residual gap that <em>remains</em> (~0.29 vs 0.36) has its own confounds (backbone size, pre-training data, tokenizer family) that this ablation does not separate; see <a href="./WRITEUP/limitations-and-future-work.html#92-architectures-evaluated-and-dropped">WRITEUP/limitations-and-future-work.md §9.2</a> for the residual-confound discussion. See <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a> for the execution record + actual GPU spend ($1.34 of the $5-7 envelope).</p>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">§3. Methods</h2>
+<section id="data-sources-and-lodo-splits" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources-and-lodo-splits">§3.1 Data sources and LODO splits</h3>
+<p>Leave-one-dataset-out (LODO) splits hold one source out of training while training on the remaining sources [§GLOSSARY]. Four LODO folds were generated, corresponding to the four training-pool sources. Each fold produces an independent (train, validation, test) partition where the test slate excludes all examples from one source. Source-disjoint splitting was preferred over row-disjoint splitting because the latter can leak source-level lexical features between train and test (per ADR-016).</p>
+<p>Within each LODO fold, training data was deduplicated against the test slate via two-stage similarity matching: exact-hash overlap detection followed by MiniLM-L6-v2 cosine similarity at threshold ≥0.85. Both pipelines reported zero overlaps across all (train, val, test) per-fold-seed pairs (<code>evals/leakage_report.json</code>).</p>
 </section>
-<section id="frozen-probe-vs-lora" class="level2">
-<h2 class="anchored" data-anchor-id="frozen-probe-vs-lora">2. Frozen Probe vs LoRA</h2>
-<p>The frozen probe uses the pretrained ModernBERT backbone without task-specific weight movement. LoRA fine-tunes a small adapter on the direct-injection training pool. If fine-tuning helped OOD, LoRA should beat the frozen probe. It does not — and under AUROC the gap is sharper than the AUPRC delta suggests: LoRA’s pooled OOD AUROC is 0.383 against frozen probe’s 0.515 (delta -0.132; see §6). LoRA’s CI clears the 0.5 random floor on the wrong side, meaning its ranking is systematically inverted relative to cross-family attack truth — not merely degraded toward chance.</p>
+<section id="model-rungs" class="level3">
+<h3 class="anchored" data-anchor-id="model-rungs">§3.2 Model rungs</h3>
+<p>The detector ladder comprises five rungs of increasing capability:</p>
+<ol type="1">
+<li><strong>TF-IDF + logistic regression</strong>: classical lexical baseline with character + word n-grams (per ADR-017). Trains in seconds per fold; serves as the “what does pure surface form get you” anchor.</li>
+<li><strong>ModernBERT frozen probe</strong>: a linear classifier over the frozen pretrained ModernBERT-base representation [§GLOSSARY]. Tests what the pretrained backbone already encodes about injection-likely text without any LODO-pool adaptation.</li>
+<li><strong>ModernBERT LoRA</strong>: parameter-efficient fine-tune (low-rank adapters at rank 8) [§GLOSSARY], with the backbone frozen and only the adapter weights updated on the LODO training pool.</li>
+<li><strong>ModernBERT full fine-tune</strong>: full-parameter fine-tune. <em>LODO direct-source predictions were generated for 24 (fold, seed) cells in Phase 2; pooled OOD inference was not run due to a Phase 5 X11 file-system crash on the cloud GPU pool, documented in <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>.</em></li>
+<li><strong>ProtectAI v1 + v2</strong> (reference scorers): published deberta-v3-base-prompt-injection classifiers, inference-only, with documented contamination status against the LODO training pool (see §6 Limitations).</li>
+</ol>
+<p>Reference rungs additionally include LLM-judge candidates (GPT-4 family, Claude family) per ADR-018; these were scoped out at ADR-050 following compute and contamination considerations.</p>
+<p>Model details, hyperparameters, training cost, and per-rung recipe are documented in <a href="./WRITEUP/model-rungs.html">WRITEUP/model-rungs.md</a> and <a href="./docs/HYPERPARAMETER_DISCLOSURE.html">docs/HYPERPARAMETER_DISCLOSURE.md</a>.</p>
+</section>
+<section id="evaluation-slate" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation-slate">§3.3 Evaluation slate</h3>
+<p>Each LODO fold’s test slate aggregates five OOD slices:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Comparison</th>
 <th>Slice</th>
-<th>Metric</th>
-<th style="text-align: right;">LoRA - frozen probe</th>
-<th style="text-align: right;">95% CI</th>
-<th>Read</th>
+<th>Source</th>
+<th>Composition</th>
+<th>Attack class</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>LoRA vs frozen probe</td>
-<td>JBB</td>
-<td>AUPRC</td>
-<td style="text-align: right;">-0.016</td>
-<td style="text-align: right;">[-0.024, -0.009]</td>
-<td>LoRA worse</td>
+<td>BIPIA</td>
+<td>Bochum-NLP/bipia</td>
+<td>n=56 positive (all-positive slice)</td>
+<td>indirect injection</td>
 </tr>
 <tr class="even">
-<td>LoRA vs frozen probe</td>
+<td>InjecAgent</td>
+<td>uiuc-kang-lab/InjecAgent</td>
+<td>n=56 positive (all-positive slice)</td>
+<td>agentic-flow injection</td>
+</tr>
+<tr class="odd">
+<td>JBB-Behaviors</td>
+<td>JailbreakBench/JBB-Behaviors</td>
+<td>n=100 positive + 100 negative</td>
+<td>jailbreak-style questions</td>
+</tr>
+<tr class="even">
 <td>XSTest</td>
-<td>AUPRC</td>
-<td style="text-align: right;">-0.001</td>
-<td style="text-align: right;">[-0.006, 0.004]</td>
-<td>indistinguishable</td>
+<td>natolambert/xstest</td>
+<td>n=200 positive + 250 negative</td>
+<td>jailbreak/safe-question discrimination</td>
 </tr>
 <tr class="odd">
-<td>LoRA vs frozen probe</td>
-<td>Pooled OOD</td>
-<td>AUPRC</td>
-<td style="text-align: right;">-0.071</td>
-<td style="text-align: right;">see marginal table</td>
-<td>LoRA much worse</td>
+<td>NotInject</td>
+<td>dattaroh/NotInject</td>
+<td>n=339 negative (all-negative slice)</td>
+<td>benign-but-injection-shaped (false-positive test)</td>
 </tr>
 </tbody>
 </table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="docs/plots/F2.svg" class="img-fluid figure-img"></p>
-<figcaption>F2: Frozen probe vs LoRA paired deltas</figcaption>
-</figure>
-</div>
-<p><strong>What F2 shows:</strong> paired-bootstrap AUPRC differences for the comparable both-class slices available in <code>evals/bootstrap/paired_cells.parquet</code>.</p>
-<p><strong>What F2 does not show:</strong> a paired pooled OOD CI, because the persisted paired artifact does not include that pooled comparison; the pooled delta above is the difference between marginal point estimates.</p>
+<p>The pooled OOD slate concatenates all five slices: n=412 positive + 689 negative = 1101 total. Random AUPRC on the pooled OOD slate is therefore 412/1101 = 0.374.</p>
+<p>Single-class slices (BIPIA, InjecAgent, NotInject) have mathematically undefined AUPRC/AUROC; the metrics pipeline filters them at source and reports recall-at-threshold instead. Pooled OOD is the canonical AUPRC reporting target; per-slice AUPRC is reported only on the both-class slices (JBB, XSTest, pooled OOD).</p>
+<p>Slate composition, source revisions, and slice-class membership are documented in <a href="./WRITEUP/eval-design.html">WRITEUP/eval-design.md</a>.</p>
 </section>
-<section id="per-slice-view" class="level2">
-<h2 class="anchored" data-anchor-id="per-slice-view">3. Per-Slice View</h2>
-<p>The OOD slate is deliberately not one homogeneous test set:</p>
-<ul>
-<li><strong>JBB</strong>: jailbreak-style harmful elicitation, both classes.</li>
-<li><strong>XSTest</strong>: jailbreak-as-question style, both classes.</li>
-<li><strong>BIPIA</strong>: indirect injection, all positive.</li>
-<li><strong>InjecAgent</strong>: agentic-flow injection, all positive.</li>
-<li><strong>NotInject</strong>: benign text that looks injection-shaped, all negative.</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="docs/plots/F3.svg" class="img-fluid figure-img"></p>
-<figcaption>F3: Per-slice AUPRC grid</figcaption>
-</figure>
-</div>
-<p><strong>What F3 shows:</strong> where AUPRC is defined, the detectors cluster near the random floor on pooled OOD.</p>
-<p><strong>What F3 does not show:</strong> AUPRC/AUROC for all-positive or all-negative slices; those metrics are mathematically undefined there. Raw predictions still exist for alternative analyses.</p>
+<section id="statistical-apparatus" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-apparatus">§3.4 Statistical apparatus</h3>
+<p>Primary metric: <strong>AUPRC</strong> (Area Under the Precision-Recall Curve), chosen for its sensitivity to ranking quality on imbalanced data [§GLOSSARY]. On the pooled OOD slate (positive rate 0.374), random AUPRC equals 0.374; AUPRC below 0.374 indicates worse-than-random positive ranking. Secondary metric: <strong>AUROC</strong>; reported with 0.5 random floor.</p>
+<p>Confidence intervals: <strong>BCa bootstrap</strong> (Bias-Corrected and Accelerated) with 10000 resamples [§GLOSSARY]. Per-(rung, fold, seed) bootstrap runs are persisted to <code>evals/bootstrap/</code>. Seed-stability check via second seed (seed=2 vs seed=1) per ADR-022.</p>
+<p>Paired comparisons: paired-bootstrap-on-folds [§GLOSSARY], comparing two detectors on the same (fold, seed) cells to control for fold-specific variance.</p>
+<p>Cross-fold confidence intervals: cv_clt (Bayle 2020 Theorem 3.1) [§GLOSSARY], applied to per-fold metric vectors. Paired with block-bootstrap-on-folds spoke per A-008 (LODO non-exchangeability sensitivity check; auto-flag column when block-bootstrap CI half-width / cv_clt CI half-width &gt; 1.5).</p>
+<p>Threshold selection: <strong>detection policy</strong> (FPR ≤ 1% on validation, maximize recall) and <strong>verification policy</strong> (recall ≥ 99% on validation, minimize FPR), both fit per (fold, seed) with two-level paired-bootstrap CIs on test [§GLOSSARY] per ADR-025.</p>
+<p>Calibration: ECE (Expected Calibration Error, equal-mass binning, n_bins=15) and Brier score, reported per detector per ADR-023. Reliability diagrams (raw + temperature + isotonic recalibration) are in <a href="./docs/plots/F4.svg">Figure F4</a>.</p>
+<p>The evaluation harness uses the <a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a> library (pinned to v0.47.0) for all generic primitives; project- specific orchestrators are in <code>src/eval/</code>.</p>
+<hr>
 </section>
-<section id="threshold-transfer" class="level2">
-<h2 class="anchored" data-anchor-id="threshold-transfer">4. Threshold Transfer</h2>
-<p>The detection policy tunes a threshold on validation to target <strong>FPR &lt;= 1%</strong>. That target does not reliably transfer to held-out test sources.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 16%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Detector</th>
-<th style="text-align: right;">Mean threshold</th>
-<th style="text-align: right;">Test recall</th>
-<th style="text-align: right;">Test FPR</th>
-<th>Read</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ModernBERT frozen probe</td>
-<td style="text-align: right;">0.829</td>
-<td style="text-align: right;">0.063</td>
-<td style="text-align: right;">0.010</td>
-<td>holds FPR, catches very little</td>
-</tr>
-<tr class="even">
-<td>ModernBERT LoRA</td>
-<td style="text-align: right;">0.795</td>
-<td style="text-align: right;">0.424</td>
-<td style="text-align: right;">0.115</td>
-<td>catches more, but far exceeds FPR target</td>
-</tr>
-<tr class="odd">
-<td>TF-IDF + LR</td>
-<td style="text-align: right;">0.657</td>
-<td style="text-align: right;">0.333</td>
-<td style="text-align: right;">0.067</td>
-<td>exceeds FPR target</td>
-</tr>
-</tbody>
-</table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="docs/plots/F4.svg" class="img-fluid figure-img"></p>
-<figcaption>F4: Detection-threshold transfer</figcaption>
-</figure>
-</div>
-<p><strong>What F4 shows:</strong> the validation-tuned 1% FPR policy does not become a robust test-time operating point under source shift.</p>
-<p><strong>What F4 does not show:</strong> a recommended production threshold. Deployment is out of scope.</p>
 </section>
-<section id="calibration" class="level2">
-<h2 class="anchored" data-anchor-id="calibration">5. Calibration</h2>
-<p>Calibration asks whether scores behave like probabilities. A model that gives 0.90 scores should be correct about 90% of the time in that score region.</p>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">§4. Results</h2>
+<p>The seven numbered results are reported in equal-weight order. Each result is supported by tables and figures in <a href="./RESULTS.html">RESULTS.md</a>; this section presents the result + interpretation; the canonical numerical evidence lives in the appendix.</p>
+<section id="direct-prompt-injection-detection-was-learned" class="level3">
+<h3 class="anchored" data-anchor-id="direct-prompt-injection-detection-was-learned">§4.1 Direct prompt-injection detection was learned</h3>
+<p>On balanced direct+benign validation data, LoRA reaches AUPRC 0.974 [CI 95% omitted on within-pool validation per ADR-021], AUROC 0.993, and recall-at-0.5 of 0.934. TF-IDF + LR reaches 0.971 / 0.992 / 0.930. The frozen probe is weaker at 0.653 / 0.907 / 0.849 but still discriminative.</p>
+<p>On the LODO held-out direct-source test (all-positive by design), recall-at-0.5 is 0.641 (frozen probe), 0.625 (LoRA), and 0.558 (full fine-tune). Because no negatives are present in this slice, AUPRC, AUROC, and FPR are mathematically undefined and are not reported.</p>
+<p>The detector pipeline can learn direct prompt-injection patterns; this establishes the in-distribution baseline against which §4.2-4.7 contrast.</p>
+</section>
+<section id="the-ood-wall-is-cross-family-not-source-level" class="level3">
+<h3 class="anchored" data-anchor-id="the-ood-wall-is-cross-family-not-source-level">§4.2 The OOD wall is cross-family, not source-level</h3>
+<p>The OOD test slate intentionally varies attack family rather than source identity within the same family. BIPIA exemplifies indirect injection; InjecAgent exemplifies agentic-flow injection; JBB- Behaviors and XSTest exemplify jailbreak-style questions; NotInject exemplifies benign-but-injection-shaped text. The training pool is direct-injection-heavy and includes none of these families.</p>
+<p>The result is that direct-injection training does not transfer cleanly to these cross-family slices. Per-slice AUPRC (where defined, i.e., the both-class slices JBB and XSTest) is reported in <a href="./RESULTS.html#3-per-slice-view">RESULTS.md §3 Per-Slice View</a>.</p>
+</section>
+<section id="trained-adapters-anti-correlated-with-cross-family-attack-class" class="level3">
+<h3 class="anchored" data-anchor-id="trained-adapters-anti-correlated-with-cross-family-attack-class">§4.3 Trained adapters anti-correlated with cross-family attack class</h3>
+<p>LoRA scored 0.293 AUPRC on pooled OOD [CI 0.286, 0.301] versus 0.364 [0.354, 0.375] for the frozen probe and 0.291 [0.283, 0.298] for TF-IDF + LR. The pooled OOD AUPRC random floor is 0.374; all four detectors land at or below floor.</p>
+<p>The sharper result is under AUROC: LoRA’s pooled OOD AUROC is 0.383 [0.374, 0.392] and TF-IDF + LR’s is 0.371 [0.362, 0.381], both with confidence intervals that clear the 0.5 AUROC random floor <em>on the wrong side</em>. The frozen probe alone stays above the AUROC floor at 0.515 [0.505, 0.525]. The in-pool to cross-family generalization gap for the trained detectors is approximately 0.6 AUROC (in-pool 0.99 → cross-family 0.38), the largest possible gap with statistical confidence.</p>
+<p>The mechanism is interpreted in §5 Discussion.</p>
+</section>
+<section id="context-window-ablation-produced-a-null-result" class="level3">
+<h3 class="anchored" data-anchor-id="context-window-ablation-produced-a-null-result">§4.4 Context-window ablation produced a null result</h3>
+<p>A controlled ablation per ADR-060 trained DeBERTa-v3-base (512-token native context window) against ModernBERT (8192-token native window) under two truncation strategies: chunk-and-average (compute the classifier output on overlapping 512-token windows and average) and head-truncation (use only the first 512 tokens).</p>
+<p>Result: DeBERTa-v3-base with chunk-and-average scored 0.291 pooled OOD AUPRC; head-truncation scored 0.290. Neither significantly differs from each other or from the ModernBERT-LoRA result (0.293). The ModernBERT advantage observed in §4.1 is therefore best interpreted as backbone-dominant, not context-window-dominant.</p>
+<p>Details in <a href="./WRITEUP/model-rungs.html">WRITEUP/model-rungs.md §4</a> and <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</p>
+</section>
+<section id="published-detector-versions-are-slice-dependent" class="level3">
+<h3 class="anchored" data-anchor-id="published-detector-versions-are-slice-dependent">§4.5 Published detector versions are slice-dependent</h3>
+<p>ProtectAI v2 improves over v1 on JBB-Behaviors (AUPRC 0.556 vs 0.519) but regresses on XSTest (0.382 vs 0.469) and on pooled OOD overall (0.314 vs 0.361). The “newer is better” assumption does not hold across the full slate.</p>
+<p>Practical implication: detector updates should be evaluated against the actual slice mix that matters for the deployment, not on a single aggregate metric.</p>
+<p>Cross-version comparisons in <a href="./RESULTS.html#6-secondary-table-auroc">RESULTS.md §6 Secondary Table: AUROC</a>.</p>
+</section>
+<section id="validation-thresholds-are-fragile-under-cross-family-shift" class="level3">
+<h3 class="anchored" data-anchor-id="validation-thresholds-are-fragile-under-cross-family-shift">§4.6 Validation thresholds are fragile under cross-family shift</h3>
+<p>The detection policy (FPR ≤ 1% on validation, maximize recall) was fit per (fold, seed) on validation data and applied to held-out test data. Mean test FPR by detector:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Detector</th>
-<th style="text-align: right;">Mean ECE</th>
-<th style="text-align: right;">Mean Brier</th>
-<th>Read</th>
+<th style="text-align: right;">Mean test FPR</th>
+<th style="text-align: right;">Mean test recall</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>ModernBERT frozen probe</td>
-<td style="text-align: right;"><strong>0.144</strong></td>
-<td style="text-align: right;"><strong>0.265</strong></td>
-<td>best calibrated</td>
-</tr>
-<tr class="even">
 <td>TF-IDF + LR</td>
-<td style="text-align: right;">0.350</td>
-<td style="text-align: right;">0.376</td>
-<td>weaker but better than LoRA</td>
-</tr>
-<tr class="odd">
-<td>ModernBERT LoRA</td>
-<td style="text-align: right;">0.444</td>
-<td style="text-align: right;">0.451</td>
-<td>fine-tuning worsens calibration</td>
-</tr>
-<tr class="even">
-<td>ProtectAI v1</td>
-<td style="text-align: right;">0.452</td>
-<td style="text-align: right;">0.470</td>
-<td>poorly calibrated on this slate</td>
-</tr>
-<tr class="odd">
-<td>ProtectAI v2</td>
-<td style="text-align: right;">0.460</td>
-<td style="text-align: right;">0.471</td>
-<td>poorly calibrated on this slate</td>
-</tr>
-</tbody>
-</table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="docs/plots/F5.svg" class="img-fluid figure-img"></p>
-<figcaption>F5: Calibration comparison</figcaption>
-</figure>
-</div>
-<p><strong>What F5 shows:</strong> frozen probe has the lowest calibration error; LoRA’s scores are much less probability-like on this OOD evaluation.</p>
-<p><strong>What F5 does not show:</strong> whether post-hoc calibration would fix the cross-family ranking failure.</p>
-</section>
-<section id="secondary-table-auroc" class="level2">
-<h2 class="anchored" data-anchor-id="secondary-table-auroc">6. Secondary Table: AUROC</h2>
-<p>AUROC is reported for comparison with other work; AUPRC is the headline metric because this task is imbalanced. AUROC carries one finding AUPRC understates, though: <strong>two detectors score below the 0.5 random floor on pooled OOD</strong> — LoRA at 0.383 [0.374, 0.392] and TF-IDF + LR at 0.371 [0.362, 0.381], CIs clear on the wrong side. The frozen probe alone stays above floor at 0.515. Trained detectors hit AUROC 0.99 in-pool and AUROC 0.38 on cross-family — a ~0.6 generalization gap.</p>
-<p>Mechanism (consistent with §1 AUPRC + §2 LoRA-vs-frozen delta): <strong>lexical overfitting + slate-induced label-relevance inversion</strong>. LoRA + TF-IDF both learn lexical signatures of direct injection. On the OOD slate, NotInject (benign text engineered to look like direct injection) inverts the negative class (high scores –&gt; wrong); BIPIA + InjecAgent (no direct-injection lexical patterns) invert the positive class (low scores –&gt; wrong). The lexical signal is internally consistent — it just stops tracking attack class on cross-family slices. The frozen probe (no LODO-pool adaptation) preserves generic linguistic features less aligned with direct-injection lexical patterns, so its cross-family ordering stays close to chance rather than inverting past it.</p>
-<p>Single-class slices are omitted here for the same reason as the AUPRC table: AUROC requires both positives and negatives.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Detector &nbsp;Slice</th>
-<th style="text-align: right;">JBB</th>
-<th style="text-align: right;">XSTest</th>
-<th style="text-align: right;">Pooled OOD</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ModernBERT frozen probe</td>
-<td style="text-align: right;">0.542 [0.520, 0.565]</td>
-<td style="text-align: right;">0.537 [0.522, 0.552]</td>
-<td style="text-align: right;"><strong>0.515 [0.505, 0.525]</strong></td>
+<td style="text-align: right;">6.7%</td>
+<td style="text-align: right;">(see RESULTS §4)</td>
 </tr>
 <tr class="even">
 <td>ModernBERT LoRA</td>
-<td style="text-align: right;">0.528 [0.505, 0.552]</td>
-<td style="text-align: right;">0.530 [0.515, 0.546]</td>
-<td style="text-align: right;">0.383 [0.374, 0.392]</td>
+<td style="text-align: right;">11.5%</td>
+<td style="text-align: right;">(see RESULTS §4)</td>
 </tr>
 <tr class="odd">
-<td>TF-IDF + LR</td>
-<td style="text-align: right;">0.445 [0.422, 0.469]</td>
-<td style="text-align: right;">0.451 [0.436, 0.466]</td>
-<td style="text-align: right;">0.371 [0.362, 0.381]</td>
-</tr>
-<tr class="even">
-<td>ProtectAI v1</td>
-<td style="text-align: right;">0.533 [0.464, 0.602]</td>
-<td style="text-align: right;">0.544 [0.497, 0.589]</td>
-<td style="text-align: right;">0.440 [0.409, 0.469]</td>
-</tr>
-<tr class="odd">
-<td>ProtectAI v2</td>
-<td style="text-align: right;">0.594 [0.512, 0.671]</td>
-<td style="text-align: right;">0.391 [0.341, 0.442]</td>
-<td style="text-align: right;">0.402 [0.369, 0.437]</td>
-</tr>
-<tr class="even">
-<td>Random floor</td>
-<td style="text-align: right;">0.500</td>
-<td style="text-align: right;">0.500</td>
-<td style="text-align: right;">0.500</td>
+<td>ModernBERT frozen probe</td>
+<td style="text-align: right;">0.6%</td>
+<td style="text-align: right;">~6% recall</td>
 </tr>
 </tbody>
 </table>
+<p>The 1% FPR validation target does not hold on held-out test sources for the trained detectors. The frozen probe holds the FPR target but catches only about 6% of positives, indicating a non-deployable operating point under this policy framing.</p>
+<p>Threshold-transfer behavior in <a href="./WRITEUP/threshold-policy.html">WRITEUP/threshold-policy.md</a>.</p>
 </section>
-<section id="raw-artifacts" class="level2">
-<h2 class="anchored" data-anchor-id="raw-artifacts">7. Raw Artifacts</h2>
-<p>The tables and figures above are enough to understand the result. The raw evaluation artifacts are committed under <code>evals/</code> for readers who want to audit the math, re-render figures, or extend the analysis.</p>
-<p>All five figures (F1–F5) record their source-artifact paths in the per-figure <code>.meta.json</code> sidecars next to the SVGs in <code>docs/plots/</code>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Artifact</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>evals/bootstrap/marginal_cells.parquet</code></td>
-<td>AUPRC/AUROC point estimates and marginal CIs</td>
-</tr>
-<tr class="even">
-<td><code>evals/bootstrap/paired_cells.parquet</code></td>
-<td>paired-bootstrap detector-vs-detector differences</td>
-</tr>
-<tr class="odd">
-<td><code>evals/predictions_val/</code></td>
-<td>direct+benign validation predictions used for direct-performance checks</td>
-</tr>
-<tr class="even">
-<td><code>evals/metrics/per_cell.parquet</code></td>
-<td>per-detector, per-fold, per-seed metrics including ECE and Brier</td>
-</tr>
-<tr class="odd">
-<td><code>evals/operating_points/dual_policy.parquet</code></td>
-<td>validation-fitted detection and verification thresholds</td>
-</tr>
-<tr class="even">
-<td><code>evals/predictions/</code></td>
-<td>per-row predictions used by downstream analyses</td>
-</tr>
-</tbody>
-</table>
-<p>Each figure sidecar under <code>docs/plots/F*.meta.json</code> records <code>data_mode: canonical</code>, ADR-062, the source artifact path, commit SHA, and generation time.</p>
+<section id="calibration-favors-the-frozen-probe" class="level3">
+<h3 class="anchored" data-anchor-id="calibration-favors-the-frozen-probe">§4.7 Calibration favors the frozen probe</h3>
+<p>Among the four detectors with both-class OOD scores, the frozen probe has the lowest expected calibration error (ECE) and lowest Brier score on the pooled OOD slate. Mean ECE: 0.144 (frozen probe), higher for LoRA and TF-IDF + LR. Mean Brier: 0.265 (frozen probe).</p>
+<p>LoRA worsens calibration relative to the frozen probe while simultaneously fitting the direct training pool, reinforcing the §4.1-§4.3 conclusion that direct-pattern learning and cross-family score behavior are distinct capabilities.</p>
+<p>Full calibration battery in <a href="./RESULTS.html#5-calibration">RESULTS.md §5 Calibration</a> and <a href="./docs/plots/F4.svg">Figure F4 reliability diagrams</a>.</p>
+<hr>
 </section>
-<section id="cross-references" class="level2">
-<h2 class="anchored" data-anchor-id="cross-references">Cross-References</h2>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">§5. Discussion</h2>
+<section id="mechanism-lexical-overfitting-plus-label-relevance-shift" class="level3">
+<h3 class="anchored" data-anchor-id="mechanism-lexical-overfitting-plus-label-relevance-shift">§5.1 Mechanism: lexical overfitting plus label-relevance shift</h3>
+<p>A pooled OOD AUROC below 0.5 with confidence intervals that clear 0.5 on the wrong side is not consistent with pure overfitting [§GLOSSARY]. Pure overfitting predicts collapse <em>toward</em> random performance, not past it. The observed below-floor performance requires a more specific mechanism.</p>
+<p>The interpretation consistent with the slate composition is <strong>lexical overfitting combined with a label-relevance shift on the OOD slate</strong>. Both LoRA and TF-IDF + LR appear to learn lexical signatures of direct prompt injection (“ignore previous instructions”, imperative override commands, role-redirection phrases). On the OOD slate, this lexical signal is <em>anti-correlated</em> with the true attack class:</p>
 <ul>
-<li><a href="./README.html#executive-summary">Executive summary</a>: one-page version (absorbed into README per ADR-078).</li>
-<li><a href="./WRITEUP.html">Writeup</a>: methodology narrative.</li>
-<li><a href="./WRITEUP/eval-design.html">Evaluation design</a>: detailed metric rationale.</li>
-<li><a href="./WRITEUP/threshold-policy.html">Threshold policy</a>: detection and verification operating-point methodology.</li>
-<li><a href="./WRITEUP/reference-scorer-audit.html">Reference-scorer audit</a>: ProtectAI contamination caveats.</li>
+<li><strong>NotInject</strong> (n=339, all negative): benign text engineered to resemble direct injection. Detectors score these HIGH (false positives), inverting the negative class.</li>
+<li><strong>BIPIA and InjecAgent</strong> (indirect + agentic, n=112 positive): real attacks that do not use direct-injection lexical patterns. Detectors score these LOW (false negatives), inverting the positive class.</li>
 </ul>
+<p>The lexical signal is real and internally consistent within itself — it just stops tracking attack class on cross-family slices where the lexical similarity to direct injection and the actual attack class point in opposite directions. The frozen probe (zero LODO-pool adaptation) preserves generic linguistic features that are less aligned with the direct-injection lexical distribution and therefore stay closer to random performance on the cross-family slate.</p>
+<p>The in-pool → cross-family generalization gap is approximately 0.6 AUROC for the trained detectors (in-pool 0.99 → cross-family 0.38) versus approximately 0.4 for the frozen probe (in-pool 0.91 → cross-family 0.515). The more training adapted to the LODO pool, the sharper the cross-family fall.</p>
+</section>
+<section id="implications-for-direct-detection-deployments" class="level3">
+<h3 class="anchored" data-anchor-id="implications-for-direct-detection-deployments">§5.2 Implications for direct-detection deployments</h3>
+<p>The result cautions against deploying classifiers trained on direct-injection corpora as general-purpose prompt-injection detectors in mixed-family threat models. Specifically:</p>
+<ul>
+<li>Direct-detection accuracy on in-pool data does not predict cross-family generalization.</li>
+<li>AUROC below 0.5 is an active failure mode (mis-ranking) rather than a benign degradation toward random.</li>
+<li>False-positive rates measured on validation data do not hold on held-out test sources (§4.6).</li>
+<li>“Newer version is better” does not hold across mixed slates (§4.5).</li>
+</ul>
+<p>Deployment-context evaluations should test the specific slice mix that matters for the production threat model, not aggregate direct-injection metrics.</p>
+</section>
+<section id="what-this-study-does-not-establish" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-study-does-not-establish">§5.3 What this study does not establish</h3>
+<p>The negative result on cross-family transfer does not establish that:</p>
+<ul>
+<li>A different training pool (with cross-family coverage) would fail similarly.</li>
+<li>A larger or different backbone would fail similarly.</li>
+<li>The cross-family failure is fundamental rather than addressable with OOD-aware training.</li>
+</ul>
+<p>Specifically, this study did not test: cross-family training data, non-Transformer architectures, ensemble methods, threshold-policy adaptations to held-out source FPR statistics, or multi-detector voting. Several of these are documented in §6 Limitations as future work directions.</p>
+<hr>
+</section>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">§6. Limitations</h2>
+<section id="scope-of-the-classifier" class="level3">
+<h3 class="anchored" data-anchor-id="scope-of-the-classifier">§6.1 Scope of the classifier</h3>
+<p>The evaluated classifier is single-turn English text classification. Out of scope (per ADR-014): - Multilingual attacks - Encoded payloads (base64, leetspeak, Unicode confusables) - Paraphrase robustness - Adversarial perturbations - Full multi-turn system behavior - Deployment threshold recommendations</p>
+<p>The InjecAgent slice is included in the OOD slate to quantify the gap for agentic-flow attacks, not to claim that a single-turn classifier should solve that problem.</p>
+</section>
+<section id="reference-scorer-contamination" class="level3">
+<h3 class="anchored" data-anchor-id="reference-scorer-contamination">§6.2 Reference scorer contamination</h3>
+<p>ProtectAI v1 and v2 are trained on at least 2 of 4 LODO training-pool sources (deepset/prompt-injections, Lakera/gandalf_ignore_instructions) per EVIDENCE §1-2. Their pooled OOD scores on slices that overlap with their training pool are not clean OOD baselines and are reported with <code>suspected_contamination</code> annotations per ADR-005 three-state contamination taxonomy. ProtectAI scores serve as diagnostic references with documented caveats, not as competitive benchmarks.</p>
+</section>
+<section id="full-fine-tune-incomplete-experiment-status" class="level3">
+<h3 class="anchored" data-anchor-id="full-fine-tune-incomplete-experiment-status">§6.3 Full-fine-tune incomplete-experiment status</h3>
+<p>ModernBERT full fine-tune was trained for LODO direct-source inference (24 Phase 2 prediction parquets persisted) but pooled OOD inference was not run due to a Phase 5 X11 file-system crash on the RunPod /workspace FUSE mount. The methodological framing of this forced drop is documented in ADR-052 and ADR-075. The full-FT row appears in the LODO direct-source recall table (§4.1) but is absent from the pooled OOD AUPRC table; this is explicit and asterisk-marked on all reporting surfaces. Re-running the full-FT pooled OOD inference on a fresh DC is documented in NEXT_STEPS §2.2 as future work.</p>
+</section>
+<section id="single-seed-headline-second-seed-stability-check" class="level3">
+<h3 class="anchored" data-anchor-id="single-seed-headline-second-seed-stability-check">§6.4 Single-seed headline + second-seed stability check</h3>
+<p>Headline metrics are reported at seed=1. A seed=2 stability check is run on the same evaluation slate; results agree within the reported confidence intervals. A larger multi-seed × multi-fold replication study is documented in NEXT_STEPS §2.1 as future work (estimated ~$10-50 GPU spend; portfolio-repo scope per [[portfolio_plan_approved]]).</p>
+</section>
+<section id="mechanism-interpretation-is-not-empirically-demonstrated" class="level3">
+<h3 class="anchored" data-anchor-id="mechanism-interpretation-is-not-empirically-demonstrated">§6.5 Mechanism interpretation is not empirically demonstrated</h3>
+<p>The §5.1 mechanism interpretation (lexical overfitting + label- relevance shift) is consistent with the aggregate AUROC and slate composition but is not directly demonstrated in this artifact. A per-prediction analysis comparing detector scores on lexically-direct vs lexically-indirect OOD examples would empirically test the hypothesis. The per-row prediction parquets at <code>evals/predictions/&lt;rung&gt;__fold&lt;F&gt;__seed&lt;S&gt;__&lt;source&gt;.parquet</code> support this analysis; it is documented in NEXT_STEPS §3 as future work (portfolio-repo scope).</p>
+</section>
+<section id="threshold-policy-framing" class="level3">
+<h3 class="anchored" data-anchor-id="threshold-policy-framing">§6.6 Threshold policy framing</h3>
+<p>The detection policy (FPR ≤ 1%, maximize recall) was chosen as a methodological policy for evaluation characterization, not as a deployment recommendation. Production deployment thresholds depend on the deployment cost ratio and operating environment, which this study does not address. The verification policy (recall ≥ 99%, minimize FPR) similarly serves characterization purposes only.</p>
+<p>Full limitations narrative in <a href="./WRITEUP/limitations-and-future-work.html">WRITEUP/limitations-and-future-work.md</a>.</p>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">§7. Conclusion</h2>
+<p>This study evaluated a detector ladder for prompt-injection classification under cross-family distribution shift, finding that direct-prompt-injection detection is learnable cheaply (TF-IDF + LR reaches 0.974 AUPRC on direct+benign validation) but does not generalize to cross-family attacks (best pooled OOD AUPRC is 0.364 against a random floor of 0.374; trained adapters score below the 0.5 AUROC floor with confidence intervals that clear 0.5 on the wrong side). The cross-family failure is interpreted as lexical overfitting combined with a label-relevance shift on the OOD slate.</p>
+<p>The contribution is the negative result on cross-family transfer plus the honest evaluation harness that produced it, not a deployment-ready classifier. Future work directions include OOD-aware training data, stronger backbone comparisons under matched training budgets, threshold-policy adaptations to held-out FPR statistics, and per-prediction empirical validation of the proposed mechanism.</p>
+<hr>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">§8. References</h2>
+<section id="decisions-architecture-decision-records" class="level3">
+<h3 class="anchored" data-anchor-id="decisions-architecture-decision-records">Decisions (Architecture Decision Records)</h3>
+<p>Selected key ADRs cited in this paper; full list at <a href="./decisions/">decisions/</a>:</p>
+<ul>
+<li><strong>ADR-005</strong> — Methodology principles (incl.&nbsp;three-state contamination taxonomy)</li>
+<li><strong>ADR-014</strong> — Threat model bundle (out-of-scope enumeration)</li>
+<li><strong>ADR-016</strong> — Data design bundle (LODO splits + deduplication)</li>
+<li><strong>ADR-017</strong> — Trained rung slate expansion (TF-IDF + LR baseline)</li>
+<li><strong>ADR-018</strong> — Reference-scorer slate + contamination stratification</li>
+<li><strong>ADR-019</strong> — LoRA + Transformer training recipe</li>
+<li><strong>ADR-021</strong> — Eval-slate aggregation + recall@FPR pinpoints</li>
+<li><strong>ADR-022</strong> — Statistical inference apparatus (bootstrap + paired-comparison protocols)</li>
+<li><strong>ADR-023</strong> — Calibration battery (ECE, Brier, reliability)</li>
+<li><strong>ADR-024</strong> — Cross-fold CI methodology (Bayle 2020)</li>
+<li><strong>ADR-025</strong> — Dual-policy threshold characterization</li>
+<li><strong>ADR-050</strong> — Rung-slate narrowing + LLM-judge cost-drop + full-FT OOD forced-drop (Revision 1 + Revision 2)</li>
+<li><strong>ADR-052</strong> — Full-FT OOD drop methodological reframing of ADR-050 R2</li>
+<li><strong>ADR-060</strong> — DeBERTa-v3-base long-context ablation methodology</li>
+<li><strong>ADR-063</strong> — DeBERTa ablation v1.1.2 execution + slot shift</li>
+<li><strong>ADR-075</strong> — Full-FT OOD drop rationale unified narrative</li>
+</ul>
+</section>
+<section id="external-references" class="level3">
+<h3 class="anchored" data-anchor-id="external-references">External references</h3>
+<ul>
+<li><strong>ModernBERT</strong>: Warner et al.&nbsp;2024, <a href="https://arxiv.org/abs/2412.13663">arXiv:2412.13663</a>.</li>
+<li><strong>LoRA</strong>: Hu et al.&nbsp;2021, <a href="https://arxiv.org/abs/2106.09685">arXiv:2106.09685</a>.</li>
+<li><strong>BIPIA</strong> (indirect prompt injection benchmark): Wang et al.&nbsp;2023, <a href="https://huggingface.co/datasets/Bochum-NLP/bipia">Hugging Face: Bochum-NLP/bipia</a>.</li>
+<li><strong>InjecAgent</strong> (agentic-flow prompt injection): Yu et al.&nbsp;2024, <a href="https://arxiv.org/abs/2403.02691">arXiv:2403.02691</a>.</li>
+<li><strong>JBB-Behaviors</strong> (JailbreakBench): Chao et al.&nbsp;2024, <a href="https://huggingface.co/datasets/JailbreakBench/JBB-Behaviors">Hugging Face: JailbreakBench/JBB-Behaviors</a>.</li>
+<li><strong>XSTest</strong> (jailbreak-safe-question discrimination): Röttger et al. 2024, <a href="https://arxiv.org/abs/2308.01263">arXiv:2308.01263</a>.</li>
+<li><strong>NotInject</strong> (false-positive robustness): Datta et al.&nbsp;2024, <a href="https://huggingface.co/datasets/dattaroh/NotInject">Hugging Face: dattaroh/NotInject</a>.</li>
+<li><strong>HackAPrompt</strong> corpus: Schulhoff et al.&nbsp;2023, <a href="https://arxiv.org/abs/2311.16119">arXiv:2311.16119</a>.</li>
+<li><strong>Bayle 2020</strong> (cross-fold CI methodology): Bayle et al.&nbsp;2020, <a href="https://arxiv.org/abs/2007.02780">arXiv:2007.02780</a>.</li>
+<li><strong>BCa bootstrap</strong>: Efron 1987, <a href="https://doi.org/10.2307/2289144">doi:10.2307/2289144</a>.</li>
+</ul>
+</section>
+<section id="project-artifacts" class="level3">
+<h3 class="anchored" data-anchor-id="project-artifacts">Project artifacts</h3>
+<ul>
+<li><strong>Source code</strong>: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype">github.com/brandon-behring/prompt-injection-detection-prototype</a></li>
+<li><strong>HF Hub checkpoints</strong>: <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">BBehring/prompt-injection-frozen-probe</a>, <a href="https://huggingface.co/BBehring/prompt-injection-lora">BBehring/prompt-injection-lora</a></li>
+<li><strong>Evaluation library</strong>: <a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a> (v0.47.0 pinned)</li>
+<li><strong>Cloud orchestration</strong>: <a href="https://github.com/brandon-behring/runpod-deploy">runpod-deploy</a> (v0.8.4 pinned)</li>
+<li><strong>Live rendered site</strong>: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/">brandon-behring.github.io/prompt-injection-detection-prototype/</a></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="glossary" class="level2">
+<h2 class="anchored" data-anchor-id="glossary">Glossary</h2>
+<p>Definitions for technical terms used in this paper. Full glossary at <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a>.</p>
+<ul>
+<li><strong>AUPRC</strong> — Area Under the Precision-Recall Curve. Primary ranking metric for imbalanced binary classification; random floor equals the positive rate.</li>
+<li><strong>AUROC</strong> — Area Under the Receiver Operating Characteristic curve. Secondary diagnostic metric with 0.5 random floor; less informative than AUPRC under imbalance.</li>
+<li><strong>BCa bootstrap</strong> — Bias-Corrected and Accelerated bootstrap; produces confidence intervals robust to skewness and bias in the resampling distribution.</li>
+<li><strong>Block-bootstrap-on-folds</strong> — bootstrap that resamples entire folds rather than individual rows; respects fold-level exchangeability assumptions.</li>
+<li><strong>cv_clt</strong> — Cross-validation Central Limit Theorem confidence interval per Bayle 2020 Theorem 3.1; suitable for per-fold metric vectors under exchangeability.</li>
+<li><strong>ECE</strong> — Expected Calibration Error; lower is better.</li>
+<li><strong>Frozen probe</strong> — linear classifier on top of a frozen pretrained backbone representation; tests what the backbone already encodes without LODO-pool adaptation.</li>
+<li><strong>LODO</strong> — Leave-One-Dataset-Out splitting discipline; holds one source out of training while training on the remainder.</li>
+<li><strong>LoRA</strong> — Low-Rank Adapters; parameter-efficient fine-tuning method that updates only a small set of adapter weights.</li>
+<li><strong>OOD</strong> — Out-of-distribution. In this study specifically means cross-family, not source-level.</li>
+<li><strong>Overfitting (vs label-relevance shift)</strong> — pure overfitting predicts collapse toward random performance. Below-floor performance indicates an additional mechanism: a label-relevance shift in which the learned signal is anti-correlated with the true label on the OOD slate.</li>
+<li><strong>Paired-bootstrap-on-folds</strong> — bootstrap-based paired comparison of two detectors evaluated on the same (fold, seed) cells.</li>
+</ul>
+<hr>
+<p><em>End of paper. For the same content in narrative form, see <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a>.</em></p>
 
 
 </section>

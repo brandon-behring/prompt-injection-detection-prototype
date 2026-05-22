@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="How to read the prompt-injection classifier evaluation at different depths.">
+<meta name="description" content="Navigation router for the prompt-injection classifier evaluation. Two reading-style guides + persona-specific paths.">
 
 <title>Reading guide – Prompt-injection classifier evaluation</title>
 <style>
@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -139,8 +104,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-methodology">    
         <li>
+    <a class="dropdown-item" href="./WRITEUP_PAPER.html">
+ <span class="dropdown-text">Academic paper (IMRAD)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./WRITEUP_NARRATIVE.html">
+ <span class="dropdown-text">Narrative arc (story)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./WRITEUP.html">
- <span class="dropdown-text">Cover narrative (hub)</span></a>
+ <span class="dropdown-text">Router (pick a guide)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./READING_GUIDE.html">
@@ -198,10 +171,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Public site reader map</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="./EVIDENCE.html">
  <span class="dropdown-text">Evidence ledger</span></a>
   </li>  
@@ -254,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP.html">Methodology</a></li><li class="breadcrumb-item"><a href="./READING_GUIDE.html">Reading guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="./READING_GUIDE.html">Reading guide</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -291,14 +260,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
+  <a href="./README.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">README + executive summary</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
+  <a href="./RESULTS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
       </ul>
@@ -306,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Methodology</span></a>
+ <span class="menu-text">Methodology guides (pick a style)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -314,8 +283,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./WRITEUP_PAPER.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Academic paper (IMRAD)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./WRITEUP_NARRATIVE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrative arc (story)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./WRITEUP.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cover narrative (hub)</span></a>
+ <span class="menu-text">Router (1-page chooser)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -970,6 +951,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Backfill supersession back-links + quote octal-risk YAML integer fields in ADR-007 + ADR-015 + ADR-018 + ADR-021 + ADR-052 frontmatter per ADR-076 frontmatter-backfill discipline</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-078-executive-summary-absorbed-into-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Absorb EXECUTIVE_SUMMARY content into README; retire EXECUTIVE_SUMMARY.md as standalone file</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./decisions/ADR-079-two-guide-reader-architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -984,16 +977,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reading-guide" id="toc-reading-guide" class="nav-link active" data-scroll-target="#reading-guide">Reading Guide</a>
+  <li><a href="#reading-guide" id="toc-reading-guide" class="nav-link active" data-scroll-target="#reading-guide">Reading guide</a>
   <ul class="collapse">
-  <li><a href="#result-map" id="toc-result-map" class="nav-link" data-scroll-target="#result-map">Result Map</a></li>
-  <li><a href="#path-a-hiring-manager-10-15-minutes" id="toc-path-a-hiring-manager-10-15-minutes" class="nav-link" data-scroll-target="#path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</a></li>
-  <li><a href="#path-b-technical-reviewer-45-60-minutes" id="toc-path-b-technical-reviewer-45-60-minutes" class="nav-link" data-scroll-target="#path-b-technical-reviewer-45-60-minutes">Path B: Technical Reviewer, 45-60 Minutes</a></li>
-  <li><a href="#path-c-reproduce-30-minutes" id="toc-path-c-reproduce-30-minutes" class="nav-link" data-scroll-target="#path-c-reproduce-30-minutes">Path C: Reproduce, 30+ Minutes</a></li>
-  <li><a href="#path-d-static-analysis-appendices-20-30-minutes" id="toc-path-d-static-analysis-appendices-20-30-minutes" class="nav-link" data-scroll-target="#path-d-static-analysis-appendices-20-30-minutes">Path D: Static Analysis Appendices, 20-30 Minutes</a></li>
-  <li><a href="#how-to-read-the-headline-numbers" id="toc-how-to-read-the-headline-numbers" class="nav-link" data-scroll-target="#how-to-read-the-headline-numbers">How To Read The Headline Numbers</a></li>
-  <li><a href="#repo-map" id="toc-repo-map" class="nav-link" data-scroll-target="#repo-map">Repo Map</a></li>
-  <li><a href="#submission-anchors" id="toc-submission-anchors" class="nav-link" data-scroll-target="#submission-anchors">Submission Anchors</a></li>
+  <li><a href="#persona-specific-paths" id="toc-persona-specific-paths" class="nav-link" data-scroll-target="#persona-specific-paths">Persona-specific paths</a>
+  <ul class="collapse">
+  <li><a href="#path-a-academic-reviewer-45-min" id="toc-path-a-academic-reviewer-45-min" class="nav-link" data-scroll-target="#path-a-academic-reviewer-45-min">Path A — Academic reviewer (~45 min)</a></li>
+  <li><a href="#path-b-story-reader-30-min" id="toc-path-b-story-reader-30-min" class="nav-link" data-scroll-target="#path-b-story-reader-30-min">Path B — Story reader (~30 min)</a></li>
+  <li><a href="#path-c-hiring-manager-60-seconds" id="toc-path-c-hiring-manager-60-seconds" class="nav-link" data-scroll-target="#path-c-hiring-manager-60-seconds">Path C — Hiring manager (60 seconds)</a></li>
+  <li><a href="#path-d-reproducer-30-min-setup-0-to-125-compute" id="toc-path-d-reproducer-30-min-setup-0-to-125-compute" class="nav-link" data-scroll-target="#path-d-reproducer-30-min-setup-0-to-125-compute">Path D — Reproducer (~30 min setup + ~$0 to ~$125 compute)</a></li>
+  <li><a href="#path-e-just-the-numbers" id="toc-path-e-just-the-numbers" class="nav-link" data-scroll-target="#path-e-just-the-numbers">Path E — Just the numbers</a></li>
+  </ul></li>
+  <li><a href="#result-map" id="toc-result-map" class="nav-link" data-scroll-target="#result-map">Result map</a></li>
+  <li><a href="#glossary-decisions" id="toc-glossary-decisions" class="nav-link" data-scroll-target="#glossary-decisions">Glossary + decisions</a></li>
+  <li><a href="#submission-anchors" id="toc-submission-anchors" class="nav-link" data-scroll-target="#submission-anchors">Submission anchors</a></li>
+  <li><a href="#repo-map" id="toc-repo-map" class="nav-link" data-scroll-target="#repo-map">Repo map</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1001,14 +998,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP.html">Methodology</a></li><li class="breadcrumb-item"><a href="./READING_GUIDE.html">Reading guide</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./WRITEUP_PAPER.html">Methodology guides (pick a style)</a></li><li class="breadcrumb-item"><a href="./READING_GUIDE.html">Reading guide</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Reading guide</h1>
 </div>
 
 <div>
   <div class="description">
-    How to read the prompt-injection classifier evaluation at different depths.
+    Navigation router for the prompt-injection classifier evaluation. Two reading-style guides + persona-specific paths.
   </div>
 </div>
 
@@ -1026,192 +1023,121 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="reading-guide" class="level1">
-<h1>Reading Guide</h1>
-<p>The site is organized from least to most technical. Start with the result, then drill into evidence and methodology only as needed.</p>
+<h1>Reading guide</h1>
+<p>This page routes you to the part of the writeup that fits your purpose.</p>
+<p>The project ships with <strong>two reading-style guides</strong> covering the same content (per <a href="./decisions/ADR-079-two-guide-reader-architecture.html">ADR-079</a>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Guide</th>
+<th>Style</th>
+<th>Length</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a></td>
+<td>Academic IMRAD (Abstract / Methods / Results / Discussion / Limits / Refs)</td>
+<td>~45 min</td>
+<td>Reviewers expecting journal-paper discipline</td>
+</tr>
+<tr class="even">
+<td><a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a></td>
+<td>Story arc (Hook / Setup / Investigation / Revelation / Implications)</td>
+<td>~30 min</td>
+<td>Readers preferring plain-English first-person prose</td>
+</tr>
+</tbody>
+</table>
+<p>Both guides cover the same content. Pick the register that fits.</p>
+<section id="persona-specific-paths" class="level2">
+<h2 class="anchored" data-anchor-id="persona-specific-paths">Persona-specific paths</h2>
+<section id="path-a-academic-reviewer-45-min" class="level3">
+<h3 class="anchored" data-anchor-id="path-a-academic-reviewer-45-min">Path A — Academic reviewer (~45 min)</h3>
+<p>Read <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> end-to-end. It is structured as a journal paper (Abstract, Introduction, Background, Methods, Results, Discussion, Limitations, Conclusion, References). Cross- references to ADRs at every methodology decision. Bibliography includes external papers, project artifacts, and ADR citations.</p>
+<p>If you want depth on a specific subsection, the methodology spokes are at <a href="./WRITEUP/">WRITEUP/</a> — 8 files covering data decisions, evaluation design, model details, threshold policy, reference-scorer audit, methodology guarantees, reproducibility, and limitations + future work.</p>
+</section>
+<section id="path-b-story-reader-30-min" class="level3">
+<h3 class="anchored" data-anchor-id="path-b-story-reader-30-min">Path B — Story reader (~30 min)</h3>
+<p>Read <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> end-to-end. It is structured as a 5-act story arc with an epilogue. Plain-English voice; defines technical terms on first use.</p>
+<p>The story’s third act surfaces the headline finding dramatically (the anti-correlation result). The fourth act covers the 6 supporting findings as equal-weight enumeration so the headline doesn’t drown out the rest.</p>
+</section>
+<section id="path-c-hiring-manager-60-seconds" class="level3">
+<h3 class="anchored" data-anchor-id="path-c-hiring-manager-60-seconds">Path C — Hiring manager (60 seconds)</h3>
+<p>Read <a href="./docs/for-hiring-managers.html">Project at a glance</a>. Four questions: what problem, what found, why trust, how the candidate thinks. This is the shortest reader path.</p>
+</section>
+<section id="path-d-reproducer-30-min-setup-0-to-125-compute" class="level3">
+<h3 class="anchored" data-anchor-id="path-d-reproducer-30-min-setup-0-to-125-compute">Path D — Reproducer (~30 min setup + ~$0 to ~$125 compute)</h3>
+<p>Three tiers per <a href="./WRITEUP/reproducibility.html">WRITEUP/reproducibility.md</a>:</p>
+<ul>
+<li><strong>T0</strong> — score-match against published HF Hub checkpoints (~$0, ~20 min)</li>
+<li><strong>T1</strong> — laptop smoke test (~$0, &lt;10 min)</li>
+<li><strong>T3</strong> — full retraining on cloud GPU (~$125, hours; cost-capped per ADR-020)</li>
+</ul>
+<p>Commands in <a href="./README.html#reproduce-three-tiers">README §Reproduce — three tiers</a>. Cost ledger at <a href="./evals/cost_ledger.csv">evals/cost_ledger.csv</a>.</p>
+</section>
+<section id="path-e-just-the-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="path-e-just-the-numbers">Path E — Just the numbers</h3>
+<p>Read <a href="./RESULTS.html">RESULTS.md</a>. Tables-only appendix; no narrative prose. 5 canonical figures + raw artifact pointers.</p>
+</section>
+</section>
 <section id="result-map" class="level2">
-<h2 class="anchored" data-anchor-id="result-map">Result Map</h2>
-<p>Use this map when scanning the project for what was actually accomplished. Each row points to the deeper table and states why the result matters.</p>
+<h2 class="anchored" data-anchor-id="result-map">Result map</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Finding</th>
-<th>Where to read</th>
-<th>What the result says</th>
-<th>Why it matters or is limited</th>
+<th>Result section</th>
+<th>Where it lives</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Direct validation</td>
-<td><a href="./RESULTS.html#direct-prompt-injection-performance">Results: Direct Prompt-Injection Performance</a></td>
-<td>LoRA reaches 0.974 AUPRC / 0.993 AUROC / 0.934 recall@0.5 on balanced direct+benign validation; TF-IDF + LR is similar</td>
-<td>confirms the detector stack learned direct prompt-injection patterns</td>
+<td>Headline pooled OOD AUPRC</td>
+<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.3</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3</a>, <a href="./RESULTS.html">RESULTS §1</a></td>
 </tr>
 <tr class="even">
-<td>Held-out direct-source recall</td>
-<td><a href="./RESULTS.html#direct-prompt-injection-performance">Results: Direct Prompt-Injection Performance</a></td>
-<td>frozen probe recall@0.5 is 0.641, LoRA is 0.625, full fine-tune** is 0.558</td>
-<td>stricter direct-source holdout, but recall-only because the slice is all-positive</td>
+<td>Direct detection check</td>
+<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.1</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3</a>, <a href="./RESULTS.html">RESULTS §Direct Prompt-Injection Performance</a></td>
 </tr>
 <tr class="odd">
-<td>Pooled OOD failure</td>
-<td><a href="./RESULTS.html#1-cross-family-ood-table-auprc">Results: §1 Cross-Family OOD Table</a></td>
-<td>best pooled OOD AUPRC is 0.364 against a random floor of 0.374</td>
-<td>main scientific finding: direct-trained detectors do not beat guessing under family shift</td>
+<td>Mechanism (lexical overfitting + label-relevance shift)</td>
+<td><a href="./README.html#executive-summary">README §Executive summary</a>, <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §5.1</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3</a></td>
 </tr>
 <tr class="even">
-<td>LoRA vs frozen-probe OOD degradation</td>
-<td><a href="./RESULTS.html#2-frozen-probe-vs-lora">Results: §2 Frozen Probe vs LoRA</a> + <a href="./RESULTS.html#6-secondary-table-auroc">§6 AUROC</a></td>
-<td>LoRA pooled OOD AUROC <strong>0.383 below 0.5 floor</strong>; -0.071 AUPRC vs frozen probe</td>
-<td>lexical overfitting + slate-induced label-relevance inversion; CIs clear 0.5 on the wrong side</td>
+<td>Context-window ablation</td>
+<td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.4</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Finding 4</a>, <a href="./RESULTS.html">RESULTS §1B</a></td>
 </tr>
 <tr class="odd">
-<td>DeBERTa context-window null result</td>
-<td><a href="./RESULTS.html#1b-ablation-does-a-longer-context-backbone-fix-the-ood-gap">Results: §1B Ablation</a></td>
-<td>chunk-and-average scores 0.291 pooled OOD AUPRC; head-truncation scores 0.290</td>
-<td>longer context access did not explain the OOD gap; backbone effects remain</td>
+<td>Calibration</td>
+<td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.7</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Finding 7</a>, <a href="./RESULTS.html">RESULTS §5</a></td>
 </tr>
 <tr class="even">
-<td>Threshold transfer failure</td>
-<td><a href="./RESULTS.html#4-threshold-transfer">Results: §4 Threshold Transfer</a></td>
-<td>LoRA catches more positives but jumps to 11.5% test FPR under a 1% validation-FPR policy</td>
-<td>validation thresholds are characterization, not deployment recommendations</td>
-</tr>
-<tr class="odd">
-<td>Calibration ranking</td>
-<td><a href="./RESULTS.html#5-calibration">Results: §5 Calibration</a></td>
-<td>frozen probe has the lowest mean ECE (0.144) and Brier (0.265)</td>
-<td>score quality and direct-pattern accuracy diverge under OOD shift</td>
-</tr>
-<tr class="even">
-<td>ProtectAI/reference-detector caveats</td>
-<td><a href="./RESULTS.html#1-cross-family-ood-table-auprc">Results: §1 Cross-Family OOD Table</a> and <a href="./WRITEUP/reference-scorer-audit.html">reference-scorer audit</a></td>
-<td>ProtectAI v1* is near frozen probe on pooled OOD; v2* regresses on this slate</td>
-<td>useful diagnostic references, but training-overlap disclosure limits clean baseline claims</td>
+<td>Threshold fragility</td>
+<td><a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4.6</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Finding 6</a>, <a href="./RESULTS.html">RESULTS §4</a></td>
 </tr>
 </tbody>
 </table>
-<p>* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources per <a href="./EVIDENCE.html">EVIDENCE</a> §1-2. Their pooled OOD scores on overlapping slices are not clean OOD baselines.</p>
-<p>** Full-FT shows LODO direct-source data only (24 Phase 2 predictions); the comparable pooled OOD inference was not run (Phase 5 X11 crash; see <a href="./decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.html">ADR-075</a>).</p>
 </section>
-<section id="path-a-hiring-manager-10-15-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="path-a-hiring-manager-10-15-minutes">Path A: Hiring Manager, 10-15 Minutes</h2>
-<p>Goal: understand the problem, the result, and what the project demonstrates.</p>
-<ol type="1">
-<li><a href="./index.html">Landing page</a>: problem, setup, headline result, limits.</li>
-<li><a href="./docs/for-hiring-managers.html">Project at a glance</a>: 60-second version of the problem, finding, trust basis, and candidate signal.</li>
-<li><a href="./RESULTS.html">Results</a>: skim Direct Prompt-Injection Performance and the Cross-Family OOD table together.</li>
-<li><a href="./EXECUTIVE_SUMMARY.html">Executive summary</a>: one-page version if you want a slightly fuller decision-maker view.</li>
-</ol>
-<p>What to take away: this is an honest two-sided result. Direct prompt-injection detection works on balanced validation, but that learned signal does not clearly transfer to different attack families.</p>
-</section>
-<section id="path-b-technical-reviewer-45-60-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="path-b-technical-reviewer-45-60-minutes">Path B: Technical Reviewer, 45-60 Minutes</h2>
-<p>Goal: decide whether the result is methodologically credible.</p>
-<ol type="1">
-<li><a href="./RESULTS.html">Results</a>: exact tables and canonical figures.</li>
-<li><a href="./WRITEUP.html">Writeup</a>: methodology hub.</li>
-<li><a href="./WRITEUP/eval-design.html">Evaluation design</a>: metric and CI rationale.</li>
-<li><a href="./WRITEUP/data-decisions.html">Data decisions</a>: source slate, dedup, leakage.</li>
-<li><a href="./WRITEUP/reference-scorer-audit.html">Reference-scorer audit</a>: ProtectAI contamination caveats.</li>
-<li><a href="./decisions/README.html">Decisions</a>: ADR trail, especially ADR-016, ADR-022, ADR-050, ADR-052, and ADR-062.</li>
-</ol>
-</section>
-<section id="path-c-reproduce-30-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="path-c-reproduce-30-minutes">Path C: Reproduce, 30+ Minutes</h2>
-<p>Goal: check that the numbers can be regenerated.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> test-smoke</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=frozen-probe</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> eval-from-hub RUNG=lora</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> site</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>For the full cloud path, see <a href="./WRITEUP/reproducibility.html">reproducibility</a>.</p>
-</section>
-<section id="path-d-static-analysis-appendices-20-30-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="path-d-static-analysis-appendices-20-30-minutes">Path D: Static Analysis Appendices, 20-30 Minutes</h2>
-<p>Goal: inspect the rendered per-cell results, calibration, and OOD slice breakdowns.</p>
-<p>Four Jupytext-paired notebooks ship as static rendered HTML appendices with frozen output cells (per ADR-053 reading-guide governance + v1.0.7). Each is reachable from the sidebar <strong>Notebooks</strong> section on the rendered Quarto site:</p>
-<ol type="1">
-<li><a href="./notebooks/01_canonical_results.html"><code>01_canonical_results</code></a> — headline AUPRC + AUROC per trained detector, with bootstrap CIs and the random-floor reference line.</li>
-<li><a href="./notebooks/02_frozen_vs_lora.html"><code>02_frozen_vs_lora</code></a> — 3-method cross-check (paired bootstrap deltas + DeLong + BH-FDR) on the frozen-probe vs LoRA gap.</li>
-<li><a href="./notebooks/03_calibration.html"><code>03_calibration</code></a> — temperature + isotonic + Platt + Beta calibration on per-detector scores; reliability diagrams.</li>
-<li><a href="./notebooks/04_ood_slate.html"><code>04_ood_slate</code></a> — per-OOD-slice AUPRC breakdown; identifies which sources drive the pooled-OOD gap.</li>
-</ol>
-<p>The notebooks render to static HTML on the Quarto site without re-execution. Operators regenerate the frozen outputs via <code>make notebooks</code> after pulling new evaluation parquets.</p>
-</section>
-<section id="how-to-read-the-headline-numbers" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-read-the-headline-numbers">How To Read The Headline Numbers</h2>
-<p><strong>AUPRC is not measured against 0.5.</strong> For the pooled out-of-distribution slice (<code>pooled_ood</code>), random AUPRC is the positive rate: 412 positives / 1101 rows = 0.374. The frozen probe scores 0.364, so it is at the random floor, not clearly above it.</p>
-<p><strong>Out-of-distribution (OOD) means cross-family here.</strong> The training data is direct-injection-heavy. The OOD slate includes indirect injection, agentic-flow injection, jailbreak-style questions, and benign text that resembles attacks.</p>
-<p><strong>LoRA being below the floor matters.</strong> Fine-tuning on the direct-injection training pool reduced pooled OOD AUPRC from 0.364 to 0.293. The sharper finding is under AUROC: LoRA scores 0.383 [0.374, 0.392], below the 0.5 random floor. TF-IDF + LR shows the same pattern at 0.371. CIs on both clear 0.5 on the wrong side; only the frozen probe stays above floor at 0.515. The mechanism is <strong>lexical overfitting + a label-relevance shift</strong> on the OOD slate — NotInject (benign text engineered to look like direct injection) inverts the negative class; indirect/agentic attacks (no direct-injection lexical signal) invert the positive class. The lexical signal is internally consistent; it just stops tracking attack class on cross-family slices.</p>
-<p><strong>Reference scorers are diagnostic.</strong> ProtectAI v1/v2 are useful comparison points, but their training-data disclosure creates contamination caveats.</p>
-<p><strong>Thresholds are not deployment recommendations.</strong> The threshold analysis shows how scores behave under two cost regimes. It does not select a production policy.</p>
-</section>
-<section id="repo-map" class="level2">
-<h2 class="anchored" data-anchor-id="repo-map">Repo Map</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Path</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>index.qmd</code></td>
-<td>first-reader landing page</td>
-</tr>
-<tr class="even">
-<td><code>EXECUTIVE_SUMMARY.md</code></td>
-<td>one-page summary</td>
-</tr>
-<tr class="odd">
-<td><code>RESULTS.md</code></td>
-<td>exact tables, figures, artifacts</td>
-</tr>
-<tr class="even">
-<td><code>NEXT_STEPS.md</code></td>
-<td>completed carryforward log plus live future-work questions</td>
-</tr>
-<tr class="odd">
-<td><code>WRITEUP.md</code></td>
-<td>methodology hub</td>
-</tr>
-<tr class="even">
-<td><code>WRITEUP/</code></td>
-<td>detailed methodology spokes</td>
-</tr>
-<tr class="odd">
-<td><code>docs/plots/</code></td>
-<td>canonical F1-F5 figures with metadata sidecars</td>
-</tr>
-<tr class="even">
-<td><code>evals/</code></td>
-<td>metrics, bootstrap, operating points, predictions</td>
-</tr>
-<tr class="odd">
-<td><code>decisions/</code></td>
-<td>ADRs and decision provenance</td>
-</tr>
-<tr class="even">
-<td><code>src/</code>, <code>scripts/</code>, <code>tests/</code></td>
-<td>implementation and tests</td>
-</tr>
-</tbody>
-</table>
+<section id="glossary-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="glossary-decisions">Glossary + decisions</h2>
+<ul>
+<li><strong>Glossary</strong>: <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a> — all technical terms used in either guide, with cross-references.</li>
+<li><strong>Decisions</strong>: 79 ADRs at <a href="./decisions/">decisions/</a> lock the methodology choices. Both guides cite specific ADRs at every methodology decision point.</li>
+<li><strong>Evidence trail</strong>: <a href="./EVIDENCE.html">EVIDENCE.md</a> for external-evidence audit (training corpus contamination, reference scorer training pools, etc.).</li>
+</ul>
 </section>
 <section id="submission-anchors" class="level2">
-<h2 class="anchored" data-anchor-id="submission-anchors">Submission Anchors</h2>
+<h2 class="anchored" data-anchor-id="submission-anchors">Submission anchors</h2>
 <ul>
-<li>Current state: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.2.13"><code>tree/v1.2.13</code></a> (2026-05-21) — live-site source</li>
-<li>Original submission tag: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a> (2026-05-18) — preserved as historical reviewer pin per ADR-033</li>
-<li>Live rendered site: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a></li>
-<li>HF Hub checkpoints: <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">frozen probe</a> and <a href="https://huggingface.co/BBehring/prompt-injection-lora">LoRA</a></li>
+<li><strong>Current state</strong>: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0"><code>tree/v1.3.0</code></a> (2026-05-21) — live-site source.</li>
+<li><strong>Original submission tag</strong>: <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a> (2026-05-18) — preserved as historical reviewer pin per ADR-033.</li>
+<li><strong>Live rendered site</strong>: <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a>.</li>
 </ul>
+</section>
+<section id="repo-map" class="level2">
+<h2 class="anchored" data-anchor-id="repo-map">Repo map</h2>
+<p>See <a href="./README.html#repository-map">README §Repository map</a>.</p>
 
 
 </section>

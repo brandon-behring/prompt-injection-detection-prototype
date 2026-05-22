@@ -104,8 +104,16 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-methodology">    
         <li>
+    <a class="dropdown-item" href="../WRITEUP_PAPER.html">
+ <span class="dropdown-text">Academic paper (IMRAD)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../WRITEUP_NARRATIVE.html">
+ <span class="dropdown-text">Narrative arc (story)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../WRITEUP.html">
- <span class="dropdown-text">Cover narrative (hub)</span></a>
+ <span class="dropdown-text">Router (pick a guide)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../READING_GUIDE.html">
@@ -161,10 +169,6 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="../docs/site-reader-map.html">
  <span class="dropdown-text">Public site reader map</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../EXECUTIVE_SUMMARY.html">
- <span class="dropdown-text">Executive summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../EVIDENCE.html">
@@ -256,14 +260,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../RESULTS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
+  <a href="../README.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">README + executive summary</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../EXECUTIVE_SUMMARY.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Executive summary: prompt-injection classifier evaluation</span></a>
+  <a href="../RESULTS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Results: tables, figures, and source artifacts</span></a>
   </div>
 </li>
       </ul>
@@ -271,7 +275,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Methodology</span></a>
+ <span class="menu-text">Methodology guides (pick a style)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -279,8 +283,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../WRITEUP_PAPER.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Academic paper (IMRAD)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WRITEUP_NARRATIVE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Narrative arc (story)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../WRITEUP.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cover narrative (hub)</span></a>
+ <span class="menu-text">Router (1-page chooser)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -935,6 +951,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Backfill supersession back-links + quote octal-risk YAML integer fields in ADR-007 + ADR-015 + ADR-018 + ADR-021 + ADR-052 frontmatter per ADR-076 frontmatter-backfill discipline</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-078-executive-summary-absorbed-into-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Absorb EXECUTIVE_SUMMARY content into README; retire EXECUTIVE_SUMMARY.md as standalone file</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decisions/ADR-079-two-guide-reader-architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -989,7 +1017,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="project-at-a-glance" class="level1">
 <h1>Project at a glance</h1>
 <p>Four questions, ~60 seconds.</p>
-<p>For a slightly longer read, see the <a href="../index.html">headline table on the landing page</a> or the <a href="../EXECUTIVE_SUMMARY.html">one-page executive summary</a>. For an audit-depth path, see the <a href="../READING_GUIDE.html">reading guide</a>.</p>
+<p>For a slightly longer read, see the <a href="../index.html">headline table on the landing page</a> or the <a href="../README.html#executive-summary">one-page executive summary</a> (absorbed into README per ADR-078). For an audit-depth path, see the <a href="../READING_GUIDE.html">reading guide</a>.</p>
 <section id="what-problem-does-this-project-solve" class="level2">
 <h2 class="anchored" data-anchor-id="what-problem-does-this-project-solve">1. What problem does this project solve?</h2>
 <p><strong>Prompt injection</strong> is untrusted text trying to override the instructions an LLM system is supposed to follow (“ignore previous instructions and…”).</p>
@@ -1110,7 +1138,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-does-this-say-about-how-the-candidate-thinks" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-this-say-about-how-the-candidate-thinks">4. What does this say about how the candidate thinks?</h2>
 <ul>
-<li><strong>Spec-Driven Development</strong>: 77 immutable Architecture Decision Records (ADRs) lock methodology choices <em>before</em> code is written. Browse <a href="../decisions/">decisions/</a> for the justification trail.</li>
+<li><strong>Spec-Driven Development</strong>: 79 immutable Architecture Decision Records (ADRs) lock methodology choices <em>before</em> code is written. Browse <a href="../decisions/">decisions/</a> for the justification trail.</li>
 <li><strong>Confound-control discipline</strong>: when the headline result raised the natural follow-up question (<em>does a bigger context window fix the OOD gap?</em>), the candidate designed a controlled ablation. The result was a publishable null. See <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> and <a href="../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</li>
 <li><strong>Library-first invariant</strong>: shared evaluation primitives live in upstream libraries (<code>eval-toolkit</code>, <code>runpod-deploy</code>, <code>research_toolkit</code>); local code is project-specific glue. See <a href="../decisions/library_imports.html"><code>decisions/library_imports.md</code></a>.</li>
 </ul>

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-19">
+<meta name="dcterms.date" content="2026-05-21">
 
-<title>Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs) – Prompt-injection classifier evaluation</title>
+<title>Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0 – Prompt-injection classifier evaluation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -223,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-079-two-guide-reader-architecture.html">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -893,7 +893,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link active">
+  <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</span></a>
   </div>
 </li>
@@ -959,7 +959,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../decisions/ADR-079-two-guide-reader-architecture.html" class="sidebar-item-text sidebar-link">
+  <a href="../decisions/ADR-079-two-guide-reader-architecture.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</span></a>
   </div>
 </li>
@@ -977,32 +977,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adr-068-narrow-immutability-relaxation-for-broken-external-references-in-immutable-adrs" id="toc-adr-068-narrow-immutability-relaxation-for-broken-external-references-in-immutable-adrs" class="nav-link active" data-scroll-target="#adr-068-narrow-immutability-relaxation-for-broken-external-references-in-immutable-adrs">ADR-068 — Narrow immutability relaxation for broken external references in immutable ADRs</a>
+  <li><a href="#adr-079-two-guide-reader-architecture" id="toc-adr-079-two-guide-reader-architecture" class="nav-link active" data-scroll-target="#adr-079-two-guide-reader-architecture">ADR-079: Two-guide reader architecture</a>
   <ul class="collapse">
   <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">Status</a></li>
-  <li><a href="#a-context-discovery-from-the-first-end-to-end-lychee-scan" id="toc-a-context-discovery-from-the-first-end-to-end-lychee-scan" class="nav-link" data-scroll-target="#a-context-discovery-from-the-first-end-to-end-lychee-scan">§A Context — discovery from the first end-to-end lychee scan</a></li>
-  <li><a href="#b-decision-narrow-extension-covering-two-additional-classes" id="toc-b-decision-narrow-extension-covering-two-additional-classes" class="nav-link" data-scroll-target="#b-decision-narrow-extension-covering-two-additional-classes">§B Decision — narrow extension covering two additional classes</a>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a>
   <ul class="collapse">
-  <li><a href="#b1-in-scope-corrections-allowed-in-place-per-this-adr-068" id="toc-b1-in-scope-corrections-allowed-in-place-per-this-adr-068" class="nav-link" data-scroll-target="#b1-in-scope-corrections-allowed-in-place-per-this-adr-068">B1 — In-scope corrections (allowed in-place per this ADR-068)</a></li>
-  <li><a href="#b2-out-of-scope-changes-require-superseding-adr-per-existing-rule" id="toc-b2-out-of-scope-changes-require-superseding-adr-per-existing-rule" class="nav-link" data-scroll-target="#b2-out-of-scope-changes-require-superseding-adr-per-existing-rule">B2 — Out-of-scope changes (REQUIRE superseding ADR per existing rule)</a></li>
-  <li><a href="#b3-commit-message-convention" id="toc-b3-commit-message-convention" class="nav-link" data-scroll-target="#b3-commit-message-convention">B3 — Commit message convention</a></li>
-  <li><a href="#b4-future-pr-review-discipline-unchanged-from-adr-067" id="toc-b4-future-pr-review-discipline-unchanged-from-adr-067" class="nav-link" data-scroll-target="#b4-future-pr-review-discipline-unchanged-from-adr-067">B4 — Future PR review discipline (unchanged from ADR-067)</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a></li>
+  <li><a href="#guide-content-outlines" id="toc-guide-content-outlines" class="nav-link" data-scroll-target="#guide-content-outlines">Guide content outlines</a></li>
+  <li><a href="#headline-prominence-per-style" id="toc-headline-prominence-per-style" class="nav-link" data-scroll-target="#headline-prominence-per-style">Headline prominence per style</a></li>
+  <li><a href="#voice-register-per-q4-lock" id="toc-voice-register-per-q4-lock" class="nav-link" data-scroll-target="#voice-register-per-q4-lock">Voice register per Q4 lock</a></li>
+  <li><a href="#both-guides-explain-jargon" id="toc-both-guides-explain-jargon" class="nav-link" data-scroll-target="#both-guides-explain-jargon">Both guides explain jargon</a></li>
+  <li><a href="#writeup.md-retired-as-stub-redirect" id="toc-writeup.md-retired-as-stub-redirect" class="nav-link" data-scroll-target="#writeup.md-retired-as-stub-redirect">WRITEUP.md retired as stub-redirect</a></li>
+  <li><a href="#supersession-scope" id="toc-supersession-scope" class="nav-link" data-scroll-target="#supersession-scope">Supersession scope</a></li>
+  <li><a href="#submission_audit.md-cascade" id="toc-submission_audit.md-cascade" class="nav-link" data-scroll-target="#submission_audit.md-cascade">SUBMISSION_AUDIT.md cascade</a></li>
   </ul></li>
-  <li><a href="#c-decision-apply-in-the-v1.2.6-fix-forward-consolidated-inventory" id="toc-c-decision-apply-in-the-v1.2.6-fix-forward-consolidated-inventory" class="nav-link" data-scroll-target="#c-decision-apply-in-the-v1.2.6-fix-forward-consolidated-inventory">§C Decision — apply in the v1.2.6 fix-forward (consolidated inventory)</a>
-  <ul class="collapse">
-  <li><a href="#c1-immutable-adr-markdown-links-covered-by-adr-068-3-fixes" id="toc-c1-immutable-adr-markdown-links-covered-by-adr-068-3-fixes" class="nav-link" data-scroll-target="#c1-immutable-adr-markdown-links-covered-by-adr-068-3-fixes">C1 — Immutable-ADR markdown links covered by ADR-068 (3 fixes)</a></li>
-  <li><a href="#c2-mutable-files-not-covered-by-adr-068-fixed-separately-in-the-v1.2.6-fix-forward" id="toc-c2-mutable-files-not-covered-by-adr-068-fixed-separately-in-the-v1.2.6-fix-forward" class="nav-link" data-scroll-target="#c2-mutable-files-not-covered-by-adr-068-fixed-separately-in-the-v1.2.6-fix-forward">C2 — Mutable files (NOT covered by ADR-068; fixed separately in the v1.2.6 fix-forward)</a></li>
-  </ul></li>
-  <li><a href="#d-decision-claude.md-decisionsreadme.md-updates" id="toc-d-decision-claude.md-decisionsreadme.md-updates" class="nav-link" data-scroll-target="#d-decision-claude.md-decisionsreadme.md-updates">§D Decision — CLAUDE.md + decisions/README.md updates</a></li>
-  <li><a href="#e-consequences" id="toc-e-consequences" class="nav-link" data-scroll-target="#e-consequences">§E Consequences</a>
-  <ul class="collapse">
-  <li><a href="#e1-reader-experience-improved-immutable-adr-class" id="toc-e1-reader-experience-improved-immutable-adr-class" class="nav-link" data-scroll-target="#e1-reader-experience-improved-immutable-adr-class">E1 — Reader experience improved (immutable-ADR class)</a></li>
-  <li><a href="#e2-audit-trail-discipline-preserved" id="toc-e2-audit-trail-discipline-preserved" class="nav-link" data-scroll-target="#e2-audit-trail-discipline-preserved">E2 — Audit-trail discipline preserved</a></li>
-  <li><a href="#e3-documentation-debt-paid-down-v1.1.4-v1.2.6-trail" id="toc-e3-documentation-debt-paid-down-v1.1.4-v1.2.6-trail" class="nav-link" data-scroll-target="#e3-documentation-debt-paid-down-v1.1.4-v1.2.6-trail">E3 — Documentation debt paid down (v1.1.4 → v1.2.6 trail)</a></li>
-  <li><a href="#e4-two-adr-symmetry" id="toc-e4-two-adr-symmetry" class="nav-link" data-scroll-target="#e4-two-adr-symmetry">E4 — Two-ADR symmetry</a></li>
-  <li><a href="#e5-future-prs-flagged-on-out-of-scope-edits" id="toc-e5-future-prs-flagged-on-out-of-scope-edits" class="nav-link" data-scroll-target="#e5-future-prs-flagged-on-out-of-scope-edits">E5 — Future PRs flagged on out-of-scope edits</a></li>
-  <li><a href="#e6-cost-trivial" id="toc-e6-cost-trivial" class="nav-link" data-scroll-target="#e6-cost-trivial">E6 — Cost-trivial</a></li>
-  </ul></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences">Consequences</a></li>
+  <li><a href="#alternatives-considered" id="toc-alternatives-considered" class="nav-link" data-scroll-target="#alternatives-considered">Alternatives Considered</a></li>
   <li><a href="#linked-adrs" id="toc-linked-adrs" class="nav-link" data-scroll-target="#linked-adrs">Linked ADRs</a></li>
   <li><a href="#transcript" id="toc-transcript" class="nav-link" data-scroll-target="#transcript">Transcript</a></li>
   </ul></li>
@@ -1012,9 +1003,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decisions/README.html">Decisions (ADRs)</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-001-submission-deadline-and-scope-ambition.html">Decisions</a></li><li class="breadcrumb-item"><a href="../decisions/ADR-079-two-guide-reader-architecture.html">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Narrow immutability relaxation for broken external references in immutable ADRs (local-filesystem paths + aspirational upstream refs)</h1>
+<h1 class="title">Two-guide reader architecture (academic IMRAD + narrative arc) replacing the single-hybrid WRITEUP for v1.3.0</h1>
 </div>
 
 
@@ -1025,7 +1016,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2026</p>
+      <p class="date">May 21, 2026</p>
     </div>
   </div>
   
@@ -1037,183 +1028,131 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="adr-068-narrow-immutability-relaxation-for-broken-external-references-in-immutable-adrs" class="level1">
-<h1>ADR-068 — Narrow immutability relaxation for broken external references in immutable ADRs</h1>
+<section id="adr-079-two-guide-reader-architecture" class="level1">
+<h1>ADR-079: Two-guide reader architecture</h1>
 <section id="status" class="level2">
 <h2 class="anchored" data-anchor-id="status">Status</h2>
-<p>Accepted (2026-05-19; second narrow clarification of the existing CLAUDE.md immutability rule — co-equal with ADR-067; covers a different class of factual defects).</p>
+<p>Accepted.</p>
 </section>
-<section id="a-context-discovery-from-the-first-end-to-end-lychee-scan" class="level2">
-<h2 class="anchored" data-anchor-id="a-context-discovery-from-the-first-end-to-end-lychee-scan">§A Context — discovery from the first end-to-end lychee scan</h2>
-<p>The lychee link-check CI workflow was introduced at v1.1.4 (<code>d3f63d8</code>) but was non-functional from inception until v1.2.4 due to a chain of v0.23.0 compatibility issues (<code>--exclude-mail</code> removed; <code>--base .</code> rejected). The v1.2.3 patch fixed <code>--exclude-mail</code>; the v1.2.4 patch fixed <code>--base</code>. Only on the v1.2.4 push (<code>3c44032</code>) did lychee execute end-to-end for the first time, surfacing 35 unique broken markdown links across 35+ files that had been masked for 5 patches.</p>
-<p>Root-cause analysis (v1.2.5 /exploring-options walk, 2026-05-19) classified the failures into 7 patterns. Two of them — <strong>A.1 local-filesystem path leakage</strong> and <strong>A.2 aspirational upstream references</strong> — appear inside immutable ADRs (<code>decisions/ADR-NNN-&lt;slug&gt;.md</code> files) and are therefore protected by the CLAUDE.md immutability rule from in-place editing.</p>
-<p>ADR-067 (v1.2.2) established a precedent narrow exception for factual typos in cross-reference slug filenames. The two newly-surfaced classes share the same audit rationale that motivated ADR-067:</p>
-<ol type="1">
-<li><strong>No decision content is affected.</strong> A local-filesystem path is a citation/reference, not a methodology decision. An aspirational upstream link is a forward-reference to planned docs, not a methodology decision.</li>
-<li><strong>CI cannot resolve them.</strong> <code>file:///home/&lt;author&gt;/...</code> and <code>../../../.claude/...</code> paths require the author’s own filesystem; they never resolve on any CI runner OR reviewer browser. Aspirational <code>eval-toolkit/blob/main/docs/methodology/*.md</code> URLs return 404 because those docs were planned but never created upstream.</li>
-<li><strong>Reader experience strictly improves with in-place fix.</strong> A reader clicking the broken link sees a 404. Replacing with descriptive prose preserves the citation intent + eliminates the 404.</li>
-<li><strong>Audit trail is preserved.</strong> The broken-link CONTENT is removed but the surrounding prose + the decision that referenced it remains immutable. Future <code>git log decisions/ADR-NNN.md</code> shows the original commit + the v1.2.6 broken-ref-fix commit; both are recoverable.</li>
-</ol>
-<p>Both classes meet the §B-style narrow-scope test that ADR-067 applies to its own exception.</p>
-</section>
-<section id="b-decision-narrow-extension-covering-two-additional-classes" class="level2">
-<h2 class="anchored" data-anchor-id="b-decision-narrow-extension-covering-two-additional-classes">§B Decision — narrow extension covering two additional classes</h2>
-<p>ADRs remain immutable for decision content (per CLAUDE.md + ADR-067 §B). ADR-067 covers the <strong>factual-typo-in-cross-reference-slug</strong> class. ADR-068 covers two additional narrow classes:</p>
-<section id="b1-in-scope-corrections-allowed-in-place-per-this-adr-068" class="level3">
-<h3 class="anchored" data-anchor-id="b1-in-scope-corrections-allowed-in-place-per-this-adr-068">B1 — In-scope corrections (allowed in-place per this ADR-068)</h3>
-<p><strong>Class X — Local-filesystem path references.</strong> Markdown links (and YAML frontmatter URL strings) where the URL targets a path on the author’s local filesystem:</p>
-<ul>
-<li><code>file:///home/&lt;author&gt;/...</code></li>
-<li><code>/home/&lt;author&gt;/.../&lt;anything&gt;.md</code></li>
-<li><code>../../../.claude/projects/.../memory/&lt;anything&gt;.md</code></li>
-<li>Any path resolving to a directory NOT present in the repo (verifiable via <code>[ -e &lt;path&gt; ]</code> check at CI runner).</li>
-</ul>
-<p>Fix discipline: replace the broken link with descriptive prose that preserves the citation intent. Example transformation: - Before: <code>[memory/library_first_is_project_wide_invariant.md](../../../.claude/projects/.../memory/library_first_is_project_wide_invariant.md)</code> - After: <code>`memory/library_first_is_project_wide_invariant.md` (project-local Claude memory; not committed)</code></p>
-<p>The reader sees the SAME citation text (which is informative on its own — they know what concept is being referenced) without the broken-link target.</p>
-<p><strong>Class Y — Aspirational upstream references.</strong> Markdown links pointing at upstream resources that do NOT exist on the upstream repo:</p>
-<ul>
-<li><code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/blob/&lt;branch&gt;/&lt;path&gt;</code> where the path returns 404 from the upstream repo’s API.</li>
-<li>Includes the 9 references to <code>github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/{bootstrap,calibration,comparison,leakage,reproducibility,splits,text_dedup,thresholds}.md</code> — verified non-existent via <code>gh api repos/brandon-behring/eval-toolkit/contents/docs/methodology</code> returns 404.</li>
-</ul>
-<p>Fix discipline: replace the broken link with either (a) a descriptive prose statement citing the actual upstream primitive (e.g., <code>eval_toolkit.bootstrap_ci</code> from the <a href="https://github.com/brandon-behring/eval-toolkit#readme">eval-toolkit README</a>) OR (b) the closest existing upstream URL (e.g., the repo’s top-level README or the relevant source file). Preserves citation intent without retaining the broken link target.</p>
-</section>
-<section id="b2-out-of-scope-changes-require-superseding-adr-per-existing-rule" class="level3">
-<h3 class="anchored" data-anchor-id="b2-out-of-scope-changes-require-superseding-adr-per-existing-rule">B2 — Out-of-scope changes (REQUIRE superseding ADR per existing rule)</h3>
-<p>Same as ADR-067 §B2; numeric values, methodology decisions, prose rationale, alternatives considered, non-slug frontmatter fields, and table content all remain immutable. ADR-068 covers ONLY the link-target text in broken external references; the surrounding sentence + paragraph + decision content stays as written.</p>
-<p>Important: <strong>ADR-068 applies ONLY to IMMUTABLE ADRs</strong>. Mutable files (SPEC_SHEET.md, SPEC_GREENFIELD.md, WRITEUP/*.md, decisions/library_imports.md, CHANGELOG.md, NEXT_STEPS.md, README.md, etc.) can be edited freely per their existing mutability convention and do NOT need ADR-068 cover.</p>
-</section>
-<section id="b3-commit-message-convention" class="level3">
-<h3 class="anchored" data-anchor-id="b3-commit-message-convention">B3 — Commit message convention</h3>
-<p>In-place broken-external-reference fixes in immutable ADRs carry a commit message of the form:</p>
-<pre><code>docs: ADR-NNN broken-external-reference fixes per ADR-068
-
-Per ADR-068 narrow-relaxation rule (Class X / Class Y): broken external
-references to local-filesystem paths or aspirational upstream resources
-MAY be corrected in-place in immutable ADRs. This commit fixes:
-
-- decisions/ADR-XXX.md:LINE — Class X local-fs path `&lt;path&gt;` → descriptive prose `&lt;replacement&gt;`
-- decisions/ADR-YYY.md:LINE — Class Y aspirational upstream `&lt;url&gt;` → descriptive prose `&lt;replacement&gt;`
-  ...
-
-No decision content changed. ADR audit trail preserved.</code></pre>
-</section>
-<section id="b4-future-pr-review-discipline-unchanged-from-adr-067" class="level3">
-<h3 class="anchored" data-anchor-id="b4-future-pr-review-discipline-unchanged-from-adr-067">B4 — Future PR review discipline (unchanged from ADR-067)</h3>
-<p>In-place ADR edits that go beyond the narrow scopes (ADR-067 slug typos + ADR-068 broken external refs) should be flagged by PR review + require a new superseding ADR per the existing rule. ADR-068 does NOT establish a slippery slope; it codifies a specific narrow class adjacent to ADR-067.</p>
-</section>
-</section>
-<section id="c-decision-apply-in-the-v1.2.6-fix-forward-consolidated-inventory" class="level2">
-<h2 class="anchored" data-anchor-id="c-decision-apply-in-the-v1.2.6-fix-forward-consolidated-inventory">§C Decision — apply in the v1.2.6 fix-forward (consolidated inventory)</h2>
-<section id="c1-immutable-adr-markdown-links-covered-by-adr-068-3-fixes" class="level3">
-<h3 class="anchored" data-anchor-id="c1-immutable-adr-markdown-links-covered-by-adr-068-3-fixes">C1 — Immutable-ADR markdown links covered by ADR-068 (3 fixes)</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>File:line</th>
-<th>Class</th>
-<th>Broken link</th>
-<th>Replacement</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md:108</code></td>
-<td>X</td>
-<td><code>[memory/adr-029-immutability-misattribution-historical-drift.md](../../../.claude/projects/.../memory/adr-029-immutability-misattribution-historical-drift.md)</code></td>
-<td><code>`memory/adr-029-immutability-misattribution-historical-drift.md` (project-local Claude memory; not committed)</code></td>
-</tr>
-<tr class="even">
-<td><code>decisions/ADR-065-writeup-accuracy-narrative-and-callout-conventions.md:122</code></td>
-<td>X</td>
-<td><code>[memory/library_first_is_project_wide_invariant.md](../../../.claude/projects/.../memory/library_first_is_project_wide_invariant.md)</code></td>
-<td><code>`memory/library_first_is_project_wide_invariant.md` (project-local Claude memory; not committed)</code></td>
-</tr>
-<tr class="odd">
-<td><code>decisions/ADR-025-dual-policy-threshold-characterization.md:13</code> (YAML frontmatter <code>references:</code> list-item)</td>
-<td>Y</td>
-<td><code>https://github.com/brandon-behring/eval-toolkit/blob/main/docs/methodology/thresholds.md</code></td>
-<td>Replace with <code>eval_toolkit.thresholds</code> (the actual upstream primitive surface), OR closest-existing upstream URL: <code>https://github.com/brandon-behring/eval-toolkit#readme</code>. Choose the README pointer for ADR-025 line 13 since it’s the references-list field.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="c2-mutable-files-not-covered-by-adr-068-fixed-separately-in-the-v1.2.6-fix-forward" class="level3">
-<h3 class="anchored" data-anchor-id="c2-mutable-files-not-covered-by-adr-068-fixed-separately-in-the-v1.2.6-fix-forward">C2 — Mutable files (NOT covered by ADR-068; fixed separately in the v1.2.6 fix-forward)</h3>
-<p>For completeness — mutable files have similar fixes applied without ADR-068 coverage:</p>
-<ul>
-<li><code>SPEC_SHEET.md</code> lines 313, 314, 316, 335: 4 aspirational eval-toolkit/methodology refs</li>
-<li><code>SPEC_GREENFIELD.md</code> lines 82, 98, 111, 167, 172, 174, 203: 7 aspirational refs</li>
-<li><code>WRITEUP/data-decisions.md</code> lines 96, 126, 134: 3 aspirational refs</li>
-<li><code>WRITEUP/threshold-policy.md</code> line 56: 1 aspirational ref</li>
-<li><code>decisions/library_imports.md</code> line 182: 1 local-fs path ref</li>
-</ul>
-<p>These edits don’t need ADR-068 cover; the mutability convention covers them.</p>
-</section>
-</section>
-<section id="d-decision-claude.md-decisionsreadme.md-updates" class="level2">
-<h2 class="anchored" data-anchor-id="d-decision-claude.md-decisionsreadme.md-updates">§D Decision — CLAUDE.md + decisions/README.md updates</h2>
-<p>Both documents get the dual-narrow-exception update (cites both ADR-067 + ADR-068):</p>
-<p><strong>CLAUDE.md §“Phase 0 workflow”</strong> (after the existing immutability line; replacing the prior ADR-067-only narrow-exception clause):</p>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>User feedback in the 2026-05-21 v1.3.0 planning session diagnosed the existing single-guide architecture (WRITEUP.md hub + 8 WRITEUP/ spokes + EXECUTIVE_SUMMARY.md + RESULTS.md + index.qmd) as:</p>
 <blockquote class="blockquote">
-<p>The ADR is the source of truth. ADRs are immutable; supersede via new ADR marking prior <code>status: superseded-by-NNN</code>.</p>
-<p><strong>Narrow exceptions</strong> (per <a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a> + <a href="../decisions/ADR-068-immutability-narrow-relaxation-for-broken-external-references.html">ADR-068</a>): TWO factual-defect classes MAY be corrected in-place with a commit message citing the relevant ADR + listing per-file corrections:</p>
-<ol type="1">
-<li><strong>Cross-reference slug filename typos</strong> (per ADR-067) — a slug pointing at a wrong-but-existing file in <code>decisions/</code>.</li>
-<li><strong>Broken external references</strong> (per ADR-068) — markdown links pointing at local-filesystem paths or aspirational upstream resources that do not exist.</li>
-</ol>
-<p>ALL other content (numeric values, methodology, prose, alternatives, non-slug frontmatter, table data) remains immutable per the existing rule.</p>
+<p>“neither a narrative structure to quarto nor is there an academic structure like in a journal paper — it seems random parts of the results all over the place with no story. I had a headline and still wanted to make sure the other results were shown — but it feels so jumbled”</p>
 </blockquote>
-<p><strong><code>decisions/README.md</code> §Lifecycle</strong> (similar dual-citation update).</p>
+<p>Root-cause analysis from the structural heading map confirmed two distinct failures:</p>
+<ol type="1">
+<li><p><strong>Cross-page redundancy.</strong> The same content (headline finding, mechanism, direct-detection check, metrics primer) was rendered in 3-4 different framings across <code>index.qmd</code> + <code>EXECUTIVE_SUMMARY</code> + <code>WRITEUP</code> + <code>RESULTS</code>. Drift was incidental — each surface evolved independently across the v1.0.x patch trail rather than being designed as one coherent reader experience.</p></li>
+<li><p><strong>Within-page register inconsistency.</strong> WRITEUP.md mixed summary-style (executive-y) and detail-style (academic-y) without committing to either register. Methodology (§9 “in one paragraph”) appeared AFTER Findings (§7) — backwards from academic IMRAD convention. The 7 findings were enumerated (academic-style) but framed narratively (story-style sentences with bolded takeaways), making each finding read like a story chapter even though they were listed like academic results.</p></li>
+</ol>
+<p>The diagnosis: the existing WRITEUP was an enthusiastic-explainer wearing an ill-fitting academic suit. Not coherent as a paper; not coherent as a story.</p>
 </section>
-<section id="e-consequences" class="level2">
-<h2 class="anchored" data-anchor-id="e-consequences">§E Consequences</h2>
-<section id="e1-reader-experience-improved-immutable-adr-class" class="level3">
-<h3 class="anchored" data-anchor-id="e1-reader-experience-improved-immutable-adr-class">E1 — Reader experience improved (immutable-ADR class)</h3>
-<p>After the v1.2.6 fix-forward, readers reading ADR-025 / ADR-065 see descriptive prose where they previously saw broken markdown links. No more 404s on CI runners. No more misleading citation targets for non-author readers.</p>
+<section id="decision" class="level2">
+<h2 class="anchored" data-anchor-id="decision">Decision</h2>
+<p>Adopt a <strong>two-guide reader architecture</strong> for v1.3.0 in which both guides cover the same content but in different reading-style registers. Companion to ADR-078 (EXECUTIVE_SUMMARY absorbed into README).</p>
+<section id="architecture" class="level3">
+<h3 class="anchored" data-anchor-id="architecture">Architecture</h3>
+<pre><code>README.md                       # top-fold executive summary (per ADR-078) + 2-guide chooser
+index.qmd                       # 60-sec landing + 2-guide chooser
+WRITEUP_PAPER.md (NEW)          # ACADEMIC: IMRAD discipline (~530 lines)
+WRITEUP_NARRATIVE.md (NEW)      # NARRATIVE: 5-act story (~570 lines)
+WRITEUP.md                      # STUB-REDIRECT: 1-page router preserving backward refs
+RESULTS.md                      # APPENDIX: tables-only (cross-ref'd by both guides; trim deferred to v1.3.1 if needed)
+READING_GUIDE.md                # NAVIGATION: 2-path router
+WRITEUP/data-decisions.md       # UNCHANGED: 8 domain spokes serve as deep-dive references for both guides
+WRITEUP/eval-design.md          # ...
+WRITEUP/model-rungs.md
+WRITEUP/methodology-guarantees.md
+WRITEUP/threshold-policy.md
+WRITEUP/reference-scorer-audit.md
+WRITEUP/reproducibility.md
+WRITEUP/limitations-and-future-work.md</code></pre>
 </section>
-<section id="e2-audit-trail-discipline-preserved" class="level3">
-<h3 class="anchored" data-anchor-id="e2-audit-trail-discipline-preserved">E2 — Audit-trail discipline preserved</h3>
-<p>The 3 immutable-ADR fixes do NOT change decision content; ADR audit trail remains intact. Per-file <code>git log</code> shows the original commit + the v1.2.6 broken-ref-fix commit; both are recoverable. The narrow scope (§B2 out-of-scope) prevents slippery-slope drift to decision-content edits.</p>
+<section id="guide-content-outlines" class="level3">
+<h3 class="anchored" data-anchor-id="guide-content-outlines">Guide content outlines</h3>
+<p><strong>WRITEUP_PAPER.md</strong> (academic IMRAD; ~530 lines): - §0 Abstract (5-sentence structured: motivation / approach / finding / mechanism / implication) - §1 Introduction (research question + contribution) - §2 Background (prompt-injection landscape; existing detectors; data sources) - §3 Methods (4 subsections: LODO splits / model rungs / evaluation slate / statistical apparatus) - §4 Results (7 numbered equal-weight findings; headline = Finding 3 of 7; no dedicated headline section) - §5 Discussion (mechanism: lexical overfitting + label-relevance shift + implications) - §6 Limitations (6 subsections incl.&nbsp;incomplete-experiment status) - §7 Conclusion - §8 References (ADR refs + external bibliography + project artifacts) - Glossary (in-paper definitions; cross-ref to docs/GLOSSARY.md)</p>
+<p><strong>WRITEUP_NARRATIVE.md</strong> (narrative arc; ~570 lines): - Act 0 — Hook (the surprise: anti-correlation; dramatic opening) - Act 1 — Setup (what we wanted to know + threat-model context + out-of-scope) - Act 2 — Investigation (LODO discipline + cross-family slate + 5-rung detector ladder + statistical apparatus) - Act 3 — Revelation (headline finding rendered as dramatic third- act reveal: AUPRC at floor + AUROC below 0.5 anti-correlation + mechanism interpretation) - Act 4 — The other findings (Findings 4-7 as supporting cast in equal-weight enumeration; preserves the “don’t bury the other results” requirement) - Act 5 — Implications (3 cautious claims + 5 future-work priorities + broader-field implication) - Epilogue — Limits + reproduction instructions + dig-deeper pointers + closing note</p>
 </section>
-<section id="e3-documentation-debt-paid-down-v1.1.4-v1.2.6-trail" class="level3">
-<h3 class="anchored" data-anchor-id="e3-documentation-debt-paid-down-v1.1.4-v1.2.6-trail">E3 — Documentation debt paid down (v1.1.4 → v1.2.6 trail)</h3>
-<p>The lychee link-check CI was introduced at v1.1.4 as an “URL rot defense” but was non-functional from inception. v1.2.3 + v1.2.4 fixed the workflow’s v0.23.0 compat issues; v1.2.6 closes the surfaced content debt (35 unique broken URLs across 7 root-cause classes). The lychee CI now runs end-to-end + actually catches link rot going forward.</p>
+<section id="headline-prominence-per-style" class="level3">
+<h3 class="anchored" data-anchor-id="headline-prominence-per-style">Headline prominence per style</h3>
+<p>Each guide treats the headline finding natively per its style (per the v1.3.0 plan Q4 lock):</p>
+<ul>
+<li><strong>PAPER</strong>: Finding 3 is one of 7 equal-weight numbered results in §4 Results. Academic neutrality; no dedicated headline section.</li>
+<li><strong>NARRATIVE</strong>: Headline is the dramatic Act-3 revelation. Story- arc convention demands a climactic third-act reveal; this is it.</li>
+</ul>
+<p>The structural variation IS the reader-experience difference. Same factual content; different rhetoric. This resolves the “headline yet other results shown” tension explicitly — both guides cover all 7 findings; the headline gets prominence native to the guide’s style.</p>
 </section>
-<section id="e4-two-adr-symmetry" class="level3">
-<h3 class="anchored" data-anchor-id="e4-two-adr-symmetry">E4 — Two-ADR symmetry</h3>
-<p>ADR-067 and ADR-068 are co-equal narrow exceptions to the same CLAUDE.md immutability rule: - ADR-067: slug typos in cross-references (wrong-but-existing target) - ADR-068: broken external refs (target doesn’t exist anywhere)</p>
-<p>Both follow the same §B-discipline: in-scope corrections + out-of-scope changes + commit-message-convention + future-PR-review-discipline.</p>
+<section id="voice-register-per-q4-lock" class="level3">
+<h3 class="anchored" data-anchor-id="voice-register-per-q4-lock">Voice register per Q4 lock</h3>
+<ul>
+<li><strong>PAPER</strong>: formal academic. Passive voice (“The methodology applies…”); technical terminology; numbered subsections; explicit confidence intervals; cross-references to ADRs and external papers; on-first-use jargon definitions + cross-ref to GLOSSARY.</li>
+<li><strong>NARRATIVE</strong>: plain-English first-person plural (‘we’). Active voice (“We wanted to know…”); minimal jargon; defined on first use + cross-ref to GLOSSARY. Extends the precedent set by docs/for-hiring-managers.md (per ADR-064: the only first-person surface) to first-person-plural for narrative.</li>
+</ul>
 </section>
-<section id="e5-future-prs-flagged-on-out-of-scope-edits" class="level3">
-<h3 class="anchored" data-anchor-id="e5-future-prs-flagged-on-out-of-scope-edits">E5 — Future PRs flagged on out-of-scope edits</h3>
-<p>If a future patch attempts to edit decision content in-place under the guise of ADR-067 or ADR-068, PR review should flag the diff + require a superseding ADR. The narrow-relaxation rules are NOT slippery slopes; they codify specific, well-defined factual-defect classes.</p>
+<section id="both-guides-explain-jargon" class="level3">
+<h3 class="anchored" data-anchor-id="both-guides-explain-jargon">Both guides explain jargon</h3>
+<p>Both guides define jargon on first use and cross-reference the canonical glossary at docs/GLOSSARY.md. This means PAPER doesn’t assume the reader knows all the ML terms (academic reviewer might be from a different ML subfield), and NARRATIVE’s accessibility doesn’t drop precision (story reader still gets accurate definitions). The Q4 lock comment: “in both we should still explain jargon and include the glossary.”</p>
 </section>
-<section id="e6-cost-trivial" class="level3">
-<h3 class="anchored" data-anchor-id="e6-cost-trivial">E6 — Cost-trivial</h3>
-<p>$0. CPU-only edits across 3 immutable-ADR lines (ADR-025 line 13 + ADR-065 lines 108, 122) + the CLAUDE.md / decisions/README.md / GLOSSARY clarification updates.</p>
+<section id="writeup.md-retired-as-stub-redirect" class="level3">
+<h3 class="anchored" data-anchor-id="writeup.md-retired-as-stub-redirect">WRITEUP.md retired as stub-redirect</h3>
+<p>The current WRITEUP.md (the jumbled hybrid) becomes a 1-page stub: “Pick how you’d like to read this: <code>[academic](../WRITEUP_PAPER.md)</code> or <code>[narrative](../WRITEUP_NARRATIVE.md)</code>”. This preserves backward references from the 8 WRITEUP/ spokes + ADRs without breaking links. The historical WRITEUP.md content is accessible at the reviewer URL pin (<code>tree/v1.2.8</code>) per ADR-033.</p>
 </section>
+<section id="supersession-scope" class="level3">
+<h3 class="anchored" data-anchor-id="supersession-scope">Supersession scope</h3>
+<p>This ADR supersedes ADR-053, ADR-054, ADR-061 on <strong>specific reading- guide architecture axes only</strong>, not on their full decision content:</p>
+<ul>
+<li><strong>ADR-053</strong>: superseded on dimension 1 (“Quarto reading-guide architecture” — the two-entry-artifact framing). Dimensions 3 (3-reading-paths), 4 (Headline-finding-block requirement), and 5 (interpretation-pedagogy + pointer-convention) unchanged. ADR-053 dimension 2 was separately superseded by ADR-078 (EXECUTIVE_SUMMARY absorption).</li>
+<li><strong>ADR-054</strong>: superseded on the “RESULTS.md as third entry artifact” framing. RESULTS becomes an appendix / tables-only reference in v1.3.0, not an entry artifact. ADR-054’s body content (5 sections defining RESULTS structure) survives in form even though the artifact role changes.</li>
+<li><strong>ADR-061</strong>: superseded on the navbar/sidebar restructure axis. v1.3.0 navbar gains “Academic paper” + “Narrative arc” entries; sidebar “Entry” section drops EXECUTIVE_SUMMARY; new “Methodology guides (pick a style)” section introduces the two guides.</li>
+</ul>
+<p>ADR-062 (writeup clarity + canonical figures) is preserved unchanged; the canonical figures + reader-facing prose-style work informs both new guides.</p>
+<p>ADR-004 (reviewer-profile-and-hub-and-spoke-writeup) is preserved unchanged; the 8 WRITEUP/ spokes still serve as deep-dive references for both guides.</p>
+</section>
+<section id="submission_audit.md-cascade" class="level3">
+<h3 class="anchored" data-anchor-id="submission_audit.md-cascade">SUBMISSION_AUDIT.md cascade</h3>
+<p>This ADR’s creation moves the ADR count from 78 → 79. The v1.2.14 <code>audit_adr_count_claims.py</code> invariant catches reader-facing ADR-count claims that would go stale: - <code>README.md</code>: 78 → 79 - <code>docs/for-hiring-managers.md</code>: 78 → 79 - <code>WRITEUP/methodology-guarantees.md</code>: 78 → 79 - <code>CLAUDE.md</code>: 78 → 79</p>
+<p><code>SUBMISSION_AUDIT.md</code> regenerates via <code>scripts/regenerate_audit.py</code>; CLAIM count goes 78 → 79. Fourth time the audit_adr_count_claims invariant has correctly fired across the v1.2.13/14/15/16 → v1.3.0 trail — validates v1.2.14 design intent.</p>
+</section>
+</section>
+<section id="consequences" class="level2">
+<h2 class="anchored" data-anchor-id="consequences">Consequences</h2>
+<ul>
+<li>Reader path simplifies: index (60-sec) → README (full executive summary + chooser) → either guide (PAPER or NARRATIVE) → 8 spokes (depth). Each layer has a unique role; no cross-layer redundancy.</li>
+<li>Maintenance burden reduces in the long run (single-source-of-truth per surface); doubles temporarily during v1.3.x while both guides exist (any future result update touches PAPER + NARRATIVE + RESULTS; mitigation: results are frozen at v1.0.0, so write-once is acceptable).</li>
+<li>Reader-experience differentiation: academic reviewer gets a paper; story reader gets a story; both get the same content.</li>
+<li>The “headline but also other results” tension is structurally resolved: PAPER treats all 7 findings equal-weight (Finding 3 is just one of them); NARRATIVE gives the headline dramatic Act-3 prominence + Acts 4’s equal-weight enumeration of the other 6.</li>
+<li>Historical reviewer link to WRITEUP.md remains stable via the <code>tree/v1.2.8</code> pin (per ADR-033). Current-state WRITEUP.md is a redirect stub; readers following links land on the chooser and pick a guide.</li>
+<li>audit_adr_count_claims invariant catches the cascade (78→79); 4th time it has fired correctly in the trail.</li>
+<li>audit_superseded_by_backlinks invariant catches the ADR-079 → ADR-053/054/061 supersession edges; comment-heuristic classifies them as axis-only (correct).</li>
+</ul>
+</section>
+<section id="alternatives-considered" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-considered">Alternatives Considered</h2>
+<ol type="1">
+<li><strong>Three guides</strong> (academic + narrative + hybrid). Initial Q1 lock was 3 guides; user reconsidered (“lets think for a second”) + reduced to 2 + README-absorbs-EXEC-SUMMARY. Rationale: 3 guides produced 3× content duplication for a frozen artifact; well-executed 2 guides serve the same reader-types without the third “hybrid” guide (since hybrid is what the current jumbled WRITEUP.md was).</li>
+<li><strong>One guide done well</strong> (restructure WRITEUP to clean hybrid + add README Abstract). Rejected per Q1 lock — user prefers reader-type choice between paradigms. Hybrid alone doesn’t address the “neither narrative nor academic” complaint structurally.</li>
+<li><strong>Minimal triage</strong> (kill redundancy, no restructure). Rejected per Q1 lock — symptomatic fix only; doesn’t address the user-stated need for a story or academic structure.</li>
+<li><strong>Pure academic IMRAD only</strong> (one guide). Rejected — loses the story-reader path. The “for-hiring-managers” persona page exists but is only 5-min depth; the NARRATIVE guide serves the longer story-style read.</li>
+<li><strong>Pure narrative arc only</strong> (one guide). Rejected — loses the academic-reviewer path. Defensibility at peer review weaker without IMRAD discipline.</li>
+<li><strong>Add MIGRATION.md mapping old WRITEUP sections to new guides</strong>. Considered for v1.3.1; not in v1.3.0 scope. The WRITEUP.md stub-redirect + the historical reviewer URL pin together cover the migration use case.</li>
+</ol>
 </section>
 <section id="linked-adrs" class="level2">
 <h2 class="anchored" data-anchor-id="linked-adrs">Linked ADRs</h2>
 <ul>
-<li><strong>References</strong>:
-<ul>
-<li>CLAUDE.md — the source-of-truth for immutability (clarified by ADR-067 + ADR-068 dual-narrow-exception)</li>
-<li>decisions/README.md — the ADR lifecycle + frontmatter schema (also gets the dual-citation update)</li>
-<li><a href="../decisions/ADR-067-immutability-clarification-and-canonical-slug-reference.html">ADR-067</a> — precedent narrow relaxation for slug typos; ADR-068 extends with two additional classes</li>
-</ul></li>
-<li><strong>Source</strong>: v1.2.6 link-check fix-forward; root-cause analysis began during the v1.2.5 /exploring-options 4-question walk (2026-05-19), where the user picked “Extend ADR-067 narrow relaxation → ADR-068 + in-place fix (Recommended)” on Question 1 + “Full structural fix — ADR-068 + DOI canon + triage (Recommended)” on Question 4.</li>
+<li><strong>ADR-004</strong> (Reviewer profile + hub-and-spoke writeup): preserved unchanged. The 8 WRITEUP/ spokes still serve as deep-dive references; the “hub” is now distributed between WRITEUP_PAPER and WRITEUP_NARRATIVE (cited from both as “WRITEUP/ spokes”).</li>
+<li><strong>ADR-033</strong> (Release strategy + reviewer URL pin): preserves the v1.0.0 EXECUTIVE_SUMMARY.md and v1.0.0 WRITEUP.md hybrid at the historical reviewer pin. v1.3.0 ships on live site + main only.</li>
+<li><strong>ADR-053</strong> (Reading-guide governance): superseded on dimension 1 axis only (entry artifacts framing); other dimensions unchanged.</li>
+<li><strong>ADR-054</strong> (RESULTS as third entry artifact): superseded on the entry-artifacts framing axis. RESULTS becomes appendix/reference, not an entry artifact.</li>
+<li><strong>ADR-061</strong> (Navbar/sidebar restructure): superseded on the navbar/sidebar structure axis. v1.3.0 introduces “Methodology guides (pick a style)” sidebar section + navbar entries for the two guides.</li>
+<li><strong>ADR-062</strong> (Writeup clarity + canonical figures): preserved. Canonical figures inform both new guides.</li>
+<li><strong>ADR-064</strong> (Writeup hiring-manager clarity): preserved. First- person-precedent at for-hiring-managers.md extended to NARRATIVE’s first-person-plural.</li>
+<li><strong>ADR-078</strong> (EXECUTIVE_SUMMARY absorbed into README): companion ADR for v1.3.0. Together with ADR-079 discharges the v1.3.0 restructure governance.</li>
 </ul>
 </section>
 <section id="transcript" class="level2">
 <h2 class="anchored" data-anchor-id="transcript">Transcript</h2>
-<p><code>transcripts/2026-05-19__v1-2-5-link-check-content-debt-and-immutability-extension.md</code> — captures the multi-class link-check content debt close + the ADR-068 narrow relaxation extension.</p>
+<p>Transcript file (gitignored per AGENTS.md): the 2026-05-21 v1.3.0 planning session — diagnosis of the jumbled-structure complaint, 4-question /exploring-options walk (paradigm + headline prominence + version bump + v1.2.16 cleanup), follow-up 4-question slate (file naming + sub-PR strategy + authorship + voice register), user- locked 2-guide architecture after “lets think for a second” deliberation. <code>/save-transcript 2026-05-21__v1-3-0-two-guide- restructure</code> will land this file post-v1.3.0 close.</p>
 
 
 </section>
