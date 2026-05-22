@@ -89,12 +89,19 @@ h6:hover .anchorjs-link::before {
   opacity: 1;
 }
 
-/* Mobile-narrow viewport: ensure long monospace tokens inside table cells
- * (e.g., `evals/bootstrap/marginal_cells.parquet`) wrap rather than force
- * horizontal page overflow. Plain `td { overflow-wrap: anywhere }` above
- * does not apply through inline `<code>` elements which default to
- * `white-space: pre`. Per v1.3.2 P3-2 fix from AUDIT_CLAUDE_2026-05-22. */
+/* Mobile-narrow viewport: ensure long monospace tokens wrap rather than
+ * force horizontal page overflow. Default `code` styling uses
+ * `white-space: pre` which prevents wrapping; we override on mobile.
+ *
+ * v1.3.2 P3-2 introduced this rule for `table code` (fixed RESULTS §7
+ * raw-artifacts table overflow). v1.3.4 §3.B extends to all `<code>`
+ * elements after the visual audit found inline `<code>` in prose
+ * paragraphs (e.g., `AutoModelForSequenceClassification.from_pretrained`,
+ * `evals/predictions/<rung>__fold0__seed42__*.parquet`) causing 136px
+ * mobile overflow on `WRITEUP/reproducibility.html`. */
 @media (max-width: 480px) {
+  code,
+  pre code,
   table code,
   td code,
   th code {

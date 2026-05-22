@@ -989,16 +989,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#model-details" id="toc-model-details" class="nav-link active" data-scroll-target="#model-details">Model Details</a>
-  <ul class="collapse">
-  <li><a href="#detector-1-the-linear-floor" id="toc-detector-1-the-linear-floor" class="nav-link" data-scroll-target="#detector-1-the-linear-floor">4.1 Detector 1: <em>the linear floor</em></a></li>
+  <li><a href="#detector-1-the-linear-floor" id="toc-detector-1-the-linear-floor" class="nav-link active" data-scroll-target="#detector-1-the-linear-floor">4.1 Detector 1: <em>the linear floor</em></a></li>
   <li><a href="#detector-2-what-the-backbone-already-encodes" id="toc-detector-2-what-the-backbone-already-encodes" class="nav-link" data-scroll-target="#detector-2-what-the-backbone-already-encodes">4.2 Detector 2: <em>what the backbone already encodes</em></a></li>
   <li><a href="#detector-3-the-fine-tuning-ceiling-at-the-projects-compute-budget" id="toc-detector-3-the-fine-tuning-ceiling-at-the-projects-compute-budget" class="nav-link" data-scroll-target="#detector-3-the-fine-tuning-ceiling-at-the-projects-compute-budget">4.3 Detector 3: <em>the fine-tuning ceiling at the project’s compute budget</em></a></li>
   <li><a href="#detector-4-narrow-scope-reference-scorer" id="toc-detector-4-narrow-scope-reference-scorer" class="nav-link" data-scroll-target="#detector-4-narrow-scope-reference-scorer">4.4 Detector 4: <em>narrow-scope reference scorer</em></a></li>
   <li><a href="#detector-5-broad-scope-reference-scorer" id="toc-detector-5-broad-scope-reference-scorer" class="nav-link" data-scroll-target="#detector-5-broad-scope-reference-scorer">4.5 Detector 5: <em>broad-scope reference scorer</em></a></li>
   <li><a href="#note-on-dropped-reference-detectors" id="toc-note-on-dropped-reference-detectors" class="nav-link" data-scroll-target="#note-on-dropped-reference-detectors">Note on dropped reference detectors</a></li>
   <li><a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references">Cross-references</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1029,8 +1026,6 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="model-details" class="level1">
-<h1>Model Details</h1>
 <p><em>Deep-dive reference for the methodology in <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic) and <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (narrative). Pick a guide for the cover narrative; this spoke goes deeper.</em></p>
 <blockquote class="blockquote">
 <p><strong>How to read this spoke</strong>: For a fast skim, focus on the bolded <strong>Result</strong> subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers. Note: the filename retains “rungs” as an architectural artifact (older ADRs use that term); reader-facing prose elsewhere calls these “detectors” — same thing.</p>
@@ -1164,7 +1159,6 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Linked ADRs</strong>: ADR-015 (single-backbone slate), ADR-017 (classical floor + trained-rung slate), ADR-018 (reference slate), ADR-019 (transformer training recipe), ADR-044 (Phase 2 implementation), ADR-049 (GPU order priority refresh), ADR-050 (rung-slate narrowing).</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
