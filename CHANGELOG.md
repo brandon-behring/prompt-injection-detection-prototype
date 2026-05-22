@@ -20,6 +20,45 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+### v1.3.1 sub-PR-5 — README chooser clarity (Q6 A+B+C)
+
+**Defect**: Live README chooser was present but discoverability was
+poor. A GitHub-arriving reader (who doesn't see the Quarto sidebar)
+sees: title → 1-sentence framing → Executive Summary (multi-screen:
+OOD table + mechanism + direct-detection tables) → "Read the site"
+header. The chooser was several scrolls below the fold; the label
+"Read the site" didn't telegraph that this is where you pick between
+PAPER and NARRATIVE. By the time many readers reached the chooser,
+they'd decided they'd gotten what they came for.
+
+**Fix (Q6 lock A+B+C)**:
+
+- **A. Above-the-fold pointer**: inserted a 1-line pointer immediately
+  after the badges + 1-sentence framing, before `## Executive
+  summary`. Names both guides with their length estimates:
+  > Pick a guide for the full methodology — both cover the same
+  > content: WRITEUP_PAPER.md (academic IMRAD, ~45 min) or
+  > WRITEUP_NARRATIVE.md (narrative arc, ~30 min). The executive
+  > summary below is the 1-page distillation; pick a guide for the
+  > full read.
+- **B. Renamed H2 "Read the site" → "Pick a guide for the full
+  methodology"**: telegraphs reader-intent + matches `index.qmd`'s
+  "Pick your reading style" H2 label. Aligns the two entry surfaces
+  (README + index) on chooser-prominence framing.
+- **C. End-of-Executive-Summary chooser transition**: added an inline
+  transition at the close of the Executive Summary section:
+  > → Continue with the academic paper (~45 min) or the narrative
+  > (~30 min). Both cover the same methodology, findings, and
+  > limitations in different reading styles.
+  Provides a second discovery point for readers who scrolled through
+  the exec-summary.
+
+(D considered but rejected): Reorder chooser items to put the 60-sec
+tour first. Rejected because current depth-first ordering matches the
+academic-reviewer-first prioritization per ADR-004, and the 60-second
+tour is already discoverable from the navbar Reference dropdown +
+index.qmd's chooser.
+
 ### v1.3.1 sub-PR-4 — Class-C/D polish + scripts/audit_internal_anchors.py + anchor-link cleanup
 
 **Polish (Q5 + Q9 locks)**:

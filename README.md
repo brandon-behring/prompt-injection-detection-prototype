@@ -4,6 +4,12 @@
 
 **A methodology-focused evaluation of prompt-injection detectors under cross-family distribution shift.** Asks one question: when detectors trained on direct prompt-injection examples meet attack families they didn't see, do they still work?
 
+> **Pick a guide for the full methodology** — both cover the same content:
+> [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) (academic IMRAD, ~45 min) or
+> [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) (narrative arc, ~30 min).
+> The executive summary below is the 1-page distillation; pick a guide
+> for the full read.
+
 ---
 
 ## Executive summary
@@ -93,9 +99,13 @@ This is a capability characterization, not a deployment recommendation. The
 artifact's contribution is the honest evaluation harness plus the negative
 result on cross-family transfer.
 
+→ Continue with the [academic paper](./WRITEUP_PAPER.md) (~45 min) or
+the [narrative](./WRITEUP_NARRATIVE.md) (~30 min). Both cover the same
+methodology, findings, and limitations in different reading styles.
+
 ---
 
-## Read the site
+## Pick a guide for the full methodology
 
 Pick the format that fits how you want to read this:
 
