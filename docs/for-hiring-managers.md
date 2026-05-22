@@ -81,7 +81,7 @@ See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
 
 ## 4. What does this say about how the candidate thinks?
 
-- **Spec-Driven Development**: 80 immutable Architecture Decision Records
+- **Spec-Driven Development**: 81 immutable Architecture Decision Records
   (ADRs) lock methodology choices *before* code is written. Browse
   [decisions/](../decisions/) for the justification trail.
 - **Confound-control discipline**: when the headline result raised the natural
@@ -94,8 +94,8 @@ See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
   is project-specific glue. See [`decisions/library_imports.md`](../decisions/library_imports.md).
 
 If you want the deeper read, pick a guide:
-[WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic IMRAD; ~45 min) or
-[WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (5-act narrative; ~30 min)
+[WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic IMRAD; ~20–25 min) or
+[WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (5-act narrative; ~15–20 min)
 — both cover the same content + cite the 8 topic spokes
 ([WRITEUP/](../WRITEUP/)) for deep dives on data decisions, model
 details, evaluation design, threshold policy, reference-scorer audit,

@@ -12,14 +12,14 @@ content (per [ADR-079](./decisions/ADR-079-two-guide-reader-architecture.md)):
 
 | Guide | Style | Length | Best for |
 |---|---|---|---|
-| [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) | Academic IMRAD (Abstract / Methods / Results / Discussion / Limits / Refs) | ~45 min | Reviewers expecting journal-paper discipline |
-| [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) | Story arc (Hook / Setup / Investigation / Revelation / Implications) | ~30 min | Readers preferring plain-English first-person prose |
+| [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) | Academic IMRAD (Abstract / Methods / Results / Discussion / Limits / Refs) | ~20–25 min | Reviewers expecting journal-paper discipline |
+| [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) | Story arc (Hook / Setup / Investigation / Revelation / Implications) | ~15–20 min | Readers preferring plain-English first-person prose |
 
 Both guides cover the same content. Pick the register that fits.
 
 ## Persona-specific paths
 
-### Path A — Academic reviewer (~45 min)
+### Path A — Academic reviewer (~20–25 min)
 
 Read [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) end-to-end. It is structured
 as a journal paper (Abstract, Introduction, Background, Methods,
@@ -32,7 +32,7 @@ at [WRITEUP/](./WRITEUP/) — 8 files covering data decisions, evaluation
 design, model details, threshold policy, reference-scorer audit,
 methodology guarantees, reproducibility, and limitations + future work.
 
-### Path B — Story reader (~30 min)
+### Path B — Story reader (~15–20 min)
 
 Read [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) end-to-end. It is
 structured as a 5-act story arc with an epilogue. Plain-English voice;
@@ -49,7 +49,7 @@ Read [Project at a glance](./docs/for-hiring-managers.md). Four
 questions: what problem, what found, why trust, how the candidate
 thinks. This is the shortest reader path.
 
-### Path D — Reproducer (~30 min setup + ~$0 to ~$125 compute)
+### Path D — Reproducer (~15–20 min setup + ~$0 to ~$125 compute)
 
 Three tiers per [WRITEUP/reproducibility.md](./WRITEUP/reproducibility.md):
 
@@ -81,7 +81,7 @@ prose. 5 canonical figures + raw artifact pointers.
 
 - **Glossary**: [docs/GLOSSARY.md](./docs/GLOSSARY.md) — all technical
   terms used in either guide, with cross-references.
-- **Decisions**: 80 ADRs at [decisions/](./decisions/) lock the
+- **Decisions**: 81 ADRs at [decisions/](./decisions/) lock the
   methodology choices. Both guides cite specific ADRs at every
   methodology decision point.
 - **Evidence trail**: [EVIDENCE.md](./EVIDENCE.md) for external-evidence
@@ -90,7 +90,7 @@ prose. 5 canonical figures + raw artifact pointers.
 
 ## Submission anchors
 
-- **Current state**: [`tree/v1.3.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0)
+- **Current state**: [`tree/v1.3.2`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.2)
   (2026-05-21) — live-site source.
 - **Original submission tag**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
   (2026-05-18) — preserved as historical reviewer pin per ADR-033.

@@ -73,24 +73,41 @@ Full field list: `docs/MANIFEST_SCHEMA.md`. The schema is owned upstream by `eva
 
 ## Reviewer reproduction tier
 
-Two-tier reproduction (locked at Phase 0-07 via ADR-029):
+Three-tier reproduction ladder (locked at Phase 0-07 via [ADR-034](../decisions/ADR-034-reproducibility-tier-full-ladder.md);
+implementation wired at v1.0.9 via [ADR-058](../decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md)).
+Matches the contract documented in [`WRITEUP/reproducibility.md`](../WRITEUP/reproducibility.md),
+the `README` "Reproduce — three tiers" section, and `READING_GUIDE.md` Path D.
 
-- **Tier 0 (T0) — HF Hub score match** (no GPU): `make eval-from-hub
-  RUNG=frozen-probe` and `make eval-from-hub RUNG=lora` pull the canonical
-  fold0/seed42 checkpoint from `BBehring/prompt-injection-<rung>`, run CPU
-  inference against the local val slate, and score-match against
-  `evals/results.json` within 1e-4 absolute (ADR-034 tolerance). ~10-30
-  min per rung. Verifies eval-pipeline integrity + checkpoint-download
-  integrity.
-- **Tier 1 (T1) — full canonical re-eval** (GPU; A100 80GB): `make
-  headline-cloud` re-runs frozen-probe + LoRA + full-FT through the full
-  LODO matrix via `runpod-deploy`. ~7h wall-clock; ~$28 GPU spend (per
-  ADR-039 cost envelope). Verifies the full training-through-eval
-  pipeline.
+- **Tier 0 (T0) — HF Hub score match** (laptop; ~$0; ~10–30 min): `make
+  eval-from-hub RUNG=frozen-probe` and `make eval-from-hub RUNG=lora`
+  pull the canonical fold0/seed42 checkpoint from
+  `BBehring/prompt-injection-<rung>`, run CPU inference against the
+  local val slate, and score-match against `evals/results.json` within
+  1e-4 absolute (ADR-034 tolerance). Verifies eval-pipeline integrity
+  + checkpoint-download integrity without retraining.
+- **Tier 1 (T1) — laptop smoke** (laptop; ~$0; <10 min): `make smoke`
+  runs `pytest -m smoke` + a fixture-data end-to-end pass through
+  `scripts/run_metrics_battery.py`. Verifies code health (every
+  import resolves; every entry-point runs; no schema mismatches). Does
+  **NOT** verify math correctness — uses fixture data, not real data.
+- **Tier 3 (T3) — headline cloud** (cloud-GPU; ~$125+; ~hours): `make
+  headline-cloud` runs the full retrain-and-eval pass through
+  `runpod-deploy` per the
+  [ADR-020](../decisions/ADR-020-compute-infrastructure-and-cost-discipline.md)
+  cost cap (`budget.cost_cap_usd = 125.0`). Verifies the entire
+  training-through-eval pipeline, including data preparation. The
+  only tier that re-derives headline numbers from scratch.
 
-T0 is the recommended reviewer path. T1 is offered for the reviewer who
-wants to independently verify training-side numerics; T0 alone covers
-the methodology-and-eval-side reproducibility claim.
+T2 (`make test-integration`) is a developer-tool tier (requires a
+local GPU); not part of the reviewer-facing ladder because T0 covers
+eval and T3 covers full retraining (per ADR-034).
+
+T0 is the recommended reviewer path — cheapest + highest coverage for
+most readers. T3 is the deepest verification level for reviewers who
+want to independently re-derive every headline number. The ladder
+maps onto [ACM Artifact Review and Badging](https://www.acm.org/publications/policies/artifact-review-and-badging-current)
+conventions: T0 + T1 supply *Available* + *Functional* + *Reusable*;
+T3 supplies *Reproducible*.
 
 ## Cross-references
 

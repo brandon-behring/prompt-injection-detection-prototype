@@ -24,7 +24,7 @@ caveats, §9 negative results (tried + abandoned), and §11 lessons.
 The distinction matters: §8 = scope decisions defensible at submission; §9 =
 experimental work that did not pan out; §11 = process-level
 lessons. For headline characterisation that exposes these
-limitations see [WRITEUP_PAPER §6 Limitations](../WRITEUP_PAPER.md#limitations) (academic) or [WRITEUP_NARRATIVE Epilogue](../WRITEUP_NARRATIVE.md#epilogue--limits--reproduction) (narrative).
+limitations see [WRITEUP_PAPER §6 Limitations](../WRITEUP_PAPER.md#limitations) (academic) or [WRITEUP_NARRATIVE Epilogue](../WRITEUP_NARRATIVE.md#epilogue-limits-reproduction) (narrative).
 
 ## 8.1 Scope deferrals
 

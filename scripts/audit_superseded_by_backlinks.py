@@ -66,6 +66,7 @@ CLOSING_COMMIT_EXEMPT: set[str] = {
     "078",  # EXECUTIVE_SUMMARY absorption governance; v1.3.0 PR-1; closing_commit forward-references the PR-1 SHA
     "079",  # 2-guide reader architecture governance; v1.3.0 PR-4; closing_commit forward-references the PR-4 SHA
     "080",  # reviewer-URL-pin numeric correction governance; v1.3.1 PR-1; closing_commit forward-references this PR's SHA (chicken-and-egg)
+    "081",  # frontmatter `status:` field-split narrow-relaxation governance; v1.3.2 PR; closing_commit forward-references this PR's SHA (chicken-and-egg)
 }
 
 

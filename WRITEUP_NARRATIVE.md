@@ -6,7 +6,7 @@ description: "Plain-English story-arc article presenting the project's methodolo
 # Prompt-Injection Classification: Methodology and Capability Characterization
 
 **Author**: Brandon Behring | **Date**: 2026-05-21 | **Status**:
-live-site current state `tree/v1.3.0`; original submission tag
+live-site current state `tree/v1.3.2`; original submission tag
 `tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
 ADR-033.
 
@@ -35,10 +35,10 @@ result that looks neat at first glance and uncomfortable on second
 read.
 
 Direct prompt-injection detection works well. The TF-IDF + logistic
-regression baseline reaches 0.974 AUPRC on balanced direct-versus-
-benign validation. The LoRA-fine-tuned ModernBERT classifier ties at
-0.974. By any standard in-distribution metric, the detectors learned
-the task.
+regression baseline reaches 0.971 AUPRC on balanced direct-versus-
+benign validation. The LoRA-fine-tuned ModernBERT classifier edges
+it out at 0.974. By any standard in-distribution metric, the detectors
+learned the task.
 
 Then we tested them on attack families they had not seen during
 training. The best detector landed at 0.364 AUPRC against a random
@@ -572,7 +572,7 @@ HF Hub checkpoints: [BBehring/prompt-injection-frozen-probe](https://huggingface
   data decisions, evaluation design, model details, threshold policy,
   reference-scorer audit, methodology guarantees, reproducibility,
   limitations and future work.
-- **Decision rationale**: 80 ADRs at [decisions/](./decisions/) lock
+- **Decision rationale**: 81 ADRs at [decisions/](./decisions/) lock
   the methodology choices.
 - **Cost ledger**: [evals/cost_ledger.csv](./evals/cost_ledger.csv)
   for full GPU and API spend accounting.

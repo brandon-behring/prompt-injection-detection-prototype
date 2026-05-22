@@ -11,7 +11,7 @@ Every canonical evaluation run produces a `manifest.json` capturing provenance. 
 
 This file documents the **expected fields** so a reviewer inspecting `evals/<run>/manifest.json` knows what's there and why each field exists.
 
-`[OPEN]` Exact schema version is locked at Phase 0-08 (library version pinning). The default is v3 unless Phase 0 locks otherwise.
+`[LOCKED]` **Schema version**: `manifest.v3.json` per [ADR-057](../decisions/ADR-057-manifest-schema-v3-backfill-conventions.md). v3 is the current `eval-toolkit` upstream default (v0.23.0+). Project consumes the upstream schema unchanged; no project-local extension fields.
 
 ## Required fields
 

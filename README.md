@@ -5,8 +5,8 @@
 **A methodology-focused evaluation of prompt-injection detectors under cross-family distribution shift.** Asks one question: when detectors trained on direct prompt-injection examples meet attack families they didn't see, do they still work?
 
 > **Pick a guide for the full methodology** — both cover the same content:
-> [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) (academic IMRAD, ~45 min) or
-> [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) (narrative arc, ~30 min).
+> [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) (academic IMRAD, ~20–25 min) or
+> [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) (narrative arc, ~15–20 min).
 > The executive summary below is the 1-page distillation; pick a guide
 > for the full read.
 
@@ -99,8 +99,8 @@ This is a capability characterization, not a deployment recommendation. The
 artifact's contribution is the honest evaluation harness plus the negative
 result on cross-family transfer.
 
-→ Continue with the [academic paper](./WRITEUP_PAPER.md) (~45 min) or
-the [narrative](./WRITEUP_NARRATIVE.md) (~30 min). Both cover the same
+→ Continue with the [academic paper](./WRITEUP_PAPER.md) (~20–25 min) or
+the [narrative](./WRITEUP_NARRATIVE.md) (~15–20 min). Both cover the same
 methodology, findings, and limitations in different reading styles.
 
 ---
@@ -109,8 +109,8 @@ methodology, findings, and limitations in different reading styles.
 
 Pick the format that fits how you want to read this:
 
-- **Academic paper format (IMRAD)** → [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~45 min)
-- **Narrative format (story)** → [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) — plain-English first-person 5-act story arc (~30 min)
+- **Academic paper format (IMRAD)** → [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~20–25 min)
+- **Narrative format (story)** → [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) — plain-English first-person 5-act story arc (~15–20 min)
 - **60-second tour** → [Project at a glance](https://brandon-behring.github.io/prompt-injection-detection-prototype/docs/for-hiring-managers.html)
 - **Just the data** → [RESULTS.md](./RESULTS.md) — exact tables + 5 canonical figures + raw artifact pointers
 - **Reproduce** → [T0 laptop / T1 smoke / T3 cloud tier ladder](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/reproducibility.html) (~$0 / ~$0 / ~$125)
@@ -180,7 +180,7 @@ make render-figures   # render canonical F1-F5 figures from evals/
 
 ## How this project thinks
 
-- **Spec-driven development** — 80 immutable Architecture Decision Records under [`decisions/`](./decisions/) lock methodology choices before code lands.
+- **Spec-driven development** — 81 immutable Architecture Decision Records under [`decisions/`](./decisions/) lock methodology choices before code lands.
 - **Library-first invariant** — shared evaluation primitives live in upstream libraries ([eval-toolkit](https://github.com/brandon-behring/eval-toolkit), [runpod-deploy](https://github.com/brandon-behring/runpod-deploy), [research_toolkit](https://github.com/brandon-behring/research_toolkit)); local code is project-specific glue. Upstream gaps land in [`decisions/upstream_issues.md`](./decisions/upstream_issues.md) before any local workaround.
 - **Confound-control discipline** — when the headline result raised the natural follow-up ("does a longer context window fix the OOD gap?"), a controlled DeBERTa-v3-base ablation was designed (chunk-and-average vs head-truncation). Result: a publishable null. See [ADR-060](./decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md).
 
@@ -189,14 +189,14 @@ make render-figures   # render canonical F1-F5 figures from evals/
 | Path | Contents |
 |---|---|
 | [`index.qmd`](./index.qmd) | first-reader landing page |
-| [`WRITEUP_PAPER.md`](./WRITEUP_PAPER.md) | academic IMRAD article (45 min) |
-| [`WRITEUP_NARRATIVE.md`](./WRITEUP_NARRATIVE.md) | narrative story-arc article (30 min) |
+| [`WRITEUP_PAPER.md`](./WRITEUP_PAPER.md) | academic IMRAD article (~20–25 min) |
+| [`WRITEUP_NARRATIVE.md`](./WRITEUP_NARRATIVE.md) | narrative story-arc article (~15–20 min) |
 | [`RESULTS.md`](./RESULTS.md) | exact tables, 5 canonical figures, raw artifact pointers |
 | [`WRITEUP.md`](./WRITEUP.md) | 1-page router pointing at the two guides |
 | [`WRITEUP/`](./WRITEUP/) | 8 detailed methodology spokes (deep-dive references) |
 | [`EVIDENCE.md`](./EVIDENCE.md) | external-evidence audit trail |
 | [`NEXT_STEPS.md`](./NEXT_STEPS.md) | future-work surface |
-| [`decisions/`](./decisions/) | 80 ADRs documenting methodology + governance |
+| [`decisions/`](./decisions/) | 81 ADRs documenting methodology + governance |
 | [`evals/`](./evals/) | metrics, bootstrap CIs, operating points, per-row predictions |
 | [`docs/plots/`](./docs/plots/) | F1-F5 figures + metadata sidecars (provenance trail) |
 | [`docs/GLOSSARY.md`](./docs/GLOSSARY.md) | term definitions referenced by both guides |
@@ -219,7 +219,7 @@ Single-turn English text classification only. Not in scope: multilingual attacks
 
 ## Submission anchors
 
-- **Current state:** [`tree/v1.3.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0) (2026-05-21) — live-site source
+- **Current state:** [`tree/v1.3.2`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.2) (2026-05-22) — live-site source
 - **Original submission tag:** [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0) (2026-05-18) — preserved as historical reviewer pin per ADR-033
 - **Live rendered site:** <https://brandon-behring.github.io/prompt-injection-detection-prototype/>
 - **HF Hub checkpoints:** [frozen probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe), [LoRA](https://huggingface.co/BBehring/prompt-injection-lora)

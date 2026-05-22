@@ -67,7 +67,7 @@
 | CLAIM-057 | [ADR-057](decisions/ADR-057-manifest-schema-v3-backfill-conventions.md) | Accepted | v1.0.8 |
 | CLAIM-058 | [ADR-058](decisions/ADR-058-eval-from-hub-non-dry-run-body-narrow-supersession-of-adr-051-block-a.md) | Accepted | v1.0.9 |
 | CLAIM-059 | [ADR-059](decisions/ADR-059-runpod-deploy-pypi-install-narrow-supersession-of-adr-036.md) | Accepted | v1.1.0 |
-| CLAIM-060 | [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md) | Accepted (methodology lock — infrastructure landed; execution deferred to v1.1.1 per /exploring-options 2026-05-19 Path B lock) | v1.1.0 (methodology); v1.1.1 (execution carryforward) |
+| CLAIM-060 | [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md) | Accepted | v1.1.0 (methodology); v1.1.1 (execution carryforward) |
 | CLAIM-061 | [ADR-061](decisions/ADR-061-quarto-site-navigation-restructure.md) | Accepted | v1.1.1 |
 | CLAIM-062 | [ADR-062](decisions/ADR-062-quarto-writeup-clarity-and-canonical-figures.md) | Accepted | pending implementation commit |
 | CLAIM-063 | [ADR-063](decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.md) | Accepted | v1.1.2 |
@@ -88,6 +88,7 @@
 | CLAIM-078 | [ADR-078](decisions/ADR-078-executive-summary-absorbed-into-readme.md) | Accepted |  |
 | CLAIM-079 | [ADR-079](decisions/ADR-079-two-guide-reader-architecture.md) | Accepted |  |
 | CLAIM-080 | [ADR-080](decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md) | Accepted |  |
+| CLAIM-081 | [ADR-081](decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.md) | Accepted |  |
 
 ## Claim details
 
@@ -3163,7 +3164,7 @@ frontmatter `superseded_by` updated to `["055", "059"]` in-place per ADR-029 con
 
 ### CLAIM-060 - [ADR-060](decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md): DeBERTa-v3-base medium ablation methodology — chunk-and-average vs head-truncation × 5-slice OOD; infrastructure-only at v1.1.0; execution deferred to v1.1.1
 
-**Status**: Accepted (methodology lock — infrastructure landed; execution deferred to v1.1.1 per /exploring-options 2026-05-19 Path B lock)
+**Status**: Accepted
 
 **Source**: transcripts/2026-05-19__v1-1-0-runpod-deploy-and-deberta.md (private; emailed at submission)
 
@@ -4070,5 +4071,54 @@ supersessions on reading-guide-architecture axes (ADR-076 through ADR-079).
 surfaces v1.3.0 missed: CLAUDE.md + CHANGELOG header narrative + WRITEUP.md +
 WRITEUP/methodology-guarantees.md). ADR-078 + ADR-079 body content (numeric claims, alternatives,
 decision rationale, prose) unchanged.
+
+</div>
+
+
+<div class="ledger-detail">
+
+### CLAIM-081 - [ADR-081](decisions/ADR-081-frontmatter-status-field-split-narrow-relaxation.md): Authorize frontmatter `status:` field split (verbose-context → pure-Nygard `status:` + new `lifecycle-note:`) as an extension of the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill narrow-relaxation discipline; apply to ADR-060 as the seed case
+
+**Status**: Accepted
+
+**Source**: v1.3.2 multi-LLM audit cycle (Claude AUDIT_CLAUDE_2026-05-22 P3-3 finding) surfaced ADR-060's non-Nygard `status:` field. Per /exploring-options 2026-05-22 Q2 lock (B1 — narrow-relaxation frontmatter edit, not in-place body change). The discipline matches the ADR-072 / ADR-076 / ADR-077 frontmatter-backfill chain — edit frontmatter, leave body untouched, document the precedent in a new ADR so future readers can see the audit trail.
+
+**Closing commit/ADR**: _Not recorded._
+
+**Claim**
+
+The v1.3.2 audit surfaced ADR-060's frontmatter `status:` field as carrying non-Nygard verbose
+context: `status: Accepted (methodology lock — infrastructure landed; execution deferred to v1.1.1
+per /exploring-options 2026-05-19 Path B lock)`. The parenthetical context is load-bearing
+operationally (it explains why ADR-060 was marked Accepted at v1.1.0 even though execution didn't
+land until v1.1.2 per ADR-063) but breaks the canonical Michael-Nygard `status: <{Proposed,
+Accepted, Superseded, Deprecated, Rejected}>` schema. ADR-060 is the only such ADR in the 80-ADR
+corpus (as of v1.3.1 close); future ADRs may similarly want to surface lifecycle-context that
+doesn't fit pure Nygard. This ADR extends the existing frontmatter-backfill narrow-relaxation
+discipline (ADR-072 → ADR-076 → ADR-077) to a new field-split axis: any ADR whose `status:` is
+non-Nygard MAY have its frontmatter split in-place into pure-Nygard `status:` + a new
+`lifecycle-note:` field carrying the verbose context. No decision content changes; only frontmatter
+audit-trail metadata is restructured. The split preserves the prior author's intent (the verbose
+context survives in `lifecycle-note:`) while restoring schema-compliance of `status:`. Applied to
+ADR-060 in the same patch (sole seed case as of v1.3.2): - Before: `status: Accepted (methodology
+lock — infrastructure landed; execution deferred to v1.1.1 per /exploring-options 2026-05-19 Path B
+lock)` - After: `status: Accepted` + new field `lifecycle-note: methodology lock — infrastructure
+landed; execution deferred to v1.1.1 per /exploring-options 2026-05-19 Path B lock`.
+`decisions/README.md` schema documentation is updated to enumerate `lifecycle-note:` as an OPTIONAL
+frontmatter field. Cascades from this ADR's creation: - SUBMISSION_AUDIT.md CLAIM row count: 80 →
+81. - README + docs/for-hiring-managers + WRITEUP/methodology-guarantees + CLAUDE.md ADR-count
+claims: 80 → 81 (caught mechanically by v1.2.14's `audit_adr_count_claims.py` invariant — proving
+its design intent on the 7th consecutive ADR-add).
+
+**Acceptance criterion**
+
+`grep '^status:' decisions/ADR-060-*.md` returns `status: Accepted` (pure Nygard). `grep
+'^lifecycle-note:' decisions/ADR-060-*.md` returns the previously-parenthesized text.
+`decisions/README.md` documents `lifecycle-note:` as an OPTIONAL frontmatter field.
+`scripts/audit_adr_count_claims.py` exits 0 (the v1.2.14 invariant catches reader-facing surfaces'
+"80 ADRs" → "81 ADRs" requirement; this ADR's creation cascades through).
+`scripts/regenerate_audit.py --check` passes after the split with 81 CLAIM rows.
+`scripts/audit_superseded_by_backlinks.py` exits 0 (ADR-081's axis-only supersession of ADR-060 is
+correctly classified via comment heuristic).
 
 </div>
