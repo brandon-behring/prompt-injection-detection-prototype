@@ -393,4 +393,4 @@ ADR-054's `supersedes: [ADR-053]` is sufficient.
 - [ADR-032 — HF Hub model card schema](ADR-032-hf-hub-publication-headline-rungs-only.md) — `evals/results.json` source for HF Hub T0 reproducibility tier; surfaced in RESULTS §5.
 - [`RESULTS.md`](../RESULTS.md) — the v1.0.5 artifact this ADR governs.
 - [`index.qmd`](../index.qmd) — entry artifact 2 (orientation; ADR-053 + ADR-054).
-- [`EXECUTIVE_SUMMARY.md`](../EXECUTIVE_SUMMARY.md) — entry artifact 1 (thesis distillation; ADR-053 + ADR-054).
+- [`README.md` §Executive summary](../README.md#executive-summary) — entry artifact 1 (thesis distillation; ADR-053 + ADR-054; absorbed into README at v1.3.0 per ADR-078, narrow-relaxation Class B file-reference correction for the now-deleted `EXECUTIVE_SUMMARY.md`).
