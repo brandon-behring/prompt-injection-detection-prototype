@@ -6,7 +6,7 @@ description: "Plain-English story-arc article presenting the project's methodolo
 # Prompt-Injection Classification: Methodology and Capability Characterization
 
 **Author**: Brandon Behring | **Date**: 2026-05-21 | **Status**:
-live-site current state `tree/v1.3.0`; original submission tag
+live-site current state `tree/v1.3.2`; original submission tag
 `tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
 ADR-033.
 
