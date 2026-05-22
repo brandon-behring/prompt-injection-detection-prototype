@@ -550,7 +550,7 @@ HF Hub checkpoints: [BBehring/prompt-injection-frozen-probe](https://huggingface
   data decisions, evaluation design, model details, threshold policy,
   reference-scorer audit, methodology guarantees, reproducibility,
   limitations and future work.
-- **Decision rationale**: 78 ADRs at [decisions/](./decisions/) lock
+- **Decision rationale**: 79 ADRs at [decisions/](./decisions/) lock
   the methodology choices.
 - **Cost ledger**: [evals/cost_ledger.csv](./evals/cost_ledger.csv)
   for full GPU and API spend accounting.

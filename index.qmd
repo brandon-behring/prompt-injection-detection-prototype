@@ -1,141 +1,83 @@
 ---
 title: "Prompt-injection classifier: what the evaluation found"
 author: "Brandon Behring"
-date: "2026-05-19"
-description: "Plain-language landing page for the prompt-injection classifier evaluation."
+date: "2026-05-21"
+description: "60-second landing page for the prompt-injection classifier evaluation, with chooser between academic and narrative reading formats."
 ---
 
 # Prompt-injection classifier: what the evaluation found
 
-Prompt injection is untrusted text that tries to override the instructions an
-LLM system is supposed to follow. This project asks a narrow question: when
-several simple prompt-injection detectors are trained on direct
-instruction-override examples, can they detect that pattern, and do they still
-work when the attack family changes?
+Prompt injection is untrusted text that tries to override the instructions
+an LLM system is supposed to follow. This project asks one narrow question:
+when several simple prompt-injection detectors are trained on direct
+instruction-override examples, can they detect that pattern, and do they
+still work when the attack family changes?
 
 The short answer is: **direct detection works better; cross-family
-generalization fails**. The evaluation is useful because it shows both halves
-of that story instead of hiding the OOD failure behind a strong direct score.
+generalization fails**. Two trained detectors land *below* the 0.5 AUROC
+random floor on cross-family OOD — their rankings are anti-correlated with
+truth on attack classes they were not trained on. Only the frozen
+ModernBERT probe stays above the floor.
 
-Here, **out-of-distribution (OOD)** means examples drawn from attack families
-that were absent or underrepresented in training.
+This page is the 60-second landing. Pick how you want to read the rest:
 
-## What Was Evaluated
+---
 
-- **Task**: single-turn English text classification: injection vs benign.
-- **Training style**: four direct-injection sources, such as "ignore the
-  previous instructions" attacks.
-- **OOD test style**: five held-out slices covering indirect injection,
-  multi-turn agentic flow, jailbreak-style questions, and benign text that
-  only looks injection-shaped.
-- **Models**: a TF-IDF + logistic-regression floor, a frozen ModernBERT probe,
-  a ModernBERT LoRA fine-tune, two ProtectAI reference detectors, and
-  (LODO direct-source only) a ModernBERT full fine-tune; the full fine-tune's
-  comparable pooled OOD inference did not run, see
-  [ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md).
-- **Non-goal**: this is not a deployment recommendation and not a leaderboard.
+## Pick your reading style
 
-## Headline Result
+- **As a journal paper (academic IMRAD)** → [WRITEUP_PAPER.md](./WRITEUP_PAPER.md)
+  — Abstract, Introduction, Methods, Results, Discussion, Limitations,
+  Conclusion, References. Formal voice; technical terminology with
+  on-first-use definitions. ~45 min.
+- **As a story (narrative arc)** → [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md)
+  — Hook, Setup, Investigation, Revelation, Implications, Epilogue.
+  Plain-English first-person prose. ~30 min.
+- **As a hiring manager (60 seconds)** → [Project at a glance](./docs/for-hiring-managers.md)
+  — 4 questions: what problem, what found, why trust, how the candidate thinks.
+- **As a reproducer** → [WRITEUP/reproducibility.md](./WRITEUP/reproducibility.md)
+  + the [T0/T1/T3 tier ladder](./README.md#reproduce-three-tiers) (~$0 / ~$0 / ~$125).
+- **Just the data** → [RESULTS.md](./RESULTS.md) — exact tables + 5 canonical
+  figures + raw artifact pointers, no narrative prose.
 
-Two direct detection checks set up the contrast: balanced direct+benign
-validation asks whether the detectors learned the basic direct prompt-injection
-pattern, and held-out direct-source recall asks whether that direct signal
-survives a source holdout. The failure appears when the attack family changes.
-On pooled OOD, the main metric is
-**AUPRC**, which is useful for imbalanced binary classification. A random
-ranking scores **0.374** because 412 of 1101 examples are positive. A detector
-needs to beat that floor to show useful ranking signal.
+The README has the 1-page executive summary including headline numbers +
+mechanism + direct-detection check tables — see
+[README.md#executive-summary](./README.md#executive-summary).
+
+Both reading-style guides cover the same content (problem, methodology,
+all 7 findings, mechanism interpretation, limitations); the register and
+pacing differ. Technical terms are defined on first use in either guide
+and cross-referenced to [docs/GLOSSARY.md](./docs/GLOSSARY.md).
+
+---
+
+## Headline pooled OOD AUPRC
 
 | Detector | Pooled OOD AUPRC | 95% CI | Read |
 |---|---:|---:|---|
-| ModernBERT frozen probe | **0.364** | [0.354, 0.375] | Best in-house score, still at the random floor |
-| ProtectAI v1\* | 0.361 | [0.330, 0.391] | Reference scorer with verified training-pool overlap; not a clean OOD baseline |
-| ProtectAI v2\* | 0.314 | [0.283, 0.345] | Reference scorer with verified training-pool overlap; not a clean OOD baseline |
-| ModernBERT LoRA | 0.293 | [0.286, 0.301] | Fine-tuning hurt OOD ranking |
-| TF-IDF + LR | 0.291 | [0.283, 0.298] | Classical floor, roughly tied with LoRA |
+| ModernBERT frozen probe | **0.364** | [0.354, 0.375] | best in-house score, still at random floor (0.374) |
+| ProtectAI v1\* | 0.361 | [0.330, 0.391] | reference scorer with verified training-pool overlap; not a clean OOD baseline |
+| ProtectAI v2\* | 0.314 | [0.283, 0.345] | reference scorer with verified training-pool overlap; does not dominate v1 |
+| ModernBERT LoRA | 0.293 | [0.286, 0.301] | trained adapter ranks below random; AUROC 0.383 below 0.5 floor |
+| TF-IDF + LR | 0.291 | [0.283, 0.298] | classical floor; AUROC 0.371 also below 0.5 floor |
 
-\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool sources
-(`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`) per
-[EVIDENCE](EVIDENCE.md) §1-2. Pooled OOD scores on slices that overlap with
-that training pool are not clean OOD baselines; treat the rows as diagnostic
-references, not peer to in-house detectors.
+\* ProtectAI v1 + v2 were trained on at least 2 of 4 LODO training-pool
+sources (`deepset/prompt-injections`, `Lakera/gandalf_ignore_instructions`)
+per [EVIDENCE](./EVIDENCE.md) §1-2. Pooled OOD scores on slices that
+overlap with that training pool are not clean OOD baselines.
 
-**Reading the table:**
+Random AUPRC on the pooled OOD slate is 412/1101 = 0.374. No detector
+clearly beats that floor. Under AUROC (0.5 random floor), the two trained
+adapters land *below* 0.5 with confidence intervals on the wrong side —
+the headline finding.
 
-- **Pooled OOD AUPRC** is the area under the precision-recall curve on the
-  combined held-out attack-family slate.
-- A random ranking on this slate scores about **0.374** because 412 of 1101
-  examples are positive.
-- Any detector at or below that floor is not clearly better than guessing.
-- The 95% confidence interval (CI) is the uncertainty band around the score.
+For the full executive summary (mechanism + direct-detection check
+tables + reproduction instructions), see [README.md](./README.md). For
+the same content as a paper or a story, pick a guide above.
 
-## Direct Detection Check
+---
 
-The pooled OOD table is the failure case. The direct detection check below
-shows why that failure is meaningful: the same evaluation stack did learn the
-direct task before it failed under cross-family shift.
+## Submission anchors
 
-**Balanced direct+benign validation.** This split includes direct-injection
-positives and benign negatives, so AUPRC, AUROC, and recall are all defined.
-
-| Detector | AUPRC | AUROC | Recall@0.5 | Interpretation |
-|---|---:|---:|---:|---|
-| ModernBERT LoRA | **0.974** | **0.993** | **0.934** | strongest direct-pattern detector |
-| TF-IDF + LR | 0.971 | 0.992 | 0.930 | lexical direct baseline is also strong |
-| ModernBERT frozen probe | 0.653 | 0.907 | 0.849 | weaker ranking, still discriminative |
-
-**Held-out direct-source recall.** This leave-one-dataset-out direct-source
-test is all-positive, so the table reports recall only.
-
-| Detector | Recall@0.5 | Interpretation |
-|---|---:|---|
-| ModernBERT frozen probe | **0.641** | best held-out direct-source recall |
-| ModernBERT LoRA | 0.625 | similar recall, despite worse pooled OOD ranking |
-| ModernBERT full fine-tune\*\* | 0.558 | lower direct-source recall |
-
-\*\* Full-FT is shown for LODO direct-source completeness (24 Phase 2 predictions
-persisted); the comparable pooled OOD inference was **not run** (Phase 5 X11
-crash, see
-[ADR-075](decisions/ADR-075-full-ft-ood-drop-rationale-unified-narrative.md)).
-The full-FT row is absent from the Pooled OOD table for that reason.
-
-False positives, AUPRC, and AUROC are omitted from the held-out direct-source
-table because that slice has no negatives. Direct-task success makes the OOD
-failure more informative, not less: the detectors learned one family and did
-not transfer cleanly to others.
-
-## What This Means
-
-1. **Direct detection was learned.** The trained detectors can separate direct
-   prompt injections from benign validation examples.
-2. **The failure is cross-family.** The OOD slate includes attack families the
-   direct-trained detectors did not see.
-3. **Trained adapters were anti-correlated, not just neutral.** Trained detectors hit
-   AUROC 0.99 in-pool but drop to 0.38 on cross-family --- a ~0.6 generalization
-   gap that lands below the 0.5 random floor (LoRA 0.383, TF-IDF 0.371; CIs
-   clear 0.5 on the wrong side). The mechanism is lexical overfitting + a
-   label-relevance shift on the OOD slate: NotInject (benign-but-injection-
-   shaped) inverts the negative side; indirect/agentic attacks (no
-   direct-injection lexical patterns) invert the positive side. The frozen
-   probe (no LODO-pool adaptation) holds at 0.515 --- small positive signal
-   preserved by not overfitting to direct-injection lexical features.
-4. **A newer detector is not automatically better.** ProtectAI v2 improves one
-   slice but regresses on another.
-5. **Thresholds do not transfer cleanly.** A threshold tuned for 1% false
-   positives on validation can produce much higher false-positive rates on
-   held-out sources.
-6. **The accomplishment is characterization.** The project demonstrates the
-   evaluation harness, direct-pattern learning, and the limits of the trained
-   detectors under family shift.
-
-## Read Next
-
-- **Start here for a fast review → [60-second project-at-a-glance tour](docs/for-hiring-managers.md)**:
-  4 questions (what problem / what found / why trust / how the candidate
-  thinks). This is the primary path after the landing page.
-- **Then verify the numbers → [Results](RESULTS.md)**: exact tables, five
-  canonical figures, and raw artifact pointers.
-- [Executive summary](EXECUTIVE_SUMMARY.md): one-page decision-maker version.
-- [Writeup](WRITEUP.md): methodology narrative and links to detailed spokes.
-- [Reading guide](READING_GUIDE.md): paths for quick review, audit, and
-  reproduction.
+- **Current state**: [`tree/v1.3.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.0) (2026-05-21) — live-site source
+- **Original submission tag**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0) (2026-05-18) — preserved as historical reviewer pin per ADR-033
+- **HF Hub checkpoints**: [frozen probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe), [LoRA](https://huggingface.co/BBehring/prompt-injection-lora)

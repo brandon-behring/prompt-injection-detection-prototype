@@ -36,13 +36,16 @@ COST_LEDGER_PATH = Path("evals/cost_ledger.csv")
 PER_CELL_PARQUET = Path("evals/metrics/per_cell.parquet")
 DECISIONS_DIR = Path("decisions")
 
-# 12 reviewer-facing surfaces per ADR-065 §B1.
+# Reviewer-facing surfaces per ADR-065 §B1, updated per ADR-078 (EXECUTIVE_SUMMARY
+# absorbed into README) + ADR-079 (two-guide reader architecture adds WRITEUP_PAPER
+# + WRITEUP_NARRATIVE; WRITEUP.md becomes a router stub).
 REVIEWER_FACING_FILES = [
     Path("index.qmd"),
-    Path("EXECUTIVE_SUMMARY.md"),
     Path("README.md"),
     Path("RESULTS.md"),
     Path("WRITEUP.md"),
+    Path("WRITEUP_PAPER.md"),
+    Path("WRITEUP_NARRATIVE.md"),
     Path("READING_GUIDE.md"),
     Path("NEXT_STEPS.md"),
     Path("CHANGELOG.md"),

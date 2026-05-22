@@ -80,7 +80,7 @@ See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
 
 ## 4. What does this say about how the candidate thinks?
 
-- **Spec-Driven Development**: 78 immutable Architecture Decision Records
+- **Spec-Driven Development**: 79 immutable Architecture Decision Records
   (ADRs) lock methodology choices *before* code is written. Browse
   [decisions/](../decisions/) for the justification trail.
 - **Confound-control discipline**: when the headline result raised the natural
