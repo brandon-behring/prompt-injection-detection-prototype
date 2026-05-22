@@ -35,10 +35,10 @@ result that looks neat at first glance and uncomfortable on second
 read.
 
 Direct prompt-injection detection works well. The TF-IDF + logistic
-regression baseline reaches 0.974 AUPRC on balanced direct-versus-
-benign validation. The LoRA-fine-tuned ModernBERT classifier ties at
-0.974. By any standard in-distribution metric, the detectors learned
-the task.
+regression baseline reaches 0.971 AUPRC on balanced direct-versus-
+benign validation. The LoRA-fine-tuned ModernBERT classifier edges
+it out at 0.974. By any standard in-distribution metric, the detectors
+learned the task.
 
 Then we tested them on attack families they had not seen during
 training. The best detector landed at 0.364 AUPRC against a random

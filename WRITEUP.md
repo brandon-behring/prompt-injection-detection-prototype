@@ -10,8 +10,8 @@ that matches how you'd like to read it.
 
 | Style | Length | Best for |
 |---|---|---|
-| [**Academic paper (IMRAD)**](./WRITEUP_PAPER.md) | ~45 min | Reviewers expecting Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References discipline. Formal voice, technical terminology with on-first-use definitions. |
-| [**Narrative arc (story)**](./WRITEUP_NARRATIVE.md) | ~30 min | Readers preferring plain-English first-person prose. Same content, story-style pacing (Hook → Setup → Investigation → Revelation → Implications). |
+| [**Academic paper (IMRAD)**](./WRITEUP_PAPER.md) | ~20–25 min | Reviewers expecting Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References discipline. Formal voice, technical terminology with on-first-use definitions. |
+| [**Narrative arc (story)**](./WRITEUP_NARRATIVE.md) | ~15–20 min | Readers preferring plain-English first-person prose. Same content, story-style pacing (Hook → Setup → Investigation → Revelation → Implications). |
 
 Both guides cover the same content (problem, methods, all 7 findings,
 mechanism, limitations); the style and pacing differ. Technical terms

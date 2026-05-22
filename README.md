@@ -5,8 +5,8 @@
 **A methodology-focused evaluation of prompt-injection detectors under cross-family distribution shift.** Asks one question: when detectors trained on direct prompt-injection examples meet attack families they didn't see, do they still work?
 
 > **Pick a guide for the full methodology** — both cover the same content:
-> [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) (academic IMRAD, ~45 min) or
-> [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) (narrative arc, ~30 min).
+> [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) (academic IMRAD, ~20–25 min) or
+> [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) (narrative arc, ~15–20 min).
 > The executive summary below is the 1-page distillation; pick a guide
 > for the full read.
 
@@ -99,8 +99,8 @@ This is a capability characterization, not a deployment recommendation. The
 artifact's contribution is the honest evaluation harness plus the negative
 result on cross-family transfer.
 
-→ Continue with the [academic paper](./WRITEUP_PAPER.md) (~45 min) or
-the [narrative](./WRITEUP_NARRATIVE.md) (~30 min). Both cover the same
+→ Continue with the [academic paper](./WRITEUP_PAPER.md) (~20–25 min) or
+the [narrative](./WRITEUP_NARRATIVE.md) (~15–20 min). Both cover the same
 methodology, findings, and limitations in different reading styles.
 
 ---
@@ -109,8 +109,8 @@ methodology, findings, and limitations in different reading styles.
 
 Pick the format that fits how you want to read this:
 
-- **Academic paper format (IMRAD)** → [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~45 min)
-- **Narrative format (story)** → [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) — plain-English first-person 5-act story arc (~30 min)
+- **Academic paper format (IMRAD)** → [WRITEUP_PAPER.md](./WRITEUP_PAPER.md) — formal Abstract / Introduction / Methods / Results / Discussion / Limits / Conclusion / References (~20–25 min)
+- **Narrative format (story)** → [WRITEUP_NARRATIVE.md](./WRITEUP_NARRATIVE.md) — plain-English first-person 5-act story arc (~15–20 min)
 - **60-second tour** → [Project at a glance](https://brandon-behring.github.io/prompt-injection-detection-prototype/docs/for-hiring-managers.html)
 - **Just the data** → [RESULTS.md](./RESULTS.md) — exact tables + 5 canonical figures + raw artifact pointers
 - **Reproduce** → [T0 laptop / T1 smoke / T3 cloud tier ladder](https://brandon-behring.github.io/prompt-injection-detection-prototype/WRITEUP/reproducibility.html) (~$0 / ~$0 / ~$125)
@@ -189,8 +189,8 @@ make render-figures   # render canonical F1-F5 figures from evals/
 | Path | Contents |
 |---|---|
 | [`index.qmd`](./index.qmd) | first-reader landing page |
-| [`WRITEUP_PAPER.md`](./WRITEUP_PAPER.md) | academic IMRAD article (45 min) |
-| [`WRITEUP_NARRATIVE.md`](./WRITEUP_NARRATIVE.md) | narrative story-arc article (30 min) |
+| [`WRITEUP_PAPER.md`](./WRITEUP_PAPER.md) | academic IMRAD article (~20–25 min) |
+| [`WRITEUP_NARRATIVE.md`](./WRITEUP_NARRATIVE.md) | narrative story-arc article (~15–20 min) |
 | [`RESULTS.md`](./RESULTS.md) | exact tables, 5 canonical figures, raw artifact pointers |
 | [`WRITEUP.md`](./WRITEUP.md) | 1-page router pointing at the two guides |
 | [`WRITEUP/`](./WRITEUP/) | 8 detailed methodology spokes (deep-dive references) |
