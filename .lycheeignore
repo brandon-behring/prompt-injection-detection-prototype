@@ -51,6 +51,7 @@
 ^https://doi\.org/10\.2307/2531595$
 ^https://doi\.org/10\.1080/01621459\.2023\.2197686$
 ^https://doi\.org/10\.2307/2290993$
+^https://doi\.org/10\.2307/2289144$
 
 # Specific historical 404s retained only in immutable ADR citation fields.
 # Fix mutable docs in-place; do not broaden these patterns without a concrete
@@ -70,3 +71,14 @@
 # resolves to a real URL after v1.2.13 is tagged; safe to keep here (or
 # remove on next housekeeping commit).
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.2\.13$
+
+# v1.3.0 EXECUTIVE_SUMMARY.md removal — file deleted per ADR-078 (absorbed
+# into README §Executive summary). Reader-facing references were fixed
+# in-place (RESULTS.md + docs/for-hiring-managers.md) to point at
+# README.md#executive-summary. The remaining reference in
+# decisions/ADR-054 is in an immutable historical ADR documenting the
+# entry-artifact framing as it existed pre-v1.3.0; the link target no
+# longer resolves but the historical text is faithful. Pattern matches
+# any lychee `file://...EXECUTIVE_SUMMARY.md` resolution attempt to that
+# now-deleted file at repo root.
+^file://.*/EXECUTIVE_SUMMARY\.md$
