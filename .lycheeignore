@@ -88,3 +88,7 @@
 # resolves after the v1.3.2 tag is pushed and the publish workflow advances
 # the live site. Same chicken-and-egg pattern as v1.2.13 above.
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.3\.2$
+
+# Self-referential tag — added at v1.3.3 patch authoring time per ADR-033;
+# resolves after the v1.3.3 tag is pushed. Same chicken-and-egg as v1.3.2.
+^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.3\.3$

@@ -20,6 +20,36 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.3] — 2026-05-22 {#v1-3-3}
+
+**Library-first follow-up tag**: discharges the v1.3.2 locked
+follow-up — file the 3 audit-script-gap proposals as upstream issues
+against `brandon-behring/eval-toolkit` per the
+[library-first invariant](CLAUDE.md). No project-side code change.
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Added
+
+- **eval-toolkit [#71](https://github.com/brandon-behring/eval-toolkit/issues/71)** — `audit.reader_value_bindings`: validate detector→value bindings in reader-prose Markdown. Test case from the v1.3.2 audit cycle: the WRITEUP_NARRATIVE Act 0 P1-1 bug where canonical AUPRC value 0.974 was bound to TF-IDF instead of LoRA. Existing `audit_numbers.py` validates source-of-truth values but not reader-prose binding correctness.
+- **eval-toolkit [#72](https://github.com/brandon-behring/eval-toolkit/issues/72)** — `audit.sister_doc_concept_drift`: detect cross-doc semantic drift across linked sister docs. Test case: the v1.3.2 P1-2 contradiction where `docs/REPRODUCIBILITY.md` said `T1 = full cloud rerun ($28)` while linked sister `WRITEUP/reproducibility.md` said `T1 = laptop smoke ($0)`. Embedding-similarity clustering proposal.
+- **eval-toolkit [#73](https://github.com/brandon-behring/eval-toolkit/issues/73)** — `audit.adr_citation_alignment`: validate "per ADR-NNN" citations match the cited ADR's actual subject. Test case: the v1.3.2 P1-2 defects where `docs/REPRODUCIBILITY.md:76` cited ADR-029 (test markers) for tier-lock + `:88` cited ADR-039 (integration gates) for cost. Frontmatter-driven category map proposal.
+
+### Updated
+
+- `decisions/upstream_issues.md` — 3 new ledger rows recording the
+  filings at #71, #72, #73.
+- Reader-surface `tree/v1.3.2` anchors advanced to `tree/v1.3.3`
+  across `index.qmd`, `README.md`, `READING_GUIDE.md`,
+  `WRITEUP_PAPER.md`, `WRITEUP_NARRATIVE.md`.
+- `.lycheeignore` adds `tree/v1.3.3` (chicken-and-egg per v1.3.2 +
+  v1.2.13 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.2] — 2026-05-22 {#v1-3-2}
 
 **Polish patch**: post-v1.3.1 multi-LLM audit cycle (Claude

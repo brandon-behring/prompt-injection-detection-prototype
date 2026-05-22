@@ -90,7 +90,7 @@ prose. 5 canonical figures + raw artifact pointers.
 
 ## Submission anchors
 
-- **Current state**: [`tree/v1.3.2`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.2)
+- **Current state**: [`tree/v1.3.3`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.3)
   (2026-05-21) — live-site source.
 - **Original submission tag**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
   (2026-05-18) — preserved as historical reviewer pin per ADR-033.
