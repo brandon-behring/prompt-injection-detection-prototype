@@ -1,3 +1,8 @@
+---
+title: "Methodology guarantees"
+description: "Three-library tooling split, prediction-persistence pattern, SDD discipline, and library-first invariant for the prompt-injection evaluation."
+---
+
 # Methodology guarantees
 
 *Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
@@ -17,7 +22,7 @@ This spoke covers §6 — the three-library tooling split + SDD / ADR
 process discipline that backs every methodology claim in the
 writeup. For the statistical apparatus that consumes these
 guarantees see [`eval-design.md`](./eval-design.md); for headline
-results see [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#4-results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative); for the data tables alone see [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc).
+results see [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative); for the data tables alone see [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc).
 
 ## 6.1 [eval-toolkit](https://github.com/brandon-behring/eval-toolkit) — methodology-aware evaluation harness
 

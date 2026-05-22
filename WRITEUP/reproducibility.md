@@ -156,8 +156,8 @@ The tier ladder maps approximately onto [ACM Artifact Review and Badging (v1.1)]
 ## Cross-references
 
 - **Methodology guarantees** (eval-toolkit + runpod-deploy + SDD discipline that backs T0/T1/T3) → [`methodology-guarantees.md`](./methodology-guarantees.md)
-- **Headline results consumed by T0 score-match (interpretation)**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#4-results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
-- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc)
+- **Headline results consumed by T0 score-match (interpretation)**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
+- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc)
 - **Evaluation primitives + statistical apparatus** → [`eval-design.md`](./eval-design.md)
 - **Model-rung publication scope** (canonical fold0/seed42 per ADR-032) → [`model-rungs.md`](./model-rungs.md)
 - **Aggregator docs (Makefile targets + manifest schema)** → [`../docs/REPRODUCIBILITY.md`](../docs/REPRODUCIBILITY.md)

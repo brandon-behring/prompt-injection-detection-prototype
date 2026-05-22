@@ -298,7 +298,7 @@ direct-injection-heavy and includes none of these families.
 The result is that direct-injection training does not transfer
 cleanly to these cross-family slices. Per-slice AUPRC (where defined,
 i.e., the both-class slices JBB and XSTest) is reported in
-[RESULTS.md §3 Per-Slice View](./RESULTS.md#3-per-slice-view).
+[RESULTS.md §3 Per-Slice View](./RESULTS.md#per-slice-view).
 
 ### §4.3 Trained adapters anti-correlated with cross-family attack class
 
@@ -346,7 +346,7 @@ Practical implication: detector updates should be evaluated against
 the actual slice mix that matters for the deployment, not on a single
 aggregate metric.
 
-Cross-version comparisons in [RESULTS.md §6 Secondary Table: AUROC](./RESULTS.md#6-secondary-table-auroc).
+Cross-version comparisons in [RESULTS.md §6 Secondary Table: AUROC](./RESULTS.md#secondary-table-auroc).
 
 ### §4.6 Validation thresholds are fragile under cross-family shift
 
@@ -383,7 +383,7 @@ simultaneously fitting the direct training pool, reinforcing the
 §4.1-§4.3 conclusion that direct-pattern learning and cross-family
 score behavior are distinct capabilities.
 
-Full calibration battery in [RESULTS.md §5 Calibration](./RESULTS.md#5-calibration)
+Full calibration battery in [RESULTS.md §5 Calibration](./RESULTS.md#calibration)
 and [Figure F5 calibration comparison](./docs/plots/F5.svg).
 
 ---

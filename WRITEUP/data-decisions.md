@@ -1,3 +1,8 @@
+---
+title: "Data decisions"
+description: "Source slate, deduplication discipline, leakage handling, and LODO split structure for the prompt-injection evaluation."
+---
+
 # Data decisions
 
 *Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
@@ -16,10 +21,10 @@
 This spoke covers data-slate decisions — source selection, dedup
 discipline, leakage handling, and split structure. For the headline
 characterisation that consumes these decisions, see
-[WRITEUP_PAPER §4 Results](../WRITEUP_PAPER.md#4-results) (academic)
+[WRITEUP_PAPER §4 Results](../WRITEUP_PAPER.md#results) (academic)
 or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation)
 (narrative); for the numbers + figures alone see
-[RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc).
+[RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc).
 
 ## 3.1 Why these sources
 

@@ -28,7 +28,7 @@ Hyperparameters are locked before training begins; no val-set
 gridsearch. For the locked recipe in tabular form see
 [`../docs/HYPERPARAMETER_DISCLOSURE.md`](../docs/HYPERPARAMETER_DISCLOSURE.md);
 for headline results using these detectors see
-[WRITEUP_PAPER §4](../WRITEUP_PAPER.md#4-results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative); for the data tables alone see [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc).
+[WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative); for the data tables alone see [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc).
 
 Training compute target locked at A100-SXM4-80GB across 12 cells and 2 epochs
 per ADR-019 + ADR-049 (per-pod cap $40/$60/$100 per ADR-020).
@@ -89,7 +89,7 @@ embeddings carry what little OOD generalization budget exists — but
 the absolute number does not clear the prevalence baseline. By
 AUROC (chance baseline 0.5), frozen-probe lands at 0.515 [0.505,
 0.525] — *the only detector whose AUROC CI clears 0.50 with margin*.
-This is the headline finding of [WRITEUP_PAPER §4.3](../WRITEUP_PAPER.md#43-trained-adapters-anti-correlated-with-cross-family-attack-class) (academic; "Finding 3 — anti-correlation") / [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#finding-3-the-headline-anti-correlation) (narrative).
+This is the headline finding of [WRITEUP_PAPER §4.3](../WRITEUP_PAPER.md#trained-adapters-anti-correlated-with-cross-family-attack-class) (academic; "Finding 3 — anti-correlation") / [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#finding-3-the-headline-anti-correlation) (narrative).
 
 ## 4.3 Detector 3: *the fine-tuning ceiling at the project's compute budget*
 
@@ -120,7 +120,7 @@ the OOD slate they degrade generalization vs the bare backbone embeddings.
 LoRA fine-tuning on this task at this compute budget is a negative result: it
 is close to frozen-probe on XSTest, worse on JBB, and worse on the pooled OOD
 slice. By AUROC, LoRA lands at 0.383 [0.374, 0.392], -0.132 below
-frozen-probe. See [RESULTS §2 Frozen Probe vs LoRA](../RESULTS.md#2-frozen-probe-vs-lora)
+frozen-probe. See [RESULTS §2 Frozen Probe vs LoRA](../RESULTS.md#frozen-probe-vs-lora)
 for the paired-bootstrap detail.
 
 The sharper interpretation: LoRA's pooled OOD AUROC is *below* the 0.5
@@ -213,8 +213,8 @@ gradient compresses from 4 tiers to 3.
 ## Cross-references
 
 - **Hyperparameter disclosure (locked recipe + axes-not-searched)** → [`../docs/HYPERPARAMETER_DISCLOSURE.md`](../docs/HYPERPARAMETER_DISCLOSURE.md)
-- **Headline results (interpretation)**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#4-results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
-- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#1-cross-family-ood-table-auprc)
+- **Headline results (interpretation)**: [WRITEUP_PAPER §4](../WRITEUP_PAPER.md#results) (academic) or [WRITEUP_NARRATIVE Act 3](../WRITEUP_NARRATIVE.md#act-3-revelation) (narrative)
+- **Headline tables (data)**: [RESULTS §1](../RESULTS.md#cross-family-ood-table-auprc)
 - **Reference-scorer contamination audit detail** → [`reference-scorer-audit.md`](./reference-scorer-audit.md)
 
 **Linked ADRs**: ADR-015 (single-backbone slate), ADR-017 (classical

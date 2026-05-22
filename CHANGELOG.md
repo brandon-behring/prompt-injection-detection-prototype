@@ -20,6 +20,47 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+### v1.3.1 sub-PR-4 — Class-C/D polish + scripts/audit_internal_anchors.py + anchor-link cleanup
+
+**Polish (Q5 + Q9 locks)**:
+
+- **Quarto frontmatter added to 6 spokes** that were missing it: data-decisions,
+  eval-design, limitations-and-future-work, methodology-guarantees,
+  reference-scorer-audit, threshold-policy. Pattern from `model-rungs.md` +
+  `reproducibility.md` (the 2 spokes that had it already). Pre-fix: browser
+  tab titles rendered as slug (`data-decisions – ...`); post-fix: proper
+  title (`Data decisions – ...`). SEO + tab labels + bookmark titles improve.
+- **`WRITEUP/limitations-and-future-work.md §11 → §10 renumber** closes the
+  §10 gap (8.1, 8.2, 9.1-9.5, then jumped to §11; now flows 8.1 → 8.2 →
+  9.1-9.5 → §10).
+- **`WRITEUP/limitations-and-future-work.md` "v6" → "a successor iteration"**
+  (4 occurrences): §9.4 header + 3 body references. "v6" was anomalous in a
+  v1.x project (likely stale early-draft language); replaced with
+  style-neutral wording that doesn't bind to a specific version.
+
+**Anchor-link cleanup (post-PR-3 follow-up)**:
+
+PR-3's spoke-retargeting introduced anchors of the form `#43-trained-...`
++ `#46-validation-...` + `#1-cross-family-ood-table-auprc` etc. (carrying
+the leading section-number prefix). Quarto's auto-identifier algorithm
+strips numeric prefixes — actual anchors are `#trained-...`,
+`#validation-...`, `#cross-family-ood-table-auprc`. Batched all
+PR-3-introduced anchors to the prefix-stripped form. Verified via the
+new `scripts/audit_internal_anchors.py` (re-runs clean after the fix).
+
+**Preventive guardrail (partial Q8 — see follow-up)**:
+
+- `scripts/audit_internal_anchors.py` — markdown-only intra-site anchor
+  resolver. Catches dead anchors of the form `[link](./WRITEUP.md#results)`
+  where the target file has no `results` anchor. The exact failure class
+  Lane-3 surfaced (`WRITEUP.html#results` dead anchor). Manual-run for now.
+- **Q8 lychee-in-pre-commit deferred**: lychee binary not installed
+  locally + audit_internal_anchors surfaces 9 pre-existing dead anchors
+  (CHANGELOG self-references to numbered headings + GLOSSARY self-references
+  with em-dash slug-mismatch). These pre-date this audit. Fix-up patch
+  v1.3.2 candidate; deferred to keep v1.3.1 scope tight to "audit
+  fix-forward". CI lychee continues to catch these post-tag.
+
 ### v1.3.1 sub-PR-3 — Class-B stale "WRITEUP-as-hub" retargeting (3-tier rule per Q4 lock)
 
 **Defect**: 22+ references across 8 `WRITEUP/*.md` spokes + 3 non-spoke
