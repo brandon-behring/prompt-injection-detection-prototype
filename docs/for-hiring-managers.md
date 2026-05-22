@@ -3,8 +3,6 @@ title: "Project at a glance"
 description: "Four questions, ~60 seconds: what problem this project solves, what was found, why to trust the finding, and what the work says about how the candidate thinks."
 ---
 
-# Project at a glance
-
 Four questions, ~60 seconds.
 
 For a slightly longer read, see the [headline table on the

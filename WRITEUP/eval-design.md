@@ -3,8 +3,6 @@ title: "Evaluation design"
 description: "Statistical apparatus, OOD slate composition, single-class slice handling, and headline metric battery for the prompt-injection evaluation."
 ---
 
-# Evaluation design
-
 *Deep-dive reference for the methodology in [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic) and [WRITEUP_NARRATIVE.md](../WRITEUP_NARRATIVE.md) (narrative). Pick a guide for the cover narrative; this spoke goes deeper.*
 
 > **How to read this spoke**: For a fast skim, focus on the bolded **Result** subsections + the final §Summary if present. For a full audit, read the methodology paragraphs + the ADR references in headers.

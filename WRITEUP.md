@@ -3,8 +3,6 @@ title: "Writeup — pick your guide"
 description: "Router page directing readers to one of two reading-style guides (academic IMRAD or narrative arc) covering the same content."
 ---
 
-# Writeup — pick a guide
-
 This project's writeup ships in two reading-style formats. Pick the one
 that matches how you'd like to read it.
 

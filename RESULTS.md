@@ -3,8 +3,6 @@ title: "Results: tables, figures, and source artifacts"
 description: "Canonical results page for the prompt-injection classifier evaluation."
 ---
 
-# Results
-
 This page is the evidence layer behind the landing page. It gives exact values,
 five canonical figures, and pointers to the raw artifacts that produced them.
 

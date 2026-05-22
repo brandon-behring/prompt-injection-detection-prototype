@@ -3,8 +3,6 @@ title: "Reading guide"
 description: "Navigation router for the prompt-injection classifier evaluation. Two reading-style guides + persona-specific paths."
 ---
 
-# Reading guide
-
 This page routes you to the part of the writeup that fits your purpose.
 
 The project ships with **two reading-style guides** covering the same
@@ -90,7 +88,7 @@ prose. 5 canonical figures + raw artifact pointers.
 
 ## Submission anchors
 
-- **Current state**: [`tree/v1.3.3`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.3)
+- **Current state**: [`tree/v1.3.4`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.4)
   (2026-05-21) — live-site source.
 - **Original submission tag**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0)
   (2026-05-18) — preserved as historical reviewer pin per ADR-033.

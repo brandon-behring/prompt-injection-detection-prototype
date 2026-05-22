@@ -20,6 +20,67 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.4] — 2026-05-22 {#v1-3-4}
+
+**Visual-audit polish patch**: post-v1.3.3 visual audit
+(`.scratch/VISUAL_AUDIT_CLAUDE_2026-05-22_post_v1_3_3.md`) surfaced
+4 ADR-contract deviations the v1.3.2/v1.3.3 cascade missed. All 4
+classified as defects via /exploring-options improvement-check.
+v1.3.4 closes all 4. Reviewer URL pin `tree/v1.0.0` unchanged per
+ADR-033.
+
+### Fixed
+
+- **§3.A Duplicate H1 sweep** — Quarto renders both the frontmatter
+  `title:` field (as a styled title-block H1) AND the body `# Heading`
+  line (a second H1) on the live site. v1.3.2 P3-NEW fixed only
+  `index.qmd`. v1.3.4 extends the fix to 14 reader-facing pages
+  with the same pattern:
+  `RESULTS.md`, `WRITEUP_PAPER.md`, `WRITEUP_NARRATIVE.md`,
+  `WRITEUP.md`, `READING_GUIDE.md`, `docs/for-hiring-managers.md`,
+  and all 8 `WRITEUP/*.md` spokes (data-decisions / eval-design /
+  limitations-and-future-work / methodology-guarantees / model-rungs /
+  reference-scorer-audit / reproducibility / threshold-policy).
+  Single canonical H1 per page after fix; cleaner DOM; better
+  a11y / SEO. ADR pages NOT touched — the inner `# ADR-NNN: title`
+  body H1 is part of the Michael Nygard convention and serves a
+  distinct reader role (canonical ADR-NNN short form vs the verbose
+  frontmatter title).
+- **§3.B Mobile inline-`<code>` overflow** — `styles.css` mobile
+  `@media (max-width: 480px)` block previously targeted only
+  `table code, td code, th code` (v1.3.2 P3-2). v1.3.4 extends to
+  all `<code>` and `pre code`. Fixes the 136px overflow on
+  `WRITEUP/reproducibility.html` (long Python identifiers like
+  `AutoModelForSequenceClassification.from_pretrained` + parquet
+  paths in prose paragraphs) and any sibling spokes with similar
+  inline-code-in-prose patterns.
+- **§3.C GitHub repo "About" section** — populated via
+  `gh repo edit` post-merge: description + homepage URL (live site) +
+  6 topic tags (prompt-injection, evaluation, out-of-distribution,
+  modernbert, spec-driven-development, methodology). Improves
+  first-touch presentation for visitors landing on GitHub instead
+  of the live site.
+- **§3.D Missing GH Release objects** — backfilled `gh release create
+  v1.3.0` and `gh release create v1.3.1` (both lacked release objects
+  despite having tags; ADR-033 §release-flow pattern requires
+  `gh release create` per tag with reader-facing content).
+  v1.3.0 = 2-guide reader architecture restructure;
+  v1.3.1 = audit fix-forward.
+
+### Updated
+
+- Reader-surface `tree/v1.3.3` anchors advanced to `tree/v1.3.4`
+  across `index.qmd`, `README.md`, `READING_GUIDE.md`,
+  `WRITEUP_PAPER.md`, `WRITEUP_NARRATIVE.md`.
+- `.lycheeignore` adds `tree/v1.3.4` (chicken-and-egg per v1.2.13 +
+  v1.3.2 + v1.3.3 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.3] — 2026-05-22 {#v1-3-3}
 
 **Library-first follow-up tag**: discharges the v1.3.2 locked
