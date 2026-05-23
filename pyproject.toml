@@ -94,7 +94,14 @@ dependencies = [
     # Round 8 audit STOP-GATE per Decision Y.2 opens against this state
     # before v1.0.0 tag. v1.0.0 will be content-identical to v0.48.0 modulo
     # the version bump.
-    "eval-toolkit==0.48.0",
+    #
+    # v0.49.0 bump (2026-05-23): naming-standards sweep + NEW ADR 0004.
+    # 5 Tier-1 renames (build_manifest→make_manifest, CaseRandomization→
+    # CaseInjection, TokenSplitting→TokenSplittingInjection, UnicodeNormalization
+    # →UnicodeNormalizationInjection, _scorecard.py→scorecards.py module).
+    # Verified compatible: no consumer callsite uses any renamed symbol.
+    # _rng.py scaffold also ships for v0.50.0 SPEC 7 rng adoption.
+    "eval-toolkit>=0.49.0,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
