@@ -54,7 +54,7 @@ def _synth_marginal_ci(seed: int) -> BootstrapCI:
     rng = np.random.default_rng(seed)
     y = rng.integers(0, 2, size=200).astype(np.int_)
     s = np.clip(y + rng.normal(0, 0.3, size=200), 0.001, 0.999)
-    return bootstrap_ci(y, s, metric=pr_auc, n_resamples=200, seed=seed)
+    return bootstrap_ci(y, s, metric=pr_auc, n_resamples=200, rng=seed)
 
 
 # --------------------------------------------------------------------------- #

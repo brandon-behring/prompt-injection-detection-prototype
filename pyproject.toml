@@ -99,9 +99,16 @@ dependencies = [
     # 5 Tier-1 renames (build_manifest→make_manifest, CaseRandomization→
     # CaseInjection, TokenSplitting→TokenSplittingInjection, UnicodeNormalization
     # →UnicodeNormalizationInjection, _scorecard.py→scorecards.py module).
-    # Verified compatible: no consumer callsite uses any renamed symbol.
     # _rng.py scaffold also ships for v0.50.0 SPEC 7 rng adoption.
-    "eval-toolkit>=0.49.0,<2",
+    #
+    # v0.50.0 bump (2026-05-23): SPEC 7 rng adoption — 22 Tier-1 functions
+    # rename seed/random_state → rng. Consumer-side lockstep renames in
+    # marginal_bootstrap.py, cross_fold_ci.py, tests/smoke/test_figures_smoke.py
+    # (3 callsites total — bootstrap_ci + block_bootstrap_on_folds). Other
+    # consumer-local `seed=seed` patterns (LocalModel fields, internal
+    # helpers) preserved per SPEC 7 scope (only NumPy-RNG eval-toolkit
+    # entry points adopt rng).
+    "eval-toolkit>=0.50.0,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding

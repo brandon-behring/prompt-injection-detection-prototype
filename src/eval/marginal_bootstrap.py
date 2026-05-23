@@ -108,7 +108,7 @@ def compute_marginal_bootstrap_cell(
     y, s = _filter_rung_slice(df, rung=rung, slice_name=slice_name)
     point_estimate = float(metric_fn(y, s))
     ci = bootstrap_ci(
-        y, s, metric=metric_fn, n_resamples=n_resamples, confidence=0.95, method="BCa", seed=seed
+        y, s, metric=metric_fn, n_resamples=n_resamples, confidence=0.95, method="BCa", rng=seed
     )
     return MarginalBootstrapCellModel(
         rung=rung,

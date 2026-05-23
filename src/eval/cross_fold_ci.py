@@ -114,7 +114,7 @@ def compute_block_bootstrap_on_folds(
         per_fold_metrics,
         n_resamples=n_resamples,
         confidence=confidence,
-        seed=seed,
+        rng=seed,
     )
     return float(ci.ci_low), float(ci.ci_high)
 
