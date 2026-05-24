@@ -96,3 +96,7 @@
 # Self-referential tag — added at v1.3.4 patch authoring time per ADR-033;
 # resolves after the v1.3.4 tag is pushed. Same chicken-and-egg as v1.3.2/v1.3.3.
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.3\.4$
+
+# Self-referential tag — added at v1.3.5 patch authoring time per ADR-033;
+# resolves after the v1.3.5 tag is pushed. Same chicken-and-egg as v1.3.2/3/4.
+^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.3\.5$

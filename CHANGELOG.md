@@ -20,6 +20,74 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.5] — 2026-05-24 {#v1-3-5}
+
+**Audit-script upstream-port readiness patch**: post-v1.3.4
+eval-toolkit triage (2026-05-24 00:54 GMT) accepted the 3
+audit-script-gap issues filed at v1.3.3 (#71/#72/#73) as
+`enhancement,P3,tracked` post-v1.0 upstream work, with
+recommended sequencing **#73 → #71 → #72**. v1.3.5 prepares
+the local prototypes for upstream port by adding unit-test
+coverage on the load-bearing primitive functions across all
+6 `scripts/audit_*.py` and one small testability refactor.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Added
+
+- `tests/scripts/` test package with one test file per audit script:
+  - `test_audit_adr_count_claims.py` — 12 tests covering
+    `actual_adr_count`, `should_skip`, `is_historical_snapshot`,
+    `audit_file`. Seed for upstream `eval_toolkit.audit.citation_alignment`.
+  - `test_audit_internal_anchors.py` — 13 tests covering
+    `heading_to_anchor` (Pandoc/Quarto auto-identifier slug),
+    `collect_anchors_for_file`, `collect_links_from_file`.
+  - `test_audit_superseded_by_backlinks.py` — 14 tests covering
+    `normalize_adr_id`, `parse_frontmatter`, `extract_id_list`.
+  - `test_audit_rendered_site.py` — 13 tests covering
+    `is_external_or_fragment`, `_plain_text_from_html`,
+    `expected_html_paths`.
+  - `test_audit_writeup_numbers.py` — 11 tests covering
+    `scan_adr_slugs`, `scan_url_slugs`, `scan_version_strings`,
+    `format_drift_report`.
+  - `test_audit_numbers.py` — 4 tests covering the `Check`
+    dataclass + tolerance semantics. (Most of `audit_numbers.py`'s
+    primitives are I/O-bound; integration coverage stays in
+    `tests/smoke/test_audit_smoke.py`.)
+- **67 new unit tests** total. All marked `@pytest.mark.unit`;
+  deterministic; no network or GPU.
+
+### Changed
+
+- `scripts/audit_adr_count_claims.py::audit_file` — added optional
+  `repo_root: Path | None = None` parameter so tests can use
+  synthetic `tmp_path` fixtures. Production behavior unchanged
+  (defaults to module-level `REPO_ROOT`). NumPy-style docstring.
+  Path-outside-base case now returns the absolute path as the
+  display name instead of raising `ValueError`.
+
+### Verified
+
+- **Behavior regression diff**: pre-refactor + post-refactor stdout
+  of all 6 audit scripts captured side-by-side; **0 diff lines**
+  across all 6 scripts. The CLI contract is unchanged.
+- **Pre-commit + CI** hooks continue to pass on the refactored
+  state (audit-suite invocations are CLI-level + behavior-preserved).
+
+### Updated
+
+- Reader-surface `tree/v1.3.4` anchors advanced to `tree/v1.3.5`
+  across `index.qmd`, `README.md`, `READING_GUIDE.md`,
+  `WRITEUP_PAPER.md`, `WRITEUP_NARRATIVE.md`.
+- `.lycheeignore` adds `tree/v1.3.5` (chicken-and-egg per v1.3.4
+  precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.4] — 2026-05-22 {#v1-3-4}
 
 **Visual-audit polish patch**: post-v1.3.3 visual audit

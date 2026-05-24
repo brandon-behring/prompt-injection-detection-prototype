@@ -94,11 +94,32 @@ def is_historical_snapshot(lines: list[str], match_line_no: int) -> bool:
     return bool(HISTORICAL_QUALIFIERS_RE.search(context))
 
 
-def audit_file(path: Path, actual_count: int) -> tuple[list[str], list[str]]:
-    """Return (failures, info) lists for a single file.
+def audit_file(
+    path: Path, actual_count: int, repo_root: Path | None = None
+) -> tuple[list[str], list[str]]:
+    """Audit a single reader-facing markdown file for stale ADR-count claims.
 
-    failures: current-claim mismatches (cause CI failure)
-    info: historical-snapshot claims (reviewable, non-failing)
+    Parameters
+    ----------
+    path : Path
+        Markdown file to audit.
+    actual_count : int
+        Source-of-truth ADR count (from `actual_adr_count`).
+    repo_root : Path, optional
+        Base directory for relative-path display. Defaults to the module-level
+        `REPO_ROOT` (the project repo root). Tests + upstream consumers pass
+        their own root so relative paths render usefully.
+
+    Returns
+    -------
+    tuple[list[str], list[str]]
+        `(failures, info)` where:
+        - `failures` — current-claim mismatches (cause CI failure).
+        - `info` — historical-snapshot claims (reviewable, non-failing).
+
+    Notes
+    -----
+    Binary files (UnicodeDecodeError on read) yield `([], [])` and are skipped.
     """
     failures: list[str] = []
     info: list[str] = []
@@ -107,7 +128,12 @@ def audit_file(path: Path, actual_count: int) -> tuple[list[str], list[str]]:
     except UnicodeDecodeError:
         return failures, info  # skip binary files matched by glob
 
-    rel = path.relative_to(REPO_ROOT)
+    base = repo_root if repo_root is not None else REPO_ROOT
+    try:
+        rel = path.relative_to(base)
+    except ValueError:
+        # Path is outside `base`; use the absolute path as the display name.
+        rel = path
     for line_no, line in enumerate(lines, start=1):
         for match in ADR_COUNT_RE.finditer(line):
             claimed = int(match.group(1))
