@@ -145,7 +145,7 @@ def main() -> int:
                         score_b,
                         metric_fn,
                         n_resamples=args.n_resamples,
-                        seed=args.seed,
+                        rng=args.seed,
                     )
                 except (RuntimeError, ValueError) as err:
                     print(

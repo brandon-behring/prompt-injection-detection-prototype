@@ -4,7 +4,7 @@ description: "Academic IMRAD article presenting the project's methodology and fi
 ---
 
 **Author**: Brandon Behring | **Date**: 2026-05-21 | **Status**:
-live-site current state `tree/v1.3.4`; original submission tag
+live-site current state `tree/v1.3.5`; original submission tag
 `tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
 ADR-033.
 

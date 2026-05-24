@@ -770,7 +770,7 @@ wheels = [
 
 [[package]]
 name = "eval-toolkit"
-version = "0.48.0"
+version = "0.50.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema" },
@@ -778,9 +778,9 @@ dependencies = [
     { name = "scikit-learn" },
     { name = "scipy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/66/d3/107399229678169855715a87f9caf66b2b393c5a5be95e3fb8d0585ae702/eval_toolkit-0.48.0.tar.gz", hash = "sha256:551c26f9be69bbd6da3f176e59dc008bc57e3935f6bdbd61278406e7ddfafe17", size = 787389, upload-time = "2026-05-22T13:05:22.646Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b1/c2/e2815be538b639a56bc6fe3e49d4e7a148123b2ed70d26a3c06dd3ac8e03/eval_toolkit-0.50.0.tar.gz", hash = "sha256:b1cff2c5b25dd11978fb598c2776133c90919494eb9d0b0a9f3e0b63fb5234fe", size = 794258, upload-time = "2026-05-23T20:55:56.183Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/94/67/9237e0c7261a95ba1e1b7240afb07bcfc25fdeec96dc75097fcc384ed2d9/eval_toolkit-0.48.0-py3-none-any.whl", hash = "sha256:f424cc128f76a47587c3c83b3a2d3dabc44202a8cfdbf41dbb944dbb12e45b8e", size = 240901, upload-time = "2026-05-22T13:05:20.558Z" },
+    { url = "https://files.pythonhosted.org/packages/b6/4a/b71c5e4bbdd63532e217afeceb5cd34e4cc80e19b3ee00a4c33cd5004f56/eval_toolkit-0.50.0-py3-none-any.whl", hash = "sha256:6064ed032f926378fa30e4b116a7eb840adec32f8bfcffbe47fdfaa30c3d0b2a", size = 243445, upload-time = "2026-05-23T20:55:54.57Z" },
 ]
 
 [[package]]
@@ -2529,7 +2529,7 @@ requires-dist = [
     { name = "accelerate", specifier = ">=1.0" },
     { name = "anthropic", specifier = ">=0.40" },
     { name = "datasets", specifier = ">=3.0" },
-    { name = "eval-toolkit", specifier = "==0.48.0" },
+    { name = "eval-toolkit", specifier = ">=0.50.0,<2" },
     { name = "huggingface-hub", specifier = ">=0.25" },
     { name = "ipykernel", marker = "extra == 'notebook'", specifier = ">=6.30" },
     { name = "jupyter", marker = "extra == 'notebook'", specifier = ">=1" },
