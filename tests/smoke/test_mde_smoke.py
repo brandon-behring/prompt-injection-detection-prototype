@@ -24,7 +24,7 @@ def test_mde_from_paired_ci_record_schema_valid() -> None:
     y = rng.integers(0, 2, size=n).astype(np.int_)
     s_a = np.clip(y + rng.normal(0, 0.3, size=n), 0.001, 0.999)
     s_b = np.clip(y + rng.normal(0, 0.25, size=n), 0.001, 0.999)
-    paired = paired_bootstrap_diff(y, s_a, s_b, metric=pr_auc, n_resamples=300, seed=1)
+    paired = paired_bootstrap_diff(y, s_a, s_b, metric=pr_auc, n_resamples=300, rng=1)
     cell = mde_from_paired_ci_record(
         paired,
         rung_a="rungA",
