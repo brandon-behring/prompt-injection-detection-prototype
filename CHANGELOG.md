@@ -20,6 +20,87 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.6] — 2026-05-25 {#v1-3-6}
+
+**eval-toolkit v1.0 stability-contract opt-in patch**: bumps the
+eval-toolkit pin from `>=0.50.0,<2` to `>=1.0,<2`. Upstream v1.0.0
+shipped 2026-05-25 17:02 GMT as a stability-contract activation per
+upstream ADR 0003 — v1.0 is bit-equivalent to v0.51 codewise (Round 8
++ Round 9 + Round 10 multi-LLM audit rectification batch), but the new
+thing at v1.0 is that **Tier 1 STRICT public-API signatures** captured
+in `tests/golden/public_api/snapshot.json` become load-bearing —
+breaking changes after v1.0 require a v2.0 major bump. The 9 strict
+Tier-2 Protocols (`Scorer` + `LeakageCheck` + `Splitter` +
+`ThresholdSelector` + `DatasetLoader` + `MetricSpec` + `MetaLearner` +
+`Probe` + `TextTransform`) + 1 opt-in (`Versioned`) have method shapes
+frozen.
+
+This consumer release is the post-v1.0 production-evidence anchor for
+the "real consumer in production" v1.0 gate. Reviewer URL pin
+`tree/v1.0.0` unchanged per ADR-033.
+
+### Changed
+
+- `pyproject.toml` — `eval-toolkit>=0.50.0,<2` → `>=1.0,<2`
+  (commit `ce64e47` on the original `chore/bump-eval-toolkit-v1.0`
+  branch, preserved as the first commit on `release/v1.3.6` after the
+  branch was renamed to match the v1.3.X release/* convention).
+- `uv.lock` — regenerated against PyPI for `eval-toolkit==1.0.0`
+  (new sdist + wheel hashes).
+- `decisions/library_imports.md` — eval-toolkit ledger row refreshed
+  v0.47 → v0.49 → v0.50 → v1.0 (was stale at v0.47; missed both the
+  v0.50 bump at v1.3.5 and the v1.0 bump at v1.3.6). Specifier column
+  updated to `eval-toolkit>=1.0,<2` to reflect the actual range-pin form.
+
+### Verified
+
+- **Consumer-side BREAKING-change exposure** — all 4 v0.51 BREAKING +
+  1 deprecation evaluated against consumer callsites (v1.0 = v0.51
+  codewise per upstream release notes); all 5 verdicts NOT AFFECTED:
+  - `thresholds.recall_at_fpr(...)` fallback semantics — consumer has
+    its own `compute_recall_at_fpr` at `src/eval/slice_analysis.py:111`;
+    does NOT use upstream `thresholds.recall_at_fpr`.
+  - `_rng.spawn_seed_sequences(rng, n)` respects Generator state — no
+    callsites in consumer.
+  - `harness.evaluate(..., rng=Generator)` bit-stable across `n_jobs` —
+    no `harness.evaluate` callsites; bootstrap layer uses
+    `paired_bootstrap_diff` directly (migrated to `rng=` at v1.3.5
+    commit `da471d5`).
+  - `SourceDisjointKFoldSplitter.iter_folds` caps at `min(k, n_sources)` —
+    used at `src/data/splits.py:177` with `k=len(TRAIN_POSITIVE_SOURCES)=4`
+    and `len(test_sources) == 1` asserted; `k == n_sources` always, so
+    the new cap is a no-op.
+  - `DeprecationWarning` on `evaluate_folded(seeds=[...])` without
+    `reseed_splitter=` — no `evaluate_folded` callsites.
+- **Empirical regression check**: `VIRTUAL_ENV=.venv make test` →
+  81 passed, 38 skipped, 189 deselected, 2 warnings (parity with the
+  v1.3.5 test count; no behavior regression from the v1.0 bump).
+- **Upstream v1.0.1 forward-compat** — 6 items deferred to upstream
+  v1.0.1 (issue [eval-toolkit#76](https://github.com/brandon-behring/eval-toolkit/issues/76))
+  are all **Tier-2 ADDITIVE or Tier-3 FREE** per upstream ADR 0003;
+  none affect this consumer (`SimilarityStrategy` not used; harness
+  test hardening upstream-internal; `brier_score` + ECE docstring
+  polish only; v0.51 doc-count reconciliation upstream-internal).
+
+### Updated
+
+- Reader-surface `tree/v1.3.5` anchors advanced to `tree/v1.3.6`
+  across 5 files (`index.qmd:79`, `README.md:222`,
+  `READING_GUIDE.md:91`, `WRITEUP_PAPER.md:7`,
+  `WRITEUP_NARRATIVE.md:7`). Also reconciles the (2026-05-22/-21)
+  inline dates on the 3 landing anchors to (2026-05-25) matching the
+  v1.3.6 tag date — prior patches skipped this cleanup. WRITEUP
+  `Date: 2026-05-21` refers to writeup-authoring date (not the live-
+  site tag) and remains unchanged.
+- `.lycheeignore` adds `tree/v1.3.6` (chicken-and-egg per v1.2.13 +
+  v1.3.2/3/4/5 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.5] — 2026-05-24 {#v1-3-5}
 
 **Audit-script upstream-port readiness patch**: post-v1.3.4
