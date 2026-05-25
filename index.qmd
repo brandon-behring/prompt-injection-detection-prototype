@@ -76,6 +76,6 @@ the same content as a paper or a story, pick a guide above.
 
 ## Submission anchors
 
-- **Current state**: [`tree/v1.3.5`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.5) (2026-05-22) — live-site source
+- **Current state**: [`tree/v1.3.6`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.6) (2026-05-25) — live-site source
 - **Original submission tag**: [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0) (2026-05-18) — preserved as historical reviewer pin per ADR-033
 - **HF Hub checkpoints**: [frozen probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe), [LoRA](https://huggingface.co/BBehring/prompt-injection-lora)
