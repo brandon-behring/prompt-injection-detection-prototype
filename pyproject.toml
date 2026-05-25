@@ -108,7 +108,14 @@ dependencies = [
     # consumer-local `seed=seed` patterns (LocalModel fields, internal
     # helpers) preserved per SPEC 7 scope (only NumPy-RNG eval-toolkit
     # entry points adopt rng).
-    "eval-toolkit>=0.50.0,<2",
+    #
+    # v1.0.0 bump (2026-05-25): stability contract activates per ADR 0003.
+    # v1.0 is bit-equivalent to v0.51 codewise; the new thing is Tier 1 STRICT
+    # public-API signatures (snapshot.json) are now load-bearing — breaking
+    # changes after v1.0 require a v2.0 major bump. Lower bound moved from
+    # 0.50 → 1.0 to opt into the stability contract; upper <2 unchanged.
+    # Rounds 5 → 10 Gate 3 multi-LLM audit chain closed at v1.0.
+    "eval-toolkit>=1.0,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
