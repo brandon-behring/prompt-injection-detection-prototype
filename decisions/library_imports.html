@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -1046,8 +1046,8 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>eval-toolkit</code></td>
-<td><code>v0.47.0</code></td>
-<td><code>eval-toolkit==0.47.0</code> <strong>(PyPI install per ADR-055 narrow supersession of ADR-036)</strong>; bumped v0.31→v0.34 mid-Phase-4 X8 commit <code>8af73ae</code>; v0.34→v0.39 at v1.0.6 (consumed #39 + #40 + #41); v0.39→v0.40 + git+https→PyPI at v1.0.8 (consumed #43; filed #44); v0.40→v0.42 at v1.0.9 (consumed #44; v0.41 skipped); v0.42→v0.43 at v1.2.8 (closes #48 + #49 core-6 + #53; dependency/ledger maintenance only); v0.43→v0.44 at v1.2.14 (closes #50 + #51; dependency/ledger maintenance per ADR-066 trigger #4); v0.44→v0.47 at v1.2.16 (skip-bumps 3 minors: closes #52 in v0.45.0; closes #36 via <code>scorecard()</code>+<code>Scorecard</code>+<code>metric_specs</code> in v0.46.0; closes #49 advanced-6 + sweep unification in v0.47.0. v0.47.0 BREAKING removals don’t hit our project — we use only submodule imports which are preserved. Dependency/ledger maintenance only). See per-CHANGELOG entries + <code>decisions/upstream_issues.md</code> for full per-issue closure narratives.</td>
+<td><code>v1.0.0</code> (range <code>&gt;=1.0,&lt;2</code>)</td>
+<td><code>eval-toolkit&gt;=1.0,&lt;2</code> <strong>(PyPI install per ADR-055; range pin per the v1.0 stability-contract opt-in at v1.3.6 — upstream ADR 0003 Tier 1 STRICT signatures load-bearing; uv.lock provides byte-level reproducibility)</strong>. Trajectory: v0.31→v0.34 mid-Phase-4 X8 commit <code>8af73ae</code>; v0.34→v0.39 at v1.0.6 (#39+#40+#41); v0.39→v0.40 + git+https→PyPI at v1.0.8 (#43; filed #44); v0.40→v0.42 at v1.0.9 (#44; v0.41 skipped); v0.42→v0.43 at v1.2.8 (#48+#49 core-6+#53; ledger only); v0.43→v0.44 at v1.2.14 (#50+#51; ledger per ADR-066 trigger #4); v0.44→v0.47 at v1.2.16 (skip-bumps 3 minors closing #52/#36/#49 advanced-6; v0.47.0 BREAKING removals miss our submodule-only imports; ledger only); v0.47→v0.49→v0.50 at v1.3.5 (v0.49 naming sweep; v0.50 SPEC 7 <code>rng=</code> adoption — <code>paired_bootstrap_diff</code> <code>seed=</code>→<code>rng=</code> consumer migration at commit <code>da471d5</code>); v0.50→v1.0 at v1.3.6 (stability-contract opt-in; v1.0 = v0.51 codewise + ADR 0003 Tier 1 STRICT signature freeze; 4 BREAKING + 1 deprecation verified non-impactful per v1.3.6 CHANGELOG <code>Verified</code>). See per-CHANGELOG entries + <code>decisions/upstream_issues.md</code> for full per-issue closure narratives.</td>
 </tr>
 <tr class="even">
 <td><code>runpod-deploy</code></td>
