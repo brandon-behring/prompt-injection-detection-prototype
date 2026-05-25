@@ -1239,7 +1239,7 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/71">#71</a></td>
 <td><code>audit.reader_value_bindings</code> — validate detector→value bindings in reader-prose Markdown (catches the v1.3.2 P1-1 Act 0 bug class where canonical 0.974 was bound to TF-IDF instead of LoRA)</td>
 <td><code>scripts/audit_numbers.py</code> + <code>scripts/audit_writeup_numbers.py</code> — existing scripts validate canonical numbers against source data, not reader-prose detector→value bindings. v1.3.2 P1-1 Act 0 bug (TF-IDF 0.974 instead of 0.971) escaped both audits.</td>
-<td><strong>filed at v1.3.3 close per v1.3.2 audit follow-up</strong>; awaiting upstream triage</td>
+<td><strong>filed at v1.3.3</strong>; triaged 2026-05-24 (P3, <code>enhancement,tracked</code>, #2 of 3 in audit/ subpackage drop per maintainer sequencing #73→#71→#72); awaiting upstream PR after <a href="https://github.com/brandon-behring/eval-toolkit/pull/74">#74</a> (the #73 port) merges</td>
 </tr>
 <tr class="odd">
 <td>2026-05-22</td>
@@ -1247,7 +1247,7 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/72">#72</a></td>
 <td><code>audit.sister_doc_concept_drift</code> — detect cross-doc semantic drift on shared concept tokens (catches the v1.3.2 P1-2 T1-tier-meaning bug class where one doc said T1 = full cloud rerun and the linked sister said T1 = laptop smoke)</td>
 <td>No existing script in this project; gap surfaced by Codex external audit + Claude proactive Phase-2 sweep.</td>
-<td><strong>filed at v1.3.3 close per v1.3.2 audit follow-up</strong>; awaiting upstream triage</td>
+<td><strong>filed at v1.3.3</strong>; triaged 2026-05-24 (P3, <code>enhancement,tracked</code>, #3 of 3 in audit/ subpackage drop per maintainer sequencing); awaiting upstream PR after <a href="https://github.com/brandon-behring/eval-toolkit/pull/74">#74</a> + #71 land</td>
 </tr>
 <tr class="even">
 <td>2026-05-22</td>
@@ -1255,7 +1255,7 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/73">#73</a></td>
 <td><code>audit.adr_citation_alignment</code> — validate that “per ADR-NNN” citations match the cited ADR’s actual subject (catches the v1.3.2 P1-2 ADR-029-cited-for-tier-lock + ADR-039-cited-for-cost bug class)</td>
 <td>No existing script in this project; gap surfaced by Claude proactive Phase-2 Gap-3 sweep against <code>docs/REPRODUCIBILITY.md</code> ADR citations.</td>
-<td><strong>filed at v1.3.3 close per v1.3.2 audit follow-up</strong>; awaiting upstream triage</td>
+<td><strong>filed at v1.3.3</strong>; triaged 2026-05-24 (P3, <code>enhancement,tracked</code>, #1 of 3 — recommended first per maintainer); <strong><a href="https://github.com/brandon-behring/eval-toolkit/pull/74">PR #74</a> ready-for-review 2026-05-25 per v1.3.6 close</strong> (was DRAFT pending v1.0 STOP-GATE; gate cleared by upstream v1.0.0 ship 2026-05-25 17:02 GMT)</td>
 </tr>
 </tbody>
 </table>
