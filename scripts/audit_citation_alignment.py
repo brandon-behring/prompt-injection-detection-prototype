@@ -66,6 +66,11 @@ SURFACE_GLOBS = [
 SKIP_PATTERNS = [
     "CHANGELOG.md",  # version-pinned historical citations are intentional
     "SUBMISSION_AUDIT.md",  # generated; may contain historical CLAIM citations
+    "SUBMISSION.md",  # gitignored cover-letter draft; not a reader-facing claim
+    "AUDIT_CLAUDE_",  # historical audit transcripts; describe bugs not claim them
+    "_codex.md",  # gitignored Codex audit reports per .gitignore *_codex.md
+    "draft.md",  # legacy v0.x draft; predates v1.0.0 schema
+    "draft_review.md",  # legacy v0.x review draft
     "decisions/",  # ADRs themselves; immutable per CLAUDE.md
     "transcripts/",  # gitignored; operator-side QA
     ".venv/",

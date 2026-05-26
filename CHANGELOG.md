@@ -20,6 +20,170 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.13] — 2026-05-26 {#v1-3-13}
+
+**Consumer adoption of upstream `eval-toolkit` v1.3.0 Layer 3
+pairing rules** (closes the v1.3.12-filed
+[eval-toolkit#81](https://github.com/brandon-behring/eval-toolkit/issues/81)
+adoption loop). Upstream shipped v1.3.0 ~51 minutes after #81
+was filed (2026-05-26T22:27Z — fastest cycle yet in the R11→R14
+sequence) with four pairing rules per upstream
+[ADR 0006](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/source/adr/0006-pairing-rules-for-cross-detector-list-grammar.md),
+codifying Layer 3 (pairing) as the third correctness layer
+alongside ADR 0005's identity + scope:
+
+- **Pattern A — `"for {detector}"` postfix override**: with
+  intervening-value guard via v1.1.0 exclusion-ranges.
+- **Pattern B — `"{detector}'s"` possessive override**: last
+  possessive within 30 chars of value is authoritative.
+- **Pattern C — group-subject suppression**: `"for the
+  {trained|frozen|baseline|all|both|other} detectors"`
+  pattern suppresses the value (group statement, not single
+  binding); sentence-boundary guard via v1.2.0 sentence-positions.
+- **Pattern D — metric-axis nearest-pairing**: symmetric to
+  detector-axis pairing; pre-collects ALL metric positions
+  across consumer-supplied `metric_aliases` keys, not just
+  binding-derived metrics. Emerged during upstream's own
+  dogfood (4→2 after A/B/C; metric-confusion surfaced as
+  residual; Pattern D added symmetrically).
+
+All four rules activate automatically when `scope="narrative"`
+is set (which this repo already does at v1.3.11+). **Tier-1
+ADDITIVE per ADR 0006 — no signature drift, no new public kwargs**.
+
+**Adoption = pin bump only.** No script changes required.
+
+### Dogfood result on `audit_value_bindings`
+
+| Configuration | Warnings on this repo HEAD | Reduction vs v1.0.5 baseline |
+|---|---|---|
+| v1.0.5 (legacy 2-tuple) | 96 | — |
+| v1.1.0 (BindingKey + scope='narrative') | 36 (this repo) | 62% |
+| v1.2.0 (+ T1-T4 context filters) | 4 (this repo) | 96% |
+| **v1.3.0 (+ Layer 3 pairing rules)** | **0 (this repo)** | **100%** |
+
+**100% total noise reduction. Four-round R11→R14 cycle closed.**
+
+### Concurrent: filed upstream eval-toolkit#82 for `audit_citation_alignment` context-awareness
+
+The `audit_citation_alignment` validator (shipped v1.0.1, closes
+#73) is one architectural layer behind `audit_value_bindings`.
+On this repo's HEAD with v1.3.0 of eval-toolkit, it emits
+**188 warnings** across legitimate reader-facing claim surfaces:
+67 on SPEC_SHEET.md (Phase-0 lock sheet), 15 on assumptions.md,
+14 on EVIDENCE.md, 12 on docs/ROADMAP.md, 10 on
+WRITEUP/model-rungs.md, 10 on SPEC_GREENFIELD.md, etc.
+
+The warnings cluster in three patterns:
+
+1. **Pattern α — dense multi-ADR-citation list within one
+   paragraph** (e.g., `"per ADR-025 + ADR-021 + ADR-034 + ADR-045"`
+   where surrounding prose covers calibration + thresholds +
+   reproducibility + manifest discipline simultaneously).
+2. **Pattern β — spec/table per-row ADR citations** (e.g.,
+   SPEC_SHEET.md row covers multiple topics but the validator
+   picks one dominant keyword).
+3. **Pattern γ — multi-claim sentence with ADR per-clause**
+   (clause-level subject the positional heuristic can't
+   disambiguate).
+
+Same architectural class as the cross-detector list-grammar
+problem #81 just solved for `audit_value_bindings` via ADR 0006
+Layer 3 pairing rules. Filed
+[eval-toolkit#82](https://github.com/brandon-behring/eval-toolkit/issues/82)
+proposing equivalent scope+pairing extensions for
+`audit_citation_alignment` (Path A: `scope='narrative'` mirror
+of v1.1.0; Path B: pairing rules mirror of v1.3.0). Sixth
+library-first cycle (R15-equivalent following R11→R14 closure
+for audit_value_bindings).
+
+### Gate severity
+
+SOFT retained on BOTH validators at v1.3.13. The v1.3.8
+CHANGELOG bundled-promotion plan (promote both
+`audit_value_bindings` + `audit_citation_alignment` SOFT→HARD
+together) is **preserved**: `audit_value_bindings` is now
+HARD-credible (0 warnings) but `audit_citation_alignment` is
+not yet (188 warnings on reader-facing surfaces; structural
+gap to address upstream). **Bundled HARD-gate promotion
+deferred to v1.3.14+ pending eval-toolkit#82 resolution.**
+
+This is a deliberate library-first choice: per ADR 0005 Layer 2
+design philosophy, context-correctness belongs in the validator,
+not in consumer-side suppression regex or prose rewrites for
+validator compliance.
+
+### Tests
+
+Existing 14 audit_value_bindings tests still PASS — Tier-1
+ADDITIVE upstream guarantee held in practice (Pattern D's wider
+metric-alias matching coexists cleanly with the consumer's
+AUPRC + AUROC METRIC_ALIASES).
+
+### Round 14 ledger reference
+
+Upstream `docs/source/audit_findings.md` Round 14 entry
+documents the full R11→R14 cycle with timings:
+
+| Round | Driver | Cycle time | Closure |
+|---|---|---|---|
+| R11 | Consumer adopts v1.0.x audit-validator family | days | v1.0.4 |
+| R12 | Consumer files #80 (BINDINGS slice-axis) | ~2 hours | v1.1.0 |
+| R13 | v1.1.0 dogfood surfaces context-filter gaps | ~1 hour | v1.2.0 |
+| R14 | Consumer files #81 (cross-detector list-grammar) | ~1.5 hours | v1.3.0 |
+
+End-to-end #81 → v1.3.0 = 51 minutes. **This is the fastest
+cycle in the post-v1.0 sequence.**
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Changed
+
+- `pyproject.toml` — `eval-toolkit>=1.2.0,<2` → `>=1.3.0,<2`.
+  Tightens lower bound to require Layer 3 pairing rules shipped
+  in v1.3.0.
+- `uv.lock` — `eval-toolkit==1.2.0` → `eval-toolkit==1.3.0`.
+- `scripts/audit_citation_alignment.py` — `SKIP_PATTERNS`
+  expanded to mirror `audit_value_bindings` v1.3.11 additions
+  (added `SUBMISSION.md`, `_codex.md`, `AUDIT_CLAUDE_`,
+  `draft.md`, `draft_review.md` — gitignored / historical files
+  that aren't reader-facing claim surfaces; parallel discipline
+  between the two validators).
+- `decisions/library_imports.md` — eval-toolkit row trajectory
+  extended with `v1.2.0→v1.3.0 at v1.3.13 (consumed Layer 3
+  pairing rules per ADR 0006; closes #81; 100% total noise
+  reduction = 0 residuals; closes R11→R14 cycle on
+  audit_value_bindings)`.
+- `decisions/upstream_issues.md` — #81 row Status → RESOLVED in
+  v1.3.0; consumed at v1.3.13. New row added for #82
+  (audit_citation_alignment context-awareness; filed concurrent
+  with v1.3.13).
+- `CITATION.cff` — version `1.3.12` → `1.3.13`.
+
+### Audit-driven (filed concurrent with v1.3.13 tag)
+
+- **Filed upstream eval-toolkit#82**: `audit_citation_alignment`
+  multi-ADR-citation context-awareness (Layer 2 scope + Layer 3
+  pairing equivalent for the citation-alignment validator). 188
+  concrete repro warnings on consumer HEAD organized into 3
+  patterns (α dense multi-ADR list; β spec/table per-row; γ
+  multi-claim sentence). Sixth library-first cycle.
+
+### Updated
+
+- Reader-surface `tree/v1.3.12` anchors advanced to `tree/v1.3.13`
+  across 5 files (`index.qmd:79`, `README.md:222`,
+  `READING_GUIDE.md:91`, `WRITEUP_PAPER.md:7`,
+  `WRITEUP_NARRATIVE.md:7`).
+- `.lycheeignore` adds `tree/v1.3.13` (chicken-and-egg per
+  v1.2.13 + v1.3.2..v1.3.12 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.12] — 2026-05-26 {#v1-3-12}
 
 **Consumer adoption of upstream `eval-toolkit` v1.2.0 T1-T4
