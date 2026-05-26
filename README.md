@@ -219,7 +219,7 @@ Single-turn English text classification only. Not in scope: multilingual attacks
 
 ## Submission anchors
 
-- **Current state:** [`tree/v1.3.7`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.7) (2026-05-25) — live-site source
+- **Current state:** [`tree/v1.3.8`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.8) (2026-05-26) — live-site source
 - **Original submission tag:** [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0) (2026-05-18) — preserved as historical reviewer pin per ADR-033
 - **Live rendered site:** <https://brandon-behring.github.io/prompt-injection-detection-prototype/>
 - **HF Hub checkpoints:** [frozen probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe), [LoRA](https://huggingface.co/BBehring/prompt-injection-lora)
