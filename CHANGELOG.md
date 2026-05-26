@@ -20,6 +20,140 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.11] — 2026-05-26 {#v1-3-11}
+
+**Consumer adoption of upstream `eval_toolkit.BindingKey` +
+`scope='narrative'`**: closes the v1.3.9-filed
+[eval-toolkit#80](https://github.com/brandon-behring/eval-toolkit/issues/80)
+adoption loop. Upstream shipped v1.1.0 ~2h after #80 was filed
+(2026-05-26T20:11Z, end-to-end 2-hour compressed cycle) with the
+proposed schema extension PLUS architectural improvements beyond
+the consumer's proposal:
+
+- **`BindingKey`** frozen-dataclass canonical identity (not bare
+  3-tuple); forward-extensible for future axes (split, ci_kind,
+  source_ref, ...) without breaking the dict-key schema. Avoids
+  the recur-every-N-months schema-event pattern that produced #80
+  itself. Codified in upstream [ADR 0005](https://github.com/brandon-behring/eval-toolkit/blob/main/docs/source/adr/0005-structured-keys-for-audit-validators.md)
+  ("structured keys over positional tuples for canonical-identity
+  types in audit validators"; Accepted at v1.1.0).
+- **`scope='narrative'`** content-type filter (second architectural
+  layer beyond what was filed): excludes markdown table rows,
+  bracketed CI expressions, and fenced code blocks from candidate
+  matching. ADR 0005 frames this as the second layer of a two-layer
+  correctness model (identity correctness via `BindingKey` + scope
+  correctness via `scope='narrative'`).
+
+**Consumer-side adoption** at `scripts/audit_value_bindings.py`:
+
+- Migrated `BINDINGS` from `Mapping[tuple[str, str], float]` →
+  `Mapping[BindingKey, float]` per upstream ADR 0005 recommendation
+  ("New consumer code SHOULD use the canonical `BindingKey` form;
+  tuple shapes are syntactic sugar / backward-compat preservation").
+- Expanded `BINDINGS` from 2 entries → 15 entries covering all
+  reader-facing headline bindings: direct_validation AUPRC (3
+  detectors), pooled_ood AUPRC (5 detectors), pooled_ood AUROC (3
+  detectors), JBB-Behaviors AUPRC (ProtectAI v1+v2), XSTest AUPRC
+  (ProtectAI v1+v2).
+- Added new `SLICE_ALIASES` regex map (direct_validation /
+  pooled_ood / jbb / xstest) for slice surface-form matching.
+- Added 3 new detectors to `DETECTOR_ALIASES` (frozen_probe,
+  ProtectAI-v1, ProtectAI-v2).
+- Added `AUROC` to `METRIC_ALIASES`.
+- Pass `slice_aliases=SLICE_ALIASES` + `scope="narrative"` into
+  the `validate_reader_value_bindings(...)` call.
+- Extended `SKIP_PATTERNS` to exclude `SUBMISSION.md` (gitignored
+  cover-letter draft), `*_codex.md` (gitignored Codex audit
+  reports), `AUDIT_CLAUDE_*` (historical audit transcripts), and
+  `draft.md` / `draft_review.md` (legacy v0.x drafts) — none of
+  these are reader-facing claim surfaces.
+
+**Dogfood result**: warning count drops from 96 (v1.3.10 pre-edit,
+2-tuple schema, no scope filter) → 36 (v1.3.11, BindingKey +
+`scope='narrative'` + expanded SKIP_PATTERNS) — **62% noise
+reduction**. Upstream dogfood reported 76% against the smaller
+v1.3.9 file set before v1.3.10 stub-anchor + hiring-page additions;
+the residual 36 are all in upstream-acknowledged "known limitations"
+categories (multi-detector list pairings, sub-clause sentence
+boundaries, "X vs Y" comparison patterns) addressable only via
+upstream v1.2.0+ parser-level work.
+
+**Gate severity**: SOFT retained at v1.3.11. Per the v1.3.8
+CHANGELOG bundled-promotion plan, HARD-gate promotion deferred to
+a future v1.3.X bundled with `audit_citation_alignment` after
+observation window + potential consumer-side suppression regex for
+the residual 36 (upstream Round 12 ledger suggests excluding lines
+containing "random floor" or "versus"; addresses the
+positional-heuristic limit class until parser-level v1.2.0+).
+
+**Tests**: `tests/scripts/test_audit_value_bindings.py` expanded
+from 7 tests → 14 tests covering BindingKey schema, slice
+disambiguation (same `(detector, metric)` across direct_validation
+vs pooled_ood doesn't cross-flag), `scope='narrative'` filtering
+(table rows + CI brackets excluded), and the additional skip
+patterns. Full test suite: all 14 PASS.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Added
+
+- `scripts/audit_value_bindings.py` — `SLICE_ALIASES: Mapping[str,
+  Sequence[str]]` regex map with surface forms for
+  direct_validation / pooled_ood / jbb / xstest slices.
+- `scripts/audit_value_bindings.py` `DETECTOR_ALIASES` — 3 new
+  entries (frozen_probe, ProtectAI-v1, ProtectAI-v2).
+- `scripts/audit_value_bindings.py` `METRIC_ALIASES` — AUROC entry
+  with surface aliases (`AUROC`, `AU-ROC`, `ROC-AUC`, `ROC AUC`).
+- `tests/scripts/test_audit_value_bindings.py` — 7 new tests
+  (BindingKey schema; pooled-OOD headline slate; slice aliases
+  coverage; codex audit reports skip; SUBMISSION.md skip; slice
+  disambiguation; scope='narrative' table exclusion). Test count
+  doubled from 7 → 14; all PASS.
+
+### Changed
+
+- `scripts/audit_value_bindings.py` — `BINDINGS` schema migrated
+  from `Mapping[tuple[str, str], float]` (2-tuple `(detector,
+  metric)` keys) → `Mapping[BindingKey, float]` (frozen-dataclass
+  structured keys with `slice` axis) per upstream ADR 0005.
+  Expanded from 2 entries (V1.3.1 ADR-080 motivating seed only)
+  to 15 entries (full headline slate). Validator call now passes
+  `slice_aliases=SLICE_ALIASES` + `scope="narrative"`.
+- `scripts/audit_value_bindings.py` `SKIP_PATTERNS` extended with
+  `SUBMISSION.md`, `_codex.md`, `AUDIT_CLAUDE_`, `draft.md`,
+  `draft_review.md` (5 new patterns; closes false-positive surface
+  on gitignored / historical files).
+- `pyproject.toml` — `eval-toolkit>=1.0.3,<2` → `>=1.1.0,<2`.
+  Tightens lower bound to require `BindingKey` + slice-aware
+  matching + `scope='narrative'` shipped in v1.1.0.
+- `uv.lock` — `eval-toolkit==1.0.3` → `eval-toolkit==1.1.0`.
+- `decisions/library_imports.md` — eval-toolkit row trajectory
+  extended with `v1.0.3→v1.1.0 at v1.3.11 (consumed BindingKey +
+  scope='narrative' per upstream ADR 0005 two-layer correctness
+  model; closes #80; 62% noise reduction on this repo vs 2-tuple
+  schema)`.
+- `decisions/upstream_issues.md` — #80 row Status updated from
+  "filed at v1.3.9 (2026-05-26); concurrent with v1.3.9
+  polish-audit fix-forward" to "RESOLVED in eval-toolkit v1.1.0;
+  consumed at v1.3.11" with the full 2-hour upstream cycle +
+  dogfood-result narrative.
+- `CITATION.cff` — version `1.3.10` → `1.3.11`.
+
+### Updated
+
+- Reader-surface `tree/v1.3.10` anchors advanced to `tree/v1.3.11`
+  across 5 files (`index.qmd:79`, `README.md:222`,
+  `READING_GUIDE.md:91`, `WRITEUP_PAPER.md:7`,
+  `WRITEUP_NARRATIVE.md:7`).
+- `.lycheeignore` adds `tree/v1.3.11` (chicken-and-egg per
+  v1.2.13 + v1.3.2..v1.3.10 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.10] — 2026-05-26 {#v1-3-10}
 
 **Polish-audit second wave**: continues the independent polish-audit

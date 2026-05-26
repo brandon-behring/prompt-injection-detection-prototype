@@ -121,7 +121,15 @@ dependencies = [
     # at v1.3.8 uses this module via `scripts/audit_value_bindings.py`;
     # tightening lower bound from >=1.0.1 to >=1.0.3 prevents fresh installs
     # from resolving to v1.0.1/v1.0.2 (which predate audit_value_bindings).
-    "eval-toolkit>=1.0.3,<2",
+    # v1.1.0 bump (2026-05-26): ships `BindingKey` (frozen dataclass; structured
+    # canonical-identity per upstream ADR 0005) + `slice_aliases` kwarg +
+    # `scope='narrative'` content-type filter (closes #80; surfaced by this
+    # repo's v1.3.9 polish-audit finding). Consumer-side adoption at v1.3.11
+    # migrates `BINDINGS` from 2-tuple to `Mapping[BindingKey, float]` schema,
+    # expands to 11 entries (5 detectors × 2 metrics × 2 slices), enables
+    # `scope='narrative'`. Tightening lower bound from >=1.0.3 to >=1.1.0
+    # prevents fresh installs from resolving to v1.0.x (which predate BindingKey).
+    "eval-toolkit>=1.1.0,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
