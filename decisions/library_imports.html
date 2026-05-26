@@ -993,7 +993,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link" data-scroll-target="#at-a-glance">At-a-glance</a></li>
   <li><a href="#version-pinning-lock-phase-0-08-per-adr-036" id="toc-version-pinning-lock-phase-0-08-per-adr-036" class="nav-link" data-scroll-target="#version-pinning-lock-phase-0-08-per-adr-036">Version pinning lock (Phase 0-08 per ADR-036)</a></li>
   <li><a href="#secrets-discipline-phase-0-08-per-adr-035" id="toc-secrets-discipline-phase-0-08-per-adr-035" class="nav-link" data-scroll-target="#secrets-discipline-phase-0-08-per-adr-035">Secrets discipline (Phase 0-08 per ADR-035)</a></li>
-  <li><a href="#eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit" id="toc-eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit" class="nav-link" data-scroll-target="#eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit">eval-toolkit imports (https://github.com/brandon-behring/eval-toolkit)</a></li>
+  <li><a href="#eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit" id="toc-eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit" class="nav-link" data-scroll-target="#eval-toolkit-imports-httpsgithub.combrandon-behringeval-toolkit">eval-toolkit imports (https://github.com/brandon-behring/eval-toolkit)</a>
+  <ul class="collapse">
+  <li><a href="#audit-primitives-v1.3.7-ports-the-audit-script-gap-upstream-batch-717273" id="toc-audit-primitives-v1.3.7-ports-the-audit-script-gap-upstream-batch-717273" class="nav-link" data-scroll-target="#audit-primitives-v1.3.7-ports-the-audit-script-gap-upstream-batch-717273">Audit primitives (v1.3.7+; ports the audit-script-gap upstream batch #71/#72/#73)</a></li>
+  </ul></li>
   <li><a href="#runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned" id="toc-runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned" class="nav-link" data-scroll-target="#runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned">runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.8.4 pinned]</a></li>
   <li><a href="#quarto-github-actions-introduced-by-adr-030-adr-033" id="toc-quarto-github-actions-introduced-by-adr-030-adr-033" class="nav-link" data-scroll-target="#quarto-github-actions-introduced-by-adr-030-adr-033">Quarto + GitHub Actions (introduced by ADR-030 + ADR-033)</a></li>
   <li><a href="#huggingface_hub-publication-side-use-introduced-by-adr-032" id="toc-huggingface_hub-publication-side-use-introduced-by-adr-032" class="nav-link" data-scroll-target="#huggingface_hub-publication-side-use-introduced-by-adr-032">huggingface_hub publication-side use (introduced by ADR-032)</a></li>
@@ -1046,8 +1049,8 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>eval-toolkit</code></td>
-<td><code>v1.0.0</code> (range <code>&gt;=1.0,&lt;2</code>)</td>
-<td><code>eval-toolkit&gt;=1.0,&lt;2</code> <strong>(PyPI install per ADR-055; range pin per the v1.0 stability-contract opt-in at v1.3.6 — upstream ADR 0003 Tier 1 STRICT signatures load-bearing; uv.lock provides byte-level reproducibility)</strong>. Trajectory: v0.31→v0.34 mid-Phase-4 X8 commit <code>8af73ae</code>; v0.34→v0.39 at v1.0.6 (#39+#40+#41); v0.39→v0.40 + git+https→PyPI at v1.0.8 (#43; filed #44); v0.40→v0.42 at v1.0.9 (#44; v0.41 skipped); v0.42→v0.43 at v1.2.8 (#48+#49 core-6+#53; ledger only); v0.43→v0.44 at v1.2.14 (#50+#51; ledger per ADR-066 trigger #4); v0.44→v0.47 at v1.2.16 (skip-bumps 3 minors closing #52/#36/#49 advanced-6; v0.47.0 BREAKING removals miss our submodule-only imports; ledger only); v0.47→v0.49→v0.50 at v1.3.5 (v0.49 naming sweep; v0.50 SPEC 7 <code>rng=</code> adoption — <code>paired_bootstrap_diff</code> <code>seed=</code>→<code>rng=</code> consumer migration at commit <code>da471d5</code>); v0.50→v1.0 at v1.3.6 (stability-contract opt-in; v1.0 = v0.51 codewise + ADR 0003 Tier 1 STRICT signature freeze; 4 BREAKING + 1 deprecation verified non-impactful per v1.3.6 CHANGELOG <code>Verified</code>). See per-CHANGELOG entries + <code>decisions/upstream_issues.md</code> for full per-issue closure narratives.</td>
+<td><code>v1.0.2</code> (range <code>&gt;=1.0.1,&lt;2</code>)</td>
+<td><code>eval-toolkit&gt;=1.0.1,&lt;2</code> <strong>(PyPI install per ADR-055; range pin per v1.0 stability-contract; v1.3.7 tightened lower bound to require module <code>eval_toolkit.audit_citation_alignment</code> shipped in v1.0.1)</strong>. Trajectory: v0.31→v0.34 mid-Phase-4 X8; v0.34→v0.39 at v1.0.6; v0.39→v0.40 + git+https→PyPI at v1.0.8 (filed #44); v0.40→v0.42 at v1.0.9 (#44); v0.42→v0.43 at v1.2.8 (ledger only); v0.43→v0.44 at v1.2.14 (#50+#51); v0.44→v0.47 at v1.2.16 (skip-bumps; ledger); v0.47→v0.49→v0.50 at v1.3.5 (v0.50 SPEC 7 <code>rng=</code> adoption); v0.50→v1.0 at v1.3.6 (stability-contract opt-in); v1.0→v1.0.1→v1.0.2 at v1.3.7 (<strong>consumed <code>eval_toolkit.audit_citation_alignment</code> — flat module per upstream ADR 0001; closes #73</strong>; v1.0.2 adds #76 cleanup batch, no methodology change). See per-CHANGELOG entries + <code>decisions/upstream_issues.md</code> for full per-issue closure narratives.</td>
 </tr>
 <tr class="even">
 <td><code>runpod-deploy</code></td>
@@ -1253,6 +1256,30 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<section id="audit-primitives-v1.3.7-ports-the-audit-script-gap-upstream-batch-717273" class="level3">
+<h3 class="anchored" data-anchor-id="audit-primitives-v1.3.7-ports-the-audit-script-gap-upstream-batch-717273">Audit primitives (v1.3.7+; ports the audit-script-gap upstream batch #71/#72/#73)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Primitive</th>
+<th>Imported in</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>eval_toolkit.audit_citation_alignment.validate_citations</code> + <code>ADRSubject</code> + <code>CitationMisalignment</code> + <code>extract_adr_subject_category</code></td>
+<td><code>scripts/audit_citation_alignment.py::main</code> (v1.3.7 Action 1; SOFT CI gate at v1.3.7, promotes to HARD at v1.3.8)</td>
+<td>Validate that “per ADR-NNN” citations in reader-facing markdown match the cited ADR’s actual subject category. Catches the v1.3.2 P1-2 bug class (ADR-029 cited for reproducibility tier-lock where ADR-029 is actually test_markers). Consumer-side glue: builds <code>ADRSubject</code> map from <code>decisions/ADR-*.md</code> frontmatter (<code>title:</code> + <code>slug:</code> + inferred <code>category</code>); supplies the consumer’s <code>CATEGORY_KEYWORDS</code> dict to the validator (11 categories at v1.3.7 seed: reproducibility/test_markers/cost/calibration/contamination/threshold/leakage/data/training/evaluation/reading_guide); globs reader-facing surfaces (top-level <em>.md/</em>.qmd + WRITEUP/<em>.md + docs/</em>.md) skipping CHANGELOG/SUBMISSION_AUDIT/decisions/transcripts. Upstream primitive shipped in v1.0.1 (flat module per upstream ADR 0001; closes eval-toolkit#73).</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned" class="level2">
 <h2 class="anchored" data-anchor-id="runpod-deploy-imports-httpsgithub.combrandon-behringrunpod-deploy-v0.8.4-pinned">runpod-deploy imports (https://github.com/brandon-behring/runpod-deploy) [v0.8.4 pinned]</h2>

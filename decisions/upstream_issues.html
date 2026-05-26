@@ -1254,8 +1254,8 @@ ul.task-list li input[type="checkbox"] {
 <td><code>brandon-behring/eval-toolkit</code></td>
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/73">#73</a></td>
 <td><code>audit.adr_citation_alignment</code> — validate that “per ADR-NNN” citations match the cited ADR’s actual subject (catches the v1.3.2 P1-2 ADR-029-cited-for-tier-lock + ADR-039-cited-for-cost bug class)</td>
-<td>No existing script in this project; gap surfaced by Claude proactive Phase-2 Gap-3 sweep against <code>docs/REPRODUCIBILITY.md</code> ADR citations.</td>
-<td><strong>filed at v1.3.3</strong>; triaged 2026-05-24 (P3, <code>enhancement,tracked</code>, #1 of 3 — recommended first per maintainer); <strong><a href="https://github.com/brandon-behring/eval-toolkit/pull/74">PR #74</a> ready-for-review 2026-05-25 per v1.3.6 close</strong> (was DRAFT pending v1.0 STOP-GATE; gate cleared by upstream v1.0.0 ship 2026-05-25 17:02 GMT)</td>
+<td><code>scripts/audit_citation_alignment.py</code> (v1.3.7) wraps <code>eval_toolkit.audit_citation_alignment.validate_citations</code> with the consumer’s <code>CATEGORY_KEYWORDS</code> map + builds <code>ADRSubject</code> records from <code>decisions/ADR-*.md</code> frontmatter.</td>
+<td><strong>RESOLVED in eval-toolkit v1.0.1; consumed at v1.3.7</strong>. Filed at v1.3.3; PR <a href="https://github.com/brandon-behring/eval-toolkit/pull/74">#74</a> merged 2026-05-25T22:51:15Z (restructured pre-merge to flat module per upstream ADR 0001: <code>src/eval_toolkit/audit_citation_alignment.py</code> not subpackage); shipped in v1.0.1 release ~22:55Z; v1.0.2 release ~23:30Z added #76 cleanup batch (same module blob).</td>
 </tr>
 </tbody>
 </table>
