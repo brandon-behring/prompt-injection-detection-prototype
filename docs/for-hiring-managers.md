@@ -3,8 +3,6 @@ title: "Project at a glance"
 description: "Four questions, ~60 seconds: what problem this project solves, what was found, why to trust the finding, and what the work says about how the candidate thinks."
 ---
 
-Four questions, ~60 seconds.
-
 For a slightly longer read, see the [headline table on the
 landing page](../index.qmd) or the [one-page executive
 summary](../README.md#executive-summary) (absorbed into README per
@@ -90,6 +88,35 @@ See [RESULTS](../RESULTS.md) for the direct, OOD, and ablation tables.
 - **Library-first invariant**: shared evaluation primitives live in upstream
   libraries (`eval-toolkit`, `runpod-deploy`, `research_toolkit`); local code
   is project-specific glue. See [`decisions/library_imports.md`](../decisions/library_imports.md).
+
+The same set of signals indexed against concrete repo evidence:
+
+| Hiring signal | Evidence in the repo | Where to inspect |
+|---|---|---|
+| Designs fair ML evaluations | LODO source-disjoint splits, OOD/direct separation, undefined-metric handling on single-class slices | [RESULTS.md](../RESULTS.md), [WRITEUP/eval-design](../WRITEUP/eval-design.md) |
+| Handles negative results honestly | Pooled OOD failure is the headline (not hidden); below-floor AUROC framed explicitly | [README §Executive summary](../README.md#executive-summary), [WRITEUP_PAPER §4 Results](../WRITEUP_PAPER.md) |
+| Methodology before results | 81 ADRs locked before code; SPEC_GREENFIELD pre-flight spec | [decisions/](../decisions/), [SPEC_GREENFIELD.md](../SPEC_GREENFIELD.md) |
+| Controls confounds | DeBERTa context-window ablation; null result published | [WRITEUP/model-rungs.md](../WRITEUP/model-rungs.md), [ADR-060](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md) |
+| Builds reproducible artifacts | Per-row predictions + bootstrap CIs with seed-stability check + T0/T1/T3 cost tiers | [WRITEUP/reproducibility.md](../WRITEUP/reproducibility.md), [evals/](../evals/) |
+| Library-first / upstream contribution | eval-toolkit primitives; upstream issues filed before any local workaround | [decisions/library_imports.md](../decisions/library_imports.md), [decisions/upstream_issues.md](../decisions/upstream_issues.md) |
+| Writes for multiple audiences | Hiring scan, README, paper, narrative, results-only, ADR trail | Quarto sidebar |
+| Audit-class self-discipline | Project-shipped audit validators (audit_value_bindings, audit_citation_alignment); upstream issues filed when the validator's own quality is the gap | [scripts/audit_*.py](../scripts/), [decisions/upstream_issues.md](../decisions/upstream_issues.md) |
+
+## 5. How to review this in 5 minutes
+
+If you want a structured way to assess this beyond the 60-second
+scan above, here is a concrete 5-minute review path:
+
+1. **~1 min** — this page (§1–§4): problem framing, result, trust basis, candidate-thinking signals.
+2. **~1 min** — [RESULTS.md §Pooled OOD AUPRC](../RESULTS.md): does the random-floor framing hold up; do CIs make sense?
+3. **~1 min** — [§3 trust bullets above + WRITEUP/methodology-guarantees](../WRITEUP/methodology-guarantees.md): are the methodology guarantees credible end-to-end?
+4. **~1 min** — [WRITEUP/reproducibility.md](../WRITEUP/reproducibility.md): can the artifact actually be re-run at T0 (laptop) / T3 (cloud)?
+5. **~1 min** — [WRITEUP/limitations-and-future-work.md](../WRITEUP/limitations-and-future-work.md): does the candidate know what this work does NOT prove?
+
+If anything in step 2 or 3 looks shaky, the [evals/](../evals/)
+directory has the raw artifacts: per-fold metrics, bootstrap-CI
+sidecars, persisted predictions per row. The [`scripts/audit_*.py`](../scripts/)
+audits run on every push (see `.github/workflows/audit-writeup.yml`).
 
 If you want the deeper read, pick a guide:
 [WRITEUP_PAPER.md](../WRITEUP_PAPER.md) (academic IMRAD; ~20–25 min) or

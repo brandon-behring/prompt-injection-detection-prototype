@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: >-
+  If you use this work or its evaluation methodology, please cite it
+  using the metadata below.
+title: >-
+  Prompt-Injection Classification: Methodology and Capability
+  Characterization Under Cross-Family Distribution Shift
+authors:
+  - family-names: Behring
+    given-names: Brandon
+repository-code: "https://github.com/brandon-behring/prompt-injection-detection-prototype"
+url: "https://brandon-behring.github.io/prompt-injection-detection-prototype/"
+license: MIT
+version: "1.3.10"
+date-released: "2026-05-26"
+type: software
+abstract: >-
+  A methodology-focused evaluation of prompt-injection detectors under
+  cross-family distribution shift. Trains a ladder of detectors
+  (TF-IDF + LR baseline, ModernBERT frozen probe, ModernBERT LoRA,
+  ModernBERT full fine-tune) on direct prompt-injection examples and
+  evaluates against a held-out OOD slate covering indirect injection
+  (BIPIA), agentic-flow injection (InjecAgent), jailbreak-style
+  questions (JBB-Behaviors, XSTest), and benign-but-injection-shaped
+  text (NotInject). The headline finding is that direct-detection
+  is learnable but generalization to cross-family attacks fails —
+  trained adapters score below the 0.5 AUROC random floor with
+  confidence intervals on the wrong side. Contribution: the honest
+  evaluation harness plus the negative result on cross-family
+  transfer.
+keywords:
+  - prompt injection
+  - machine learning
+  - out-of-distribution
+  - evaluation methodology
+  - LLM security
+  - distribution shift
+  - reproducibility

@@ -22,7 +22,7 @@ it is trying to show what a fairer evaluation says about several detector design
 **Bottom line, two-sided:**
 
 - **Direct detection is learned**, and learnable cheaply. TF-IDF + LR reaches **0.971 AUPRC** on balanced direct+benign validation; LoRA matches at **0.974**. The neural lift over the lexical baseline is small.
-- **Cross-family generalization fails.** On pooled OOD, the best detector lands at AUPRC **0.364** against a random floor of **0.374** — at the floor, not above. Under AUROC, LoRA (0.383) and TF-IDF (0.371) both clear the 0.5 floor **on the wrong side**: their rankings are anti-correlated with truth on cross-family attacks. The frozen ModernBERT probe alone stays above floor (AUROC 0.515).
+- **Cross-family generalization fails.** On pooled OOD, the best detector lands at AUPRC **0.364** against a random floor of **0.374** — at the floor, not above. Under AUROC, LoRA (0.383) and TF-IDF (0.371) both clear the 0.5 floor **on the wrong side**: their rankings are anti-correlated with truth on cross-family attacks. The frozen ModernBERT probe alone stays *just* above floor (AUROC 0.515, 95% CI [0.505, 0.525] — lower bound clears 0.5 by only 0.005).
 
 ### Pooled OOD AUPRC table
 
@@ -219,7 +219,7 @@ Single-turn English text classification only. Not in scope: multilingual attacks
 
 ## Submission anchors
 
-- **Current state:** [`tree/v1.3.9`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.9) (2026-05-26) — live-site source
+- **Current state:** [`tree/v1.3.10`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.10) (2026-05-26) — live-site source
 - **Original submission tag:** [`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0) (2026-05-18) — preserved as historical reviewer pin per ADR-033
 - **Live rendered site:** <https://brandon-behring.github.io/prompt-injection-detection-prototype/>
 - **HF Hub checkpoints:** [frozen probe](https://huggingface.co/BBehring/prompt-injection-frozen-probe), [LoRA](https://huggingface.co/BBehring/prompt-injection-lora)

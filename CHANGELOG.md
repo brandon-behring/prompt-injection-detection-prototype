@@ -20,6 +20,100 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.10] — 2026-05-26 {#v1-3-10}
+
+**Polish-audit second wave**: continues the independent polish-audit
+work from v1.3.9 with the lower-priority items (visible polish,
+deeper-dig deferred-to-v1.3.10 additions, and selective hiring-page
+enhancements per Codex hiring-research). v1.3.9 covered material
+correctness; v1.3.10 covers presentation polish + structured
+additions.
+
+**Audience signal expanded**: the hiring-manager page now indexes
+the project's hiring-signal evidence (skills-to-evidence table) and
+gives a structured 5-minute review path beyond the existing 60-second
+scan. The two changes preserve the page's four-question structure;
+the larger Codex hiring-expansion proposal (personal-contribution,
+production-judgment, interview-prompts blocks) is intentionally
+deferred — those would reposition the page from sidebar-scan to
+hiring-evidence-packet, which is its own positioning decision and
+out of scope for a polish patch.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Fixed
+
+- **F8** `docs/for-hiring-managers.md:6` — removed duplicate
+  "Four questions, ~60 seconds." body line. Quarto renders the
+  frontmatter `description:` field under the H1, so this line was
+  appearing twice in the rendered page.
+
+### Changed
+
+- **D2** `README.md:25` (§Executive summary) — frozen-probe AUROC
+  framing strengthened: `stays above floor (AUROC 0.515)` →
+  `stays *just* above floor (AUROC 0.515, 95% CI [0.505, 0.525] —
+  lower bound clears 0.5 by only 0.005)`. The CI was already shown
+  in WRITEUP_PAPER, WRITEUP_NARRATIVE, and RESULTS; the README
+  executive line was the lone surface where the 0.005 lift above
+  random floor wasn't surfaced. Now consistent.
+- **D3** `_quarto.yml` — added a 5-line comment near line 71
+  documenting the `model-rungs.md` `text:` override convention
+  (only that one spoke carries an explicit override; the other 7
+  have reader-friendly filenames whose H1-inferred label reads
+  cleanly). Future-maintainer ergonomics.
+
+### Added
+
+- **S1** `WRITEUP.md` — appended a `## Looking for a specific
+  section?` block with H3 redirects for all 7 v1.0.0-era anchors
+  (`#reading-guide`, `#motivation` / `#1-motivation`,
+  `#attack-type-taxonomy` / `#1-5-attack-type-taxonomy-traintest-composition` /
+  `#attack-type-taxonomy-traintest-composition`, `#approach-overview` /
+  `#2-approach-overview`, `#results`, `#lessons-brief` / `#lessons`,
+  `#appendix` / `#12-appendix`). Each H3 catches one historical
+  anchor and routes the reader at the current WRITEUP_PAPER /
+  WRITEUP_NARRATIVE / WRITEUP/spoke / RESULTS equivalent. Closes the
+  dead-anchor surface for `tree/v1.0.0`-era deep links (cover-letter
+  bookmarks, etc.) without restoring the deprecated full WRITEUP.md.
+- **S6** `CITATION.cff` — new file at repo root, CFF 1.2.0 schema,
+  Standard + keywords (~38 lines). Enables GitHub's "Cite this
+  repository" button and gives paper-citers usable metadata.
+  Includes: title, authors, repository-code, url, license, version,
+  date-released, type, abstract (sourced from README intro),
+  keywords [prompt injection, machine learning, out-of-distribution,
+  evaluation methodology, LLM security, distribution shift,
+  reproducibility].
+- **HM1** `docs/for-hiring-managers.md` — added skills-to-evidence
+  table inline at end of §4 ("How the candidate thinks"). Maps 8
+  hiring signals (evaluation design / negative-results honesty /
+  methodology-before-results / confound control / reproducibility /
+  library-first / multi-audience writing / audit-class
+  self-discipline) to concrete repo evidence + inspection link.
+  Preserves the existing four-question structure; integrates as an
+  additional view of the same signals the §4 bullets already cover.
+- **HM2** `docs/for-hiring-managers.md` — added new §5 "How to
+  review this in 5 minutes" with a structured 5-step review path
+  (this page → RESULTS → methodology-guarantees → reproducibility →
+  limitations). Closes the "60-seconds-then-what" gap; the existing
+  "If you want the deeper read..." paragraph stays as a longer-form
+  follow-up.
+
+### Updated
+
+- Reader-surface `tree/v1.3.9` anchors advanced to `tree/v1.3.10`
+  across 5 files (`index.qmd:79`, `README.md:222`,
+  `READING_GUIDE.md:91`, `WRITEUP_PAPER.md:7`,
+  `WRITEUP_NARRATIVE.md:7`).
+- `.lycheeignore` adds `tree/v1.3.10` (chicken-and-egg per v1.2.13
+  + v1.3.2..v1.3.9 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.9] — 2026-05-26 {#v1-3-9}
 
 **Independent polish-audit fix-forward**: ships correctness +

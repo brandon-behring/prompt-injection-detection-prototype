@@ -45,3 +45,74 @@ Old WRITEUP.md (the jumbled hybrid) content is now distributed across
 the two guides; the historical content remains accessible at the
 reviewer URL pin (`tree/v1.0.0`) per ADR-033 (corrected from a prior
 `tree/v1.2.8` mis-citation per [ADR-080](./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.md)).
+
+## Looking for a specific section? {#section-redirects}
+
+If you arrived here from a `tree/v1.0.0`-era deep link (e.g., from
+the submission email or a bookmarked anchor), the original v1.0.0
+`WRITEUP.md` had 7 sections. They are now redistributed as below.
+
+### §Reading guide {#reading-guide}
+
+Reading-style routing for the methodology now lives in the dedicated
+[READING_GUIDE.md](./READING_GUIDE.md) (academic / narrative /
+hiring-manager / reproducer / data-only paths).
+
+<a id="1-motivation"></a>
+### §1 Motivation {#motivation}
+
+Now in [WRITEUP_PAPER §1 Introduction](./WRITEUP_PAPER.md) (academic
+framing) and [WRITEUP_NARRATIVE Act 0 — Hook](./WRITEUP_NARRATIVE.md)
+(narrative framing).
+
+<a id="1-5-attack-type-taxonomy-traintest-composition"></a>
+<a id="attack-type-taxonomy-traintest-composition"></a>
+### §1.5 Attack-type taxonomy + train/test composition {#attack-type-taxonomy}
+
+The train/test composition table and OOD slate breakdown now live in
+[WRITEUP/data-decisions.md](./WRITEUP/data-decisions.md) and
+[WRITEUP_PAPER §3 Methods](./WRITEUP_PAPER.md). The high-level
+taxonomy (direct / indirect / agentic-flow / jailbreak / benign-but-
+injection-shaped) is summarized in the
+[README §What "OOD" means here](./README.md).
+
+<a id="2-approach-overview"></a>
+### §2 Approach overview {#approach-overview}
+
+The detector ladder + reference-scorer slate are now in
+[WRITEUP_PAPER §3 Methods](./WRITEUP_PAPER.md) and
+[WRITEUP/model-rungs.md](./WRITEUP/model-rungs.md). The
+multi-detector philosophy (lexical baseline → frozen probe → LoRA →
+full fine-tune + reference scorers) is in
+[WRITEUP_NARRATIVE Act 2 — Setup](./WRITEUP_NARRATIVE.md).
+
+### §Results {#results}
+
+The headline characterization (cross-family generalization failure +
+mechanism) is now in [WRITEUP_PAPER §4 Results](./WRITEUP_PAPER.md),
+[WRITEUP_NARRATIVE Act 3 — Revelation](./WRITEUP_NARRATIVE.md), and
+the tables-only [RESULTS.md](./RESULTS.md) appendix with 5 canonical
+figures.
+
+<a id="lessons"></a>
+### §Lessons (brief) {#lessons-brief}
+
+Methodology reflections now live in
+[WRITEUP_PAPER §5 Discussion](./WRITEUP_PAPER.md) and
+[WRITEUP/limitations-and-future-work.md](./WRITEUP/limitations-and-future-work.md).
+The "what could be wrong with this" narrative is in
+[WRITEUP_NARRATIVE Act 4 — Implications](./WRITEUP_NARRATIVE.md).
+
+<a id="12-appendix"></a>
+### §12 Appendix {#appendix}
+
+The appendix-class material (operating-point tables, calibration
+detail, per-source breakdowns, raw artifact pointers) now lives in
+[RESULTS.md](./RESULTS.md) and the [WRITEUP/](./WRITEUP/) spokes
+(8 methodology references). The decision trail is at
+[decisions/](./decisions/).
+
+For the original single-document v1.0.0 content verbatim, see the
+[`tree/v1.0.0`](https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0/WRITEUP.md)
+tag pin per ADR-033 — the historical reviewer URL is preserved
+unchanged.

@@ -68,6 +68,11 @@ website:
           - text: "Reading guide"
             href: READING_GUIDE.md
           - href: WRITEUP/data-decisions.md
+          # Note: only `model-rungs.md` carries an explicit `text:` override
+          # — its filename embeds the older `rungs` jargon, while the other
+          # 7 spokes have reader-friendly filenames whose H1-inferred label
+          # reads cleanly. Do not add `text:` overrides to the other spokes
+          # unless their filename term becomes opaque.
           - text: "Model details"
             href: WRITEUP/model-rungs.md
           - href: WRITEUP/eval-design.md
