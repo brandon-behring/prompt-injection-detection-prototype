@@ -1238,8 +1238,8 @@ ul.task-list li input[type="checkbox"] {
 <td><code>brandon-behring/eval-toolkit</code></td>
 <td><a href="https://github.com/brandon-behring/eval-toolkit/issues/71">#71</a></td>
 <td><code>audit.reader_value_bindings</code> — validate detector→value bindings in reader-prose Markdown (catches the v1.3.2 P1-1 Act 0 bug class where canonical 0.974 was bound to TF-IDF instead of LoRA)</td>
-<td><code>scripts/audit_numbers.py</code> + <code>scripts/audit_writeup_numbers.py</code> — existing scripts validate canonical numbers against source data, not reader-prose detector→value bindings. v1.3.2 P1-1 Act 0 bug (TF-IDF 0.974 instead of 0.971) escaped both audits.</td>
-<td><strong>filed at v1.3.3</strong>; triaged 2026-05-24 (P3, <code>enhancement,tracked</code>, #2 of 3 in audit/ subpackage drop per maintainer sequencing #73→#71→#72); awaiting upstream PR after <a href="https://github.com/brandon-behring/eval-toolkit/pull/74">#74</a> (the #73 port) merges</td>
+<td><code>scripts/audit_value_bindings.py</code> (v1.3.8) wraps <code>eval_toolkit.audit_value_bindings.validate_reader_value_bindings</code> with the consumer’s <code>BINDINGS</code> dict + <code>DETECTOR_ALIASES</code> + <code>METRIC_ALIASES</code> regex maps.</td>
+<td><strong>RESOLVED in eval-toolkit v1.0.3; consumed at v1.3.8</strong>. Filed at v1.3.3; PR merged into upstream main; v1.0.3 release shipped 2026-05-26 02:35Z as second member of the audit-validator family (after #73 / audit_citation_alignment at v1.0.1).</td>
 </tr>
 <tr class="odd">
 <td>2026-05-22</td>
