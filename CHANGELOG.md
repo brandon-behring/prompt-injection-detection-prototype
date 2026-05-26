@@ -20,6 +20,90 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.8] — 2026-05-26 {#v1-3-8}
+
+**Consumer adoption of upstream `eval_toolkit.audit_value_bindings`**:
+ports the second member of the audit-validator family (closes
+[eval-toolkit#71](https://github.com/brandon-behring/eval-toolkit/issues/71)).
+Adds a new local CLI wrapper that catches the V1.3.1 ADR-080 bug class
+— reader-prose pairing a detector name with the WRONG canonical value
+(e.g., the historical V1.3.1 ADR-080 case: `WRITEUP_NARRATIVE.md:38`
+said "TF-IDF + LR baseline reaches 0.974 AUPRC" when canonical
+TF-IDF AUPRC = 0.971 and 0.974 was LoRA's value — both values exist
+in the canonical table; the bug is the wrong pairing).
+
+The existing `audit_numbers.py` + `audit_writeup_numbers.py` validate
+VALUES against source data; this validator extends to validate
+BINDINGS (the `(detector, metric, value)` triple itself).
+
+Upstream pipeline summary: this project filed eval-toolkit#71 at v1.3.3
+based on its own V1.3.1 ADR-080 audit findings; upstream shipped v1.0.3
+on 2026-05-26 02:35Z as the second member of the audit-validator family
+(after #73 / `audit_citation_alignment` at v1.0.1 / consumer v1.3.7).
+The maintainer's #73→#71→#72 sequencing is being followed; #72
+(`audit_sister_doc_concept_drift`) shipped upstream at v1.0.4 and will
+be adopted at v1.3.9 per /exploring-options Q1 sequential-ladder lock.
+
+**Gate severity**: SOFT at v1.3.8 (script always exits 0; CI uses
+`continue-on-error: true`; pre-commit hook `stages: [manual]`). Promotes
+to HARD bundled with `audit_citation_alignment` at a future v1.3.X
+after observation window confirms validator output is signal-not-noise.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Added
+
+- `scripts/audit_value_bindings.py` — NEW CLI wrapper around upstream
+  `eval_toolkit.audit_value_bindings.validate_reader_value_bindings`.
+  Carries a module-level `BINDINGS` dict (initial seed at v1.3.8: 2
+  entries — `("TF-IDF", "AUPRC"): 0.971` + `("LoRA", "AUPRC"): 0.974`
+  — the V1.3.1 ADR-080 motivating pair); `DETECTOR_ALIASES` +
+  `METRIC_ALIASES` regex maps for surface-form matching (TF-IDF /
+  TFIDF / "TF-IDF + LR" + variants for AUPRC); globs reader-facing
+  surfaces (top-level `*.md`/`*.qmd` + `WRITEUP/*.md` + `docs/*.md`).
+- `tests/scripts/test_audit_value_bindings.py` — **7 new tests**
+  including a synthetic regression fixture for the V1.3.1 ADR-080 bug
+  (asserts `validate_reader_value_bindings` flags the
+  TF-IDF/0.974/AUPRC misbinding). Full test suite: **96 passed** (89
+  baseline + 7 new).
+- `.pre-commit-config.yaml` — new `audit-value-bindings` hook with
+  `stages: [manual]` (SOFT — same pattern as v1.3.7's
+  `audit-citation-alignment`).
+- `.github/workflows/audit-writeup.yml` — new step inside the
+  `audit-writeup-numbers` job with `continue-on-error: true`.
+- `Makefile` — new `audit-value-bindings` target.
+
+### Changed
+
+- `pyproject.toml` — `eval-toolkit>=1.0.1,<2` → `>=1.0.3,<2`. Tightens
+  lower bound to require the upstream release that ships
+  `eval_toolkit.audit_value_bindings` (v1.0.3 minimum).
+- `uv.lock` — `eval-toolkit==1.0.2` → `eval-toolkit==1.0.3` (latest in
+  the new range; v1.0.4 not yet on PyPI at v1.3.8 cut time).
+- `decisions/library_imports.md` — eval-toolkit row trajectory extended
+  with `v1.0.2→v1.0.3 at v1.3.8 (consumed eval_toolkit.audit_value_bindings;
+  flat-module per upstream ADR 0001; closes #71; second member of
+  audit-validator family)`. `### Audit primitives` subsection extended
+  with the new 4 consumed names (`validate_reader_value_bindings` +
+  `Match` + `Violation` + `ValueBindingsReport`).
+- `decisions/upstream_issues.md` — #71 row status updated from
+  "awaiting upstream PR" to "RESOLVED in eval-toolkit v1.0.3; consumed
+  at v1.3.8".
+
+### Updated
+
+- Reader-surface `tree/v1.3.7` anchors advanced to `tree/v1.3.8`
+  across 5 files (`index.qmd`, `README.md`, `READING_GUIDE.md`,
+  `WRITEUP_PAPER.md`, `WRITEUP_NARRATIVE.md`).
+- `.lycheeignore` adds `tree/v1.3.8` (chicken-and-egg per v1.2.13 +
+  v1.3.2..v1.3.7 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.7] — 2026-05-25 {#v1-3-7}
 
 **Consumer adoption of upstream `eval_toolkit.audit_citation_alignment`**:

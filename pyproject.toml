@@ -115,10 +115,13 @@ dependencies = [
     # changes after v1.0 require a v2.0 major bump.
     # v1.0.1 bump (2026-05-25): ships `eval_toolkit.audit_citation_alignment`
     # (flat module per upstream ADR 0001; closes #73). Consumer-side adoption
-    # at v1.3.7 uses this module via `scripts/audit_citation_alignment.py`;
-    # tightening lower bound from >=1.0 to >=1.0.1 prevents fresh installs from
-    # resolving to v1.0.0 (which predates the module).
-    "eval-toolkit>=1.0.1,<2",
+    # at v1.3.7.
+    # v1.0.3 bump (2026-05-26): ships `eval_toolkit.audit_value_bindings`
+    # (flat module per upstream ADR 0001; closes #71). Consumer-side adoption
+    # at v1.3.8 uses this module via `scripts/audit_value_bindings.py`;
+    # tightening lower bound from >=1.0.1 to >=1.0.3 prevents fresh installs
+    # from resolving to v1.0.1/v1.0.2 (which predate audit_value_bindings).
+    "eval-toolkit>=1.0.3,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
