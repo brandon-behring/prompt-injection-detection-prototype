@@ -3,8 +3,8 @@ title: "Prompt-Injection Classification: Methodology and Capability Characteriza
 description: "Academic IMRAD article presenting the project's methodology and findings."
 ---
 
-**Author**: Brandon Behring | **Date**: 2026-05-21 | **Status**:
-live-site current state `tree/v1.3.8`; original submission tag
+**Author**: Brandon Behring | **Date**: 2026-05-26 | **Status**:
+live-site current state `tree/v1.3.9`; original submission tag
 `tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
 ADR-033.
 
@@ -251,7 +251,7 @@ paired-bootstrap CIs on test [§GLOSSARY] per ADR-025.
 Calibration: ECE (Expected Calibration Error, equal-mass binning,
 n_bins=15) and Brier score, reported per detector per ADR-023.
 Reliability diagrams (raw + temperature + isotonic recalibration) are
-in [Figure F4](./docs/plots/F4.svg).
+in [Figure F5](./docs/plots/F5.svg).
 
 The evaluation harness uses the [eval-toolkit](https://github.com/brandon-behring/eval-toolkit)
 library (pinned to v0.47.0) for all generic primitives; project-
@@ -325,8 +325,9 @@ classifier output on overlapping 512-token windows and average) and
 head-truncation (use only the first 512 tokens).
 
 Result: DeBERTa-v3-base with chunk-and-average scored 0.291 pooled
-OOD AUPRC; head-truncation scored 0.290. Neither significantly
-differs from each other or from the ModernBERT-LoRA result (0.293).
+OOD AUPRC; head-truncation scored 0.290. Neither materially
+differs from each other or from the ModernBERT-LoRA result (0.293)
+in this run.
 The ModernBERT advantage observed in §4.1 is therefore best
 interpreted as backbone-dominant, not context-window-dominant.
 
@@ -541,8 +542,8 @@ Full limitations narrative in [WRITEUP/limitations-and-future-work.md](./WRITEUP
 This study evaluated a detector ladder for prompt-injection
 classification under cross-family distribution shift, finding that
 direct-prompt-injection detection is learnable cheaply (TF-IDF + LR
-reaches 0.974 AUPRC on direct+benign validation) but does not
-generalize to cross-family attacks (best pooled OOD AUPRC is 0.364
+reaches 0.971 AUPRC on direct+benign validation; LoRA matches at
+0.974) but does not generalize to cross-family attacks (best pooled OOD AUPRC is 0.364
 against a random floor of 0.374; trained adapters score below the
 0.5 AUROC floor with confidence intervals that clear 0.5 on the
 wrong side). The cross-family failure is interpreted as lexical

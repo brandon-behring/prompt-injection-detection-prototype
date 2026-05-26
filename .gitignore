@@ -33,6 +33,8 @@ secrets/
 .secrets/
 # SUBMISSION two-version split: TEMPLATE is committed; filled SUBMISSION.md is local-only
 SUBMISSION.md
+# Codex-generated audit reports — private by default (like SUBMISSION.md). Local audit notes only.
+*_codex.md
 # Transcripts: private by default. The README.md inside transcripts/ stays tracked as the convention doc.
 transcripts/*.md
 !transcripts/README.md

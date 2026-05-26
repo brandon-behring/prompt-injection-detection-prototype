@@ -3,8 +3,8 @@ title: "Prompt-Injection Classification: Methodology and Capability Characteriza
 description: "Plain-English story-arc article presenting the project's methodology and findings."
 ---
 
-**Author**: Brandon Behring | **Date**: 2026-05-21 | **Status**:
-live-site current state `tree/v1.3.8`; original submission tag
+**Author**: Brandon Behring | **Date**: 2026-05-26 | **Status**:
+live-site current state `tree/v1.3.9`; original submission tag
 `tree/v1.0.0` (2026-05-18) preserved as historical reviewer pin per
 ADR-033.
 

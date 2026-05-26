@@ -20,6 +20,99 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.9] — 2026-05-26 {#v1-3-9}
+
+**Independent polish-audit fix-forward**: ships correctness +
+consistency fixes surfaced by an independent audit pass (Claude main
+session + Codex polish-audit + Codex hiring-research). Two
+material-correctness items in `WRITEUP_PAPER.md` (§7 Conclusion
+value-binding swap; §3 Methods calibration figure reference); one
+read-time staleness item in `docs/site-reader-map.md`; three stale
+`Date:` fields; one DeBERTa-ablation wording precision item.
+
+**Audit-discipline signal**: F1 (the TF-IDF/LoRA value-binding swap
+in the paper conclusion) is the **same bug class** as the V1.3.1
+ADR-080 historical case the project's own `audit_value_bindings`
+validator was built to catch. The validator did flag F1 — but its
+SOFT gate + the 2-tuple `(detector, metric)` schema's ~95%
+false-positive rate on the current repo meant the warning hid in
+noise. Concurrent with this release, upstream eval-toolkit issue
+proposing a `(detector, metric, slice, expected_value)` schema
+extension is filed (see `decisions/upstream_issues.md`).
+
+**Gate severity**: no changes to audit-validator gates in v1.3.9.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Fixed
+
+- **F1** `WRITEUP_PAPER.md:543–544` (§7 Conclusion): TF-IDF + LR
+  direct-validation AUPRC corrected from `0.974` → `0.971`; LoRA
+  binding added (`LoRA matches at 0.974`). Phrasing mirrors
+  `README.md:24` for cross-doc consistency. Same bug class as
+  V1.3.1 ADR-080. Verified: `audit_value_bindings` no longer
+  reports the warning for this line.
+- **F2** `WRITEUP_PAPER.md:253–254` (§3 Methods → Calibration):
+  reliability-diagram figure reference corrected `F4` → `F5`
+  (image link target `F4.svg` → `F5.svg`). Per `F4.meta.json` and
+  `F5.meta.json` source artifacts: F4 = threshold-transfer
+  (`evals/operating_points/dual_policy.parquet`); F5 = calibration
+  (`evals/metrics/per_cell.parquet`). The same paper at line 385
+  already correctly cited F5 for calibration; line 254 was the
+  lone drift.
+- **F3** `docs/site-reader-map.md:14`: WRITEUP_PAPER read-time
+  estimate `~45 min` → `~20–25 min`; WRITEUP_NARRATIVE `~30 min`
+  → `~15–20 min`. Aligns with README, `index.qmd`, and
+  READING_GUIDE estimates (canonical times shrunk in v1.3.0
+  restructure; this surface missed the update).
+- **F6** `WRITEUP_PAPER.md:327–329` (§4.4 Context-window
+  ablation): "Neither significantly differs" → "Neither materially
+  differs ... in this run". The DeBERTa ablation paragraph
+  displays three point estimates (0.291, 0.290, 0.293) without an
+  inline CI / paired-bootstrap delta / significance test;
+  "significantly" carried a formal-statistical connotation the
+  paragraph did not back up. New wording preserves the practical
+  conclusion (the three are within-noise of each other) without
+  claiming an inline statistical test.
+
+### Updated
+
+- **D1** Three `Date: 2026-05-21` → `Date: 2026-05-26` fields:
+  `index.qmd:4` (frontmatter), `WRITEUP_PAPER.md:6`,
+  `WRITEUP_NARRATIVE.md:6`. Source mtimes + CHANGELOG `v1.3.8` +
+  README submission anchors all date through 2026-05-26; the
+  three reader-facing entry-point Date fields had drifted 5 days
+  stale.
+- Reader-surface `tree/v1.3.8` anchors advanced to `tree/v1.3.9`
+  across 5 files (`index.qmd:79`, `README.md:222`,
+  `READING_GUIDE.md:91`, `WRITEUP_PAPER.md:7`,
+  `WRITEUP_NARRATIVE.md:7`).
+- `.lycheeignore` adds `tree/v1.3.9` (chicken-and-egg per v1.2.13
+  + v1.3.2..v1.3.8 precedent).
+
+### Audit-driven (Batch F concurrent with v1.3.9 tag)
+
+- **Filed upstream issue against `brandon-behring/eval-toolkit`**
+  proposing `(detector, metric, slice, expected_value)` schema
+  for `audit_value_bindings.BINDINGS`. The current 2-tuple
+  `(detector, metric)` schema emits 96 warnings on this repo of
+  which ~95+ are false positives — the validator cannot
+  distinguish direct-validation AUPRC from pooled-OOD AUPRC,
+  AUPRC from AUROC, point estimates from paired deltas, or
+  detector values from random-floor values. **F1 hid in this
+  noise**; the noise is the architectural blocker preventing
+  SOFT→HARD gate promotion. v1.3.9 ships as the concrete repro
+  case (with F1 fixed, the F1-class warning disappears; the 95+
+  false-positive warnings persist until upstream lands the
+  schema extension). See `decisions/upstream_issues.md` for the
+  issue reference + sequencing.
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.8] — 2026-05-26 {#v1-3-8}
 
 **Consumer adoption of upstream `eval_toolkit.audit_value_bindings`**:

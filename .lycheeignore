@@ -113,5 +113,9 @@
 # resolves after the v1.3.8 tag is pushed. Same chicken-and-egg as v1.3.2..v1.3.7.
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.3\.8$
 
+# Self-referential tag — added at v1.3.9 patch authoring time per ADR-033;
+# resolves after the v1.3.9 tag is pushed. Same chicken-and-egg as v1.3.2..v1.3.8.
+^https://github\.com/brandon-behring/prompt-injection-detection-prototype/tree/v1\.3\.9$
+
 # v1.3.5 ADR-053 references retired EXECUTIVE_SUMMARY.md (per ADR-078) — 404 expected on github.com/main; ADR body immutable per CLAUDE.md.
 ^https://github\.com/brandon-behring/prompt-injection-detection-prototype/blob/main/EXECUTIVE_SUMMARY\.md$
