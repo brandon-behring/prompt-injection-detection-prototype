@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage audit-citation-alignment notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-audit site-preview clean \
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage audit-citation-alignment audit-value-bindings notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-audit site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
@@ -79,9 +79,19 @@ audit-leakage:
 # (shipped in eval-toolkit v1.0.1; ports brandon-behring/eval-toolkit#73).
 # Catches the v1.3.2 P1-2 bug class: reader-facing markdown citing
 # "per ADR-NNN" where cited ADR's subject doesn't match the claim category.
-# v1.3.8 will promote to HARD gate (exit 1 on findings).
+# Promotes to HARD bundled with audit-value-bindings at a future v1.3.X.
 audit-citation-alignment:
 	uv run python scripts/audit_citation_alignment.py
+
+# v1.3.8 — SOFT gate (script always exits 0; findings informational).
+# Wraps upstream eval_toolkit.audit_value_bindings.validate_reader_value_bindings
+# (shipped in eval-toolkit v1.0.3; ports brandon-behring/eval-toolkit#71).
+# Catches the V1.3.1 ADR-080 bug class: reader-prose pairing a detector
+# name with the WRONG canonical value (e.g., "TF-IDF reaches 0.974 AUPRC"
+# when canonical TF-IDF AUPRC=0.971 and 0.974 is LoRA's value).
+# Promotes to HARD bundled with audit-citation-alignment at a future v1.3.X.
+audit-value-bindings:
+	uv run python scripts/audit_value_bindings.py
 
 # v1.2.8 — render 4 folder-paired Jupytext notebooks to .ipynb with frozen output cells.
 # Per /exploring-options batch 9 Q2 lock: pre-rendered + frozen output cells;

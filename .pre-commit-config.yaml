@@ -71,18 +71,29 @@ repos:
         pass_filenames: false
         files: '^(decisions/ADR-.*\.md|.*\.(md|qmd))$'
       - id: audit-citation-alignment
-        name: ADR-citation alignment (SOFT at v1.3.7; promotes to HARD at v1.3.8)
-        # SOFT GATE at v1.3.7: stages=[manual] so the hook doesn't run on
-        # normal `git commit` — operators invoke explicitly via
+        name: ADR-citation alignment (SOFT at v1.3.7; promotes to HARD at a future v1.3.X)
+        # SOFT GATE: stages=[manual] so the hook doesn't run on normal
+        # `git commit` — operators invoke explicitly via
         # `pre-commit run --hook-stage manual audit-citation-alignment`
-        # OR via `make audit-citation-alignment`. v1.3.8 will remove
-        # `stages: [manual]` to promote to HARD gate (runs on every commit
-        # to .md/.qmd surfaces; fails commit on findings).
+        # OR via `make audit-citation-alignment`. Promotion to HARD gate
+        # bundles with the analogous promotion for audit_value_bindings
+        # (per v1.3.8 Q1 sequential-ladder + Q2 SOFT-first-then-bundled-HARD).
         entry: python scripts/audit_citation_alignment.py
         language: system
         pass_filenames: false
         stages: [manual]
         files: '^(decisions/ADR-.*\.md|.*\.(md|qmd))$'
+      - id: audit-value-bindings
+        name: Reader-prose value-binding alignment (SOFT at v1.3.8; promotes to HARD at a future v1.3.X)
+        # SOFT GATE: stages=[manual] — same pattern as audit-citation-alignment
+        # at v1.3.7. Promotion to HARD bundled with citation-alignment per
+        # v1.3.8 Q1 sequential-ladder lock (separate concept_drift adoption
+        # at v1.3.9; HARD-gate all 3 audit-validators at v1.3.10/v1.4.0).
+        entry: python scripts/audit_value_bindings.py
+        language: system
+        pass_filenames: false
+        stages: [manual]
+        files: '^.*\.(md|qmd)$'
       - id: audit-superseded-by-backlinks
         name: ADR supersession back-links + closing_commit invariants
         entry: python scripts/audit_superseded_by_backlinks.py

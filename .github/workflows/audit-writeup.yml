@@ -72,12 +72,22 @@ jobs:
         # v1.3.7 — consumer adoption of upstream
         # `eval_toolkit.audit_citation_alignment.validate_citations`
         # (shipped in eval-toolkit v1.0.1; ports
-        # brandon-behring/eval-toolkit#73). Catches the v1.3.2 P1-2 bug
-        # class: reader-facing markdown citing "per ADR-NNN" where the
-        # cited ADR's actual subject category doesn't match the claim
-        # category. SOFT gate: continue-on-error: true; script always
-        # exits 0; findings are informational in CI logs only.
-        # v1.3.8 will promote: remove continue-on-error + script will
-        # exit 1 on findings per /exploring-options Q2 lock.
+        # brandon-behring/eval-toolkit#73). SOFT gate: continue-on-error
+        # true; script always exits 0; findings informational in CI logs.
+        # Promotes to HARD bundled with audit_value_bindings at a future
+        # v1.3.X per v1.3.8 Q1 sequential-ladder lock.
         continue-on-error: true
         run: uv run python scripts/audit_citation_alignment.py
+
+      - name: Run value-bindings audit (SOFT at v1.3.8)
+        # v1.3.8 — consumer adoption of upstream
+        # `eval_toolkit.audit_value_bindings.validate_reader_value_bindings`
+        # (shipped in eval-toolkit v1.0.3; ports
+        # brandon-behring/eval-toolkit#71). Catches the V1.3.1 ADR-080
+        # bug class: reader-prose pairing a detector name with the WRONG
+        # canonical value (e.g., "TF-IDF reaches 0.974 AUPRC" when
+        # canonical TF-IDF AUPRC = 0.971 and 0.974 is LoRA's). SOFT gate:
+        # continue-on-error: true; script always exits 0. Promotes to HARD
+        # bundled with citation-alignment at a future v1.3.X.
+        continue-on-error: true
+        run: uv run python scripts/audit_value_bindings.py
