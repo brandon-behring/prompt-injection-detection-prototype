@@ -1,4 +1,4 @@
-.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-audit site-preview clean \
+.PHONY: install install-all test test-unit test-smoke test-integration test-all smoke lint format coverage audit audit-leakage audit-citation-alignment notebooks export-analysis-csvs backfill-provenance headline-dry-run headline-cloud eval-from-hub site site-audit site-preview clean \
         data-pin-manifest data-prepare data-fetch data-dedup data-splits data-audit \
         data-templates data-dedup-holdout data-dedup-prelabel data-dedup-calibrate \
         generate-fixtures train-classical-floor train-rung cost-rollup cost-rollup-check \
@@ -73,6 +73,15 @@ audit:
 
 audit-leakage:
 	uv run python scripts/audit_leakage.py --check
+
+# v1.3.7 — SOFT gate (script always exits 0; findings informational).
+# Wraps upstream eval_toolkit.audit_citation_alignment.validate_citations
+# (shipped in eval-toolkit v1.0.1; ports brandon-behring/eval-toolkit#73).
+# Catches the v1.3.2 P1-2 bug class: reader-facing markdown citing
+# "per ADR-NNN" where cited ADR's subject doesn't match the claim category.
+# v1.3.8 will promote to HARD gate (exit 1 on findings).
+audit-citation-alignment:
+	uv run python scripts/audit_citation_alignment.py
 
 # v1.2.8 — render 4 folder-paired Jupytext notebooks to .ipynb with frozen output cells.
 # Per /exploring-options batch 9 Q2 lock: pre-rendered + frozen output cells;

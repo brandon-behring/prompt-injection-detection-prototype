@@ -67,3 +67,17 @@ jobs:
         # (with a small exempt set for governance/backfill ADRs).
         # Catches REPO_AUDIT_2026-05-21 §P1-6 class mechanically.
         run: uv run python scripts/audit_superseded_by_backlinks.py
+
+      - name: Run citation-alignment audit (SOFT at v1.3.7)
+        # v1.3.7 — consumer adoption of upstream
+        # `eval_toolkit.audit_citation_alignment.validate_citations`
+        # (shipped in eval-toolkit v1.0.1; ports
+        # brandon-behring/eval-toolkit#73). Catches the v1.3.2 P1-2 bug
+        # class: reader-facing markdown citing "per ADR-NNN" where the
+        # cited ADR's actual subject category doesn't match the claim
+        # category. SOFT gate: continue-on-error: true; script always
+        # exits 0; findings are informational in CI logs only.
+        # v1.3.8 will promote: remove continue-on-error + script will
+        # exit 1 on findings per /exploring-options Q2 lock.
+        continue-on-error: true
+        run: uv run python scripts/audit_citation_alignment.py
