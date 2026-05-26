@@ -20,6 +20,97 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.7] — 2026-05-25 {#v1-3-7}
+
+**Consumer adoption of upstream `eval_toolkit.audit_citation_alignment`**:
+ports the audit-script-gap follow-on (closes
+[eval-toolkit#73](https://github.com/brandon-behring/eval-toolkit/issues/73)).
+Adds a new local CLI wrapper that catches the v1.3.2 P1-2 bug class —
+reader-facing markdown citing "per ADR-NNN" where the cited ADR's actual
+subject category doesn't match the surrounding claim (e.g., the historical
+v1.3.2 P1-2: `docs/REPRODUCIBILITY.md:76` cited ADR-029 = test_markers for
+a reproducibility-tier-lock claim; actual reproducibility-tier ADR is
+ADR-034).
+
+Upstream pipeline summary: this project filed eval-toolkit#73 at v1.3.3
+based on its own audit findings; upstream
+[PR #74](https://github.com/brandon-behring/eval-toolkit/pull/74) merged
+2026-05-25T22:51:15Z (commit `3820b9b`); pre-merge restructured to flat
+module per upstream ADR 0001 ("stay flat through v1.x") — final import is
+`from eval_toolkit.audit_citation_alignment import validate_citations`
+(also re-exported at top level per Tier 1 STRICT `_EXPORTS`). v1.0.1 +
+v1.0.2 both ship the module (identical blob hash; v1.0.2 adds #76 cleanup
+batch).
+
+**Gate severity**: SOFT at v1.3.7 (script always exits 0; CI uses
+`continue-on-error: true`; pre-commit hook stages=[manual]). Promotes to
+HARD at v1.3.8 after an observation window confirms the validator output
+is signal-not-noise.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Added
+
+- `scripts/audit_citation_alignment.py` — NEW CLI wrapper around upstream
+  `eval_toolkit.audit_citation_alignment.validate_citations`. Carries a
+  module-level `CATEGORY_KEYWORDS` dict (11 seed categories:
+  `reproducibility`, `test_markers`, `cost`, `calibration`,
+  `contamination`, `threshold`, `leakage`, `data`, `training`,
+  `evaluation`, `reading_guide`); walks `decisions/ADR-*.md` parsing
+  frontmatter (`title:` + `slug:`) into `ADRSubject` records; globs
+  reader-facing surfaces (top-level `*.md`/`*.qmd` + `WRITEUP/*.md` +
+  `docs/*.md`).
+- `tests/scripts/test_audit_citation_alignment.py` — **8 new tests**
+  including a synthetic regression fixture for the v1.3.2 P1-2 bug
+  (ADR-029/test_markers cited for reproducibility-tier-lock claim;
+  asserts `validate_citations` flags it). Full test suite: **89 passed**
+  (81 baseline + 8 new).
+- `.pre-commit-config.yaml` — new `audit-citation-alignment` hook with
+  `stages: [manual]` (SOFT — doesn't run on commit; invokable via
+  `pre-commit run --hook-stage manual audit-citation-alignment`).
+- `.github/workflows/audit-writeup.yml` — new step inside the
+  `audit-writeup-numbers` job with `continue-on-error: true` (SOFT —
+  step always shows in CI logs; never blocks merges).
+- `Makefile` — new `audit-citation-alignment` target for local invocation
+  (`make audit-citation-alignment`).
+
+### Changed
+
+- `pyproject.toml` — `eval-toolkit>=1.0,<2` → `>=1.0.1,<2`. Tightens
+  lower bound to require the upstream release that ships
+  `eval_toolkit.audit_citation_alignment` (v1.0.1 minimum; prevents
+  fresh installs from accidentally resolving to v1.0.0 which predates
+  the module).
+- `uv.lock` — `eval-toolkit==1.0.0` → `eval-toolkit==1.0.2` (latest in
+  the `>=1.0.1,<2` range; v1.0.2 adds #76 cleanup batch + same audit
+  module).
+- `decisions/library_imports.md` — eval-toolkit row trajectory extended
+  with `v1.0→v1.0.1→v1.0.2 at v1.3.7 (consumed
+  eval_toolkit.audit_citation_alignment; flat-module per upstream ADR
+  0001; closes #73)`. New `### Audit primitives` subsection under
+  `## eval-toolkit imports` documents the 4 consumed names
+  (`validate_citations` + `ADRSubject` + `CitationMisalignment` +
+  `extract_adr_subject_category`) + their consumer glue at
+  `scripts/audit_citation_alignment.py`.
+- `decisions/upstream_issues.md` — #73 row status updated from "PR #74
+  ready-for-review 2026-05-25 per v1.3.6 close" to "RESOLVED in
+  eval-toolkit v1.0.1; consumed at v1.3.7". Captures the pre-merge
+  flat-module restructure per upstream ADR 0001.
+
+### Updated
+
+- Reader-surface `tree/v1.3.6` anchors advanced to `tree/v1.3.7`
+  across 5 files (`index.qmd`, `README.md`, `READING_GUIDE.md`,
+  `WRITEUP_PAPER.md`, `WRITEUP_NARRATIVE.md`).
+- `.lycheeignore` adds `tree/v1.3.7` (chicken-and-egg per v1.2.13 +
+  v1.3.2/3/4/5/6 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.6] — 2026-05-25 {#v1-3-6}
 
 **eval-toolkit v1.0 stability-contract opt-in patch**: bumps the
