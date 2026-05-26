@@ -1067,7 +1067,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>Author</strong>: Brandon Behring | <strong>Date</strong>: 2026-05-21 | <strong>Status</strong>: live-site current state <code>tree/v1.3.8</code>; original submission tag <code>tree/v1.0.0</code> (2026-05-18) preserved as historical reviewer pin per ADR-033.</p>
+<p><strong>Author</strong>: Brandon Behring | <strong>Date</strong>: 2026-05-26 | <strong>Status</strong>: live-site current state <code>tree/v1.3.9</code>; original submission tag <code>tree/v1.0.0</code> (2026-05-18) preserved as historical reviewer pin per ADR-033.</p>
 <blockquote class="blockquote">
 <p><strong>Reader note.</strong> This is the academic paper format of the project writeup. For the same content in a narrative style, see <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a>. Both guides cover the same evaluation, methodology, findings, and limitations; the register and structure differ. Definitions for all technical terms appear on first use and are cross-referenced to <a href="./docs/GLOSSARY.html">docs/GLOSSARY.md</a>.</p>
 </blockquote>
@@ -1197,7 +1197,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Paired comparisons: paired-bootstrap-on-folds [§GLOSSARY], comparing two detectors on the same (fold, seed) cells to control for fold-specific variance.</p>
 <p>Cross-fold confidence intervals: cv_clt (Bayle 2020 Theorem 3.1) [§GLOSSARY], applied to per-fold metric vectors. Paired with block-bootstrap-on-folds spoke per A-008 (LODO non-exchangeability sensitivity check; auto-flag column when block-bootstrap CI half-width / cv_clt CI half-width &gt; 1.5).</p>
 <p>Threshold selection: <strong>detection policy</strong> (FPR ≤ 1% on validation, maximize recall) and <strong>verification policy</strong> (recall ≥ 99% on validation, minimize FPR), both fit per (fold, seed) with two-level paired-bootstrap CIs on test [§GLOSSARY] per ADR-025.</p>
-<p>Calibration: ECE (Expected Calibration Error, equal-mass binning, n_bins=15) and Brier score, reported per detector per ADR-023. Reliability diagrams (raw + temperature + isotonic recalibration) are in <a href="./docs/plots/F4.svg">Figure F4</a>.</p>
+<p>Calibration: ECE (Expected Calibration Error, equal-mass binning, n_bins=15) and Brier score, reported per detector per ADR-023. Reliability diagrams (raw + temperature + isotonic recalibration) are in <a href="./docs/plots/F5.svg">Figure F5</a>.</p>
 <p>The evaluation harness uses the <a href="https://github.com/brandon-behring/eval-toolkit">eval-toolkit</a> library (pinned to v0.47.0) for all generic primitives; project- specific orchestrators are in <code>src/eval/</code>.</p>
 <hr>
 </section>
@@ -1225,7 +1225,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="context-window-ablation-produced-a-null-result" class="level3">
 <h3 class="anchored" data-anchor-id="context-window-ablation-produced-a-null-result">§4.4 Context-window ablation produced a null result</h3>
 <p>A controlled ablation per ADR-060 trained DeBERTa-v3-base (512-token native context window) against ModernBERT (8192-token native window) under two truncation strategies: chunk-and-average (compute the classifier output on overlapping 512-token windows and average) and head-truncation (use only the first 512 tokens).</p>
-<p>Result: DeBERTa-v3-base with chunk-and-average scored 0.291 pooled OOD AUPRC; head-truncation scored 0.290. Neither significantly differs from each other or from the ModernBERT-LoRA result (0.293). The ModernBERT advantage observed in §4.1 is therefore best interpreted as backbone-dominant, not context-window-dominant.</p>
+<p>Result: DeBERTa-v3-base with chunk-and-average scored 0.291 pooled OOD AUPRC; head-truncation scored 0.290. Neither materially differs from each other or from the ModernBERT-LoRA result (0.293) in this run. The ModernBERT advantage observed in §4.1 is therefore best interpreted as backbone-dominant, not context-window-dominant.</p>
 <p>Details in <a href="./WRITEUP/model-rungs.html">WRITEUP/model-rungs.md §4</a> and <a href="./decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</p>
 </section>
 <section id="published-detector-versions-are-slice-dependent" class="level3">
@@ -1342,7 +1342,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">§7. Conclusion</h2>
-<p>This study evaluated a detector ladder for prompt-injection classification under cross-family distribution shift, finding that direct-prompt-injection detection is learnable cheaply (TF-IDF + LR reaches 0.974 AUPRC on direct+benign validation) but does not generalize to cross-family attacks (best pooled OOD AUPRC is 0.364 against a random floor of 0.374; trained adapters score below the 0.5 AUROC floor with confidence intervals that clear 0.5 on the wrong side). The cross-family failure is interpreted as lexical overfitting combined with a label-relevance shift on the OOD slate.</p>
+<p>This study evaluated a detector ladder for prompt-injection classification under cross-family distribution shift, finding that direct-prompt-injection detection is learnable cheaply (TF-IDF + LR reaches 0.971 AUPRC on direct+benign validation; LoRA matches at 0.974) but does not generalize to cross-family attacks (best pooled OOD AUPRC is 0.364 against a random floor of 0.374; trained adapters score below the 0.5 AUROC floor with confidence intervals that clear 0.5 on the wrong side). The cross-family failure is interpreted as lexical overfitting combined with a label-relevance shift on the OOD slate.</p>
 <p>The contribution is the negative result on cross-family transfer plus the honest evaluation harness that produced it, not a deployment-ready classifier. Future work directions include OOD-aware training data, stronger backbone comparisons under matched training budgets, threshold-policy adaptations to held-out FPR statistics, and per-prediction empirical validation of the proposed mechanism.</p>
 <hr>
 </section>
