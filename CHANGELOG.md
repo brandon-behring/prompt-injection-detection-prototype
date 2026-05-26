@@ -20,6 +20,140 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.12] — 2026-05-26 {#v1-3-12}
+
+**Consumer adoption of upstream `eval-toolkit` v1.2.0 T1-T4
+context-aware narrative filters**: closes the v1.1.0 → v1.2.0
+follow-on adoption loop. Upstream shipped v1.2.0 ~1h after
+v1.1.0 closed (2026-05-26T21:20Z; closes the
+[#80](https://github.com/brandon-behring/eval-toolkit/issues/80)
+deferred-residual category) with four context-aware extensions
+to `scope="narrative"`:
+
+- **T1 — Delta-context filter**: suppresses sign-prefixed values
+  (`-0.071`, `+0.073`) + values near delta keywords (delta,
+  drop, lift, gap, margin, regresses, improves, beats, exceeds,
+  trails, underperforms, vs, versus, below).
+- **T2 — Floor-context filter**: suppresses values near random /
+  floor / chance / trivial keywords (asymmetric window: 50 chars
+  before, 5 chars after).
+- **T3 — Consume-on-match within sentence**: after a value
+  produces a Match, subsequent values for the same canonical
+  binding within the same sentence are suppressed.
+- **T4 — Sentence-boundary detector-pair reject**: when pairing
+  a detector mention with a value, if a sentence terminator
+  lies between them, the pair is rejected. Uses
+  paragraph-aware abbreviation guarding (vs./e.g./i.e./etc./
+  fig./eq./pp./viz./ca. excluded; decimal numbers + letter-
+  dot-letter patterns guarded; single `\n` soft, `\n\n` hard).
+
+All four filters activate automatically when `scope="narrative"`
+is set (which this repo already does at v1.3.11). **Tier-1
+ADDITIVE per upstream ADR 0005 amendment** — no signature drift,
+no new public kwargs, full backward-compat for legacy
+`scope="all"` callers.
+
+**Adoption = pin bump only.** No script changes required.
+
+**Dogfood result**:
+
+| Configuration | Warnings on this repo HEAD | Reduction vs v1.0.5 baseline |
+|---|---|---|
+| v1.0.5 (legacy 2-tuple) | 95 (upstream measurement) / 96 (this repo at v1.3.10) | — |
+| v1.1.0 `BindingKey` + `scope='narrative'` | 23 (upstream) / 36 (this repo at v1.3.11) | 76% / 62% |
+| **v1.2.0 + T1-T4 (this release)** | **7 (upstream) / 4 (this repo at v1.3.12)** | **93% / 96%** |
+
+This repo's 4-warning result is better than upstream's 7 because
+v1.3.10 added `SKIP_PATTERNS` for gitignored files
+(`SUBMISSION.md`, `*_codex.md`, `AUDIT_CLAUDE_`, `draft.md`,
+`draft_review.md`) that upstream's dogfood didn't exclude.
+
+**Remaining 4 residuals** are all in the upstream-deferred
+"cross-detector list-grammar" category — prose patterns the
+v1.2.0 positional heuristic can't disambiguate:
+
+1. `README.md:71` — `"in-pool 0.99 → cross-family 0.38 for the
+   trained detectors; frozen probe's gap is 0.91 → 0.515"`
+   (sentence-shift contrast; 0.38 belongs to trained detectors,
+   not the next-mentioned frozen probe).
+2. `RESULTS.md:171` (×2) — `"LoRA's pooled OOD AUROC is 0.383
+   against frozen probe's 0.515"` (possessive comparative +
+   metric-confusion).
+3. `WRITEUP_PAPER.md:304` — `"versus 0.364 [...] for the frozen
+   probe and 0.291 [...] for TF-IDF + LR"` (multi-detector
+   "for X" list connective).
+
+Per the library-first invariant, **a new upstream issue
+[eval-toolkit#81](https://github.com/brandon-behring/eval-toolkit/issues/81)
+is filed concurrent with this release** requesting the v1.3.0+
+parser-level work named in upstream ADR 0005 + Round 13 ledger.
+The path forward (per upstream's framing): shallow list-grammar
+parsing OR markdown AST parsing.
+
+**Gate severity**: SOFT retained at v1.3.12. HARD-gate
+promotion still deferred per the v1.3.8 bundled-promotion
+plan + observation window. With 4 residual FPs still in the
+narrative-prose surface, HARD-gating now would block commits
+on those 4 lines unless we add suppression regex (bad form per
+ADR 0005 design philosophy — context-correctness belongs in the
+validator, not in consumer-side line-filters) or rewrite prose
+for validator compliance (bad form for reader experience).
+HARD-gate becomes credible after upstream #81 lands.
+
+**No tests changed** — the existing 14-test suite still PASSES
+because the new T1-T4 filters don't change any test fixture's
+expected output (the V1.3.1 ADR-080 regression fixture still
+flags as designed; the clean-case fixture still passes; the
+slice-disambiguation fixture still passes; the table-exclusion
+fixture still passes). Upstream Tier-1 ADDITIVE guarantee held
+in practice.
+
+Reviewer URL pin `tree/v1.0.0` unchanged per ADR-033.
+
+### Changed
+
+- `pyproject.toml` — `eval-toolkit>=1.1.0,<2` → `>=1.2.0,<2`.
+  Tightens lower bound to require T1-T4 context filters shipped
+  in v1.2.0.
+- `uv.lock` — `eval-toolkit==1.1.0` → `eval-toolkit==1.2.0`.
+- `decisions/library_imports.md` — eval-toolkit row trajectory
+  extended with `v1.1.0→v1.2.0 at v1.3.12 (consumed T1-T4
+  context-aware narrative filters; Tier-1 ADDITIVE per ADR
+  0005 amendment; T1-T4 follow-on to #80; 96% total noise
+  reduction from 96-warning v1.0.5 baseline = 4 residuals on
+  this repo, all in upstream-deferred cross-detector list-
+  grammar class)`.
+- `decisions/upstream_issues.md` — #80 row extended with v1.2.0
+  follow-on dogfood narrative (36→4); new row added for #81
+  cross-detector list-grammar (filed concurrent with v1.3.12;
+  4 concrete repro patterns from this repo).
+- `CITATION.cff` — version `1.3.11` → `1.3.12`.
+
+### Audit-driven (filed concurrent with v1.3.12 tag)
+
+- **Filed upstream eval-toolkit#81**: cross-detector list-grammar
+  v1.3.0+ follow-on. Provides 4 concrete consumer-side repro
+  patterns; references upstream ADR 0005 A4 + Round 13 ledger
+  framing (shallow list-grammar parsing OR markdown AST). The
+  third issue in the audit_value_bindings family
+  (#71→#80→#81). Consumer-side HARD-gate promotion deferred
+  until upstream resolution.
+
+### Updated
+
+- Reader-surface `tree/v1.3.11` anchors advanced to `tree/v1.3.12`
+  across 5 files (`index.qmd:79`, `README.md:222`,
+  `READING_GUIDE.md:91`, `WRITEUP_PAPER.md:7`,
+  `WRITEUP_NARRATIVE.md:7`).
+- `.lycheeignore` adds `tree/v1.3.12` (chicken-and-egg per
+  v1.2.13 + v1.3.2..v1.3.11 precedent).
+
+### Co-Authored-By
+
+Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [1.3.11] — 2026-05-26 {#v1-3-11}
 
 **Consumer adoption of upstream `eval_toolkit.BindingKey` +

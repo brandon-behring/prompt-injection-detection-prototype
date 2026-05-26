@@ -126,10 +126,20 @@ dependencies = [
     # `scope='narrative'` content-type filter (closes #80; surfaced by this
     # repo's v1.3.9 polish-audit finding). Consumer-side adoption at v1.3.11
     # migrates `BINDINGS` from 2-tuple to `Mapping[BindingKey, float]` schema,
-    # expands to 11 entries (5 detectors × 2 metrics × 2 slices), enables
-    # `scope='narrative'`. Tightening lower bound from >=1.0.3 to >=1.1.0
-    # prevents fresh installs from resolving to v1.0.x (which predate BindingKey).
-    "eval-toolkit>=1.1.0,<2",
+    # expands to 15 entries (5 detectors × 2 metrics × 4 slices), enables
+    # `scope='narrative'`.
+    # v1.2.0 bump (2026-05-26): ships T1-T4 context-aware narrative filters
+    # (delta-context + floor-context + consume-on-match-within-sentence +
+    # sentence-boundary detector-pair reject) all activated automatically when
+    # `scope='narrative'`; Tier-1 ADDITIVE per upstream ADR 0005 amendment.
+    # Closes the v1.1.0-deferred positional-heuristic-limitation residual.
+    # Consumer-side adoption at v1.3.12 is a pure pin bump (no script changes;
+    # all four filters activate via existing scope='narrative' call). Dogfood:
+    # 36 → 4 warnings (96% reduction from 96-warning v1.0.5 baseline).
+    # Remaining 4 residuals are pure cross-detector list-grammar (v1.3.0+
+    # upstream parser-level work). Tightening lower bound from >=1.1.0 to
+    # >=1.2.0 ensures all four context filters are available.
+    "eval-toolkit>=1.2.0,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding

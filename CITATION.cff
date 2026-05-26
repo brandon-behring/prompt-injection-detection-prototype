@@ -11,7 +11,7 @@ authors:
 repository-code: "https://github.com/brandon-behring/prompt-injection-detection-prototype"
 url: "https://brandon-behring.github.io/prompt-injection-detection-prototype/"
 license: MIT
-version: "1.3.11"
+version: "1.3.12"
 date-released: "2026-05-26"
 type: software
 abstract: >-
