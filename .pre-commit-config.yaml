@@ -70,6 +70,19 @@ repos:
         language: system
         pass_filenames: false
         files: '^(decisions/ADR-.*\.md|.*\.(md|qmd))$'
+      - id: audit-citation-alignment
+        name: ADR-citation alignment (SOFT at v1.3.7; promotes to HARD at v1.3.8)
+        # SOFT GATE at v1.3.7: stages=[manual] so the hook doesn't run on
+        # normal `git commit` — operators invoke explicitly via
+        # `pre-commit run --hook-stage manual audit-citation-alignment`
+        # OR via `make audit-citation-alignment`. v1.3.8 will remove
+        # `stages: [manual]` to promote to HARD gate (runs on every commit
+        # to .md/.qmd surfaces; fails commit on findings).
+        entry: python scripts/audit_citation_alignment.py
+        language: system
+        pass_filenames: false
+        stages: [manual]
+        files: '^(decisions/ADR-.*\.md|.*\.(md|qmd))$'
       - id: audit-superseded-by-backlinks
         name: ADR supersession back-links + closing_commit invariants
         entry: python scripts/audit_superseded_by_backlinks.py

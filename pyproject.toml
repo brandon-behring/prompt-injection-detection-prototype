@@ -112,10 +112,13 @@ dependencies = [
     # v1.0.0 bump (2026-05-25): stability contract activates per ADR 0003.
     # v1.0 is bit-equivalent to v0.51 codewise; the new thing is Tier 1 STRICT
     # public-API signatures (snapshot.json) are now load-bearing — breaking
-    # changes after v1.0 require a v2.0 major bump. Lower bound moved from
-    # 0.50 → 1.0 to opt into the stability contract; upper <2 unchanged.
-    # Rounds 5 → 10 Gate 3 multi-LLM audit chain closed at v1.0.
-    "eval-toolkit>=1.0,<2",
+    # changes after v1.0 require a v2.0 major bump.
+    # v1.0.1 bump (2026-05-25): ships `eval_toolkit.audit_citation_alignment`
+    # (flat module per upstream ADR 0001; closes #73). Consumer-side adoption
+    # at v1.3.7 uses this module via `scripts/audit_citation_alignment.py`;
+    # tightening lower bound from >=1.0 to >=1.0.1 prevents fresh installs from
+    # resolving to v1.0.0 (which predates the module).
+    "eval-toolkit>=1.0.1,<2",
     # runpod-deploy is a LOCAL orchestrator — invoked from the operator's machine via
     # `make headline-*` Makefile targets; the pod itself never imports it. Moved to
     # [project.optional-dependencies] dev per runpod-deploy validator scan finding
