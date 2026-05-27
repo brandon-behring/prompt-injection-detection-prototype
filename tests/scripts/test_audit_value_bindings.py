@@ -81,8 +81,16 @@ def test_bindings_covers_pooled_ood_headline_slate() -> None:
 
 @pytest.mark.unit
 def test_detector_aliases_cover_canonical_keys() -> None:
-    """Every canonical detector in BINDINGS has an alias entry."""
-    detectors_in_bindings = {key.detector for key in BINDINGS}
+    """Every canonical detector in BINDINGS has an alias entry.
+
+    v1.3.14: `isinstance` filter is a runtime no-op (the v1.3.11
+    invariant test `test_bindings_uses_binding_key_schema` already
+    asserts ALL keys ARE BindingKey instances); the filter narrows
+    the union BINDINGS key type (`BindingKey | tuple[...,]`) so
+    mypy can resolve `.detector` attribute access. If a non-BindingKey
+    key were ever added, the v1.3.11 invariant test fails first.
+    """
+    detectors_in_bindings = {key.detector for key in BINDINGS if isinstance(key, BindingKey)}
     for detector in detectors_in_bindings:
         assert detector in DETECTOR_ALIASES, f"missing aliases for {detector!r}"
         assert len(DETECTOR_ALIASES[detector]) >= 1
@@ -90,8 +98,12 @@ def test_detector_aliases_cover_canonical_keys() -> None:
 
 @pytest.mark.unit
 def test_metric_aliases_cover_canonical_keys() -> None:
-    """Every canonical metric in BINDINGS has an alias entry."""
-    metrics_in_bindings = {key.metric for key in BINDINGS}
+    """Every canonical metric in BINDINGS has an alias entry.
+
+    See `test_detector_aliases_cover_canonical_keys` for the v1.3.14
+    `isinstance` narrowing rationale.
+    """
+    metrics_in_bindings = {key.metric for key in BINDINGS if isinstance(key, BindingKey)}
     for metric in metrics_in_bindings:
         assert metric in METRIC_ALIASES, f"missing aliases for {metric!r}"
         assert len(METRIC_ALIASES[metric]) >= 1
@@ -99,8 +111,14 @@ def test_metric_aliases_cover_canonical_keys() -> None:
 
 @pytest.mark.unit
 def test_slice_aliases_cover_canonical_keys() -> None:
-    """v1.3.11: every non-default slice in BINDINGS has an alias entry."""
-    slices_in_bindings = {key.slice for key in BINDINGS if key.slice != "any"}
+    """v1.3.11: every non-default slice in BINDINGS has an alias entry.
+
+    See `test_detector_aliases_cover_canonical_keys` for the v1.3.14
+    `isinstance` narrowing rationale.
+    """
+    slices_in_bindings = {
+        key.slice for key in BINDINGS if isinstance(key, BindingKey) and key.slice != "any"
+    }
     for slice_name in slices_in_bindings:
         assert slice_name in SLICE_ALIASES, f"missing slice aliases for {slice_name!r}"
         assert len(SLICE_ALIASES[slice_name]) >= 1

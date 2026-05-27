@@ -95,7 +95,7 @@ The same set of signals indexed against concrete repo evidence:
 |---|---|---|
 | Designs fair ML evaluations | LODO source-disjoint splits, OOD/direct separation, undefined-metric handling on single-class slices | [RESULTS.md](../RESULTS.md), [WRITEUP/eval-design](../WRITEUP/eval-design.md) |
 | Handles negative results honestly | Pooled OOD failure is the headline (not hidden); below-floor AUROC framed explicitly | [README §Executive summary](../README.md#executive-summary), [WRITEUP_PAPER §4 Results](../WRITEUP_PAPER.md) |
-| Methodology before results | 81 ADRs locked before code; SPEC_GREENFIELD pre-flight spec | [decisions/](../decisions/), [SPEC_GREENFIELD.md](../SPEC_GREENFIELD.md) |
+| Methodology before results | 81 ADRs locked before code; SPEC_GREENFIELD pre-flight spec | [decisions/](../decisions/), [SPEC_GREENFIELD](https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/SPEC_GREENFIELD.md) |
 | Controls confounds | DeBERTa context-window ablation; null result published | [WRITEUP/model-rungs.md](../WRITEUP/model-rungs.md), [ADR-060](../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.md) |
 | Builds reproducible artifacts | Per-row predictions + bootstrap CIs with seed-stability check + T0/T1/T3 cost tiers | [WRITEUP/reproducibility.md](../WRITEUP/reproducibility.md), [evals/](../evals/) |
 | Library-first / upstream contribution | eval-toolkit primitives; upstream issues filed before any local workaround | [decisions/library_imports.md](../decisions/library_imports.md), [decisions/upstream_issues.md](../decisions/upstream_issues.md) |

@@ -40,6 +40,12 @@ project:
     - notebooks/02_frozen_vs_lora.ipynb
     - notebooks/03_calibration.ipynb
     - notebooks/04_ood_slate.ipynb
+  # v1.3.14 — exclude SPEC_GREENFIELD.md from Quarto's resource-discovery
+  # walk so it does not leak as raw Markdown under _site/. The binding spec
+  # stays in the repo root (reviewer-facing via GitHub) but is intentionally
+  # NOT part of the rendered public site per the render allowlist above.
+  resources:
+    - "!SPEC_GREENFIELD.md"
 
 execute:
   enabled: false

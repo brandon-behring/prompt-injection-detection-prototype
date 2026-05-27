@@ -131,7 +131,7 @@ SKIP_PATTERNS = [
 # Canonical source: `evals/bootstrap/marginal_cells.parquet` +
 # `evals/metrics/per_cell.parquet`; cross-checked against RESULTS.md
 # headline tables.
-BINDINGS: Mapping[BindingKey, float] = {
+BINDINGS: Mapping[BindingKey | tuple[str, str] | tuple[str, str, str], float] = {
     # Direct-validation slice (balanced direct+benign validation; 3 entries).
     BindingKey("LoRA", "AUPRC", "direct_validation"): 0.974,
     BindingKey("TF-IDF", "AUPRC", "direct_validation"): 0.971,

@@ -20,6 +20,69 @@ Each release entry links closed audit findings (`SUBMISSION_AUDIT.md`) and closi
 
 ## [Unreleased]
 
+## [1.3.14] — 2026-05-27 {#v1-3-14}
+
+**CI remediation for v1.3.13 publish + lint failures.** Two CI workflows
+(`CI / lint (hard gate)` and `Publish Quarto site to GitHub Pages /
+build-deploy`) failed on the v1.3.13 release commit (128e92e). Four
+surgical edits fix-forward (no history rewrite per project [no amend /
+no squash / no force-push] rule).
+
+### mypy --strict variance (5 errors → 0)
+
+- `scripts/audit_value_bindings.py:134` — broadened `BINDINGS` annotation
+  from `Mapping[BindingKey, float]` to
+  `Mapping[BindingKey | tuple[str, str] | tuple[str, str, str], float]` to
+  match the upstream `validate_reader_value_bindings` signature. `Mapping`
+  is invariant in its key type, so the narrower consumer annotation could
+  not satisfy the upstream union (which intentionally accepts three key
+  shapes for backward-compat with legacy 2-/3-tuple callers; the union is
+  load-bearing per upstream `_normalize_binding_key`). Broadening the
+  consumer annotation tells the truth: the dict participates in a contract
+  that allows three key shapes; this instance happens to populate only one.
+  **Zero runtime change**; no new code, no new primitive. All four test
+  call sites
+  (`tests/scripts/test_audit_value_bindings.py:{156,187,215,245}`) use
+  `bindings=BINDINGS` directly, so the single annotation edit propagates
+  and clears all 5 mypy errors.
+
+### Quarto site-audit violations (3 → 0)
+
+- `_quarto.yml` — added `project.resources: ["!SPEC_GREENFIELD.md"]` so
+  Quarto's resource-discovery walk no longer copies the binding spec to
+  `_site/` as raw Markdown. SPEC_GREENFIELD.md stays in the repo root
+  (reviewer-facing via GitHub) but is intentionally NOT part of the
+  rendered public site per the existing render allowlist.
+- `docs/for-hiring-managers.md:98` — rewrote the link to SPEC_GREENFIELD
+  from a relative raw-Markdown link (`../SPEC_GREENFIELD.md`, which the
+  rendered-site audit flagged as pointing at a raw `.md`) to the canonical
+  GitHub blob URL. Matches the repo-direct-link pattern already used in
+  `_quarto.yml`'s `Repo` navbar entry. Reviewers still reach the spec.
+- `decisions/library_imports.md:28` — compressed the eval-toolkit
+  pin-trajectory table cell from 1680 plain-text chars to ~1155 (~45-char
+  safety margin under the 1200-char `audit_rendered_site` ceiling). Same
+  surgical compression as the v1.2.16 precedent (commit 52e258c):
+  historical pre-v1.0 bumps collapsed to closure-issue refs only; the
+  three most-recent transitions (v1.0.3→v1.1.0, v1.1.0→v1.2.0,
+  v1.2.0→v1.3.0) retain their consumer-noise-reduction prose inline. Full
+  per-bump narratives live in CHANGELOG + `decisions/upstream_issues.md`.
+
+### Follow-ups (queued, not blocking)
+
+1. **eval-toolkit upstream issue — `BindingKeyLike` TypeAlias + variance
+   fix.** Filing prompt: export
+   `BindingKeyLike = BindingKey | tuple[str, str] | tuple[str, str, str]`
+   as a `TypeAlias` plus an `@overload` set so
+   `Mapping[BindingKey, float]` callers pass directly. Consumer can then
+   revert to the narrower annotation. Per memory
+   `library-first-filing-produces-upstream-architectural-improvement` —
+   non-blocking, queued for the next session.
+2. **Recurring `library_imports.md` cell-growth structural fix.** v1.2.16
+   + v1.3.14 both compress the same cell on consecutive upstream pin
+   bumps. Track a future patch to extract the trajectory to a sibling
+   `decisions/library_imports_trajectory.md` so the table cell stops
+   re-growing past the 1200-char ceiling on each `eval-toolkit` minor bump.
+
 ## [1.3.13] — 2026-05-26 {#v1-3-13}
 
 **Consumer adoption of upstream `eval-toolkit` v1.3.0 Layer 3
