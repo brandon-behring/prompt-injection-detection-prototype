@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-83d6731c42c83706f5616676628995c1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -991,6 +991,11 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#quick-pointers" id="toc-quick-pointers" class="nav-link active" data-scroll-target="#quick-pointers">Quick pointers</a></li>
   <li><a href="#why-two-guides" id="toc-why-two-guides" class="nav-link" data-scroll-target="#why-two-guides">Why two guides?</a></li>
+  <li><a href="#section-redirects" id="toc-section-redirects" class="nav-link" data-scroll-target="#section-redirects">Looking for a specific section?</a>
+  <ul class="collapse">
+  <li><a href="#reading-guide" id="toc-reading-guide" class="nav-link" data-scroll-target="#reading-guide">§Reading guide</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">§Results</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1058,8 +1063,31 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="why-two-guides">Why two guides?</h2>
 <p>The previous single-guide structure was diagnosed in the v1.3.0 restructure as “neither narrative nor academic” — informal headings plus academic numbering, methodology after results, same content rendered with different prose across multiple pages. The two-guide architecture (per <a href="./decisions/ADR-078-executive-summary-absorbed-into-readme.html">ADR-078</a> + <a href="./decisions/ADR-079-two-guide-reader-architecture.html">ADR-079</a>) gives each reader-type a self-contained article in its native register, with no cross-page redundancy.</p>
 <p>Old WRITEUP.md (the jumbled hybrid) content is now distributed across the two guides; the historical content remains accessible at the reviewer URL pin (<code>tree/v1.0.0</code>) per ADR-033 (corrected from a prior <code>tree/v1.2.8</code> mis-citation per <a href="./decisions/ADR-080-reviewer-url-pin-numeric-correction-adr-078-079.html">ADR-080</a>).</p>
+</section>
+<section id="section-redirects" class="level2">
+<h2 class="anchored" data-anchor-id="section-redirects">Looking for a specific section?</h2>
+<p>If you arrived here from a <code>tree/v1.0.0</code>-era deep link (e.g., from the submission email or a bookmarked anchor), the original v1.0.0 <code>WRITEUP.md</code> had 7 sections. They are now redistributed as below.</p>
+<section id="reading-guide" class="level3">
+<h3 class="anchored" data-anchor-id="reading-guide">§Reading guide</h3>
+<p>Reading-style routing for the methodology now lives in the dedicated <a href="./READING_GUIDE.html">READING_GUIDE.md</a> (academic / narrative / hiring-manager / reproducer / data-only paths).</p>
+<p><a id="1-motivation"></a> ### §1 Motivation {#motivation}</p>
+<p>Now in <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §1 Introduction</a> (academic framing) and <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 0 — Hook</a> (narrative framing).</p>
+<p><a id="1-5-attack-type-taxonomy-traintest-composition"></a> <a id="attack-type-taxonomy-traintest-composition"></a> ### §1.5 Attack-type taxonomy + train/test composition {#attack-type-taxonomy}</p>
+<p>The train/test composition table and OOD slate breakdown now live in <a href="./WRITEUP/data-decisions.html">WRITEUP/data-decisions.md</a> and <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §3 Methods</a>. The high-level taxonomy (direct / indirect / agentic-flow / jailbreak / benign-but- injection-shaped) is summarized in the <a href="./README.html">README §What “OOD” means here</a>.</p>
+<p><a id="2-approach-overview"></a> ### §2 Approach overview {#approach-overview}</p>
+<p>The detector ladder + reference-scorer slate are now in <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §3 Methods</a> and <a href="./WRITEUP/model-rungs.html">WRITEUP/model-rungs.md</a>. The multi-detector philosophy (lexical baseline → frozen probe → LoRA → full fine-tune + reference scorers) is in <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 2 — Setup</a>.</p>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">§Results</h3>
+<p>The headline characterization (cross-family generalization failure + mechanism) is now in <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §4 Results</a>, <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 3 — Revelation</a>, and the tables-only <a href="./RESULTS.html">RESULTS.md</a> appendix with 5 canonical figures.</p>
+<p><a id="lessons"></a> ### §Lessons (brief) {#lessons-brief}</p>
+<p>Methodology reflections now live in <a href="./WRITEUP_PAPER.html">WRITEUP_PAPER §5 Discussion</a> and <a href="./WRITEUP/limitations-and-future-work.html">WRITEUP/limitations-and-future-work.md</a>. The “what could be wrong with this” narrative is in <a href="./WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE Act 4 — Implications</a>.</p>
+<p><a id="12-appendix"></a> ### §12 Appendix {#appendix}</p>
+<p>The appendix-class material (operating-point tables, calibration detail, per-source breakdowns, raw artifact pointers) now lives in <a href="./RESULTS.html">RESULTS.md</a> and the <a href="./WRITEUP/">WRITEUP/</a> spokes (8 methodology references). The decision trail is at <a href="./decisions/">decisions/</a>.</p>
+<p>For the original single-document v1.0.0 content verbatim, see the <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0/WRITEUP.md"><code>tree/v1.0.0</code></a> tag pin per ADR-033 — the historical reviewer URL is preserved unchanged.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

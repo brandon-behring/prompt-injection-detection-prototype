@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-83d6731c42c83706f5616676628995c1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -1065,7 +1065,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Bottom line, two-sided:</strong></p>
 <ul>
 <li><strong>Direct detection is learned</strong>, and learnable cheaply. TF-IDF + LR reaches <strong>0.971 AUPRC</strong> on balanced direct+benign validation; LoRA matches at <strong>0.974</strong>. The neural lift over the lexical baseline is small.</li>
-<li><strong>Cross-family generalization fails.</strong> On pooled OOD, the best detector lands at AUPRC <strong>0.364</strong> against a random floor of <strong>0.374</strong> — at the floor, not above. Under AUROC, LoRA (0.383) and TF-IDF (0.371) both clear the 0.5 floor <strong>on the wrong side</strong>: their rankings are anti-correlated with truth on cross-family attacks. The frozen ModernBERT probe alone stays above floor (AUROC 0.515).</li>
+<li><strong>Cross-family generalization fails.</strong> On pooled OOD, the best detector lands at AUPRC <strong>0.364</strong> against a random floor of <strong>0.374</strong> — at the floor, not above. Under AUROC, LoRA (0.383) and TF-IDF (0.371) both clear the 0.5 floor <strong>on the wrong side</strong>: their rankings are anti-correlated with truth on cross-family attacks. The frozen ModernBERT probe alone stays <em>just</em> above floor (AUROC 0.515, 95% CI [0.505, 0.525] — lower bound clears 0.5 by only 0.005).</li>
 </ul>
 <section id="pooled-ood-auprc-table" class="level3">
 <h3 class="anchored" data-anchor-id="pooled-ood-auprc-table">Pooled OOD AUPRC table</h3>
@@ -1348,7 +1348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="submission-anchors" class="level2">
 <h2 class="anchored" data-anchor-id="submission-anchors">Submission anchors</h2>
 <ul>
-<li><strong>Current state:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.9"><code>tree/v1.3.9</code></a> (2026-05-26) — live-site source</li>
+<li><strong>Current state:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.3.13"><code>tree/v1.3.13</code></a> (2026-05-26) — live-site source</li>
 <li><strong>Original submission tag:</strong> <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/tree/v1.0.0"><code>tree/v1.0.0</code></a> (2026-05-18) — preserved as historical reviewer pin per ADR-033</li>
 <li><strong>Live rendered site:</strong> <a href="https://brandon-behring.github.io/prompt-injection-detection-prototype/" class="uri">https://brandon-behring.github.io/prompt-injection-detection-prototype/</a></li>
 <li><strong>HF Hub checkpoints:</strong> <a href="https://huggingface.co/BBehring/prompt-injection-frozen-probe">frozen probe</a>, <a href="https://huggingface.co/BBehring/prompt-injection-lora">LoRA</a></li>

@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6417478169390d5200ae675d66b5a4f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-83d6731c42c83706f5616676628995c1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -993,6 +993,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#what-did-the-candidate-find" id="toc-what-did-the-candidate-find" class="nav-link" data-scroll-target="#what-did-the-candidate-find">2. What did the candidate find?</a></li>
   <li><a href="#why-should-i-trust-the-finding" id="toc-why-should-i-trust-the-finding" class="nav-link" data-scroll-target="#why-should-i-trust-the-finding">3. Why should I trust the finding?</a></li>
   <li><a href="#what-does-this-say-about-how-the-candidate-thinks" id="toc-what-does-this-say-about-how-the-candidate-thinks" class="nav-link" data-scroll-target="#what-does-this-say-about-how-the-candidate-thinks">4. What does this say about how the candidate thinks?</a></li>
+  <li><a href="#how-to-review-this-in-5-minutes" id="toc-how-to-review-this-in-5-minutes" class="nav-link" data-scroll-target="#how-to-review-this-in-5-minutes">5. How to review this in 5 minutes</a></li>
   </ul>
 </nav>
     </div>
@@ -1023,7 +1024,6 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Four questions, ~60 seconds.</p>
 <p>For a slightly longer read, see the <a href="../index.html">headline table on the landing page</a> or the <a href="../README.html#executive-summary">one-page executive summary</a> (absorbed into README per ADR-078). For an audit-depth path, see the <a href="../READING_GUIDE.html">reading guide</a>.</p>
 <section id="what-problem-does-this-project-solve" class="level2">
 <h2 class="anchored" data-anchor-id="what-problem-does-this-project-solve">1. What problem does this project solve?</h2>
@@ -1149,6 +1149,70 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Confound-control discipline</strong>: when the headline result raised the natural follow-up question (<em>does a bigger context window fix the OOD gap?</em>), the candidate designed a controlled ablation. The result was a publishable null. See <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a> and <a href="../decisions/ADR-063-deberta-ablation-v1-1-2-execution-and-slot-shift.html">ADR-063</a>.</li>
 <li><strong>Library-first invariant</strong>: shared evaluation primitives live in upstream libraries (<code>eval-toolkit</code>, <code>runpod-deploy</code>, <code>research_toolkit</code>); local code is project-specific glue. See <a href="../decisions/library_imports.html"><code>decisions/library_imports.md</code></a>.</li>
 </ul>
+<p>The same set of signals indexed against concrete repo evidence:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Hiring signal</th>
+<th>Evidence in the repo</th>
+<th>Where to inspect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Designs fair ML evaluations</td>
+<td>LODO source-disjoint splits, OOD/direct separation, undefined-metric handling on single-class slices</td>
+<td><a href="../RESULTS.html">RESULTS.md</a>, <a href="../WRITEUP/eval-design.html">WRITEUP/eval-design</a></td>
+</tr>
+<tr class="even">
+<td>Handles negative results honestly</td>
+<td>Pooled OOD failure is the headline (not hidden); below-floor AUROC framed explicitly</td>
+<td><a href="../README.html#executive-summary">README §Executive summary</a>, <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER §4 Results</a></td>
+</tr>
+<tr class="odd">
+<td>Methodology before results</td>
+<td>81 ADRs locked before code; SPEC_GREENFIELD pre-flight spec</td>
+<td><a href="../decisions/">decisions/</a>, <a href="https://github.com/brandon-behring/prompt-injection-detection-prototype/blob/main/SPEC_GREENFIELD.md">SPEC_GREENFIELD</a></td>
+</tr>
+<tr class="even">
+<td>Controls confounds</td>
+<td>DeBERTa context-window ablation; null result published</td>
+<td><a href="../WRITEUP/model-rungs.html">WRITEUP/model-rungs.md</a>, <a href="../decisions/ADR-060-deberta-v3-base-long-context-ablation-methodology.html">ADR-060</a></td>
+</tr>
+<tr class="odd">
+<td>Builds reproducible artifacts</td>
+<td>Per-row predictions + bootstrap CIs with seed-stability check + T0/T1/T3 cost tiers</td>
+<td><a href="../WRITEUP/reproducibility.html">WRITEUP/reproducibility.md</a>, <a href="../evals/">evals/</a></td>
+</tr>
+<tr class="even">
+<td>Library-first / upstream contribution</td>
+<td>eval-toolkit primitives; upstream issues filed before any local workaround</td>
+<td><a href="../decisions/library_imports.html">decisions/library_imports.md</a>, <a href="../decisions/upstream_issues.html">decisions/upstream_issues.md</a></td>
+</tr>
+<tr class="odd">
+<td>Writes for multiple audiences</td>
+<td>Hiring scan, README, paper, narrative, results-only, ADR trail</td>
+<td>Quarto sidebar</td>
+</tr>
+<tr class="even">
+<td>Audit-class self-discipline</td>
+<td>Project-shipped audit validators (audit_value_bindings, audit_citation_alignment); upstream issues filed when the validator’s own quality is the gap</td>
+<td><a href="../scripts/">scripts/audit_*.py</a>, <a href="../decisions/upstream_issues.html">decisions/upstream_issues.md</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-to-review-this-in-5-minutes" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-review-this-in-5-minutes">5. How to review this in 5 minutes</h2>
+<p>If you want a structured way to assess this beyond the 60-second scan above, here is a concrete 5-minute review path:</p>
+<ol type="1">
+<li><strong>~1 min</strong> — this page (§1–§4): problem framing, result, trust basis, candidate-thinking signals.</li>
+<li><strong>~1 min</strong> — <a href="../RESULTS.html">RESULTS.md §Pooled OOD AUPRC</a>: does the random-floor framing hold up; do CIs make sense?</li>
+<li><strong>~1 min</strong> — <a href="../WRITEUP/methodology-guarantees.html">§3 trust bullets above + WRITEUP/methodology-guarantees</a>: are the methodology guarantees credible end-to-end?</li>
+<li><strong>~1 min</strong> — <a href="../WRITEUP/reproducibility.html">WRITEUP/reproducibility.md</a>: can the artifact actually be re-run at T0 (laptop) / T3 (cloud)?</li>
+<li><strong>~1 min</strong> — <a href="../WRITEUP/limitations-and-future-work.html">WRITEUP/limitations-and-future-work.md</a>: does the candidate know what this work does NOT prove?</li>
+</ol>
+<p>If anything in step 2 or 3 looks shaky, the <a href="../evals/">evals/</a> directory has the raw artifacts: per-fold metrics, bootstrap-CI sidecars, persisted predictions per row. The <a href="../scripts/"><code>scripts/audit_*.py</code></a> audits run on every push (see <code>.github/workflows/audit-writeup.yml</code>).</p>
 <p>If you want the deeper read, pick a guide: <a href="../WRITEUP_PAPER.html">WRITEUP_PAPER.md</a> (academic IMRAD; ~20–25 min) or <a href="../WRITEUP_NARRATIVE.html">WRITEUP_NARRATIVE.md</a> (5-act narrative; ~15–20 min) — both cover the same content + cite the 8 topic spokes (<a href="../WRITEUP/">WRITEUP/</a>) for deep dives on data decisions, model details, evaluation design, threshold policy, reference-scorer audit, methodology guarantees, limitations + future work, and reproducibility. The full reading-guide is at <a href="../READING_GUIDE.html"><code>READING_GUIDE.md</code></a>.</p>
 <p>If you want the supporting analysis, the <strong>Notebooks</strong> sidebar section provides 4 static rendered appendices with frozen output cells: per-cell results, calibration diagrams, and held-out slice breakdowns. Operators regenerate those appendix outputs via <code>make notebooks</code> against the committed evaluation parquets.</p>
 
